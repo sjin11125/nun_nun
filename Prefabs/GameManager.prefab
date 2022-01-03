@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7830889426656656928
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7830889426656656930}
+  - component: {fileID: 7830889426656656929}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7830889426656656930
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7830889426656656928}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.9976223, y: 592.10266, z: -23.307697}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7830889426656656929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7830889426656656928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1de74d90cd6187c4a95b74c9d6faa18b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DogamChaImageInspector:
+  - {fileID: 21300000, guid: 509d3183b6e29457bb8ba12e5f828efa, type: 3}
+  - {fileID: 21300000, guid: 0b168e37454a3fe4a9fa14cb8b128ba0, type: 3}
+  - {fileID: 21300000, guid: ed261e35a05c8ef49a864dbdd34fe38e, type: 3}
+  BuildingPrefabInspector:
+  - {fileID: 2132867818646730806, guid: 2bbf76461f2a1fe4884ef0535af5ebef, type: 3}
+  - {fileID: 2132867818646730806, guid: 50cb5086c09e1094bb5d77dd80163d5d, type: 3}
+  - {fileID: 2132867818646730806, guid: cb78e34088cab0a41b91ba3b1794c3ba, type: 3}
+  CharacterImageInspector:
+  - {fileID: 21300000, guid: 15be26fccc71ca544a3124bd59345180, type: 3}
+  - {fileID: 21300000, guid: a0975840de1e4f94fb47b908af31f23a, type: 3}
+  - {fileID: 21300000, guid: f46609791bc778f409b8ab6a7a853f1c, type: 3}
+  - {fileID: 21300000, guid: fe4328667d418e64fa62f8070d59845b, type: 3}
+  - {fileID: 21300000, guid: 314263bcd2f8e3343ad6fd550cc92124, type: 3}
+  - {fileID: 21300000, guid: c03e20b0cb4c1a24a9fdedcd15cdef60, type: 3}
+  - {fileID: 21300000, guid: 00ea239616b9ece49a050f52bf2b7bc4, type: 3}
+  CharaterPrefabInspector:
+  - {fileID: 746954066577057259, guid: aa82bca8267d9b44b80310c355178d46, type: 3}
+  - {fileID: 746954066577057259, guid: f44ed27b62a49394fbccc42d070d7fad, type: 3}
+  - {fileID: 746954066577057259, guid: e3a0595121073cf49954cdd84485eca9, type: 3}
+  - {fileID: 746954066577057259, guid: 79eee491cdb3d8e41b8bc4443a3a0454, type: 3}
+  - {fileID: 746954066577057259, guid: 382c4bd17406c504795422c4db63f97c, type: 3}
+  - {fileID: 746954066577057259, guid: 09b85469def996a458783fdbc0687d97, type: 3}
+  Dont: {fileID: 5156895230881517194, guid: 5dea2f5e904f37c439bf4db567b9e457, type: 3}
