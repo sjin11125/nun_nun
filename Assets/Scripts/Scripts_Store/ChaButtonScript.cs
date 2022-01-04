@@ -31,12 +31,13 @@ public class ChaButtonScript : MonoBehaviour
     int level;
 
     GameObject Grid;
-   
+    Button StartButton;
     // Start is called before the first frame update
     void Start()
     {
         Grid = GameObject.Find("back_down");
-        
+        StartButton = GameObject.Find("Start").GetComponent<Button>();
+
     }
     public void IsUpgrade()
     {
