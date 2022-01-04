@@ -40,6 +40,8 @@ public class ShapeData : ScriptableObject
     public int rows = 0;
     public Row[] board;
     public Sprite sprite;
+    public string color;
+    public string shape;
 
     public void Clear()
     {

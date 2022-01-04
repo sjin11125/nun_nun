@@ -101,6 +101,7 @@ public class GridSquare : MonoBehaviour
         {
             Selected = true;//선택된걸로바꿔
             hooverImage.gameObject.SetActive(true);//진한색
+            //collision.에 shape인덱스 정보
         }
         else if(collision.GetComponent<ShapeSquare>() != null)//쉐이프와 닿아있음
         {

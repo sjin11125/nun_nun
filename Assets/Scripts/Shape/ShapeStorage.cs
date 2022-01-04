@@ -12,6 +12,10 @@ public class ShapeStorage : MonoBehaviour
     private Image nextSquare;
     public Image exchangeSquare;
 
+   // [HideInInspector]
+    public string shapeColor;
+    public string shapeShape;
+
     private void OnEnable()
     {
         GameEvents.RequestNewShapes += RequestNewShapes;
@@ -42,7 +46,12 @@ public class ShapeStorage : MonoBehaviour
                 nextSquare = contectNext.GetComponent<Image>();
             }
             spriteImage.sprite = shapeData[shapeIndex].sprite;
+            shapeColor = shapeData[shapeIndex].color;
+            shapeShape = shapeData[shapeIndex].shape;
+            Debug.Log(shapeColor);
             nextSquare.sprite = shapeData[nextIndex].sprite;
+            shapeColor = shapeData[nextIndex].color;
+            shapeShape = shapeData[nextIndex].shape;          
         }
     }
 
@@ -61,8 +70,12 @@ public class ShapeStorage : MonoBehaviour
     {
         foreach (var shape in shapeList)
         {
+            Debug.Log(shapeColor);
             var shapeIndex = UnityEngine.Random.Range(0, shapeData.Count);
             shape.RequestNewShape(shapeData[shapeIndex]);
+
+            var nextShapeColor = shapeData[shapeIndex].color;
+            var nextShapeShape = shapeData[shapeIndex].shape;
 
             GameObject contectShape = GameObject.FindGameObjectWithTag("Shape");
             if (contectShape != null)
@@ -76,7 +89,9 @@ public class ShapeStorage : MonoBehaviour
                 nextSquare = contectNext.GetComponent<Image>();
             }
             spriteImage.sprite = nextSquare.sprite;
-            nextSquare.sprite = shapeData[shapeIndex].sprite;
+            shapeColor = nextShapeColor;
+            shapeShape = nextShapeShape;
+            nextSquare.sprite = shapeData[shapeIndex].sprite;         
         }
     }
 
@@ -107,6 +122,8 @@ public class ShapeStorage : MonoBehaviour
             }
             spriteImage.sprite = nextSquare.sprite;
             nextSquare.sprite = shapeData[shapeIndex].sprite;
+            shapeColor = shapeData[shapeIndex].color;
+            shapeShape = shapeData[shapeIndex].shape;
         }
     }
 }
