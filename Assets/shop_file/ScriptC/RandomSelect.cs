@@ -16,11 +16,13 @@ public class RandomSelect : MonoBehaviour
         }
         */
         // 실행
-        
-            
-        //ResultSelect();
-    }
 
+
+        //ResultSelect();
+
+        //깊은 복사 잘 됐는지 확인용
+
+    }
     public List<Card> result = new List<Card>();  // 랜덤하게 선택된 카드를 담을 리스트
 
     public Transform parent;

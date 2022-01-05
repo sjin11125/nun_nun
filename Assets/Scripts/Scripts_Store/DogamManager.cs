@@ -70,7 +70,6 @@ public class DogamManager : MonoBehaviour
 
             if (ChaInformation[j].GetCharacter("isLock") == "F")      //캐릭터가 잠겨있지 않음
             {
-                Debug.Log(ChaInformation[j].GetCharacter("Name"));
                 string ChaName;
 
                 BuildingPrefabChilds[4].tag = "unLock";

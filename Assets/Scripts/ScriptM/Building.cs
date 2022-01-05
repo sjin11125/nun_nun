@@ -8,6 +8,7 @@ using System;
 
 public class Building : MonoBehaviour
 {
+    public string Building_name;
     public string Building_Image;          //빌딩 이미지 이름 *
     public Vector2 BuildingPosition;    //*
     public bool Placed=false;    //*
@@ -20,49 +21,104 @@ public class Building : MonoBehaviour
     public float startingTime = 60f;   //*
 
     public Transform Button_Pannel;    //*
+    public Transform Rotation_Pannel;
 
     public bool isCoin = false;        //*
     public bool isCountCoin = false;   //*
     public int CountCoin = 0;      //*
     public int Cost;        //건물비용
-    public int Deco;        //데코
+    public int Deco;        //건물데코
 
     public int layer_y;   // 건물 레이어
     Transform[] child;
     public int level=0;       //건물 레벨
     public GameObject UpgradePannel;
-    public GameObject Level1building;
-    public GameObject Level2building;
-    public GameObject Level3building;
 
     GameObject Parent;
+
+    public GameObject[] buildings;     // 레벨별 건물
+
+    public bool isFliped = false;
+    
+    public void SetValue(Building getBuilding)
+    {
+        Building_name = getBuilding.Building_name;
+        Building_Image = getBuilding.Building_Image;
+        BuildingPosition = getBuilding.BuildingPosition;
+        Placed = getBuilding.Placed;
+        area = getBuilding.area;
+        currentTime = getBuilding.currentTime;
+        startingTime = getBuilding.startingTime;
+        isCoin = getBuilding.isCoin;
+        isCountCoin = getBuilding.isCountCoin;
+        CountCoin = getBuilding.CountCoin;
+        Cost = getBuilding.Cost;
+        layer_y = getBuilding.layer_y;
+        level = getBuilding.level;
+        Deco = getBuilding.Deco;
+        isFliped = getBuilding.isFliped;
+    }
+
     public Building DeepCopy()
     {
         Building BuildingCopy = new Building();
+        BuildingCopy.Building_name = this.Building_name;
         BuildingCopy.Building_Image = this.Building_Image;
         //Debug.Log(BuildingCopy.Building_Image.name);
         BuildingCopy.BuildingPosition = this.BuildingPosition;
         BuildingCopy.Placed = this.Placed;
         BuildingCopy.area = this.area;
-        BuildingCopy.Coin_Button = this.Coin_Button;
         BuildingCopy.currentTime = this.currentTime;
         BuildingCopy.startingTime = this.startingTime;
-        BuildingCopy.Button_Pannel= Button_Pannel;
         BuildingCopy.isCoin = this.isCoin;
-       BuildingCopy.isCountCoin = this.isCountCoin;
+        BuildingCopy.isCountCoin = this.isCountCoin;
         BuildingCopy.CountCoin = this.CountCoin;
         BuildingCopy.Cost = this.Cost;
         BuildingCopy.layer_y = this.layer_y;
         BuildingCopy.level = this.level;
-        BuildingCopy.Level1building = Level1building;
-        BuildingCopy.Level2building = Level2building;
-        BuildingCopy.Level3building = Level3building;
         BuildingCopy.Deco = Deco;
-
+        BuildingCopy.isFliped = isFliped;
         return BuildingCopy;
+    }
+    public void Rotation()          //건물 회전
+    {
+        if (isFliped==true)
+        {
+            isFliped = false;
+        }
+        else
+        {
+            isFliped = true;
+        }
+
+        for (int i = 0; i < buildings.Length; i++)
+        {
+            if (buildings[i]!=null)
+            {
+                SpriteRenderer[] spriterenderer = buildings[i].GetComponentsInChildren<SpriteRenderer>();
+                Transform[] transform = buildings[i].GetComponentsInChildren<Transform>();
+                for (int j = 0; j < spriterenderer.Length; j++)
+                {
+                    spriterenderer[j].flipX = isFliped;
+                    
+                }
+                for (int k = 0; k < transform.Length; k++)
+                {
+                    Debug.Log(transform[k].position.x);
+                    //transform[k].position = new Vector2(-transform[k].position.x, transform[k].position.y);
+                    transform[k].localPosition = new Vector3(-transform[k].localPosition.x,
+                                                              transform[k].localPosition.y);
+                }
+            }
+        }
+    }
+  void Awake()
+    {
+        Parent = GameObject.Find("buildings");
     }
     void Start()
     {
+        buildings = new GameObject[3];
         currentTime = (int)startingTime;
 
         //TimeText = GameObject.Find("Canvas/TimeText"); //게임오브젝트 = 캔버스에 있는 TimeText로 설정
@@ -76,18 +132,58 @@ public class Building : MonoBehaviour
         //Button_Pannel = child[2];
 
         Coin_Button.gameObject.SetActive(false);
+        UpgradePannel.gameObject.SetActive(false);
+
         //Text countdownText = GetComponent<Text>();
-        Parent = GameObject.Find("buildings");
+        
         layer_y = 10;
         child[1].GetComponent<SpriteRenderer>().sortingOrder = layer_y;
+        
+
+        //-------------레벨 별 건물--------------------
+        GameObject Level1building, Level2building, Level3building;
+        if (level <= 3)
+        {
+            //GameObject UPPannel = Instantiate(UpgradePannel);
+            Level1building = gameObject.transform.Find("building").gameObject;
+            Level2building = gameObject.transform.Find("building2").gameObject;
+            Level3building = gameObject.transform.Find("building3").gameObject;
+            buildings[0] = Level1building;
+            buildings[1] = Level2building;
+            buildings[2] = Level3building;
+        }
+
+        switch (level)
+        {
+            case 1:
+                buildings[0].SetActive(true);
+                buildings[1].SetActive(false);
+                buildings[2].SetActive(false);
+                buildings[0].GetComponent<SpriteRenderer>().sortingOrder = layer_y;
+                break;
+            case 2:
+                buildings[0].SetActive(false);
+                buildings[1].SetActive(true);
+                buildings[2].SetActive(false);
+                buildings[1].GetComponent<SpriteRenderer>().sortingOrder = layer_y;
+                break;
+            case 3:
+                buildings[0].SetActive(false);
+                buildings[1].SetActive(true);
+                buildings[2].SetActive(true);
+                buildings[2].GetComponent<SpriteRenderer>().sortingOrder = layer_y;
+                break;
+            default:
+                break;
+        }
+
     }
 
     void Update()
     {
        // layer_y = 1;             //레이어 설정
        
-
-        child[1].GetComponent<SpriteRenderer>().sortingOrder = layer_y;
+        
 
         // text.text = currentTime.ToString("0.0");
         //TimeText.transform.position = Camera.main.WorldToScreenPoint(transform.position + new Vector3(0.30f, 1.4f, 0)); //Timer위치
@@ -106,7 +202,7 @@ public class Building : MonoBehaviour
         if (Placed==true)       // 건물 배치가 확정
         {
             Button_Pannel.gameObject.SetActive(false);     // 배치하는 버튼 사라지게
-
+            Rotation_Pannel.gameObject.SetActive(false);        //회전 버튼 사라지게
             if (isCoin==false)      //코인 아직 안먹었으면
             {
                 Coin();     //재화 생성되게
@@ -115,6 +211,7 @@ public class Building : MonoBehaviour
         else
         {
             Button_Pannel.gameObject.SetActive(true);
+            Rotation_Pannel.gameObject.SetActive(true);
         }
 
 
@@ -196,13 +293,8 @@ public class Building : MonoBehaviour
 
 
     #region Build Methods
-    public bool CanBePlaced()
+    public bool CanBePlaced()           //건물이 놓여질 수 있는지 체크
     {
-        if (GridBuildingSystem.current.gridLayout == null)
-        {
-            Debug.Log("subak");
-        }
-        Debug.Log(transform.position);
         Vector3Int positionInt = GridBuildingSystem.current.gridLayout.LocalToCell(transform.position);
         BoundsInt areaTemp = area;
         areaTemp.position = positionInt;
@@ -215,12 +307,12 @@ public class Building : MonoBehaviour
         return false;
     }
 
-    public void Place()
+    public void Place(bool isLoad)         //건물 배치
     {
         Vector3Int positionInt = GridBuildingSystem.current.gridLayout.LocalToCell(transform.position);
         BoundsInt areaTemp = area;
         areaTemp.position = positionInt;
-        Placed = true;
+        Placed = true;      // 배치 했니? 네
         
         GridBuildingSystem.current.TakeArea(areaTemp);
 
@@ -228,47 +320,66 @@ public class Building : MonoBehaviour
         //원래 업데이트 부분
         BuildingPosition =transform.position;          //위치 저장
         layer_y = (int)(-transform.position.y/0.6);             //레이어 설정
-       
-        if (layer_y == 0|| layer_y == 1)
+
+        if (layer_y == 0 || layer_y == 1) 
         {
             layer_y = 2;
         }
-
-        child[1].GetComponent<SpriteRenderer>().sortingOrder = layer_y;
+        for (int i = 0; i < buildings.Length; i++)
+        {
+            if (buildings[i]!=null)
+            {
+                buildings[i].GetComponent<SpriteRenderer>().sortingOrder = layer_y;
+            }
+        }
         Building BuildingCurrent = gameObject.GetComponent<Building>();
 
-
-        GameManager.BuildingList.Add(gameObject);      //현재 가지고 있는 빌딩 리스트에 추가
-
-        GameManager.BuildingArray = GameManager.BuildingList.ToArray();
+        foreach (var item in GameManager.BuildingNumber)
+        {
+            Debug.Log(item.Key);
+            
+        }
+        Debug.Log(Building_name);
         
+        GameManager.BuildingNumber[Building_Image]++; //해당 건물의 갯수 추가
+        if (isLoad==false)                       //새로 만드는 건가?
+        {
+            gameObject.name = Building_Image + GameManager.BuildingNumber[Building_Image];      //이름 재설정
+            Building_name = gameObject.name;
+            Debug.Log("Building_Image: " + Building_Image);
+            BuildingListAdd();      //현재 가지고 있는 건물 리스트에 추가
+        }
 
-        GameManager.CurrentBuilding = null;
         gameObject.transform.parent = Parent.transform;
     }
+    public void BuildingListAdd()
+    {
+        GameManager.BuildingList.Add(this.DeepCopy());      //현재 가지고 있는 빌딩 리스트에 추가
 
+        GameManager.BuildingArray = GameManager.BuildingList.ToArray();
+
+
+        GameManager.CurrentBuilding = null;
+        //
+
+       
+    }
     #endregion 
     // Update is called once per frame
     public void Upgrade()
-    {
+    { //GameObject Level1building, Level2building, Level3building;
         if (level<3)
         {
             //GameObject UPPannel = Instantiate(UpgradePannel);
             UpgradePannel.gameObject.SetActive(true);
-
-            GameObject[] buildings = { Level1building, Level2building, Level3building };
-            UpgradePannel.GetComponent<ChaButtonScript>().Upgrade(buildings, level);
+            Debug.Log("buildings.length: "+buildings.Length);
+            UpgradePannel.GetComponent<ChaButtonScript>().Upgrade(buildings, level,this);
 
         }
 
     }
 
-    public GameObject[] Buildings()
-    {
-        GameObject[] buildings = { Level1building, Level2building, Level3building };
-        return buildings;
-    }
-
+ 
 
 
 }
