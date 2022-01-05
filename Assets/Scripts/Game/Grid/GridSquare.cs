@@ -23,10 +23,15 @@ public class GridSquare : MonoBehaviour
     [HideInInspector]
     public int keepCount, trashCount;
 
+    public string currentColor;
+    public string currentShape;
+
     void Start()
     {
         Selected = false;
         SquareOccupied = false;
+        currentColor = null;
+        currentShape = null;
 
         GameObject contectShape = GameObject.FindGameObjectWithTag("Shape");
         if (contectShape != null)
@@ -77,6 +82,8 @@ public class GridSquare : MonoBehaviour
     {
         activeImage.gameObject.SetActive(false);
         activeImage.GetComponent<Image>().sprite = null;//사라지고나면 색깔 안담기게해놓기 이거사실없어도될듯?
+        currentColor = null;
+        currentShape = null;
     }
 
     public void NonKeep()//keep 열에 나머지 애들에 사용
@@ -101,7 +108,12 @@ public class GridSquare : MonoBehaviour
         {
             Selected = true;//선택된걸로바꿔
             hooverImage.gameObject.SetActive(true);//진한색
-            //collision.에 shape인덱스 정보
+            GameObject ShapeStorageObj = GameObject.FindGameObjectWithTag("ShapeStorage");
+            if (ShapeStorageObj != null)
+            {
+                currentColor = ShapeStorageObj.GetComponent<ShapeStorage>().shapeColor;
+                currentShape = ShapeStorageObj.GetComponent<ShapeStorage>().shapeShape;
+            }
         }
         else if(collision.GetComponent<ShapeSquare>() != null)//쉐이프와 닿아있음
         {
@@ -129,6 +141,8 @@ public class GridSquare : MonoBehaviour
         {
             Selected = false;//선택안된걸로해
             hooverImage.gameObject.SetActive(false);//진한색 꺼
+            currentColor = null;
+            currentShape = null;
         }
         else if (collision.GetComponent<ShapeSquare>() != null)
         {

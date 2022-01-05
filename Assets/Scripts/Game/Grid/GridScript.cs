@@ -51,6 +51,7 @@ public class GridScript : MonoBehaviour
             UseTrashCan();
         }
         SettingKeep();
+        GetInformation();
     }
 
     private void CreateGrid()
@@ -218,35 +219,20 @@ public class GridScript : MonoBehaviour
         if (GameOver())
         {
             gameOver.gameObject.SetActive(true);
+            Time.timeScale = 0;
         }
     }
 
-    Sprite[] sprites = new Sprite[30];
-    int sameColorColum;
-    int sameColorRow;
-    int[] sameColorColumLine = new int[5];
-    int[] sameColorRowLine = new int[5];
-    int[] completeIndexArray = new int[5];
-    int[] sameColorZeroLine = new int[5];
-    int[] sameColorOneLine = new int[5];
+    public int[] sameColorColumLine = new int[5];
+    public int[] sameColorRowLine = new int[5];
+    public int[] sameColorZeroLine = new int[5];
+    public int[] sameColorOneLine = new int[5];
+    public int[] completeIndexArray = new int[5];
     private int CheckIfSquaresAreCompleted(List<int[]> data)//행렬정보받음_data.Count==10;
     {
         List<int[]> completedLines = new List<int[]>();
         var linesCompleted = 0;
 
-        foreach (var line in data)//data안에 10개의 라인을 위한 반복 012345 012345
-        {
-            //line[0] 0 1 2 3 4        0 5 10 15 20     data[0]
-            //line[1] 5 6 7 8 9        1 6 11 16 21     data[1]
-            //line[2] 10 11 12 13 14   2 7 12 17 22     data[2]
-            //line[3] 15 16 17 18 19   3 8 13 18 23     data[3]
-            //line[4] 20 21 22 23 24   4 9 14 19 24     data[4]
-
-            foreach (var squareIndex in line)//라인안에 인덱스번호
-            {
-                sprites[squareIndex] = _gridSquares[squareIndex].transform.GetChild(2).GetComponent<Image>().sprite;
-            }
-        }
         if (CheckColumColor())      //열 체크
         {
             completedLines.Add(sameColorColumLine);
@@ -279,7 +265,7 @@ public class GridScript : MonoBehaviour
                 GameObject MainTimerObj = GameObject.FindGameObjectWithTag("MainTimer");
                 if (MainTimerObj != null)
                 {
-                    MainTimerObj.GetComponent<Timer>().timeLeft += 10;
+                    MainTimerObj.GetComponent<Timer>().timeLeft += 10;//라인을 맞출때마다 시간이 늘어남
                 }
             }
         }
@@ -306,13 +292,67 @@ public class GridScript : MonoBehaviour
 
         return sameColorLine;
     }
+
+    public string[] colors = new string[30];
+    public string[] shapes = new string[30];
+    public void GetInformation()
+    {
+        for (int i = 0; i < 25; i++)
+        {
+            colors[i] = _gridSquares[i].GetComponent<GridSquare>().currentColor;
+            shapes[i] = _gridSquares[i].GetComponent<GridSquare>().currentShape;
+        }
+    }
+    public bool CheckDiaZeroColor()
+    {
+        var sameTrueDiaz = false;
+        var sameColorTrueDiaz = false;
+        var sameShapeTrueDiaz = false;
+
+        if (colors[0] != null && colors[6] != null && colors[12] != null && colors[18] != null && colors[24] != null)
+        {
+            if (colors[0] == colors[6] && colors[0] == colors[12] && colors[0] == colors[18] && colors[0] == colors[24])
+            {
+                sameColorTrueDiaz =  true;
+                int j = 0;
+                for (int i = 0; i < 25; i += 6)
+                {
+                    sameColorZeroLine[j] = i;
+                    j++;
+                }
+            }
+            if (shapes[0] == shapes[6] && shapes[0] == shapes[12] && shapes[0] == shapes[18] && shapes[0] == shapes[24])
+            {
+                sameShapeTrueDiaz = true;
+                int j = 0;
+                for (int i = 0; i < 25; i += 6)
+                {
+                    sameColorZeroLine[j] = i;
+                    j++;
+                }
+            }
+        }
+
+        if(sameColorTrueDiaz || sameShapeTrueDiaz)
+        {
+            sameTrueDiaz = true;
+        }
+        else
+        {
+            sameTrueDiaz = false;
+        }
+        return sameTrueDiaz;
+    }
+
     public bool CheckDiaOneColor()
     {
+        var sameTrueDia = false;
         var sameColorTrueDia = false;
+        var sameShapeTrueDia = false;
 
-        if (sprites[4] != null && sprites[8] != null && sprites[12] != null && sprites[16] != null && sprites[20] != null)
+        if (colors[4] != null && colors[8] != null && colors[12] != null && colors[16] != null && colors[20] != null)
         {
-            if (sprites[4] == sprites[8] && sprites[4] == sprites[12] && sprites[4] == sprites[16] && sprites[4] == sprites[20])
+            if (colors[4] == colors[8] && colors[4] == colors[12] && colors[4] == colors[16] && colors[4] == colors[20])
             {
                 sameColorTrueDia = true;
                 int j = 0;
@@ -322,98 +362,127 @@ public class GridScript : MonoBehaviour
                     j++;
                 }
             }
-        }
-        return sameColorTrueDia;
-    }
-    public bool CheckDiaZeroColor()
-    {
-        var sameColorTrueDiaz = false;
 
-        if (sprites[0] != null && sprites[6] != null && sprites[12] != null && sprites[18] != null && sprites[24] != null)
-        {
-            if (sprites[0] == sprites[6] && sprites[0] == sprites[12] && sprites[0] == sprites[18] && sprites[0] == sprites[24])
+            if (shapes[4] == shapes[8] && shapes[4] == shapes[12] && shapes[4] == shapes[16] && shapes[4] == shapes[20])
             {
-                sameColorTrueDiaz = true;
+                sameShapeTrueDia = true;
                 int j = 0;
-                for (int i = 0; i < 25; i += 6)
+                for (int i = 4; i < 21; i += 4)
                 {
-                    sameColorZeroLine[j] = i;
+                    sameColorOneLine[j] = i;
                     j++;
                 }
             }
         }
-       
-        return sameColorTrueDiaz;
+
+        if (sameColorTrueDia || sameShapeTrueDia)
+        {
+            sameTrueDia = true;
+        }
+        else
+        {
+            sameTrueDia = false;
+        }
+        return sameTrueDia;
     }
 
     public bool CheckColumColor()
     {
-        var sameColorCompCol = 0;
+        var sameCompCol = 0;
+        var sameTrueCol = false;
         var sameColorTrueCol = false;
+        var sameShapeTrueCol = false;
 
-        for (int i = 0; i < 21; i += 5)
+        for (int i = 0; i < 21; i += 5)//0 5 10 15 20
         {
-            if (sprites[i] != null && sprites[i + 1] != null && sprites[i + 2] != null && sprites[i + 3] != null && sprites[i + 4] != null)
+            if (colors[i] != null && colors[i + 1] != null && colors[i + 2] != null && colors[i + 3] != null && colors[i + 4] != null)
             {
-                if (sprites[i] == sprites[i + 1] && sprites[i] == sprites[i + 2] && sprites[i] == sprites[i + 3] && sprites[i] == sprites[i + 4])
+                if (colors[i] == colors[i + 1] && colors[i] == colors[i + 2] && colors[i] == colors[i + 3] && colors[i] == colors[i + 4])
                 {
-                    sameColorCompCol = i;
+                    sameCompCol = i;
                     sameColorTrueCol = true;
+                }
+                if (shapes[i] == shapes[i + 1] && shapes[i] == shapes[i + 2] && shapes[i] == shapes[i + 3] && shapes[i] == shapes[i + 4])
+                {
+                    sameCompCol = i;
+                    sameShapeTrueCol = true;
                 }
             }
         }
 
-        if(sameColorTrueCol)
+        if(sameColorTrueCol|| sameShapeTrueCol)
         {
+            sameTrueCol = true;
             for (int i = 0; i < 5; i++)
             {
-                sameColorColumLine[i] = sameColorCompCol + i;
+                sameColorColumLine[i] = sameCompCol + i;
             }
         }
-        return sameColorTrueCol;
+        else
+        {
+            sameTrueCol = false;
+        }
+        return sameTrueCol;
     }
 
     public bool CheckRowColor() 
     {
-        var sameColorCompRow = 0;
+        var sameCompRow = 0;
+        var sameTrueRow = false;
         var sameColorTrueRow = false;
+        var sameShapeTrueRow = false;
 
         for (int i = 0; i < 5; i++)
         {
-            if (sprites[i] != null && sprites[i + 5] != null && sprites[i + 10] != null && sprites[i + 15] != null && sprites[i + 20] != null)
+            if (colors[i] != null && colors[i + 5] != null && colors[i + 10] != null && colors[i + 15] != null && colors[i + 20] != null)
             {
-                if (sprites[i] == sprites[i + 5] && sprites[i] == sprites[i + 10] && sprites[i] == sprites[i + 15] && sprites[i] == sprites[i + 20])
+                if (colors[i] == colors[i + 5] && colors[i] == colors[i + 10] && colors[i] == colors[i + 15] && colors[i] == colors[i + 20])
                 {
-                    sameColorCompRow = i;
+                    sameCompRow = i;
                     sameColorTrueRow = true;
+                }
+                if (shapes[i] == shapes[i + 5] && shapes[i] == shapes[i + 10] && shapes[i] == shapes[i + 15] && shapes[i] == shapes[i + 20])
+                {
+                    sameCompRow = i;
+                    sameShapeTrueRow = true;
                 }
             }
         }
 
-        if (sameColorTrueRow)
+        if (sameColorTrueRow || sameShapeTrueRow)
         {
+            sameTrueRow = true;
             int j = 0;
             for (int i = 0; i < 21; i += 5)
             {
-                sameColorRowLine[j] = sameColorCompRow + i;
+                sameColorRowLine[j] = sameCompRow + i;
                 j++;
             }
         }
-        return sameColorTrueRow;
+        else
+        {
+            sameTrueRow = false;
+        }
+        return sameTrueRow;
     }
 
     public bool GameOver()
     {
-        bool isGameover = true;
+        bool isGameover = false;
+        int fullNum = 0;
 
         for (int i = 0; i < 25; i++)
-        {
-            var comp = _gridSquares[i].GetComponent<GridSquare>();
-            if (comp.SquareOccupied == false)
+        {         
+            if (colors[i] != null)
             {
-                isGameover = false;
+                fullNum++;
             }
         }
+        if(fullNum == 25)
+        {
+            isGameover = true;
+        }
+
         return isGameover;
     }
 
