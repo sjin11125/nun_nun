@@ -27,23 +27,22 @@ public class ChaButtonScript : MonoBehaviour
     public Building DowngradeBuilding;
 
     public bool isUpgrade = false;
-    GameObject[] buildings;
-    int level;
+    static GameObject[] buildings;
+    static int level;
 
     GameObject Grid;
-    Button StartButton;
+   
     // Start is called before the first frame update
     void Start()
     {
         Grid = GameObject.Find("back_down");
-        StartButton = GameObject.Find("Start").GetComponent<Button>();
-
+        
     }
-    public void IsUpgrade()
+    public void IsUpgrade()         //건물 업그레이드 할 것 인가?
     {
-
-
-
+        Building building = buildings[0].transform.parent.GetComponent<Building>();
+        string building_name = buildings[0].transform.parent.name;
+        Debug.Log(building_name);
         if (level == 0)
         {
             Debug.Log("000");
@@ -67,16 +66,30 @@ public class ChaButtonScript : MonoBehaviour
                      return;
                  }
              }*/
+       
+                Debug.Log(buildings.Length);
+            
             buildings[1].SetActive(true);
-            buildings[0].transform.parent.GetComponent<Building>().level += 1;
+            building.level += 1;
         }
         else
         {
             Debug.Log("222");
             buildings[2].SetActive(true);
-            buildings[0].transform.parent.GetComponent<Building>().level += 1;
+            building.level += 1;
         }
-
+        Debug.Log(building.level);
+        building.Type = BuildType.Empty;
+        building.RefreshBuildingList();     //빌딩 리스트 새로고침
+        /*for (int i = 0; i < GameManager.BuildingList.Count; i++)
+        {
+            Debug.Log(GameManager.BuildingList[i].Building_name);
+            if (GameManager.BuildingList[i].Building_name == building_name)
+            {
+                GameManager.BuildingList[i].level = building.level;
+                Debug.Log(GameManager.BuildingList[i].level);
+            }
+        }*/
     }
     // Update is called once per frame
     void Update()
@@ -87,23 +100,22 @@ public class ChaButtonScript : MonoBehaviour
             gameObject.GetComponent<Button>().enabled = false;
         }
     }
-    public void Upgrade(GameObject[] buildings, int level)              //건물 업그레이드
-    {
-        this.buildings = buildings;
-        this.level = level;
-
+    public void Upgrade(GameObject[] buildings, int level,Building building)              //건물 업그레이드
+    {                                                                   //현재 가지고 있는 건물 리스트에서 해당 건물 찾아서 레벨 수정
+        ChaButtonScript.buildings = buildings;
+        ChaButtonScript.level = level;
+        Debug.Log("this.buildings: "+ ChaButtonScript.buildings.Length);
         Transform UPPannelTrans = gameObject.GetComponent<Transform>();
 
         transform.parent = GameObject.Find("O").transform;
         GetComponent<RectTransform>().localPosition = new Vector3(0, 0, 0);
+
+     
         // Transform[] buildingTrans = buildings.GetComponentsInChildren<Transform>();
 
     }
-    public void UpgradeButtonClick()
-    {
 
-    }
-    public void CloseButtonClick()
+    public void CloseButtonClick()          //닫기 버튼
     {
         Transform[] Window = transform.parent.GetComponentsInChildren<Transform>();
 
@@ -347,9 +359,10 @@ public class ChaButtonScript : MonoBehaviour
                 
                 Debug.Log("DogamManager.ChaIndex: "+DogamManager.ChaIndex);
                 Debug.Log(GameManager.BuildingPrefabData.Count);
-                
+
                 //게임매니저에 잇는 건물 프리팹 배열에서 같은 이름을 가진 프리팹을 찾아 Instantiate하고 상점 창 닫기
-                GameObject buildingprefab = GameManager.BuildingPrefabData[DogamManager.ChaInformation[DogamManager.ChaIndex].GetCharacter("ImageName") + "(Clone)"];
+                string buildingname = DogamManager.ChaInformation[DogamManager.ChaIndex].GetCharacter("ImageName");
+                GameObject buildingprefab = GameManager.BuildingPrefabData[buildingname+"(Clone)"];
             
 
                 Transform parent = transform.parent.transform.parent.transform.parent.transform.parent.transform.parent;
@@ -360,17 +373,10 @@ public class ChaButtonScript : MonoBehaviour
                 GameManager.CurrentBuilding = buildingprefab;
                 Building b = buildingprefab.GetComponent<Building>();
                 Building c = GameManager.CurrentBuilding.GetComponent<Building>();
+                c.Building_Image = buildingname;
                 c = b.GetComponent<Building>().DeepCopy();
 
-                if (b.Button_Pannel==null)
-                {
-
-                    Debug.Log("null");
-                }
-                else
-                {
-                    Debug.Log("dddddddddsddcd");
-                }
+                
                 for (int i = 5; i < Window.Length-1; i++)
                 {
                     Destroy(Window[i].gameObject);
