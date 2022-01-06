@@ -25,7 +25,7 @@ public class ButtonOk : MonoBehaviour
     {
         if (temp.CanBePlaced())
         {
-            temp.Place(false);
+           // temp.Place(false);
         }
     }
     public void Buttonok()
@@ -33,7 +33,7 @@ public class ButtonOk : MonoBehaviour
         Debug.Log("ButtonOK");
         if (temp.CanBePlaced())
         {
-            temp.Place(false);
+            //temp.Place(false);
         }
 
     }

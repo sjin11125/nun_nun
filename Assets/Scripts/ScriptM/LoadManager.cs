@@ -64,27 +64,11 @@ public class LoadManager : MonoBehaviour
                     Debug.Log(LoadBuilding.Building_name);
                     g.name = LoadBuilding.Building_name;            //이름 재설정
 
-                    g_Building.Place(true);
-                    Debug.Log(g.GetComponent<Building>().Placed);
-                    // Debug.Log(PrefabBuilding.Placed);
-                    // GameObject[] BuildingLevels = PrefabBuilding.buildings;
-
-
-                    /*
-                                         if (PrefabBuilding.level == 2)
-                                         {
-                                             BuildingLevels[1].SetActive(true);
-                                         }
-                                         else if (PrefabBuilding.level == 3)
-                                         {
-                                             BuildingLevels[1].SetActive(true);
-                                             BuildingLevels[2].SetActive(true);
-                                         }
-                                         else
-                                         {
-                                             BuildingLevels[0].SetActive(true);
-                                         }
-                                         */
+                    g_Building.Type = BuildType.Load;
+                    g_Building.Place(g_Building.Type);
+                    Debug.Log(g.GetComponent<Building>().isFliped);
+                   // g_Building.Rotation();
+                   
                 }
              }
 

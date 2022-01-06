@@ -79,7 +79,9 @@ public class ChaButtonScript : MonoBehaviour
             building.level += 1;
         }
         Debug.Log(building.level);
-        for (int i = 0; i < GameManager.BuildingList.Count; i++)
+        building.Type = BuildType.Empty;
+        building.RefreshBuildingList();     //빌딩 리스트 새로고침
+        /*for (int i = 0; i < GameManager.BuildingList.Count; i++)
         {
             Debug.Log(GameManager.BuildingList[i].Building_name);
             if (GameManager.BuildingList[i].Building_name == building_name)
@@ -87,7 +89,7 @@ public class ChaButtonScript : MonoBehaviour
                 GameManager.BuildingList[i].level = building.level;
                 Debug.Log(GameManager.BuildingList[i].level);
             }
-        }
+        }*/
     }
     // Update is called once per frame
     void Update()
@@ -357,9 +359,10 @@ public class ChaButtonScript : MonoBehaviour
                 
                 Debug.Log("DogamManager.ChaIndex: "+DogamManager.ChaIndex);
                 Debug.Log(GameManager.BuildingPrefabData.Count);
-                
+
                 //게임매니저에 잇는 건물 프리팹 배열에서 같은 이름을 가진 프리팹을 찾아 Instantiate하고 상점 창 닫기
-                GameObject buildingprefab = GameManager.BuildingPrefabData[DogamManager.ChaInformation[DogamManager.ChaIndex].GetCharacter("ImageName") + "(Clone)"];
+                string buildingname = DogamManager.ChaInformation[DogamManager.ChaIndex].GetCharacter("ImageName");
+                GameObject buildingprefab = GameManager.BuildingPrefabData[buildingname+"(Clone)"];
             
 
                 Transform parent = transform.parent.transform.parent.transform.parent.transform.parent.transform.parent;
@@ -370,6 +373,7 @@ public class ChaButtonScript : MonoBehaviour
                 GameManager.CurrentBuilding = buildingprefab;
                 Building b = buildingprefab.GetComponent<Building>();
                 Building c = GameManager.CurrentBuilding.GetComponent<Building>();
+                c.Building_Image = buildingname;
                 c = b.GetComponent<Building>().DeepCopy();
 
                 

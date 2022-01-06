@@ -72,21 +72,16 @@ public class GridBuildingSystem : MonoBehaviour
             ChaButtonScript.isEdit = false;
             InitializeWithBuilding();
         }
-        /* if (!temp) //temp 를 변수로 사용
-         {
-             Debug.Log("temp is null");
-             return;
-         }*/
 
         if (Input.GetMouseButtonDown(0)) //마우스를 눌렀을때 
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
-           
-            if (temp!=null)
+            for (int i = 0; i < GameManager.BuildingList.Count; i++)
             {
-                Debug.Log("temp is not null");
+                Debug.Log(i+" good "+GameManager.BuildingList[i].Type);
             }
+           
             if (EventSystem.current.IsPointerOverGameObject(0)) //현재포인트return
             {
                 return;
@@ -98,13 +93,13 @@ public class GridBuildingSystem : MonoBehaviour
                 {
                     if (temp.Placed == false)               //건물이 배치가 안 된 상태인가?
                     {
-
+                        Building hit_building = temp.GetComponent<Building>();
                         if (hit.transform.tag == "Button")      //건물 배치 확인 버튼
                         {
                             if (temp.CanBePlaced())         //건물이 배치 될 수 있는가? 네
                             {
-                                temp.level += 1;        //레벨 +1
-                                temp.Place(false);
+                                //temp.level += 1;        //레벨 +1
+                                temp.Place(temp.Type);
                                 
 
                                 Grid.GetComponent<SpriteRenderer>().sortingOrder = -48;
@@ -115,8 +110,30 @@ public class GridBuildingSystem : MonoBehaviour
                         }
                         if (hit.transform.tag == "Rotation")        //건물 회전 버튼
                         {
-                            Building.GetComponent<Building>().Rotation();
+                           
+                            if (hit_building.isFliped == true)
+                            {
+                                hit_building.isFliped = false;
+                            }
+                            else
+                            {
+                                hit_building.isFliped = true;
+                            }
+                            hit_building.Rotation();
+                          
 
+                        }
+                        if (hit.transform.tag == "Upgrade")         //업그레이드
+                        {
+                            hit_building.Type = BuildType.Upgrade;
+                            hit_building.Upgrade();
+                        }
+                        if (hit.transform.tag == "Remove")          //제거
+                        {
+                            temp.Remove();
+
+                            Grid.GetComponent<SpriteRenderer>().sortingOrder = -48;
+                           
                         }
                     }
 
@@ -125,16 +142,41 @@ public class GridBuildingSystem : MonoBehaviour
                 {
                     Debug.Log("temp is null");
                     temp = hit.transform.GetComponent<Building>();
-                   
+
                     if (hit.transform.tag == "Building" && GameManager.isStore == false)           //빌딩을 눌렀을 때 업그레이드 할래 위치 바꿀래 회전할래
                     {
-                        Building b = hit.transform.GetComponent<Building>();
-                        b.Upgrade();
+                        temp.Type = BuildType.Move;
+                       /* for (int i = 0; i < GameManager.BuildingList.Count; i++)        //현재 가지고 있는 건물 리스트에서 제거
+                        {
+                            
+                            if (GameManager.BuildingList[i].Building_name == temp.Building_name)
+                            {
+                                GameManager.BuildingList.Remove(GameManager.BuildingList[i]);
+                                Debug.Log("GameManager.BuildingList.Count: " + GameManager.BuildingList.Count);
+                                break;
+                            }
+                        }*/
+                        temp.Placed = false;        //배치가 안 된 상태로 변환
 
+                        temp.area.position = gridLayout.WorldToCell(temp.gameObject.transform.position);
+                        BoundsInt buildingArea = temp.area;
 
-                        Debug.Log("Level: " + b.level);
+                        TileBase[] baseArray = GetTilesBlock(buildingArea, MainTilemap);
+                        int size = baseArray.Length;
+                        for (int i = 0; i < size; i++)
+                        {
+                            baseArray[i] = tileBases[TileType.White];
+                            //FillTiles(baseArray, TileType.White);
+                            Debug.Log("tiles");
+                        }
+                        TempTilemap.SetTilesBlock(buildingArea, baseArray);
+                        SetTilesBlock(buildingArea, TileType.White, MainTilemap);
+
+                        //FollowBuilding(true);
+                        Grid.GetComponent<SpriteRenderer>().sortingOrder = -50;
+                        Debug.Log("Level: " + temp.level);
                     }
-                    temp = null;
+                    
                 }
                 if (hit.transform.tag == "Coin_Button")           //재화 버튼 누르면(되긴 하는데 수정해야함)
                 {
@@ -150,25 +192,21 @@ public class GridBuildingSystem : MonoBehaviour
                 {
                     if (!temp.Placed)           //건물이 놓여지지 않았다.(마우스가 클릭하는 데로 건물 따라감)
                     {
-                        Vector2 touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                        Vector3Int cellPos = gridLayout.LocalToCell(touchPos);
-                        Debug.Log("mouse");
-                        if (prevPos != cellPos)
+                        if (temp.Type != BuildType.Upgrade)
                         {
-                            temp.transform.localPosition = gridLayout.CellToLocalInterpolated(cellPos
-                                + new Vector3(.5f, .5f, 0f)); //Vector3
-                            prevPos = cellPos;
-                            FollowBuilding(); // 마우스가 위의 좌표 따라감. 
 
+
+                            Vector2 touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                            Vector3Int cellPos = gridLayout.LocalToCell(touchPos);
+                            Debug.Log("mouse");
+                            if (prevPos != cellPos)
+                            {
+                                temp.transform.localPosition = gridLayout.CellToLocalInterpolated(cellPos
+                                    + new Vector3(.5f, .5f, 0f)); //Vector3
+                                prevPos = cellPos;
+                                FollowBuilding(false); // 마우스가 위의 좌표 따라감. 
+                            }
                         }
-                        //1108 추가
-                        // 건물을 누르면 위의 기능이 가능하도록 수정해야함.
-
-                        /* else // 그냥 버튼을 눌렀을 때 다음 코드가 실행
-                         {
-                             button.button1();
-                         }
-                        */
 
                     }
                 }
@@ -187,7 +225,10 @@ public class GridBuildingSystem : MonoBehaviour
    #endregion
 
    #region Tilemap Management
+    static void MoveTIles()
+    {
 
+    }
    private static void FillTiles(TileBase[] arr, TileType type)
    {
         Debug.Log("FillTiles()");
@@ -200,6 +241,7 @@ public class GridBuildingSystem : MonoBehaviour
 
    private static TileBase[] GetTilesBlock (BoundsInt area, Tilemap tilemap)
    {
+        Debug.Log("GetTilesBlock");
        TileBase[] array = new TileBase[area.size.x * area.size.y * area.size.z];
        int counter = 0;
 
@@ -231,22 +273,32 @@ public class GridBuildingSystem : MonoBehaviour
    {
         GameObject temp_gameObject = Instantiate(GameManager.CurrentBuilding, Vector3.zero, Quaternion.identity) as GameObject;
        temp = temp_gameObject.GetComponent<Building>(); // 이때 building 프리펩의 속성 불러오기
+        temp.Type = BuildType.Make;
+
+        temp.Rotation_Pannel.gameObject.SetActive(false);
+        temp.UpgradePannel.SetActive(false);//업그레이드 패널 삭제
         temp.Placed = false;            //건물은 현재 배치가 안 된 상태
         //temp.Building_name = temp_gameObject.name;
-        FollowBuilding();           //건물이 마우스 따라가게 하는 함수
+        FollowBuilding(false);           //건물이 마우스 따라가게 하는 함수
 
    }
-
-   private void ClearArea()
+    public void ClickWithBuilding(Building click_building)
+    {
+        temp = click_building;
+        temp.Placed = false;            //건물은 현재 배치가 안 된 상태
+        ClearArea();
+    }
+    private void ClearArea()
    {
         Debug.Log("ClearArea()");
         Debug.Log(prevArea.size.x+" " + prevArea.size.y+" "+ prevArea.size.z);
         TileBase[] toClear = new TileBase[prevArea.size.x * prevArea.size.y * prevArea.size.z];//0
+        Debug.Log(prevArea.position);
        FillTiles(toClear, TileType.Empty);
        TempTilemap.SetTilesBlock(prevArea, toClear);
    }
 
-   private void FollowBuilding()                    //건물이 마우스 따라가게
+   private void FollowBuilding(bool isTransfer)                    //건물이 마우스 따라가게
    {
         Debug.Log("Following");
        ClearArea();
@@ -256,20 +308,24 @@ public class GridBuildingSystem : MonoBehaviour
        BoundsInt buildingArea = temp.area;
 
        TileBase[] baseArray = GetTilesBlock(buildingArea, MainTilemap);
-
-       int size = baseArray.Length;
+        int size = baseArray.Length;
+ 
+       
        TileBase[] tileArray = new TileBase[size];
 
        for (int i = 0; i<baseArray.Length; i++)
        {
-           if(baseArray[i] == tileBases[TileType.White])
+
+           if (baseArray[i] == tileBases[TileType.White])
            {
-               tileArray[i] = tileBases[TileType.Green];
-           }
+               tileArray[i] = tileBases[TileType.Green];            //건물을 놓을 수 있다
+            }
            else
            {
-               FillTiles(tileArray, TileType.Red);
-               break;
+                FillTiles(baseArray, TileType.Red);
+                FillTiles(tileArray, TileType.Red);                  //건물을 놓을 수 없다
+                
+                break;
            }
        }
        TempTilemap.SetTilesBlock(buildingArea, tileArray);
@@ -297,30 +353,26 @@ public class GridBuildingSystem : MonoBehaviour
    public void TakeArea(BoundsInt area)
    {
         Debug.Log("TakeArea()");
-       SetTilesBlock(area, TileType.Empty, TempTilemap);
-       SetTilesBlock(area, TileType.Green, MainTilemap);
+       SetTilesBlock(area, TileType.Empty, TempTilemap);        //TmpTilemap 비우기
+       SetTilesBlock(area, TileType.Red, MainTilemap);
    }
+    public void RemoveArea(BoundsInt area)
+    {
+        Debug.Log("RemoveArea()");
+        SetTilesBlock(area, TileType.Empty, TempTilemap);        //TmpTilemap 비우기
+        SetTilesBlock(area, TileType.Empty, MainTilemap);
+    }
+    #endregion
 
-   #endregion
 
-
-   //추가
-   private void FollowMouse()
+    //추가
+    private void FollowMouse()
    {
        transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
        transform.position = new Vector3(transform.position.x, transform.position.y, 0);
    }
 
-   //예시
-   /*public void InitializeWithBuilding(GameObject building) //생성버튼 눌렀을 때 building 을 prefab으로 해서 생성
-   {
-
-       temp = Instantiate(building, Vector3.zero, Quaternion.identity).GetComponent<Building>(); // 이때 building 프리펩의 속성 불러오기
-       FollowBuilding();
-
-   }
-   */
-
+ 
 
         //button management 공간 1101 추가
 
