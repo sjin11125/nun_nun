@@ -25,6 +25,7 @@ public class GridSquare : MonoBehaviour
 
     public string currentColor;
     public string currentShape;
+    public GameObject KeepShape;
 
     void Start()
     {
@@ -152,6 +153,7 @@ public class GridSquare : MonoBehaviour
 
     GameObject twentyNine;
     int keepSquareIndex;
+    //public GameObject prefab;
     public void ColorTransfer() //그리드스크립트 UseKeep과 연결
     {
         GameObject ItemControllerObj = GameObject.FindGameObjectWithTag("ItemController");//컨트롤러에서 선택한 인덱스에 따라 위치 결정
@@ -165,17 +167,27 @@ public class GridSquare : MonoBehaviour
         {
             twentyNine = contectGrid.transform.GetChild(keepSquareIndex).gameObject; //29번오브젝트저장
         }
-     
+
         if (Input.GetMouseButtonDown(0)) //좌클할때
         {
             Vector2 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(worldPoint, Vector2.zero);//광선을 쏴
             if (hit.collider != null)
             {
-                if( hit.collider.gameObject == twentyNine && keepCount==0)// && activeObj.activeSelf==true)//내가 누른게 29번오브젝트가 맞고 한번 눌렀고 액티브오브젝트가 켜져야
+                if (hit.collider.gameObject == twentyNine && keepCount == 0)// && activeObj.activeSelf==true)//내가 누른게 29번오브젝트가 맞고 한번 눌렀고 액티브오브젝트가 켜져야
                 {
+                    keepOnclick();
+                    /*
                     spriteImage.sprite = activeImage.GetComponent<Image>().sprite;//저장해둔 색깔을 shape에 줘
-                    keepTimer.SetActive(true);
+                    GameObject useKeepShape = GameObject.FindGameObjectWithTag("ShapeStorage");//keep에있는 색깔과모양정보를 현재 shape에 준다
+                    if (useKeepShape != null)
+                    {
+                        useKeepShape.GetComponent<ShapeStorage>().shapeColor = currentColor;
+                        useKeepShape.GetComponent<ShapeStorage>().shapeShape = currentShape;
+                    }*/
+                    currentColor = null;//주고나서 비운다
+                    currentShape = null;
+                    keepTimer.SetActive(true);                  
                     activeObj.SetActive(false);
                     keepCount++;
                 }
@@ -193,5 +205,22 @@ public class GridSquare : MonoBehaviour
              activeObj.SetActive(false);
              trashCount++;
         }
+    }
+    
+    public void keepOnclick()
+    {
+        GameObject keepInstance = Instantiate(KeepShape) as GameObject;
+        keepInstance.transform.SetParent(this.transform, false);
+        Vector3 pos = new Vector3(0, 0, 0);
+        keepInstance.transform.localPosition = pos;
+
+        GameObject useKeepShape = GameObject.FindGameObjectWithTag("KeepShape");//keep에있는 색깔과모양정보를 현재 shape에 준다
+        if (useKeepShape != null)
+        {
+            useKeepShape.GetComponent<CreateKeepShape>().keepColor = currentColor;
+            useKeepShape.GetComponent<CreateKeepShape>().keepShape = currentShape;
+            useKeepShape.GetComponent<Image>().sprite = activeImage.sprite;
+        }
+        
     }
 }
