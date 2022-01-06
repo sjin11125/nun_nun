@@ -5,6 +5,7 @@ using UnityEngine;
 public class LULULALA : MonoBehaviour
 {
     // Start is called before the first frame update
+    GameObject gg;
     void Start()
     {
         
