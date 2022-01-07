@@ -17,6 +17,7 @@ public class Shape : MonoBehaviour, IPointerClickHandler, IPointerUpHandler,
     public int TotalSquareNumber { get; set; }
 
     private List<GameObject> _currentShape = new List<GameObject>();
+    [HideInInspector]
     private Vector3 _shapeStartScale;
     private RectTransform _transform;
     private Canvas _canvas;
