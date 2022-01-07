@@ -6,57 +6,74 @@ using UnityEngine.UI;
 
 public class CreateKeepShape : MonoBehaviour, IPointerDownHandler,IBeginDragHandler,IEndDragHandler,IDragHandler,IDropHandler //, IDragHandler
 {
+    private RectTransform _transform;
+    private Vector3 _startPosition;
     private Canvas canvas;
-    bool drop = false;
+    public bool drop = false;
     private RectTransform rectTransform;
-    //0.keep을 썻을때 뜨게
-    //1.GridSquare에 있던 activeImage currentColor currentShape 정보를 저장, 적용 //잘못된 컬러 정보를 담고있는중임
-    //2.sprite, color, shape 정보 전달
 
     public string keepColor;
     public string keepShape;
-    public Image keepImg;
+    public GameObject hitKeepObj;
+    GameObject KeepObj;
+    int HitChildCount;
 
+    private void Awake()
+    {
+        _transform = this.GetComponent<RectTransform>();
+        _startPosition = _transform.localPosition;
+
+        gameObject.tag = "KeepShape";
+        rectTransform = GetComponent<RectTransform>();
+        canvas = GameObject.FindGameObjectWithTag("Canvas").GetComponent<Canvas>();
+    }
+    private void Start()
+    {
+        KeepObj = GameObject.FindGameObjectWithTag("Grid");
+        if (KeepObj != null)
+        {
+            gameObject.GetComponent<Image>().sprite = KeepObj.GetComponent<GridScript>().KeepImg;
+        }
+    }
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "GridSquare")
         {
             if (collision.gameObject.GetComponent<GridSquare>().SquareOccupied == false)//비어있으면
             {
-                //sprite, color, shape 정보 전달
+                hitKeepObj = collision.gameObject;
+                hitKeepObj.GetComponent<GridSquare>().keepImage = gameObject.GetComponent<Image>().sprite;//스프라이트를 상대 스퀘어에 전달
+                HitChildCount = hitKeepObj.transform.GetSiblingIndex();//그리드에서 몇번째 인덱스와 부딫혔나               
                 drop = true;
             }
         }
     }
-
-    private void Awake()
-    {
-        rectTransform = GetComponent<RectTransform>();
-        canvas = GameObject.FindGameObjectWithTag("Canvas").GetComponent<Canvas>();
-    }
+    
     public void OnBeginDrag(PointerEventData eventData)
     {
-        Debug.Log("OnBeginDrag");
+       gameObject.tag = "Shape";
     }
     public void OnDrag(PointerEventData eventData)
     {
-        Debug.Log("OnDrag");
         rectTransform.anchoredPosition += eventData.delta/canvas.scaleFactor;
         drop = false;
     }
     public void OnEndDrag(PointerEventData eventData)
     {
-        Debug.Log("OnEndDrag");
+        gameObject.transform.localPosition = _startPosition;
+
+        if (drop == true)//놓았으면
+        {
+            hitKeepObj.GetComponent<GridSquare>().UseSquareKeep();//상대 오브젝트를 켠다
+            Destroy(this.gameObject);//이 프리팹은 삭제된다
+        }
     }
     public void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log("OnPointerDown");
     }
     public void OnDrop(PointerEventData eventData)
     {
-        if (drop == true)//놓았으면
-        {
-            Destroy(this.gameObject);
-        }
+
+        
     }
 }
