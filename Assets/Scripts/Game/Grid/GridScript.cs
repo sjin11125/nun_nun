@@ -297,7 +297,7 @@ public class GridScript : MonoBehaviour
     public string[] shapes = new string[30];
     public void GetInformation()
     {
-        for (int i = 0; i < 25; i++)
+        for (int i = 0; i < 30; i++)
         {
             colors[i] = _gridSquares[i].GetComponent<GridSquare>().currentColor;
             shapes[i] = _gridSquares[i].GetComponent<GridSquare>().currentShape;
