@@ -31,12 +31,41 @@ public class ChaButtonScript : MonoBehaviour
     static int level;
 
     GameObject Grid;
-   
+
+    public GameObject NuniInfoPannel;
     // Start is called before the first frame update
     void Start()
     {
         Grid = GameObject.Find("back_down");
+    }
+    public void NuniInfoClick()
+    {
+        GameObject NuniInfo = Instantiate(NuniInfoPannel) as GameObject;        //누니 정보 패널 Instantiate
+        NuniInfo.transform.SetParent(StartManager.Canvas.transform);        //캔버스 부모설정
+        NuniInfo.GetComponent<RectTransform>().localPosition = new Vector3(0, 0, 0);
+
         
+        for (int i = 0; i < GameManager.AllNuniArray.Length; i++)
+        {
+           // Debug.Log(transform.parent.name);
+            if (transform.name== GameManager.AllNuniArray[i].cardImage)
+            {
+                Card nuni = GameManager.AllNuniArray[i];
+
+                Text[] InfoTexts = NuniInfo.GetComponentsInChildren<Text>();
+                Image[] InfoImage = NuniInfo.GetComponentsInChildren<Image>();
+
+                InfoImage[2].sprite= nuni.GetChaImange();
+
+                InfoTexts[0].text = nuni.cardName;      //누니 이름 넣기
+                //InfoTexts[1].text=nuni.                  //누니 설명
+                //누니 보유 효과
+
+
+            }
+        }
+        
+
     }
     public void IsUpgrade()         //건물 업그레이드 할 것 인가?
     {
@@ -126,14 +155,26 @@ public class ChaButtonScript : MonoBehaviour
                 Destroy(Window[i].gameObject);
             }
         }
-        else
+        else 
         {
             for (int i = 6; i < Window.Length-1; i++)
             {
                 Destroy(Window[i].gameObject);
             }
         }
+
         GameManager.isStore = false;
+    }
+
+    public void CloseButtonClick2()
+    {
+        Transform[] Windows= transform.parent.GetComponentsInChildren<Transform>();
+        Transform[] child= Windows[1].GetComponentsInChildren<Transform>();
+        for (int i = 0; i < child.Length; i++)
+        {
+            Destroy(child[i].gameObject);
+            
+        }
     }
     public void ButtonClick()
     {
@@ -147,7 +188,7 @@ public class ChaButtonScript : MonoBehaviour
             //ChaButtonClick();
         }
     }
-
+  
     public void ChaButtonClick()        //잠겨있지 않은 캐릭터 버튼 클릭
     {
 
@@ -303,19 +344,14 @@ public class ChaButtonScript : MonoBehaviour
                  * 4: 새로고침
                  */
     }
-
-
-
-
     
- 
     public void LockChaButtonClick()        //캐릭터 살려고 할 때 클릭하는
     {
         DogamManager.ChaIndex = int.Parse(gameObject.name);
 
     
         GameObject DogamCha = Instantiate(LockPanel);
-        DogamCha.transform.SetParent(GameObject.Find("Canvas").transform);
+        DogamCha.transform.SetParent(StartManager.Canvas.transform);
         DogamCha.GetComponent<RectTransform>().localPosition = new Vector3(0, 0, 0);
     }
 

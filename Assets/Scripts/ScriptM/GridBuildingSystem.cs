@@ -133,7 +133,7 @@ public class GridBuildingSystem : MonoBehaviour
                             temp.Remove();
 
                             Grid.GetComponent<SpriteRenderer>().sortingOrder = -48;
-                           
+                            
                         }
                     }
 
@@ -360,7 +360,7 @@ public class GridBuildingSystem : MonoBehaviour
     {
         Debug.Log("RemoveArea()");
         SetTilesBlock(area, TileType.Empty, TempTilemap);        //TmpTilemap 비우기
-        SetTilesBlock(area, TileType.Empty, MainTilemap);
+        SetTilesBlock(area, TileType.White, MainTilemap);
     }
     #endregion
 

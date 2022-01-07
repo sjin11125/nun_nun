@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;using UnityEngine.UI;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class DogamManager : MonoBehaviour
-{
+{   //엑셀에 있는 모든 건물 정보 받아서 상점 패널에 넣기
     public GameObject DogamChaPrefab;
     public static Character[] ChaInformation;
     public static int ChaIndex;
-
+    
     public static bool isParsing = false;
 
     GameObject DogamCha;
@@ -51,7 +52,7 @@ public class DogamManager : MonoBehaviour
         for (int j = 0; j < ChaInformation.Length; j++)         //상점 나타내기
         {
 
-            DogamCha = Instantiate(DogamChaPrefab);
+            DogamCha = Instantiate(DogamChaPrefab) as GameObject;
             DogamCha.transform.SetParent(Scroll.transform);
 
             Transform[] BuildingPrefabChilds = DogamCha.GetComponentsInChildren<Transform>();
@@ -99,6 +100,7 @@ public class DogamManager : MonoBehaviour
 
 
         //LockButton = LockButtonList.ToArray();      //잠긴 버튼 리스트 배열로 만들어서 넣기
+        
 
     }
 

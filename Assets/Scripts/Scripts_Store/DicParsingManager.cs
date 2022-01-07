@@ -18,7 +18,7 @@ public class DicParsingManager : MonoBehaviour
             GameManager.parse = true;
         }
     }
-    public Card[] Parse_character(int index)
+    public Card[] Parse_character(int index)                //누니 정보 불러옴 
     {
         List<Card> CharacterList = new List<Card>();
         if (index == 1)
@@ -44,6 +44,16 @@ public class DicParsingManager : MonoBehaviour
 
             CharacterList.Add(character);
         }
+
+        for (int i = 0; i < CharacterList.Count; i++)
+        {
+            string ImageName = CharacterList[i].cardImage;
+            if (GameManager.CharacterImageData.ContainsKey(ImageName))
+            {
+                CharacterList[i].SetChaImage(GameManager.CharacterImageData[ImageName]);     //누니 이미지 넣기     
+
+            }
+        }
         return CharacterList.ToArray();
 
     }
@@ -59,9 +69,6 @@ public class DicParsingManager : MonoBehaviour
         {
             csvData = Resources.Load<TextAsset>("Dogam");    //csv파일 가져옴
         }
-       
-       
-
 
         string[] data = csvData.text.Split(new char[] { '\n' });    //엔터 기준으로 쪼갬.
         //string[] pro_data;
@@ -81,6 +88,8 @@ public class DicParsingManager : MonoBehaviour
 
             DictionaryList.Add(character);
         }
+
+   
         return DictionaryList.ToArray();
     }
     // Update is called once per frame
