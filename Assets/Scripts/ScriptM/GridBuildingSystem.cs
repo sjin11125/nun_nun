@@ -110,7 +110,7 @@ public class GridBuildingSystem : MonoBehaviour
                 else
                 {
 
-                    if (hit.transform.tag == "Coin_Button")           //재화 버튼 누르면
+                    if (hit.transform.tag == "Coin_Button")           //재화 버튼 누르면 
                     {
                         Transform BuildingCoin = hit.transform.parent;
                         BuildingCoin.GetComponent<Building>().Coin_OK();
