@@ -20,7 +20,7 @@ public class GridScript : MonoBehaviour
     private LineIndicator _lineIndicator;
 
     public GameObject gameOver;
-    int keepSquareIndex;
+    public int keepSquareIndex;
     int trashCanIndex;
     public GameObject effectShape;
 
@@ -36,8 +36,15 @@ public class GridScript : MonoBehaviour
 
     void Start()
     {
+        Time.timeScale = 1f;
         _lineIndicator = GetComponent<LineIndicator>();
         CreateGrid();
+        /*
+        GridSquareObj = GameObject.FindGameObjectWithTag("GridSquare");
+        if (GridSquareObj != null)
+        {
+            useKeepSqr = GridSquareObj.GetComponent<GridSquare>().UseKeepBool;
+        }*/
     }
 
     void Update()
@@ -54,7 +61,7 @@ public class GridScript : MonoBehaviour
         GetInformation();
     }
 
-    private void CreateGrid()
+        private void CreateGrid()
     {
         SpawnGridSquares();
         SetGridSquaresPositions();
@@ -130,7 +137,7 @@ public class GridScript : MonoBehaviour
         }
     }
 
-    private void CheckIfShapeCanBePlaced()
+    public void CheckIfShapeCanBePlaced()
     {
         var squareIndexes = new List<int>();
 
@@ -185,8 +192,17 @@ public class GridScript : MonoBehaviour
             GameEvents.MoveShapeToStartPosition();//처음위치로
         }
     }
+    public void CheckIfKeepLineIsCompleted()
+    {
+        GameEvents.CheckIfShapeCanBePlaced += CheckIfShapeCanBePlaced;
+    }
 
-    void CheckIfAnyLineIsCompleted()
+    public void CheckIfKeepLineIsCompletedX()
+    {
+        GameEvents.CheckIfShapeCanBePlaced -= CheckIfShapeCanBePlaced;
+    }
+
+    private void CheckIfAnyLineIsCompleted()
     {
         List<int[]> lines = new List<int[]>();
 
@@ -485,7 +501,11 @@ public class GridScript : MonoBehaviour
 
         return isGameover;
     }
-
+    public GameObject KeepShapeObj;
+    public Sprite KeepImg;
+    public String KeepColor;
+    public String KeepShape;
+    int keepNum =0;
     public void UseKeep()//29번 스퀘어 클릭으로 shape에 색깔을 받을것임
     {
         GameObject ItemControllerObj = GameObject.FindGameObjectWithTag("ItemController");//컨트롤러에서 선택한 인덱스에 따라 위치 결정
@@ -495,20 +515,33 @@ public class GridScript : MonoBehaviour
         }
 
         if (keepSquareIndex != 30)
-        {
+        {           
             var comp = _gridSquares[keepSquareIndex].GetComponent<GridSquare>();//index번 친구
             if (comp.SquareOccupied == true)//index번 사용중이야
             {
-                comp.ColorTransfer();//그리드 스퀘어 함수 호출
+                KeepImg = comp.transform.GetChild(2).gameObject.GetComponent<Image>().sprite;
+                KeepColor = colors[keepSquareIndex];//킵 아이템 자리에 정보를 저장해놓는다
+                KeepShape = shapes[keepSquareIndex];
 
-                var KeepCount = _gridSquares[keepSquareIndex].GetComponent<GridSquare>().keepCount;
-                var KeepTimerObj = _gridSquares[keepSquareIndex].GetComponent<GridSquare>().keepTimer;
-                if (KeepCount > 0 && KeepTimerObj.activeSelf == false)
+                if(keepNum < 1)//하나의 프리팹만 생성한다
                 {
-                    comp.Deactivate();
-                    comp.ClearOccupied();
+                    GameObject keepInstance = Instantiate(KeepShapeObj) as GameObject;
+                    keepInstance.transform.SetParent(_gridSquares[keepSquareIndex].transform, false);
+                    Vector3 pos = new Vector3(0, 0, 0);
+                    keepInstance.transform.localPosition = pos;
+                    keepNum++;
                 }
+                
+                GameObject KeepObj = GameObject.FindGameObjectWithTag("KeepShape");//가지게된 정보를 프리팹에 전달
+                if (KeepObj != null)
+                {
+                    KeepObj.GetComponent<CreateKeepShape>().keepColor  = KeepColor; 
+                    KeepObj.GetComponent<CreateKeepShape>().keepShape  = KeepShape;
+                }
+                comp.Deactivate();//프리팹을 생성하고 정보도 줬으니 이 자리에 엑티브 이미지들은 끈다
+                comp.ClearOccupied();
             }
+            keepNum = 0;
         }
     }
 
@@ -526,14 +559,8 @@ public class GridScript : MonoBehaviour
             if (comp.SquareOccupied == true)
             {
                 comp.TrashCan();
-
-                var TrashCount = _gridSquares[trashCanIndex].GetComponent<GridSquare>().trashCount;
-                var TrashTimerObj = _gridSquares[trashCanIndex].GetComponent<GridSquare>().keepTimer;
-                if (TrashCount > 0 && TrashTimerObj.activeSelf == false)
-                {
-                    comp.Deactivate();
-                    comp.ClearOccupied();
-                }
+                comp.Deactivate();
+                comp.ClearOccupied();
             }
         }
     }
