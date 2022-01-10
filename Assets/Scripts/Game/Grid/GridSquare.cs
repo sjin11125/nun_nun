@@ -22,7 +22,7 @@ public class GridSquare : MonoBehaviour
     public string currentColor;
     public string currentShape;
     public Sprite keepImage;
-    public bool UseKeepBool = false;
+    public static bool UseKeepBool = false;
 
     void Start()
     {
@@ -105,6 +105,7 @@ public class GridSquare : MonoBehaviour
         {
             collision.GetComponent<ShapeSquare>().SetOccupied();//쉐이프 레드라이트
         }
+        UseKeepBool = false;
     }
 
     private void OnTriggerStay2D(Collider2D collision)//충돌중
@@ -140,12 +141,7 @@ public class GridSquare : MonoBehaviour
         {
             currentColor = GridObj.GetComponent<GridScript>().KeepColor;//나갈때확인해서 keep을 사용했던거라면 
             currentShape = GridObj.GetComponent<GridScript>().KeepShape;
-            GridObj.GetComponent<GridScript>().CheckIfKeepLineIsCompleted();
-            GridObj.GetComponent<GridScript>().CheckIfKeepLineIsCompletedX();
-            //GridObj.GetComponent<GridScript>().CheckIfAnyLineIsCompleted();//함수실행순서로인해 바로 없어지지않고 다음턴에 없어지기 때문에 바로 실행
         }
-       
-        UseKeepBool = false;
     }
 
     public void TrashCan()
