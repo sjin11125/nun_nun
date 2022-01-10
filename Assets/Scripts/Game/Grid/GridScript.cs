@@ -39,12 +39,6 @@ public class GridScript : MonoBehaviour
         Time.timeScale = 1f;
         _lineIndicator = GetComponent<LineIndicator>();
         CreateGrid();
-        /*
-        GridSquareObj = GameObject.FindGameObjectWithTag("GridSquare");
-        if (GridSquareObj != null)
-        {
-            useKeepSqr = GridSquareObj.GetComponent<GridSquare>().UseKeepBool;
-        }*/
     }
 
     void Update()
@@ -59,6 +53,11 @@ public class GridScript : MonoBehaviour
         }
         SettingKeep();
         GetInformation();
+
+       if(GridSquare.UseKeepBool==true)//킵 시용시
+        {
+            CheckIfKeepLineIsCompleted();
+        }
     }
 
         private void CreateGrid()
@@ -192,14 +191,41 @@ public class GridScript : MonoBehaviour
             GameEvents.MoveShapeToStartPosition();//처음위치로
         }
     }
-    public void CheckIfKeepLineIsCompleted()
+    public void CheckIfKeepLineIsCompleted()//킵은 엔터때 색깔이 들어가기때문에 새로운 함수 생성함
     {
-        GameEvents.CheckIfShapeCanBePlaced += CheckIfShapeCanBePlaced;
-    }
+        List<int[]> lines = new List<int[]>();
 
-    public void CheckIfKeepLineIsCompletedX()
-    {
-        GameEvents.CheckIfShapeCanBePlaced -= CheckIfShapeCanBePlaced;
+        //columns
+        foreach (var column in _lineIndicator.columnIndexes)//0-5
+        {
+            lines.Add(_lineIndicator.GetVerticalLine(column));//column은 0-4_5열
+        }
+
+        //rows
+        for (var row = 0; row < 5; row++)
+        {
+            List<int> data = new List<int>(5);
+            for (var index = 0; index < 5; index++)
+            {
+                data.Add(_lineIndicator.line_data[row, index]); //5행을 data에 저장
+            }
+            lines.Add(data.ToArray());//lines에 복사
+        }
+
+        var completedLines = CheckIfSquaresAreCompleted(lines);//행(0-5)렬(0-5) 정보전달 및 변수에 반환 int값 저장
+
+        if (completedLines > 2)
+        {
+            //TODO: Play bouns animation.
+        }
+
+        var totalScores = 10 * completedLines;
+        GameEvents.AddScores(totalScores);
+        if (GameOver())
+        {
+            gameOver.gameObject.SetActive(true);
+            Time.timeScale = 0;
+        }
     }
 
     private void CheckIfAnyLineIsCompleted()
