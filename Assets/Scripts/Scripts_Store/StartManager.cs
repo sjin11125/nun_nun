@@ -30,6 +30,8 @@ public class StartManager : MonoBehaviour
  * 4: 새로고침
  */
     public static Button[] LockButton;
+
+    public static GameObject Canvas;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,7 +41,7 @@ public class StartManager : MonoBehaviour
             NuNiInformation = DPManager.Parse_character(1);    //도감 정보 파싱
             isParsing = true;
         }
-
+        Canvas = GameObject.Find("Canvas");
     }
 
     // Update is called once per frame

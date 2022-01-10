@@ -52,8 +52,8 @@ public class DontDestroy : MonoBehaviour
         
         else if (SceneManager.GetActiveScene().name == "Main")
         {
-           
-            if (transform.childCount!=0)
+
+            if (transform.childCount != 0) 
             {
                 for (int i = 0; i < transform.childCount; i++)
                 {
