@@ -23,6 +23,10 @@ public class GridScript : MonoBehaviour
     public int keepSquareIndex;
     int trashCanIndex;
     public GameObject effectShape;
+    int keepSquareInt =0;
+    int UseTrashCanInt = 0;
+    int useMoveNum = 0;
+    public bool[] LongClick = new bool[25];
 
     private void OnEnable()
     {
@@ -43,24 +47,33 @@ public class GridScript : MonoBehaviour
 
     void Update()
     {
-        if(keepSquareIndex != 30)
+        if (keepSquareIndex != 30)// && keepSquareInt < 1)
         {
             UseKeep();
         }
-        if(trashCanIndex != 30)
+        if (trashCanIndex != 30) //&& UseTrashCanInt < 1)
         {
             UseTrashCan();
         }
         SettingKeep();
         GetInformation();
 
-       if(GridSquare.UseKeepBool==true)//킵 시용시
+        if (GridSquare.UseKeepBool == true)//킵 시용시
         {
             CheckIfKeepLineIsCompleted();
         }
+
+        for (int i = 0; i < 25; i++)
+        {
+            LongClick[i] = _gridSquares[i].GetComponent<GridSquare>().isLongClick;
+            if(LongClick[i] == true)
+            {
+                //MoveOneTime();
+            }
+        }
     }
 
-        private void CreateGrid()
+    private void CreateGrid()
     {
         SpawnGridSquares();
         SetGridSquaresPositions();
@@ -184,7 +197,7 @@ public class GridScript : MonoBehaviour
             }
 
             //쉐이프가 켜졌고 스퀘어가 켜졌어
-            CheckIfAnyLineIsCompleted();
+            CheckIfAnyLineIsCompleted();          
         }
         else
         {
@@ -228,8 +241,9 @@ public class GridScript : MonoBehaviour
         }
     }
 
-    private void CheckIfAnyLineIsCompleted()
+    private void CheckIfAnyLineIsCompleted()//하나 놓을때마다 한번실행
     {
+        useMoveNum = 0;
         List<int[]> lines = new List<int[]>();
 
         //columns
@@ -263,6 +277,7 @@ public class GridScript : MonoBehaviour
             gameOver.gameObject.SetActive(true);
             Time.timeScale = 0;
         }
+        useMoveNum++;
     }
 
     public int[] sameColorColumLine = new int[5];
@@ -569,6 +584,7 @@ public class GridScript : MonoBehaviour
             }
             keepNum = 0;
         }
+        keepSquareInt++;
     }
 
     public void UseTrashCan()
@@ -589,6 +605,7 @@ public class GridScript : MonoBehaviour
                 comp.ClearOccupied();
             }
         }
+        UseTrashCanInt++;
     }
 
     public void SettingKeep()//LineIndicator로 열을 하나 더 만들었는데 우린 keep자리와 can자리만 필요하니 그게 아니라면 끄기
@@ -601,5 +618,51 @@ public class GridScript : MonoBehaviour
                 comp.NonKeep();//GridSquare에 자기자신을 끄는 함수 호출
             }
         }
+    }
+
+    // bool isLongClick;
+   // bool[] isLongClick = new bool[25];
+    public int OneNum;
+    GameObject onMoveSquare;
+    int MoveSquareIndex;
+   // public Sprite moveImg;
+    public String moveColor;
+    public String moveShape;
+    public void MoveOneTime()
+    {
+        for (int i = 0; i < 25; i++)
+        {
+           if(LongClick[i] == true)
+           {
+                 onMoveSquare = _gridSquares[i].transform.gameObject;
+                 MoveSquareIndex = i;
+           }
+        }
+       
+        if (onMoveSquare.GetComponent<GridSquare>().SquareOccupied == true)
+        {
+            KeepImg = onMoveSquare.transform.GetChild(2).gameObject.GetComponent<Image>().sprite;
+            moveColor = colors[MoveSquareIndex];
+            moveShape = shapes[MoveSquareIndex];
+
+            if (OneNum < 1)//하나의 프리팹만 생성한다
+            {
+                GameObject keepInstance = Instantiate(KeepShapeObj) as GameObject;
+                keepInstance.transform.SetParent(onMoveSquare.transform, false);
+                Vector3 pos = new Vector3(0, 0, 0);
+                keepInstance.transform.localPosition = pos;
+                OneNum++;
+            }
+
+            GameObject KeepObj = GameObject.FindGameObjectWithTag("KeepShape");//가지게된 정보를 프리팹에 전달
+            if (KeepObj != null)
+            {
+                KeepObj.GetComponent<CreateKeepShape>().keepColor = moveColor;
+                KeepObj.GetComponent<CreateKeepShape>().keepShape = moveShape;
+            }
+            onMoveSquare.GetComponent<GridSquare>().Deactivate();
+            onMoveSquare.GetComponent<GridSquare>().ClearOccupied();
+        }
+        OneNum = 0;
     }
 }
