@@ -23,6 +23,10 @@ public class GridSquare : MonoBehaviour
     public string currentShape;
     public Sprite keepImage;
     public static bool UseKeepBool = false;
+    public bool isClick;
+    float clickTime;
+    float minClickTime = 0.5f;
+    public bool isLongClick = false;
 
     void Start()
     {
@@ -36,6 +40,18 @@ public class GridSquare : MonoBehaviour
         {
             GameObject squareImage = contectShape.transform.GetChild(0).gameObject;
             spriteImage = squareImage.GetComponent<Image>();
+        }
+    }
+
+    private void Update()
+    {
+        if (isClick)
+        {
+            clickTime += Time.deltaTime;
+        }
+        else
+        {
+            clickTime = 0;
         }
     }
     //temp function remove it
@@ -157,5 +173,19 @@ public class GridSquare : MonoBehaviour
         Selected = true; //선택됨
         SquareOccupied = true; //사용중
         gameObject.transform.GetChild(2).gameObject.GetComponent<Image>().sprite = keepImage;
+    }
+
+    public void ButtonDown()
+    {
+        isClick = true;
+        isLongClick = false;
+    }
+    public void ButtonUp()
+    {
+        isClick = false;
+        if (clickTime >= minClickTime && activeImage.gameObject.activeSelf==true)
+        {
+            isLongClick = true;
+        }
     }
 }

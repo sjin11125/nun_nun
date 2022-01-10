@@ -32,7 +32,14 @@ public class CreateKeepShape : MonoBehaviour, IPointerDownHandler,IBeginDragHand
         KeepObj = GameObject.FindGameObjectWithTag("Grid");
         if (KeepObj != null)
         {
+            //keep 사용중이면 keep이미지
             gameObject.GetComponent<Image>().sprite = KeepObj.GetComponent<GridScript>().KeepImg;
+            //한칸이동 사용중이면
+            /*
+            if (KeepObj.GetComponent<GridScript>().OneNum > 0)
+            {
+                gameObject.GetComponent<Image>().sprite = KeepObj.GetComponent<GridScript>().moveImg;
+            }*/
         }
     }
     private void OnTriggerStay2D(Collider2D collision)

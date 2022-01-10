@@ -61,13 +61,12 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 1a2533a3b2c9f4a4daeafc776f3c8b5d, type: 3}
   - {fileID: 21300000, guid: 1a2533a3b2c9f4a4daeafc776f3c8b5d, type: 3}
   spriteImage: {fileID: 0}
-  keepTimer: {fileID: 7590979033502365604}
   activeObj: {fileID: 30209628171898303}
-  keepCount: 0
-  trashCount: 0
   currentColor: 
   currentShape: 
-  KeepShape: {fileID: 382136203227040518, guid: 575c3710bcc6fb549a57d1d09969c74f, type: 3}
+  keepImage: {fileID: 0}
+  isClick: 0
+  isLongClick: 0
 --- !u!61 &3993508897618940226
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -126,6 +125,7 @@ GameObject:
   - component: {fileID: 5474936798810907871}
   - component: {fileID: 1043961626608080788}
   - component: {fileID: 7343963922375549049}
+  - component: {fileID: 7097695178356856098}
   m_Layer: 5
   m_Name: ActiveImage
   m_TagString: Untagged
@@ -190,6 +190,51 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7097695178356856098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30209628171898303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 272411580209306686}
+          m_TargetAssemblyTypeName: GridSquare, Assembly-CSharp
+          m_MethodName: ButtonDown
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 272411580209306686}
+          m_TargetAssemblyTypeName: GridSquare, Assembly-CSharp
+          m_MethodName: ButtonUp
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &313701584355867373
 GameObject:
   m_ObjectHideFlags: 0
@@ -437,11 +482,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b36bbb1f3e790143b6e1eaef500436a, type: 3}
---- !u!1 &7590979033502365604 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7251553664190179727, guid: 0b36bbb1f3e790143b6e1eaef500436a, type: 3}
-  m_PrefabInstance: {fileID: 1007155491272678955}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &2311714021789719767 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3309856773232689916, guid: 0b36bbb1f3e790143b6e1eaef500436a, type: 3}
