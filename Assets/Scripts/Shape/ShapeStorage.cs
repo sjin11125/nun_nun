@@ -5,12 +5,17 @@ using UnityEngine.UI;
 
 public class ShapeStorage : MonoBehaviour
 {
+    int shapeIndex;
     public List<ShapeData> shapeData;
     public List<Shape> shapeList;
 
     private Image spriteImage;
     private Image nextSquare;
     public Image exchangeSquare;
+
+    public string shapeColor;
+    public string shapeShape;
+    public int currentIndexSave;
 
     private void OnEnable()
     {
@@ -26,9 +31,10 @@ public class ShapeStorage : MonoBehaviour
     {
         foreach (var shape in shapeList)
         {
-            var shapeIndex = UnityEngine.Random.Range(0, shapeData.Count);
-            var nextIndex = UnityEngine.Random.Range(0, shapeData.Count);
-            shape.CreateShape(shapeData[shapeIndex]);
+            int firstIndex = UnityEngine.Random.Range(0, shapeData.Count);//첫번째 쉐이프 인덱스
+            currentIndexSave = firstIndex;//nextExchangeItem가 일어날수있으므로 저장
+            shapeIndex = UnityEngine.Random.Range(0, shapeData.Count);//넥스트 쉐이프 인덱스
+            shape.CreateShape(shapeData[firstIndex]);
 
             GameObject contectShape = GameObject.FindGameObjectWithTag("Shape");
             if (contectShape != null)
@@ -41,8 +47,10 @@ public class ShapeStorage : MonoBehaviour
             {
                 nextSquare = contectNext.GetComponent<Image>();
             }
-            spriteImage.sprite = shapeData[shapeIndex].sprite;
-            nextSquare.sprite = shapeData[nextIndex].sprite;
+            spriteImage.sprite = shapeData[firstIndex].sprite;
+            shapeColor = shapeData[firstIndex].color;
+            shapeShape = shapeData[firstIndex].shape;//첫턴에 첫번째 쉐입 정보가 담겨있다
+            nextSquare.sprite = shapeData[shapeIndex].sprite;
         }
     }
 
@@ -57,11 +65,14 @@ public class ShapeStorage : MonoBehaviour
         return null;
     }
 
-    private void RequestNewShapes()
+    private void RequestNewShapes()//두번째 턴부터 계속 여기서 실행됨
     {
         foreach (var shape in shapeList)
         {
-            var shapeIndex = UnityEngine.Random.Range(0, shapeData.Count);
+            shapeColor = shapeData[shapeIndex].color;//start에서 받은 정보로 전달
+            shapeShape = shapeData[shapeIndex].shape;
+            currentIndexSave = shapeIndex;
+            shapeIndex = UnityEngine.Random.Range(0, shapeData.Count);//실질적으로 넥스트 쉐입정보를 담고있음
             shape.RequestNewShape(shapeData[shapeIndex]);
 
             GameObject contectShape = GameObject.FindGameObjectWithTag("Shape");
@@ -80,18 +91,28 @@ public class ShapeStorage : MonoBehaviour
         }
     }
 
-    public void nextExchangeItem()
+    public void nextExchangeItem()//현재와 이후를 서로 자리교체
     {
-        exchangeSquare.sprite = spriteImage.sprite;
-        spriteImage.sprite= nextSquare.sprite;
+        shapeColor = shapeData[shapeIndex].color;//shapeIndex가 RequestNewShapes에서 이미 이후 정보를 담고있으니 실행
+        shapeShape = shapeData[shapeIndex].shape;
+
+        exchangeSquare.sprite = spriteImage.sprite;//스프라이트 교체
+        spriteImage.sprite = nextSquare.sprite;
         nextSquare.sprite = exchangeSquare.sprite;
+
+        int exchangeIndex = currentIndexSave;//인덱스 교체
+        currentIndexSave = shapeIndex;
+        shapeIndex = exchangeIndex;
     }
 
     public void ReloadItem()
     {
         foreach (var shape in shapeList)
         {
-            var shapeIndex = UnityEngine.Random.Range(0, shapeData.Count);
+            shapeColor = shapeData[shapeIndex].color;
+            shapeShape = shapeData[shapeIndex].shape;
+
+            shapeIndex = UnityEngine.Random.Range(0, shapeData.Count);
             shape.RequestNewShape(shapeData[shapeIndex]);
 
             GameObject contectShape = GameObject.FindGameObjectWithTag("Shape");

@@ -133,7 +133,7 @@ public class GridBuildingSystem : MonoBehaviour
                             temp.Remove();
 
                             Grid.GetComponent<SpriteRenderer>().sortingOrder = -48;
-                           
+                            
                         }
                     }
 

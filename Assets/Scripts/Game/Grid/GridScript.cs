@@ -20,9 +20,13 @@ public class GridScript : MonoBehaviour
     private LineIndicator _lineIndicator;
 
     public GameObject gameOver;
-    int keepSquareIndex;
+    public int keepSquareIndex;
     int trashCanIndex;
     public GameObject effectShape;
+    int keepSquareInt =0;
+    int UseTrashCanInt = 0;
+    int useMoveNum = 0;
+    public bool[] LongClick = new bool[25];
 
     private void OnEnable()
     {
@@ -36,21 +40,37 @@ public class GridScript : MonoBehaviour
 
     void Start()
     {
+        Time.timeScale = 1f;
         _lineIndicator = GetComponent<LineIndicator>();
         CreateGrid();
     }
 
     void Update()
     {
-        if(keepSquareIndex != 30)
+        if (keepSquareIndex != 30)// && keepSquareInt < 1)
         {
             UseKeep();
         }
-        if(trashCanIndex != 30)
+        if (trashCanIndex != 30) //&& UseTrashCanInt < 1)
         {
             UseTrashCan();
         }
         SettingKeep();
+        GetInformation();
+
+        if (GridSquare.UseKeepBool == true)//킵 시용시
+        {
+            CheckIfKeepLineIsCompleted();
+        }
+
+        for (int i = 0; i < 25; i++)
+        {
+            LongClick[i] = _gridSquares[i].GetComponent<GridSquare>().isLongClick;
+            if(LongClick[i] == true)
+            {
+                //MoveOneTime();
+            }
+        }
     }
 
     private void CreateGrid()
@@ -129,7 +149,7 @@ public class GridScript : MonoBehaviour
         }
     }
 
-    private void CheckIfShapeCanBePlaced()
+    public void CheckIfShapeCanBePlaced()
     {
         var squareIndexes = new List<int>();
 
@@ -177,15 +197,14 @@ public class GridScript : MonoBehaviour
             }
 
             //쉐이프가 켜졌고 스퀘어가 켜졌어
-            CheckIfAnyLineIsCompleted();
+            CheckIfAnyLineIsCompleted();          
         }
         else
         {
             GameEvents.MoveShapeToStartPosition();//처음위치로
         }
     }
-
-    void CheckIfAnyLineIsCompleted()
+    public void CheckIfKeepLineIsCompleted()//킵은 엔터때 색깔이 들어가기때문에 새로운 함수 생성함
     {
         List<int[]> lines = new List<int[]>();
 
@@ -218,35 +237,59 @@ public class GridScript : MonoBehaviour
         if (GameOver())
         {
             gameOver.gameObject.SetActive(true);
+            Time.timeScale = 0;
         }
     }
 
-    Sprite[] sprites = new Sprite[30];
-    int sameColorColum;
-    int sameColorRow;
-    int[] sameColorColumLine = new int[5];
-    int[] sameColorRowLine = new int[5];
-    int[] completeIndexArray = new int[5];
-    int[] sameColorZeroLine = new int[5];
-    int[] sameColorOneLine = new int[5];
+    private void CheckIfAnyLineIsCompleted()//하나 놓을때마다 한번실행
+    {
+        useMoveNum = 0;
+        List<int[]> lines = new List<int[]>();
+
+        //columns
+        foreach (var column in _lineIndicator.columnIndexes)//0-5
+        {
+            lines.Add(_lineIndicator.GetVerticalLine(column));//column은 0-4_5열
+        }
+
+        //rows
+        for (var row = 0; row < 5; row++)
+        {
+            List<int> data = new List<int>(5);
+            for (var index = 0; index < 5; index++)
+            {
+                data.Add(_lineIndicator.line_data[row, index]); //5행을 data에 저장
+            }
+            lines.Add(data.ToArray());//lines에 복사
+        }
+
+        var completedLines = CheckIfSquaresAreCompleted(lines);//행(0-5)렬(0-5) 정보전달 및 변수에 반환 int값 저장
+
+        if (completedLines > 2)
+        {
+            //TODO: Play bouns animation.
+        }
+
+        var totalScores = 10 * completedLines;
+        GameEvents.AddScores(totalScores);
+        if (GameOver())
+        {
+            gameOver.gameObject.SetActive(true);
+            Time.timeScale = 0;
+        }
+        useMoveNum++;
+    }
+
+    public int[] sameColorColumLine = new int[5];
+    public int[] sameColorRowLine = new int[5];
+    public int[] sameColorZeroLine = new int[5];
+    public int[] sameColorOneLine = new int[5];
+    public int[] completeIndexArray = new int[5];
     private int CheckIfSquaresAreCompleted(List<int[]> data)//행렬정보받음_data.Count==10;
     {
         List<int[]> completedLines = new List<int[]>();
         var linesCompleted = 0;
 
-        foreach (var line in data)//data안에 10개의 라인을 위한 반복 012345 012345
-        {
-            //line[0] 0 1 2 3 4        0 5 10 15 20     data[0]
-            //line[1] 5 6 7 8 9        1 6 11 16 21     data[1]
-            //line[2] 10 11 12 13 14   2 7 12 17 22     data[2]
-            //line[3] 15 16 17 18 19   3 8 13 18 23     data[3]
-            //line[4] 20 21 22 23 24   4 9 14 19 24     data[4]
-
-            foreach (var squareIndex in line)//라인안에 인덱스번호
-            {
-                sprites[squareIndex] = _gridSquares[squareIndex].transform.GetChild(2).GetComponent<Image>().sprite;
-            }
-        }
         if (CheckColumColor())      //열 체크
         {
             completedLines.Add(sameColorColumLine);
@@ -279,7 +322,7 @@ public class GridScript : MonoBehaviour
                 GameObject MainTimerObj = GameObject.FindGameObjectWithTag("MainTimer");
                 if (MainTimerObj != null)
                 {
-                    MainTimerObj.GetComponent<Timer>().timeLeft += 10;
+                    MainTimerObj.GetComponent<Timer>().timeLeft += 10;//라인을 맞출때마다 시간이 늘어남
                 }
             }
         }
@@ -306,13 +349,67 @@ public class GridScript : MonoBehaviour
 
         return sameColorLine;
     }
+
+    public string[] colors = new string[30];
+    public string[] shapes = new string[30];
+    public void GetInformation()
+    {
+        for (int i = 0; i < 30; i++)
+        {
+            colors[i] = _gridSquares[i].GetComponent<GridSquare>().currentColor;
+            shapes[i] = _gridSquares[i].GetComponent<GridSquare>().currentShape;
+        }
+    }
+    public bool CheckDiaZeroColor()
+    {
+        var sameTrueDiaz = false;
+        var sameColorTrueDiaz = false;
+        var sameShapeTrueDiaz = false;
+
+        if (colors[0] != null && colors[6] != null && colors[12] != null && colors[18] != null && colors[24] != null)
+        {
+            if (colors[0] == colors[6] && colors[0] == colors[12] && colors[0] == colors[18] && colors[0] == colors[24])
+            {
+                sameColorTrueDiaz =  true;
+                int j = 0;
+                for (int i = 0; i < 25; i += 6)
+                {
+                    sameColorZeroLine[j] = i;
+                    j++;
+                }
+            }
+            if (shapes[0] == shapes[6] && shapes[0] == shapes[12] && shapes[0] == shapes[18] && shapes[0] == shapes[24])
+            {
+                sameShapeTrueDiaz = true;
+                int j = 0;
+                for (int i = 0; i < 25; i += 6)
+                {
+                    sameColorZeroLine[j] = i;
+                    j++;
+                }
+            }
+        }
+
+        if(sameColorTrueDiaz || sameShapeTrueDiaz)
+        {
+            sameTrueDiaz = true;
+        }
+        else
+        {
+            sameTrueDiaz = false;
+        }
+        return sameTrueDiaz;
+    }
+
     public bool CheckDiaOneColor()
     {
+        var sameTrueDia = false;
         var sameColorTrueDia = false;
+        var sameShapeTrueDia = false;
 
-        if (sprites[4] != null && sprites[8] != null && sprites[12] != null && sprites[16] != null && sprites[20] != null)
+        if (colors[4] != null && colors[8] != null && colors[12] != null && colors[16] != null && colors[20] != null)
         {
-            if (sprites[4] == sprites[8] && sprites[4] == sprites[12] && sprites[4] == sprites[16] && sprites[4] == sprites[20])
+            if (colors[4] == colors[8] && colors[4] == colors[12] && colors[4] == colors[16] && colors[4] == colors[20])
             {
                 sameColorTrueDia = true;
                 int j = 0;
@@ -322,101 +419,134 @@ public class GridScript : MonoBehaviour
                     j++;
                 }
             }
-        }
-        return sameColorTrueDia;
-    }
-    public bool CheckDiaZeroColor()
-    {
-        var sameColorTrueDiaz = false;
 
-        if (sprites[0] != null && sprites[6] != null && sprites[12] != null && sprites[18] != null && sprites[24] != null)
-        {
-            if (sprites[0] == sprites[6] && sprites[0] == sprites[12] && sprites[0] == sprites[18] && sprites[0] == sprites[24])
+            if (shapes[4] == shapes[8] && shapes[4] == shapes[12] && shapes[4] == shapes[16] && shapes[4] == shapes[20])
             {
-                sameColorTrueDiaz = true;
+                sameShapeTrueDia = true;
                 int j = 0;
-                for (int i = 0; i < 25; i += 6)
+                for (int i = 4; i < 21; i += 4)
                 {
-                    sameColorZeroLine[j] = i;
+                    sameColorOneLine[j] = i;
                     j++;
                 }
             }
         }
-       
-        return sameColorTrueDiaz;
+
+        if (sameColorTrueDia || sameShapeTrueDia)
+        {
+            sameTrueDia = true;
+        }
+        else
+        {
+            sameTrueDia = false;
+        }
+        return sameTrueDia;
     }
 
     public bool CheckColumColor()
     {
-        var sameColorCompCol = 0;
+        var sameCompCol = 0;
+        var sameTrueCol = false;
         var sameColorTrueCol = false;
+        var sameShapeTrueCol = false;
 
-        for (int i = 0; i < 21; i += 5)
+        for (int i = 0; i < 21; i += 5)//0 5 10 15 20
         {
-            if (sprites[i] != null && sprites[i + 1] != null && sprites[i + 2] != null && sprites[i + 3] != null && sprites[i + 4] != null)
+            if (colors[i] != null && colors[i + 1] != null && colors[i + 2] != null && colors[i + 3] != null && colors[i + 4] != null)
             {
-                if (sprites[i] == sprites[i + 1] && sprites[i] == sprites[i + 2] && sprites[i] == sprites[i + 3] && sprites[i] == sprites[i + 4])
+                if (colors[i] == colors[i + 1] && colors[i] == colors[i + 2] && colors[i] == colors[i + 3] && colors[i] == colors[i + 4])
                 {
-                    sameColorCompCol = i;
+                    sameCompCol = i;
                     sameColorTrueCol = true;
+                }
+                if (shapes[i] == shapes[i + 1] && shapes[i] == shapes[i + 2] && shapes[i] == shapes[i + 3] && shapes[i] == shapes[i + 4])
+                {
+                    sameCompCol = i;
+                    sameShapeTrueCol = true;
                 }
             }
         }
 
-        if(sameColorTrueCol)
+        if(sameColorTrueCol|| sameShapeTrueCol)
         {
+            sameTrueCol = true;
             for (int i = 0; i < 5; i++)
             {
-                sameColorColumLine[i] = sameColorCompCol + i;
+                sameColorColumLine[i] = sameCompCol + i;
             }
         }
-        return sameColorTrueCol;
+        else
+        {
+            sameTrueCol = false;
+        }
+        return sameTrueCol;
     }
 
     public bool CheckRowColor() 
     {
-        var sameColorCompRow = 0;
+        var sameCompRow = 0;
+        var sameTrueRow = false;
         var sameColorTrueRow = false;
+        var sameShapeTrueRow = false;
 
         for (int i = 0; i < 5; i++)
         {
-            if (sprites[i] != null && sprites[i + 5] != null && sprites[i + 10] != null && sprites[i + 15] != null && sprites[i + 20] != null)
+            if (colors[i] != null && colors[i + 5] != null && colors[i + 10] != null && colors[i + 15] != null && colors[i + 20] != null)
             {
-                if (sprites[i] == sprites[i + 5] && sprites[i] == sprites[i + 10] && sprites[i] == sprites[i + 15] && sprites[i] == sprites[i + 20])
+                if (colors[i] == colors[i + 5] && colors[i] == colors[i + 10] && colors[i] == colors[i + 15] && colors[i] == colors[i + 20])
                 {
-                    sameColorCompRow = i;
+                    sameCompRow = i;
                     sameColorTrueRow = true;
+                }
+                if (shapes[i] == shapes[i + 5] && shapes[i] == shapes[i + 10] && shapes[i] == shapes[i + 15] && shapes[i] == shapes[i + 20])
+                {
+                    sameCompRow = i;
+                    sameShapeTrueRow = true;
                 }
             }
         }
 
-        if (sameColorTrueRow)
+        if (sameColorTrueRow || sameShapeTrueRow)
         {
+            sameTrueRow = true;
             int j = 0;
             for (int i = 0; i < 21; i += 5)
             {
-                sameColorRowLine[j] = sameColorCompRow + i;
+                sameColorRowLine[j] = sameCompRow + i;
                 j++;
             }
         }
-        return sameColorTrueRow;
+        else
+        {
+            sameTrueRow = false;
+        }
+        return sameTrueRow;
     }
 
     public bool GameOver()
     {
-        bool isGameover = true;
+        bool isGameover = false;
+        int fullNum = 0;
 
         for (int i = 0; i < 25; i++)
-        {
-            var comp = _gridSquares[i].GetComponent<GridSquare>();
-            if (comp.SquareOccupied == false)
+        {         
+            if (colors[i] != null)
             {
-                isGameover = false;
+                fullNum++;
             }
         }
+        if(fullNum == 25)
+        {
+            isGameover = true;
+        }
+
         return isGameover;
     }
-
+    public GameObject KeepShapeObj;
+    public Sprite KeepImg;
+    public String KeepColor;
+    public String KeepShape;
+    int keepNum =0;
     public void UseKeep()//29번 스퀘어 클릭으로 shape에 색깔을 받을것임
     {
         GameObject ItemControllerObj = GameObject.FindGameObjectWithTag("ItemController");//컨트롤러에서 선택한 인덱스에 따라 위치 결정
@@ -426,21 +556,35 @@ public class GridScript : MonoBehaviour
         }
 
         if (keepSquareIndex != 30)
-        {
+        {           
             var comp = _gridSquares[keepSquareIndex].GetComponent<GridSquare>();//index번 친구
             if (comp.SquareOccupied == true)//index번 사용중이야
             {
-                comp.ColorTransfer();//그리드 스퀘어 함수 호출
+                KeepImg = comp.transform.GetChild(2).gameObject.GetComponent<Image>().sprite;
+                KeepColor = colors[keepSquareIndex];//킵 아이템 자리에 정보를 저장해놓는다
+                KeepShape = shapes[keepSquareIndex];
 
-                var KeepCount = _gridSquares[keepSquareIndex].GetComponent<GridSquare>().keepCount;
-                var KeepTimerObj = _gridSquares[keepSquareIndex].GetComponent<GridSquare>().keepTimer;
-                if (KeepCount > 0 && KeepTimerObj.activeSelf == false)
+                if(keepNum < 1)//하나의 프리팹만 생성한다
                 {
-                    comp.Deactivate();
-                    comp.ClearOccupied();
+                    GameObject keepInstance = Instantiate(KeepShapeObj) as GameObject;
+                    keepInstance.transform.SetParent(_gridSquares[keepSquareIndex].transform, false);
+                    Vector3 pos = new Vector3(0, 0, 0);
+                    keepInstance.transform.localPosition = pos;
+                    keepNum++;
                 }
+                
+                GameObject KeepObj = GameObject.FindGameObjectWithTag("KeepShape");//가지게된 정보를 프리팹에 전달
+                if (KeepObj != null)
+                {
+                    KeepObj.GetComponent<CreateKeepShape>().keepColor  = KeepColor; 
+                    KeepObj.GetComponent<CreateKeepShape>().keepShape  = KeepShape;
+                }
+                comp.Deactivate();//프리팹을 생성하고 정보도 줬으니 이 자리에 엑티브 이미지들은 끈다
+                comp.ClearOccupied();
             }
+            keepNum = 0;
         }
+        keepSquareInt++;
     }
 
     public void UseTrashCan()
@@ -457,16 +601,11 @@ public class GridScript : MonoBehaviour
             if (comp.SquareOccupied == true)
             {
                 comp.TrashCan();
-
-                var TrashCount = _gridSquares[trashCanIndex].GetComponent<GridSquare>().trashCount;
-                var TrashTimerObj = _gridSquares[trashCanIndex].GetComponent<GridSquare>().keepTimer;
-                if (TrashCount > 0 && TrashTimerObj.activeSelf == false)
-                {
-                    comp.Deactivate();
-                    comp.ClearOccupied();
-                }
+                comp.Deactivate();
+                comp.ClearOccupied();
             }
         }
+        UseTrashCanInt++;
     }
 
     public void SettingKeep()//LineIndicator로 열을 하나 더 만들었는데 우린 keep자리와 can자리만 필요하니 그게 아니라면 끄기
@@ -479,5 +618,51 @@ public class GridScript : MonoBehaviour
                 comp.NonKeep();//GridSquare에 자기자신을 끄는 함수 호출
             }
         }
+    }
+
+    // bool isLongClick;
+   // bool[] isLongClick = new bool[25];
+    public int OneNum;
+    GameObject onMoveSquare;
+    int MoveSquareIndex;
+   // public Sprite moveImg;
+    public String moveColor;
+    public String moveShape;
+    public void MoveOneTime()
+    {
+        for (int i = 0; i < 25; i++)
+        {
+           if(LongClick[i] == true)
+           {
+                 onMoveSquare = _gridSquares[i].transform.gameObject;
+                 MoveSquareIndex = i;
+           }
+        }
+       
+        if (onMoveSquare.GetComponent<GridSquare>().SquareOccupied == true)
+        {
+            KeepImg = onMoveSquare.transform.GetChild(2).gameObject.GetComponent<Image>().sprite;
+            moveColor = colors[MoveSquareIndex];
+            moveShape = shapes[MoveSquareIndex];
+
+            if (OneNum < 1)//하나의 프리팹만 생성한다
+            {
+                GameObject keepInstance = Instantiate(KeepShapeObj) as GameObject;
+                keepInstance.transform.SetParent(onMoveSquare.transform, false);
+                Vector3 pos = new Vector3(0, 0, 0);
+                keepInstance.transform.localPosition = pos;
+                OneNum++;
+            }
+
+            GameObject KeepObj = GameObject.FindGameObjectWithTag("KeepShape");//가지게된 정보를 프리팹에 전달
+            if (KeepObj != null)
+            {
+                KeepObj.GetComponent<CreateKeepShape>().keepColor = moveColor;
+                KeepObj.GetComponent<CreateKeepShape>().keepShape = moveShape;
+            }
+            onMoveSquare.GetComponent<GridSquare>().Deactivate();
+            onMoveSquare.GetComponent<GridSquare>().ClearOccupied();
+        }
+        OneNum = 0;
     }
 }

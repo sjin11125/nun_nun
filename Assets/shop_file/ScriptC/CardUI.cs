@@ -18,23 +18,20 @@ public class CardUI : MonoBehaviour, IPointerDownHandler
     // 카드의 정보를 초기화
     public Card CardUISet(Card card)  //변경
     {
-        Card Result = new Card(card);
-
-        for (int i = 0; i < StartManager.NuNiInformation.Length; i++)
+        
+        Debug.Log(GameManager.AllNuniArray.Length);
+        for (int i = 0; i <GameManager.AllNuniArray.Length; i++)
         {
-
-            if (StartManager.NuNiInformation[i].cardName == card.cardName)
+            if (GameManager.AllNuniArray[i].cardName==card.cardName)
             {
-                card.SetChaImage(GameManager.GetCharacterImage(StartManager.NuNiInformation[i].cardImage));
+                card = GameManager.AllNuniArray[i];
                 chr.sprite = card.GetChaImange();
-                card.cardImage = StartManager.NuNiInformation[i].cardImage;
-                cardName.text = card.cardName;
-
+                cardName.text= card.cardName;
+                
             }
-          
         }
-        Result = card;
-        return Result;
+        Card result = new Card(card);
+        return result;
     }
     // 카드가 클릭되면 뒤집는 애니메이션 재생
     public void OnPointerDown(PointerEventData eventData)
