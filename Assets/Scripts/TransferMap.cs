@@ -10,7 +10,7 @@ public class TransferMap : MonoBehaviour
     public void OnClick()
     {
         GameManager.BuildingArray = GameManager.BuildingList.ToArray();
-        Debug.Log("Transfer");
+        Debug.Log("Yahoo");
         for (int i = 0; i < GameManager.BuildingArray.Length; i++)
         {
             Debug.Log(i);
