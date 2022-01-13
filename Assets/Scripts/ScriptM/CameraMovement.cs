@@ -5,6 +5,10 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour
 {
     public float zoomOutMin = 1;
+    public float zoomOutMax = 5; // 이거 5로해야 안튀어나감
+
+    //터치가 되지 않을까 해서 적어보는 코드
+    Vector3 touchStart;
 
     [SerializeField]
     private Camera cam;
@@ -15,7 +19,7 @@ public class CameraMovement : MonoBehaviour
     private Vector3 dragOrigin;
 
     [SerializeField]
-    private SpriteRenderer mapRenderer;
+    private SpriteRenderer mapRenderer; // 패널생성
     private float mapMinX, mapMaxX, mapMinY, mapMaxY;
 
 
@@ -24,8 +28,9 @@ public class CameraMovement : MonoBehaviour
     {
 
     }
+    //
 
-    private void Awake()
+    private void Awake() // 카메라 최대, 최소 결정
     {
         mapMinX = mapRenderer.transform.position.x - mapRenderer.bounds.size.x / 2f;
         mapMaxX = mapRenderer.transform.position.x + mapRenderer.bounds.size.x / 2f;
@@ -57,9 +62,13 @@ public class CameraMovement : MonoBehaviour
     {
         PanCamera();
 
+        //touch code
+
+
+
         zoom(Input.GetAxis("Mouse ScrollWheel"));
     }
-    private void PanCamera()
+    private void PanCamera() //이게 이동
     {
 
         if (Input.GetMouseButtonDown(0))
@@ -74,12 +83,46 @@ public class CameraMovement : MonoBehaviour
             cam.transform.position = ClampCamera(cam.transform.position + difference);
 
 
+
+
+
+
+
+
         }
     }
 
-
-    void zoom(float increment)
+    // 줌아웃을 할때 판넬보다 크면은 판넬 크기에 고정되어야함.  
+    void zoom(float increment) // 여기가 줌
     {
-        Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize - increment, zoomOutMin, mapMaxY);
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            touchStart = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        }
+        if (Input.touchCount == 2)
+        {
+            Touch touchZero = Input.GetTouch(0);
+            Touch touchOne = Input.GetTouch(1);
+
+            Vector2 touchZeroPrevPos = touchZero.position - touchZero.deltaPosition;
+            Vector2 touchOnePrevPos = touchOne.position - touchOne.deltaPosition;
+
+            float prevMagnitude = (touchZeroPrevPos - touchOnePrevPos).magnitude;
+            float currentMagnitude = (touchZero.position - touchOne.position).magnitude;
+
+            float difference = currentMagnitude - prevMagnitude;
+
+            zoom(difference * 0.01f);
+        }
+        /*else if (Input.GetMouseButton(0))
+        {
+            Vector3 direction = touchStart - Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Camera.main.transform.position += direction;
+        }
+        */
+
+        //Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize - increment, zoomOutMin, mapMaxX);
+        Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize - increment, zoomOutMin, zoomOutMax);
     }
 }

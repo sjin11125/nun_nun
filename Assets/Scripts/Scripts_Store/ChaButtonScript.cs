@@ -33,6 +33,8 @@ public class ChaButtonScript : MonoBehaviour
     GameObject Grid;
 
     public GameObject NuniInfoPannel;
+
+    public GameObject WindowClose;
     // Start is called before the first frame update
     void Start()
     {
@@ -44,18 +46,18 @@ public class ChaButtonScript : MonoBehaviour
         NuniInfo.transform.SetParent(StartManager.Canvas.transform);        //캔버스 부모설정
         NuniInfo.GetComponent<RectTransform>().localPosition = new Vector3(0, 0, 0);
 
-        
+
         for (int i = 0; i < GameManager.AllNuniArray.Length; i++)
         {
-           // Debug.Log(transform.parent.name);
-            if (transform.name== GameManager.AllNuniArray[i].cardImage)
+            // Debug.Log(transform.parent.name);
+            if (transform.name == GameManager.AllNuniArray[i].cardImage)
             {
                 Card nuni = GameManager.AllNuniArray[i];
 
                 Text[] InfoTexts = NuniInfo.GetComponentsInChildren<Text>();
                 Image[] InfoImage = NuniInfo.GetComponentsInChildren<Image>();
 
-                InfoImage[2].sprite= nuni.GetChaImange();
+                InfoImage[2].sprite = nuni.GetChaImange();
 
                 InfoTexts[0].text = nuni.cardName;      //누니 이름 넣기
                 //InfoTexts[1].text=nuni.                  //누니 설명
@@ -64,7 +66,7 @@ public class ChaButtonScript : MonoBehaviour
 
             }
         }
-        
+
 
     }
     public void IsUpgrade()         //건물 업그레이드 할 것 인가?
@@ -95,9 +97,9 @@ public class ChaButtonScript : MonoBehaviour
                      return;
                  }
              }*/
-       
-                Debug.Log(buildings.Length);
-            
+
+            Debug.Log(buildings.Length);
+
             buildings[1].SetActive(true);
             building.level += 1;
         }
@@ -129,17 +131,17 @@ public class ChaButtonScript : MonoBehaviour
             gameObject.GetComponent<Button>().enabled = false;
         }
     }
-    public void Upgrade(GameObject[] buildings, int level,Building building)              //건물 업그레이드
+    public void Upgrade(GameObject[] buildings, int level, Building building)              //건물 업그레이드
     {                                                                   //현재 가지고 있는 건물 리스트에서 해당 건물 찾아서 레벨 수정
         ChaButtonScript.buildings = buildings;
         ChaButtonScript.level = level;
-        Debug.Log("this.buildings: "+ ChaButtonScript.buildings.Length);
+        Debug.Log("this.buildings: " + ChaButtonScript.buildings.Length);
         Transform UPPannelTrans = gameObject.GetComponent<Transform>();
 
         transform.parent = GameObject.Find("O").transform;
         GetComponent<RectTransform>().localPosition = new Vector3(0, 0, 0);
 
-     
+
         // Transform[] buildingTrans = buildings.GetComponentsInChildren<Transform>();
 
     }
@@ -150,20 +152,29 @@ public class ChaButtonScript : MonoBehaviour
 
         if (gameObject.tag == "Building")
         {
-            for (int i =5; i < Window.Length - 2; i++)
+            for (int i = 5; i < Window.Length - 2; i++)
             {
                 Destroy(Window[i].gameObject);
             }
         }
-        else 
+        else
         {
-            for (int i = 6; i < Window.Length-1; i++)
+            for (int i = 6; i < Window.Length - 1; i++)
             {
                 Destroy(Window[i].gameObject);
             }
         }
 
         GameManager.isStore = false;
+    }
+    public void CloseClick()
+    {
+        Transform[] WindowChilds = WindowClose.GetComponentsInChildren<Transform>();
+
+        for (int i = 1; i < WindowChilds.Length; i++)
+        {
+            Destroy(WindowChilds[i].gameObject);
+        }
     }
 
     public void CloseButtonClick2()
