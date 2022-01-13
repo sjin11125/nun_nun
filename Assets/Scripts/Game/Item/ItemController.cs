@@ -11,7 +11,7 @@ public class ItemController : MonoBehaviour
 
     void Awake()
     {
-        
+       
         for (int i = 0; i < 5; i++)
         {
             mainItemBool[i] = GameManager.Items[i];
