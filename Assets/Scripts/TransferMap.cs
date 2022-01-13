@@ -9,6 +9,7 @@ public class TransferMap : MonoBehaviour
 
     public void OnClick()
     {
-        SceneManager.LoadScene(transferMapName);
+        //SceneManager.LoadScene(transferMapName);
+        LoadingSceneController.Instance.LoadScene(transferMapName);
     }
 }
