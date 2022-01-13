@@ -25,8 +25,9 @@ public class GridScript : MonoBehaviour
     public GameObject effectShape;
     int keepSquareInt =0;
     int UseTrashCanInt = 0;
-    int useMoveNum = 0;
-    public bool[] LongClick = new bool[25];
+    static public int EraserItemTurn;
+    static public int KeepItemTurn = 3;
+    static public int TrashItemTurn = 3;
 
     private void OnEnable()
     {
@@ -61,15 +62,6 @@ public class GridScript : MonoBehaviour
         if (GridSquare.UseKeepBool == true)//킵 시용시
         {
             CheckIfKeepLineIsCompleted();
-        }
-
-        for (int i = 0; i < 25; i++)
-        {
-            LongClick[i] = _gridSquares[i].GetComponent<GridSquare>().isLongClick;
-            if(LongClick[i] == true)
-            {
-                //MoveOneTime();
-            }
         }
     }
 
@@ -197,7 +189,7 @@ public class GridScript : MonoBehaviour
             }
 
             //쉐이프가 켜졌고 스퀘어가 켜졌어
-            CheckIfAnyLineIsCompleted();          
+            CheckIfAnyLineIsCompleted();
         }
         else
         {
@@ -234,16 +226,19 @@ public class GridScript : MonoBehaviour
 
         var totalScores = 10 * completedLines;
         GameEvents.AddScores(totalScores);
-        if (GameOver())
+
+        if (completedLines == 0)
         {
-            gameOver.gameObject.SetActive(true);
-            Time.timeScale = 0;
+            if (GameOver())
+            {
+                gameOver.gameObject.SetActive(true);
+                Time.timeScale = 0;
+            }
         }
     }
 
     private void CheckIfAnyLineIsCompleted()//하나 놓을때마다 한번실행
     {
-        useMoveNum = 0;
         List<int[]> lines = new List<int[]>();
 
         //columns
@@ -272,12 +267,15 @@ public class GridScript : MonoBehaviour
 
         var totalScores = 10 * completedLines;
         GameEvents.AddScores(totalScores);
-        if (GameOver())
+
+        if (completedLines == 0)
         {
-            gameOver.gameObject.SetActive(true);
-            Time.timeScale = 0;
+            if (GameOver())
+            {
+                gameOver.gameObject.SetActive(true);
+                Time.timeScale = 0;
+            }
         }
-        useMoveNum++;
     }
 
     public int[] sameColorColumLine = new int[5];
@@ -287,6 +285,9 @@ public class GridScript : MonoBehaviour
     public int[] completeIndexArray = new int[5];
     private int CheckIfSquaresAreCompleted(List<int[]> data)//행렬정보받음_data.Count==10;
     {
+        EraserItemTurn--;
+        KeepItemTurn--;
+        TrashItemTurn--;
         List<int[]> completedLines = new List<int[]>();
         var linesCompleted = 0;
 
@@ -581,6 +582,7 @@ public class GridScript : MonoBehaviour
                 }
                 comp.Deactivate();//프리팹을 생성하고 정보도 줬으니 이 자리에 엑티브 이미지들은 끈다
                 comp.ClearOccupied();
+                KeepItemTurn = 3;
             }
             keepNum = 0;
         }
@@ -598,11 +600,26 @@ public class GridScript : MonoBehaviour
         if (trashCanIndex != 30)
         {
             var comp = _gridSquares[trashCanIndex].GetComponent<GridSquare>();
-            if (comp.SquareOccupied == true)
+            if(TrashItemTurn < 1)
             {
-                comp.TrashCan();
-                comp.Deactivate();
-                comp.ClearOccupied();
+                _gridSquares[trashCanIndex].transform.GetChild(0).gameObject.transform
+               .GetChild(0).gameObject.GetComponent<Text>().text = " ";
+                comp.SquareOccupied = false;
+                comp.Selected = false;
+                if (_gridSquares[trashCanIndex].transform.GetChild(2).gameObject.activeSelf == true)
+                {
+                    _gridSquares[trashCanIndex].transform.GetChild(2).gameObject.SetActive(false);
+                    GridScript.TrashItemTurn = 3;
+                   // comp.SquareOccupied = true;
+                   // comp.Selected = true;
+                }
+            }
+            else
+            {
+                _gridSquares[trashCanIndex].transform.GetChild(0).gameObject.transform
+                .GetChild(0).gameObject.GetComponent<Text>().text = TrashItemTurn.ToString();
+                comp.SquareOccupied = true;
+                comp.Selected = true;
             }
         }
         UseTrashCanInt++;
@@ -618,51 +635,5 @@ public class GridScript : MonoBehaviour
                 comp.NonKeep();//GridSquare에 자기자신을 끄는 함수 호출
             }
         }
-    }
-
-    // bool isLongClick;
-   // bool[] isLongClick = new bool[25];
-    public int OneNum;
-    GameObject onMoveSquare;
-    int MoveSquareIndex;
-   // public Sprite moveImg;
-    public String moveColor;
-    public String moveShape;
-    public void MoveOneTime()
-    {
-        for (int i = 0; i < 25; i++)
-        {
-           if(LongClick[i] == true)
-           {
-                 onMoveSquare = _gridSquares[i].transform.gameObject;
-                 MoveSquareIndex = i;
-           }
-        }
-       
-        if (onMoveSquare.GetComponent<GridSquare>().SquareOccupied == true)
-        {
-            KeepImg = onMoveSquare.transform.GetChild(2).gameObject.GetComponent<Image>().sprite;
-            moveColor = colors[MoveSquareIndex];
-            moveShape = shapes[MoveSquareIndex];
-
-            if (OneNum < 1)//하나의 프리팹만 생성한다
-            {
-                GameObject keepInstance = Instantiate(KeepShapeObj) as GameObject;
-                keepInstance.transform.SetParent(onMoveSquare.transform, false);
-                Vector3 pos = new Vector3(0, 0, 0);
-                keepInstance.transform.localPosition = pos;
-                OneNum++;
-            }
-
-            GameObject KeepObj = GameObject.FindGameObjectWithTag("KeepShape");//가지게된 정보를 프리팹에 전달
-            if (KeepObj != null)
-            {
-                KeepObj.GetComponent<CreateKeepShape>().keepColor = moveColor;
-                KeepObj.GetComponent<CreateKeepShape>().keepShape = moveShape;
-            }
-            onMoveSquare.GetComponent<GridSquare>().Deactivate();
-            onMoveSquare.GetComponent<GridSquare>().ClearOccupied();
-        }
-        OneNum = 0;
     }
 }
