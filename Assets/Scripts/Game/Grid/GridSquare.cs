@@ -23,10 +23,6 @@ public class GridSquare : MonoBehaviour
     public string currentShape;
     public Sprite keepImage;
     public static bool UseKeepBool = false;
-    public bool isClick;
-    float clickTime;
-    float minClickTime = 0.5f;
-    public bool isLongClick = false;
 
     void Start()
     {
@@ -43,17 +39,6 @@ public class GridSquare : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (isClick)
-        {
-            clickTime += Time.deltaTime;
-        }
-        else
-        {
-            clickTime = 0;
-        }
-    }
     //temp function remove it
     public bool CanWeUseThisSquare()
     {
@@ -162,7 +147,8 @@ public class GridSquare : MonoBehaviour
 
     public void TrashCan()
     {
-        activeImage.sprite = normalImage.sprite;
+        //activeImage.sprite = normalImage.sprite;
+        //GridScript.TrashItemTurn = 3;      
     }
     public void UseSquareKeep()//Åµ ÇÁ¸®ÆÕ°ú ´êÀ¸¸é ÄÑÁö´Â ÇÔ¼ö
     {
@@ -173,19 +159,5 @@ public class GridSquare : MonoBehaviour
         Selected = true; //¼±ÅÃµÊ
         SquareOccupied = true; //»ç¿ëÁß
         gameObject.transform.GetChild(2).gameObject.GetComponent<Image>().sprite = keepImage;
-    }
-
-    public void ButtonDown()
-    {
-        isClick = true;
-        isLongClick = false;
-    }
-    public void ButtonUp()
-    {
-        isClick = false;
-        if (clickTime >= minClickTime && activeImage.gameObject.activeSelf==true)
-        {
-            isLongClick = true;
-        }
     }
 }
