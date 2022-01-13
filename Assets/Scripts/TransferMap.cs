@@ -23,7 +23,7 @@ public class TransferMap : MonoBehaviour
         }
 
 
-        SceneManager.LoadScene(transferMapName);
+        LoadingSceneController.Instance.LoadScene(transferMapName);
 
     }
 }
