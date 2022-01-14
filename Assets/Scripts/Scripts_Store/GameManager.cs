@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
     //public static Card[] CharacterArray;               //현재 가지고 있는 캐릭터 배열
     
 
-    public static bool[] Items=new bool[5];     //현재 가지고 잇는 아이템 유무
+    public static bool[] Items=new bool[10];     //현재 가지고 잇는 아이템 유무
     public static int items=0;
     public static bool isStore = false;
 
@@ -56,11 +56,16 @@ public class GameManager : MonoBehaviour
 
 
     /* 아이템 목록
-     * 0: 지우개
-     * 1: 킵
-     * 2: 쓰레기통
-     * 3: 미리보기
-     * 4: 새로고침
+     * 0: 지우개               (황제)
+     * 1: 킵                   (비서)
+     * 2: 쓰레기통             (청소부)
+     * 3: 미리보기             (탐정)
+     * 4: 새로고침             (개발자)
+     * 5: <=>                  (과학자)
+     * 6: 가로3개              (팡팡)
+     * 7: 세로3개              (펑펑)
+     * 8: 모든 대체할수 있는 말(유니콘)
+     * 9: 말의 색깔을 바꾼다   (마법사)
      */
     // Start is called before the first frame update
     void Start()

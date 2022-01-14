@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class ItemController : MonoBehaviour
 {
-    public GameObject eraserItem, nextSquareItem, nextResetItem;
+    public GameObject eraserItem, nextSquareItem, nextResetItem, NextExchangeItem;
     public int keepItemIndex, trashCanItemIndex;
 
-    public bool[] mainItemBool = new bool[5];
+    public bool[] mainItemBool = new bool[6];
 
     void Awake()
-    {
-       
+    {      
         for (int i = 0; i < 5; i++)
         {
             mainItemBool[i] = GameManager.Items[i];
@@ -60,6 +59,14 @@ public class ItemController : MonoBehaviour
         else
         {
             nextResetItem.SetActive(false);
+        }
+        if (mainItemBool[5] == true)
+        {
+            NextExchangeItem.SetActive(true);
+        }
+        else
+        {
+            NextExchangeItem.SetActive(false);
         }
     }
 }

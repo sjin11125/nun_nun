@@ -26,6 +26,8 @@ public class GridSquare : MonoBehaviour
 
     void Start()
     {
+        GridScript.TrashItemTurn = 20;
+        GridScript.KeepItemTurn = 3;
         Selected = false;
         SquareOccupied = false;
         currentColor = null;
@@ -145,11 +147,6 @@ public class GridSquare : MonoBehaviour
         }
     }
 
-    public void TrashCan()
-    {
-        //activeImage.sprite = normalImage.sprite;
-        //GridScript.TrashItemTurn = 3;      
-    }
     public void UseSquareKeep()//Åµ ÇÁ¸®ÆÕ°ú ´êÀ¸¸é ÄÑÁö´Â ÇÔ¼ö
     {
         UseKeepBool = true;
@@ -158,6 +155,6 @@ public class GridSquare : MonoBehaviour
 
         Selected = true; //¼±ÅÃµÊ
         SquareOccupied = true; //»ç¿ëÁß
-        gameObject.transform.GetChild(2).gameObject.GetComponent<Image>().sprite = keepImage;
+        keepImage = gameObject.transform.GetChild(2).gameObject.GetComponent<Image>().sprite;
     }
 }
