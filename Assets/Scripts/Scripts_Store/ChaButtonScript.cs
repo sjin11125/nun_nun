@@ -15,6 +15,7 @@ public class ChaButtonScript : MonoBehaviour
     public bool isCheck = false;
 
     public Text ButtonText;
+    
     /* 아이템 목록
 * 0: 지우개(배치되어있는거 버림)
 * 1: 킵
@@ -35,11 +36,14 @@ public class ChaButtonScript : MonoBehaviour
     public GameObject NuniInfoPannel;
 
     public GameObject WindowClose;
+
+    public GameObject NuniUpgradeButton;
     // Start is called before the first frame update
     void Start()
     {
         Grid = GameObject.Find("back_down");
     }
+    public void Islockfalse()=> GameManager.isMoveLock = false;
     public void NuniInfoClick()
     {
         GameObject NuniInfo = Instantiate(NuniInfoPannel) as GameObject;        //누니 정보 패널 Instantiate
@@ -56,12 +60,18 @@ public class ChaButtonScript : MonoBehaviour
 
                 Text[] InfoTexts = NuniInfo.GetComponentsInChildren<Text>();
                 Image[] InfoImage = NuniInfo.GetComponentsInChildren<Image>();
+                Image[] stars = NuniInfo.transform.Find("Stars").GetComponentsInChildren<Image>();
+                
 
+                for (int j = 0; j <int.Parse( GameManager.AllNuniArray[i].Star); j++)   //별 넣기
+                {
+                    stars[j].color = new Color(1,1,1);
+                }
                 InfoImage[2].sprite = nuni.GetChaImange();
 
                 InfoTexts[0].text = nuni.cardName;      //누니 이름 넣기
-                //InfoTexts[1].text=nuni.                  //누니 설명
-                //누니 보유 효과
+                InfoTexts[1].text = nuni.Info;                  //누니 설명
+                InfoTexts[2].text = nuni.Effect; //누니 보유 효과
 
 
             }
@@ -71,6 +81,7 @@ public class ChaButtonScript : MonoBehaviour
     }
     public void IsUpgrade()         //건물 업그레이드 할 것 인가?
     {
+        GameManager.isMoveLock = false;
         Building building = buildings[0].transform.parent.GetComponent<Building>();
         string building_name = buildings[0].transform.parent.name;
         Debug.Log(building_name);
@@ -166,6 +177,7 @@ public class ChaButtonScript : MonoBehaviour
         }
 
         GameManager.isStore = false;
+        GameManager.isMoveLock = false;
     }
     public void CloseClick()
     {
@@ -175,6 +187,7 @@ public class ChaButtonScript : MonoBehaviour
         {
             Destroy(WindowChilds[i].gameObject);
         }
+        GameManager.isMoveLock = false;
     }
 
     public void CloseButtonClick2()
@@ -186,6 +199,7 @@ public class ChaButtonScript : MonoBehaviour
             Destroy(child[i].gameObject);
             
         }
+        GameManager.isMoveLock = false;
     }
     public void ButtonClick()
     {
@@ -364,6 +378,7 @@ public class ChaButtonScript : MonoBehaviour
         GameObject DogamCha = Instantiate(LockPanel);
         DogamCha.transform.SetParent(StartManager.Canvas.transform);
         DogamCha.GetComponent<RectTransform>().localPosition = new Vector3(0, 0, 0);
+        GameManager.isMoveLock = false;
     }
 
     public void LockChaButtonClick2()       //빌딩 살려고 구매버튼 클릭할 때
@@ -435,10 +450,10 @@ public class ChaButtonScript : MonoBehaviour
         }
 
         GameManager.isStore = false;
+        GameManager.isMoveLock = false;
 
 
-        
-        
+
     }
 }
 

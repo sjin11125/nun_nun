@@ -77,7 +77,9 @@ public class CameraMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //업데이트에 줌을 적어보자
+
+        //업데이트에 줌을 적어보자     if (GameManager.isMoveLock==false)
+        {
         if(Input.touchCount == 2)
         {
             Touch firstTouch = Input.GetTouch(0);
@@ -102,6 +104,8 @@ public class CameraMovement : MonoBehaviour
    
 
         PanCamera();
+        }
+
 
         //touch code
 

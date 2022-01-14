@@ -115,6 +115,8 @@ public class GoogleSheetManager : MonoBehaviour
         if (string.IsNullOrEmpty(json)) return;
 
         GD = JsonUtility.FromJson<GoogleData>(json);
+        //System.Text.Encoding.UTF8.GetString(GD, 3, GD.Length - 3);
+        
 
         if (GD.result == "ERROR")
         {
