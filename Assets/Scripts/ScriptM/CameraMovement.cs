@@ -1,22 +1,39 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CameraMovement : MonoBehaviour
-{
+{ // 여기 일단 스킵
     public float zoomOutMin = 1;
     public float zoomOutMax = 5; // 이거 5로해야 안튀어나감
 
     //터치가 되지 않을까 해서 적어보는 코드
-    Vector3 touchStart;
+   // Vector3 touchStart;
 
     [SerializeField]
-    private Camera cam;
+    private Camera cam; // 카메라 생성
 
-    [SerializeField]
+    /*[SerializeField]
     private float zoomStep, minCamSize, maxCamSize;
+    */
 
     private Vector3 dragOrigin;
+
+    //0114 시작
+    float touchesPrevPosDifference, touchesCurPosDifference, zoomModifier;
+
+    Vector2 firstTouchPrevPos, secondTouchPrevPos;
+
+    [SerializeField]
+    float zoomModifierSpeed = 0.2f;
+  
+
+    //[SerializeField]
+    //Text text;
+
+
+    
 
     [SerializeField]
     private SpriteRenderer mapRenderer; // 패널생성
@@ -26,7 +43,7 @@ public class CameraMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        cam = GetComponent<Camera>();
     }
     //
 
@@ -60,17 +77,41 @@ public class CameraMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.isMoveLock==false)
+
+        //업데이트에 줌을 적어보자     if (GameManager.isMoveLock==false)
         {
-            PanCamera();
+        if(Input.touchCount == 2)
+        {
+            Touch firstTouch = Input.GetTouch(0);
+            Touch secondTouch = Input.GetTouch(1);
+
+            firstTouchPrevPos = firstTouch.position - firstTouch.deltaPosition;
+            secondTouchPrevPos = secondTouch.position - secondTouch.deltaPosition;
+
+            touchesPrevPosDifference = (firstTouchPrevPos - secondTouchPrevPos).magnitude;
+            touchesCurPosDifference = (firstTouch.position - secondTouch.position).magnitude;
+
+            zoomModifier = (firstTouch.deltaPosition - secondTouch.deltaPosition).magnitude * zoomModifierSpeed;
+
+            if (touchesPrevPosDifference > touchesCurPosDifference)
+                cam.orthographicSize += zoomModifier;
+            if (touchesPrevPosDifference < touchesCurPosDifference)
+                cam.orthographicSize -= zoomModifier;
+
         }
-        
+
+        cam.orthographicSize = Mathf.Clamp(cam.orthographicSize, 2f, 5f); // 축소, 확대 배율
+   
+
+        PanCamera();
+        }
+
 
         //touch code
 
 
 
-        zoom(Input.GetAxis("Mouse ScrollWheel"));
+       // zoom(Input.GetAxis("Mouse ScrollWheel"));
     }
     private void PanCamera() //이게 이동
     {
@@ -97,36 +138,5 @@ public class CameraMovement : MonoBehaviour
     }
 
     // 줌아웃을 할때 판넬보다 크면은 판넬 크기에 고정되어야함.  
-    void zoom(float increment) // 여기가 줌
-    {
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            touchStart = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        }
-        if (Input.touchCount == 2)
-        {
-            Touch touchZero = Input.GetTouch(0);
-            Touch touchOne = Input.GetTouch(1);
-
-            Vector2 touchZeroPrevPos = touchZero.position - touchZero.deltaPosition;
-            Vector2 touchOnePrevPos = touchOne.position - touchOne.deltaPosition;
-
-            float prevMagnitude = (touchZeroPrevPos - touchOnePrevPos).magnitude;
-            float currentMagnitude = (touchZero.position - touchOne.position).magnitude;
-
-            float difference = currentMagnitude - prevMagnitude;
-
-            zoom(difference * 0.01f);
-        }
-        /*else if (Input.GetMouseButton(0))
-        {
-            Vector3 direction = touchStart - Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Camera.main.transform.position += direction;
-        }
-        */
-
-        //Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize - increment, zoomOutMin, mapMaxX);
-        Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize - increment, zoomOutMin, zoomOutMax);
-    }
+    
 }
