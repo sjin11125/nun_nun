@@ -27,7 +27,7 @@ public class GridSquare : MonoBehaviour
     void Start()
     {
         GridScript.TrashItemTurn = 20;
-        GridScript.KeepItemTurn = 3;
+        GridScript.KeepItemTurn = 30;
         Selected = false;
         SquareOccupied = false;
         currentColor = null;
@@ -155,6 +155,6 @@ public class GridSquare : MonoBehaviour
 
         Selected = true; //선택됨
         SquareOccupied = true; //사용중
-        keepImage = gameObject.transform.GetChild(2).gameObject.GetComponent<Image>().sprite;
+        gameObject.transform.GetChild(2).gameObject.GetComponent<Image>().sprite = keepImage;
     }
 }

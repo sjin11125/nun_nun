@@ -25,9 +25,12 @@ public class GridScript : MonoBehaviour
     public GameObject effectShape;
     int keepSquareInt =0;
     int UseTrashCanInt = 0;
-    static public int EraserItemTurn;
-    static public int KeepItemTurn = 3;
+    static public int EraserItemTurn = 10;
+    static public int ReloadItemTurn = 15;
+    static public int NextExchangeItemTurn = 15;
+    static public int KeepItemTurn = 30;
     static public int TrashItemTurn = 20;
+    int keepNum = 0;
 
     private void OnEnable()
     {
@@ -259,7 +262,11 @@ public class GridScript : MonoBehaviour
         }
 
         var completedLines = CheckIfSquaresAreCompleted(lines);//행(0-5)렬(0-5) 정보전달 및 변수에 반환 int값 저장
-
+        GameObject KeepObj = GameObject.FindGameObjectWithTag("KeepShape");//가지게된 정보를 프리팹에 전달
+        if (KeepObj == null)
+        {
+            KeepItemTurn--;
+        }
         if (completedLines > 2)
         {
             //TODO: Play bouns animation.
@@ -286,7 +293,8 @@ public class GridScript : MonoBehaviour
     private int CheckIfSquaresAreCompleted(List<int[]> data)//행렬정보받음_data.Count==10;
     {
         EraserItemTurn--;
-        KeepItemTurn--;
+        ReloadItemTurn--;
+        NextExchangeItemTurn--;
         TrashItemTurn--;
         List<int[]> completedLines = new List<int[]>();
         var linesCompleted = 0;
@@ -547,7 +555,6 @@ public class GridScript : MonoBehaviour
     public Sprite KeepImg;
     public String KeepColor;
     public String KeepShape;
-    int keepNum =0;
     public void UseKeep()//29번 스퀘어 클릭으로 shape에 색깔을 받을것임
     {
         GameObject ItemControllerObj = GameObject.FindGameObjectWithTag("ItemController");//컨트롤러에서 선택한 인덱스에 따라 위치 결정
@@ -559,26 +566,21 @@ public class GridScript : MonoBehaviour
         if (keepSquareIndex != 30)
         {           
             var comp = _gridSquares[keepSquareIndex].GetComponent<GridSquare>();//index번 친구
+
             if (KeepItemTurn < 1)
             {
-                _gridSquares[keepSquareIndex].transform.GetChild(0).gameObject.transform
-                     .GetChild(0).gameObject.GetComponent<Text>().text = " ";
                 comp.SquareOccupied = false;
                 comp.Selected = false;
-                if (comp.SquareOccupied == true)//index번 사용중이야
+                if (comp.activeImage.gameObject.activeSelf == true && keepNum < 1)//index번 사용중이야
                 {
                     KeepImg = comp.transform.GetChild(2).gameObject.GetComponent<Image>().sprite;
                     KeepColor = colors[keepSquareIndex];//킵 아이템 자리에 정보를 저장해놓는다
                     KeepShape = shapes[keepSquareIndex];
 
-                    if (keepNum < 1)//하나의 프리팹만 생성한다
-                    {
-                        GameObject keepInstance = Instantiate(KeepShapeObj) as GameObject;
-                        keepInstance.transform.SetParent(_gridSquares[keepSquareIndex].transform, false);
-                        Vector3 pos = new Vector3(0, 0, 0);
-                        keepInstance.transform.localPosition = pos;
-                        keepNum++;
-                    }
+                    GameObject keepInstance = Instantiate(KeepShapeObj) as GameObject;
+                    keepInstance.transform.SetParent(gameObject.transform, false);
+                    Vector3 pos = new Vector3(-300, 600, 0);
+                    keepInstance.transform.localPosition = pos;
 
                     GameObject KeepObj = GameObject.FindGameObjectWithTag("KeepShape");//가지게된 정보를 프리팹에 전달
                     if (KeepObj != null)
@@ -586,19 +588,20 @@ public class GridScript : MonoBehaviour
                         KeepObj.GetComponent<CreateKeepShape>().keepColor = KeepColor;
                         KeepObj.GetComponent<CreateKeepShape>().keepShape = KeepShape;
                     }
-                    comp.Deactivate();//프리팹을 생성하고 정보도 줬으니 이 자리에 엑티브 이미지들은 끈다
-                    comp.ClearOccupied();
+                     comp.activeImage.gameObject.SetActive(false);
+                    keepNum++;
                 }
-                keepNum = 0;
+                _gridSquares[keepSquareIndex].transform.GetChild(0).gameObject.transform
+                     .GetChild(0).gameObject.GetComponent<Text>().text = " ";
             }
-            else
+            else//KeepItemTurn이 1,2,3...일때
             {
                 comp.SquareOccupied = true;
                 comp.Selected = true;
                 _gridSquares[keepSquareIndex].transform.GetChild(0).gameObject.transform
                     .GetChild(0).gameObject.GetComponent<Text>().text = KeepItemTurn.ToString();
-            }
-
+            }                     
+            keepNum = 0;
         }
         keepSquareInt++;
     }
