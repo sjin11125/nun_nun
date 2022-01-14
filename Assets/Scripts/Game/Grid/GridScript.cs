@@ -27,7 +27,7 @@ public class GridScript : MonoBehaviour
     int UseTrashCanInt = 0;
     static public int EraserItemTurn;
     static public int KeepItemTurn = 3;
-    static public int TrashItemTurn = 3;
+    static public int TrashItemTurn = 20;
 
     private void OnEnable()
     {
@@ -559,32 +559,46 @@ public class GridScript : MonoBehaviour
         if (keepSquareIndex != 30)
         {           
             var comp = _gridSquares[keepSquareIndex].GetComponent<GridSquare>();//index번 친구
-            if (comp.SquareOccupied == true)//index번 사용중이야
+            if (KeepItemTurn < 1)
             {
-                KeepImg = comp.transform.GetChild(2).gameObject.GetComponent<Image>().sprite;
-                KeepColor = colors[keepSquareIndex];//킵 아이템 자리에 정보를 저장해놓는다
-                KeepShape = shapes[keepSquareIndex];
+                _gridSquares[keepSquareIndex].transform.GetChild(0).gameObject.transform
+                     .GetChild(0).gameObject.GetComponent<Text>().text = " ";
+                comp.SquareOccupied = false;
+                comp.Selected = false;
+                if (comp.SquareOccupied == true)//index번 사용중이야
+                {
+                    KeepImg = comp.transform.GetChild(2).gameObject.GetComponent<Image>().sprite;
+                    KeepColor = colors[keepSquareIndex];//킵 아이템 자리에 정보를 저장해놓는다
+                    KeepShape = shapes[keepSquareIndex];
 
-                if(keepNum < 1)//하나의 프리팹만 생성한다
-                {
-                    GameObject keepInstance = Instantiate(KeepShapeObj) as GameObject;
-                    keepInstance.transform.SetParent(_gridSquares[keepSquareIndex].transform, false);
-                    Vector3 pos = new Vector3(0, 0, 0);
-                    keepInstance.transform.localPosition = pos;
-                    keepNum++;
+                    if (keepNum < 1)//하나의 프리팹만 생성한다
+                    {
+                        GameObject keepInstance = Instantiate(KeepShapeObj) as GameObject;
+                        keepInstance.transform.SetParent(_gridSquares[keepSquareIndex].transform, false);
+                        Vector3 pos = new Vector3(0, 0, 0);
+                        keepInstance.transform.localPosition = pos;
+                        keepNum++;
+                    }
+
+                    GameObject KeepObj = GameObject.FindGameObjectWithTag("KeepShape");//가지게된 정보를 프리팹에 전달
+                    if (KeepObj != null)
+                    {
+                        KeepObj.GetComponent<CreateKeepShape>().keepColor = KeepColor;
+                        KeepObj.GetComponent<CreateKeepShape>().keepShape = KeepShape;
+                    }
+                    comp.Deactivate();//프리팹을 생성하고 정보도 줬으니 이 자리에 엑티브 이미지들은 끈다
+                    comp.ClearOccupied();
                 }
-                
-                GameObject KeepObj = GameObject.FindGameObjectWithTag("KeepShape");//가지게된 정보를 프리팹에 전달
-                if (KeepObj != null)
-                {
-                    KeepObj.GetComponent<CreateKeepShape>().keepColor  = KeepColor; 
-                    KeepObj.GetComponent<CreateKeepShape>().keepShape  = KeepShape;
-                }
-                comp.Deactivate();//프리팹을 생성하고 정보도 줬으니 이 자리에 엑티브 이미지들은 끈다
-                comp.ClearOccupied();
-                KeepItemTurn = 3;
+                keepNum = 0;
             }
-            keepNum = 0;
+            else
+            {
+                comp.SquareOccupied = true;
+                comp.Selected = true;
+                _gridSquares[keepSquareIndex].transform.GetChild(0).gameObject.transform
+                    .GetChild(0).gameObject.GetComponent<Text>().text = KeepItemTurn.ToString();
+            }
+
         }
         keepSquareInt++;
     }
@@ -606,12 +620,10 @@ public class GridScript : MonoBehaviour
                .GetChild(0).gameObject.GetComponent<Text>().text = " ";
                 comp.SquareOccupied = false;
                 comp.Selected = false;
-                if (_gridSquares[trashCanIndex].transform.GetChild(2).gameObject.activeSelf == true)
+                if (comp.activeImage.gameObject.activeSelf == true)
                 {
-                    _gridSquares[trashCanIndex].transform.GetChild(2).gameObject.SetActive(false);
-                    GridScript.TrashItemTurn = 3;
-                   // comp.SquareOccupied = true;
-                   // comp.Selected = true;
+                    TrashItemTurn = 30;
+                    comp.activeImage.gameObject.SetActive(false);
                 }
             }
             else
