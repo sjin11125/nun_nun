@@ -16,6 +16,8 @@ public class ShapeStorage : MonoBehaviour
     public string shapeColor;
     public string shapeShape;
     public int currentIndexSave;
+    public int ReItemTurn = 15;
+    public int NeItemTurn = 15;
 
     private void OnEnable()
     {
@@ -103,6 +105,7 @@ public class ShapeStorage : MonoBehaviour
         int exchangeIndex = currentIndexSave;//¿Œµ¶Ω∫ ±≥√º
         currentIndexSave = shapeIndex;
         shapeIndex = exchangeIndex;
+        GridScript.NextExchangeItemTurn = NeItemTurn;
     }
 
     public void ReloadItem()
@@ -129,5 +132,6 @@ public class ShapeStorage : MonoBehaviour
             spriteImage.sprite = nextSquare.sprite;
             nextSquare.sprite = shapeData[shapeIndex].sprite;
         }
+        GridScript.ReloadItemTurn = ReItemTurn;
     }
 }
