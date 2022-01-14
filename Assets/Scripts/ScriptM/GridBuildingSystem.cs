@@ -73,15 +73,11 @@ public class GridBuildingSystem : MonoBehaviour
             InitializeWithBuilding();
         }
 
-        if (Input.GetMouseButtonDown(0)) //마우스를 눌렀을때 
+        if (Input.GetMouseButtonUp(0)) //마우스를 눌러서 뗐을 때
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
-            for (int i = 0; i < GameManager.BuildingList.Count; i++)
-            {
-                Debug.Log(i+" good "+GameManager.BuildingList[i].Type);
-            }
-
+            Debug.Log("isMoveLock: "+ GameManager.isMoveLock);
             if (!EventSystem.current.IsPointerOverGameObject()) //현재포인트return /// ui가 클릭이 안되었나?
             {
 
@@ -109,7 +105,7 @@ public class GridBuildingSystem : MonoBehaviour
                             }
                             if (hit.transform.tag == "Rotation")        //건물 회전 버튼
                             {
-
+                                
                                 if (hit_building.isFliped == true)
                                 {
                                     hit_building.isFliped = false;
@@ -124,6 +120,7 @@ public class GridBuildingSystem : MonoBehaviour
                             }
                             if (hit.transform.tag == "Upgrade")         //업그레이드
                             {
+                                GameManager.isMoveLock = true;
                                 hit_building.Type = BuildType.Upgrade;
                                 hit_building.Upgrade();
                             }

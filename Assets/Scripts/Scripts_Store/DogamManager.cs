@@ -19,6 +19,7 @@ public class DogamManager : MonoBehaviour
     public GameObject Scroll;
 
     public static Button[] LockButton;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -30,9 +31,23 @@ public class DogamManager : MonoBehaviour
     {
 
     }
+    public void UpgradeOpen()
+    {
+        GameManager.isMoveLock = true;
+        for (int i = 0; i < GameManager.AllNuniArray.Length; i++)
+        {
+            if (int.Parse(GameManager.AllNuniArray[i].Star)==3)         //3성인 누니만 뜸
+            {
 
+                DogamCha = Instantiate(DogamChaPrefab, Scroll.transform) as GameObject;
+                DogamCha.GetComponent<Image>().sprite = GameManager.AllNuniArray[i].GetChaImange();
+            }
+
+        }
+    }
     public void DogamOpen()
     {
+        GameManager.isMoveLock = true;
         if (isParsing == false)
         {
             DicParsingManager DPManager = new DicParsingManager();

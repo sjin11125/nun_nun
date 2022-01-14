@@ -23,6 +23,7 @@ public class NuniParseManager : MonoBehaviour
 
     public void NuniDogamOpen()             //누니 도감 오픈했을 때
     {
+        GameManager.isMoveLock = true;
         //GM에 있는 모든 누니 정보 불러서 패널에 넣기
         for (int i = 0; i < GameManager.AllNuniArray.Length; i++)
         {
@@ -32,12 +33,15 @@ public class NuniParseManager : MonoBehaviour
 
             Button NuniButton = NuniPannel.GetComponentInChildren<Button>();
             Image[] image = NuniPannel.GetComponentsInChildren<Image>();
-            
+
+
             if (GameManager.AllNuniArray[i].isLock=="F")       // 누니를 현재 가지고 있을 때
             {
+                Card nuni = GameManager.AllNuniArray[i];
                 NuniButton.enabled = true;
-                image[2].sprite = GameManager.AllNuniArray[i].GetChaImange();   //누니 이미지 넣기
-                NuniPannel.name = GameManager.AllNuniArray[i].cardImage;        //누니 이름 넣기
+                image[2].sprite = nuni.GetChaImange();   //누니 이미지 넣기
+                NuniPannel.name = nuni.cardImage;        //누니 이름 넣기
+                
             }
             else
             {

@@ -10,11 +10,14 @@ public class Card
     public int Cost;
     public int Item;        //무슨 아이템인지(0~4)
     public string isLock;
-    public string Level;
-    //별
-    //게이지
-    //설명
-    //보유효과
+    public string Level;        //레벨
+    public string Star;     //별
+    public string Gauge;        //게이지
+    public string Info;     //누니설명
+    public string Effect;   //보유효과
+
+    public string[] Building;     //보유시 영향을 주는 건물
+    public string Gold;   //보유효과
 
     public Sprite Image;
 
@@ -29,15 +32,26 @@ public class Card
     }
 
     //public int weight;
+    //잠금    /   이름  /  아이템 /   이미지 /  가격  /  레벨  /  별   /  게이지 /  설명  / 보유효과  / 건물  / 골드 획득량
 
-    public Card(string islock,string cardname, string item, string cardimage, string cost,string level)
+    public Card(string islock, string cardname, string item, string cardimage, string cost, string level,
+       string star, string gauge, string info, string effect, string building, string gold)
     {
         isLock = islock;
         this.cardName = cardname;
         this.cardImage = cardimage;
-        Cost =int.Parse(cost);
+        Cost = int.Parse(cost);
         Item = int.Parse(item);
         Level = level;
+        Star = star;
+        Gauge = gauge;
+        Info = info;
+        Effect = effect;
+
+        Building = building.Split( ' ' );
+
+
+        Gold = gold;
 
     }
 

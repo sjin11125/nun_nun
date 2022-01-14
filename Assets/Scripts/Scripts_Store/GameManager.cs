@@ -54,7 +54,9 @@ public class GameManager : MonoBehaviour
     public static int Grass = 0;        //풀
     public static int Gem = 0;          //잼(특별상점 사용)
 
+    //---------------------------------------------------------------------------------------------
 
+    public static bool isMoveLock = false;      //창 떴을 때 이동 못하게하는 변수
     /* 아이템 목록
      * 0: 지우개               (황제)
      * 1: 킵                   (비서)
