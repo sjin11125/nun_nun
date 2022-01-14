@@ -155,6 +155,6 @@ public class GridSquare : MonoBehaviour
 
         Selected = true; //선택됨
         SquareOccupied = true; //사용중
-        gameObject.transform.GetChild(2).gameObject.GetComponent<Image>().sprite = keepImage;
+        keepImage = gameObject.transform.GetChild(2).gameObject.GetComponent<Image>().sprite;
     }
 }
