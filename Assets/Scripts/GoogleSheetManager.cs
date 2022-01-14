@@ -1,20 +1,28 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
+
+
+
 [System.Serializable]
 public class GoogleData
 {
     public string order, result, msg, value;
 }
 
+
 public class GoogleSheetManager : MonoBehaviour
 {
-    const string URL = "https://script.google.com/macros/s/AKfycbyV1zqvdt_VmgXubSjLM9UnOqubmGSLH40PnlfZbxlGS2pnqHoMPHEVuyNkL0ULaE-D3w/exec";
+    const string URL = "https://script.google.com/macros/s/AKfycbxB9PdrDUtgHFy9GIwNE8Iz8VNfMWM4S1ffsM1hBM3L/dev";
     public GoogleData GD;
     public InputField IDInput, PassInput, ValueInput;
     string id, pass;
+
+
+
     bool SetIDPass()
     {
         id = IDInput.text.Trim();
@@ -95,8 +103,8 @@ public class GoogleSheetManager : MonoBehaviour
         using (UnityWebRequest www = UnityWebRequest.Post(URL, form)) // 반드시 using을 써야한다
         {
             yield return www.SendWebRequest();
-
-            if (www.isDone) Response(www.downloadHandler.text);
+            //Debug.Log(www.downloadHandler.text);
+            if (www.isDone) Response("https://docs.google.com/spreadsheets/d/1z06l_CD1JVtiC6MxYGSKC4CbiI4JdQ50mhKkgxrnA5c/edit?usp=sharing");
             else print("웹의 응답이 없습니다.");
         }
     }
@@ -122,4 +130,3 @@ public class GoogleSheetManager : MonoBehaviour
         }
     }
 }
-

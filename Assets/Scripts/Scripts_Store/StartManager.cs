@@ -87,6 +87,7 @@ public class StartManager : MonoBehaviour
                     CharacterName.text = NuNiInformation[j].cardName;
 
                     NuNiInformation[j].SetChaImage(GameManager.GetCharacterImage(ChaName));
+                    Debug.Log(NuNiInformation[j].Item);
 
                     image[1].sprite = ItemImages[NuNiInformation[j].Item];//NuNiInformation[j].GetChaImange();   //캐릭터 이름 값 받아와서 이미지 찾기
 
@@ -95,9 +96,9 @@ public class StartManager : MonoBehaviour
                 else                            //잠겼으면 잠금 이미지 넣기
                 {
                     //BuildingPrefabChilds[4].tag = "Lock";
-                    CharacterName.text = "잠김누니";
-                    NuNiInformation[j].SetChaImage(GameManager.DogamChaImageData["Lock"]);
-                    image[1].sprite = GameManager.DogamChaImageData["Lock"];
+                    CharacterName.text = "잠겼다링";
+                    //NuNiInformation[j].SetChaImage(GameManager.DogamChaImageData["Lock"]);
+                    //image[1].sprite = GameManager.DogamChaImageData["Lock"];
 
                     // DogamChaButton.enabled = false;
                     //DogamChaButton.GetComponent<Image>().sprite = GameManager.DogamChaImageData["Lock"];
