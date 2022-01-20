@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4720377717843947580}
   - component: {fileID: 4720377717843947581}
   - component: {fileID: 4720377717843947578}
+  - component: {fileID: 7978821495598730018}
   m_Layer: 5
   m_Name: NuniUpgradeButton
   m_TagString: Untagged
@@ -66,7 +67,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 00ea239616b9ece49a050f52bf2b7bc4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 509d3183b6e29457bb8ba12e5f828efa, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -119,4 +120,28 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4720377717843947581}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7978821495598730018}
+        m_TargetAssemblyTypeName: NuniUpgradeButton, Assembly-CSharp
+        m_MethodName: NuniButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &7978821495598730018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4720377717843947576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a7788f1f7cd0db40bb41b8bcbf96df6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
