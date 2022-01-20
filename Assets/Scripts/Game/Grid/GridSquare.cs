@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class GridSquare : MonoBehaviour
 {
@@ -19,18 +20,24 @@ public class GridSquare : MonoBehaviour
 
     public GameObject activeObj;
 
-    public string currentColor;
+    public string keepCurrentColor;
     public string currentShape;
     public Sprite keepImage;
     public static bool UseKeepBool = false;
 
+    private float clickTime;
+    public float minClickTime = 0.8f;
+    private bool isClick;
+    GameObject rainbowObj;
+    bool rainBowUse = false;
+    public int colorK;
     void Start()
     {
         GridScript.TrashItemTurn = 20;
         GridScript.KeepItemTurn = 30;
         Selected = false;
         SquareOccupied = false;
-        currentColor = null;
+        keepCurrentColor = null;
         currentShape = null;
 
         GameObject contectShape = GameObject.FindGameObjectWithTag("Shape");
@@ -38,6 +45,73 @@ public class GridSquare : MonoBehaviour
         {
             GameObject squareImage = contectShape.transform.GetChild(0).gameObject;
             spriteImage = squareImage.GetComponent<Image>();
+        }
+        GameObject GetRainbow = GameObject.FindGameObjectWithTag("ItemController");//컨트롤러 다섯번째 자식인
+        if(GetRainbow != null)
+        {
+            rainbowObj = GetRainbow.transform.GetChild(5).gameObject;//레인보우 아이템 오브젝트를 받아
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            isClick = true;
+            rainBowUse = false;
+            Vector2 wp = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Ray2D ray = new Ray2D(wp, Vector2.zero);
+            RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
+            if (hit.collider != null)
+            {
+                if (hit.collider.gameObject == this.gameObject)
+                {
+                    rainBowUse = true;
+                          
+                    //다른 쉐이프들을 다꺼버리는걸 써도됨
+                }
+                else
+                {
+                    rainBowUse = false;
+                    //rainbowObj.GetComponent<RainbowItem>().UseThisItemEx();
+                }
+            }
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            isClick = false;
+            if (clickTime >= minClickTime)//롱클릭이었으면
+            {
+                if (!rainbowObj.GetComponent<RainbowItem>().myChlid[1].activeSelf && activeImage.gameObject.activeSelf)//아이템 오브젝트사용가능이고 쉐입이 잇을때
+                {
+                    if (rainBowUse == true)
+                    {
+                        rainbowObj.GetComponent<RainbowItem>().RainbowItemUse(keepCurrentColor);//레인보우 아이템 함수 호출
+                        rainbowObj.GetComponent<RainbowItem>().myChlid[1].SetActive(true);//블락이미지 켜기
+                        //rainbowObj.GetComponent<RainbowItem>().UseThisItem(this.gameObject);
+                        print(keepCurrentColor);
+                        clickTime = 0;
+                    }         
+                }
+            }
+            else
+            {
+                if (rainBowUse == true)
+                {
+                    if(colorK == 6)
+                    {
+                        colorK = 0;
+                    }
+                    activeImage.sprite = rainbowObj.GetComponent<RainbowItem>().RainbowItemChange(colorK);//다음 모양으로
+                    print(colorK);
+                    colorK++;
+                }
+            }
+        }
+
+        if (isClick)
+        {
+            clickTime += Time.deltaTime;
         }
     }
 
@@ -70,7 +144,7 @@ public class GridSquare : MonoBehaviour
     {
         activeImage.gameObject.SetActive(false);
         activeImage.GetComponent<Image>().sprite = null;//사라지고나면 색깔 안담기게해놓기 이거사실없어도될듯?
-        currentColor = null;
+        keepCurrentColor = null;
         currentShape = null;
     }
 
@@ -100,7 +174,7 @@ public class GridSquare : MonoBehaviour
             GameObject ShapeStorageObj = GameObject.FindGameObjectWithTag("ShapeStorage");
             if (ShapeStorageObj != null)//여기서 항상 들어갈때 shape의 정보를 받는다
             {                             
-                currentColor = ShapeStorageObj.GetComponent<ShapeStorage>().shapeColor;
+                keepCurrentColor = ShapeStorageObj.GetComponent<ShapeStorage>().shapeColor;
                 currentShape = ShapeStorageObj.GetComponent<ShapeStorage>().shapeShape;               
             }
         }
@@ -131,7 +205,7 @@ public class GridSquare : MonoBehaviour
         {
             Selected = false;//선택안된걸로해
             hooverImage.gameObject.SetActive(false);//진한색 꺼
-            currentColor = null;
+            keepCurrentColor = null;
             currentShape = null;
         }
         else if (collision.GetComponent<ShapeSquare>() != null)
@@ -142,7 +216,7 @@ public class GridSquare : MonoBehaviour
         GameObject GridObj = GameObject.FindGameObjectWithTag("Grid");
         if (GridObj != null && UseKeepBool == true)
         {
-            currentColor = GridObj.GetComponent<GridScript>().KeepColor;//나갈때확인해서 keep을 사용했던거라면 
+            keepCurrentColor = GridObj.GetComponent<GridScript>().KeepColor;//나갈때확인해서 keep을 사용했던거라면 
             currentShape = GridObj.GetComponent<GridScript>().KeepShape;
         }
     }
