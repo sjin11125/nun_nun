@@ -29,7 +29,7 @@ public class ChaButtonScript : MonoBehaviour
 
     public bool isUpgrade = false;
     static GameObject[] buildings;
-    static int level;
+    static int Level;
 
     GameObject Grid;
 
@@ -85,7 +85,7 @@ public class ChaButtonScript : MonoBehaviour
         Building building = buildings[0].transform.parent.GetComponent<Building>();
         string building_name = buildings[0].transform.parent.name;
         Debug.Log(building_name);
-        if (level == 0)
+        if (Level == 0)
         {
             Debug.Log("000");
             /* for (int i = 6; i < buildingTrans.Length; i++)
@@ -97,7 +97,7 @@ public class ChaButtonScript : MonoBehaviour
                  }
              }*/
         }
-        else if (level == 1)
+        else if (Level == 1)
         {
             Debug.Log("111");
             /* for (int i = 6; i < buildingTrans.Length; i++)
@@ -112,26 +112,18 @@ public class ChaButtonScript : MonoBehaviour
             Debug.Log(buildings.Length);
 
             buildings[1].SetActive(true);
-            building.level += 1;
+            building.Level += 1;
         }
         else
         {
             Debug.Log("222");
             buildings[2].SetActive(true);
-            building.level += 1;
+            building.Level += 1;
         }
-        Debug.Log(building.level);
+        Debug.Log(building.Level);
         building.Type = BuildType.Empty;
         building.RefreshBuildingList();     //빌딩 리스트 새로고침
-        /*for (int i = 0; i < GameManager.BuildingList.Count; i++)
-        {
-            Debug.Log(GameManager.BuildingList[i].Building_name);
-            if (GameManager.BuildingList[i].Building_name == building_name)
-            {
-                GameManager.BuildingList[i].level = building.level;
-                Debug.Log(GameManager.BuildingList[i].level);
-            }
-        }*/
+      
     }
     // Update is called once per frame
     void Update()
@@ -142,10 +134,10 @@ public class ChaButtonScript : MonoBehaviour
             gameObject.GetComponent<Button>().enabled = false;
         }
     }
-    public void Upgrade(GameObject[] buildings, int level, Building building)              //건물 업그레이드
+    public void Upgrade(GameObject[] buildings, int Level, Building building)              //건물 업그레이드
     {                                                                   //현재 가지고 있는 건물 리스트에서 해당 건물 찾아서 레벨 수정
         ChaButtonScript.buildings = buildings;
-        ChaButtonScript.level = level;
+        ChaButtonScript.Level = Level;
         Debug.Log("this.buildings: " + ChaButtonScript.buildings.Length);
         Transform UPPannelTrans = gameObject.GetComponent<Transform>();
 
@@ -257,110 +249,6 @@ public class ChaButtonScript : MonoBehaviour
                 Check.SetActive(false);
             }
         }
-        /* if (StartManager.NuNiInformation[StartManager.ChaIndex].isLock == "F")      //안잠겼냐
-     {
-
-         //isCheck = true;     //선택됫단다
-         //Debug.Log("ununlock");
-         switch (item)       //아이템 설명 넣기
-         {
-             case 0:
-                 if (GameManager.Items[0] != true)
-                 {
-                     Debug.Log("safsfd");
-                     if (GameManager.items >= 5)
-                     {
-                         break;
-                     }
-                     GameManager.Items[0] = true;
-
-                     GameManager.items += 1;
-                     Check.SetActive(true);
-                     break;
-                 }
-                 if (GameManager.Items[0] == true)
-                 {
-                     Debug.Log("hgjgj");
-                     GameManager.Items[0] = false;
-                     GameManager.items -= 1;
-                     Check.SetActive(false);
-                     break;
-                 }
-
-                 break;
-             case 1:
-                 if (GameManager.Items[1] != true)
-                 {
-                     if (GameManager.items >= 5)
-                     {
-                         break;
-                     }
-                     GameManager.Items[1] = true;
-                     GameManager.items += 1;
-                     Check.SetActive(true);
-                 }
-                 else
-                 {
-                     GameManager.Items[1] = false;
-                     GameManager.items -= 1;
-                     Check.SetActive(false);
-                 }
-                 break;
-             case 2:
-                 if (GameManager.Items[2] != true)
-                 {
-                     if (GameManager.items >= 5)
-                     {
-                         break;
-                     }
-                     GameManager.Items[2] = true;
-                     GameManager.items += 1;
-                     Check.SetActive(true);
-                 }
-                 else
-                 {
-                     GameManager.Items[2] = false;
-                     GameManager.items -= 1;
-                     Check.SetActive(false);
-                 }
-                 break;
-             case 3:
-                 if (GameManager.Items[3] != true)
-                 {
-                     if (GameManager.items >= 5)
-                     {
-                         break;
-                     }
-                     GameManager.Items[3] = true;
-                     GameManager.items += 1;
-                     Check.SetActive(true);
-                 }
-                 else
-                 {
-                     GameManager.Items[3] = false;
-                     GameManager.items -= 1;
-                     Check.SetActive(false);
-                 }
-                 break;
-             case 4:
-                 if (GameManager.Items[4] != true)
-                 {
-                     if (GameManager.items > 6)
-                     {
-                         break;
-                     }
-                     GameManager.Items[4] = true;
-                     GameManager.items += 1;
-                     Check.SetActive(true);
-                 }
-                 else
-                 {
-                     GameManager.Items[4] = false;
-                     GameManager.items -= 1;
-                     Check.SetActive(false);
-                 }
-                 break;
-
                  /* 아이템 목록
                  * 0: 지우개
                  * 1: 킵
@@ -386,46 +274,50 @@ public class ChaButtonScript : MonoBehaviour
         DogamManager.ChaIndex = int.Parse(gameObject.transform.parent.name);
 
 
-        if (gameObject.tag != "Lock")
+        if (gameObject.tag != "Lock")       //건물이 안잠겨있고
         {
-            Debug.Log(DogamManager.ChaInformation[DogamManager.ChaIndex].GetCharacter("Money"));
-            int pay = int.Parse(DogamManager.ChaInformation[DogamManager.ChaIndex].GetCharacter("Money"));
+            int pay = DogamManager.BuildingInformation[DogamManager.ChaIndex].Cost;
+            int tree = DogamManager.BuildingInformation[DogamManager.ChaIndex].Tree;
+            int snow = DogamManager.BuildingInformation[DogamManager.ChaIndex].Snow;
+            int grass = DogamManager.BuildingInformation[DogamManager.ChaIndex].Grass;
+            int ice = DogamManager.BuildingInformation[DogamManager.ChaIndex].Ice;
 
-            
-           
-            if (GameManager.Money < pay)      //돈이 모잘라 거절 메세지 띄움
+
+
+            if (GameManager.Money < pay || GameManager.Tree < tree
+                || GameManager.Snow < snow || GameManager.Grass < grass||GameManager.Ice<ice)      //돈이나 자원이 모자르면 거절 메세지 띄움
             {
                 UIManager.isSetMoney = -1;
-
-
             }
             else                    // 결제함
             {
 
                 Grid.GetComponent<SpriteRenderer>().sortingOrder = -50;
 
-                Character ChaInformation = DogamManager.ChaInformation[DogamManager.ChaIndex];
+                Building BuildingInformation = DogamManager.BuildingInformation[DogamManager.ChaIndex];
 
-                GameManager.Money -= pay;
+                GameManager.Money -= pay;       //자원빼기
+                GameManager.Tree -= tree;
+                GameManager.Snow -= snow;
+                GameManager.Grass -= grass;
+                GameManager.Ice -= ice;
+
                 UIManager.isSetMoney = 1;
-                ChaInformation.SetCharacter("isLock", "F");      //안잠김으로 바꿈
-                                                                 // ChaInformation.SetCharImage(GameManager.GetDogamChaImage(ChaInformation.GetCharacter("ImageName")));        //이미지 다시 바꿈
+                BuildingInformation.isLock = "F";      //안잠김으로 바꿈
+                                                       // BuildingInformation.SetCharImage(GameManager.GetDogamChaImage(BuildingInformation.GetCharacter("ImageName")));        //이미지 다시 바꿈
 
-
-                
-
-                DogamManager.ChaInformation[DogamManager.ChaIndex] = ChaInformation;
+                //GameManager.BuildingArray[DogamManager.ChaIndex] = BuildingInformation;           //건물 설명
 
                 Transform[] trans = transform.parent.parent.parent.GetComponentsInChildren<Transform>();
                 //GridBuildingSystem[] grid = trans.GetComponentsInChildren<GridBuildingSystem>();
-                
-                Debug.Log("DogamManager.ChaIndex: "+DogamManager.ChaIndex);
+
+                Debug.Log("DogamManager.ChaIndex: " + DogamManager.ChaIndex);
                 Debug.Log(GameManager.BuildingPrefabData.Count);
 
                 //게임매니저에 잇는 건물 프리팹 배열에서 같은 이름을 가진 프리팹을 찾아 Instantiate하고 상점 창 닫기
-                string buildingname = DogamManager.ChaInformation[DogamManager.ChaIndex].GetCharacter("ImageName");
-                GameObject buildingprefab = GameManager.BuildingPrefabData[buildingname+"(Clone)"];
-            
+                string buildingname = DogamManager.BuildingInformation[DogamManager.ChaIndex].Building_Image;
+                GameObject buildingprefab = GameManager.BuildingPrefabData[buildingname + "(Clone)"];
+
 
                 Transform parent = transform.parent.transform.parent.transform.parent.transform.parent.transform.parent;
 
@@ -437,9 +329,9 @@ public class ChaButtonScript : MonoBehaviour
                 Building c = GameManager.CurrentBuilding.GetComponent<Building>();
                 c.Building_Image = buildingname;
                 c = b.GetComponent<Building>().DeepCopy();
-
+                c.SetValue(b);
                 
-                for (int i = 5; i < Window.Length-1; i++)
+                for (int i = 5; i < Window.Length - 1; i++)
                 {
                     Destroy(Window[i].gameObject);
                 }

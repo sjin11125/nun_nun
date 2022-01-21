@@ -10,6 +10,7 @@ public class RandomSelect : MonoBehaviour
     void Start()
     {
         deck = new List<Card>();
+        Debug.Log(GameManager.BuildingList.Count);
         for (int i = 0; i < GameManager.AllNuniArray.Length; i++)
         {
             // deck[i] = GameManager.AllNuniArray[i];

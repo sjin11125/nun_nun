@@ -142,16 +142,6 @@ public class GridBuildingSystem : MonoBehaviour
                         if (hit.transform.tag == "Building" && GameManager.isStore == false)           //빌딩을 눌렀을 때 업그레이드 할래 위치 바꿀래 회전할래
                         {
                             temp.Type = BuildType.Move;
-                            /* for (int i = 0; i < GameManager.BuildingList.Count; i++)        //현재 가지고 있는 건물 리스트에서 제거
-                             {
-
-                                 if (GameManager.BuildingList[i].Building_name == temp.Building_name)
-                                 {
-                                     GameManager.BuildingList.Remove(GameManager.BuildingList[i]);
-                                     Debug.Log("GameManager.BuildingList.Count: " + GameManager.BuildingList.Count);
-                                     break;
-                                 }
-                             }*/
                             temp.Placed = false;        //배치가 안 된 상태로 변환
 
                             temp.area.position = gridLayout.WorldToCell(temp.gameObject.transform.position);
@@ -170,7 +160,7 @@ public class GridBuildingSystem : MonoBehaviour
 
                             //FollowBuilding(true);
                             Grid.GetComponent<SpriteRenderer>().sortingOrder = -50;
-                            Debug.Log("Level: " + temp.level);
+                            Debug.Log("Level: " + temp.Level);
                         }
 
                     }
@@ -287,7 +277,6 @@ public class GridBuildingSystem : MonoBehaviour
     private void ClearArea()
    {
         Debug.Log("ClearArea()");
-        Debug.Log(prevArea.size.x+" " + prevArea.size.y+" "+ prevArea.size.z);
         TileBase[] toClear = new TileBase[prevArea.size.x * prevArea.size.y * prevArea.size.z];//0
         Debug.Log(prevArea.position);
        FillTiles(toClear, TileType.Empty);
