@@ -43,6 +43,7 @@ public class DicParsingManager : MonoBehaviour
             Card character = new Card(pro_data[1], pro_data[2], pro_data[3], pro_data[4], pro_data[5], pro_data[6],
                                        pro_data[7], pro_data[8], pro_data[9], pro_data[10], pro_data[11], pro_data[12]);
             //잠금    /   이름  /  아이템 /   이미지 /  가격  /  레벨  /  별   /  게이지 /  설명  / 보유효과  / 건물  / 골드 획득량
+            character.SetChaImage(GameManager.CharacterImageData[pro_data[4]]);
             CharacterList.Add(character);
         }
 
@@ -58,14 +59,18 @@ public class DicParsingManager : MonoBehaviour
         return CharacterList.ToArray();
 
     }
-    public Character[] Parse(int index)
+
+    //-----------------------건물 정보---------------------------------
+
+
+    public Building[] Parse(int index)
     {
         if (GameManager.parse == false)
         {
             GameManager.parse = true;
         }
         
-        List<Character> DictionaryList = new List<Character>(); //도감 캐릭터 리스트 생성.
+        List<Building> DictionaryList = new List<Building>(); //도감 캐릭터 리스트 생성.
         if (index==0)
         {
             csvData = Resources.Load<TextAsset>("Dogam");    //csv파일 가져옴
@@ -85,9 +90,12 @@ public class DicParsingManager : MonoBehaviour
                 Debug.Log("ll");
                 break;
             }
-            Character character = new Character(pro_data[1],pro_data[2], pro_data[3], pro_data[4], pro_data[5], pro_data[6], pro_data[7], pro_data[8], pro_data[9]);
 
-            DictionaryList.Add(character);
+            Character character = new Character(pro_data[1],pro_data[2], pro_data[3], pro_data[4], pro_data[5], pro_data[6], pro_data[7], pro_data[8], pro_data[9]);
+            Building building = new Building(pro_data[1], pro_data[2], pro_data[3], pro_data[4], pro_data[5], pro_data[6], pro_data[7], pro_data[8], pro_data[9], pro_data[10], pro_data[11]);
+            
+            //잠금 유무     // 이름    //획득자원   //설명     //이미지    //가격    //레벨    //나무    //풀     //눈덩이   //얼음
+            DictionaryList.Add(building);
         }
 
    

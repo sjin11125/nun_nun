@@ -9,18 +9,9 @@ public class TransferMap : MonoBehaviour
 
     public void OnClick()
     {
-        GameManager.BuildingArray = GameManager.BuildingList.ToArray();
+        //GameManager.BuildingArray = GameManager.BuildingList.ToArray();
         Debug.Log("Yahoo");
-        for (int i = 0; i < GameManager.BuildingArray.Length; i++)
-        {
-            Debug.Log(i);
-            Debug.Log("Building_name: " + GameManager.BuildingArray[i].Building_name);
-            Debug.Log("BuildingPosition: " + GameManager.BuildingArray[i].BuildingPosition);
-            Debug.Log("Placed: " + GameManager.BuildingArray[i].Placed);
-            Debug.Log("Level: " + GameManager.BuildingArray[i].level);
-
-
-        }
+     
 
 
         LoadingSceneController.Instance.LoadScene(transferMapName);

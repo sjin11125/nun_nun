@@ -4,12 +4,20 @@ using UnityEngine;
 
 public class RandomSelect : MonoBehaviour
 {
-    public List<Card> deck = new List<Card>();  // 카드 덱
+    public List<Card> deck;  // 카드 덱
     public int total = 0;  // 카드들의 가중치 총 합
 
     void Start()
     {
-
+        deck = new List<Card>();
+        Debug.Log(GameManager.BuildingList.Count);
+        for (int i = 0; i < GameManager.AllNuniArray.Length; i++)
+        {
+            // deck[i] = GameManager.AllNuniArray[i];
+            Card c=new Card(GameManager.AllNuniArray[i]);
+            c.SetValue(GameManager.AllNuniArray[i]);
+            deck.Add(c);
+        }
     }
     public List<Card> result = new List<Card>();  // 랜덤하게 선택된 카드를 담을 리스트
 
@@ -17,17 +25,16 @@ public class RandomSelect : MonoBehaviour
     public GameObject cardprefab;
     public AudioSource buttonsound;
 
+    public UIManager2 UiManager2;
+
     public void click()
     {
         ResultSelect();
         buttonsound.Play();     //효과음 재생
-
-        for (int i = 0; i < result.Count; i++)
-        {
-            Debug.Log(result[i].cardName);
-           // Debug.Log(result[i].cardImage.name);
-        }
+        
         GameManager.Money -= 500;       //500원 빼기
+
+        UiManager2.Click();
     }
 
     public void ResultSelect()
@@ -78,7 +85,7 @@ public class RandomSelect : MonoBehaviour
     {
         // 이렇게하면 가중치 랜덤함수 (확률이 다름)
 
-        return deck[Random.Range(0, deck.Count)];
+        return GameManager.AllNuniArray[Random.Range(0, GameManager.AllNuniArray.Length)];
     }
 
 }
