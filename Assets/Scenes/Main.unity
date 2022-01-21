@@ -6483,7 +6483,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -392, y: -243}
+  m_AnchoredPosition: {x: -325, y: -243}
   m_SizeDelta: {x: 72.33, y: 77.1035}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1846051680
@@ -6566,7 +6566,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1846051683}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: DogamManager, Assembly-CSharp
         m_MethodName: UpgradeOpen
         m_Mode: 1
@@ -6608,7 +6608,7 @@ MonoBehaviour:
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -6661,11 +6661,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1846051678}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02de40f4023b96a4ab79de95b58e13fc, type: 3}
+  m_Script: {fileID: 11500000, guid: 468e6af50c75c09489464035525f247b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DogamChaPrefab: {fileID: 4720377717843947576, guid: ca99c0f868c69374c95d1575fac59e3b, type: 3}
-  Scroll: {fileID: 0}
+  transferMapName: Upgrade
 --- !u!1001 &1860296646
 PrefabInstance:
   m_ObjectHideFlags: 0

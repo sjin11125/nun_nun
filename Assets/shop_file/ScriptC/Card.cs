@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Card 
+public class Card : MonoBehaviour
 {
     public string cardName;
     public string cardImage;
@@ -29,8 +29,33 @@ public class Card
         Cost = c.Cost;
         Item = c.Item;
         Level = c.Level;
-    }
+        Star = c.Star;
+        Gauge = c.Gauge;
+        Info = c.Info;
+        Effect = c.Effect;
+        Building = c.Building;
+        Gold = c.Gold;
+        Image = c.Image;
 
+
+    }
+    public void SetValue(Card c)
+    {
+        isLock = c.isLock;
+        cardName = c.cardName;
+        cardImage = c.cardImage;
+        Cost = c.Cost;
+        Item = c.Item;
+        Level = c.Level;
+        Star = c.Star;
+        Gauge = c.Gauge;
+        Info = c.Info;
+        Effect = c.Effect;
+        Building = c.Building;
+        Gold = c.Gold;
+        Image = c.Image;
+
+    }
     //public int weight;
     //잠금    /   이름  /  아이템 /   이미지 /  가격  /  레벨  /  별   /  게이지 /  설명  / 보유효과  / 건물  / 골드 획득량
 

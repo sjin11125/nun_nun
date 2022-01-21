@@ -31,7 +31,7 @@ public class DogamManager : MonoBehaviour
     {
 
     }
-    public void UpgradeOpen()
+  /*  public void UpgradeOpen()
     {
         GameManager.isMoveLock = true;
         for (int i = 0; i < GameManager.AllNuniArray.Length; i++)
@@ -44,7 +44,7 @@ public class DogamManager : MonoBehaviour
             }
 
         }
-    }
+    }*/
     public void DogamOpen()
     {
         GameManager.isMoveLock = true;
