@@ -8,8 +8,7 @@ using System;
 
 public class Building : MonoBehaviour
 {
-    public string Building_name;
-    public string Building_Image;          //빌딩 이미지 이름 *
+    
     public Vector2 BuildingPosition;    //*
     public bool Placed = false;    //*
     public BoundsInt area;
@@ -27,8 +26,17 @@ public class Building : MonoBehaviour
     public bool isCoin = false;        //*
     public bool isCountCoin = false;   //*
     public int CountCoin = 0;      //*
+    //-------------------------파싱정보------------------------------
+    public string isLock;               //잠금 유무
+    public string Building_name;            //건물 이름
+    public string Reward;               //획득자원
+    public string Building_Image;          //빌딩 이미지 이름 *
     public int Cost;        //건물비용
-    public int Deco;        //건물데코
+    public int Tree;        //나무
+    public int Ice;        //얼음
+    public int Grass;        //풀
+    public int Snow;        //눈
+    //-----------------------------------------------------------
 
     public int layer_y;   // 건물 레이어
     Transform[] child;
@@ -57,7 +65,10 @@ public class Building : MonoBehaviour
         Cost = getBuilding.Cost;
         layer_y = getBuilding.layer_y;
         level = getBuilding.level;
-        Deco = getBuilding.Deco;
+        Tree = getBuilding.Tree;
+        Ice = getBuilding.Ice;
+        Snow = getBuilding.Snow;
+        Grass = getBuilding.Grass;
         isFliped = getBuilding.isFliped;
     }
 
@@ -75,10 +86,16 @@ public class Building : MonoBehaviour
         BuildingCopy.isCoin = this.isCoin;
         BuildingCopy.isCountCoin = this.isCountCoin;
         BuildingCopy.CountCoin = this.CountCoin;
-        BuildingCopy.Cost = this.Cost;
+        
         BuildingCopy.layer_y = this.layer_y;
         BuildingCopy.level = this.level;
-        BuildingCopy.Deco = Deco;
+
+        BuildingCopy.Cost = this.Cost;
+        BuildingCopy.Tree = Tree;
+        BuildingCopy.Ice = Ice;
+        BuildingCopy.Snow = Snow;
+        BuildingCopy.Grass = Grass;
+
         BuildingCopy.isFliped = isFliped;
         return BuildingCopy;
     }
