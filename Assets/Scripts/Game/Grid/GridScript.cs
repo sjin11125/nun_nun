@@ -30,6 +30,7 @@ public class GridScript : MonoBehaviour
     static public int NextExchangeItemTurn = 15;
     static public int KeepItemTurn = 30;
     static public int TrashItemTurn = 20;
+    static public int RainbowItemTurn = 4;
     int keepNum = 0;
 
     private void OnEnable()
@@ -296,6 +297,7 @@ public class GridScript : MonoBehaviour
         ReloadItemTurn--;
         NextExchangeItemTurn--;
         TrashItemTurn--;
+        RainbowItemTurn--;
         List<int[]> completedLines = new List<int[]>();
         var linesCompleted = 0;
 
@@ -365,7 +367,7 @@ public class GridScript : MonoBehaviour
     {
         for (int i = 0; i < 30; i++)
         {
-            colors[i] = _gridSquares[i].GetComponent<GridSquare>().currentColor;
+            colors[i] = _gridSquares[i].GetComponent<GridSquare>().keepCurrentColor;
             shapes[i] = _gridSquares[i].GetComponent<GridSquare>().currentShape;
         }
     }
