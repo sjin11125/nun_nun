@@ -31,6 +31,7 @@ public class GridScript : MonoBehaviour
     static public int KeepItemTurn = 30;
     static public int TrashItemTurn = 20;
     static public int RainbowItemTurn = 4;
+    static public int ChangeShapeItem = 4;
     int keepNum = 0;
 
     private void OnEnable()
@@ -298,6 +299,7 @@ public class GridScript : MonoBehaviour
         NextExchangeItemTurn--;
         TrashItemTurn--;
         RainbowItemTurn--;
+        ChangeShapeItem--;
         List<int[]> completedLines = new List<int[]>();
         var linesCompleted = 0;
 
