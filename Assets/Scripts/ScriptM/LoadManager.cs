@@ -39,13 +39,13 @@ public class LoadManager : MonoBehaviour
             {
                 GameManager.Items[i] = false;
             }
-             if (SceneManager.GetActiveScene().name == "Main" && GameManager.BuildingArray != null)       //메인씬에서 로드하기
+             if (SceneManager.GetActiveScene().name == "Main" && GameManager.BuildingList != null)       //메인씬에서 로드하기
              {
                 //건물로드
 
-                for (int i = 0; i < GameManager.BuildingArray.Length; i++)
+                for (int i = 0; i < GameManager.BuildingList.Count; i++)
                 {
-                    Building LoadBuilding = GameManager.BuildingArray[i];           // 현재 가지고 잇는 빌딩 리스트의 빌딩 컴포넌트
+                    Building LoadBuilding = GameManager.BuildingList[i];           // 현재 가지고 잇는 빌딩 리스트의 빌딩 컴포넌트
                     string BuildingName = LoadBuilding.Building_Image;        //현재 가지고 있는 빌딩 리스트에서 빌딩 이름 부르기
                     Debug.Log(LoadBuilding.Placed);
 

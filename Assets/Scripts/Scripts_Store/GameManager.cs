@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     public static Dictionary<string, Sprite> DogamChaImageData;
 
     public static List<Building> BuildingList;          //가지고 있는 빌딩들
-    public static Building[] BuildingArray;
+    public static Building[] BuildingArray;         //모든 빌딩들
     
     public GameObject[] BuildingPrefabInspector;    //인스펙터에서 받아 온 건물 프리팹 배열
     public static Dictionary<string, GameObject> BuildingPrefabData;    //모든 빌딩 프리팹 딕셔너리
@@ -48,11 +48,11 @@ public class GameManager : MonoBehaviour
 
     //-----------------------------------여기서부터 재화---------------------------------
     public static int Money = 10000;            //재화
-    public static int Ice = 0;          //얼음
-    public static int Snow = 0;     //눈덩이
-    public static int Tree=0;       //나무
-    public static int Grass = 0;        //풀
-    public static int Gem = 0;          //잼(특별상점 사용)
+    public static int Ice = 100;          //얼음
+    public static int Snow = 100;     //눈덩이
+    public static int Tree=100;       //나무
+    public static int Grass = 100;        //풀
+    public static int Gem = 100;          //잼(특별상점 사용)
 
     //---------------------------------------------------------------------------------------------
 
@@ -123,9 +123,13 @@ public class GameManager : MonoBehaviour
         }
 
         //게임 시작했을 때 엑셀에서 모든 누니 정보들 파싱해 배열에 넣기
+
+
         DicParsingManager DPManager = new DicParsingManager();
         AllNuniArray = DPManager.Parse_character(1);            //누니 정보 파싱
+        BuildingArray = DPManager.Parse(0);    //도감 정보 파싱
 
+        Debug.Log("BuildingArray.Length: "+BuildingArray.Length);
     }
     private void Awake()
     {
@@ -156,7 +160,7 @@ public class GameManager : MonoBehaviour
     
     public static Sprite GetDogamChaImage(string ImageName)
     {
-
+        Debug.Log(ImageName.Trim());
         return GameManager.DogamChaImageData[ImageName.Trim()];
 
     }
