@@ -126,7 +126,7 @@ public class GridBuildingSystem : MonoBehaviour
                             }
                             if (hit.transform.tag == "Remove")          //제거
                             {
-                                temp.Remove();
+                                temp.Remove(temp);
 
                                 Grid.GetComponent<SpriteRenderer>().sortingOrder = -48;
 
@@ -259,6 +259,18 @@ public class GridBuildingSystem : MonoBehaviour
    {
         GameObject temp_gameObject = Instantiate(GameManager.CurrentBuilding, Vector3.zero, Quaternion.identity) as GameObject;
        temp = temp_gameObject.GetComponent<Building>(); // 이때 building 프리펩의 속성 불러오기
+        Debug.Log("uuuuuuuuu"+ GameManager.BuildingArray.Length);
+        for (int i = 0; i < DogamManager.BuildingInformation.Length; i++)
+        {
+            if (DogamManager.BuildingInformation[i].Building_Image==temp.Building_Image)
+            {
+                Debug.Log("Good");
+                temp.SetValue(DogamManager.BuildingInformation[i]);
+                break;
+            }
+        }
+
+
         temp.Type = BuildType.Make;
 
         temp.Rotation_Pannel.gameObject.SetActive(false);

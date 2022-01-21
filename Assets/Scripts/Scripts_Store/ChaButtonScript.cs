@@ -184,7 +184,7 @@ public class ChaButtonScript : MonoBehaviour
 
     public void CloseButtonClick2()
     {
-        Transform[] Windows= transform.parent.GetComponentsInChildren<Transform>();
+        Transform[] Windows= WindowClose.transform.GetComponentsInChildren<Transform>();
         Transform[] child= Windows[1].GetComponentsInChildren<Transform>();
         for (int i = 0; i < child.Length; i++)
         {

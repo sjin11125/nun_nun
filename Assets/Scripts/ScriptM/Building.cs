@@ -350,21 +350,22 @@ public class Building : MonoBehaviour
         }
         return false;
     }
-    public void Remove()
+    public void Remove(Building building)
     {
         Vector3Int positionInt = GridBuildingSystem.current.gridLayout.LocalToCell(transform.position);
         BoundsInt areaTemp = area;
         areaTemp.position = positionInt;
 
-        GameManager.Money += Cost;          //자원 되돌리기
-        GameManager.Tree += Tree;
-        GameManager.Snow += Snow;
-        GameManager.Grass += Grass;
-        GameManager.Ice += Ice;
+        //Debug.Log()
+        GameManager.Money += building.Cost;          //자원 되돌리기
+        GameManager.Tree += building.Tree;
+        GameManager.Snow += building.Snow;
+        GameManager.Grass += building.Grass;
+        GameManager.Ice += building.Ice;
+
         GridBuildingSystem.current.RemoveArea(areaTemp);
         if (Type == BuildType.Make)      //상점에서 사고 설치X 바로 제거
         {
-           
             Destroy(gameObject);
         }
         else                                //설치하고 제거

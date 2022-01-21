@@ -38,6 +38,8 @@ public class DogamManager : MonoBehaviour
         {
             DicParsingManager DPManager = new DicParsingManager();
             BuildingInformation = DPManager.Parse(0);    //도감 정보 파싱
+
+            //GameManager.BuildingArray = BuildingInformation;
             isParsing = true;
         }
         GameManager.isStore = true;
