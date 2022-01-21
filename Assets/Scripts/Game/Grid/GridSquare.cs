@@ -26,11 +26,10 @@ public class GridSquare : MonoBehaviour
     public static bool UseKeepBool = false;
 
     private float clickTime;
-    public float minClickTime = 0.8f;
+    private float minClickTime = 0.8f;
     private bool isClick;
     GameObject rainbowObj;
-    bool rainBowUse = false;
-    public int colorK;
+    GameObject ChangeShapeObj;
     void Start()
     {
         GridScript.TrashItemTurn = 20;
@@ -50,63 +49,47 @@ public class GridSquare : MonoBehaviour
         if(GetRainbow != null)
         {
             rainbowObj = GetRainbow.transform.GetChild(5).gameObject;//레인보우 아이템 오브젝트를 받아
+            ChangeShapeObj = GetRainbow.transform.GetChild(6).gameObject;//레인보우 아이템 오브젝트를 받아
         }
     }
 
     private void Update()
     {
-        if (Input.GetMouseButton(0))
+        Vector2 wp = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Ray2D ray = new Ray2D(wp, Vector2.zero);
+        RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
+        if (Input.GetMouseButtonDown(0))
         {
             isClick = true;
-            rainBowUse = false;
-            Vector2 wp = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Ray2D ray = new Ray2D(wp, Vector2.zero);
-            RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
-            if (hit.collider != null)
+            if (gameObject.transform.GetChild(2).gameObject.activeSelf)//켜진상태 이후에 롱클릭
             {
-                if (hit.collider.gameObject == this.gameObject)
+                if (clickTime >= minClickTime)//롱클릭이었으면
                 {
-                    rainBowUse = true;
-                          
-                    //다른 쉐이프들을 다꺼버리는걸 써도됨
-                }
-                else
-                {
-                    rainBowUse = false;
-                    //rainbowObj.GetComponent<RainbowItem>().UseThisItemEx();
+                    if (hit.collider != null)
+                    {
+                        if (hit.collider.gameObject == this.gameObject)
+                        {
+                            if(GridScript.RainbowItemTurn <= 0 && RainbowItem.rainbowActive)
+                            {
+                                rainbowObj.GetComponent<RainbowItem>().RainbowItemUse(currentShape);//레인보우 아이템 함수 호출
+                                RainbowItem.squareColorObj = this.gameObject;
+                                print(currentShape);
+                            }
+                            else if (GridScript.ChangeShapeItem <= 0 && ChangeShapeItem.changeActive)
+                            {
+                                ChangeShapeObj.GetComponent<ChangeShapeItem>().RainbowItemUse(keepCurrentColor);//컬러바꾸는 아이템 함수 호출
+                                ChangeShapeItem.squareObj = this.gameObject;
+                                print(keepCurrentColor);
+                            }
+                        }
+                    }
                 }
             }
+            clickTime = 0;
         }
         if (Input.GetMouseButtonUp(0))
         {
-            isClick = false;
-            if (clickTime >= minClickTime)//롱클릭이었으면
-            {
-                if (!rainbowObj.GetComponent<RainbowItem>().myChlid[1].activeSelf && activeImage.gameObject.activeSelf)//아이템 오브젝트사용가능이고 쉐입이 잇을때
-                {
-                    if (rainBowUse == true)
-                    {
-                        rainbowObj.GetComponent<RainbowItem>().RainbowItemUse(keepCurrentColor);//레인보우 아이템 함수 호출
-                        rainbowObj.GetComponent<RainbowItem>().myChlid[1].SetActive(true);//블락이미지 켜기
-                        //rainbowObj.GetComponent<RainbowItem>().UseThisItem(this.gameObject);
-                        print(keepCurrentColor);
-                        clickTime = 0;
-                    }         
-                }
-            }
-            else
-            {
-                if (rainBowUse == true)
-                {
-                    if(colorK == 6)
-                    {
-                        colorK = 0;
-                    }
-                    activeImage.sprite = rainbowObj.GetComponent<RainbowItem>().RainbowItemChange(colorK);//다음 모양으로
-                    print(colorK);
-                    colorK++;
-                }
-            }
+            isClick = false;               
         }
 
         if (isClick)
