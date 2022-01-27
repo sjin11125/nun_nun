@@ -76,7 +76,7 @@ public class RainbowItem : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
             if (hit.collider != null)
             {
-                if (hit.collider.gameObject == GameObject.FindGameObjectWithTag("GridSquare"))//스퀘어가 선택됐긴한데
+                if (hit.collider.gameObject.CompareTag("GridSquare")&& rainbowActive)//스퀘어가 선택됐긴한데
                 {
                     if (hit.collider.gameObject == squareColorObj)//바꾸고있는 애가아니라
                     {

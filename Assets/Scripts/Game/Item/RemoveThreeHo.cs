@@ -9,6 +9,8 @@ public class RemoveThreeHo : MonoBehaviour
     private Image squareImage;
     public Image normalImage;
     public int ItemTurn = 3;
+    bool useRemove;
+    bool centerhave;
     void Start()
     {
         for (int i = 0; i < myChlid.Length; i++)
@@ -25,18 +27,23 @@ public class RemoveThreeHo : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(worldPoint, Vector2.zero);//광선을 쏴
             if (hit.collider != null)
             {
-                if (hit.collider.gameObject.CompareTag("GridSquare") && myChlid[0].activeSelf == true)//스퀘어가 선택됐냐
+                if (hit.collider.gameObject.CompareTag("GridSquare") && useRemove == true)//스퀘어가 선택됐냐
                 {
                     FindLeftRight(hit.collider.gameObject);
-                    GridScript.ThreeHorizontalItem = ItemTurn;
-                    myChlid[0].SetActive(false);
-                    myChlid[1].SetActive(true);
-                    myChlid[2].SetActive(true);
+                    if (centerhave == true)
+                    {
+                        GridScript.ThreeHorizontalItem = ItemTurn;
+                        myChlid[0].SetActive(false);
+                        myChlid[1].SetActive(true);
+                        myChlid[2].SetActive(true);
+                        useRemove = false;
+                    }
                 }
                 else if(hit.collider.gameObject == myChlid[1])
                 {
                     myChlid[0].SetActive(true);
                     myChlid[1].SetActive(false);
+                    useRemove = true;
                 }
             }
         }
@@ -56,7 +63,7 @@ public class RemoveThreeHo : MonoBehaviour
         {
             tempObj[i] = center.GetComponentInParent<GridScript>().transform.GetChild(i).gameObject;//그리드 스크립트 자식들 모두 저장
 
-            if (tempObj[i] == center)//걔가 지금 선택된 애랑 같으면
+            if (tempObj[i] == center && center.transform.GetChild(2).gameObject.activeSelf == true)//걔가 지금 선택된 애랑 같으면
             {
                 centerIndex = i;
                 center.GetComponent<GridSquare>().ClearOccupied();
@@ -65,24 +72,29 @@ public class RemoveThreeHo : MonoBehaviour
                 squareImage.sprite = normalImage.sprite;
             }
         }
-        if (centerIndex - 1 > 0)//왼쪽친구 삭제
+        if (centerIndex != -1)
         {
-            if (tempObj[centerIndex - 1] != null)
+            if (centerIndex - 1 > 0)//왼쪽친구 삭제
             {
-                tempObj[centerIndex - 1].GetComponent<GridSquare>().ClearOccupied();
-                tempObj[centerIndex - 1].GetComponent<GridSquare>().Deactivate();
-                squareImage = tempObj[centerIndex - 1].transform.GetChild(2).gameObject.GetComponent<Image>();
-                squareImage.sprite = normalImage.sprite;
+                if (tempObj[centerIndex - 1] != null)
+                {
+                    tempObj[centerIndex - 1].GetComponent<GridSquare>().ClearOccupied();
+                    tempObj[centerIndex - 1].GetComponent<GridSquare>().Deactivate();
+                    squareImage = tempObj[centerIndex - 1].transform.GetChild(2).gameObject.GetComponent<Image>();
+                    squareImage.sprite = normalImage.sprite;
+                    centerhave = true;
+                }
             }
-        }
-        if (centerIndex + 1 < 25)//오른쪽친구 삭제
-        {
-            if (tempObj[centerIndex + 1] != null)
+            if (centerIndex + 1 < 25)//오른쪽친구 삭제
             {
-                tempObj[centerIndex + 1].GetComponent<GridSquare>().ClearOccupied();
-                tempObj[centerIndex + 1].GetComponent<GridSquare>().Deactivate();
-                squareImage = tempObj[centerIndex + 1].transform.GetChild(2).gameObject.GetComponent<Image>();
-                squareImage.sprite = normalImage.sprite;
+                if (tempObj[centerIndex + 1] != null)
+                {
+                    tempObj[centerIndex + 1].GetComponent<GridSquare>().ClearOccupied();
+                    tempObj[centerIndex + 1].GetComponent<GridSquare>().Deactivate();
+                    squareImage = tempObj[centerIndex + 1].transform.GetChild(2).gameObject.GetComponent<Image>();
+                    squareImage.sprite = normalImage.sprite;
+                    centerhave = true;
+                }
             }
         }
     }
