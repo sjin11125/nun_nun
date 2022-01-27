@@ -30,13 +30,11 @@ public class EraserItem : MonoBehaviour
             {
                 if (hit.collider.gameObject.CompareTag("GridSquare"))//스퀘어가 선택됐냐
                 {
-                    GameObject contectChild = hit.collider.gameObject.transform.GetChild(2).gameObject; //세번째 자식에 activeImage있음
-                    squareImage = contectChild.GetComponent<Image>();
-                    squareImage.sprite = normalImage.sprite;//흰색으로 바꿔
-
-                    GameObject contectSquare = hit.collider.gameObject.transform.gameObject; //부모도 받어
+                    GameObject contectSquare = hit.collider.gameObject.transform.gameObject; //부모 받어
                     contectSquare.GetComponent<GridSquare>().ClearOccupied(); //스크립트에 선택안된옵션으로 바꿔
                     contectSquare.GetComponent<GridSquare>().Deactivate();
+                    squareImage = contectSquare.transform.GetChild(2).gameObject.GetComponent<Image>();
+                    squareImage.sprite = normalImage.sprite;//흰색으로 바꿔
                     buttonDown = false;
                 }
             }

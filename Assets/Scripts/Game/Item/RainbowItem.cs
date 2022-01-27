@@ -13,6 +13,7 @@ public class RainbowItem : MonoBehaviour
     public int colorK = 0;
     public static bool rainbowActive;
     GameObject ChangeShapeObj;
+    public int ItemTurn;
 
     void Start()
     {
@@ -75,7 +76,7 @@ public class RainbowItem : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
             if (hit.collider != null)
             {
-                if (hit.collider.gameObject == GameObject.FindGameObjectWithTag("GridSquare"))//스퀘어가 선택됐긴한데
+                if (hit.collider.gameObject.CompareTag("GridSquare")&& rainbowActive)//스퀘어가 선택됐긴한데
                 {
                     if (hit.collider.gameObject == squareColorObj)//바꾸고있는 애가아니라
                     {
@@ -93,7 +94,7 @@ public class RainbowItem : MonoBehaviour
                 }
                 else if (hit.collider.gameObject == myChlid[0])//사용완료
                 {
-                    GridScript.RainbowItemTurn = 4;
+                    GridScript.RainbowItemTurn = ItemTurn;
                     myChlid[2].SetActive(true);
                     myChlid[1].SetActive(true);
                     myChlid[0].transform.GetChild(0).transform.gameObject.SetActive(true);

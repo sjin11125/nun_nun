@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class ItemController : MonoBehaviour
 {
-    public GameObject eraserItem, nextSquareItem, nextResetItem, NextExchangeItem, RainbowItem, ChangeShapeItem;
+    public GameObject eraserItem, nextSquareItem, nextResetItem, NextExchangeItem, RainbowItem, ChangeShapeItem, ThreeVerticalItem, ThreeHorizontalTtem;
     public int keepItemIndex, trashCanItemIndex;
 
-    public bool[] mainItemBool = new bool[8];
+    public bool[] mainItemBool = new bool[10];
 
     void Awake()
     {      
@@ -22,7 +22,7 @@ public class ItemController : MonoBehaviour
         }
         else
         {
-            eraserItem.SetActive(false);
+            eraserItem.SetActive(true);//false
         }
 
         if (mainItemBool[1] == true)
@@ -49,7 +49,7 @@ public class ItemController : MonoBehaviour
         }
         else
         {
-            nextSquareItem.SetActive(true);
+            nextSquareItem.SetActive(false);//true
         }
 
         if (mainItemBool[4] == true)
@@ -58,7 +58,7 @@ public class ItemController : MonoBehaviour
         }
         else
         {
-            nextResetItem.SetActive(false);
+            nextResetItem.SetActive(true);//false
         }
         if (mainItemBool[5] == true)
         {
@@ -66,7 +66,7 @@ public class ItemController : MonoBehaviour
         }
         else
         {
-            NextExchangeItem.SetActive(false);
+            NextExchangeItem.SetActive(true);//false
         }
         if (mainItemBool[6] == true)
         {
@@ -74,7 +74,7 @@ public class ItemController : MonoBehaviour
         }
         else
         {
-            RainbowItem.SetActive(true);
+            RainbowItem.SetActive(true);//false
         }
         if (mainItemBool[7] == true)
         {
@@ -82,7 +82,23 @@ public class ItemController : MonoBehaviour
         }
         else
         {
+            ChangeShapeItem.SetActive(true);//false
+        }
+        if (mainItemBool[8] == true)
+        {
             ChangeShapeItem.SetActive(true);
+        }
+        else
+        {
+            ChangeShapeItem.SetActive(true);//false
+        }
+        if (mainItemBool[9] == true)
+        {
+            ChangeShapeItem.SetActive(true);
+        }
+        else
+        {
+            ChangeShapeItem.SetActive(true);//false
         }
     }
 }
