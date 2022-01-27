@@ -4,12 +4,14 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System;
+using System.IO;
 //using UnityEngine.EventSystems;
 
+[Serializable]
 public class Building : MonoBehaviour
 {
     
-    public Vector2 BuildingPosition;    //*
+        //*
     public bool Placed = false;    //*
     public BoundsInt area;
 
@@ -26,6 +28,8 @@ public class Building : MonoBehaviour
     public bool isCoin = false;        //*
     public bool isCountCoin = false;   //*
     public int CountCoin = 0;      //*
+
+    public Vector2 BuildingPosition;                //건물 위치
     //-------------------------파싱정보------------------------------
     public string isLock;               //잠금 유무
     public string Building_name;            //건물 이름
