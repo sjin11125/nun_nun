@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    
+
+
     public static bool isStart = false;
     static GameManager _Instance;
     public static bool parse = false;
