@@ -13,6 +13,7 @@ public class ChangeShapeItem : MonoBehaviour
     public int colorK = 0;
     public static bool changeActive;
     GameObject rainbowObj;
+    public int ItemTurn;
 
     void Start()
     {
@@ -93,7 +94,7 @@ public class ChangeShapeItem : MonoBehaviour
                 }
                 else if (hit.collider.gameObject == myChlid[0])//사용완료
                 {
-                    GridScript.ChangeShapeItem = 4;
+                    GridScript.ChangeShapeItem = ItemTurn;
                     myChlid[2].SetActive(true);
                     myChlid[1].SetActive(true);
                     myChlid[0].transform.GetChild(0).transform.gameObject.SetActive(true);
