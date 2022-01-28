@@ -76,6 +76,7 @@ public class Building : MonoBehaviour
     }
     public void SetValue(Building getBuilding)
     {
+        isLock = getBuilding.isLock;
         Building_name = getBuilding.Building_name;
         Building_Image = getBuilding.Building_Image;
         BuildingPosition = getBuilding.BuildingPosition;
@@ -99,6 +100,7 @@ public class Building : MonoBehaviour
     public Building DeepCopy()
     {
         Building BuildingCopy = new Building();
+        BuildingCopy.isLock = isLock;
         BuildingCopy.Building_name = this.Building_name;
         BuildingCopy.Building_Image = this.Building_Image;
         //Debug.Log(BuildingCopy.Building_Image.name);
@@ -132,6 +134,7 @@ public class Building : MonoBehaviour
                 GameManager.BuildingList[i] = this.DeepCopy();
             }
         }
+        GridBuildingSystem.isSave = true;
     }
     public void Rotation()          //건물 회전
     {
@@ -158,7 +161,7 @@ public class Building : MonoBehaviour
                 Debug.Log("Rotation_No");
             }
         }
-        RefreshBuildingList();
+        RefreshBuildingList();          //건물 리스트 새로고침
     }
 
     void Awake()
@@ -453,6 +456,7 @@ public class Building : MonoBehaviour
             }
             
         }
+        GridBuildingSystem.isSave = true;
     }
     public void BuildingListAdd()
     {
