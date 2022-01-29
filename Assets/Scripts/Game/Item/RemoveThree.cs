@@ -29,7 +29,10 @@ public class RemoveThree : MonoBehaviour
             {
                 if (hit.collider.gameObject.CompareTag("GridSquare") && useRemove == true)//채워져있는애가 맞으면
                 {
-                    FindUpDown(hit.collider.gameObject);
+                    if(hit.collider.gameObject.transform.GetChild(2).gameObject.activeSelf == true)//선택한애가 무조건 켜져있어야 사용할거임
+                    {
+                        FindUpDown(hit.collider.gameObject);
+                    }
                     if(centerhave == true)
                     {
                         GridScript.ThreeVerticalItem = ItemTurn;
@@ -58,45 +61,48 @@ public class RemoveThree : MonoBehaviour
     
     void FindUpDown(GameObject center)
     {
-        int centerIndex = -1;
         GameObject[] tempObj = new GameObject[25];
         for (int i = 0; i < 25; i++)
         {
-            tempObj[i] = center.GetComponentInParent<GridScript>().transform.GetChild(i).gameObject;//그리드 스크립트 자식들 모두 저장
+           // tempObj[i] = center.GetComponentInParent<GridScript>().transform.GetChild(i).gameObject;//그리드 스크립트 자식들 모두 저장
+            tempObj[i] = GameObject.FindGameObjectWithTag("Grid").transform.GetChild(i).gameObject;
+        }
 
-            if(tempObj[i] == center && tempObj[i].transform.GetChild(2).gameObject.activeSelf==true)//걔가 지금 선택된 애랑 같고, 중간애가 무조건 있어야됨
+        for (int i = 0; i < tempObj.Length; i++)
+        {
+            if (tempObj[i] == center)//걔가 지금 선택된 애랑 같은놈
             {
-                centerIndex = i;
-                center.GetComponent<GridSquare>().ClearOccupied();
-                center.GetComponent<GridSquare>().Deactivate();
-                squareImage = center.transform.GetChild(2).gameObject.GetComponent<Image>();
-                squareImage.sprite = normalImage.sprite;
+                clearSquare(tempObj[i]);
+                if(i - 5 > 0 && i + 5 < 25)
+                {
+                    clearSquare(tempObj[i - 5]);
+                    clearSquare(tempObj[i + 5]);
+                }
+                else
+                {
+                    if (i - 5 > 0)
+                    {
+                        clearSquare(tempObj[i - 5]);
+                    }
+                    else if (i + 5 < 25)
+                    {
+                        clearSquare(tempObj[i + 5]);
+                    }
+                }
+                centerhave = true;
             }
         }
-        if(centerIndex != -1)
+      
+    }
+
+    void clearSquare(GameObject square)
+    {
+        if(square.transform.GetChild(2).gameObject.activeSelf == true)
         {
-            if (centerIndex - 5 > 0)//위에 친구 삭제
-            {
-                if (tempObj[centerIndex - 5] != null)
-                {
-                    tempObj[centerIndex - 5].GetComponent<GridSquare>().ClearOccupied();
-                    tempObj[centerIndex - 5].GetComponent<GridSquare>().Deactivate();
-                    squareImage = tempObj[centerIndex - 5].transform.GetChild(2).gameObject.GetComponent<Image>();
-                    squareImage.sprite = normalImage.sprite;
-                    centerhave = true;
-                }
-            }
-            if (centerIndex + 5 < 25)//밑에친구 삭제
-            {
-                if (tempObj[centerIndex + 5] != null)
-                {
-                    tempObj[centerIndex + 5].GetComponent<GridSquare>().ClearOccupied();
-                    tempObj[centerIndex + 5].GetComponent<GridSquare>().Deactivate();
-                    squareImage = tempObj[centerIndex + 5].transform.GetChild(2).gameObject.GetComponent<Image>();
-                    squareImage.sprite = normalImage.sprite;
-                    centerhave = true;
-                }
-            }
-        }       
+            square.GetComponent<GridSquare>().ClearOccupied();
+            square.GetComponent<GridSquare>().Deactivate();
+            squareImage = square.transform.GetChild(2).gameObject.GetComponent<Image>();
+            squareImage.sprite = normalImage.sprite;
+        }
     }
 }

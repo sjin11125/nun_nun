@@ -281,6 +281,7 @@ public class GridScript : MonoBehaviour
 
         if (completedLines == 0)
         {
+            QuestController.complete = false;
             if (GameOver())
             {
                 gameOver.gameObject.SetActive(true);
@@ -332,15 +333,19 @@ public class GridScript : MonoBehaviour
                 completeIndexArray[i] = squareIndex;
                 i++;
             }          
-            if (SameColorLines())
+            if (SameColorLines()) // QuestController.girdCompLine.Add(squareIndex);//퀘스트를 위한 정보전달
             {
                 linesCompleted++;
-
+                QuestController.complete = true;
                 GameObject MainTimerObj = GameObject.FindGameObjectWithTag("MainTimer");
                 if (MainTimerObj != null)
                 {
                     MainTimerObj.GetComponent<Timer>().timeLeft += 10;//라인을 맞출때마다 시간이 늘어남
                 }
+            }
+            else
+            {
+               // QuestController.complete = false;
             }
         }
         return linesCompleted;
