@@ -16,7 +16,7 @@ public class GoogleData
 
 public class GoogleSheetManager : MonoBehaviour
 {
-    const string URL = "https://script.google.com/macros/s/AKfycbw-aQQMQK47U-5ZU-728ujHYLDfktyaAwPsM6OlRlJ0lZKYy7M4Owk7p-dd3W62h9pyaQ/exec";
+    const string URL = "https://script.google.com/macros/s/AKfycbw7x4v5RA8sLA5-0EgKW17e3RHtei7oPskcnNFXuVb44DqN88L_tuOZyZlCzWZrPrzk_Q/exec";
     public GoogleData GD;
     public InputField IDInput, PassInput, ValueInput;
     string id, pass;
