@@ -341,7 +341,8 @@ public class GridBuildingSystem : MonoBehaviour
    {
         Debug.Log("CanTakeArea()");
         TileBase[] baseArray = GetTilesBlock(area, MainTilemap);
-       foreach (var b in baseArray)
+        Debug.Log("CanTakeArea()         :"+ baseArray.Length);
+        foreach (var b in baseArray)
        {
            if ( b != tileBases[TileType.White])
            {

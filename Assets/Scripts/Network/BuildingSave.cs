@@ -11,7 +11,7 @@ public class BuildingSave : MonoBehaviour
                 //저장하면 구글 스프레드 시트로 전송
 
     Buildingsave[] BTosave;
-    const string URL = "https://script.google.com/macros/s/AKfycbxz1Z4wAB9u5A3djWenMSIvuYWMrDGq6hfCx7Uuko7vqDOdvJ7WpGxCRhTkp4qZdZU-uA/exec";
+    const string URL = "https://script.google.com/macros/s/AKfycby5MWtjVhA7zdiUf52_jbttDSRarKxlgMTixeKHEDEIyqq9EYg3oc8S1uCukkdXmMB-xA/exec";
     public Buildingsave GD;
     // Start is called before the first frame update
     void Start()
@@ -44,6 +44,7 @@ public class BuildingSave : MonoBehaviour
             form.AddField("snow", BTosave[i].Snow);
             form.AddField("row_size", (i+2).ToString());
             form.AddField("length", BTosave.Length.ToString());
+            Debug.Log("BTosave.Length: "+BTosave.Length);
             StartCoroutine(Post(form));
         }
            
