@@ -81,7 +81,7 @@ public class Building : MonoBehaviour
         Building_Image = getBuilding.Building_Image;
         BuildingPosition = getBuilding.BuildingPosition;
         Placed = getBuilding.Placed;
-        area = getBuilding.area;
+        //area = getBuilding.area;
         currentTime = getBuilding.currentTime;
         startingTime = getBuilding.startingTime;
         isCoin = getBuilding.isCoin;

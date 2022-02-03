@@ -11,7 +11,7 @@ public class BuildingSave : MonoBehaviour
                 //저장하면 구글 스프레드 시트로 전송
 
     Buildingsave[] BTosave;
-    const string URL = "https://script.google.com/macros/s/AKfycbwd_Xsz2KKgcFLWtMq_q7hfV80X2dZL32xU9tHlIkcne7RzpLnaClZPgseMzf6XRjdQKw/exec";
+    const string URL = "https://script.google.com/macros/s/AKfycbxz1Z4wAB9u5A3djWenMSIvuYWMrDGq6hfCx7Uuko7vqDOdvJ7WpGxCRhTkp4qZdZU-uA/exec";
     public Buildingsave GD;
     // Start is called before the first frame update
     void Start()
