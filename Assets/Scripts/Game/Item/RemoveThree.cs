@@ -58,7 +58,6 @@ public class RemoveThree : MonoBehaviour
             myChlid[2].SetActive(false);//0이하면 사용가능해지게
         }
     }
-    
     void FindUpDown(GameObject center)
     {
         GameObject[] tempObj = new GameObject[25];
@@ -73,21 +72,16 @@ public class RemoveThree : MonoBehaviour
             if (tempObj[i] == center)//걔가 지금 선택된 애랑 같은놈
             {
                 clearSquare(tempObj[i]);
-                if(i - 5 > 0 && i + 5 < 25)
+
+                int up = i - 5;
+                int down = i + 5;
+                if (up > -1 && tempObj[up].transform.GetChild(2).gameObject.activeSelf == true)
                 {
-                    clearSquare(tempObj[i - 5]);
-                    clearSquare(tempObj[i + 5]);
+                    clearSquare(tempObj[up]);
                 }
-                else
+                if(down <26 && tempObj[down].transform.GetChild(2).gameObject.activeSelf == true)
                 {
-                    if (i - 5 > 0)
-                    {
-                        clearSquare(tempObj[i - 5]);
-                    }
-                    else if (i + 5 < 25)
-                    {
-                        clearSquare(tempObj[i + 5]);
-                    }
+                    clearSquare(tempObj[down]);
                 }
                 centerhave = true;
             }
@@ -95,7 +89,7 @@ public class RemoveThree : MonoBehaviour
       
     }
 
-    void clearSquare(GameObject square)
+    void clearSquare(GameObject square)//켜져있으면 끄기
     {
         if(square.transform.GetChild(2).gameObject.activeSelf == true)
         {

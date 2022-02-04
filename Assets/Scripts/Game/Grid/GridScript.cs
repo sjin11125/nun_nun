@@ -35,6 +35,7 @@ public class GridScript : MonoBehaviour
     static public int ThreeVerticalItem = 3;
     static public int ThreeHorizontalItem = 3;
     int keepNum = 0;
+    public GameObject QuestControll;
 
     private void OnEnable()
     {
@@ -281,7 +282,6 @@ public class GridScript : MonoBehaviour
 
         if (completedLines == 0)
         {
-            QuestController.complete = false;
             if (GameOver())
             {
                 gameOver.gameObject.SetActive(true);
@@ -336,16 +336,13 @@ public class GridScript : MonoBehaviour
             if (SameColorLines()) // QuestController.girdCompLine.Add(squareIndex);//퀘스트를 위한 정보전달
             {
                 linesCompleted++;
-                QuestController.complete = true;
+                QuestControll.GetComponent<QuestController>().QuestIndex();//퀘스트 함수 실행               
+
                 GameObject MainTimerObj = GameObject.FindGameObjectWithTag("MainTimer");
                 if (MainTimerObj != null)
                 {
                     MainTimerObj.GetComponent<Timer>().timeLeft += 10;//라인을 맞출때마다 시간이 늘어남
                 }
-            }
-            else
-            {
-               // QuestController.complete = false;
             }
         }
         return linesCompleted;
@@ -354,7 +351,6 @@ public class GridScript : MonoBehaviour
     public bool SameColorLines()
     {
         var sameColorLine = false;
-        List<GridSquare> comp = new List<GridSquare>();
         
         for (int i = 0; i < completeIndexArray.Length; i++)
         {
