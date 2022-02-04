@@ -58,6 +58,15 @@ public class GameManager : MonoBehaviour
     public static int Gem = 100;          //잼(특별상점 사용)
 
     //---------------------------------------------------------------------------------------------
+    //--------------------------------여기서부터 플레이어 정보-------------------------------------
+
+    public static string Id;            //플레이어 아이디
+    public static string NickName;      //플레이어 닉네임
+    public static string SheetsNum;     //플레이어 건물 정보 들어있는 스프레드 시트 id
+
+    public static string[] Friends;       //친구 목록(닉네임)
+
+
 
     public static bool isMoveLock = false;      //창 떴을 때 이동 못하게하는 변수
     /* 아이템 목록
@@ -132,7 +141,9 @@ public class GameManager : MonoBehaviour
         AllNuniArray = DPManager.Parse_character(1);            //누니 정보 파싱
         BuildingArray = DPManager.Parse(0);    //도감 정보 파싱
 
-        Debug.Log("BuildingArray.Length: "+BuildingArray.Length);
+        // Friends=new string[1] {"Vicky"};            //일단 친구는 비키만 있는걸로
+        //친구 목록 불러오기
+        //GetComponent<BuildingSave>().GetFriendLsit();           //친구 목록 불러오기
     }
     private void Awake()
     {

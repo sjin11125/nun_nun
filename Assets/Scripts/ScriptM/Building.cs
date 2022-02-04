@@ -56,6 +56,8 @@ public class Building : MonoBehaviour
 
     public bool isFliped = false;
     public BuildType Type;
+
+    BuildingSave save;
     public Building()
     {
     }
@@ -125,7 +127,7 @@ public class Building : MonoBehaviour
         BuildingCopy.isFliped = isFliped;
         return BuildingCopy;
     }
-    public void RefreshBuildingList()
+    public void RefreshBuildingList()               //빌딩 리스트 새로고침
     {
         for (int i = 0; i < GameManager.BuildingList.Count; i++)
         {
@@ -135,6 +137,7 @@ public class Building : MonoBehaviour
             }
         }
         GridBuildingSystem.isSave = true;
+
     }
     public void Rotation()          //건물 회전
     {
@@ -173,7 +176,7 @@ public class Building : MonoBehaviour
         Debug.Log("Start Level: " + Level);
         buildings = new GameObject[3];
         currentTime = (int)startingTime;
-
+        save = GetComponent<BuildingSave>();
         //TimeText = GameObject.Find("Canvas/TimeText"); //게임오브젝트 = 캔버스에 있는 TimeText로 설정
         if (Type == BuildType.Make)
         {
@@ -378,6 +381,7 @@ public class Building : MonoBehaviour
         else                                //설치하고 제거
         {
             BuildingListRemove();
+            save.RemoveValue(Building_name);
             Destroy(gameObject);
         }
     }
@@ -426,15 +430,15 @@ public class Building : MonoBehaviour
         else if (buildtype == BuildType.Move)               //이동할 때
         {
             Debug.Log("Move");
-            for (int i = 0; i < GameManager.BuildingList.Count; i++)
-            {
-                if (GameManager.BuildingList[i].Building_name == Building_name)
-                {
-                    GameManager.BuildingList[i] = this.DeepCopy();
-                }
-            }
+            RefreshBuildingList();
+
             buildtype = BuildType.Empty;
 
+            save.UpdateValue(this);
+        }
+        else
+        {
+            save.UpdateValue(this);
         }
 
         gameObject.transform.parent = Parent.transform;
@@ -456,7 +460,9 @@ public class Building : MonoBehaviour
             }
             
         }
+
         GridBuildingSystem.isSave = true;
+        
     }
     public void BuildingListAdd()
     {
@@ -468,7 +474,7 @@ public class Building : MonoBehaviour
         GameManager.CurrentBuilding = null;
         //
 
-
+        save.AddValue();
     } 
     #endregion 
     // Update is called once per frame
@@ -482,7 +488,6 @@ public class Building : MonoBehaviour
             UpgradePannel2.GetComponent<ChaButtonScript>().Upgrade(buildings, Level, this);
 
         }
-        RefreshBuildingList();
     }
 
  

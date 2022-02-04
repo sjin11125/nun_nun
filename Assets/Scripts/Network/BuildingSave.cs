@@ -11,46 +11,67 @@ public class BuildingSave : MonoBehaviour
                 //저장하면 구글 스프레드 시트로 전송
 
     Buildingsave[] BTosave;
-    const string URL = "https://script.google.com/macros/s/AKfycby5MWtjVhA7zdiUf52_jbttDSRarKxlgMTixeKHEDEIyqq9EYg3oc8S1uCukkdXmMB-xA/exec";
+    const string URL = "https://script.google.com/macros/s/AKfycbwOcf1mBet2ToYivLo_Lc0q-EDtS_Fe3PD7Qkwy46AfSI_MQyyrrE4KU3ZB4NZcXAJA_A/exec";
     public Buildingsave GD;
+    public string Friends;
     // Start is called before the first frame update
     void Start()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public void GetFriendLsit()
     {
-        
+        WWWForm form = new WWWForm();
+        form.AddField("order", "getFriend");
+        StartCoroutine(Post(form));
     }
-
-    public void SetValue()
+    
+    public void UpdateValue(Building update_building)
     {
-        BTosave = Tosave();
-        for (int i = 0; i < BTosave.Length; i++)
-        {
-            WWWForm form = new WWWForm();
-            form.AddField("order", "setValue");
-            form.AddField("buildingPosiiton_x", BTosave[i].BuildingPosition_x.ToString());
-            form.AddField("buildingPosiiton_y", BTosave[i].BuildingPosition_y.ToString());
-            form.AddField("isLock", BTosave[i].isLock);
-            form.AddField("building_name", BTosave[i].Building_name);
-            form.AddField("cost", BTosave[i].Cost);
-            form.AddField("level", BTosave[i].Level);
-            form.AddField("tree", BTosave[i].Tree);
-            form.AddField("ice", BTosave[i].Ice);
-            form.AddField("grass", BTosave[i].Grass);
-            form.AddField("snow", BTosave[i].Snow);
-            form.AddField("row_size", (i+2).ToString());
-            form.AddField("length", BTosave.Length.ToString());
-            Debug.Log("BTosave.Length: "+BTosave.Length);
-            StartCoroutine(Post(form));
-        }
-           
-        
+        WWWForm form = new WWWForm();
+        form.AddField("order", "updateValue");
+        form.AddField("buildingPosiiton_x", update_building.BuildingPosition.x.ToString());
+        form.AddField("buildingPosiiton_y", update_building.BuildingPosition.y.ToString());
+        form.AddField("isLock", update_building.isLock);
+        form.AddField("building_name", update_building.Building_name);
+        form.AddField("cost", update_building.Cost);
+        form.AddField("level", update_building.Level);
+        form.AddField("tree", update_building.Tree);
+        form.AddField("ice", update_building.Ice);
+        form.AddField("grass", update_building.Grass);
+        form.AddField("snow", update_building.Snow);
+        form.AddField("isFlied", update_building.isFliped.ToString());
+        StartCoroutine(Post(form));
     }
+    public void AddValue()
+    {
+        WWWForm form = new WWWForm();
+        Building buildings = GetComponent<Building>();
+        Debug.Log("건물저장");
+        form.AddField("order", "addValue");
+        form.AddField("buildingPosiiton_x", buildings.BuildingPosition.x.ToString());
+        form.AddField("buildingPosiiton_y", buildings.BuildingPosition.y.ToString());
+        form.AddField("isLock", buildings.isLock);
+        form.AddField("building_name", buildings.Building_name);
+        form.AddField("cost", buildings.Cost);
+        form.AddField("level", buildings.Level);
+        form.AddField("tree", buildings.Tree);
+        form.AddField("ice", buildings.Ice);
+        form.AddField("grass", buildings.Grass);
+        form.AddField("snow", buildings.Snow);
+        form.AddField("isFlied",buildings.isFliped.ToString());
+        StartCoroutine(Post(form));
+    }
+    public void RemoveValue(string b_name)
+    {
+        WWWForm form1 = new WWWForm();
+        form1.AddField("order", "removeValue");
+        form1.AddField("remove_building", b_name);
+        StartCoroutine(Post(form1));
 
+        return;
+    }
     IEnumerator Post(WWWForm form)
     {
         using (UnityWebRequest www = UnityWebRequest.Post(URL, form)) // 반드시 using을 써야한다
@@ -67,45 +88,18 @@ public class BuildingSave : MonoBehaviour
 
         GD = JsonUtility.FromJson<Buildingsave>(json);
 
-
         if (GD.result == "ERROR")
         {
             print(GD.order + "을 실행할 수 없습니다. 에러 메시지 : " + GD.msg);
             return;
         }
 
-        /*print(GD.order + "을 실행했습니다. 메시지 : " + GD.msg);
 
-        if (GD.order == "getValue")
+        /*if (GD.order == "getFriend")
         {
-            ValueInput.text = GD.value;*/
-        }
-    
-    public Buildingsave[] Tosave()          //저장할 값만 뺌
-    {
-        List<Buildingsave> buildingsave = new List<Buildingsave>();
-        for (int i = 0; i < GameManager.BuildingList.Count; i++)
-        {
-            Building building = new Building();
-            building = GameManager.BuildingList[i];
-
-            Buildingsave building_save = new Buildingsave();
-            Debug.Log(building.BuildingPosition.x.ToString());
-            Debug.Log(building.BuildingPosition.y.ToString());
-            building_save.BuildingPosition_x = building.BuildingPosition.x.ToString();
-            building_save.BuildingPosition_y= building.BuildingPosition.y.ToString();
-            building_save.isLock = building.isLock;
-            building_save.Building_name = building.Building_name;
-            building_save.Cost = building.Cost.ToString();
-            building_save.Level = building.Level.ToString();
-            building_save.Tree = building.Tree.ToString();
-            building_save.Ice = building.Ice.ToString();
-            building_save.Grass = building.Grass.ToString();
-            building_save.Snow = building.Snow.ToString();
-
-            buildingsave.Add(building_save);
-        }
-        return buildingsave.ToArray();
+            GameManager.Friends = GD.Friends;
+            Debug.Log(GameManager.Friends[0]);
+        }*/
     }
 }
 
@@ -128,6 +122,6 @@ public class Buildingsave
     public string Ice;        //얼음
     public string Grass;        //풀
     public string Snow;        //눈
-    //-----------------------------------------------------------
-    
+                               //-----------------------------------------------------------
+    //public string[] Friends;
 }

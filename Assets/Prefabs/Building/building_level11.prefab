@@ -460,8 +460,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7e4fb413bcc80044a8d1f69d6b2cb55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Building_Image: House(Clone)
-  BuildingPosition: {x: -0.525, y: -1.6500001}
   Placed: 0
   area:
     m_Position: {x: -4, y: -3, z: 0}
@@ -470,17 +468,29 @@ MonoBehaviour:
   currentTime: 57.251263
   startingTime: 60
   Button_Pannel: {fileID: 2132867819840144644}
+  Rotation_Pannel: {fileID: 0}
+  Remove_Pannel: {fileID: 0}
   isCoin: 0
   isCountCoin: 0
   CountCoin: 0
+  BuildingPosition: {x: -0.525, y: -1.6500001}
+  isLock: 
+  Building_name: 
+  Reward: 
+  Info: 
+  Building_Image: House(Clone)
   Cost: 0
-  Deco: 0
+  Level: 1
+  Tree: 0
+  Ice: 0
+  Grass: 0
+  Snow: 0
   layer_y: 0
-  level: 0
   UpgradePannel: {fileID: 4467152901347740531}
-  Level1building: {fileID: 2132867819981942807}
-  Level2building: {fileID: 8697487291550837006}
-  Level3building: {fileID: 2586954110663853600}
+  UpgradePannel2: {fileID: 0}
+  buildings: []
+  isFliped: 0
+  Type: 0
 --- !u!61 &4337750507591132674
 BoxCollider2D:
   m_ObjectHideFlags: 0

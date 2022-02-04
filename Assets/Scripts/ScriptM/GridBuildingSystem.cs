@@ -74,11 +74,6 @@ public class GridBuildingSystem : MonoBehaviour
             ChaButtonScript.isEdit = false;
             InitializeWithBuilding();
         }
-        if (isSave==true)
-        {
-            isSave = false;
-            BSave.SetValue();
-        }
         if (Input.GetMouseButtonUp(0)) //마우스를 눌러서 뗐을 때
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
