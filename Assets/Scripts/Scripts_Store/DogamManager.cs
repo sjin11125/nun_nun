@@ -15,11 +15,17 @@ public class DogamManager : MonoBehaviour
     Sprite[] ChaImage;
     Character Cha;
     public static Sprite ChaImage_;
+    //---------------------------------이까지 건물 정보-----------------------
+
+    public GameObject FriendPrefab;         //친구 버튼 프리팹
+    GameObject FriendCha;
+
+
 
     public GameObject Scroll;
 
     public static Button[] LockButton;
-    
+  
     // Start is called before the first frame update
     void Start()
     {
@@ -37,7 +43,7 @@ public class DogamManager : MonoBehaviour
         if (isParsing == false)
         {
             DicParsingManager DPManager = new DicParsingManager();
-            BuildingInformation = DPManager.Parse(0);    //도감 정보 파싱
+            BuildingInformation = DPManager.Parse(0);    //건물 정보 파싱
 
             //GameManager.BuildingArray = BuildingInformation;
             isParsing = true;
@@ -108,10 +114,18 @@ public class DogamManager : MonoBehaviour
         //LockButton = LockButtonList.ToArray();      //잠긴 버튼 리스트 배열로 만들어서 넣기
         
 
+    }          //건물 상점 열 때 건물 리스트 불러오기
+
+
+    public void FriendOpen()                //친구 목록 열 때 친구 리스트 불러오기
+    {
+        for (int i = 0; i < GameManager.Friends.Length; i++)
+        {
+            FriendCha = Instantiate(FriendPrefab) as GameObject;
+            FriendCha.transform.SetParent(Scroll.transform);
+
+        }
     }
-
-
-    
 
 }
 

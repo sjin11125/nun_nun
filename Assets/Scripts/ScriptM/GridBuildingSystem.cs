@@ -19,7 +19,7 @@ public class GridBuildingSystem : MonoBehaviour
     public Tilemap MainTilemap;
     public Tilemap TempTilemap;
 
-
+ 
     private static Dictionary<TileType, TileBase> tileBases = new Dictionary<TileType, TileBase>();
 
     private Building temp; //building type으로 temp 생성
@@ -31,7 +31,9 @@ public class GridBuildingSystem : MonoBehaviour
     Button StartButton;
     //추가 1110
 
-
+        //------------------------세이브 관련 변수들--------------------------------------
+    public static bool isSave = false;          //건물 건설이나 삭제했을 때 건물들 저장하는 변수
+    public BuildingSave BSave;
 
     #region unity Methods  
     private void Awake()
@@ -72,7 +74,6 @@ public class GridBuildingSystem : MonoBehaviour
             ChaButtonScript.isEdit = false;
             InitializeWithBuilding();
         }
-
         if (Input.GetMouseButtonUp(0)) //마우스를 눌러서 뗐을 때
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -335,7 +336,8 @@ public class GridBuildingSystem : MonoBehaviour
    {
         Debug.Log("CanTakeArea()");
         TileBase[] baseArray = GetTilesBlock(area, MainTilemap);
-       foreach (var b in baseArray)
+        Debug.Log("CanTakeArea()         :"+ baseArray.Length);
+        foreach (var b in baseArray)
        {
            if ( b != tileBases[TileType.White])
            {
