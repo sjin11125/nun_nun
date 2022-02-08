@@ -471,9 +471,9 @@ RectTransform:
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -17, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &57179231
 MonoBehaviour:
@@ -1814,6 +1814,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DogamChaPrefab: {fileID: 6327648163769899962, guid: 81a00c2faea16a64d8347cadd3e85b83, type: 3}
+  FriendPrefab: {fileID: 0}
   Scroll: {fileID: 1907072192}
 --- !u!4 &395517577
 Transform:
@@ -3191,7 +3192,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3972,7 +3973,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1066400366
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4654,7 +4655,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.000030517578, y: -0.000030517578}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 400, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1350951591
 GameObject:
@@ -7191,6 +7192,7 @@ MonoBehaviour:
     Ice: 0
     Grass: 0
     Snow: 0
+  Friends: 
 --- !u!1 &1815255842
 GameObject:
   m_ObjectHideFlags: 0
@@ -8667,6 +8669,43 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2028127872}
   m_CullTransparentMesh: 1
+--- !u!1 &2036180911 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7830889426656656928, guid: b81e78635323eed4690a9801c1c32229, type: 3}
+  m_PrefabInstance: {fileID: 355629962}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2036180914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2036180911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a11ed494d8df73549b2ad882df51f11e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GD:
+    order: 
+    result: 
+    msg: 
+    row_size: 
+    length: 
+    BuildingPosition_x: 
+    BuildingPosition_y: 
+    isLock: 
+    Building_name: 
+    Reward: 
+    Info: 
+    Building_Image: 
+    Cost: 
+    Level: 
+    Tree: 
+    Ice: 
+    Grass: 
+    Snow: 
+  Friends: 
 --- !u!1 &2039130015
 GameObject:
   m_ObjectHideFlags: 0
