@@ -11,7 +11,7 @@ public class BuildingSave : MonoBehaviour
                 //저장하면 구글 스프레드 시트로 전송
 
     Buildingsave[] BTosave;
-    const string URL = "https://script.google.com/macros/s/AKfycbwOcf1mBet2ToYivLo_Lc0q-EDtS_Fe3PD7Qkwy46AfSI_MQyyrrE4KU3ZB4NZcXAJA_A/exec";
+    const string URL = "https://script.google.com/macros/s/AKfycbzAB-AkKdMEmqLtNZqCeFaaL-_ArToHC9Br61iumIcfivza9P6DKogculNXweUxTu0JbA/exec";
     public Buildingsave GD;
     public string Friends;
     // Start is called before the first frame update
@@ -20,12 +20,7 @@ public class BuildingSave : MonoBehaviour
         
     }
 
-    public void GetFriendLsit()
-    {
-        WWWForm form = new WWWForm();
-        form.AddField("order", "getFriend");
-        StartCoroutine(Post(form));
-    }
+    
     
     public void UpdateValue(Building update_building)
     {
@@ -78,8 +73,8 @@ public class BuildingSave : MonoBehaviour
         {
             yield return www.SendWebRequest();
             //Debug.Log(www.downloadHandler.text);
-            if (www.isDone) Response(www.downloadHandler.text);
-            else print("웹의 응답이 없습니다.");
+            /*if (www.isDone) Response(www.downloadHandler.text);
+            else print("웹의 응답이 없습니다.");*/
         }
     }
     void Response(string json)
@@ -122,6 +117,7 @@ public class Buildingsave
     public string Ice;        //얼음
     public string Grass;        //풀
     public string Snow;        //눈
+    public string isFlied;        //뒤집어졌는지
                                //-----------------------------------------------------------
-    //public string[] Friends;
+                               //public string[] Friends;
 }
