@@ -25,7 +25,7 @@ public class ItemController : MonoBehaviour
             eraserItem.SetActive(true);//false
         }
 
-        if (mainItemBool[1] == true)
+        if (mainItemBool[1] == false)//true
         {
             keepItemIndex = 1 + 25;
         }
@@ -34,7 +34,7 @@ public class ItemController : MonoBehaviour
             keepItemIndex = 5 + 25;
         }
 
-        if (mainItemBool[2] == true)
+        if (mainItemBool[2] == false)//true
         {
             trashCanItemIndex = 2 + 25;
         }

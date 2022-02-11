@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class CreateKeepShape : MonoBehaviour, IPointerDownHandler,IBeginDragHandler,IEndDragHandler,IDragHandler,IDropHandler //, IDragHandler
 {
-    private RectTransform _transform;
     private Vector3 _startPosition;
     private Canvas canvas;
     public bool drop = false;
@@ -17,28 +16,28 @@ public class CreateKeepShape : MonoBehaviour, IPointerDownHandler,IBeginDragHand
     public GameObject hitKeepObj;
     GameObject KeepObj;
     int HitChildCount;
+    int keepIndex;
 
     private void Awake()
-    {
-        _transform = this.GetComponent<RectTransform>();
-        _startPosition = _transform.localPosition;
-
+    {       
+        _startPosition = new Vector3(-189 - 5f, -660.5f, 0);
         gameObject.tag = "KeepShape";
         rectTransform = GetComponent<RectTransform>();
         canvas = GameObject.FindGameObjectWithTag("Canvas").GetComponent<Canvas>();
-    }
-    private void Start()
-    {
-        KeepObj = GameObject.FindGameObjectWithTag("Grid");
+
+        GameObject ItemControllerObj = GameObject.FindGameObjectWithTag("ItemController");//컨트롤러에서 선택한 인덱스에 따라 위치 결정
+        if (ItemControllerObj != null)
+        {
+            keepIndex = ItemControllerObj.GetComponent<ItemController>().keepItemIndex;
+        }
+
+        KeepObj = GameObject.FindGameObjectWithTag("Grid").transform.GetChild(keepIndex).gameObject;
         if (KeepObj != null)
         {
-            gameObject.GetComponent<Image>().sprite = KeepObj.GetComponent<GridScript>().KeepImg;
+            gameObject.GetComponent<Image>().sprite = KeepObj.GetComponent<GridSquare>().activeImage.sprite;
+            keepColor = KeepObj.GetComponent<GridSquare>().keepCurrentColor;
+            keepShape = KeepObj.GetComponent<GridSquare>().currentShape;
         }
-    }
-
-    void Update()
-    {
-        GridScript.KeepItemTurn = 30;
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
@@ -69,6 +68,8 @@ public class CreateKeepShape : MonoBehaviour, IPointerDownHandler,IBeginDragHand
         if (drop == true)//놓았으면
         {
             hitKeepObj.GetComponent<GridSquare>().UseSquareKeep();//상대 오브젝트를 켠다
+            GridScript.KeepItemTurn = 30;
+            KeepObj.SetActive(true);
             Destroy(this.gameObject);//이 프리팹은 삭제된다
         }
     }
