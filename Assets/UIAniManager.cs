@@ -15,8 +15,9 @@ public class UIAniManager : MonoBehaviour
     //public StartManager startmanager;
     // Start is called before the first frame update
 
-    void Start()
+    public void Start()
     {
+        Debug.Log("메인 중앙으로 이동");
         mainMenu.DOAnchorPos(Vector2.zero, 0.5f); // 메인패널 처음에 중간세팅
                                                   //startMenu.transform.localScale = Vector2.zero;
     }
@@ -34,9 +35,10 @@ public class UIAniManager : MonoBehaviour
         mainMenu.DOAnchorPos(new Vector2(0, 0), 0.5f);
         ShopMenu.DOAnchorPos(new Vector2(0, 2000), 0.5f);
     }
-
+    
     public void StartOpen()
     {
+        mainMenu.DOAnchorPos(new Vector2(-1000, 0), 0.5f);
         //startMenu.transform.DOScale(Vector3.one, 0.3f);
         //startmanager.CharacterOpen();
 

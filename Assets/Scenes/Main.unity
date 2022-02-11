@@ -882,6 +882,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1035652537, guid: 5dea2f5e904f37c439bf4db567b9e457, type: 3}
+      propertyPath: UI_Manager
+      value: 
+      objectReference: {fileID: 754422331}
     - target: {fileID: 332196644802638887, guid: 5dea2f5e904f37c439bf4db567b9e457, type: 3}
       propertyPath: m_RootOrder
       value: 11
@@ -3501,6 +3505,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
         m_MethodName: set_enabled
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 754422331}
+        m_TargetAssemblyTypeName: UIAniManager, Assembly-CSharp
+        m_MethodName: StartOpen
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -7005,6 +7021,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 754422331}
+        m_TargetAssemblyTypeName: UIAniManager, Assembly-CSharp
+        m_MethodName: StartOpen
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1787376038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8384,6 +8412,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1922109293}
         m_TargetAssemblyTypeName: ChaButtonScript, Assembly-CSharp
         m_MethodName: CloseClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 754422331}
+        m_TargetAssemblyTypeName: UIAniManager, Assembly-CSharp
+        m_MethodName: Start
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
