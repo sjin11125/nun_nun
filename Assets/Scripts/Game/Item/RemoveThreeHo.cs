@@ -8,7 +8,7 @@ public class RemoveThreeHo : MonoBehaviour
     GameObject[] myChlid = new GameObject[3];
     private Image squareImage;
     public Image normalImage;
-    public int ItemTurn = 3;
+    public int ItemTurn;
     bool useRemove;
     bool centerhave;
     void Start()
