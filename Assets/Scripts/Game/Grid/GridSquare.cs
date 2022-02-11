@@ -32,8 +32,6 @@ public class GridSquare : MonoBehaviour
     GameObject ChangeShapeObj;
     void Start()
     {
-        GridScript.TrashItemTurn = 20;
-        GridScript.KeepItemTurn = 30;
         Selected = false;
         SquareOccupied = false;
         keepCurrentColor = null;
@@ -165,7 +163,6 @@ public class GridSquare : MonoBehaviour
         {
             collision.GetComponent<ShapeSquare>().SetOccupied();//쉐이프 레드라이트
         }
-        UseKeepBool = false;
     }
 
     private void OnTriggerStay2D(Collider2D collision)//충돌중
@@ -195,7 +192,7 @@ public class GridSquare : MonoBehaviour
         {
             collision.GetComponent<ShapeSquare>().UnSetOccupied();//레드라이트꺼
         }
-
+        
         GameObject GridObj = GameObject.FindGameObjectWithTag("Grid");
         if (GridObj != null && UseKeepBool == true)
         {
@@ -207,11 +204,13 @@ public class GridSquare : MonoBehaviour
     public void UseSquareKeep()//킵 프리팹과 닿으면 켜지는 함수
     {
         UseKeepBool = true;
+        
         hooverImage.gameObject.SetActive(false);//선택되고있는중에뜨는 진한색끄고
         activeImage.gameObject.SetActive(true);//선택된 색 켜기
 
         Selected = true; //선택됨
         SquareOccupied = true; //사용중
         gameObject.transform.GetChild(2).gameObject.GetComponent<Image>().sprite = keepImage;
+        
     }
 }

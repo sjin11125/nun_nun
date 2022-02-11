@@ -101,11 +101,6 @@ public class RainbowItem : MonoBehaviour
                     myChlid[0].transform.GetChild(1).transform.gameObject.SetActive(false);
                     myChlid[0].SetActive(false);
                     GameObject.FindGameObjectWithTag("Grid").GetComponent<GridScript>().CheckIfKeepLineIsCompleted();
-                    GridScript.ChangeShapeItem++;
-                    GridScript.EraserItemTurn++;
-                    GridScript.ReloadItemTurn++;
-                    GridScript.NextExchangeItemTurn++;
-                    GridScript.TrashItemTurn++;
                     squareColorObj = null;
                     rainbowActive = false;
                     if (ChangeShapeObj != null)
