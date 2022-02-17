@@ -17,9 +17,18 @@ public class UIAniManager : MonoBehaviour
 
     public void Start()
     {
-        Debug.Log("메인 중앙으로 이동");
-        mainMenu.DOAnchorPos(Vector2.zero, 0.5f); // 메인패널 처음에 중간세팅
-                                                  //startMenu.transform.localScale = Vector2.zero;
+        try
+        {
+            Debug.Log("메인 중앙으로 이동");
+            mainMenu.DOAnchorPos(Vector2.zero, 0.5f); // 메인패널 처음에 중간세팅
+            Debug.Log("메인 중앙으로 이동 끝");
+        }
+        catch (System.Exception e)
+        {
+            Debug.Log( e.Message);
+            throw;
+        }
+                                      //startMenu.transform.localScale = Vector2.zero;
     }
 
     // Update is called once per frame
