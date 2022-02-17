@@ -357,12 +357,6 @@ public class GridScript : MonoBehaviour
             {
                 linesCompleted++;
                 QuestControll.GetComponent<QuestController>().QuestIndex();//퀘스트 함수 실행               
-
-                GameObject MainTimerObj = GameObject.FindGameObjectWithTag("MainTimer");
-                if (MainTimerObj != null)
-                {
-                    MainTimerObj.GetComponent<Timer>().timeLeft += 10;//라인을 맞출때마다 시간이 늘어남
-                }
             }
         }
         return linesCompleted;
