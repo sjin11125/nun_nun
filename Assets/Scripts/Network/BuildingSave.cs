@@ -11,7 +11,7 @@ public class BuildingSave : MonoBehaviour
                 //저장하면 구글 스프레드 시트로 전송
 
     Buildingsave[] BTosave;
-    const string URL = "https://script.google.com/macros/s/AKfycbzjunYJ8-acQqW3hNzf7wf5SkwKgGq3Tm9qNhGDFRiwBYbsBeLw5FhwMrifh4gZxhdY/exec";
+    const string URL = "https://script.google.com/macros/s/AKfycbwQ7hUX-9Fu5IN1JKDs6lxepgqS_-U8KmwqpSjcoHavG6AJkGcYK6HGzn3jcGB3H__SVQ/exec";
     public Buildingsave GD;
     public string Friends;
     // Start is called before the first frame update
@@ -73,7 +73,7 @@ public class BuildingSave : MonoBehaviour
         WWWForm form1 = new WWWForm();
         form1.AddField("order", "getFriendBuilding");
         form1.AddField("loadedFriend", FriendNickname);
-
+        StartCoroutine(Post(form1));
     }
     IEnumerator Post(WWWForm form)
     {
