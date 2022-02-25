@@ -46,8 +46,8 @@ public class GridSquare : MonoBehaviour
         GameObject GetRainbow = GameObject.FindGameObjectWithTag("ItemController");//컨트롤러 다섯번째 자식인
         if(GetRainbow != null)
         {
-            rainbowObj = GetRainbow.transform.GetChild(5).gameObject;//레인보우 아이템 오브젝트를 받아
-            ChangeShapeObj = GetRainbow.transform.GetChild(6).gameObject;//레인보우 아이템 오브젝트를 받아
+            rainbowObj = GetRainbow.transform.GetChild(4).gameObject;//레인보우 아이템 오브젝트를 받아
+            ChangeShapeObj = GetRainbow.transform.GetChild(5).gameObject;
         }
     }
 

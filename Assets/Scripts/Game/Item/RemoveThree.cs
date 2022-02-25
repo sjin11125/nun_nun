@@ -4,15 +4,17 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class RemoveThree : MonoBehaviour
-{//세로
-    GameObject[] myChlid = new GameObject[3];
+{
+    GameObject[] myChlid;
     private Image squareImage;
     public Image normalImage;
     public int ItemTurn = 3;
     bool useRemove;
     bool centerhave;
+    public Text number;
     void Start()
     {
+        myChlid = new GameObject[3];
         for (int i = 0; i < myChlid.Length; i++)
         {
             myChlid[i] = gameObject.transform.GetChild(i).gameObject;
@@ -52,7 +54,7 @@ public class RemoveThree : MonoBehaviour
             }
         }
 
-        myChlid[2].transform.GetChild(0).gameObject.GetComponent<Text>().text = GridScript.ThreeVerticalItem.ToString();//항상 숫자를 받는데
+        number.text = GridScript.ThreeVerticalItem.ToString();//항상 숫자를 받는데
         if (GridScript.ThreeVerticalItem <= 0)
         {
             myChlid[2].SetActive(false);//0이하면 사용가능해지게

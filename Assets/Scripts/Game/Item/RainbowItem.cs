@@ -5,18 +5,22 @@ using UnityEngine.UI;
 
 public class RainbowItem : MonoBehaviour
 {
-    public GameObject[] myChlid = new GameObject[2];
+    private GameObject[] myChlid;
     GameObject shapestorageObj;
-    public Sprite[] getColors;// = new Sprite[6];
-    public string[] getColorName;
+    private Sprite[] getColors;
+    private string[] getColorName;
     public static GameObject squareColorObj;
     public int colorK = 0;
     public static bool rainbowActive;
     GameObject ChangeShapeObj;
     public int ItemTurn;
+    public Text number;
 
     void Start()
     {
+        myChlid = new GameObject[3];
+        getColors = new Sprite[6];
+        getColorName = new string[6];
         for (int i = 0; i < myChlid.Length; i++)
         {
             myChlid[i] = gameObject.transform.GetChild(i).gameObject;
@@ -30,7 +34,7 @@ public class RainbowItem : MonoBehaviour
         GameObject GetRainbow = GameObject.FindGameObjectWithTag("ItemController");//컨트롤러 다섯번째 자식인
         if (GetRainbow != null)
         {
-            ChangeShapeObj = GetRainbow.transform.GetChild(6).gameObject;//레인보우 아이템 오브젝트를 받아
+            ChangeShapeObj = GetRainbow.transform.GetChild(5).gameObject;//레인보우 아이템 오브젝트를 받아
         }
     }
 
@@ -62,7 +66,7 @@ public class RainbowItem : MonoBehaviour
 
     void Update()
     {
-        myChlid[2].transform.GetChild(0).gameObject.GetComponent<Text>().text = GridScript.RainbowItemTurn.ToString();//항상 숫자를 받는데
+        number.text = GridScript.RainbowItemTurn.ToString();//항상 숫자를 받는데
 
         if (GridScript.RainbowItemTurn <= 0)
         {

@@ -20,7 +20,7 @@ public class CreateKeepShape : MonoBehaviour, IPointerDownHandler,IBeginDragHand
 
     private void Awake()
     {       
-        _startPosition = new Vector3(-189 - 5f, -660.5f, 0);
+        _startPosition = new Vector3(-377f, -660.5f, 0);
         gameObject.tag = "KeepShape";
         rectTransform = GetComponent<RectTransform>();
         canvas = GameObject.FindGameObjectWithTag("Canvas").GetComponent<Canvas>();
