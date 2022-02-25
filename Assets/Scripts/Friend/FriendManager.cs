@@ -3,21 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
-
+using UnityEngine.UI;
 
 [Serializable]
 public class FriendInfo
 {
-    public string nickname;      //플레이어 닉네임
+    public string f_nickname;      //플레이어 닉네임
     //public string SheetsNum;     //플레이어 건물 정보 들어있는 스프레드 시트 id
-    public string info;          //상태메세지
-    public string id;
+    public string f_info;          //상태메세지
+    public string f_id;
 
     public FriendInfo(string nickname,string id,string info)
     {
-        this.nickname = nickname;
-        this.id = id;   
-        this.info = info;   
+        this.f_nickname = nickname;
+        this.f_id = id;   
+        this.f_info = info;   
         
     }
 }
@@ -25,8 +25,10 @@ public class FriendManager : MonoBehaviour
 {
     public GameObject Content;
     FriendInfo[] friends;
-    const string URL = "https://script.google.com/macros/s/AKfycbwE2aIOlyClACGKGkD9rVScaXMv--pSFjqHhtRV9hS9C1bIrBJX_kOm4v3Bz4jOHekq4Q/exec";
+    const string URL = "https://script.google.com/macros/s/AKfycbzjunYJ8-acQqW3hNzf7wf5SkwKgGq3Tm9qNhGDFRiwBYbsBeLw5FhwMrifh4gZxhdY/exec";
     public FriendInfo Fr;
+
+    public GameObject FriendPrefab;
     public void FriendWindowOpen()
     {
         Content.SetActive(true);
@@ -58,10 +60,31 @@ public class FriendManager : MonoBehaviour
         if (string.IsNullOrEmpty(json)) return;
 
         Debug.Log(json);
-        FriendInfo[] friendInfos=JsonHelper.FromJson<FriendInfo>(json);
-        Debug.Log(friendInfos.Length);
-        //Fr = JsonUtility.FromJson<FriendInfo>(json);
+        
+        Newtonsoft.Json.Linq.JArray j= Newtonsoft.Json.Linq.JArray.Parse(json);
+        FriendInfo[] friendInfos=new FriendInfo[j.Count];
+        for (int i = 0; i < j.Count; i++)
+        {
+            friendInfos[i] = JsonUtility.FromJson<FriendInfo>(j[i].ToString());
+            Debug.Log(friendInfos[i].f_nickname);
+        }
+        GameManager.Friends = friendInfos;
+        FriendsList();              //친구 목록 세팅
 
+    }
+
+    public void FriendsList()
+    {
+        for (int i = 0; i < GameManager.Friends.Length; i++)
+        {
+            GameObject friendprefab = Instantiate(FriendPrefab, Content.transform) as GameObject;  //친구 프리팹 생성
+            Transform friendPrefabChilds = friendprefab.GetComponent<Transform>();
+            friendPrefabChilds.name = GameManager.Friends[i].f_nickname;
+            Text[] friendButtonText = friendprefab.GetComponentsInChildren<Text>();
+            friendButtonText[0].text = GameManager.Friends[i].f_nickname;
+            friendButtonText[1].text = GameManager.Friends[i].f_info;
+        }
+        
     }
     // Start is called before the first frame update
     void Start()

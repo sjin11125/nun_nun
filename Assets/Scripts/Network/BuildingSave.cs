@@ -11,7 +11,7 @@ public class BuildingSave : MonoBehaviour
                 //저장하면 구글 스프레드 시트로 전송
 
     Buildingsave[] BTosave;
-    const string URL = "https://script.google.com/macros/s/AKfycbwE2aIOlyClACGKGkD9rVScaXMv--pSFjqHhtRV9hS9C1bIrBJX_kOm4v3Bz4jOHekq4Q/exec";
+    const string URL = "https://script.google.com/macros/s/AKfycbzjunYJ8-acQqW3hNzf7wf5SkwKgGq3Tm9qNhGDFRiwBYbsBeLw5FhwMrifh4gZxhdY/exec";
     public Buildingsave GD;
     public string Friends;
     // Start is called before the first frame update
@@ -67,27 +67,43 @@ public class BuildingSave : MonoBehaviour
 
         return;
     }
+    public void FriendBuildindLoad()
+    {
+        string FriendNickname=gameObject.name;
+        WWWForm form1 = new WWWForm();
+        form1.AddField("order", "getFriendBuilding");
+        form1.AddField("loadedFriend", FriendNickname);
+
+    }
     IEnumerator Post(WWWForm form)
     {
         using (UnityWebRequest www = UnityWebRequest.Post(URL, form)) // 반드시 using을 써야한다
         {
             yield return www.SendWebRequest();
             //Debug.Log(www.downloadHandler.text);
-            /*if (www.isDone) Response(www.downloadHandler.text);
-            else print("웹의 응답이 없습니다.");*/
+            if (www.isDone) Response(www.downloadHandler.text);         //친구 건물 불러옴
+            //else print("웹의 응답이 없습니다.");*/
         }
     }
     void Response(string json)
     {
         if (string.IsNullOrEmpty(json)) return;
+        Debug.Log(json);
 
-        GD = JsonUtility.FromJson<Buildingsave>(json);
+        Newtonsoft.Json.Linq.JArray j = Newtonsoft.Json.Linq.JArray.Parse(json);
+        Building[] friendBuildings = new Building[j.Count];
+        for (int i = 0; i < j.Count; i++)
+        {
+            friendBuildings[i] = JsonUtility.FromJson<Building>(j[i].ToString());
+            Debug.Log(friendBuildings[i].Building_name);
+        }
+        /*GD = JsonUtility.FromJson<Buildingsave>(json);
 
         if (GD.result == "ERROR")
         {
             print(GD.order + "을 실행할 수 없습니다. 에러 메시지 : " + GD.msg);
             return;
-        }
+        }*/
 
 
         /*if (GD.order == "getFriend")
