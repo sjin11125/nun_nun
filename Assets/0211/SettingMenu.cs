@@ -139,6 +139,7 @@ public class SettingMenu : MonoBehaviour
 
     void OnDestory()
     {
+        Debug.Log("╬Ь╬На╝");
         mainButton.onClick.AddListener(ToggleMenu);
     }
     // Update is called once per frame

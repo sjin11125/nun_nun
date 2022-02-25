@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     public static Dictionary<string, Sprite> DogamChaImageData;
 
     public static List<Building> BuildingList;          //가지고 있는 빌딩들
+    public static List<Building> FriendBuildingList;          //친구가 가지고 있는 빌딩들
     public static Building[] BuildingArray;         //모든 빌딩들
     
     public GameObject[] BuildingPrefabInspector;    //인스펙터에서 받아 온 건물 프리팹 배열
@@ -64,7 +65,7 @@ public class GameManager : MonoBehaviour
     public static string NickName;      //플레이어 닉네임
     public static string SheetsNum;     //플레이어 건물 정보 들어있는 스프레드 시트 id
 
-    public static string[] Friends;       //친구 목록(닉네임)
+    public static FriendInfo[] Friends;       //친구 목록(닉네임)
 
 
 
