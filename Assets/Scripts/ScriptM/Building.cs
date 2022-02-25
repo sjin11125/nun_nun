@@ -42,7 +42,11 @@ public class Building : MonoBehaviour
     public int Ice;        //얼음
     public int Grass;        //풀
     public int Snow;        //눈
+    public bool isFliped = false;
     //-----------------------------------------------------------
+    public string buildingPosiiton_x;
+    public string buildingPosiiton_y;
+
 
     public int layer_y;   // 건물 레이어
     Transform[] child;
@@ -54,7 +58,7 @@ public class Building : MonoBehaviour
 
     public GameObject[] buildings;     // 레벨별 건물
 
-    public bool isFliped = false;
+    
     public BuildType Type;
 
     BuildingSave save;

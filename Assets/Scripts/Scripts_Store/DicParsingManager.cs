@@ -37,7 +37,6 @@ public class DicParsingManager : MonoBehaviour
 
             if (pro_data[0] == "end")
             {
-                Debug.Log("ll");
                 break;
             }
             Card character = new Card(pro_data[1], pro_data[2], pro_data[3], pro_data[4], pro_data[5], pro_data[6],
