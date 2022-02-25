@@ -10,6 +10,7 @@ public class QuestController : MonoBehaviour
     int Count;
     int questIndex;
     Image timerBar;
+    public Text number;
 
     void Start()
     {
@@ -78,7 +79,7 @@ public class QuestController : MonoBehaviour
                     Count = 10;
                     QuestActive[questIndex] = false;
                 }
-                gameObject.transform.GetChild(1).gameObject.GetComponent<Text>().text = Count.ToString();
+                number.text = Count.ToString();
             }
         }
     }
@@ -94,7 +95,7 @@ public class QuestController : MonoBehaviour
                     Count = 10;
                     QuestActive[questIndex] = false;
                 }
-                gameObject.transform.GetChild(1).gameObject.GetComponent<Text>().text = Count.ToString();
+                number.text = Count.ToString();
             }
         }
     }

@@ -600,7 +600,7 @@ public class GridScript : MonoBehaviour
                     
                     GameObject keepInstance = Instantiate(KeepShapeObj) as GameObject;
                     keepInstance.transform.SetParent(gameObject.transform, false);
-                    Vector3 pos = new Vector3(-189 - 5f, -660.5f, 0);
+                    Vector3 pos = new Vector3(-377f, -660.5f, 0);
                     keepInstance.transform.localPosition = pos;
                     comp.activeImage.gameObject.SetActive(false);
                     comp.NonKeep();

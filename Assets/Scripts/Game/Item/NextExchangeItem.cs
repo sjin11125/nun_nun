@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 public class NextExchangeItem : MonoBehaviour
 {
-    public GameObject[] myChlid = new GameObject[3];
+    private GameObject[] myChlid = new GameObject[3];
     GameObject shapestorageObj;
     public int ItemTurn = 15;
     public Sprite getBlue;
-    string shapeStorageName;
+    public Text number;
     void Start()
     {
         for (int i = 0; i < myChlid.Length; i++)
@@ -42,7 +42,7 @@ public class NextExchangeItem : MonoBehaviour
                 }
             }             
         }
-        myChlid[2].transform.GetChild(0).gameObject.GetComponent<Text>().text = GridScript.NextExchangeItemTurn.ToString();//항상 숫자를 받는데
+        number.text = GridScript.NextExchangeItemTurn.ToString();//항상 숫자를 받는데
         if (GridScript.NextExchangeItemTurn <= 0)
         {
             myChlid[2].SetActive(false);//0이하면 사용가능해지게
