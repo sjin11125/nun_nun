@@ -67,7 +67,9 @@ public class GameManager : MonoBehaviour
 
     public static FriendInfo[] Friends;       //친구 목록(닉네임)
 
-
+    public static string URL= "https://script.google.com/macros/s/AKfycbzmYB8eP7xwdfdlBoAf7kLSsSGQF1MAL0n-Tk2P0fPCazmFY2Oj4WHMIOB_F04G6gH1Rg/exec";
+    //----------------------------------------------------------------------------------------------
+        
 
     public static bool isMoveLock = false;      //창 떴을 때 이동 못하게하는 변수
     /* 아이템 목록
@@ -83,6 +85,9 @@ public class GameManager : MonoBehaviour
      * 9: 말의 색깔을 바꾼다   (마법사)
      */
     // Start is called before the first frame update
+
+
+
     void Start()
     {
         BuildingList = new List<Building>();            //현재 가지고 있는 빌딩 리스트

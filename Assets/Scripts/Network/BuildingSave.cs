@@ -11,7 +11,7 @@ public class BuildingSave : MonoBehaviour
                 //저장하면 구글 스프레드 시트로 전송
 
     Buildingsave[] BTosave;
-    const string URL = "https://script.google.com/macros/s/AKfycbwQ7hUX-9Fu5IN1JKDs6lxepgqS_-U8KmwqpSjcoHavG6AJkGcYK6HGzn3jcGB3H__SVQ/exec";
+     string URL = GameManager.URL;
     public Buildingsave GD;
     public string Friends;
     // Start is called before the first frame update
@@ -90,27 +90,20 @@ public class BuildingSave : MonoBehaviour
         if (string.IsNullOrEmpty(json)) return;
         Debug.Log(json);
 
+        GameManager.FriendBuildingList = new List<Building>();
         Newtonsoft.Json.Linq.JArray j = Newtonsoft.Json.Linq.JArray.Parse(json);
-        Building[] friendBuildings = new Building[j.Count];
+        //Debug.Log("j.Count: "+j.Count);
+        BuildingParse friendBuildings = new BuildingParse();
         for (int i = 0; i < j.Count; i++)
         {
-            friendBuildings[i] = JsonUtility.FromJson<Building>(j[i].ToString());
-            Debug.Log(friendBuildings[i].Building_name);
+            Debug.Log(i);
+            friendBuildings = JsonUtility.FromJson<BuildingParse>(j[i].ToString());
+            Building b=new Building(friendBuildings.isLock, friendBuildings.Building_name, friendBuildings.Reward, friendBuildings.Info, 
+                friendBuildings.Building_Image, friendBuildings.Cost.ToString(), friendBuildings.Level.ToString(), friendBuildings.Tree.ToString(),
+                 friendBuildings.Grass.ToString(), friendBuildings.Snow.ToString(), friendBuildings.Ice.ToString(), friendBuildings.isFliped, 
+                friendBuildings.buildingPosiiton_x, friendBuildings.buildingPosiiton_y);
         }
-        /*GD = JsonUtility.FromJson<Buildingsave>(json);
 
-        if (GD.result == "ERROR")
-        {
-            print(GD.order + "을 실행할 수 없습니다. 에러 메시지 : " + GD.msg);
-            return;
-        }*/
-
-
-        /*if (GD.order == "getFriend")
-        {
-            GameManager.Friends = GD.Friends;
-            Debug.Log(GameManager.Friends[0]);
-        }*/
     }
 }
 

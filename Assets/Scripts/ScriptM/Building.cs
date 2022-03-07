@@ -8,6 +8,26 @@ using System.IO;
 //using UnityEngine.EventSystems;
 
 [Serializable]
+public class BuildingParse
+{
+    //-------------------------파싱정보------------------------------
+    public string isLock;               //잠금 유무
+    public string Building_name;            //건물 이름
+    public string Reward;               //획득자원
+    public string Info;                 //건물 설명
+    public string Building_Image;          //빌딩 이미지 이름 *
+    public int Cost;        //건물비용
+    public int Level = 1;       //건물 레벨
+    public int Tree;        //나무
+    public int Ice;        //얼음
+    public int Grass;        //풀
+    public int Snow;        //눈
+    public bool isFliped = false;
+    public string buildingPosiiton_x;
+    public string buildingPosiiton_y;
+    //-----------------------------------------------------------
+
+}
 public class Building : MonoBehaviour
 {
     
@@ -43,10 +63,10 @@ public class Building : MonoBehaviour
     public int Grass;        //풀
     public int Snow;        //눈
     public bool isFliped = false;
-    //-----------------------------------------------------------
     public string buildingPosiiton_x;
     public string buildingPosiiton_y;
 
+    //-----------------------------------------------------------
 
     public int layer_y;   // 건물 레이어
     Transform[] child;
@@ -65,19 +85,23 @@ public class Building : MonoBehaviour
     public Building()
     {
     }
-    public Building(string islock, string buildingname,string reward,string info,string image,string cost,string level,string tree,string grass,string snow,string ice)           //파싱할 때 쓰는 생성자
+    public Building(string islock, string buildingname,string reward,string info,string image,string cost,string level,string tree,string grass,string snow,string ice,string isfliped,string building_x,string building_y)           //파싱할 때 쓰는 생성자
     {
         isLock = islock;
         Building_name = buildingname;
         Reward = reward;
         Info = info;
         Building_Image = image;
-        Cost =int.Parse( cost);
-        Level =int.Parse( level);
+        Cost =int.Parse(cost);
+        Level =int.Parse(level);
         Tree = int.Parse(tree);
         Grass = int.Parse(grass);
         Snow = int.Parse(snow);
         Ice = int.Parse(ice);
+        isFliped = Convert.ToBoolean(isfliped);
+        buildingPosiiton_x = building_x;
+        buildingPosiiton_y= building_y;
+
 
     }
     public void SetValue(Building getBuilding)

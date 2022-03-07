@@ -25,7 +25,7 @@ public class FriendManager : MonoBehaviour
 {
     public GameObject Content;
     FriendInfo[] friends;
-    const string URL = "https://script.google.com/macros/s/AKfycbwQ7hUX-9Fu5IN1JKDs6lxepgqS_-U8KmwqpSjcoHavG6AJkGcYK6HGzn3jcGB3H__SVQ/exec";
+     string URL = GameManager.URL;
     public FriendInfo Fr;
 
     public GameObject FriendPrefab;
