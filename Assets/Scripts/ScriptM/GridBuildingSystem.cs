@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Tilemaps;
 using System;
 using UnityEngine.EventSystems;
-
+using UnityEngine.SceneManagement;
 [Serializable]
 public class GridBuildingSystem : MonoBehaviour
 {
@@ -66,6 +66,7 @@ public class GridBuildingSystem : MonoBehaviour
         }
 
         Grid = GameObject.Find("back_down");
+        if (SceneManager.GetActiveScene().name=="Main")
         StartButton = GameObject.Find("Start").GetComponent<Button>();
 
     }

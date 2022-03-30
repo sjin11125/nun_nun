@@ -85,6 +85,22 @@ public class Building : MonoBehaviour
     public Building()
     {
     }
+    public Building(string islock, string buildingname, string reward, string info, string image, string cost, string level, string tree, string grass, string snow, string ice)           //파싱할 때 쓰는 생성자
+    {
+        isLock = islock;
+        Building_name = buildingname;
+        Reward = reward;
+        Info = info;
+        Building_Image = image;
+        Cost = int.Parse(cost);
+        Level = int.Parse(level);
+        Tree = int.Parse(tree);
+        Grass = int.Parse(grass);
+        Snow = int.Parse(snow);
+        Ice = int.Parse(ice);
+
+
+    }
     public Building(string islock, string buildingname,string reward,string info,string image,string cost,string level,string tree,string grass,string snow,string ice,string isfliped,string building_x,string building_y)           //파싱할 때 쓰는 생성자
     {
         isLock = islock;
@@ -126,7 +142,23 @@ public class Building : MonoBehaviour
         Grass = getBuilding.Grass;
         isFliped = getBuilding.isFliped;
     }
-    
+    public void SetValueParse(BuildingParse parse)
+    {
+        isLock = parse.isLock;               //잠금 유무
+        Building_name = parse.Building_name;            //건물 이름
+        Reward = parse.Reward;               //획득자원
+        Info = parse.Info;                 //건물 설명
+        Building_Image = parse.Building_Image;          //빌딩 이미지 이름 *
+        Cost = parse.Cost;        //건물비용
+        Level = parse.Level;       //건물 레벨
+        Tree = parse.Tree;        //나무
+        Ice = parse.Ice;        //얼음
+        Grass = parse.Grass;        //풀
+        Snow = parse.Snow;        //눈
+        isFliped = parse.isFliped;
+        buildingPosiiton_x = parse.buildingPosiiton_x;
+        buildingPosiiton_y = parse.buildingPosiiton_y;
+    }
     public Building DeepCopy()
     {
         Building BuildingCopy = new Building();

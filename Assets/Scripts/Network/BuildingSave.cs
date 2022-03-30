@@ -5,6 +5,7 @@ using System.IO;
 using System;
 using UnityEngine.UI;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 public class BuildingSave : MonoBehaviour
 {               //건물들 저장하는 스크립트
@@ -98,12 +99,19 @@ public class BuildingSave : MonoBehaviour
         {
             Debug.Log(i);
             friendBuildings = JsonUtility.FromJson<BuildingParse>(j[i].ToString());
-            Building b=new Building(friendBuildings.isLock, friendBuildings.Building_name, friendBuildings.Reward, friendBuildings.Info, 
-                friendBuildings.Building_Image, friendBuildings.Cost.ToString(), friendBuildings.Level.ToString(), friendBuildings.Tree.ToString(),
-                 friendBuildings.Grass.ToString(), friendBuildings.Snow.ToString(), friendBuildings.Ice.ToString(), friendBuildings.isFliped, 
-                friendBuildings.buildingPosiiton_x, friendBuildings.buildingPosiiton_y);
-        }
+            Building b=new Building();
+            b.SetValueParse(friendBuildings);
 
+
+              /*  new Building(friendBuildings.isLock, friendBuildings.Building_name, friendBuildings.Reward, friendBuildings.Info, 
+                friendBuildings.Building_Image, friendBuildings.Cost.ToString(), friendBuildings.Level.ToString(), friendBuildings.Tree.ToString(),
+                 friendBuildings.Grass.ToString(), friendBuildings.Snow.ToString(), friendBuildings.Ice.ToString(), friendBuildings.isFliped.ToString(), 
+                friendBuildings.buildingPosiiton_x, friendBuildings.buildingPosiiton_y);*/
+            GameManager.FriendBuildingList.Add(b);      //친구의 건물 리스트에 삽입
+
+        }
+        Debug.Log(GameManager.FriendBuildingList.Count);
+        SceneManager.LoadScene("FriendMain");
     }
 }
 

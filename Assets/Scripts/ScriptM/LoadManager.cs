@@ -34,7 +34,7 @@ public class LoadManager : MonoBehaviour
         //캐릭터 로드
         if (isLoad==true)
         {
-            isLoad = false;
+            //isLoad = false;
             for (int i = 0; i < GameManager.Items.Length; i++)
             {
                 GameManager.Items[i] = false;
@@ -71,8 +71,31 @@ public class LoadManager : MonoBehaviour
                    
                 }
              }
+             else if(SceneManager.GetActiveScene().name == "FriendMain")                            //친구 마을 씬
+            {
+                for (int i = 0; i < GameManager.FriendBuildingList.Count; i++)
+                {
+                    Building LoadBuilding = GameManager.FriendBuildingList[i];           // 현재 가지고 잇는 빌딩 리스트의 빌딩 컴포넌트
+                    string BuildingName = LoadBuilding.Building_Image;        //현재 가지고 있는 빌딩 리스트에서 빌딩 이름 부르기
+                    Debug.Log(LoadBuilding.Placed);
 
-            if (SceneManager.GetActiveScene().name == "Main" && GameManager.CharacterList != null)       //메인씬에서 로드하기
+                    GameObject BuildingPrefab = GameManager.BuildingPrefabData[BuildingName];           // 해당 건물 프리팹
+                    GameObject g = Instantiate(BuildingPrefab, new Vector3(LoadBuilding.BuildingPosition.x, LoadBuilding.BuildingPosition.y, 0), Quaternion.identity) as GameObject;
+
+                    Building g_Building = g.GetComponent<Building>();
+                    g_Building.SetValue(LoadBuilding);   
+                    Debug.Log(LoadBuilding.Building_name);
+                    g.name = LoadBuilding.Building_name;            //이름 재설정
+
+                    g_Building.Type = BuildType.Load;
+                    g_Building.Place(g_Building.Type);
+                    Debug.Log(g.GetComponent<Building>().isFliped);
+                    // g_Building.Rotation();
+
+                }
+            }
+
+            if (SceneManager.GetActiveScene().name == "Main" && GameManager.CharacterList != null)       //메인씬에서 로드하기(누니)
             {
                 for (int i = 0; i < GameManager.CharacterList.Count; i++)
                 {
@@ -83,6 +106,8 @@ public class LoadManager : MonoBehaviour
                 }
 
             }
+
+            
         }
     }
 
