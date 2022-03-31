@@ -27,6 +27,7 @@ public class BuildingSave : MonoBehaviour
     {
         WWWForm form = new WWWForm();
         form.AddField("order", "updateValue");
+        form.AddField("building_image", update_building.Building_Image);
         form.AddField("buildingPosiiton_x", update_building.BuildingPosition.x.ToString());
         form.AddField("buildingPosiiton_y", update_building.BuildingPosition.y.ToString());
         form.AddField("isLock", update_building.isLock);
@@ -46,6 +47,7 @@ public class BuildingSave : MonoBehaviour
         Building buildings = GetComponent<Building>();
         Debug.Log("건물저장");
         form.AddField("order", "addValue");
+        form.AddField("building_image", buildings.Building_Image);
         form.AddField("buildingPosiiton_x", buildings.BuildingPosition.x.ToString());
         form.AddField("buildingPosiiton_y", buildings.BuildingPosition.y.ToString());
         form.AddField("isLock", buildings.isLock);
@@ -53,10 +55,7 @@ public class BuildingSave : MonoBehaviour
         form.AddField("cost", buildings.Cost);
         form.AddField("level", buildings.Level);
         form.AddField("tree", buildings.Tree);
-        form.AddField("ice", buildings.Ice);
-        form.AddField("grass", buildings.Grass);
-        form.AddField("snow", buildings.Snow);
-        form.AddField("isFlied",buildings.isFliped.ToString());
+        form.AddField("isFliped",buildings.isFliped.ToString());
         StartCoroutine(Post(form));
     }
     public void RemoveValue(string b_name)
@@ -86,7 +85,7 @@ public class BuildingSave : MonoBehaviour
             //else print("웹의 응답이 없습니다.");*/
         }
     }
-    void Response(string json)
+    void Response(string json)                          //건물 값 불러오기
     {
         if (string.IsNullOrEmpty(json)) return;
         Debug.Log(json);
