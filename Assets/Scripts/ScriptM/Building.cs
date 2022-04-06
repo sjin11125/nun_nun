@@ -141,6 +141,9 @@ public class Building : MonoBehaviour
         Snow = getBuilding.Snow;
         Grass = getBuilding.Grass;
         isFliped = getBuilding.isFliped;
+        buildingPosiiton_x = getBuilding.buildingPosiiton_x;
+        buildingPosiiton_y = getBuilding.buildingPosiiton_y;
+
     }
     public void SetValueParse(BuildingParse parse)
     {

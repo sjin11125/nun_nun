@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
 
     public static FriendInfo[] Friends;       //친구 목록(닉네임)
 
-    public static string URL= "https://script.google.com/macros/s/AKfycbwvHVAeRKWibdZVE5q-u90sSpY5VJDWkBNW5WIfZhfjp_uYtJuEElk3M0E_APQPfQO7Wg/exec";
+    public static string URL= "https://script.google.com/macros/s/AKfycbxZc-C_rUQaXE-BvpmbJwhJwsCBZr-dQsFepYyONTSFPUzkF59AGKi-o_gObIQlNjb9MA/exec";
     
     //----------------------------------------------------------------------------------------------
         
@@ -99,7 +99,7 @@ public class GameManager : MonoBehaviour
         CharacterImageData = new Dictionary<string, Sprite>();
         CharacterList = new List<Card>();
         BuildingNumber = new Dictionary<string, int>();
-
+        Debug.Log("GameManager Start");
         for (int i = 0; i < BuildingPrefabInspector.Length; i++)        //빌딩 프리팹 정보 불러오기
         {
             BuildingPrefabData.Add(BuildingPrefabInspector[i].name+ "(Clone)", BuildingPrefabInspector[i]);

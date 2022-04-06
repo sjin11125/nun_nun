@@ -78,12 +78,23 @@ public class LoadManager : MonoBehaviour
                     Building LoadBuilding = GameManager.FriendBuildingList[i];           // 현재 가지고 잇는 빌딩 리스트의 빌딩 컴포넌트
                     string BuildingName = LoadBuilding.Building_Image;        //현재 가지고 있는 빌딩 리스트에서 빌딩 이름 부르기
                     Debug.Log(LoadBuilding.Placed);
-
-                    GameObject BuildingPrefab = GameManager.BuildingPrefabData[BuildingName];           // 해당 건물 프리팹
-                    GameObject g = Instantiate(BuildingPrefab, new Vector3(LoadBuilding.BuildingPosition.x, LoadBuilding.BuildingPosition.y, 0), Quaternion.identity) as GameObject;
+                    foreach (var item in GameManager.BuildingPrefabData)
+                    {
+                        Debug.Log(item.Key);
+                    }
+                   /* for (int j = 0; j < GameManager.BuildingPrefabData.Count; j++)
+                    {
+                        Debug.Log(GameManager.BuildingPrefabData[j].);
+                    }*/
+                    //GameObject BuildingPrefab =            // 해당 건물 프리팹
+                    GameObject g = Instantiate(GameManager.BuildingPrefabData[BuildingName], 
+                        new Vector3(float.Parse( LoadBuilding.buildingPosiiton_x),
+                       float.Parse(LoadBuilding.buildingPosiiton_y), 0),
+                        Quaternion.identity) as GameObject;
 
                     Building g_Building = g.GetComponent<Building>();
-                    g_Building.SetValue(LoadBuilding);   
+                    g_Building.SetValue(LoadBuilding);
+                    //g.transform.position=new Vector3(LoadBuilding.BuildingPosition.x,LoadBuilding.BuildingPosition.y, 0);
                     Debug.Log(LoadBuilding.Building_name);
                     g.name = LoadBuilding.Building_name;            //이름 재설정
 

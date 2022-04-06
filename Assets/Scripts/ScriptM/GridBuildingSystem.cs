@@ -77,7 +77,7 @@ public class GridBuildingSystem : MonoBehaviour
             ChaButtonScript.isEdit = false;
             InitializeWithBuilding();
         }
-        if (Input.GetMouseButtonUp(0)) //마우스를 눌러서 뗐을 때
+        if (Input.GetMouseButtonUp(0)&&SceneManager.GetActiveScene().name=="Main") //마우스를 눌러서 뗐을 때              지금 내 닉넴과 마을
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
