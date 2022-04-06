@@ -23,8 +23,8 @@ public class BuildingParse
     public int Grass;        //풀
     public int Snow;        //눈
     public bool isFliped = false;
-    public string buildingPosiiton_x;
-    public string buildingPosiiton_y;
+    public string BuildingPosiiton_x;
+    public string BuildingPosiiton_y;
     //-----------------------------------------------------------
 
 }
@@ -159,8 +159,8 @@ public class Building : MonoBehaviour
         Grass = parse.Grass;        //풀
         Snow = parse.Snow;        //눈
         isFliped = parse.isFliped;
-        buildingPosiiton_x = parse.buildingPosiiton_x;
-        buildingPosiiton_y = parse.buildingPosiiton_y;
+        buildingPosiiton_x = parse.BuildingPosiiton_x;
+        buildingPosiiton_y = parse.BuildingPosiiton_y;
     }
     public Building DeepCopy()
     {
