@@ -61,11 +61,11 @@ public class GridScript : MonoBehaviour
 
     void Update()
     {
-        if (keepSquareIndex != 30)// && keepSquareInt < 1)
+        if (keepSquareIndex != 30)
         {
             UseKeep();
         }
-        if (trashCanIndex != 30) //&& UseTrashCanInt < 1)
+        if (trashCanIndex != 30)
         {
             UseTrashCan();
         }
@@ -282,13 +282,19 @@ public class GridScript : MonoBehaviour
         }
 
         var completedLines = CheckIfSquaresAreCompleted(lines);//행(0-5)렬(0-5) 정보전달 및 변수에 반환 int값 저장
-        if (_gridSquares[keepSquareIndex].GetComponent<GridSquare>().activeImage.gameObject.activeSelf == true)
+        if(keepSquareIndex != 30)
         {
-            usekeeptrue = true;
+            if (_gridSquares[keepSquareIndex].GetComponent<GridSquare>().activeImage.gameObject.activeSelf == true)
+            {
+                usekeeptrue = true;
+            }
         }
-        if (_gridSquares[trashCanIndex].GetComponent<GridSquare>().activeImage.gameObject.activeSelf == true)
+        if(trashCanIndex != 30)
         {
-            usetrashtrue = true;
+            if (_gridSquares[trashCanIndex].GetComponent<GridSquare>().activeImage.gameObject.activeSelf == true)
+            {
+                usetrashtrue = true;
+            }
         }
         if (completedLines > 2)
         {
@@ -655,10 +661,10 @@ public class GridScript : MonoBehaviour
     }
 
     void SettingKeep()//LineIndicator로 열을 하나 더 만들었는데 우린 keep자리와 can자리만 필요하니 그게 아니라면 끄기
-    {      
+    {
         for (int i = 25; i < 30; i++)//ItemController에서 선택받지못한 애들은 끄자
         {
-            if(trashCanIndex != i && keepSquareIndex != i)
+            if (trashCanIndex != i && keepSquareIndex != i)
             {
                 var comp = _gridSquares[i].GetComponent<GridSquare>();
                 comp.NonKeep();//GridSquare에 자기자신을 끄는 함수 호출
