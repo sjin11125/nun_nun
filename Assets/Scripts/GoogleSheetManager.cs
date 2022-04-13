@@ -16,10 +16,10 @@ public class GoogleData
 
 public class GoogleSheetManager : MonoBehaviour
 {
-    const string URL = "https://script.google.com/macros/s/AKfycbw7x4v5RA8sLA5-0EgKW17e3RHtei7oPskcnNFXuVb44DqN88L_tuOZyZlCzWZrPrzk_Q/exec";
+    string URL = GameManager.URL;
     public GoogleData GD;
-    public InputField IDInput, PassInput, ValueInput;
-    string id, pass;
+    public InputField IDInput, PassInput, NicknameInput;
+    string id, pass,nickname;
 
 
 
@@ -27,8 +27,8 @@ public class GoogleSheetManager : MonoBehaviour
     {
         id = IDInput.text.Trim();
         pass = PassInput.text.Trim();
-
-        if (id == "" || pass == "") return false;
+        nickname = NicknameInput.text.Trim();
+        if (id == "" || pass == ""|| nickname=="") return false;
         else return true;
     }
 
@@ -37,7 +37,7 @@ public class GoogleSheetManager : MonoBehaviour
     {
         if (!SetIDPass())
         {
-            print("아이디 또는 비밀번호가 비어있습니다");
+            print("아이디 or 비번 or 닉네임이 비어있습니다");
             return;
         }
 
@@ -45,6 +45,7 @@ public class GoogleSheetManager : MonoBehaviour
         form.AddField("order", "register");
         form.AddField("id", id);
         form.AddField("pass", pass);
+        form.AddField("player_nickname", nickname);
 
         StartCoroutine(Post(form));
     }
@@ -80,7 +81,7 @@ public class GoogleSheetManager : MonoBehaviour
     {
         WWWForm form = new WWWForm();
         form.AddField("order", "setValue");
-        form.AddField("value", ValueInput.text);
+        form.AddField("value", NicknameInput.text);
 
         StartCoroutine(Post(form));
     }
@@ -100,11 +101,15 @@ public class GoogleSheetManager : MonoBehaviour
 
     IEnumerator Post(WWWForm form)
     {
-        using (UnityWebRequest www = UnityWebRequest.Post(URL, form)) // 반드시 using을 써야한다
+        using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // 반드시 using을 써야한다
         {
             yield return www.SendWebRequest();
             //Debug.Log(www.downloadHandler.text);
-            if (www.isDone) Response(www.downloadHandler.text);
+            if (www.isDone)
+            {
+                Response(www.downloadHandler.text);
+                Debug.Log("응답잇다");
+            }
             else print("웹의 응답이 없습니다.");
         }
     }
@@ -112,8 +117,12 @@ public class GoogleSheetManager : MonoBehaviour
 
     void Response(string json)
     {
-        if (string.IsNullOrEmpty(json)) return;
-
+        if (string.IsNullOrEmpty(json))
+        {
+            Debug.Log(json);
+            return;
+        }
+       
         GD = JsonUtility.FromJson<GoogleData>(json);
         //System.Text.Encoding.UTF8.GetString(GD, 3, GD.Length - 3);
         
@@ -123,12 +132,19 @@ public class GoogleSheetManager : MonoBehaviour
             print(GD.order + "을 실행할 수 없습니다. 에러 메시지 : " + GD.msg);
             return;
         }
-
-        print(GD.order + "을 실행했습니다. 메시지 : " + GD.msg);
+        else if(GD.result == "NickNameERROR")
+        {
+            print("닉네임이 중복됩니다.");
+        }
+        else
+        {
+            print(nickname+"("+id+")님 환영합니다!! ");
+            return;
+        }
 
         if (GD.order == "getValue")
         {
-            ValueInput.text = GD.value;
+            NicknameInput.text = GD.value;
         }
     }
 }

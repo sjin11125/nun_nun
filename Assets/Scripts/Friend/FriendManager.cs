@@ -34,7 +34,7 @@ public class FriendManager : MonoBehaviour
         Content.SetActive(true);
         GetFriendLsit();
     }
-    public void GetFriendLsit()
+    public void GetFriendLsit()         //친구 정보 불러오기
     {
         WWWForm form = new WWWForm();
         form.AddField("order", "getFriend");
@@ -89,16 +89,6 @@ public class FriendManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       /* WWWForm form = new WWWForm();
-
-        form.AddField("order", "info");
-        form.AddField("id", "1234");
-        form.AddField("nickname", "1234");
-        form.AddField("info", "1234");
-
-
-
-        StartCoroutine(Post(form));*/
     }
 
     // Update is called once per frame
