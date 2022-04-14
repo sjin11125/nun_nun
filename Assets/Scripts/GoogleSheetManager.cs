@@ -16,7 +16,7 @@ public class GoogleData
 
 public class GoogleSheetManager : MonoBehaviour
 {
-    string URL = GameManager.URL;
+    string URL = "https://script.google.com/macros/s/AKfycbzv-QLQPUKxL8dMO1UawstFFzWWI9zd_sRASiSiaBoZR9nSg_4BVrMuRGJUloJg8IMnxQ/exec";
     public GoogleData GD;
     public InputField IDInput, PassInput, NicknameInput;
     string id, pass,nickname;
@@ -27,15 +27,21 @@ public class GoogleSheetManager : MonoBehaviour
     {
         id = IDInput.text.Trim();
         pass = PassInput.text.Trim();
-        nickname = NicknameInput.text.Trim();
-        if (id == "" || pass == ""|| nickname=="") return false;
+        if (id == "" || pass == "") return false;
         else return true;
     }
 
-
+    bool SetSignPass()
+    {
+        id = IDInput.text.Trim();
+        pass = PassInput.text.Trim();
+        nickname = NicknameInput.text.Trim();
+        if (id == "" || pass == "" || nickname == "") return false;
+        else return true;
+    }
     public void Register()
     {
-        if (!SetIDPass())
+        if (!SetSignPass())
         {
             print("아이디 or 비번 or 닉네임이 비어있습니다");
             return;
