@@ -67,10 +67,9 @@ public class GameManager : MonoBehaviour
 
     public static FriendInfo[] Friends;       //친구 목록(닉네임)
 
-    public static string URL= "https://script.google.com/macros/s/AKfycbzG_HgtCJ4XaGCN2CU2AipVaEcF3A4QFCdwlAyQLNEEmQlxlWMvn340hpRHXOrOJeCFTw/exec";
-    
+    public static string URL = "https://script.google.com/macros/s/AKfycbwGa69xxUmfKZBOu7rjHgGlyZbLYkgOaXSp_GF05nnTb2cbnEN3HTanBvJ-Lesqu2jIpg/exec";
     //----------------------------------------------------------------------------------------------
-        
+
 
     public static bool isMoveLock = false;      //창 떴을 때 이동 못하게하는 변수
     /* 아이템 목록

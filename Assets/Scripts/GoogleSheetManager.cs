@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
-
+using UnityEngine.SceneManagement;
 
 
 [System.Serializable]
@@ -16,8 +16,8 @@ public class GoogleData
 
 public class GoogleSheetManager : MonoBehaviour
 {
-    string URL = "https://script.google.com/macros/s/AKfycbzv-QLQPUKxL8dMO1UawstFFzWWI9zd_sRASiSiaBoZR9nSg_4BVrMuRGJUloJg8IMnxQ/exec";
-    public GoogleData GD;
+    string URL = GameManager.URL;
+        public GoogleData GD;
     public InputField IDInput, PassInput, NicknameInput;
     string id, pass,nickname;
 
@@ -128,7 +128,7 @@ public class GoogleSheetManager : MonoBehaviour
             Debug.Log(json);
             return;
         }
-       
+        Debug.Log(json);
         GD = JsonUtility.FromJson<GoogleData>(json);
         //System.Text.Encoding.UTF8.GetString(GD, 3, GD.Length - 3);
         
@@ -142,15 +142,21 @@ public class GoogleSheetManager : MonoBehaviour
         {
             print("닉네임이 중복됩니다.");
         }
-        else
+        if (GD.result == "OK")
         {
-            print(nickname+"("+id+")님 환영합니다!! ");
+            if (GD.msg=="회원가입 완료")
+            {
+                Debug.Log("회원가입 완료!");
+            }
+            print(nickname + "(" + id + ")님 환영합니다!! ");
+            SceneManager.LoadScene("Main");
             return;
         }
-
         if (GD.order == "getValue")
         {
             NicknameInput.text = GD.value;
         }
+
+        Debug.Log("");
     }
 }
