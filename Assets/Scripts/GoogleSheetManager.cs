@@ -149,6 +149,10 @@ public class GoogleSheetManager : MonoBehaviour
                 Debug.Log("회원가입 완료!");
             }
             print(nickname + "(" + id + ")님 환영합니다!! ");
+
+            GameManager.NickName = nickname;
+            GameManager.Id = id;
+            
             SceneManager.LoadScene("Main");
             return;
         }

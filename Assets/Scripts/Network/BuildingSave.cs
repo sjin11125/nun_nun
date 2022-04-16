@@ -67,6 +67,12 @@ public class BuildingSave : MonoBehaviour
 
         return;
     }
+    public void BuildingLoad()              //로그인 했을 때 건물 불러와
+    {
+        WWWForm form1 = new WWWForm();
+        form1.AddField("order", "getFriendBuilding");
+        form1.AddField("loadedFriend", GameManager.NickName);
+    }
     public void FriendBuildindLoad()
     {
         string FriendNickname=gameObject.name;
