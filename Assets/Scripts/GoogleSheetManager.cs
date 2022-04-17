@@ -158,8 +158,9 @@ public class GoogleSheetManager : MonoBehaviour
             GameManager.NickName = nickname;
             GameManager.Id = id;
 
+            gameObject.GetComponent<BuildingSave>().BuildingLoad();
             BuildingSave MyBuildingLoad = new BuildingSave();
-            MyBuildingLoad.BuildingLoad();          //내 건물 불러와
+            //MyBuildingLoad.BuildingLoad();          //내 건물 불러와
             
             return;
         }

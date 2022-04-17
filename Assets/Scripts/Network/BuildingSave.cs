@@ -73,6 +73,7 @@ public class BuildingSave : MonoBehaviour
         isMe = true;                    //내 건물 불러온다!!!!!!!!!!!!!!!!
         form1.AddField("order", "getFriendBuilding");
         form1.AddField("loadedFriend", GameManager.NickName);
+        Debug.Log(GameManager.NickName);
         StartCoroutine(Post(form1));
     }
     public void FriendBuildindLoad()
@@ -97,8 +98,11 @@ public class BuildingSave : MonoBehaviour
     }
     void Response(string json)                          //건물 값 불러오기
     {
-        if (string.IsNullOrEmpty(json)) return;
-        Debug.Log(json);
+        if (string.IsNullOrEmpty(json))
+        {
+            Debug.Log(json);
+            return;
+        }
 
         if (isMe == false)                //친구 건물 불러오는거라면
         {
