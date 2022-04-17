@@ -39,7 +39,7 @@ public class LoadManager : MonoBehaviour
             {
                 GameManager.Items[i] = false;
             }
-             if (SceneManager.GetActiveScene().name == "Main" && GameManager.BuildingList != null)       //메인씬에서 로드하기
+             if (SceneManager.GetActiveScene().name == "Main" && GameManager.BuildingList != null)       //메인씬에서 로드하기(내 마을)
              {
                 //건물로드
 

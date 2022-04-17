@@ -148,12 +148,19 @@ public class GoogleSheetManager : MonoBehaviour
             {
                 Debug.Log("회원가입 완료!");
             }
+            else
+            {
+                nickname= GD.msg;
+                Debug.Log("로그인 완료!");
+            }
             print(nickname + "(" + id + ")님 환영합니다!! ");
 
             GameManager.NickName = nickname;
             GameManager.Id = id;
+
+            BuildingSave MyBuildingLoad = new BuildingSave();
+            MyBuildingLoad.BuildingLoad();          //내 건물 불러와
             
-            SceneManager.LoadScene("Main");
             return;
         }
         if (GD.order == "getValue")
