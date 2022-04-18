@@ -73,12 +73,11 @@ public class BuildingSave : MonoBehaviour
         isMe = true;                    //내 건물 불러온다!!!!!!!!!!!!!!!!
         form1.AddField("order", "getFriendBuilding");
         form1.AddField("loadedFriend", GameManager.NickName);
-        Debug.Log(GameManager.NickName);
         StartCoroutine(Post(form1));
     }
     public void FriendBuildindLoad()
     {
-        string FriendNickname=gameObject.name;
+        string FriendNickname=gameObject.transform.parent.name;
         WWWForm form1 = new WWWForm();
         isMe = false;                   //친구 건물 불러올거지롱 메롱
         form1.AddField("order", "getFriendBuilding");
@@ -103,9 +102,15 @@ public class BuildingSave : MonoBehaviour
             Debug.Log(json);
             return;
         }
-
+        Debug.Log(json);
+       
         if (isMe == false)                //친구 건물 불러오는거라면
         {
+            if (json == "Null")
+            {
+                SceneManager.LoadScene("FriendMain");
+                return;
+            }
             GameManager.FriendBuildingList = new List<Building>();
             Newtonsoft.Json.Linq.JArray j = Newtonsoft.Json.Linq.JArray.Parse(json);
             //Debug.Log("j.Count: "+j.Count);
@@ -130,6 +135,11 @@ public class BuildingSave : MonoBehaviour
         }
         else                                    //로그인했을 때 내 건물 불러오는거라면
         {
+            if (json == "Null")
+            {
+                SceneManager.LoadScene("Main");
+                return;
+            }
             GameManager.BuildingList = new List<Building>();
             Newtonsoft.Json.Linq.JArray j = Newtonsoft.Json.Linq.JArray.Parse(json);
             //Debug.Log("j.Count: "+j.Count);

@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
 
     public static FriendInfo[] Friends;       //친구 목록(닉네임)
 
-    public static string URL = "https://script.google.com/macros/s/AKfycbxUaRmJPzOWPo7HZdqHiS8bgqHalGxGki-DlnJWJD4gOkhkga_5qciKRAigWkThJXOy6A/exec";
+    public static string URL = "https://script.google.com/macros/s/AKfycbxP-VYZDaHb9ETlWrKOz1kk-6fWJ9dZZIDTDR9cNFgXgtH6eGWepfL6NQ1D0yLo1RsrLQ/exec";
     //----------------------------------------------------------------------------------------------
 
 
