@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
 
     public static FriendInfo[] Friends;       //친구 목록(닉네임)
 
-    public static string URL = "https://script.google.com/macros/s/AKfycbxP-VYZDaHb9ETlWrKOz1kk-6fWJ9dZZIDTDR9cNFgXgtH6eGWepfL6NQ1D0yLo1RsrLQ/exec";
+    public static string URL = "https://script.google.com/macros/s/AKfycbwAZxJPfSFdWxfkDe3ecPPLP1Ppbm0rw8wX8IeUacR5THLNEjNlAq180k2gi5y0COzotg/exec";
     //----------------------------------------------------------------------------------------------
 
 
@@ -86,7 +86,9 @@ public class GameManager : MonoBehaviour
      */
     // Start is called before the first frame update
 
+    //--------------------------------------------------------------------퀘스트---------------------------------------------------
 
+   public static Dictionary<string, int> Quest;
 
     void Start()
     {
@@ -98,6 +100,9 @@ public class GameManager : MonoBehaviour
         CharacterImageData = new Dictionary<string, Sprite>();
         CharacterList = new List<Card>();
         BuildingNumber = new Dictionary<string, int>();
+
+        Quest = new Dictionary<string, int>();                     //퀘스트 진행상황
+
         Debug.Log("GameManager Start");
         for (int i = 0; i < BuildingPrefabInspector.Length; i++)        //빌딩 프리팹 정보 불러오기
         {
