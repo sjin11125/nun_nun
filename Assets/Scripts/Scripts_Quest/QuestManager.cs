@@ -16,14 +16,13 @@ public class QuestManager : MonoBehaviour
 {
 
 
-    TextAsset csvData;
-    //string[][] Questlist;             //퀘스트 리스트(일단 3개만 하고 나중에 추가해)
+    TextAsset csvData;             //퀘스트 리스트(일단 3개만 하고 나중에 추가해)
     List<string[]> Questlist;
     public Text[] QuestText;         //퀘스트 텍스트들
     string[][] Quest;
 
-    QuestInfo[] QuestArray;          //퀘스트 진행상황 배열
-
+    QuestInfo[] QuestArray=new QuestInfo[3];          //퀘스트 진행상황 배열
+    List<QuestInfo> GetQuestList = new List<QuestInfo>();
     // Start is called before the first frame update
     void Start()                //시작할 때 퀘스트 목록 불러옴
     {
@@ -38,7 +37,6 @@ public class QuestManager : MonoBehaviour
         for (int i = 1; i < data.Length - 1; i++)
         {
             string[] pro_data = data[i].Split(',');
-            Debug.Log(pro_data[0]);
 
             Questlist.Add(pro_data); //퀘스트 리스트에 넣기
         }
@@ -77,19 +75,21 @@ public class QuestManager : MonoBehaviour
     }
     public void QuestClick()            //퀘스트 버튼 클릭했을 때 퀘스트 진행 상황 불러와
     {
-        for (int i = 0; i < QuestText.Length; i++)
+        for (int i = 0; i < 3; i++)
         {
             WWWForm form1 = new WWWForm();                                      //진행상황 불러옴
             form1.AddField("order", "questGet");
             form1.AddField("player_nickname", GameManager.NickName);
-            form1.AddField("quest", Quest[i][1]);
+            form1.AddField("quest", Quest[i][0]);
 
             StartCoroutine(Post(form1));
-
-
-
-            QuestText[i].text = Quest[i][1]+"    ("+ QuestArray[i].count+ "/"+Quest[i][2]+")";                    //퀘스트 내용 뜨게함
         }
+        for (int i = 0; i < 3; i++)
+        {
+            
+        }
+
+
     }
 
     IEnumerator Post(WWWForm form)
@@ -98,7 +98,7 @@ public class QuestManager : MonoBehaviour
         {
             yield return www.SendWebRequest();
             //Debug.Log(www.downloadHandler.text);
-            if (www.isDone) Response(www.downloadHandler.text);         //친구 건물 불러옴
+            if (www.isDone) Response(www.downloadHandler.text);  
                                                                         //else print("웹의 응답이 없습니다.");*/
         }
 
@@ -117,9 +117,21 @@ public class QuestManager : MonoBehaviour
             return;
         }
         QuestInfo questInfo = JsonUtility.FromJson<QuestInfo>(json);
-        QuestArray[QuestArray.Length] = questInfo;
-       
+        
+        GetQuestList.Add(questInfo);
+        Debug.Log(GetQuestList.Count);
 
+        if (GetQuestList.Count>=3)
+        {
+            QuestArray=GetQuestList.ToArray();
+            for (int i = 0; i < QuestArray.Length; i++)
+            {
+                Debug.Log(QuestArray[i].quest + ": " + QuestArray[i].count);
+                QuestText[i].text = Quest[i][1] + "    (" + QuestArray[i].count + "/" + Quest[i][2] + ")";                    //퀘스트 내용 뜨게함
+
+            }
+        }
+        
 
     }
 }
