@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
 
     public static FriendInfo[] Friends;       //친구 목록(닉네임)
 
-    public static string URL = "https://script.google.com/macros/s/AKfycbwyFtd2rBmv-CseZpvkzYd4_4hzH2aYeBmbNx-DG6dGLYttbl5-0y-F7IeJ4yIOmoGv6Q/exec";
+    public static string URL = "https://script.google.com/macros/s/AKfycbxv4VXj8t4N_UtRT0kFbc6mUlwpzUfKka43aqDYpubN9Hx0EeeBHqiNFV6IlT30oz30sA/exec";
     //----------------------------------------------------------------------------------------------
 
 
@@ -88,8 +88,9 @@ public class GameManager : MonoBehaviour
 
     //--------------------------------------------------------------------퀘스트---------------------------------------------------
 
-   public static Dictionary<string, int> Quest;
-
+   public static QuestInfo[] Quest;                 //퀘스트 목록
+    public static QuestInfo[] QuestProgress;        //퀘스트 진행상황
+    public static bool isReset;             //퀘스트 초기화 햇니?
     void Start()
     {
         BuildingList = new List<Building>();            //현재 가지고 있는 빌딩 리스트
@@ -101,7 +102,7 @@ public class GameManager : MonoBehaviour
         CharacterList = new List<Card>();
         BuildingNumber = new Dictionary<string, int>();
 
-        Quest = new Dictionary<string, int>();                     //퀘스트 진행상황
+        Quest = new QuestInfo[3];                     //퀘스트 
 
         Debug.Log("GameManager Start");
         for (int i = 0; i < BuildingPrefabInspector.Length; i++)        //빌딩 프리팹 정보 불러오기

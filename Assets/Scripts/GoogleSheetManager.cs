@@ -20,7 +20,7 @@ public class GoogleSheetManager : MonoBehaviour
         public GoogleData GD;
     public InputField IDInput, PassInput, NicknameInput;
     string id, pass,nickname;
-
+    public QuestManager QuestManager;
 
 
     bool SetIDPass()
@@ -158,10 +158,14 @@ public class GoogleSheetManager : MonoBehaviour
             GameManager.NickName = nickname;
             GameManager.Id = id;
 
-            gameObject.GetComponent<BuildingSave>().BuildingLoad();
-            BuildingSave MyBuildingLoad = new BuildingSave();
-            //MyBuildingLoad.BuildingLoad();          //내 건물 불러와
+            QuestManager.QuestStart();                                  //퀘스트 설정
+
+            gameObject.GetComponent<BuildingSave>().BuildingLoad();         //내 건물 불러와
+                                                                            //퀘스트 진행상황 불러
+
             
+            //MyBuildingLoad.BuildingLoad();          
+
             return;
         }
         if (GD.order == "getValue")
