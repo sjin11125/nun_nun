@@ -17,9 +17,9 @@ public class GoogleData
 public class GoogleSheetManager : MonoBehaviour
 {
     string URL = GameManager.URL;
-        public GoogleData GD;
+    public GoogleData GD;
     public InputField IDInput, PassInput, NicknameInput;
-    string id, pass,nickname;
+    string id, pass, nickname;
     public QuestManager QuestManager;
 
 
@@ -131,26 +131,26 @@ public class GoogleSheetManager : MonoBehaviour
         Debug.Log(json);
         GD = JsonUtility.FromJson<GoogleData>(json);
         //System.Text.Encoding.UTF8.GetString(GD, 3, GD.Length - 3);
-        
+
 
         if (GD.result == "ERROR")
         {
             print(GD.order + "을 실행할 수 없습니다. 에러 메시지 : " + GD.msg);
             return;
         }
-        else if(GD.result == "NickNameERROR")
+        else if (GD.result == "NickNameERROR")
         {
             print("닉네임이 중복됩니다.");
         }
         if (GD.result == "OK")
         {
-            if (GD.msg=="회원가입 완료")
+            if (GD.msg == "회원가입 완료")
             {
                 Debug.Log("회원가입 완료!");
             }
             else
             {
-                nickname= GD.msg;
+                nickname = GD.msg;
                 Debug.Log("로그인 완료!");
             }
             print(nickname + "(" + id + ")님 환영합니다!! ");
@@ -158,12 +158,10 @@ public class GoogleSheetManager : MonoBehaviour
             GameManager.NickName = nickname;
             GameManager.Id = id;
 
-            QuestManager.QuestStart();                                  //퀘스트 설정
-
-            gameObject.GetComponent<BuildingSave>().BuildingLoad();         //내 건물 불러와
-                                                                            //퀘스트 진행상황 불러
-
+            StartCoroutine(Quest());
             
+
+
             //MyBuildingLoad.BuildingLoad();          
 
             return;
@@ -174,5 +172,11 @@ public class GoogleSheetManager : MonoBehaviour
         }
 
         Debug.Log("");
+    }
+    IEnumerator Quest()
+    {                                                        
+        yield return StartCoroutine( QuestManager.QuestStart()); //퀘스트 설정할 때까지 대기
+
+        gameObject.GetComponent<BuildingSave>().BuildingLoad();         //내 건물 불러와
     }
 }

@@ -23,29 +23,21 @@ public class QuestManager : MonoBehaviour
 
     QuestInfo[] QuestArray=new QuestInfo[3];          //퀘스트 진행상황 배열
     List<QuestInfo> GetQuestList = new List<QuestInfo>();
-
+    bool isStart = false;
    // bool isReset;           //일퀘 초기화 변수
     // Start is called before the first frame update
-    public void QuestStart()                //시작할 때 구글 스크립트에서 일퀘 초기화 됐는지 확인하고 퀘스트 목록 불러옴
+    public IEnumerator QuestStart()                //시작할 때 구글 스크립트에서 일퀘 초기화 됐는지 확인하고 퀘스트 목록 불러옴
     {
         //일퀘 초기화 했는지 확인 안했으면 초기화하고 했으면 그냥 진행상황 불러옴
         WWWForm form1 = new WWWForm();
         form1.AddField("order", "questTime");
         form1.AddField("player_nickname", GameManager.NickName);
 
-        StartCoroutine(TimePost(form1));                        //구글 스크립트로 초기화했는지 물어봐
-
-        if (GameManager.isReset==false)             //초기화 안했음
-        {
-           
-        }
-        else                                                                //초기화 햇음
-        {
-           
-        }
 
 
-        
+
+       yield return StartCoroutine(TimePost(form1));                        //구글 스크립트로 초기화했는지 물어볼때까지 대기
+
 
     }
 
@@ -160,6 +152,7 @@ public class QuestManager : MonoBehaviour
                 QuestSave(GameManager.Quest[i].quest);                             // 처음엔 퀘스트 아무것도 안했으니까 0으로 두자
             }
         }
+        isStart = true;
     }
         void Response(string json)                          //퀘스트 진행상황 불러오기
     {
