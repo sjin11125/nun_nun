@@ -1235,6 +1235,49 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b81e78635323eed4690a9801c1c32229, type: 3}
+--- !u!1 &853950858
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 853950859}
+  - component: {fileID: 853950860}
+  m_Layer: 0
+  m_Name: NuniManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &853950859
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 853950858}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 471.09375, y: 353.62494, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &853950860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 853950858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bd82ea5a76a3f540bef432659e67e52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &867282683
 GameObject:
   m_ObjectHideFlags: 0
@@ -1534,6 +1577,7 @@ MonoBehaviour:
   PassInput: {fileID: 867282685}
   NicknameInput: {fileID: 0}
   QuestManager: {fileID: 1980512270}
+  NuniManager: {fileID: 853950860}
 --- !u!114 &900836462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1782,6 +1826,7 @@ MonoBehaviour:
   PassInput: {fileID: 0}
   NicknameInput: {fileID: 0}
   QuestManager: {fileID: 0}
+  NuniManager: {fileID: 0}
 --- !u!1 &1171930901
 GameObject:
   m_ObjectHideFlags: 0
@@ -1844,6 +1889,7 @@ MonoBehaviour:
   PassInput: {fileID: 539740431}
   NicknameInput: {fileID: 2070751357}
   QuestManager: {fileID: 1980512270}
+  NuniManager: {fileID: 0}
 --- !u!114 &1171930904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2743,6 +2789,7 @@ MonoBehaviour:
   PassInput: {fileID: 867282685}
   NicknameInput: {fileID: 0}
   QuestManager: {fileID: 0}
+  NuniManager: {fileID: 0}
 --- !u!1 &1980512269
 GameObject:
   m_ObjectHideFlags: 0

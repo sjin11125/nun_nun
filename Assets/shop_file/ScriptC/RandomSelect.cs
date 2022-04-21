@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 public class RandomSelect : MonoBehaviour
 {
     public List<Card> deck;  // 카드 덱
@@ -45,24 +46,14 @@ public class RandomSelect : MonoBehaviour
         CardUI cardUI = Instantiate(cardprefab, parent).GetComponent<CardUI>();
         // 생성 된 카드에 결과 리스트의 정보를 넣어줍니다.
         Card Nuni = cardUI.CardUISet(RandomCard());
+        Debug.Log("Nuni level: " + Nuni.Level);
+        Nuni.isLock = "F";          //누니 잠금 품
+        GameManager.CharacterList.Add(Nuni);     //나온 결과를 리스트에 반영
+                                                 //전체 누니 배열을 수정
 
-        for (int j = 0; j <= GameManager.CharacterList.Count; j++)
+
+       /* for (int j = 0; j <= GameManager.CharacterList.Count; j++)
         {
-            if (j == GameManager.CharacterList.Count)        //리스트 다 돌았는데 없으면
-            {
-                Debug.Log("Nuni level: " + Nuni.Level);
-                Nuni.isLock = "F";          //누니 잠금 품
-                GameManager.CharacterList.Add(Nuni);     //나온 결과를 리스트에 반영
-                                                         //전체 누니 배열을 수정
-                for (int i  = 0; i < GameManager.AllNuniArray.Length; i++)
-                {
-                    if (GameManager.AllNuniArray[i].cardImage== Nuni.cardImage)
-                    {
-                        GameManager.AllNuniArray[i].isLock = "F";
-                    }
-                }
-                return;
-            }
             if (Nuni.cardImage == GameManager.CharacterList[j].cardImage)        //현재 가지고 있는 누니 중 있으면
             {
 
@@ -71,15 +62,57 @@ public class RandomSelect : MonoBehaviour
 
             }
 
-        }
-
-
+        }*/
+        StartCoroutine(NuniSave(Nuni));          //구글 스크립트에 업데이트
+        Debug.Log("nuni save");
         for (int i = 0; i < GameManager.CharacterList.Count; i++)
         {
             Debug.Log(GameManager.CharacterList[i].cardName);
         }
+    }
+    IEnumerator NuniSave(Card nuni)                //누니 구글 스크립트에 저장
+    {
+        
+        WWWForm form1 = new WWWForm();
+        form1.AddField("order", "nuniSave");
+        form1.AddField("player_nickname", GameManager.NickName);
+        form1.AddField("nuni", nuni.cardName) ;
+
+
+
+        yield return StartCoroutine(Post(form1));                        //구글 스크립트로 초기화했는지 물어볼때까지 대기
+
 
     }
+    IEnumerator Post(WWWForm form)
+    {
+        using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // 반드시 using을 써야한다
+        {
+            yield return www.SendWebRequest();
+            //Debug.Log(www.downloadHandler.text);
+            if (www.isDone) NuniResponse(www.downloadHandler.text);
+            //else print("웹의 응답이 없습니다.");*/
+        }
+
+    }
+    void NuniResponse(string json)                          //누니 불러오기
+    {
+        //List<QuestInfo> Questlist = new List<QuestInfo>();
+        Debug.Log(json);
+        if (json == "null")
+        {
+            return;
+        }
+        if (string.IsNullOrEmpty(json))
+        {
+            Debug.Log(json);
+            return;
+        }
+                       //누니 이름 받아서 겜메 모든 누니 배열에서 누니 정보 받아서 넣기
+
+      
+    }
+
     // 가중치 랜덤의 설명은 영상을 참고.
     public Card RandomCard()
     {
