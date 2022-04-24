@@ -38,9 +38,29 @@ public class FriendButton : MonoBehaviour
         form1.AddField("order", "SearchFriend");
         form1.AddField("friend_nickname", FriendNickname.text);
 
-        StartCoroutine(ImagePost(form1));                        
+        StartCoroutine(SearchPost(form1));                        
+    }
+
+    IEnumerator SearchPost(WWWForm form)
+    {
+        Debug.Log("SearchPost");
+        using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // 반드시 using을 써야한다
+        {
+            yield return www.SendWebRequest();
+            //Debug.Log(www.downloadHandler.text);
+            if (www.isDone)
+            {
+                SearchResponse(www.downloadHandler.text);
+                Debug.Log("응답잇다");
+            }
+            else print("웹의 응답이 없습니다.");
+        }
+
+    }
+    void SearchResponse(string json)
+    {
+        Debug.Log(json);
     }
 
 
-    
 }

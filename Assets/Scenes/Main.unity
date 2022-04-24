@@ -3145,6 +3145,7 @@ GameObject:
   - component: {fileID: 450448649}
   - component: {fileID: 450448648}
   - component: {fileID: 450448647}
+  - component: {fileID: 450448650}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -3214,7 +3215,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 450448648}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 450448650}
+        m_TargetAssemblyTypeName: FriendButton, Assembly-CSharp
+        m_MethodName: SearchFriend
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &450448648
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3253,6 +3266,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 450448645}
   m_CullTransparentMesh: 1
+--- !u!114 &450448650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450448645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b410142a29911a4bacffedfcf01f18f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FriendNickname: {fileID: 88337878}
 --- !u!1 &456846232
 GameObject:
   m_ObjectHideFlags: 0
@@ -6389,11 +6415,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Money: {fileID: 2090181323}
-  Tree: {fileID: 2135801001}
-  Snow: {fileID: 576341385}
-  Ice: {fileID: 1382709807}
-  Grass: {fileID: 2055531127}
-  Gem: {fileID: 1012459540}
+  Tree: {fileID: 0}
+  Snow: {fileID: 0}
+  Ice: {fileID: 0}
+  Grass: {fileID: 0}
+  Gem: {fileID: 0}
 --- !u!4 &1031511917
 Transform:
   m_ObjectHideFlags: 0
@@ -9924,12 +9950,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c95c948ada1edf74a9e65e8d93d101e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Profile:
-  - {fileID: 487439788}
-  - {fileID: 1289087394}
-  NuniImages: {fileID: 2454418830786588210, guid: 3f55ec2fca3a25f44a125b95e6e0b6f6, type: 3}
-  Canvas: {fileID: 234448678}
-  ProfileImage: {fileID: 1113174318}
+  Profile: []
+  NuniImages: {fileID: 0}
+  Canvas: {fileID: 0}
+  ProfileImage: {fileID: 0}
 --- !u!1 &1619847602
 GameObject:
   m_ObjectHideFlags: 0
@@ -11532,10 +11556,10 @@ MonoBehaviour:
     Building_Image: 
     Cost: 0
     Level: 1
-    Tree: 0
-    Ice: 0
-    Grass: 0
-    Snow: 0
+    Tree: 
+    Ice: 
+    Grass: 
+    Snow: 
     isFlied: 
   isMe: 0
 --- !u!1 &1815255842
