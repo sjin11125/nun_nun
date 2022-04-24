@@ -63,11 +63,13 @@ public class GameManager : MonoBehaviour
 
     public static string Id;            //플레이어 아이디
     public static string NickName;      //플레이어 닉네임
+    public static string StateMessage;      //플레이어 상태메세지
     public static string SheetsNum;     //플레이어 건물 정보 들어있는 스프레드 시트 id
+    public static Sprite ProfileImage;       //플레이어 프로필 이미지
 
     public static FriendInfo[] Friends;       //친구 목록(닉네임)
 
-    public static string URL = "https://script.google.com/macros/s/AKfycbyZJHUtB5SgS94hOCmQCgo1ABKEM9PYAWfmAPagPUA90pG0RhwtjhHcjd6ufDSN-y-U/exec";
+    public static string URL = "https://script.google.com/macros/s/AKfycbyxn6D5mlnT5quf44IXMWh4C6P5kRop1mnbTGDbPmARpdv7l8RjSZyyFfFUGMsicklP/exec";
     //----------------------------------------------------------------------------------------------
 
 

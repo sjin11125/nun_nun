@@ -10,7 +10,7 @@ using UnityEngine.SceneManagement;
 [System.Serializable]
 public class GoogleData
 {
-    public string order, result, msg, value;
+    public string order, result, msg, value,nickname,state, profile_image;
 }
 
 
@@ -19,7 +19,7 @@ public class GoogleSheetManager : MonoBehaviour
     string URL = GameManager.URL;
     public GoogleData GD;
     public InputField IDInput, PassInput, NicknameInput;
-    string id, pass, nickname;
+    string id, pass, nickname,statemessage;
     public QuestManager QuestManager;
     public NuniManager NuniManager;
 
@@ -150,13 +150,21 @@ public class GoogleSheetManager : MonoBehaviour
             }
             else
             {
-                nickname = GD.msg;
+                nickname = GD.nickname;
+               GameManager.StateMessage= GD.state;
                 Debug.Log("로그인 완료!");
             }
             print(nickname + "(" + id + ")님 환영합니다!! ");
 
             GameManager.NickName = nickname;
             GameManager.Id = id;
+            for (int i = 0; i < GameManager.AllNuniArray.Length; i++)
+            {
+                if (GameManager.AllNuniArray[i].Image.name != GD.profile_image)
+                    continue;
+                GameManager.ProfileImage = GameManager.AllNuniArray[i].Image;
+            }
+            
 
             StartCoroutine(Quest());
             
