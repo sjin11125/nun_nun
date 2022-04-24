@@ -32,10 +32,7 @@ public class BuildingSave : MonoBehaviour
         form.AddField("building_name", update_building.Building_name);
         form.AddField("cost", update_building.Cost);
         form.AddField("level", update_building.Level);
-        form.AddField("tree", update_building.Tree);
-        form.AddField("ice", update_building.Ice);
-        form.AddField("grass", update_building.Grass);
-        form.AddField("snow", update_building.Snow);
+        form.AddField("shinCost", update_building.ShinCost);
         form.AddField("isFlied", update_building.isFliped.ToString());
         StartCoroutine(Post(form));
     }
@@ -51,10 +48,7 @@ public class BuildingSave : MonoBehaviour
         form.AddField("building_name", buildings.Building_name);
         form.AddField("cost", buildings.Cost);
         form.AddField("level", buildings.Level);
-        form.AddField("tree", buildings.Tree);
-        form.AddField("ice", buildings.Ice);
-        form.AddField("grass", buildings.Grass);
-        form.AddField("snow", buildings.Snow);
+        form.AddField("shinCost", buildings.ShinCost);
         form.AddField("isFlied",buildings.isFliped.ToString());
         StartCoroutine(Post(form));
     }
@@ -129,10 +123,7 @@ public class Buildingsave
     public string Building_Image;          //빌딩 이미지 이름 *
     public string Cost;        //건물비용
     public string Level;       //건물 레벨
-    public string Tree;        //나무
-    public string Ice;        //얼음
-    public string Grass;        //풀
-    public string Snow;        //눈
+    public string ShinCost;
     public string isFlied;        //뒤집어졌는지
                                //-----------------------------------------------------------
                                //public string[] Friends;

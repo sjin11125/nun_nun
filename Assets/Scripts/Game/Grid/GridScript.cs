@@ -41,6 +41,8 @@ public class GridScript : MonoBehaviour
     [HideInInspector]
     public String KeepColor, KeepShape;
 
+    int completeShin = 0;
+
     private void OnEnable()
     {
         GameEvents.CheckIfShapeCanBePlaced += CheckIfShapeCanBePlaced;
@@ -237,9 +239,9 @@ public class GridScript : MonoBehaviour
         {
             //TODO: Play bouns animation.
         }
-
+        //컴플릿 라인에 모든 스퀘어를 검사해서 샤인이 있으면 갯수 새서더하기
         var totalScores = 10 * completedLines;
-        GameEvents.AddScores(totalScores);
+        GameEvents.AddScores(totalScores, completeShin);
 
         if (completedLines == 0)
         {
@@ -302,7 +304,7 @@ public class GridScript : MonoBehaviour
         }
 
         var totalScores = 10 * completedLines;
-        GameEvents.AddScores(totalScores);
+        GameEvents.AddScores(totalScores, completeShin);
 
         if (completedLines == 0)
         {
@@ -362,7 +364,7 @@ public class GridScript : MonoBehaviour
             if (SameColorLines()) // QuestController.girdCompLine.Add(squareIndex);//퀘스트를 위한 정보전달
             {
                 linesCompleted++;
-                QuestControll.GetComponent<QuestController>().QuestIndex();//퀘스트 함수 실행               
+                QuestControll.GetComponent<QuestController>().QuestIndex();//퀘스트 함수 실행
             }
         }
         return linesCompleted;
@@ -375,6 +377,10 @@ public class GridScript : MonoBehaviour
         for (int i = 0; i < completeIndexArray.Length; i++)
         {
             var com = _gridSquares[completeIndexArray[i]].GetComponent<GridSquare>();
+            if (com.shinActive)
+            {
+                completeShin++;
+            }
             com.Deactivate();
             com.ClearOccupied();
            
