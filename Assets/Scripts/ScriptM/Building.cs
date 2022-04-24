@@ -38,10 +38,7 @@ public class Building : MonoBehaviour
     public string Building_Image;          //빌딩 이미지 이름 *
     public int Cost;        //건물비용
     public int Level = 1;       //건물 레벨
-    public int Tree;        //나무
-    public int Ice;        //얼음
-    public int Grass;        //풀
-    public int Snow;        //눈
+    public int ShinCost;
     public bool isFliped = false;
     //-----------------------------------------------------------
     public string buildingPosiiton_x;
@@ -65,19 +62,16 @@ public class Building : MonoBehaviour
     public Building()
     {
     }
-    public Building(string islock, string buildingname,string reward,string info,string image,string cost,string level,string tree,string grass,string snow,string ice)           //파싱할 때 쓰는 생성자
+    public Building(string islock, string buildingname,string reward,string info,string image,string cost,string level, string shinCost)           //파싱할 때 쓰는 생성자
     {
         isLock = islock;
         Building_name = buildingname;
         Reward = reward;
         Info = info;
         Building_Image = image;
-        Cost =int.Parse( cost);
+        Cost =int.Parse(cost);
         Level =int.Parse( level);
-        Tree = int.Parse(tree);
-        Grass = int.Parse(grass);
-        Snow = int.Parse(snow);
-        Ice = int.Parse(ice);
+        ShinCost = int.Parse(shinCost);
 
     }
     public void SetValue(Building getBuilding)
@@ -96,10 +90,7 @@ public class Building : MonoBehaviour
         Cost = getBuilding.Cost;
         layer_y = getBuilding.layer_y;
         Level = getBuilding.Level;
-        Tree = getBuilding.Tree;
-        Ice = getBuilding.Ice;
-        Snow = getBuilding.Snow;
-        Grass = getBuilding.Grass;
+        ShinCost = getBuilding.ShinCost;
         isFliped = getBuilding.isFliped;
     }
     
@@ -123,10 +114,7 @@ public class Building : MonoBehaviour
         BuildingCopy.Level = this.Level;
 
         BuildingCopy.Cost = this.Cost;
-        BuildingCopy.Tree = Tree;
-        BuildingCopy.Ice = Ice;
-        BuildingCopy.Snow = Snow;
-        BuildingCopy.Grass = Grass;
+        BuildingCopy.ShinCost = this.ShinCost;
 
         BuildingCopy.isFliped = isFliped;
         return BuildingCopy;
@@ -372,10 +360,6 @@ public class Building : MonoBehaviour
 
         //Debug.Log()
         GameManager.Money += building.Cost;          //자원 되돌리기
-        GameManager.Tree += building.Tree;
-        GameManager.Snow += building.Snow;
-        GameManager.Grass += building.Grass;
-        GameManager.Ice += building.Ice;
 
         GridBuildingSystem.current.RemoveArea(areaTemp);
         if (Type == BuildType.Make)      //상점에서 사고 설치X 바로 제거
