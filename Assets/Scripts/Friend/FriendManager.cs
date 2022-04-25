@@ -12,6 +12,7 @@ public class FriendInfo
     //public string SheetsNum;     //플레이어 건물 정보 들어있는 스프레드 시트 id
     public string f_info;          //상태메세지
     public string f_id;
+    public string f_image;
 
     public FriendInfo(string nickname,string id,string info)
     {
@@ -36,6 +37,8 @@ public class FriendManager : MonoBehaviour
     }
     public void GetFriendLsit()         //친구 정보 불러오기
     {
+
+
         WWWForm form = new WWWForm();
         form.AddField("order", "getFriend");
         form.AddField("id", "1234");

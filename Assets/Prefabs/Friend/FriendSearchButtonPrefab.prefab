@@ -221,11 +221,11 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 261008a32d95bfc43beed9135dfe880a, type: 3}
-    m_FontSize: 15
+    m_FontSize: 40
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 0
-    m_MaxSize: 40
+    m_MaxSize: 60
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -247,6 +247,7 @@ GameObject:
   - component: {fileID: 1616570658433222679}
   - component: {fileID: 1616570658433222674}
   - component: {fileID: 5836303692395701209}
+  - component: {fileID: 2082453217509660673}
   m_Layer: 5
   m_Name: PlusButton
   m_TagString: Untagged
@@ -271,8 +272,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -26.7974, y: 10.0274}
-  m_SizeDelta: {x: 26.6648, y: 26.5851}
+  m_AnchoredPosition: {x: -26.7974, y: 5.1}
+  m_SizeDelta: {x: 63.375, y: 55.5799}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &1616570658433222673
 CanvasRenderer:
@@ -356,9 +357,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5836303692395701209}
-        m_TargetAssemblyTypeName: BuildingSave, Assembly-CSharp
-        m_MethodName: FriendBuildindLoad
+      - m_Target: {fileID: 2082453217509660673}
+        m_TargetAssemblyTypeName: FriendButton, Assembly-CSharp
+        m_MethodName: EnrollFriend
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -398,7 +399,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1616570658433222677}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a11ed494d8df73549b2ad882df51f11e, type: 3}
   m_Name: 
@@ -424,6 +425,22 @@ MonoBehaviour:
     Snow: 
     isFlied: 
   isMe: 0
+--- !u!114 &2082453217509660673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1616570658433222677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b410142a29911a4bacffedfcf01f18f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FriendNickname: {fileID: 0}
+  SearchFriendPrefab: {fileID: 0}
+  SearchFriendContents: {fileID: 0}
+  F_nickname: {fileID: 6313625042117972315}
 --- !u!1 &6313625040792332860
 GameObject:
   m_ObjectHideFlags: 0
