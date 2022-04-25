@@ -52,7 +52,11 @@ public class GameManager : MonoBehaviour
 
     //-----------------------------------여기서부터 재화---------------------------------
     public static int Money = 10000;            //재화
-    public static int ShinMoney = 0;
+    public static int Ice = 100;          //얼음
+    public static int Snow = 100;     //눈덩이
+    public static int Tree=100;       //나무
+    public static int Grass = 100;        //풀
+    public static int Gem = 100;          //잼(특별상점 사용)
 
     //---------------------------------------------------------------------------------------------
     //--------------------------------여기서부터 플레이어 정보-------------------------------------

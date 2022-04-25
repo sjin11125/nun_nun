@@ -57,8 +57,8 @@ public class RandomSelect : MonoBehaviour
             if (Nuni.cardImage == GameManager.CharacterList[j].cardImage)        //현재 가지고 있는 누니 중 있으면
             {
 
-                GameManager.ShinMoney += int.Parse(Nuni.Level);  //근데 현재 가지고 있는 누니가 1성이면 1젬, 2성이면 2젬
-                Debug.Log("발광석: " + GameManager.ShinMoney);
+                GameManager.Gem += int.Parse(Nuni.Level);  //근데 현재 가지고 있는 누니가 1성이면 1젬, 2성이면 2젬
+                Debug.Log("Gem: " + GameManager.Gem);
 
             }
 

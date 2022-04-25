@@ -91,7 +91,7 @@ public class DicParsingManager : MonoBehaviour
             }
 
             Character character = new Character(pro_data[1],pro_data[2], pro_data[3], pro_data[4], pro_data[5], pro_data[6], pro_data[7], pro_data[8], pro_data[9]);
-            Building building = new Building(pro_data[1], pro_data[2], pro_data[3], pro_data[4], pro_data[5], pro_data[6], pro_data[7], pro_data[8]);
+            Building building = new Building(pro_data[1], pro_data[2], pro_data[3], pro_data[4], pro_data[5], pro_data[6], pro_data[7], pro_data[8], pro_data[9], pro_data[10], pro_data[11]);
             
             //잠금 유무     // 이름    //획득자원   //설명     //이미지    //가격    //레벨    //나무    //풀     //눈덩이   //얼음
             DictionaryList.Add(building);

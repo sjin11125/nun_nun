@@ -30,22 +30,17 @@ public class GridSquare : MonoBehaviour
     private bool isClick;
     GameObject rainbowObj;
     GameObject ChangeShapeObj;
-    GameObject squareImage;
-
-    public bool shinActive;
-
     void Start()
     {
         Selected = false;
         SquareOccupied = false;
         keepCurrentColor = null;
         currentShape = null;
-        shinActive = false;
 
         GameObject contectShape = GameObject.FindGameObjectWithTag("Shape");
         if (contectShape != null)
         {
-            squareImage = contectShape.transform.GetChild(0).gameObject;
+            GameObject squareImage = contectShape.transform.GetChild(0).gameObject;
             spriteImage = squareImage.GetComponent<Image>();
         }
         GameObject GetRainbow = GameObject.FindGameObjectWithTag("ItemController");//컨트롤러 다섯번째 자식인
@@ -116,12 +111,6 @@ public class GridSquare : MonoBehaviour
     {
         hooverImage.gameObject.SetActive(false);//선택되고있는중에뜨는 진한색끄고
         activeImage.gameObject.SetActive(true);//선택된 색 켜기
-        if (squareImage.transform.GetChild(0).gameObject.activeSelf)//shin이 켜져있으면
-        {
-            activeImage.transform.GetChild(0).gameObject.SetActive(true);
-            shinActive = true;
-            print("hi");
-        }
 
         Selected = true; //선택됨
         SquareOccupied = true; //사용중
@@ -138,9 +127,6 @@ public class GridSquare : MonoBehaviour
         activeImage.GetComponent<Image>().sprite = null;//사라지고나면 색깔 안담기게해놓기 이거사실없어도될듯?
         keepCurrentColor = null;
         currentShape = null;
-
-        activeImage.transform.GetChild(0).gameObject.SetActive(false);
-        shinActive = false;
     }
 
     public void NonKeep()//keep 열에 나머지 애들에 사용

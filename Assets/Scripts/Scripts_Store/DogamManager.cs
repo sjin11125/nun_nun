@@ -90,7 +90,10 @@ public class DogamManager : MonoBehaviour
                 BuildingButtonText[1].text= BuildingInformation[j].Info;                //빌딩 설명 넣기
                 BuildingButtonText[2].text ="$"+ BuildingInformation[j].Cost;               //빌딩 가격 넣기
 
-                BuildingButtonText[3].text = BuildingInformation[j].ShinCost.ToString();             
+                BuildingButtonText[3].text = BuildingInformation[j].Ice.ToString();             
+                BuildingButtonText[4].text = BuildingInformation[j].Tree.ToString();
+                BuildingButtonText[5].text = BuildingInformation[j].Snow.ToString();
+                BuildingButtonText[6].text = BuildingInformation[j].Grass.ToString();
 
 
             }

@@ -277,9 +277,15 @@ public class ChaButtonScript : MonoBehaviour
         if (gameObject.tag != "Lock")       //건물이 안잠겨있고
         {
             int pay = DogamManager.BuildingInformation[DogamManager.ChaIndex].Cost;
-            int shinPay = DogamManager.BuildingInformation[DogamManager.ChaIndex].ShinCost;
+            int tree = DogamManager.BuildingInformation[DogamManager.ChaIndex].Tree;
+            int snow = DogamManager.BuildingInformation[DogamManager.ChaIndex].Snow;
+            int grass = DogamManager.BuildingInformation[DogamManager.ChaIndex].Grass;
+            int ice = DogamManager.BuildingInformation[DogamManager.ChaIndex].Ice;
 
-            if (GameManager.Money < pay || GameManager.ShinMoney< shinPay)      //돈이나 자원이 모자르면 거절 메세지 띄움
+
+
+            if (GameManager.Money < pay || GameManager.Tree < tree
+                || GameManager.Snow < snow || GameManager.Grass < grass||GameManager.Ice<ice)      //돈이나 자원이 모자르면 거절 메세지 띄움
             {
                 UIManager.isSetMoney = -1;
             }
@@ -291,7 +297,10 @@ public class ChaButtonScript : MonoBehaviour
                 Building BuildingInformation = DogamManager.BuildingInformation[DogamManager.ChaIndex];
 
                 GameManager.Money -= pay;       //자원빼기
-                GameManager.ShinMoney -= shinPay;
+                GameManager.Tree -= tree;
+                GameManager.Snow -= snow;
+                GameManager.Grass -= grass;
+                GameManager.Ice -= ice;
 
                 UIManager.isSetMoney = 1;
                 BuildingInformation.isLock = "F";      //안잠김으로 바꿈
