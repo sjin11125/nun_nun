@@ -9,6 +9,11 @@ public class FriendButton : MonoBehaviour
 {
     public InputField FriendNickname;
     Button SearchButton;
+
+    public GameObject SearchFriendPrefab;
+    public GameObject SearchFriendContents;
+
+    public Text F_nickname;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,9 +35,26 @@ public class FriendButton : MonoBehaviour
 
 
     }
-    public void SearchFriend()
+    public void EnrollFriend()          //친구 추가하기 버튼 누르면
+    {
+        string f_nickname = F_nickname.text;            //추가하려는 친구 닉
+
+        WWWForm form1 = new WWWForm();
+        form1.AddField("order", "EnrollFriend");
+        form1.AddField("friend_nickname", FriendNickname.text);
+        form1.AddField("player_nickname", GameManager.NickName);
+
+        StartCoroutine(SearchPost(form1));
+    }
+    public void SearchFriend()              //친구 검색 버튼 누르기
     {
        // SearchButton.OnSubmit();
+       Transform[] ContentsChild= SearchFriendContents.GetComponentsInChildren<Transform>();        //다 지우기
+        for (int i = 1; i < ContentsChild.Length; i++)
+        {
+            Destroy(ContentsChild[i].gameObject);
+        }
+
 
         WWWForm form1 = new WWWForm();
         form1.AddField("order", "SearchFriend");
@@ -60,6 +82,11 @@ public class FriendButton : MonoBehaviour
     void SearchResponse(string json)
     {
         Debug.Log(json);
+        FriendInfo friendInfo =JsonUtility.FromJson<FriendInfo>(json);
+        GameObject Search = Instantiate(SearchFriendPrefab, SearchFriendContents.transform)as GameObject;
+        Text[] SearchText=Search.GetComponentsInChildren<Text>();
+        SearchText[0].text = friendInfo.f_nickname;
+        SearchText[1].text = friendInfo.f_info;
     }
 
 

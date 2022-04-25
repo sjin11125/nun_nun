@@ -24,7 +24,7 @@ public class FriendInfo
 public class FriendManager : MonoBehaviour
 {
     public GameObject Content;
-    FriendInfo[] friends;
+    //FriendInfo[] ;
      string URL = GameManager.URL;
     public FriendInfo Fr;
 
