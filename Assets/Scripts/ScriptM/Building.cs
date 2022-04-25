@@ -431,10 +431,7 @@ public class Building : MonoBehaviour
 
         //Debug.Log()
         GameManager.Money += building.Cost;          //자원 되돌리기
-        GameManager.Tree += building.Tree;
-        GameManager.Snow += building.Snow;
-        GameManager.Grass += building.Grass;
-        GameManager.Ice += building.Ice;
+        GameManager.ShinMoney += building.ShinCost;
 
         GridBuildingSystem.current.RemoveArea(areaTemp);
         if (Type == BuildType.Make)      //상점에서 사고 설치X 바로 제거
