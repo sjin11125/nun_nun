@@ -34,10 +34,7 @@ public class BuildingSave : MonoBehaviour
         form.AddField("building_name", update_building.Building_name);
         form.AddField("cost", update_building.Cost);
         form.AddField("level", update_building.Level);
-        form.AddField("tree", update_building.Tree);
-        form.AddField("ice", update_building.Ice);
-        form.AddField("grass", update_building.Grass);
-        form.AddField("snow", update_building.Snow);
+        form.AddField("shinCost", update_building.ShinCost);
         form.AddField("isFlied", update_building.isFliped.ToString());
         StartCoroutine(Post(form));
     }
@@ -53,9 +50,9 @@ public class BuildingSave : MonoBehaviour
         form.AddField("isLock", buildings.isLock);
         form.AddField("building_name", buildings.Building_name);
         form.AddField("cost", buildings.Cost);
+        form.AddField("shinCost", buildings.ShinCost);
         form.AddField("level", buildings.Level);
-        form.AddField("tree", buildings.Tree);
-        form.AddField("isFliped",buildings.isFliped.ToString());
+        form.AddField("isFliped", buildings.isFliped.ToString());
         StartCoroutine(Post(form));
     }
     public void RemoveValue(string b_name)
