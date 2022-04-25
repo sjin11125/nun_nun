@@ -736,7 +736,7 @@ PrefabInstance:
       objectReference: {fileID: 754422331}
     - target: {fileID: 332196644802638887, guid: 5dea2f5e904f37c439bf4db567b9e457, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 332196644802638887, guid: 5dea2f5e904f37c439bf4db567b9e457, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3602,7 +3602,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1066400365
 GameObject:
@@ -4915,7 +4915,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1377167522
 GameObject:
@@ -5369,7 +5369,7 @@ Transform:
   - {fileID: 1158312346}
   - {fileID: 1595520640}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1534975321
 GameObject:
@@ -5801,7 +5801,7 @@ GameObject:
   - component: {fileID: 1575319417}
   - component: {fileID: 1575319416}
   m_Layer: 5
-  m_Name: ShinMoneyText
+  m_Name: MoneyText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7281,10 +7281,10 @@ MonoBehaviour:
     Info: 
     Building_Image: 
     Cost: 0
-    ShinCost: 
     Level: 1
+    ShinCost: 
     isFlied: 
-  isMe: 0
+  Friends: 
 --- !u!1 &1836345336
 GameObject:
   m_ObjectHideFlags: 0
@@ -8652,10 +8652,10 @@ MonoBehaviour:
     Info: 
     Building_Image: 
     Cost: 
-    ShinCost: 
     Level: 
+    ShinCost: 
     isFlied: 
-  isMe: 0
+  Friends: 
 --- !u!1 &2039130015
 GameObject:
   m_ObjectHideFlags: 0
@@ -8863,7 +8863,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2090181321
 GameObject:
@@ -9106,7 +9106,6 @@ MonoBehaviour:
     f_nickname: 
     f_info: 
     f_id: 
-    f_image: 
   FriendPrefab: {fileID: 2015713149072679585, guid: 16a4f98088a6e3349a2e1aabf45aed69, type: 3}
 --- !u!1 &2135365802
 GameObject:
