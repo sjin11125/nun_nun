@@ -24,10 +24,10 @@ public class ItemController : MonoBehaviour
         }
         else
         {
-            eraserItem.SetActive(true);//false
+            eraserItem.SetActive(false);
         }
 
-        if (mainItemBool[1] == false)//true
+        if (mainItemBool[1] == true)
         {
             keepItemIndex = 25;
             keepshdow.SetActive(true);
@@ -37,7 +37,7 @@ public class ItemController : MonoBehaviour
             keepItemIndex = 30;
         }
 
-        if (mainItemBool[2] == false)//true
+        if (mainItemBool[2] == true)
         {
             trashCanItemIndex = 29;
             trashshdow.SetActive(true);
@@ -53,7 +53,7 @@ public class ItemController : MonoBehaviour
         }
         else
         {
-            nextSquareItem.SetActive(false);//true
+            nextSquareItem.SetActive(true);
         }
 
         if (mainItemBool[4] == true)
@@ -62,7 +62,7 @@ public class ItemController : MonoBehaviour
         }
         else
         {
-            nextResetItem.SetActive(true);//false
+            nextResetItem.SetActive(false);
         }
         if (mainItemBool[5] == true)
         {
@@ -70,7 +70,7 @@ public class ItemController : MonoBehaviour
         }
         else
         {
-            NextExchangeItem.SetActive(true);//false
+            NextExchangeItem.SetActive(false);
         }
         if (mainItemBool[6] == true)
         {
@@ -78,7 +78,7 @@ public class ItemController : MonoBehaviour
         }
         else
         {
-            RainbowItem.SetActive(true);//false
+            RainbowItem.SetActive(false);
         }
         if (mainItemBool[7] == true)
         {
@@ -86,7 +86,7 @@ public class ItemController : MonoBehaviour
         }
         else
         {
-            ChangeShapeItem.SetActive(true);//false
+            ChangeShapeItem.SetActive(false);
         }
         if (mainItemBool[8] == true)
         {
@@ -94,7 +94,7 @@ public class ItemController : MonoBehaviour
         }
         else
         {
-            ThreeVerticalItem.SetActive(true);//false
+            ThreeVerticalItem.SetActive(false);
         }
         if (mainItemBool[9] == true)
         {
@@ -102,7 +102,7 @@ public class ItemController : MonoBehaviour
         }
         else
         {
-            ThreeHorizontalTtem.SetActive(true);//false
+            ThreeHorizontalTtem.SetActive(false);
         }
     }
 }
