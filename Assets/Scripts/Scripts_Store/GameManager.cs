@@ -59,10 +59,14 @@ public class GameManager : MonoBehaviour
 
     public static string Id;            //플레이어 아이디
     public static string NickName;      //플레이어 닉네임
+    public static string StateMessage;      //플레이어 상태메세지
     public static string SheetsNum;     //플레이어 건물 정보 들어있는 스프레드 시트 id
+    public static Sprite ProfileImage;       //플레이어 프로필 이미지
 
     public static FriendInfo[] Friends;       //친구 목록(닉네임)
 
+    public static string URL = "https://script.google.com/macros/s/AKfycbxtoaquKUX_cy9qOf9MbojAFGWjyJL_x9DZW2GuUiEAIHJswJNlSWSVIbbfIDllyX6A/exec";
+    //----------------------------------------------------------------------------------------------
 
 
     public static bool isMoveLock = false;      //창 떴을 때 이동 못하게하는 변수
@@ -79,6 +83,12 @@ public class GameManager : MonoBehaviour
      * 9: 말의 색깔을 바꾼다   (마법사)
      */
     // Start is called before the first frame update
+
+    //--------------------------------------------------------------------퀘스트---------------------------------------------------
+
+   public static QuestInfo[] Quest;                 //퀘스트 목록
+    public static QuestInfo[] QuestProgress;        //퀘스트 진행상황
+    public static bool isReset;             //퀘스트 초기화 햇니?
     void Start()
     {
         BuildingList = new List<Building>();            //현재 가지고 있는 빌딩 리스트
@@ -90,6 +100,9 @@ public class GameManager : MonoBehaviour
         CharacterList = new List<Card>();
         BuildingNumber = new Dictionary<string, int>();
 
+        Quest = new QuestInfo[3];                     //퀘스트 
+
+        Debug.Log("GameManager Start");
         for (int i = 0; i < BuildingPrefabInspector.Length; i++)        //빌딩 프리팹 정보 불러오기
         {
             BuildingPrefabData.Add(BuildingPrefabInspector[i].name+ "(Clone)", BuildingPrefabInspector[i]);

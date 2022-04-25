@@ -5,15 +5,16 @@ using System.IO;
 using System;
 using UnityEngine.UI;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 public class BuildingSave : MonoBehaviour
 {               //건물들 저장하는 스크립트
                 //저장하면 구글 스프레드 시트로 전송
 
     Buildingsave[] BTosave;
-    const string URL = "https://script.google.com/macros/s/AKfycbzjunYJ8-acQqW3hNzf7wf5SkwKgGq3Tm9qNhGDFRiwBYbsBeLw5FhwMrifh4gZxhdY/exec";
+     string URL = GameManager.URL;
     public Buildingsave GD;
-    public string Friends;
+    public bool isMe;       //내 자신의 건물을 불러오는가?
     // Start is called before the first frame update
     void Start()
     {
@@ -26,13 +27,17 @@ public class BuildingSave : MonoBehaviour
     {
         WWWForm form = new WWWForm();
         form.AddField("order", "updateValue");
+        form.AddField("building_image", update_building.Building_Image);
         form.AddField("buildingPosiiton_x", update_building.BuildingPosition.x.ToString());
         form.AddField("buildingPosiiton_y", update_building.BuildingPosition.y.ToString());
         form.AddField("isLock", update_building.isLock);
         form.AddField("building_name", update_building.Building_name);
         form.AddField("cost", update_building.Cost);
         form.AddField("level", update_building.Level);
-        form.AddField("shinCost", update_building.ShinCost);
+        form.AddField("tree", update_building.Tree);
+        form.AddField("ice", update_building.Ice);
+        form.AddField("grass", update_building.Grass);
+        form.AddField("snow", update_building.Snow);
         form.AddField("isFlied", update_building.isFliped.ToString());
         StartCoroutine(Post(form));
     }
@@ -42,14 +47,15 @@ public class BuildingSave : MonoBehaviour
         Building buildings = GetComponent<Building>();
         Debug.Log("건물저장");
         form.AddField("order", "addValue");
+        form.AddField("building_image", buildings.Building_Image);
         form.AddField("buildingPosiiton_x", buildings.BuildingPosition.x.ToString());
         form.AddField("buildingPosiiton_y", buildings.BuildingPosition.y.ToString());
         form.AddField("isLock", buildings.isLock);
         form.AddField("building_name", buildings.Building_name);
         form.AddField("cost", buildings.Cost);
         form.AddField("level", buildings.Level);
-        form.AddField("shinCost", buildings.ShinCost);
-        form.AddField("isFlied",buildings.isFliped.ToString());
+        form.AddField("tree", buildings.Tree);
+        form.AddField("isFliped",buildings.isFliped.ToString());
         StartCoroutine(Post(form));
     }
     public void RemoveValue(string b_name)
@@ -61,50 +67,100 @@ public class BuildingSave : MonoBehaviour
 
         return;
     }
+    public void BuildingLoad()              //로그인 했을 때 건물 불러와
+    {
+        WWWForm form1 = new WWWForm();
+        isMe = true;                    //내 건물 불러온다!!!!!!!!!!!!!!!!
+        form1.AddField("order", "getFriendBuilding");
+        form1.AddField("loadedFriend", GameManager.NickName);
+        StartCoroutine(Post(form1));
+    }
     public void FriendBuildindLoad()
     {
-        string FriendNickname=gameObject.name;
+        string FriendNickname=gameObject.transform.parent.name;
         WWWForm form1 = new WWWForm();
+        isMe = false;                   //친구 건물 불러올거지롱 메롱
         form1.AddField("order", "getFriendBuilding");
         form1.AddField("loadedFriend", FriendNickname);
-
+        StartCoroutine(Post(form1));
     }
     IEnumerator Post(WWWForm form)
     {
-        using (UnityWebRequest www = UnityWebRequest.Post(URL, form)) // 반드시 using을 써야한다
-        {
-            yield return www.SendWebRequest();
-            //Debug.Log(www.downloadHandler.text);
-            if (www.isDone) Response(www.downloadHandler.text);         //친구 건물 불러옴
-            //else print("웹의 응답이 없습니다.");*/
-        }
+            using (UnityWebRequest www = UnityWebRequest.Post(URL, form)) // 반드시 using을 써야한다
+            {
+                yield return www.SendWebRequest();
+                //Debug.Log(www.downloadHandler.text);
+                if (www.isDone) Response(www.downloadHandler.text);         //친구 건물 불러옴
+                                                                            //else print("웹의 응답이 없습니다.");*/
+            }
+        
     }
-    void Response(string json)
+    void Response(string json)                          //건물 값 불러오기
     {
-        if (string.IsNullOrEmpty(json)) return;
-        Debug.Log(json);
-
-        Newtonsoft.Json.Linq.JArray j = Newtonsoft.Json.Linq.JArray.Parse(json);
-        Building[] friendBuildings = new Building[j.Count];
-        for (int i = 0; i < j.Count; i++)
+        if (string.IsNullOrEmpty(json))
         {
-            friendBuildings[i] = JsonUtility.FromJson<Building>(j[i].ToString());
-            Debug.Log(friendBuildings[i].Building_name);
-        }
-        /*GD = JsonUtility.FromJson<Buildingsave>(json);
-
-        if (GD.result == "ERROR")
-        {
-            print(GD.order + "을 실행할 수 없습니다. 에러 메시지 : " + GD.msg);
+            Debug.Log(json);
             return;
-        }*/
-
-
-        /*if (GD.order == "getFriend")
+        }
+        Debug.Log(json);
+       
+        if (isMe == false)                //친구 건물 불러오는거라면
         {
-            GameManager.Friends = GD.Friends;
-            Debug.Log(GameManager.Friends[0]);
-        }*/
+            if (json == "Null")
+            {
+                SceneManager.LoadScene("FriendMain");
+                return;
+            }
+            GameManager.FriendBuildingList = new List<Building>();
+            Newtonsoft.Json.Linq.JArray j = Newtonsoft.Json.Linq.JArray.Parse(json);
+            //Debug.Log("j.Count: "+j.Count);
+            BuildingParse friendBuildings = new BuildingParse();
+            for (int i = 0; i < j.Count; i++)
+            {
+                Debug.Log(i);
+                friendBuildings = JsonUtility.FromJson<BuildingParse>(j[i].ToString());
+                Building b = new Building();
+                b.SetValueParse(friendBuildings);
+
+                Debug.Log("X: " + friendBuildings.BuildingPosiiton_x);
+                /*  new Building(friendBuildings.isLock, friendBuildings.Building_name, friendBuildings.Reward, friendBuildings.Info, 
+                  friendBuildings.Building_Image, friendBuildings.Cost.ToString(), friendBuildings.Level.ToString(), friendBuildings.Tree.ToString(),
+                   friendBuildings.Grass.ToString(), friendBuildings.Snow.ToString(), friendBuildings.Ice.ToString(), friendBuildings.isFliped.ToString(), 
+                  friendBuildings.buildingPosiiton_x, friendBuildings.buildingPosiiton_y);*/
+                GameManager.FriendBuildingList.Add(b);      //친구의 건물 리스트에 삽입
+
+            }
+            Debug.Log(GameManager.FriendBuildingList.Count);
+            SceneManager.LoadScene("FriendMain");
+        }
+        else                                    //로그인했을 때 내 건물 불러오는거라면
+        {
+            if (json == "Null")
+            {
+                SceneManager.LoadScene("Main");
+                return;
+            }
+            GameManager.BuildingList = new List<Building>();
+            Newtonsoft.Json.Linq.JArray j = Newtonsoft.Json.Linq.JArray.Parse(json);
+            //Debug.Log("j.Count: "+j.Count);
+            BuildingParse Buildings = new BuildingParse();
+            for (int i = 0; i < j.Count; i++)
+            {
+                Debug.Log(i);
+                Buildings = JsonUtility.FromJson<BuildingParse>(j[i].ToString());
+                Building b = new Building();
+                b.SetValueParse(Buildings);
+
+                Debug.Log("X: " + Buildings.BuildingPosiiton_x);
+                /*  new Building(friendBuildings.isLock, friendBuildings.Building_name, friendBuildings.Reward, friendBuildings.Info, 
+                  friendBuildings.Building_Image, friendBuildings.Cost.ToString(), friendBuildings.Level.ToString(), friendBuildings.Tree.ToString(),
+                   friendBuildings.Grass.ToString(), friendBuildings.Snow.ToString(), friendBuildings.Ice.ToString(), friendBuildings.isFliped.ToString(), 
+                  friendBuildings.buildingPosiiton_x, friendBuildings.buildingPosiiton_y);*/
+                GameManager.BuildingList.Add(b);      //내 건물 리스트에 삽입
+
+            }
+            SceneManager.LoadScene("Main");
+        }
     }
 }
 
@@ -123,7 +179,10 @@ public class Buildingsave
     public string Building_Image;          //빌딩 이미지 이름 *
     public string Cost;        //건물비용
     public string Level;       //건물 레벨
-    public string ShinCost;
+    public string Tree;        //나무
+    public string Ice;        //얼음
+    public string Grass;        //풀
+    public string Snow;        //눈
     public string isFlied;        //뒤집어졌는지
                                //-----------------------------------------------------------
                                //public string[] Friends;
