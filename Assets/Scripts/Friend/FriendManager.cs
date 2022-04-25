@@ -12,6 +12,7 @@ public class FriendInfo
     //public string SheetsNum;     //플레이어 건물 정보 들어있는 스프레드 시트 id
     public string f_info;          //상태메세지
     public string f_id;
+    public string f_image;
 
     public FriendInfo(string nickname,string id,string info)
     {
@@ -24,8 +25,8 @@ public class FriendInfo
 public class FriendManager : MonoBehaviour
 {
     public GameObject Content;
-    FriendInfo[] friends;
-    const string URL = "https://script.google.com/macros/s/AKfycbzjunYJ8-acQqW3hNzf7wf5SkwKgGq3Tm9qNhGDFRiwBYbsBeLw5FhwMrifh4gZxhdY/exec";
+    //FriendInfo[] ;
+     string URL = GameManager.URL;
     public FriendInfo Fr;
 
     public GameObject FriendPrefab;
@@ -34,8 +35,10 @@ public class FriendManager : MonoBehaviour
         Content.SetActive(true);
         GetFriendLsit();
     }
-    public void GetFriendLsit()
+    public void GetFriendLsit()         //친구 정보 불러오기
     {
+
+
         WWWForm form = new WWWForm();
         form.AddField("order", "getFriend");
         form.AddField("id", "1234");
@@ -89,16 +92,6 @@ public class FriendManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       /* WWWForm form = new WWWForm();
-
-        form.AddField("order", "info");
-        form.AddField("id", "1234");
-        form.AddField("nickname", "1234");
-        form.AddField("info", "1234");
-
-
-
-        StartCoroutine(Post(form));*/
     }
 
     // Update is called once per frame

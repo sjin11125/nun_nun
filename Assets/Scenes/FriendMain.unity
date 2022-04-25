@@ -276,8 +276,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1490178}
   m_LocalRotation: {x: 0, y: 0.008726558, z: 0, w: 0.999962}
-  m_LocalPosition: {x: 0.19, y: 1.21, z: 0}
-  m_LocalScale: {x: 1, y: 1.4, z: 1}
+  m_LocalPosition: {x: -0.012, y: 0.6241, z: 0.0035}
+  m_LocalScale: {x: 1.3276753, y: 2.491174, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -882,6 +882,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 348563024, guid: 5dea2f5e904f37c439bf4db567b9e457, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9ae961d906eaa5149972d3f2e82e5ecd, type: 3}
+    - target: {fileID: 348563024, guid: 5dea2f5e904f37c439bf4db567b9e457, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 729126928, guid: 5dea2f5e904f37c439bf4db567b9e457, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d717ad2728f3744409b5b32c432ea446, type: 3}
     - target: {fileID: 1035652537, guid: 5dea2f5e904f37c439bf4db567b9e457, type: 3}
       propertyPath: UI_Manager
       value: 
@@ -7368,7 +7380,7 @@ MonoBehaviour:
     Grass: 0
     Snow: 0
     isFlied: 
-  Friends: 
+  isMe: 0
 --- !u!1 &1815255842
 GameObject:
   m_ObjectHideFlags: 0
@@ -8932,7 +8944,7 @@ MonoBehaviour:
     Grass: 
     Snow: 
     isFlied: 
-  Friends: 
+  isMe: 0
 --- !u!1 &2039130015
 GameObject:
   m_ObjectHideFlags: 0

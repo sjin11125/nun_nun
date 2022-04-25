@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Tilemaps;
 using System;
 using UnityEngine.EventSystems;
-
+using UnityEngine.SceneManagement;
 [Serializable]
 public class GridBuildingSystem : MonoBehaviour
 {
@@ -66,6 +66,7 @@ public class GridBuildingSystem : MonoBehaviour
         }
 
         Grid = GameObject.Find("back_down");
+        if (SceneManager.GetActiveScene().name=="Main")
         StartButton = GameObject.Find("Start").GetComponent<Button>();
 
     }
@@ -76,7 +77,7 @@ public class GridBuildingSystem : MonoBehaviour
             ChaButtonScript.isEdit = false;
             InitializeWithBuilding();
         }
-        if (Input.GetMouseButtonUp(0)) //마우스를 눌러서 뗐을 때
+        if (Input.GetMouseButtonUp(0)&&SceneManager.GetActiveScene().name=="Main") //마우스를 눌러서 뗐을 때              지금 내 닉넴과 마을
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
