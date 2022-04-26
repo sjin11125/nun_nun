@@ -19,7 +19,7 @@ public class BuildingParse
     public int Cost;        //건물비용
     public int ShinCost;
     public int Level = 1;       //건물 레벨
-    public bool isFliped = false;
+    public string isFliped = "F";
     public string BuildingPosiiton_x;
     public string BuildingPosiiton_y;
     //-----------------------------------------------------------
@@ -56,9 +56,9 @@ public class Building : MonoBehaviour
     public int Cost;        //건물비용
     public int ShinCost;
     public int Level = 1;       //건물 레벨
-    public bool isFliped = false;
-    public string buildingPosiiton_x;
-    public string buildingPosiiton_y;
+    public string isFliped = "F";
+    public string BuildingPosiiton_x;
+    public string BuildingPosiiton_y;
 
     //-----------------------------------------------------------
 
@@ -101,9 +101,9 @@ public class Building : MonoBehaviour
         Cost =int.Parse(cost);
         ShinCost = int.Parse(shinCost);
         Level =int.Parse(level);
-        isFliped = Convert.ToBoolean(isfliped);
-        buildingPosiiton_x = building_x;
-        buildingPosiiton_y= building_y;
+        isFliped = isfliped;
+        BuildingPosiiton_x = building_x;
+        BuildingPosiiton_y= building_y;
 
 
     }
@@ -125,8 +125,8 @@ public class Building : MonoBehaviour
         layer_y = getBuilding.layer_y;
         Level = getBuilding.Level;
         isFliped = getBuilding.isFliped;
-        buildingPosiiton_x = getBuilding.buildingPosiiton_x;
-        buildingPosiiton_y = getBuilding.buildingPosiiton_y;
+       BuildingPosiiton_x = getBuilding.BuildingPosiiton_x;
+        BuildingPosiiton_y = getBuilding.BuildingPosiiton_y;
 
     }
     public void SetValueParse(BuildingParse parse)
@@ -140,8 +140,8 @@ public class Building : MonoBehaviour
         ShinCost = parse.ShinCost;
         Level = parse.Level;       //건물 레벨
         isFliped = parse.isFliped;
-        buildingPosiiton_x = parse.BuildingPosiiton_x;
-        buildingPosiiton_y = parse.BuildingPosiiton_y;
+        BuildingPosiiton_x = parse.BuildingPosiiton_x;
+        BuildingPosiiton_y = parse.BuildingPosiiton_y;
     }
     public Building DeepCopy()
     {
@@ -182,6 +182,13 @@ public class Building : MonoBehaviour
     }
     public void Rotation()          //건물 회전
     {
+        bool isflip_bool;
+
+        if (isFliped == "F")
+            isflip_bool = false;
+        else
+            isflip_bool = true;
+
 
         for (int i = 0; i < buildings.Length; i++)
         {
@@ -190,9 +197,11 @@ public class Building : MonoBehaviour
                 Debug.Log("Rotation");
                 SpriteRenderer[] spriterenderer = buildings[i].GetComponentsInChildren<SpriteRenderer>();
                 Transform[] transform = buildings[i].GetComponentsInChildren<Transform>();
+
+               
                 for (int j = 0; j < spriterenderer.Length; j++)
                 {
-                    spriterenderer[j].flipX = isFliped;
+                    spriterenderer[j].flipX = isflip_bool;
 
                 }
                 for (int k = 0; k < transform.Length; k++)
@@ -214,6 +223,13 @@ public class Building : MonoBehaviour
     }
     void Start()
     {
+        bool isflip_bool;
+
+        if (isFliped == "F")
+            isflip_bool = false;
+        else
+            isflip_bool = true;
+
         Debug.Log("Start Level: " + Level);
         buildings = new GameObject[3];
         currentTime = (int)startingTime;
@@ -276,7 +292,7 @@ public class Building : MonoBehaviour
             default:
                 break;
         }
-        if (isFliped == true)
+        if (isflip_bool == true)
         {
             Rotation();
         }
@@ -423,11 +439,24 @@ public class Building : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    public void Place(BuildType buildtype)         //건물 배치
+    public void Place_Initial(BuildType buildtype)
     {
-        Vector3Int positionInt = GridBuildingSystem.current.gridLayout.LocalToCell(transform.position);
+        Vector3 vec = new Vector3(float.Parse(BuildingPosiiton_x), float.Parse(BuildingPosiiton_y), 0);
+        Vector3Int positionInt = GridBuildingSystem.current.gridLayout.LocalToCell(vec);
         BoundsInt areaTemp = area;
         areaTemp.position = positionInt;
+        Placed = true;      // 배치 했니? 네
+        GridBuildingSystem.current.TakeArea(areaTemp);      //타일 맵 설정
+        transform.position = vec;
+    }
+    public void Place(BuildType buildtype)         //건물 배치
+    {
+        Vector3 vec = transform.position;
+        Vector3Int positionInt = GridBuildingSystem.current.gridLayout.LocalToCell(vec);
+        BoundsInt areaTemp = area;
+        Debug.Log(areaTemp.position);
+        //areaTemp.position = positionInt;
+        //Debug.Log(areaTemp.position);
         Placed = true;      // 배치 했니? 네
 
         GridBuildingSystem.current.TakeArea(areaTemp);      //타일 맵 설정
@@ -436,6 +465,7 @@ public class Building : MonoBehaviour
         //원래 업데이트 부분
         BuildingPosition = transform.position;          //위치 저장
         layer_y = (int)(-transform.position.y / 0.6);             //레이어 설정
+        isLock = "T";           //배치했다
 
         if (layer_y == 0 || layer_y == 1)
         {
