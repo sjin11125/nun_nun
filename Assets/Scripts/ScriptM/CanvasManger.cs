@@ -17,8 +17,8 @@ public class CanvasManger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Money.text = GameManager.Money.ToString();
-        ShinMoney.text = GameManager.ShinMoney.ToString();
+       /// Money.text = GameManager.Money.ToString();
+        //ShinMoney.text = GameManager.ShinMoney.ToString();
     }
     
 }

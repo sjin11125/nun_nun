@@ -79,7 +79,7 @@ public class Building : MonoBehaviour
     public Building()
     {
     }
-    public Building(string islock, string buildingname, string reward, string info, string image, string cost, string shinCost, string level)           //파싱할 때 쓰는 생성자
+    /*public Building(string islock, string buildingname, string reward, string info, string image, string cost, string shinCost, string level)           //파싱할 때 쓰는 생성자
     {
         isLock = islock;
         Building_name = buildingname;
@@ -89,6 +89,19 @@ public class Building : MonoBehaviour
         Cost = int.Parse(cost);
         ShinCost = int.Parse(shinCost);
         Level = int.Parse(level);
+
+    }*/
+    public Building(string islock, string buildingname, string reward, string info, string image, string cost,  string level, string isfliped)           //파싱할 때 쓰는 생성자
+    {
+        isLock = islock;
+        Building_name = buildingname;
+        Reward = reward;
+        Info = info;
+        Building_Image = image;
+        Cost = int.Parse(cost);
+        Level = int.Parse(level);
+        isFliped = Convert.ToBoolean(isfliped);
+
 
     }
     public Building(string islock, string buildingname, string reward, string info, string image, string cost, string shinCost, string level, string isfliped, string building_x, string building_y)           //파싱할 때 쓰는 생성자
