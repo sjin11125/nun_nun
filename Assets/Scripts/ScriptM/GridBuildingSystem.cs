@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Tilemaps;
 using System;
 using UnityEngine.EventSystems;
-
+using UnityEngine.SceneManagement;
 [Serializable]
 public class GridBuildingSystem : MonoBehaviour
 {
@@ -29,6 +29,8 @@ public class GridBuildingSystem : MonoBehaviour
     public GameObject UpgradePannel;
     GameObject Grid;
     Button StartButton;
+
+    public UIAniManager UI_Manager;    
     //추가 1110
 
         //------------------------세이브 관련 변수들--------------------------------------
@@ -64,6 +66,7 @@ public class GridBuildingSystem : MonoBehaviour
         }
 
         Grid = GameObject.Find("back_down");
+        if (SceneManager.GetActiveScene().name=="Main")
         StartButton = GameObject.Find("Start").GetComponent<Button>();
 
     }
@@ -74,7 +77,7 @@ public class GridBuildingSystem : MonoBehaviour
             ChaButtonScript.isEdit = false;
             InitializeWithBuilding();
         }
-        if (Input.GetMouseButtonUp(0)) //마우스를 눌러서 뗐을 때
+        if (Input.GetMouseButtonUp(0)&&SceneManager.GetActiveScene().name=="Main") //마우스를 눌러서 뗐을 때              지금 내 닉넴과 마을
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
@@ -84,6 +87,7 @@ public class GridBuildingSystem : MonoBehaviour
 
                 if (hit.transform != null)          // 오브젝트를 클릭 했을 때
                 {
+                    
                     Transform Building = hit.transform.parent;
                     if (temp != null)
                     {
@@ -96,7 +100,7 @@ public class GridBuildingSystem : MonoBehaviour
                                 {
                                     //temp.level += 1;        //레벨 +1
                                     temp.Place(temp.Type);
-
+                                    UI_Manager.Start();
 
                                     Grid.GetComponent<SpriteRenderer>().sortingOrder = -48;
                                     StartButton.enabled = true;
@@ -128,7 +132,7 @@ public class GridBuildingSystem : MonoBehaviour
                             if (hit.transform.tag == "Remove")          //제거
                             {
                                 temp.Remove(temp);
-
+                                UI_Manager.Start();
                                 Grid.GetComponent<SpriteRenderer>().sortingOrder = -48;
 
                             }
@@ -137,11 +141,13 @@ public class GridBuildingSystem : MonoBehaviour
                     }
                     else             //temp가 없을 때               //건물이 배치 된 상태
                     {
+                        
                         Debug.Log("temp is null");
                         temp = hit.transform.GetComponent<Building>();
 
                         if (hit.transform.tag == "Building" && GameManager.isStore == false)           //빌딩을 눌렀을 때 업그레이드 할래 위치 바꿀래 회전할래
                         {
+                            UI_Manager.StartOpen();     //ui 중앙으로 이동
                             temp.Type = BuildType.Move;
                             temp.Placed = false;        //배치가 안 된 상태로 변환
 
@@ -163,15 +169,15 @@ public class GridBuildingSystem : MonoBehaviour
                             Grid.GetComponent<SpriteRenderer>().sortingOrder = -50;
                             Debug.Log("Level: " + temp.Level);
                         }
+                        if (hit.transform.tag == "Coin_Button")           //재화 버튼 누르면(되긴 하는데 수정해야함)
+                        {
+                            //Transform BuildingCoin = hit.transform.parent;
+                            Building.GetComponent<Building>().Coin_OK();
 
+                            Debug.Log("huan");
+                        }
                     }
-                    if (hit.transform.tag == "Coin_Button")           //재화 버튼 누르면(되긴 하는데 수정해야함)
-                    {
-                        //Transform BuildingCoin = hit.transform.parent;
-                        Building.GetComponent<Building>().Coin_OK();
-
-                        Debug.Log("huan");
-                    }
+                   
                 }
                 else   // 빈 공간을 클릭했을 때
                 {

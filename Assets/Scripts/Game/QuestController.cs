@@ -9,11 +9,14 @@ public class QuestController : MonoBehaviour
     GameObject gridObj;
     int Count;
     int questIndex;
+    Image timerBar;
+    public Text number;
 
     void Start()
     {
         gridObj = GameObject.FindGameObjectWithTag("Grid");
         Count = 0;
+        timerBar = gameObject.transform.GetChild(3).gameObject.GetComponent<Image>();
         questIndex = -1;
         for (int i = 0; i < QuestActive.Length; i++)
         {
@@ -26,6 +29,11 @@ public class QuestController : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
+    }
+
+    private void Update()
+    {
+        timerBar.fillAmount = Mathf.Lerp(timerBar.fillAmount, (float)Count * 0.1f, Time.deltaTime);
     }
 
     public void QuestIndex()
@@ -71,7 +79,7 @@ public class QuestController : MonoBehaviour
                     Count = 10;
                     QuestActive[questIndex] = false;
                 }
-                gameObject.transform.GetChild(1).gameObject.GetComponent<Text>().text = Count.ToString();                   
+                number.text = Count.ToString();
             }
         }
     }
@@ -87,7 +95,7 @@ public class QuestController : MonoBehaviour
                     Count = 10;
                     QuestActive[questIndex] = false;
                 }
-                gameObject.transform.GetChild(1).gameObject.GetComponent<Text>().text = Count.ToString();
+                number.text = Count.ToString();
             }
         }
     }

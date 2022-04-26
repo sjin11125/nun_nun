@@ -8,6 +8,8 @@ public class ItemController : MonoBehaviour
     public int keepItemIndex, trashCanItemIndex;
 
     public bool[] mainItemBool = new bool[10];
+    public GameObject keepshdow;
+    public GameObject trashshdow;
 
     void Awake()
     {      
@@ -27,20 +29,22 @@ public class ItemController : MonoBehaviour
 
         if (mainItemBool[1] == false)//true
         {
-            keepItemIndex = 1 + 25;
+            keepItemIndex = 25;
+            keepshdow.SetActive(true);
         }
         else
         {
-            keepItemIndex = 5 + 25;
+            keepItemIndex = 30;
         }
 
         if (mainItemBool[2] == false)//true
         {
-            trashCanItemIndex = 2 + 25;
+            trashCanItemIndex = 29;
+            trashshdow.SetActive(true);
         }
         else
         {
-            trashCanItemIndex = 5 + 25;
+            trashCanItemIndex = 30;
         }
 
         if (mainItemBool[3] == true)
@@ -86,19 +90,19 @@ public class ItemController : MonoBehaviour
         }
         if (mainItemBool[8] == true)
         {
-            ChangeShapeItem.SetActive(true);
+            ThreeVerticalItem.SetActive(true);
         }
         else
         {
-            ChangeShapeItem.SetActive(true);//false
+            ThreeVerticalItem.SetActive(true);//false
         }
         if (mainItemBool[9] == true)
         {
-            ChangeShapeItem.SetActive(true);
+            ThreeHorizontalTtem.SetActive(true);
         }
         else
         {
-            ChangeShapeItem.SetActive(true);//false
+            ThreeHorizontalTtem.SetActive(true);//false
         }
     }
 }

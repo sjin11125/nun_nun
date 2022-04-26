@@ -11,15 +11,16 @@ public class EraserItem : MonoBehaviour
     public GameObject hooverObj;
     bool buttonDown;
     public int ItemTurn= 20;
+    public Text number;
     void Start()
     {
         GridScript.EraserItemTurn = ItemTurn;
         hooverObj.SetActive(true);
-        hooverObj.transform.GetChild(0).gameObject.GetComponent<Text>().text = GridScript.EraserItemTurn.ToString();
+        number.text = GridScript.EraserItemTurn.ToString();
     }
     void Update()
     {
-        hooverObj.transform.GetChild(0).gameObject.GetComponent<Text>().text = GridScript.EraserItemTurn.ToString();
+        number.text = GridScript.EraserItemTurn.ToString();
         
         if (Input.GetMouseButtonDown(0) && buttonDown == true)// && hooverObj.activeSelf == false) //좌클할때&&버튼 눌려있을때
         {
@@ -43,7 +44,7 @@ public class EraserItem : MonoBehaviour
         if(buttonDown == true)
         {
             hooverObj.SetActive(true);
-            hooverObj.transform.GetChild(0).gameObject.GetComponent<Text>().text = " ";
+            number.text = " ";
         }
         else
         {

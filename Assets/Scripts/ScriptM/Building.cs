@@ -8,10 +8,27 @@ using System.IO;
 //using UnityEngine.EventSystems;
 
 [Serializable]
+public class BuildingParse
+{
+    //-------------------------파싱정보------------------------------
+    public string isLock;               //잠금 유무
+    public string Building_name;            //건물 이름
+    public string Reward;               //획득자원
+    public string Info;                 //건물 설명
+    public string Building_Image;          //빌딩 이미지 이름 *
+    public int Cost;        //건물비용
+    public int ShinCost;
+    public int Level = 1;       //건물 레벨
+    public bool isFliped = false;
+    public string BuildingPosiiton_x;
+    public string BuildingPosiiton_y;
+    //-----------------------------------------------------------
+
+}
 public class Building : MonoBehaviour
 {
-    
-        //*
+
+    //*
     public bool Placed = false;    //*
     public BoundsInt area;
 
@@ -37,16 +54,17 @@ public class Building : MonoBehaviour
     public string Info;                 //건물 설명
     public string Building_Image;          //빌딩 이미지 이름 *
     public int Cost;        //건물비용
+    public int ShinCost;
     public int Level = 1;       //건물 레벨
-    public int Tree;        //나무
-    public int Ice;        //얼음
-    public int Grass;        //풀
-    public int Snow;        //눈
+    public bool isFliped = false;
+    public string buildingPosiiton_x;
+    public string buildingPosiiton_y;
+
     //-----------------------------------------------------------
 
     public int layer_y;   // 건물 레이어
     Transform[] child;
-    
+
     public GameObject UpgradePannel;
     public GameObject UpgradePannel2;
 
@@ -54,26 +72,39 @@ public class Building : MonoBehaviour
 
     public GameObject[] buildings;     // 레벨별 건물
 
-    public bool isFliped = false;
+
     public BuildType Type;
 
     BuildingSave save;
     public Building()
     {
     }
-    public Building(string islock, string buildingname,string reward,string info,string image,string cost,string level,string tree,string grass,string snow,string ice)           //파싱할 때 쓰는 생성자
+    public Building(string islock, string buildingname, string reward, string info, string image, string cost, string shinCost, string level)           //파싱할 때 쓰는 생성자
     {
         isLock = islock;
         Building_name = buildingname;
         Reward = reward;
         Info = info;
         Building_Image = image;
-        Cost =int.Parse( cost);
-        Level =int.Parse( level);
-        Tree = int.Parse(tree);
-        Grass = int.Parse(grass);
-        Snow = int.Parse(snow);
-        Ice = int.Parse(ice);
+        Cost = int.Parse(cost);
+        ShinCost = int.Parse(shinCost);
+        Level = int.Parse(level);
+
+    }
+    public Building(string islock, string buildingname, string reward, string info, string image, string cost, string shinCost, string level, string isfliped, string building_x, string building_y)           //파싱할 때 쓰는 생성자
+    {
+        isLock = islock;
+        Building_name = buildingname;
+        Reward = reward;
+        Info = info;
+        Building_Image = image;
+        Cost = int.Parse(cost);
+        ShinCost = int.Parse(shinCost);
+        Level = int.Parse(level);
+        isFliped = Convert.ToBoolean(isfliped);
+        buildingPosiiton_x = building_x;
+        buildingPosiiton_y = building_y;
+
 
     }
     public void SetValue(Building getBuilding)
@@ -90,15 +121,28 @@ public class Building : MonoBehaviour
         isCountCoin = getBuilding.isCountCoin;
         CountCoin = getBuilding.CountCoin;
         Cost = getBuilding.Cost;
+        ShinCost = getBuilding.ShinCost;
         layer_y = getBuilding.layer_y;
         Level = getBuilding.Level;
-        Tree = getBuilding.Tree;
-        Ice = getBuilding.Ice;
-        Snow = getBuilding.Snow;
-        Grass = getBuilding.Grass;
         isFliped = getBuilding.isFliped;
+        buildingPosiiton_x = getBuilding.buildingPosiiton_x;
+        buildingPosiiton_y = getBuilding.buildingPosiiton_y;
+
     }
-    
+    public void SetValueParse(BuildingParse parse)
+    {
+        isLock = parse.isLock;               //잠금 유무
+        Building_name = parse.Building_name;            //건물 이름
+        Reward = parse.Reward;               //획득자원
+        Info = parse.Info;                 //건물 설명
+        Building_Image = parse.Building_Image;          //빌딩 이미지 이름 *
+        Cost = parse.Cost;        //건물비용
+        ShinCost = parse.ShinCost;
+        Level = parse.Level;       //건물 레벨
+        isFliped = parse.isFliped;
+        buildingPosiiton_x = parse.BuildingPosiiton_x;
+        buildingPosiiton_y = parse.BuildingPosiiton_y;
+    }
     public Building DeepCopy()
     {
         Building BuildingCopy = new Building();
@@ -114,15 +158,12 @@ public class Building : MonoBehaviour
         BuildingCopy.isCoin = this.isCoin;
         BuildingCopy.isCountCoin = this.isCountCoin;
         BuildingCopy.CountCoin = this.CountCoin;
-        
+
         BuildingCopy.layer_y = this.layer_y;
         BuildingCopy.Level = this.Level;
 
         BuildingCopy.Cost = this.Cost;
-        BuildingCopy.Tree = Tree;
-        BuildingCopy.Ice = Ice;
-        BuildingCopy.Snow = Snow;
-        BuildingCopy.Grass = Grass;
+        BuildingCopy.ShinCost = this.ShinCost;
 
         BuildingCopy.isFliped = isFliped;
         return BuildingCopy;
@@ -368,10 +409,7 @@ public class Building : MonoBehaviour
 
         //Debug.Log()
         GameManager.Money += building.Cost;          //자원 되돌리기
-        GameManager.Tree += building.Tree;
-        GameManager.Snow += building.Snow;
-        GameManager.Grass += building.Grass;
-        GameManager.Ice += building.Ice;
+        GameManager.ShinMoney += building.ShinCost;
 
         GridBuildingSystem.current.RemoveArea(areaTemp);
         if (Type == BuildType.Make)      //상점에서 사고 설치X 바로 제거

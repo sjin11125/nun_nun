@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     public static Dictionary<string, Sprite> DogamChaImageData;
 
     public static List<Building> BuildingList;          //가지고 있는 빌딩들
+    public static List<Building> FriendBuildingList;          //친구가 가지고 있는 빌딩들
     public static Building[] BuildingArray;         //모든 빌딩들
     
     public GameObject[] BuildingPrefabInspector;    //인스펙터에서 받아 온 건물 프리팹 배열
@@ -51,21 +52,21 @@ public class GameManager : MonoBehaviour
 
     //-----------------------------------여기서부터 재화---------------------------------
     public static int Money = 10000;            //재화
-    public static int Ice = 100;          //얼음
-    public static int Snow = 100;     //눈덩이
-    public static int Tree=100;       //나무
-    public static int Grass = 100;        //풀
-    public static int Gem = 100;          //잼(특별상점 사용)
+    public static int ShinMoney = 0;
 
     //---------------------------------------------------------------------------------------------
     //--------------------------------여기서부터 플레이어 정보-------------------------------------
 
     public static string Id;            //플레이어 아이디
     public static string NickName;      //플레이어 닉네임
+    public static string StateMessage;      //플레이어 상태메세지
     public static string SheetsNum;     //플레이어 건물 정보 들어있는 스프레드 시트 id
+    public static Sprite ProfileImage;       //플레이어 프로필 이미지
 
-    public static string[] Friends;       //친구 목록(닉네임)
+    public static FriendInfo[] Friends;       //친구 목록(닉네임)
 
+    public static string URL = "https://script.google.com/macros/s/AKfycbxtoaquKUX_cy9qOf9MbojAFGWjyJL_x9DZW2GuUiEAIHJswJNlSWSVIbbfIDllyX6A/exec";
+    //----------------------------------------------------------------------------------------------
 
 
     public static bool isMoveLock = false;      //창 떴을 때 이동 못하게하는 변수
@@ -82,6 +83,12 @@ public class GameManager : MonoBehaviour
      * 9: 말의 색깔을 바꾼다   (마법사)
      */
     // Start is called before the first frame update
+
+    //--------------------------------------------------------------------퀘스트---------------------------------------------------
+
+   public static QuestInfo[] Quest;                 //퀘스트 목록
+    public static QuestInfo[] QuestProgress;        //퀘스트 진행상황
+    public static bool isReset;             //퀘스트 초기화 햇니?
     void Start()
     {
         BuildingList = new List<Building>();            //현재 가지고 있는 빌딩 리스트
@@ -93,6 +100,9 @@ public class GameManager : MonoBehaviour
         CharacterList = new List<Card>();
         BuildingNumber = new Dictionary<string, int>();
 
+        Quest = new QuestInfo[3];                     //퀘스트 
+
+        Debug.Log("GameManager Start");
         for (int i = 0; i < BuildingPrefabInspector.Length; i++)        //빌딩 프리팹 정보 불러오기
         {
             BuildingPrefabData.Add(BuildingPrefabInspector[i].name+ "(Clone)", BuildingPrefabInspector[i]);
