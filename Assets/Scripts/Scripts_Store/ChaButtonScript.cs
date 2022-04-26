@@ -307,7 +307,7 @@ public class ChaButtonScript : MonoBehaviour
 
                 //게임매니저에 잇는 건물 프리팹 배열에서 같은 이름을 가진 프리팹을 찾아 Instantiate하고 상점 창 닫기
                 string buildingname = DogamManager.BuildingInformation[DogamManager.ChaIndex].Building_Image;
-                GameObject buildingprefab = GameManager.BuildingPrefabData[buildingname + "(Clone)"];
+                GameObject buildingprefab = GameManager.BuildingPrefabData[buildingname];
 
 
                 Transform parent = transform.parent.transform.parent.transform.parent.transform.parent.transform.parent;

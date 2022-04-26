@@ -27,6 +27,7 @@ public class BuildingSave : MonoBehaviour
     {
         WWWForm form = new WWWForm();
         form.AddField("order", "updateValue");
+        Debug.Log("building_image"+update_building.Building_Image);
         form.AddField("building_image", update_building.Building_Image);
         form.AddField("buildingPosiiton_x", update_building.BuildingPosition.x.ToString());
         form.AddField("buildingPosiiton_y", update_building.BuildingPosition.y.ToString());
@@ -36,7 +37,7 @@ public class BuildingSave : MonoBehaviour
         form.AddField("shinCost", update_building.ShinCost);
         form.AddField("level", update_building.Level);
         form.AddField("isFlied", update_building.isFliped.ToString());
-        StartCoroutine(Post(form));
+        StartCoroutine(SavePost(form));
     }
     public void AddValue()
     {
@@ -53,7 +54,7 @@ public class BuildingSave : MonoBehaviour
         form.AddField("shinCost", buildings.ShinCost);
         form.AddField("level", buildings.Level);
         form.AddField("isFliped",buildings.isFliped.ToString());
-        StartCoroutine(Post(form));
+        StartCoroutine(SavePost(form));
     }
     public void RemoveValue(string b_name)
     {
@@ -91,6 +92,17 @@ public class BuildingSave : MonoBehaviour
                                                                             //else print("웹의 응답이 없습니다.");*/
             }
         
+    }
+    IEnumerator SavePost(WWWForm form)
+    {
+        using (UnityWebRequest www = UnityWebRequest.Post(URL, form)) // 반드시 using을 써야한다
+        {
+            yield return www.SendWebRequest();
+            //Debug.Log(www.downloadHandler.text);
+           // if (www.isDone) Response(www.downloadHandler.text);         //친구 건물 불러옴
+                                                                        //else print("웹의 응답이 없습니다.");*/
+        }
+
     }
     void Response(string json)                          //건물 값 불러오기
     {
