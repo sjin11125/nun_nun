@@ -22,7 +22,7 @@ public class GoogleSheetManager : MonoBehaviour
     string id, pass, nickname,statemessage;
     public QuestManager QuestManager;
     public NuniManager NuniManager;
-
+    public BuildingSave MyBuildingLoad;
     bool SetIDPass()
     {
         id = IDInput.text.Trim();
@@ -170,7 +170,7 @@ public class GoogleSheetManager : MonoBehaviour
             
 
 
-            //MyBuildingLoad.BuildingLoad();          
+            MyBuildingLoad.BuildingLoad();          
 
             return;
         }
