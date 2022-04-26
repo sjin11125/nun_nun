@@ -42,11 +42,11 @@ public class QuestController : MonoBehaviour
         {
             case 0: GetColors("Pink", 0);
                 break;
-            case 1: GetColors("Blue", 1);
+            case 1: GetColors("Sky", 1);
                 break;
-            case 2: GetColors("LightBlue", 2);
+            case 2: GetColors("Orange", 2);
                 break;
-            case 3: GetColors("Green", 3);
+            case 3: GetColors("Mint", 3);
                 break;
             case 4: GetColors("Yellow", 4);
                 break;
@@ -60,7 +60,7 @@ public class QuestController : MonoBehaviour
                 break;
             case 9: GetShapes("Square", 9);
                 break;
-            case 10:GetShapes("8", 10);
+            case 10:GetShapes("Six", 10);
                 break;
             case 11: GetShapes("Dia", 11);
                 break;
