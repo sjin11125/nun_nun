@@ -294,7 +294,7 @@ public class ChaButtonScript : MonoBehaviour
                 GameManager.ShinMoney -= shinPay;
 
                 UIManager.isSetMoney = 1;
-                //BuildingInformation.isLock = "F";      //안잠김으로 바꿈
+                BuildingInformation.isLock = "F";      //안잠김으로 바꿈
                                                        // BuildingInformation.SetCharImage(GameManager.GetDogamChaImage(BuildingInformation.GetCharacter("ImageName")));        //이미지 다시 바꿈
 
                 //GameManager.BuildingArray[DogamManager.ChaIndex] = BuildingInformation;           //건물 설명

@@ -75,7 +75,7 @@ public class Building : MonoBehaviour
     
     public BuildType Type;
 
-    public BuildingSave save;
+    BuildingSave save;
     public Building()
     {
     }
@@ -451,8 +451,6 @@ public class Building : MonoBehaviour
     }
     public void Place(BuildType buildtype)         //건물 배치
     {
-        Debug.Log("Place()");
-
         Vector3 vec = transform.position;
         Vector3Int positionInt = GridBuildingSystem.current.gridLayout.LocalToCell(vec);
         BoundsInt areaTemp = area;
@@ -500,9 +498,6 @@ public class Building : MonoBehaviour
         else if (buildtype == BuildType.Move)               //이동할 때
         {
             Debug.Log("Move");
-            gameObject.name = GameManager.CurrentBuilding_Script.Building_name;
-            Building_name= GameManager.CurrentBuilding_Script.Building_name;
-            isLock = "T";
             RefreshBuildingList();
 
             buildtype = BuildType.Empty;
