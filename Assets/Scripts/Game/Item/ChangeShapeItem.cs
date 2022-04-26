@@ -96,36 +96,33 @@ public class ChangeShapeItem : MonoBehaviour
                         }
                     }
                 }
-                if (myChlid[2].activeSelf == false)
+                else if (hit.collider.gameObject == myChlid[0])//사용완료
                 {
-                    if (hit.collider.gameObject == myChlid[0])//사용완료
+                    GridScript.ChangeShapeItem = ItemTurn;
+                    myChlid[2].SetActive(true);
+                    myChlid[1].SetActive(true);
+                    myChlid[0].transform.GetChild(0).transform.gameObject.SetActive(true);
+                    myChlid[0].transform.GetChild(1).transform.gameObject.SetActive(false);
+                    myChlid[0].SetActive(false);
+                    GameObject.FindGameObjectWithTag("Grid").GetComponent<GridScript>().CheckIfKeepLineIsCompleted();
+                    squareObj = null;
+                    changeActive = false;
+                    if (rainbowObj != null)
                     {
-                        GridScript.ChangeShapeItem = ItemTurn;
-                        myChlid[2].SetActive(true);
-                        myChlid[1].SetActive(true);
-                        myChlid[0].transform.GetChild(0).transform.gameObject.SetActive(true);
-                        myChlid[0].transform.GetChild(1).transform.gameObject.SetActive(false);
-                        myChlid[0].SetActive(false);
-                        GameObject.FindGameObjectWithTag("Grid").GetComponent<GridScript>().CheckIfKeepLineIsCompleted();
-                        squareObj = null;
-                        changeActive = false;
-                        if (rainbowObj != null)
-                        {
-                            rainbowObj.SetActive(true);
-                        }
+                        rainbowObj.SetActive(true);
                     }
-                    else if (hit.collider.gameObject == myChlid[1])//사용
+                }
+                else if (hit.collider.gameObject == myChlid[1])//사용
+                {
+                    myChlid[0].SetActive(true);
+                    myChlid[1].SetActive(false);
+                    changeActive = true;
+                    //얘를 사용누르면 컬러아이템은 꺼져야됨
+                    if (rainbowObj != null)
                     {
-                        myChlid[0].SetActive(true);
-                        myChlid[1].SetActive(false);
-                        changeActive = true;
-                        //얘를 사용누르면 컬러아이템은 꺼져야됨
-                        if (rainbowObj != null)
-                        {
-                            rainbowObj.SetActive(false);
-                        }
+                        rainbowObj.SetActive(false);
                     }
-                }              
+                }
             }
         }
     }

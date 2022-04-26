@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class ShapeSquare : MonoBehaviour
 {
+   // public Image occupiedImage;
+
     void Start()
     {
         gameObject.GetComponent<Image>().color = new Color(255 / 255, 255 / 255, 255 / 255);

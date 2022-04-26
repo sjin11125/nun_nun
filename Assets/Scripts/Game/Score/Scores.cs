@@ -12,14 +12,12 @@ public class BestScoreData
 public class Scores : MonoBehaviour
 {
     public Text scoreText;
-    public Text shinText;
 
     private bool newBestScore_ = false;
     public GameObject newBestScoreObj;
 
     private BestScoreData bestScores_ = new BestScoreData();
     public int currentScores_;
-    public int currentShinScores_;
 
     public string bestScoreKey_ = "bsdat";
 
@@ -35,13 +33,12 @@ public class Scores : MonoBehaviour
     {
         bestScores_ = BinaryDataStream.Read<BestScoreData>(bestScoreKey_);
         yield return new WaitForEndOfFrame();
-        GameEvents.UpdateBestScore(currentScores_, bestScores_.score, currentShinScores_);
+        GameEvents.UpdateBestScore(currentScores_, bestScores_.score);
     }
 
     void Start()
     {
         currentScores_ = 0;
-        currentShinScores_ = 0;
         newBestScore_ = false;
         newBestScoreObj.SetActive(false);
         UpdateScoreText();
@@ -64,26 +61,24 @@ public class Scores : MonoBehaviour
         BinaryDataStream.Save<BestScoreData>(bestScores_,bestScoreKey_);
     }
 
-    private void AddScores(int scores, int shinscores)
+    private void AddScores(int scores)
     {
         currentScores_ += scores;
-        currentShinScores_ = shinscores;
-        if (currentScores_ > bestScores_.score)
+        if(currentScores_ > bestScores_.score)
         {
             newBestScore_ = true;
             bestScores_.score = currentScores_;
             SaveBestScores(true);
         }
 
-        GameEvents.UpdateBestScore(currentScores_, bestScores_.score, currentShinScores_);
+        GameEvents.UpdateBestScore(currentScores_, bestScores_.score);
         UpdateScoreText();
     }
 
     private void UpdateScoreText()
     {
         scoreText.text = currentScores_.ToString();
-        shinText.text = currentShinScores_.ToString();
-        if (newBestScore_ == true)
+        if(newBestScore_ == true)
         {
             newBestScoreObj.SetActive(true);
         }
@@ -92,6 +87,5 @@ public class Scores : MonoBehaviour
     public void coinInput()
     {
         GameManager.Money += currentScores_;
-        GameManager.ShinMoney += currentShinScores_;
     }
 }

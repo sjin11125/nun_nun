@@ -7,7 +7,7 @@ public class GameEvents : MonoBehaviour
 {
     public static Action<bool> GameOver;
 
-    public static Action<int, int> AddScores;
+    public static Action<int> AddScores;
 
     public static Action CheckIfShapeCanBePlaced;
 
@@ -17,5 +17,5 @@ public class GameEvents : MonoBehaviour
 
     public static Action SetShapeInactive;
 
-    public static Action<int, int, int> UpdateBestScore;
+    public static Action<int, int> UpdateBestScore;
 }
