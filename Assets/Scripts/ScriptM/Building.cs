@@ -27,8 +27,8 @@ public class BuildingParse
 }
 public class Building : MonoBehaviour
 {
-
-    //*
+    
+        //*
     public bool Placed = false;    //*
     public BoundsInt area;
 
@@ -64,7 +64,7 @@ public class Building : MonoBehaviour
 
     public int layer_y;   // 건물 레이어
     Transform[] child;
-
+    
     public GameObject UpgradePannel;
     public GameObject UpgradePannel2;
 
@@ -72,7 +72,7 @@ public class Building : MonoBehaviour
 
     public GameObject[] buildings;     // 레벨별 건물
 
-
+    
     public BuildType Type;
 
     BuildingSave save;
@@ -91,19 +91,19 @@ public class Building : MonoBehaviour
         Level = int.Parse(level);
 
     }
-    public Building(string islock, string buildingname, string reward, string info, string image, string cost, string shinCost, string level, string isfliped, string building_x, string building_y)           //파싱할 때 쓰는 생성자
+    public Building(string islock, string buildingname,string reward,string info,string image,string cost, string shinCost, string level,string isfliped,string building_x,string building_y)           //파싱할 때 쓰는 생성자
     {
         isLock = islock;
         Building_name = buildingname;
         Reward = reward;
         Info = info;
         Building_Image = image;
-        Cost = int.Parse(cost);
+        Cost =int.Parse(cost);
         ShinCost = int.Parse(shinCost);
-        Level = int.Parse(level);
+        Level =int.Parse(level);
         isFliped = Convert.ToBoolean(isfliped);
         buildingPosiiton_x = building_x;
-        buildingPosiiton_y = building_y;
+        buildingPosiiton_y= building_y;
 
 
     }
@@ -158,7 +158,7 @@ public class Building : MonoBehaviour
         BuildingCopy.isCoin = this.isCoin;
         BuildingCopy.isCountCoin = this.isCountCoin;
         BuildingCopy.CountCoin = this.CountCoin;
-
+        
         BuildingCopy.layer_y = this.layer_y;
         BuildingCopy.Level = this.Level;
 

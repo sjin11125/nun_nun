@@ -279,7 +279,7 @@ public class ChaButtonScript : MonoBehaviour
             int pay = DogamManager.BuildingInformation[DogamManager.ChaIndex].Cost;
             int shinPay = DogamManager.BuildingInformation[DogamManager.ChaIndex].ShinCost;
 
-            if (GameManager.Money < pay || GameManager.ShinMoney < shinPay)      //돈이나 자원이 모자르면 거절 메세지 띄움
+            if (GameManager.Money < pay || GameManager.ShinMoney< shinPay)      //돈이나 자원이 모자르면 거절 메세지 띄움
             {
                 UIManager.isSetMoney = -1;
             }
