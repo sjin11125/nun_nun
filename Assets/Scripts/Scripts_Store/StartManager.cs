@@ -58,8 +58,8 @@ public class StartManager : MonoBehaviour
         //RefreshButtonArray(NuNiInformation);         //소유하지 않은 건물들 새로고침
 
         List<Button> LockButtonList = new List<Button>();       //잠긴 캐릭터들 버튼 들어있는 리스트
-
-        Debug.Log(NuNiInformation.Length);
+       
+        
         for (int j = 0; j < NuNiInformation.Length; j++)         //시작하기 전 캐릭터 나타내기
         {
             if (NuNiInformation[j].Item != 10)
