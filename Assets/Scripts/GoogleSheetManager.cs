@@ -53,7 +53,7 @@ public class GoogleSheetManager : MonoBehaviour
         form.AddField("pass", pass);
         form.AddField("player_nickname", nickname);
 
-        StartCoroutine(Post(form));
+        StartCoroutine(SignPost(form));
     }
 
 
@@ -102,6 +102,16 @@ public class GoogleSheetManager : MonoBehaviour
     }
 
 
+
+    IEnumerator SignPost(WWWForm form)
+    {
+        using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // 반드시 using을 써야한다
+        {
+            yield return www.SendWebRequest();
+            //Debug.Log(www.downloadHandler.text);
+            SceneManager.LoadScene("Main");
+        }
+    }
 
 
 

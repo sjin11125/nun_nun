@@ -70,6 +70,102 @@ public class GridBuildingSystem : MonoBehaviour
         StartButton = GameObject.Find("Start").GetComponent<Button>();
 
     }
+    public void Inven_Move(Transform hit)
+    {
+        if (hit.transform != null)          // 오브젝트를 클릭 했을 때
+        {
+
+            Transform Building = hit.transform.parent;
+            if (temp != null)
+            {
+                if (temp.isLock == "F")               //건물이 배치가 안 된 상태인가?
+                {
+                    Building hit_building = temp.GetComponent<Building>();
+                    if (hit.transform.tag == "Button")      //건물 배치 확인 버튼
+                    {
+                        if (temp.CanBePlaced())         //건물이 배치 될 수 있는가? 네
+                        {
+                            //temp.level += 1;        //레벨 +1
+                            temp.Place(temp.Type);
+                            //UI_Manager.Start();
+
+                            Grid.GetComponent<SpriteRenderer>().sortingOrder = -48;
+                            //StartButton.enabled = true;
+                            temp = null;
+                        }
+                        // button.buttonok();
+                    }
+                    if (hit.transform.tag == "Rotation")        //건물 회전 버튼
+                    {
+
+                        if (hit_building.isFliped == "T")
+                        {
+                            hit_building.isFliped = "F";
+                        }
+                        else
+                        {
+                            hit_building.isFliped = "T";
+                        }
+                        hit_building.Rotation();
+
+
+                    }
+                    if (hit.transform.tag == "Upgrade")         //업그레이드
+                    {
+                        GameManager.isMoveLock = true;
+                        hit_building.Type = BuildType.Upgrade;
+                        hit_building.Upgrade();
+                    }
+                    if (hit.transform.tag == "Remove")          //제거
+                    {
+                        temp.Remove(temp);
+                        //UI_Manager.Start();
+                        Grid.GetComponent<SpriteRenderer>().sortingOrder = -48;
+
+                    }
+                }
+
+            }
+            else             //temp가 없을 때               //건물이 배치 된 상태
+            {
+
+                Debug.Log("temp is null");
+                temp = hit.transform.GetComponent<Building>();
+
+                if (hit.transform.tag == "Building" && GameManager.isStore == false)           //빌딩을 눌렀을 때 업그레이드 할래 위치 바꿀래 회전할래
+                {
+                    //UI_Manager.StartOpen();     //ui 중앙으로 이동
+                    temp.Type = BuildType.Move;
+                    temp.Placed = false;        //배치가 안 된 상태로 변환
+
+                    temp.area.position = gridLayout.WorldToCell(temp.gameObject.transform.position);
+                    BoundsInt buildingArea = temp.area;
+
+                    TileBase[] baseArray = GetTilesBlock(buildingArea, MainTilemap);
+                    int size = baseArray.Length;
+                    for (int i = 0; i < size; i++)
+                    {
+                        baseArray[i] = tileBases[TileType.White];
+                        //FillTiles(baseArray, TileType.White);
+                        Debug.Log("tiles");
+                    }
+                    TempTilemap.SetTilesBlock(buildingArea, baseArray);
+                    SetTilesBlock(buildingArea, TileType.White, MainTilemap);
+
+                    //FollowBuilding(true);
+                    Grid.GetComponent<SpriteRenderer>().sortingOrder = -50;
+                    Debug.Log("Level: " + temp.Level);
+                }
+                if (hit.transform.tag == "Coin_Button")           //재화 버튼 누르면(되긴 하는데 수정해야함)
+                {
+                    //Transform BuildingCoin = hit.transform.parent;
+                    Building.GetComponent<Building>().Coin_OK();
+
+                    Debug.Log("huan");
+                }
+            }
+        }
+    }
     private void Update()
     {
         if (ChaButtonScript.isEdit==true)
@@ -77,8 +173,14 @@ public class GridBuildingSystem : MonoBehaviour
             ChaButtonScript.isEdit = false;
             InitializeWithBuilding();
         }
+        if (GameManager.isEdit==true)
+        {
+            GameManager.isEdit = false;
+            InitializeWithBuilding();
+            temp.Type = BuildType.Move;
+        }
         
-        if (Input.GetMouseButton(0)&&SceneManager.GetActiveScene().name=="Main") //마우스를 눌러서 뗐을 때              지금 내 닉넴과 마을
+        if (Input.GetMouseButtonUp(0)&&SceneManager.GetActiveScene().name=="Main") //마우스를 눌러서 뗐을 때              지금 내 닉넴과 마을
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
@@ -148,6 +250,7 @@ public class GridBuildingSystem : MonoBehaviour
 
                         if (hit.transform.tag == "Building" && GameManager.isStore == false)           //빌딩을 눌렀을 때 업그레이드 할래 위치 바꿀래 회전할래
                         {
+                            GameManager.CurrentBuilding_Script= temp;
                             //UI_Manager.StartOpen();     //ui 중앙으로 이동
                             temp.Type = BuildType.Move;
                             temp.Placed = false;        //배치가 안 된 상태로 변환
@@ -268,12 +371,12 @@ public class GridBuildingSystem : MonoBehaviour
         GameObject temp_gameObject = Instantiate(GameManager.CurrentBuilding, Vector3.zero, Quaternion.identity) as GameObject;
        temp = temp_gameObject.GetComponent<Building>(); // 이때 building 프리펩의 속성 불러오기
         Debug.Log("uuuuuuuuu"+ GameManager.BuildingArray.Length);
-        for (int i = 0; i < DogamManager.BuildingInformation.Length; i++)
+        for (int i = 0; i < GameManager.BuildingArray.Length; i++)
         {
-            if (DogamManager.BuildingInformation[i].Building_Image==temp.Building_Image)
+            if (GameManager.BuildingArray[i].Building_Image==temp.Building_Image)
             {
                 Debug.Log("Good");
-                temp.SetValue(DogamManager.BuildingInformation[i]);
+                temp.SetValue(GameManager.BuildingArray[i]);
                 break;
             }
         }
