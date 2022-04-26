@@ -5,24 +5,20 @@ using UnityEngine.UI;
 
 public class KeyBoard : MonoBehaviour
 {
-    TouchScreenKeyboard id;
-    string saveID;//여기에 저장
+    TouchScreenKeyboard keyboard;
 
-
-    public void OpenIDKeyBoard()
+    public void OpenKeyBoard()
     {
-       id= TouchScreenKeyboard.Open("",TouchScreenKeyboardType.Default);
+        keyboard = TouchScreenKeyboard.Open("",TouchScreenKeyboardType.Default);
     }
-
 
     public void Update()
     {
-        if (TouchScreenKeyboard.visible == false && id != null)
+        if (TouchScreenKeyboard.visible)
         {
-            if (id.done)//엔터 눌렀어
+            if (keyboard.done)//엔터 눌렀어
             {
-                saveID = id.text;
-                id = null;
+                keyboard = null;//끄기
             }
         }
     }
