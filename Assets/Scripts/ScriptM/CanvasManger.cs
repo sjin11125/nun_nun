@@ -11,7 +11,7 @@ public class CanvasManger : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
@@ -20,5 +20,4 @@ public class CanvasManger : MonoBehaviour
         Money.text = GameManager.Money.ToString();
         ShinMoney.text = GameManager.ShinMoney.ToString();
     }
-    
 }
