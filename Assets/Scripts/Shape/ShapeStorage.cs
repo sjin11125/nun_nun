@@ -41,7 +41,6 @@ public class ShapeStorage : MonoBehaviour
             {
                 GameObject squareImage = contectShape.transform.GetChild(0).gameObject;
                 spriteImage = squareImage.GetComponent<Image>();
-                squareImage.transform.GetChild(0).gameObject.GetComponent<Shining>().ShinActive();//ºþÂ¦ÀÌ ÄÑ±â
             }
             GameObject contectNext = GameObject.FindGameObjectWithTag("NextSquare");
             if (contectNext != null)
@@ -81,7 +80,6 @@ public class ShapeStorage : MonoBehaviour
             {
                 GameObject squareImage = contectShape.transform.GetChild(0).gameObject;
                 spriteImage = squareImage.GetComponent<Image>();
-                squareImage.transform.GetChild(0).gameObject.GetComponent<Shining>().ShinActive();//ºþÂ¦ÀÌ ÄÑ±â
             }
             GameObject contectNext = GameObject.FindGameObjectWithTag("NextSquare");
             if (contectNext != null)
@@ -122,7 +120,6 @@ public class ShapeStorage : MonoBehaviour
             {
                 GameObject squareImage = contectShape.transform.GetChild(0).gameObject;
                 spriteImage = squareImage.GetComponent<Image>();
-                squareImage.transform.GetChild(0).gameObject.GetComponent<Shining>().ShinActive();//ºþÂ¦ÀÌ ÄÑ±â
             }
             GameObject contectNext = GameObject.FindGameObjectWithTag("NextSquare");
             if (contectNext != null)

@@ -41,8 +41,6 @@ public class GridScript : MonoBehaviour
     [HideInInspector]
     public String KeepColor, KeepShape;
 
-    int completeShin = 0;
-
     private void OnEnable()
     {
         GameEvents.CheckIfShapeCanBePlaced += CheckIfShapeCanBePlaced;
@@ -63,11 +61,11 @@ public class GridScript : MonoBehaviour
 
     void Update()
     {
-        if (keepSquareIndex != 30)
+        if (keepSquareIndex != 30)// && keepSquareInt < 1)
         {
             UseKeep();
         }
-        if (trashCanIndex != 30)
+        if (trashCanIndex != 30) //&& UseTrashCanInt < 1)
         {
             UseTrashCan();
         }
@@ -239,9 +237,9 @@ public class GridScript : MonoBehaviour
         {
             //TODO: Play bouns animation.
         }
-        //컴플릿 라인에 모든 스퀘어를 검사해서 샤인이 있으면 갯수 새서더하기
+
         var totalScores = 10 * completedLines;
-        GameEvents.AddScores(totalScores, completeShin);
+        GameEvents.AddScores(totalScores);
 
         if (completedLines == 0)
         {
@@ -284,19 +282,13 @@ public class GridScript : MonoBehaviour
         }
 
         var completedLines = CheckIfSquaresAreCompleted(lines);//행(0-5)렬(0-5) 정보전달 및 변수에 반환 int값 저장
-        if(keepSquareIndex != 30)
+        if (_gridSquares[keepSquareIndex].GetComponent<GridSquare>().activeImage.gameObject.activeSelf == true)
         {
-            if (_gridSquares[keepSquareIndex].GetComponent<GridSquare>().activeImage.gameObject.activeSelf == true)
-            {
-                usekeeptrue = true;
-            }
+            usekeeptrue = true;
         }
-        if(trashCanIndex != 30)
+        if (_gridSquares[trashCanIndex].GetComponent<GridSquare>().activeImage.gameObject.activeSelf == true)
         {
-            if (_gridSquares[trashCanIndex].GetComponent<GridSquare>().activeImage.gameObject.activeSelf == true)
-            {
-                usetrashtrue = true;
-            }
+            usetrashtrue = true;
         }
         if (completedLines > 2)
         {
@@ -304,7 +296,7 @@ public class GridScript : MonoBehaviour
         }
 
         var totalScores = 10 * completedLines;
-        GameEvents.AddScores(totalScores, completeShin);
+        GameEvents.AddScores(totalScores);
 
         if (completedLines == 0)
         {
@@ -364,7 +356,7 @@ public class GridScript : MonoBehaviour
             if (SameColorLines()) // QuestController.girdCompLine.Add(squareIndex);//퀘스트를 위한 정보전달
             {
                 linesCompleted++;
-                QuestControll.GetComponent<QuestController>().QuestIndex();//퀘스트 함수 실행
+                QuestControll.GetComponent<QuestController>().QuestIndex();//퀘스트 함수 실행               
             }
         }
         return linesCompleted;
@@ -377,10 +369,6 @@ public class GridScript : MonoBehaviour
         for (int i = 0; i < completeIndexArray.Length; i++)
         {
             var com = _gridSquares[completeIndexArray[i]].GetComponent<GridSquare>();
-            if (com.shinActive)
-            {
-                completeShin++;
-            }
             com.Deactivate();
             com.ClearOccupied();
            
@@ -667,10 +655,10 @@ public class GridScript : MonoBehaviour
     }
 
     void SettingKeep()//LineIndicator로 열을 하나 더 만들었는데 우린 keep자리와 can자리만 필요하니 그게 아니라면 끄기
-    {
+    {      
         for (int i = 25; i < 30; i++)//ItemController에서 선택받지못한 애들은 끄자
         {
-            if (trashCanIndex != i && keepSquareIndex != i)
+            if(trashCanIndex != i && keepSquareIndex != i)
             {
                 var comp = _gridSquares[i].GetComponent<GridSquare>();
                 comp.NonKeep();//GridSquare에 자기자신을 끄는 함수 호출
