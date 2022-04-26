@@ -5,10 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
-{
-    
-
-
+{   
     public static bool isStart = false;
     static GameManager _Instance;
     public static bool parse = false;
@@ -154,6 +151,8 @@ public class GameManager : MonoBehaviour
         // Friends=new string[1] {"Vicky"};            //일단 친구는 비키만 있는걸로
         //친구 목록 불러오기
         //GetComponent<BuildingSave>().GetFriendLsit();           //친구 목록 불러오기
+
+        GameLoad();
     }
     private void Awake()
     {
@@ -193,8 +192,23 @@ public class GameManager : MonoBehaviour
         
         return GameManager.CharacterImageData[ImageName.Trim()];
     }
-    // Update is called once per frame
-    void Update()
+
+    public void GameSave()
     {
+        PlayerPrefs.SetInt("Money", Money);//돈
+        PlayerPrefs.SetInt("ShinMoney", ShinMoney);//돈
+        PlayerPrefs.Save();
+        print("save");
+    }
+    public void GameLoad()
+    {
+        ShinMoney = PlayerPrefs.GetInt("ShinMoney");
+        print("load");
+    }
+    public void GameExit()
+    {
+        GameSave();
+        print("exit");
+        Application.Quit();
     }
 }
