@@ -196,21 +196,21 @@ public class GameManager : MonoBehaviour
         return GameManager.CharacterImageData[ImageName.Trim()];
     }
 
-    public void GameSave()
+    /*public void GameSave()
     {
         PlayerPrefs.SetInt("Money", Money);//돈
         PlayerPrefs.SetInt("ShinMoney", ShinMoney);//돈
         PlayerPrefs.Save();
         print("save");
-    }
+    }*/
     public void GameLoad()
     {
-        ShinMoney = PlayerPrefs.GetInt("ShinMoney");
+        ShinMoney = 10000;
         print("load");
     }
     public void GameExit()
     {
-        GameSave();
+        //GameSave();
         print("exit");
         Application.Quit();
     }
