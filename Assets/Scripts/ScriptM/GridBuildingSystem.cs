@@ -28,7 +28,7 @@ public class GridBuildingSystem : MonoBehaviour
 
     public GameObject UpgradePannel;
     GameObject Grid;
-    Button StartButton;
+    public Button StartButton;
 
     public UIAniManager UI_Manager;    
     //추가 1110
@@ -66,8 +66,8 @@ public class GridBuildingSystem : MonoBehaviour
         }
 
         Grid = GameObject.Find("back_down");
-        if (SceneManager.GetActiveScene().name=="Main")
-        StartButton = GameObject.Find("Start").GetComponent<Button>();
+       // if (SceneManager.GetActiveScene().name=="Main")
+       // StartButton = GameObject.Find("Start").GetComponent<Button>();
 
     }
     public void Inven_Move(Transform hit)

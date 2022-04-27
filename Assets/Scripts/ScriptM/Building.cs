@@ -202,12 +202,17 @@ public class Building : MonoBehaviour
                 for (int j = 0; j < spriterenderer.Length; j++)
                 {
                     spriterenderer[j].flipX = isflip_bool;
-
                 }
                 for (int k = 0; k < transform.Length; k++)
                 {
                     transform[k].localPosition = new Vector3(-transform[k].localPosition.x, transform[k].localPosition.y, 0);
                 }
+                if (isFliped == "T")
+                {
+                    isFliped = "F";
+                }
+                else
+                    isFliped = "T";
             }
             else
             {
@@ -231,7 +236,7 @@ public class Building : MonoBehaviour
             isflip_bool = true;
 
         Debug.Log("Start Level: " + Level);
-        buildings = new GameObject[3];
+        buildings = new GameObject[2];
         currentTime = (int)startingTime;
         save = GetComponent<BuildingSave>();
         //TimeText = GameObject.Find("Canvas/TimeText"); //게임오브젝트 = 캔버스에 있는 TimeText로 설정
@@ -278,16 +283,16 @@ public class Building : MonoBehaviour
                 buildings[0].GetComponent<SpriteRenderer>().sortingOrder = layer_y;
                 break;
             case 2:
-                buildings[0].SetActive(false);
+                buildings[0].SetActive(true);
                 buildings[1].SetActive(true);
-               // buildings[2].SetActive(false);
+                //buildings[2].SetActive(false);
                 buildings[1].GetComponent<SpriteRenderer>().sortingOrder = layer_y;
                 break;
             case 3:
                 buildings[0].SetActive(false);
                 buildings[1].SetActive(true);
-                buildings[2].SetActive(true);
-                buildings[2].GetComponent<SpriteRenderer>().sortingOrder = layer_y;
+               // buildings[2].SetActive(true);
+                //buildings[2].GetComponent<SpriteRenderer>().sortingOrder = layer_y;
                 break;
             default:
                 break;
