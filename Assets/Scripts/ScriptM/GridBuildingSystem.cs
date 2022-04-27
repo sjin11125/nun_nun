@@ -203,10 +203,10 @@ public class GridBuildingSystem : MonoBehaviour
                                 {
                                     //temp.level += 1;        //레벨 +1
                                     temp.Place(temp.Type);
-                                    //UI_Manager.Start();
+                                    UI_Manager.Start();
 
                                     Grid.GetComponent<SpriteRenderer>().sortingOrder = -48;
-                                    //StartButton.enabled = true;
+                                    StartButton.enabled = true;
                                     temp = null;
                                 }
                                 // button.buttonok();

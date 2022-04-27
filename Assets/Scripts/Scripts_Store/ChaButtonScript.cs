@@ -155,7 +155,7 @@ public class ChaButtonScript : MonoBehaviour
 
         if (gameObject.tag == "Building")
         {
-            for (int i = 5; i < Window.Length - 2; i++)
+            for (int i = 8; i < Window.Length - 2; i++)
             {
                 Destroy(Window[i].gameObject);
             }
