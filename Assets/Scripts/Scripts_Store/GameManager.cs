@@ -22,8 +22,11 @@ public class GameManager : MonoBehaviour
     public static Dictionary<string, GameObject> BuildingPrefabData;    //모든 빌딩 프리팹 딕셔너리
 
     public static GameObject CurrentBuilding;       //현재 수정중인 건물
+    public static Building CurrentBuilding_Script;       //현재 수정중인 건물
 
     public static Dictionary<string, int> BuildingNumber;            //건물이 종류별로 몇개 있는지(건물번호)
+
+    public static bool isEdit = false;
     //----------------------------------------------------이까지 건물----------------------------------------------------
 
 
@@ -49,7 +52,7 @@ public class GameManager : MonoBehaviour
 
     //-----------------------------------여기서부터 재화---------------------------------
     public static int Money = 10000;            //재화
-    public static int ShinMoney = 10000;
+    public static int ShinMoney = 100000;
 
     //---------------------------------------------------------------------------------------------
     //--------------------------------여기서부터 플레이어 정보-------------------------------------
@@ -62,7 +65,7 @@ public class GameManager : MonoBehaviour
 
     public static FriendInfo[] Friends;       //친구 목록(닉네임)
 
-    public static string URL = "https://script.google.com/macros/s/AKfycbwzAAGAgRXGAr0nXr1cmD8F3c4dv1FsopE_XrmVVFS4GRdETpGI3-Dux2cfs6G-UaCY/exec";
+    public static string URL = "https://script.google.com/macros/s/AKfycbwJ5b40s8FyFLeTM97_jj0DSm7RYJc9UEgvkTJWh86kxvjpzQkcDxFqyYaxl12elK55/exec";
     //----------------------------------------------------------------------------------------------
 
 
@@ -152,7 +155,7 @@ public class GameManager : MonoBehaviour
         //친구 목록 불러오기
         //GetComponent<BuildingSave>().GetFriendLsit();           //친구 목록 불러오기
 
-        GameLoad();
+        //GameLoad();
     }
     private void Awake()
     {

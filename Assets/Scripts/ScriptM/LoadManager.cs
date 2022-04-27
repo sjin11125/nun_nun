@@ -10,6 +10,7 @@ public class LoadManager : MonoBehaviour
     public static bool isLoad = false;
 
     public GameObject buildings;
+    //public GameObject 
     Component CopyComponent(Component original, GameObject destination)
     {
         System.Type type = original.GetType();
@@ -42,15 +43,19 @@ public class LoadManager : MonoBehaviour
              if (SceneManager.GetActiveScene().name == "Main" && GameManager.BuildingList != null)       //메인씬에서 로드하기(내 마을)
              {
                 //건물로드
+                Debug.Log(GameManager.BuildingList.Count);
 
                 for (int i = 0; i < GameManager.BuildingList.Count; i++)
                 {
+                    if (GameManager.BuildingList[i].isLock != "T")
+                        continue;
+
                     Building LoadBuilding = GameManager.BuildingList[i];           // 현재 가지고 잇는 빌딩 리스트의 빌딩 컴포넌트
                     string BuildingName = LoadBuilding.Building_Image;        //현재 가지고 있는 빌딩 리스트에서 빌딩 이름 부르기
                     Debug.Log(LoadBuilding.Placed);
 
                     GameObject BuildingPrefab = GameManager.BuildingPrefabData[BuildingName];           // 해당 건물 프리팹
-                    GameObject g = Instantiate(BuildingPrefab, new Vector3(LoadBuilding.BuildingPosition.x, LoadBuilding.BuildingPosition.y, 0), Quaternion.identity) as GameObject;
+                    GameObject g = Instantiate(BuildingPrefab, new Vector3(LoadBuilding.BuildingPosition.x, LoadBuilding.BuildingPosition.y, 0), Quaternion.identity,buildings.transform) as GameObject;
 
                   //  Building PrefabBuilding = BuildingPrefab.GetComponent<Building>();      //해당 건물 프리팹의 빌딩 스크립트
                                                                                             //Component tempData = BuildingPrefab.GetComponent<Building>().GetType();
