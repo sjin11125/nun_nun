@@ -65,7 +65,7 @@ public class LoadManager : MonoBehaviour
                     g.name = LoadBuilding.Building_name;            //이름 재설정
 
                     g_Building.Type = BuildType.Load;
-                    g_Building.Place_Initial(g_Building.Type);
+                    g_Building.Place(g_Building.Type);
                     Debug.Log(g.GetComponent<Building>().isFliped);
                    // g_Building.Rotation();
                    

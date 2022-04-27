@@ -263,10 +263,10 @@ public class Building : MonoBehaviour
             //GameObject UPPannel = Instantiate(UpgradePannel);
             Level1building = gameObject.transform.Find("building").gameObject;
             Level2building = gameObject.transform.Find("building2").gameObject;
-            Level3building = gameObject.transform.Find("building3").gameObject;
+            //Level3building = gameObject.transform.Find("building3").gameObject;
             buildings[0] = Level1building;
             buildings[1] = Level2building;
-            buildings[2] = Level3building;
+           // buildings[2] = Level3building;
         }
 
         switch (Level)
@@ -274,13 +274,13 @@ public class Building : MonoBehaviour
             case 1:
                 buildings[0].SetActive(true);
                 buildings[1].SetActive(false);
-                buildings[2].SetActive(false);
+                //buildings[2].SetActive(false);
                 buildings[0].GetComponent<SpriteRenderer>().sortingOrder = layer_y;
                 break;
             case 2:
                 buildings[0].SetActive(false);
                 buildings[1].SetActive(true);
-                buildings[2].SetActive(false);
+               // buildings[2].SetActive(false);
                 buildings[1].GetComponent<SpriteRenderer>().sortingOrder = layer_y;
                 break;
             case 3:
