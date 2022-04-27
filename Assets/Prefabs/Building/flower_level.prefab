@@ -469,7 +469,7 @@ MonoBehaviour:
     m_Position: {x: -4, y: -3, z: 0}
     m_Size: {x: 3, y: 3, z: 1}
   Coin_Button: {fileID: 2132867819104901470}
-  currentTime: 57.251263
+  currentTime: 0
   startingTime: 60
   Button_Pannel: {fileID: 2132867819840144644}
   Rotation_Pannel: {fileID: 1697979522239847141}
@@ -477,23 +477,22 @@ MonoBehaviour:
   isCoin: 0
   isCountCoin: 0
   CountCoin: 0
-  BuildingPosition: {x: -0.525, y: -1.6500001}
-  isLock: 
-  Building_name: 
+  BuildingPosition: {x: 0, y: 0}
+  isLock: T
+  Building_name: flower_level(Clone)0
   Reward: 
   Info: 
-  Building_Image: flower_level
-  Cost: 0
-  Level: 1
-  Tree: 0
-  Ice: 0
-  Grass: 0
-  Snow: 0
+  Building_Image: flower_level(Clone)
+  Cost: 1000
+  ShinCost: 0
+  Level: 10
+  isFliped: 
+  BuildingPosiiton_x: 1.050000
+  BuildingPosiiton_y: 2.475000
   layer_y: 0
   UpgradePannel: {fileID: 3322355556386377119}
   UpgradePannel2: {fileID: 3990997439624646519}
   buildings: []
-  isFliped: 0
   Type: 0
 --- !u!61 &4337750507591132674
 BoxCollider2D:
@@ -547,11 +546,10 @@ MonoBehaviour:
     Info: 
     Building_Image: 
     Cost: 
+    ShinCost: 
     Level: 
-    Tree: 
-    Ice: 
-    Grass: 
-    Snow: 
+    isFlied: 
+  isMe: 0
 --- !u!1 &2132867819104901471
 GameObject:
   m_ObjectHideFlags: 0
