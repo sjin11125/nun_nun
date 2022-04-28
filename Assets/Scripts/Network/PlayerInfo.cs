@@ -21,16 +21,18 @@ public class PlayerInfo : MonoBehaviour                 //플레이어 프로필 스크립
     // Start is called before the first frame update
     void Start()
     {
-        Profile[0].text = GameManager.NickName;
-        Profile[1].text = GameManager.StateMessage;
-
-        for (int i = 0; i < GameManager.CharacterList.Count; i++)
+        if (gameObject.tag == "Profile")
         {
-            GameObject image = Instantiate(NuniImages, Canvas.transform);
-            Image Nuniimage = image.GetComponent<Image>();
-            Nuniimage.sprite = GameManager.CharacterList[i].Image;
-        }
+            Profile[0].text = GameManager.NickName;
+            Profile[1].text = GameManager.StateMessage;
 
+            for (int i = 0; i < GameManager.CharacterList.Count; i++)
+            {
+                GameObject image = Instantiate(NuniImages, Canvas.transform);
+                Image Nuniimage = image.GetComponent<Image>();
+                Nuniimage.sprite = GameManager.CharacterList[i].Image;
+            }
+        }
     }
 
     public void ImageEnroll()       //프로필 이미지 등록
