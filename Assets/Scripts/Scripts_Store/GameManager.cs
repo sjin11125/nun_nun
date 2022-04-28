@@ -90,6 +90,9 @@ public class GameManager : MonoBehaviour
    public static QuestInfo[] Quest;                 //퀘스트 목록
     public static QuestInfo[] QuestProgress;        //퀘스트 진행상황
     public static bool isReset;             //퀘스트 초기화 햇니?
+
+    public static bool[] QuestActive;                 //블록 얼마 깻는지 확인
+    public static int QuestColor = 0;                   //뭔 블록 깨야하는지    
     void Start()
     {
         BuildingList = new List<Building>();            //현재 가지고 있는 빌딩 리스트
