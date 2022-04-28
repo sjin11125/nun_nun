@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     public static Dictionary<string, int> BuildingNumber;            //건물이 종류별로 몇개 있는지(건물번호)
 
     public static bool isEdit = false;
+    public static Button InvenButton;
     //----------------------------------------------------이까지 건물----------------------------------------------------
 
 
