@@ -11,25 +11,34 @@ public class InventoryButton : MonoBehaviour
     GridBuildingSystem gridBuildingSystem;
 
     public GameObject buildings;
+    public GameObject nunis;
     void Start()
     {
-        buildings = GameObject.Find("buildings");
-        for (int i = 0; i < GameManager.BuildingList.Count; i++)
+        if (gameObject.tag=="Inven_Building")
         {
-            if (this.gameObject.name== GameManager.BuildingList[i].Building_name)
+            buildings = GameObject.Find("buildings");
+            for (int i = 0; i < GameManager.BuildingList.Count; i++)
             {
-                this_building = GameManager.BuildingList[i];
-                gridBuildingSystem=gameObject.transform.parent.parent.GetComponent<GridBuildingSystem>();
+                if (this.gameObject.name == GameManager.BuildingList[i].Building_name)
+                {
+                    this_building = GameManager.BuildingList[i];
+                    gridBuildingSystem = gameObject.transform.parent.parent.GetComponent<GridBuildingSystem>();
+                }
             }
+            Debug.Log(this_building.isLock);
+            if (this_building.isLock == "F")
+            {
+                X_Image.gameObject.SetActive(false);
+            }
+            else
+            {
+                X_Image.gameObject.SetActive(true);
+            }
+
         }
-        Debug.Log(this_building.isLock);
-        if (this_building.isLock=="F")
+        else if(gameObject.tag == "Inven_Nuni")
         {
-            X_Image.gameObject.SetActive(false);
-        }
-        else
-        {
-            X_Image.gameObject.SetActive(true);
+            nunis= GameObject.Find("nunis");
         }
 
     }

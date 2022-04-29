@@ -31,16 +31,16 @@ public class GameManager : MonoBehaviour
     //----------------------------------------------------이까지 건물----------------------------------------------------
 
 
-    //----------------------------------------------------여기서부터 캐릭터--------------------------------------------------
-    public Sprite[] CharacterImageInspector;            // 인스펙터에서 받아 온 모든 캐릭터들의 이미지
+    //----------------------------------------------------여기서부터 누니--------------------------------------------------
+    public Sprite[] CharacterImageInspector;            // 인스펙터에서 받아 온 모든 누니들의 이미지
     public static Dictionary<string, Sprite> CharacterImageData;
 
-    public GameObject[] CharaterPrefabInspector;        // 인스펙터에서 받아 온 모든 캐릭터들의 프리팹
-    public static Dictionary<string, GameObject> CharacterPrefab;       //모든 캐릭터 프리팹 딕셔너리
+    public GameObject[] CharaterPrefabInspector;        // 인스펙터에서 받아 온 모든 누니들의 프리팹
+    public static Dictionary<string, GameObject> CharacterPrefab;       //모든 캐릭터 누니 딕셔너리
 
     public static Card[] AllNuniArray;              //엑셀에서 받아 온 모든 누니 정보 배열
 
-    public static List<Card> CharacterList;      //현재가지고 있는 캐릭터 리스트
+    public static List<Card> CharacterList;      //현재가지고 있는 누니 리스트
     //public static Card[] CharacterArray;               //현재 가지고 있는 캐릭터 배열
     
 
