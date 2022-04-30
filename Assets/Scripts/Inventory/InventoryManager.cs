@@ -7,6 +7,7 @@ public class InventoryManager : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject inventory_prefab;     //인벤토리 버튼 프리팹
+    public GameObject inventory_nuni_prefab;     //인벤토리 버튼 프리팹
     public Transform Content;
 
     public GridBuildingSystem gridBuildingSystem;
@@ -35,6 +36,8 @@ public class InventoryManager : MonoBehaviour
             GameObject inven=Instantiate(inventory_prefab,Content) as GameObject;         //인벤 버튼 프리팹 생성
 
             inven.gameObject.name = GameManager.BuildingList[i].Building_name;
+            inven.gameObject.tag = "Inven_Building";            //인벤 버튼 태그 설정
+
             
 
             Image ButtonImage = inven.GetComponent<Image>();
@@ -64,10 +67,10 @@ public class InventoryManager : MonoBehaviour
         for (int i = 0; i < GameManager.CharacterList.Count; i++)
         {
 
-            GameObject inven = Instantiate(inventory_prefab, Content) as GameObject;         //인벤 버튼 프리팹 생성
+            GameObject inven = Instantiate(inventory_nuni_prefab, Content) as GameObject;         //인벤 버튼 프리팹 생성
 
             inven.gameObject.name = GameManager.CharacterList[i].cardImage;
-
+            inven.gameObject.tag = "Inven_Nuni";            //인벤 버튼 태그 설정
 
             Image ButtonImage = inven.GetComponent<Image>();
             Debug.Log("building image: " + GameManager.CharacterList[i].cardImage);
