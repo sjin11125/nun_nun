@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class QuestController : MonoBehaviour
 {
-    public bool[] QuestActive = new bool[12];//이건 나중에 메인에서 켜기
+    public static bool[] QuestActive = new bool[12];//이건 나중에 메인에서 켜기
     GameObject gridObj;
     int Count;
     int questIndex;

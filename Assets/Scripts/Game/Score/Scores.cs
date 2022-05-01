@@ -93,5 +93,6 @@ public class Scores : MonoBehaviour
     {
         GameManager.Money += currentScores_;
         GameManager.ShinMoney += currentShinScores_;
+        GameManager.QuestActive = QuestController.QuestActive;
     }
 }
