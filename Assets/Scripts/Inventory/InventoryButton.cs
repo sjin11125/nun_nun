@@ -42,8 +42,9 @@ public class InventoryButton : MonoBehaviour
             nunis= GameObject.Find("nunis");
             for (int i = 0; i < GameManager.CharacterList.Count; i++)
             {
-                if (this.gameObject.name == GameManager.CharacterList[i].cardName)
+                if (this.gameObject.name == GameManager.CharacterList[i].cardName+"(Clone)")
                 {
+                    Debug.Log("this Nuni");
                     this_nuni = GameManager.CharacterList[i];
                     gridBuildingSystem = gameObject.transform.parent.parent.GetComponent<GridBuildingSystem>();
                 }
@@ -61,7 +62,7 @@ public class InventoryButton : MonoBehaviour
     {
         if (this_nuni.isLock=="T")      //누니가 배치된 상태
         {
-            this_building.isLock = "F";         //배치 안된 상태로 바꾸기
+            this_nuni.isLock = "F";         //배치 안된 상태로 바꾸기
             Transform[] nuni_child = nunis.GetComponentsInChildren<Transform>();
 
             for (int i = 0; i < nuni_child.Length; i++)                     //누니 목록에서 해당 누니 찾아서 없애기
