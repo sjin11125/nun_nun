@@ -28,9 +28,10 @@ public class GridBuildingSystem : MonoBehaviour
 
     public GameObject UpgradePannel;
     GameObject Grid;
-    Button StartButton;
+    public Button StartButton;
 
-    public UIAniManager UI_Manager;    
+    public UIAniManager UI_Manager;
+    public GameObject buildings;
     //추가 1110
 
         //------------------------세이브 관련 변수들--------------------------------------
@@ -66,8 +67,8 @@ public class GridBuildingSystem : MonoBehaviour
         }
 
         Grid = GameObject.Find("back_down");
-        if (SceneManager.GetActiveScene().name=="Main")
-        StartButton = GameObject.Find("Start").GetComponent<Button>();
+       // if (SceneManager.GetActiveScene().name=="Main")
+       // StartButton = GameObject.Find("Start").GetComponent<Button>();
 
     }
     public void Inven_Move(Transform hit)
@@ -203,10 +204,10 @@ public class GridBuildingSystem : MonoBehaviour
                                 {
                                     //temp.level += 1;        //레벨 +1
                                     temp.Place(temp.Type);
-                                    //UI_Manager.Start();
+                                    UI_Manager.Start();
 
                                     Grid.GetComponent<SpriteRenderer>().sortingOrder = -48;
-                                    //StartButton.enabled = true;
+                                    StartButton.enabled = true;
                                     temp = null;
                                 }
                                 // button.buttonok();
@@ -368,8 +369,9 @@ public class GridBuildingSystem : MonoBehaviour
 
    public void InitializeWithBuilding() //생성버튼 눌렀을 때 building 을 prefab으로 해서 생성
    {
-        GameObject temp_gameObject = Instantiate(GameManager.CurrentBuilding, Vector3.zero, Quaternion.identity) as GameObject;
-       temp = temp_gameObject.GetComponent<Building>(); // 이때 building 프리펩의 속성 불러오기
+        GameObject temp_gameObject = Instantiate(GameManager.CurrentBuilding, Vector3.zero, Quaternion.identity,buildings.transform) as GameObject;
+      
+        temp = temp_gameObject.GetComponent<Building>(); // 이때 building 프리펩의 속성 불러오기
         Debug.Log("uuuuuuuuu"+ GameManager.BuildingArray.Length);
         for (int i = 0; i < GameManager.BuildingArray.Length; i++)
         {

@@ -30,7 +30,7 @@ public class BuildingSave : MonoBehaviour
         form.AddField("order", "updateValue");
         Debug.Log("building_image"+update_building.Building_Image);
         form.AddField("building_image", update_building.Building_Image);
-        form.AddField("player_nickname", GameManager.NickName  );
+        form.AddField("player_nickname", GameManager.NickName);
         form.AddField("buildingPosiiton_x", update_building.BuildingPosition.x.ToString());
         form.AddField("buildingPosiiton_y", update_building.BuildingPosition.y.ToString());
         form.AddField("isLock", update_building.isLock);
@@ -47,6 +47,7 @@ public class BuildingSave : MonoBehaviour
         Building buildings = GetComponent<Building>();
         Debug.Log("건물저장");
         form.AddField("order", "addValue");
+        form.AddField("player_nickname", GameManager.NickName);
         form.AddField("building_image", buildings.Building_Image);
         form.AddField("buildingPosiiton_x", buildings.BuildingPosition.x.ToString());
         form.AddField("buildingPosiiton_y", buildings.BuildingPosition.y.ToString());

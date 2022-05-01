@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class QuestController : MonoBehaviour
 {
-    public bool[] QuestActive = new bool[12];//이건 나중에 메인에서 켜기
+    public static bool[] QuestActive = new bool[12];//이건 나중에 메인에서 켜기
     GameObject gridObj;
     int Count;
     int questIndex;
@@ -18,6 +18,8 @@ public class QuestController : MonoBehaviour
         Count = 0;
         timerBar = gameObject.transform.GetChild(3).gameObject.GetComponent<Image>();
         questIndex = -1;
+        //questIndex = GameManager.QuestColor;                //퀘스트 깨는 블럭
+        //QuestActive = GameManager.QuestActive;                  //현재까지 깬 블럭들 (게임 나갓다 들어와도 계속 이어지게) 
         for (int i = 0; i < QuestActive.Length; i++)
         {
             if (QuestActive[i] == true)//현재 트루인 퀘스트의 인덱스 저장

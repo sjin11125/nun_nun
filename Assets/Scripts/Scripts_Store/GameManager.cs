@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     public static Dictionary<string, int> BuildingNumber;            //건물이 종류별로 몇개 있는지(건물번호)
 
     public static bool isEdit = false;
+    public static Button InvenButton;
     //----------------------------------------------------이까지 건물----------------------------------------------------
 
 
@@ -65,7 +66,7 @@ public class GameManager : MonoBehaviour
 
     public static FriendInfo[] Friends;       //친구 목록(닉네임)
 
-    public static string URL = "https://script.google.com/macros/s/AKfycbwJ5b40s8FyFLeTM97_jj0DSm7RYJc9UEgvkTJWh86kxvjpzQkcDxFqyYaxl12elK55/exec";
+    public static string URL = "https://script.google.com/macros/s/AKfycbzfVZroAqIv4t6fLITKFYAqHNK3nP5Y_jLto__m6O2YwePXhZe9r0lHQSjiCeTLYeXs/exec";
     //----------------------------------------------------------------------------------------------
 
 
@@ -89,6 +90,9 @@ public class GameManager : MonoBehaviour
    public static QuestInfo[] Quest;                 //퀘스트 목록
     public static QuestInfo[] QuestProgress;        //퀘스트 진행상황
     public static bool isReset;             //퀘스트 초기화 햇니?
+
+    public static bool[] QuestActive;                 //블록 얼마 깻는지 확인
+    public static int QuestColor = 0;                   //뭔 블록 깨야하는지    
     void Start()
     {
         BuildingList = new List<Building>();            //현재 가지고 있는 빌딩 리스트

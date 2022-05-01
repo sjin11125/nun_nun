@@ -42,7 +42,7 @@ public class NuniManager : MonoBehaviour                    //게임 시작하고 구글
         }
 
     }
-    void Response_Nuni(string json)                          //퀘스트 진행상황 불러오기
+    void Response_Nuni(string json)                          
     {
         //List<QuestInfo> Questlist = new List<QuestInfo>();
         Debug.Log(json);
@@ -55,8 +55,10 @@ public class NuniManager : MonoBehaviour                    //게임 시작하고 구글
             Debug.Log(json);
             return;
         }
-
-        string[] Nunis =  json.Split(',');//게임매니저에 있는 모든 누니배열에서 해당 누니 찾아서 가지고 있는 누니 배열에 넣기
+        
+        string[] Nunis = json.Split(',');//게임매니저에 있는 모든 누니배열에서 해당 누니 찾아서 가지고 있는 누니 배열에 넣기
+        Debug.Log(Nunis.Length);
+        
         for (int j = 0; j < Nunis.Length; j++)
         {
             for (int i = 0; i < GameManager.AllNuniArray.Length; i++)
