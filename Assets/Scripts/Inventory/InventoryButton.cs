@@ -8,28 +8,47 @@ public class InventoryButton : MonoBehaviour
     public Button X_Image;     //건물 회수 버튼
 
     Building this_building;         //이 버튼에 해당하는 건물
+    Card this_nuni;         //이 버튼에 해당하는 건물
     GridBuildingSystem gridBuildingSystem;
 
     public GameObject buildings;
+    public GameObject nunis;
     void Start()
     {
-        buildings = GameObject.Find("buildings");
-        for (int i = 0; i < GameManager.BuildingList.Count; i++)
+        if (gameObject.tag=="Inven_Building")
         {
-            if (this.gameObject.name== GameManager.BuildingList[i].Building_name)
+            buildings = GameObject.Find("buildings");
+            for (int i = 0; i < GameManager.BuildingList.Count; i++)
             {
-                this_building = GameManager.BuildingList[i];
-                gridBuildingSystem=gameObject.transform.parent.parent.GetComponent<GridBuildingSystem>();
+                if (this.gameObject.name == GameManager.BuildingList[i].Building_name)
+                {
+                    this_building = GameManager.BuildingList[i];
+                    gridBuildingSystem = gameObject.transform.parent.parent.GetComponent<GridBuildingSystem>();
+                }
             }
+            Debug.Log(this_building.isLock);
+            if (this_building.isLock == "F")
+            {
+                X_Image.gameObject.SetActive(false);
+            }
+            else
+            {
+                X_Image.gameObject.SetActive(true);
+            }
+
         }
-        Debug.Log(this_building.isLock);
-        if (this_building.isLock=="F")
+        else if(gameObject.tag == "Inven_Nuni")
         {
-            X_Image.gameObject.SetActive(false);
-        }
-        else
-        {
-            X_Image.gameObject.SetActive(true);
+            nunis= GameObject.Find("nunis");
+            for (int i = 0; i < GameManager.CharacterList.Count; i++)
+            {
+                if (this.gameObject.name == GameManager.CharacterList[i].cardName+"(Clone)")
+                {
+                    Debug.Log("this Nuni");
+                    this_nuni = GameManager.CharacterList[i];
+                    gridBuildingSystem = gameObject.transform.parent.parent.GetComponent<GridBuildingSystem>();
+                }
+            }
         }
 
     }
@@ -38,6 +57,41 @@ public class InventoryButton : MonoBehaviour
     void Update()
     {
         
+    }
+    public void nuni_Click()
+    {
+        if (this_nuni.isLock=="T")      //누니가 배치된 상태
+        {
+            this_nuni.isLock = "F";         //배치 안된 상태로 바꾸기
+            Transform[] nuni_child = nunis.GetComponentsInChildren<Transform>();
+
+            for (int i = 0; i < nuni_child.Length; i++)                     //누니 목록에서 해당 누니 찾아서 없애기
+            {
+                if (nuni_child[i].gameObject.name == GameManager.CurrentBuilding.name)
+                {
+                    Card nuni_childs = nuni_child[i].gameObject.GetComponent<Card>();
+                    Destroy(nuni_child[i]);
+                }
+            }
+
+
+        }
+        else                                    //누니가 배치 안된 상태
+        {
+            this_building.isLock = "F";         //배치 된 상태로 바꾸기
+
+            for (int i = 0; i < GameManager.CharacterList.Count; i++)           //Instatntiate 해주기
+            {
+                if (this_nuni.cardName== GameManager.CharacterList[i].cardName)
+                {
+                    Instantiate(GameManager.CharacterPrefab[this_nuni.cardImage], nunis.transform);
+                }
+
+                
+            }
+
+
+        }
     }
     public void Click()         //버튼 클릭했을 때
     {
