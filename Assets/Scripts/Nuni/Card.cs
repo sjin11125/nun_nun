@@ -9,7 +9,7 @@ public class Card : MonoBehaviour
     public string cardImage;
     public int Cost;
     public int Item;        //무슨 아이템인지(0~4)
-    public string isLock;
+    public string isLock;       //배치되어있느냐
     public string Level;        //레벨
     public string Star;     //별
     public string Gauge;        //게이지
