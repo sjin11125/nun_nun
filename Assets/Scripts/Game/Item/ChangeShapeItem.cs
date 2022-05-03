@@ -15,6 +15,7 @@ public class ChangeShapeItem : MonoBehaviour
     GameObject rainbowObj;
     public int ItemTurn;
     public Text number;
+    bool colorItemAc;
 
     void Start()
     {
@@ -35,6 +36,7 @@ public class ChangeShapeItem : MonoBehaviour
         if (GetRainbow != null)
         {
             rainbowObj = GetRainbow.transform.GetChild(4).gameObject;//레인보우 아이템 오브젝트를 받아
+            colorItemAc = GetRainbow.transform.GetComponent<ItemController>().mainItemBool[6];
         }
     }
 
@@ -109,7 +111,7 @@ public class ChangeShapeItem : MonoBehaviour
                         GameObject.FindGameObjectWithTag("Grid").GetComponent<GridScript>().CheckIfKeepLineIsCompleted();
                         squareObj = null;
                         changeActive = false;
-                        if (rainbowObj != null)
+                        if (colorItemAc)
                         {
                             rainbowObj.SetActive(true);
                         }
@@ -120,7 +122,7 @@ public class ChangeShapeItem : MonoBehaviour
                         myChlid[1].SetActive(false);
                         changeActive = true;
                         //얘를 사용누르면 컬러아이템은 꺼져야됨
-                        if (rainbowObj != null)
+                        if (colorItemAc)
                         {
                             rainbowObj.SetActive(false);
                         }

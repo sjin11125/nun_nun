@@ -15,6 +15,7 @@ public class RainbowItem : MonoBehaviour
     GameObject ChangeShapeObj;
     public int ItemTurn;
     public Text number;
+    bool shapeItemAc;
 
     void Start()
     {
@@ -31,10 +32,11 @@ public class RainbowItem : MonoBehaviour
         myChlid[0].transform.GetChild(1).transform.gameObject.SetActive(false);
         myChlid[0].SetActive(false);
 
-        GameObject GetRainbow = GameObject.FindGameObjectWithTag("ItemController");//컨트롤러 다섯번째 자식인
+        GameObject GetRainbow = GameObject.FindGameObjectWithTag("ItemController");
         if (GetRainbow != null)
         {
-            ChangeShapeObj = GetRainbow.transform.GetChild(5).gameObject;//레인보우 아이템 오브젝트를 받아
+            ChangeShapeObj = GetRainbow.transform.GetChild(5).gameObject;
+            shapeItemAc = GetRainbow.transform.GetComponent<ItemController>().mainItemBool[7];
         }
     }
 
@@ -109,7 +111,7 @@ public class RainbowItem : MonoBehaviour
                         GameObject.FindGameObjectWithTag("Grid").GetComponent<GridScript>().CheckIfKeepLineIsCompleted();
                         squareColorObj = null;
                         rainbowActive = false;
-                        if (ChangeShapeObj != null)
+                        if (shapeItemAc)//이게 아니라 아이템 컨트롤러에서 트루면
                         {
                             ChangeShapeObj.SetActive(true);
                         }
@@ -120,7 +122,7 @@ public class RainbowItem : MonoBehaviour
                         myChlid[1].SetActive(false);
                         rainbowActive = true;
                         //얘를 사용누르면 쉐이프아이템은 꺼져야됨
-                        if (ChangeShapeObj != null)
+                        if (shapeItemAc)
                         {
                             ChangeShapeObj.SetActive(false);
                         }
