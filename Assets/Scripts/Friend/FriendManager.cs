@@ -83,8 +83,17 @@ public class FriendManager : MonoBehaviour
             GameObject friendprefab = Instantiate(FriendPrefab, Content.transform) as GameObject;  //模备 橇府普 积己
             Transform friendPrefabChilds = friendprefab.GetComponent<Transform>();
             friendPrefabChilds.name = GameManager.Friends[i].f_nickname;
+            string[] friendRequest = GameManager.Friends[i].f_nickname.Split(':');
+            if (friendRequest[1]=="no")     //酒流 夸没 给 罐疽唱
+            {
+                Button[] friendButton= friendprefab.GetComponentsInChildren<Button>();
+                friendButton[1].GetComponent<Button>().interactable = false;
+                friendButton[1].GetComponentInChildren<Text>().text = "夸没凳";
+
+            }
+           
             Text[] friendButtonText = friendprefab.GetComponentsInChildren<Text>();
-            friendButtonText[0].text = GameManager.Friends[i].f_nickname;
+            friendButtonText[0].text = friendRequest[0];
             friendButtonText[1].text = GameManager.Friends[i].f_info;
         }
         
