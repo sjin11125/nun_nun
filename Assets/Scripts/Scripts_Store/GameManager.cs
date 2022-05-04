@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour
 
     public static FriendInfo[] Friends;       //친구 목록(닉네임)
 
-    public static string URL = "https://script.google.com/macros/s/AKfycbzIIcubQsqzF2j8W8fs1eH5PVDdNkEfvD2-NY4nX8YAc6QlVFGNceGpr1b-ueELNLpj/exec";
+    public static string URL = "https://script.google.com/macros/s/AKfycbxCjFJ6zuIT3kIs6rHt1ij28Ssqi6tsCeAQu4aWoY48zz4_tP-u8Lb4Xwj28uhCZpKC/exec";
     //----------------------------------------------------------------------------------------------
 
 
@@ -158,6 +158,8 @@ public class GameManager : MonoBehaviour
         // Friends=new string[1] {"Vicky"};            //일단 친구는 비키만 있는걸로
         //친구 목록 불러오기
         //GetComponent<BuildingSave>().GetFriendLsit();           //친구 목록 불러오기
+
+        //GameLoad();
     }
     private void Awake()
     {
@@ -193,7 +195,27 @@ public class GameManager : MonoBehaviour
 
     }
     public static Sprite GetCharacterImage(string ImageName)
-    {       
+    {
+        
         return GameManager.CharacterImageData[ImageName.Trim()];
+    }
+
+    /*public void GameSave()
+    {
+        PlayerPrefs.SetInt("Money", Money);//돈
+        PlayerPrefs.SetInt("ShinMoney", ShinMoney);//돈
+        PlayerPrefs.Save();
+        print("save");
+    }*/
+    public void GameLoad()
+    {
+        ShinMoney = 10000;
+        print("load");
+    }
+    public void GameExit()
+    {
+        //GameSave();
+        print("exit");
+        Application.Quit();
     }
 }
