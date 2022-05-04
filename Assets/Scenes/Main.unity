@@ -1330,6 +1330,10 @@ PrefabInstance:
       propertyPath: StartButton
       value: 
       objectReference: {fileID: 869296630}
+    - target: {fileID: 1035652537, guid: 5dea2f5e904f37c439bf4db567b9e457, type: 3}
+      propertyPath: VisitorBooksWindow
+      value: 
+      objectReference: {fileID: 793315097}
     - target: {fileID: 332196644802638887, guid: 5dea2f5e904f37c439bf4db567b9e457, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -4607,6 +4611,7 @@ GameObject:
   - component: {fileID: 793315098}
   - component: {fileID: 793315100}
   - component: {fileID: 793315099}
+  - component: {fileID: 793315101}
   m_Layer: 5
   m_Name: VisitorBookWindow
   m_TagString: Untagged
@@ -4676,6 +4681,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 793315097}
   m_CullTransparentMesh: 1
+--- !u!114 &793315101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 793315097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74441f5cb55b8884398d6d6ad30b30d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &831746242
 GameObject:
   m_ObjectHideFlags: 0
@@ -5233,6 +5250,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 884970883}
+  - component: {fileID: 884970884}
   m_Layer: 5
   m_Name: UI_Btn_Panel
   m_TagString: Untagged
@@ -5270,6 +5288,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 900, y: 1950}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &884970884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 884970882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74441f5cb55b8884398d6d6ad30b30d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &887828200
 GameObject:
   m_ObjectHideFlags: 0

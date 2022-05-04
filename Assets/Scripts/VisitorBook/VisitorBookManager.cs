@@ -35,7 +35,12 @@ public class VisitorBookManager : MonoBehaviour
     // Start is called before the first frame update
      public void VisitorBookList()  //방명록 불러옴
     {
-
+        WWWForm form = new WWWForm();
+        form.AddField("order", "enrollMessage");
+        form.AddField("player_nickname", GameManager.NickName);
+        form.AddField("friend_nickname", GameManager.friend_nickname);
+        form.AddField("message", VBInput.text);
+        StartCoroutine(Post(form));
     }
 
     public void VisitorBookWrite()          //방명록 쓰기        (보내기 버튼에 넣기)
