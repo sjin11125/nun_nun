@@ -3714,7 +3714,6 @@ GameObject:
   - component: {fileID: 696986597}
   - component: {fileID: 696986596}
   - component: {fileID: 696986595}
-  - component: {fileID: 696986598}
   m_Layer: 5
   m_Name: FriendSearch
   m_TagString: Untagged
@@ -3848,22 +3847,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 696986593}
   m_CullTransparentMesh: 1
---- !u!114 &696986598
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 696986593}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b410142a29911a4bacffedfcf01f18f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FriendNickname: {fileID: 1431154722}
-  SearchFriendPrefab: {fileID: 6313625040792332860, guid: 79e87816a89486c46bd2db4282ea451a, type: 3}
-  SearchFriendContents: {fileID: 1324560442}
-  F_nickname: {fileID: 0}
 --- !u!1 &721536679 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5156895230881517194, guid: 5dea2f5e904f37c439bf4db567b9e457, type: 3}
@@ -5319,7 +5302,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FriendNickname: {fileID: 1431154722}
-  SearchFriendPrefab: {fileID: 6313625040792332860, guid: 79e87816a89486c46bd2db4282ea451a, type: 3}
+  SearchFriendPrefab: {fileID: 6313625040792332860, guid: 3398d30712c5f0b4ea1b4198a37ee8c3, type: 3}
   SearchFriendContents: {fileID: 1324560442}
   F_nickname: {fileID: 0}
 --- !u!1 &1016033246
@@ -10272,6 +10255,7 @@ GameObject:
   - component: {fileID: 1784846719}
   - component: {fileID: 1784846718}
   - component: {fileID: 1784846717}
+  - component: {fileID: 1784846720}
   m_Layer: 5
   m_Name: FriendRequest
   m_TagString: Untagged
@@ -10367,6 +10351,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 1
+      - m_Target: {fileID: 1784846720}
+        m_TargetAssemblyTypeName: FriendButton, Assembly-CSharp
+        m_MethodName: RequireFriend
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1784846718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10405,6 +10401,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1784846715}
   m_CullTransparentMesh: 1
+--- !u!114 &1784846720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1784846715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b410142a29911a4bacffedfcf01f18f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FriendNickname: {fileID: 1431154722}
+  SearchFriendPrefab: {fileID: 6313625040792332860, guid: 79e87816a89486c46bd2db4282ea451a, type: 3}
+  SearchFriendContents: {fileID: 1324560442}
+  F_nickname: {fileID: 0}
 --- !u!1 &1787376036
 GameObject:
   m_ObjectHideFlags: 0

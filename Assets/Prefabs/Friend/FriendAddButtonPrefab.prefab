@@ -245,8 +245,6 @@ GameObject:
   - component: {fileID: 1616570658433222673}
   - component: {fileID: 1616570658433222672}
   - component: {fileID: 1616570658433222679}
-  - component: {fileID: 1616570658433222674}
-  - component: {fileID: 5836303692395701209}
   - component: {fileID: 2082453217509660673}
   m_Layer: 5
   m_Name: PlusButton
@@ -359,7 +357,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2082453217509660673}
         m_TargetAssemblyTypeName: FriendButton, Assembly-CSharp
-        m_MethodName: EnrollFriend
+        m_MethodName: AddFriend
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -369,62 +367,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &1616570658433222674
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1616570658433222677}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8afe11d9dd10e54f830d20bf9ca765c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ChaPanel2: {fileID: 0}
-  LockPanel: {fileID: 0}
-  Check: {fileID: 0}
-  ItemImages: []
-  isCheck: 0
-  ButtonText: {fileID: 0}
-  DowngradeBuilding: {fileID: 0}
-  isUpgrade: 0
-  NuniInfoPannel: {fileID: 0}
-  WindowClose: {fileID: 0}
-  NuniUpgradeButton: {fileID: 0}
---- !u!114 &5836303692395701209
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1616570658433222677}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a11ed494d8df73549b2ad882df51f11e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GD:
-    order: 
-    result: 
-    msg: 
-    row_size: 
-    length: 
-    BuildingPosition_x: 
-    BuildingPosition_y: 
-    isLock: 
-    Building_name: 
-    Reward: 
-    Info: 
-    Building_Image: 
-    Cost: 
-    Level: 
-    Tree: 
-    Ice: 
-    Grass: 
-    Snow: 
-    isFlied: 
-  isMe: 0
 --- !u!114 &2082453217509660673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -455,7 +397,7 @@ GameObject:
   - component: {fileID: 6313625040792332850}
   - component: {fileID: 1616570657743211845}
   m_Layer: 5
-  m_Name: FriendSearchButtonPrefab
+  m_Name: FriendAddButtonPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -569,18 +511,6 @@ MonoBehaviour:
       - m_Target: {fileID: 1616570657743211845}
         m_TargetAssemblyTypeName: 
         m_MethodName: LockChaButtonClick2
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: InitializeWithBuilding
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
