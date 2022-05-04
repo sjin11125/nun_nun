@@ -609,7 +609,12 @@ public class GridScript : MonoBehaviour
                 {                    
                     KeepColor = colors[keepSquareIndex];//킵 아이템 자리에 정보를 저장해놓는다
                     KeepShape = shapes[keepSquareIndex];
-                    
+
+                    Invoke("OnInvoke", 0.1f);
+                    comp.activeImage.gameObject.SetActive(false);
+                    comp.NonKeep();
+                    usekeeptrue = false;
+                    /*
                     GameObject keepInstance = Instantiate(KeepShapeObj) as GameObject;
                     keepInstance.transform.SetParent(gameObject.transform, false);
                     Vector3 pos = new Vector3(-377f, -660.5f, 0);
@@ -617,6 +622,7 @@ public class GridScript : MonoBehaviour
                     comp.activeImage.gameObject.SetActive(false);
                     comp.NonKeep();
                     usekeeptrue = false;
+                    */
                 }
             }
             else//KeepItemTurn이 1,2,3...일때
@@ -629,6 +635,19 @@ public class GridScript : MonoBehaviour
                     .GetChild(0).gameObject.GetComponent<Text>().text = KeepItemTurn.ToString();
             }                     
         }
+    }
+
+    void OnInvoke()
+    {
+        GameObject keepInstance = Instantiate(KeepShapeObj) as GameObject;
+        keepInstance.transform.SetParent(gameObject.transform, false);
+        Vector3 pos = new Vector3(-377f, -660.5f, 0);
+        keepInstance.transform.localPosition = pos;
+    }
+
+    void trashInvoke()
+    {
+        TrashItemTurn = 30;
     }
 
     void UseTrashCan()
@@ -650,7 +669,8 @@ public class GridScript : MonoBehaviour
                .GetChild(0).gameObject.SetActive(false);
                 if (usetrashtrue)
                 {
-                    TrashItemTurn = 30;
+                    //TrashItemTurn = 30;
+                    Invoke("trashInvoke", 0.1f);
                     comp.activeImage.gameObject.SetActive(false);
                 }
             }
