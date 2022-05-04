@@ -208,9 +208,9 @@ public class GridSquare : MonoBehaviour
         }
         
         GameObject GridObj = GameObject.FindGameObjectWithTag("Grid");
-        if (GridObj != null && UseKeepBool == true)//킵쉐이프 사용 시
+        if (GridObj != null && UseKeepBool == true)
         {
-            keepCurrentColor = GridObj.GetComponent<GridScript>().KeepColor;//나갈때확인해서 keep을 사용했던거라면
+            keepCurrentColor = GridObj.GetComponent<GridScript>().KeepColor;//나갈때확인해서 keep을 사용했던거라면 
             currentShape = GridObj.GetComponent<GridScript>().KeepShape;
         }
     }
@@ -224,6 +224,7 @@ public class GridSquare : MonoBehaviour
 
         Selected = true; //선택됨
         SquareOccupied = true; //사용중
-        gameObject.transform.GetChild(2).gameObject.GetComponent<Image>().sprite = keepImage;        
+        gameObject.transform.GetChild(2).gameObject.GetComponent<Image>().sprite = keepImage;
+        
     }
 }
