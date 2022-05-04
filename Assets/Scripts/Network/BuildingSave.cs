@@ -79,6 +79,7 @@ public class BuildingSave : MonoBehaviour
     public void FriendBuildindLoad()
     {
         string FriendNickname=gameObject.transform.parent.name;
+        GameManager.friend_nickname = FriendNickname;           
         WWWForm form1 = new WWWForm();
         isMe = false;                   //친구 건물 불러올거지롱 메롱
         form1.AddField("order", "getFriendBuilding");
