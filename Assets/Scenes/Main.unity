@@ -16637,6 +16637,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1607583776787884676}
     m_Modifications:
+    - target: {fileID: 7134050899841436634, guid: f1a666d8098f0ec4a93ae2fcf8ef806f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 8452822829016183413}
+    - target: {fileID: 7134050899841436634, guid: f1a666d8098f0ec4a93ae2fcf8ef806f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: GameExit
+      objectReference: {fileID: 0}
+    - target: {fileID: 7134050899841436634, guid: f1a666d8098f0ec4a93ae2fcf8ef806f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameExitController, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 7134050899841436638, guid: f1a666d8098f0ec4a93ae2fcf8ef806f, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -16727,6 +16739,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1a666d8098f0ec4a93ae2fcf8ef806f, type: 3}
+--- !u!1 &8452822829016183412 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7134050899841436639, guid: f1a666d8098f0ec4a93ae2fcf8ef806f, type: 3}
+  m_PrefabInstance: {fileID: 8452822829016183411}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8452822829016183413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8452822829016183412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 010c2aa75dc48ea4198794762b45b1a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8697602170233214124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17530,7 +17559,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5b36194aa5e14456f9ccf3323f15a32d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 16f91cf3fb2cb482d847afe440ca0d55, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -17857,7 +17886,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fa4f61c3330b447e2a76c59164fda27e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4663d28309109446788af134ecaf938e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
