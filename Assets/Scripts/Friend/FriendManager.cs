@@ -84,7 +84,7 @@ public class FriendManager : MonoBehaviour
             Transform friendPrefabChilds = friendprefab.GetComponent<Transform>();
             friendPrefabChilds.name = GameManager.Friends[i].f_nickname;
             string[] friendRequest = GameManager.Friends[i].f_nickname.Split(':');
-            if (friendRequest[1]=="no")     //아직 요청 못 받았나
+            if (friendRequest.Length>1)     //아직 요청 못 받았나
             {
                 Button[] friendButton= friendprefab.GetComponentsInChildren<Button>();
                 friendButton[1].GetComponent<Button>().interactable = false;
