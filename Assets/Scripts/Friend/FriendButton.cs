@@ -131,11 +131,52 @@ public class FriendButton : MonoBehaviour
         }
 
     }
-    void RequireResponse(string json)
+    void RequireResponse(string json)                   //요청한 친구 목록 뜨게
     {
         Debug.Log(json);
-      
+        Newtonsoft.Json.Linq.JArray j = Newtonsoft.Json.Linq.JArray.Parse(json);
+        FriendInfo[] friendInfos = new FriendInfo[j.Count];
+        for (int i = 0; i < j.Count; i++)
+        {
+            friendInfos[i] = JsonUtility.FromJson<FriendInfo>(j[i].ToString());
+            Debug.Log(friendInfos[i].f_nickname);
+        }
+
+        RequestFriendsList(friendInfos);              //요청한 친구 목록 세팅
     }
+    public void RequestFriendsList(FriendInfo[] friendInfos)
+    {
+        for (int i = 0; i < friendInfos.Length; i++)
+        {
+            GameObject Search =  Instantiate(SearchFriendPrefab, SearchFriendContents.transform) as GameObject;  //친구 프리팹 생성
+            //GameObject Search = friendprefab.GetComponent<Transform>();
+            Search.name= friendInfos[i].f_nickname;
 
+            Text[] SearchText=Search.GetComponentsInChildren<Text>();
 
+            SearchText[0].text = friendInfos[i].f_nickname;
+            SearchText[1].text = friendInfos[i].f_info;
+        }
+    }
+    public void AddFriend()         //요청한 친구 수락 버튼 누르기
+    {
+        
+        WWWForm form1 = new WWWForm();
+        form1.AddField("order", "addFriend");
+        form1.AddField("player_nickname", GameManager.NickName);
+        form1.AddField("friend_nickname", gameObject.transform.parent.name);
+
+        StartCoroutine(AddPost(form1));
+
+    }
+    IEnumerator AddPost(WWWForm form)               //요청 받은 친구 받아주기
+    {
+        Debug.Log("RequirePost");
+        using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // 반드시 using을 써야한다
+        {
+            yield return www.SendWebRequest();
+            //Debug.Log(www.downloadHandler.text);
+        }
+
+    }
 }
