@@ -27,7 +27,7 @@ public class ItemController : MonoBehaviour
             eraserItem.SetActive(false);
         }
 
-        if (mainItemBool[1] == true)
+        if (mainItemBool[1] == false)//¹Ù²Ù»ï
         {
             keepItemIndex = 25;
             keepshdow.SetActive(true);
@@ -37,7 +37,7 @@ public class ItemController : MonoBehaviour
             keepItemIndex = 30;
         }
 
-        if (mainItemBool[2] == true)
+        if (mainItemBool[2] == false)//¹Ù²Ù»ï
         {
             trashCanItemIndex = 29;
             trashshdow.SetActive(true);
