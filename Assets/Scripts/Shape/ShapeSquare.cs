@@ -12,7 +12,7 @@ public class ShapeSquare : MonoBehaviour
 
     public void SetOccupied()
     {
-        gameObject.GetComponent<Image>().color = new Color(255/255, 61/255, 61/255);
+        gameObject.GetComponent<Image>().color = new Color(255 / 255f, 146 / 255f, 146 / 255f);
     }
 
     public void UnSetOccupied()
