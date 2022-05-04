@@ -75,6 +75,7 @@ public class CreateKeepShape : MonoBehaviour, IPointerDownHandler,IBeginDragHand
     }
     public void OnPointerDown(PointerEventData eventData)
     {
+
     }
     public void OnDrop(PointerEventData eventData)
     {
