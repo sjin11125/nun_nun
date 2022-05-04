@@ -4103,7 +4103,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1031511916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4117,7 +4117,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Money: {fileID: 2090181323}
-  ShinMoney: {fileID: 0}
+  Tree: {fileID: 2135801001}
+  Snow: {fileID: 576341385}
+  Ice: {fileID: 1382709807}
+  Grass: {fileID: 2055531127}
+  Gem: {fileID: 1012459540}
 --- !u!4 &1031511917
 Transform:
   m_ObjectHideFlags: 0
@@ -7370,8 +7374,11 @@ MonoBehaviour:
     Info: 
     Building_Image: 
     Cost: 0
-    ShinCost: 
     Level: 1
+    Tree: 0
+    Ice: 0
+    Grass: 0
+    Snow: 0
     isFlied: 
   isMe: 0
 --- !u!1 &1815255842
@@ -8931,8 +8938,11 @@ MonoBehaviour:
     Info: 
     Building_Image: 
     Cost: 
-    ShinCost: 
     Level: 
+    Tree: 
+    Ice: 
+    Grass: 
+    Snow: 
     isFlied: 
   isMe: 0
 --- !u!1 &2039130015
@@ -9209,7 +9219,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildings: {fileID: 721536679}
-  nunis: {fileID: 0}
 --- !u!4 &2084656256
 Transform:
   m_ObjectHideFlags: 0
@@ -9465,7 +9474,6 @@ MonoBehaviour:
     f_nickname: 
     f_info: 
     f_id: 
-    f_image: 
   FriendPrefab: {fileID: 2015713149072679585, guid: 16a4f98088a6e3349a2e1aabf45aed69, type: 3}
 --- !u!1001 &2133262822
 PrefabInstance:
