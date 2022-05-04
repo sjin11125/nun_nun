@@ -42,7 +42,7 @@ public class FriendManager : MonoBehaviour
         WWWForm form = new WWWForm();
         form.AddField("order", "getFriend");
         form.AddField("id", "1234");
-        form.AddField("nickname", "1234");
+        form.AddField("player_nickname", GameManager.NickName);
         form.AddField("info", "1234");
         StartCoroutine(Post(form));
     }

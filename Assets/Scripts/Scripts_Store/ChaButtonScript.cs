@@ -321,10 +321,14 @@ public class ChaButtonScript : MonoBehaviour
                 c.Building_Image = buildingname;
                 c = b.GetComponent<Building>().DeepCopy();
                 c.SetValue(b);
-                
-                for (int i = 5; i < Window.Length - 1; i++)
+
+                Transform Windows = gameObject.transform.parent.parent;
+
+                Transform[] WindowChilds = Windows.GetComponentsInChildren<Transform>();
+
+                for (int i = 1; i < WindowChilds.Length; i++)
                 {
-                    Destroy(Window[i].gameObject);
+                    Destroy(WindowChilds[i].gameObject);
                 }
                 parent.gameObject.SetActive(false);
                 isEdit = true;

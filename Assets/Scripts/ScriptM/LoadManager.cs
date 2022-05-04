@@ -10,6 +10,7 @@ public class LoadManager : MonoBehaviour
     public static bool isLoad = false;
 
     public GameObject buildings;
+    public GameObject nunis;
     //public GameObject 
     Component CopyComponent(Component original, GameObject destination)
     {
@@ -112,7 +113,7 @@ public class LoadManager : MonoBehaviour
                     Card c = GameManager.CharacterList[i];
                     Debug.Log(c.cardImage);
 
-                    Instantiate(GameManager.CharacterPrefab[c.cardImage]);
+                    Instantiate(GameManager.CharacterPrefab[c.cardImage],nunis.transform);
                 }
 
             }
