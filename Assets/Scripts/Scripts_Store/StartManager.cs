@@ -88,8 +88,11 @@ public class StartManager : MonoBehaviour
 
                     NuNiInformation[j].SetChaImage(GameManager.GetCharacterImage(ChaName));
                     Debug.Log(NuNiInformation[j].Item);
+                    if (NuNiInformation[j].Item!=99)
+                    {
+                        image[1].sprite = ItemImages[NuNiInformation[j].Item];//NuNiInformation[j].GetChaImange();   //캐릭터 이름 값 받아와서 이미지 찾기
 
-                    image[1].sprite = ItemImages[NuNiInformation[j].Item];//NuNiInformation[j].GetChaImange();   //캐릭터 이름 값 받아와서 이미지 찾기
+                    }
 
                 }
 
