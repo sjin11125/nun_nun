@@ -303,9 +303,26 @@ public class GridBuildingSystem : MonoBehaviour
                 }
             }
         }
-        
+        else if (Input.GetMouseButton(0) && SceneManager.GetActiveScene().name == "FriendMain")         //친구 씬에서 방명록킬때
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
+            Debug.Log("isMoveLock: " + GameManager.isMoveLock);
 
-        if (second >= 2.0f)
+
+
+            if (hit.transform != null)          // 오브젝트를 클릭 했을 때
+            {
+                if (hit.transform.tag == "VisitorBook")
+                {
+                    VisitorBooksWindow.gameObject.SetActive(true);
+                }
+
+            }
+        }
+
+
+            if (second >= 2.0f)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
