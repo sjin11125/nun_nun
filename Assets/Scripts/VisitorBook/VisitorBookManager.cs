@@ -25,22 +25,22 @@ public class VisitorBookManager : MonoBehaviour
 
     public GameObject VBPrefab;             //방명록 목록 프리팹
 
-    public InputField VBInput;          
+    public InputField VBInput;
 
     public void VBWindowOpen()              //방명록 창 오픈했을 때
     {
-        VBWindow.SetActive(true);           
+        VBWindow.SetActive(true);
         VisitorBookList();              //방명록 있나 확인
     }
     // Start is called before the first frame update
-     public void VisitorBookList()  //방명록 불러옴
+    public void VisitorBookList()  //방명록 불러옴
     {
         WWWForm form = new WWWForm();
         form.AddField("order", "enrollMessage");
         form.AddField("player_nickname", GameManager.NickName);
         form.AddField("friend_nickname", GameManager.friend_nickname);
         form.AddField("message", VBInput.text);
-        StartCoroutine(Post(form));
+        StartCoroutine(GetPost(form));
     }
 
     public void VisitorBookWrite()          //방명록 쓰기        (보내기 버튼에 넣기)
@@ -60,7 +60,19 @@ public class VisitorBookManager : MonoBehaviour
         {
             yield return www.SendWebRequest();
             //Debug.Log(www.downloadHandler.text);
-            
+
         }
+    }
+    IEnumerator GetPost(WWWForm form)
+    {
+        using (UnityWebRequest www = UnityWebRequest.Post(URL, form)) // 반드시 using을 써야한다
+        {
+            yield return www.SendWebRequest();
+            //Debug.Log(www.downloadHandler.text);
+            if (www.isDone) Response(www.downloadHandler.text);         //방명록 불러옴
+
+        }
+
+
     }
 }
