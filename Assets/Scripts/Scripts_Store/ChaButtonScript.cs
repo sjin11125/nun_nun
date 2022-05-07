@@ -279,8 +279,8 @@ public class ChaButtonScript : MonoBehaviour
 
         if (gameObject.tag != "Lock")       //건물이 안잠겨있고
         {
-            int pay = DogamManager.BuildingInformation[DogamManager.ChaIndex].Cost;
-            int shinPay = DogamManager.BuildingInformation[DogamManager.ChaIndex].ShinCost;
+            int pay = DogamManager.BuildingInformation[DogamManager.ChaIndex].Cost[0];
+            int shinPay = DogamManager.BuildingInformation[DogamManager.ChaIndex].ShinCost[0];
 
             if (GameManager.Money < pay || GameManager.ShinMoney < shinPay)      //돈이나 자원이 모자르면 거절 메세지 띄움
             {

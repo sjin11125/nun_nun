@@ -13,11 +13,11 @@ public class BuildingParse
     //-------------------------파싱정보------------------------------
     public string isLock;               //잠금 유무
     public string Building_name;            //건물 이름
-    public string Reward;               //획득자원
     public string Info;                 //건물 설명
+    public int[] Reward;            //획득자원
     public string Building_Image;          //빌딩 이미지 이름 *
-    public int Cost;        //건물비용
-    public int ShinCost;
+    public int[] Cost;          //건물 비용
+    public int[] ShinCost;          //건물 비용
     public int Level = 1;       //건물 레벨
     public string isFliped = "F";
     public string BuildingPosiiton_x;
@@ -50,11 +50,11 @@ public class Building : MonoBehaviour
     //-------------------------파싱정보------------------------------
     public string isLock;               //잠금 유무
     public string Building_name;            //건물 이름
-    public string Reward;               //획득자원
+    public int[] Reward;               //획득자원
     public string Info;                 //건물 설명
     public string Building_Image;          //빌딩 이미지 이름 *
-    public int Cost;        //건물비용
-    public int ShinCost;
+    public int[] Cost;        //건물비용
+    public int[] ShinCost;
     public int Level = 1;       //건물 레벨
     public string isFliped = "F";
     public string BuildingPosiiton_x;
@@ -79,19 +79,36 @@ public class Building : MonoBehaviour
     public Building()
     {
     }
-    public Building(string islock, string buildingname, string reward, string info, string image, string cost, string shinCost, string level)           //파싱할 때 쓰는 생성자
+    public Building(string islock, string buildingname, string info, string image, string cost,string cost2,string cost3, string Reward, string Reward2, string Reward3)           //파싱할 때 쓰는 생성자
     {
         isLock = islock;
         Building_name = buildingname;
-        Reward = reward;
-        Info = info;
-        Building_Image = image;
-        Cost = int.Parse(cost);
-        ShinCost = int.Parse(shinCost);
-        Level = int.Parse(level);
+
+        this.Reward[0] =int.Parse(Reward) ;                 //생성재화
+        this.Reward[1] = int.Parse(Reward2);
+        this.Reward[2] = int.Parse(Reward3);
+
+        Info = info;                //건물 설명
+
+        Building_Image = image;     //건물 이미지
+
+        string[] Cost=cost.ToString().Split('/');           
+        string[] Cost2=cost2.ToString().Split('/');
+        string[] Cost3=cost3.ToString().Split('/');
+
+        this.Cost[0] = int.Parse(Cost[0]);              //비용(골드)
+        this.Cost[1] = int.Parse(Cost2[0]);
+        this.Cost[2] = int.Parse(Cost3[0]);
+
+
+
+        this.ShinCost[0] = int.Parse(Cost[1]);                //비용(발광석)
+        this.ShinCost[1] = int.Parse(Cost2[1]);
+        this.ShinCost[2] = int.Parse(Cost3[1]);            
+       
 
     }
-    public Building(string islock, string buildingname,string reward,string info,string image,string cost, string shinCost, string level,string isfliped,string building_x,string building_y)           //파싱할 때 쓰는 생성자
+  /*  public Building(string islock, string buildingname,string reward,string info,string image,string cost, string shinCost, string level,string isfliped,string building_x,string building_y)           //파싱할 때 쓰는 생성자
     {
         isLock = islock;
         Building_name = buildingname;
@@ -106,7 +123,7 @@ public class Building : MonoBehaviour
         BuildingPosiiton_y= building_y;
 
 
-    }
+    }*/
     public void SetValue(Building getBuilding)
     {
         isLock = getBuilding.isLock;
@@ -429,8 +446,8 @@ public class Building : MonoBehaviour
         areaTemp.position = positionInt;
 
         //Debug.Log()
-        GameManager.Money += building.Cost;          //자원 되돌리기
-        GameManager.ShinMoney += building.ShinCost;
+        GameManager.Money += building.Cost[building.Level-1];          //자원 되돌리기
+        GameManager.ShinMoney += building.ShinCost[building.Level - 1];
 
         GridBuildingSystem.current.RemoveArea(areaTemp);
         if (Type == BuildType.Make)      //상점에서 사고 설치X 바로 제거
