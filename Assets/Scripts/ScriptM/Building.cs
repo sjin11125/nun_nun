@@ -14,10 +14,10 @@ public class BuildingParse
     public string isLock;               //잠금 유무
     public string Building_name;            //건물 이름
     public string Info;                 //건물 설명
-    public int[] Reward;            //획득자원
+    public int[] Reward = new int[3] { 0, 0, 0 };            //획득자원
     public string Building_Image;          //빌딩 이미지 이름 *
-    public int[] Cost;          //건물 비용
-    public int[] ShinCost;          //건물 비용
+    public int[] Cost = new int[3] { 0, 0, 0 };          //건물 비용
+    public int[] ShinCost = new int[3] { 0, 0, 0 };          //건물 비용
     public int Level = 1;       //건물 레벨
     public string isFliped = "F";
     public string BuildingPosiiton_x;
@@ -50,11 +50,11 @@ public class Building : MonoBehaviour
     //-------------------------파싱정보------------------------------
     public string isLock;               //잠금 유무
     public string Building_name;            //건물 이름
-    public int[] Reward;               //획득자원
+    public int[] Reward =new int[3] { 0, 0, 0 };               //획득자원
     public string Info;                 //건물 설명
     public string Building_Image;          //빌딩 이미지 이름 *
-    public int[] Cost;        //건물비용
-    public int[] ShinCost;
+    public int[] Cost = new int[3] { 0, 0, 0 };        //건물비용
+    public int[] ShinCost = new int[3] { 0, 0, 0 };
     public int Level = 1;       //건물 레벨
     public string isFliped = "F";
     public string BuildingPosiiton_x;
@@ -80,7 +80,8 @@ public class Building : MonoBehaviour
     {
     }
     public Building(string islock, string buildingname, string info, string image, string cost,string cost2,string cost3, string Reward, string Reward2, string Reward3)           //파싱할 때 쓰는 생성자
-    {
+    {//잠금 유무     // 이름     //설명     //이미지    //가격1       //가격2      //가격3        //생성재화1         //생성재화2        //생성재화3
+
         isLock = islock;
         Building_name = buildingname;
 
@@ -92,9 +93,9 @@ public class Building : MonoBehaviour
 
         Building_Image = image;     //건물 이미지
 
-        string[] Cost=cost.ToString().Split('/');           
-        string[] Cost2=cost2.ToString().Split('/');
-        string[] Cost3=cost3.ToString().Split('/');
+        string[] Cost=cost.ToString().Split('*');           
+        string[] Cost2=cost2.ToString().Split('*');
+        string[] Cost3=cost3.ToString().Split('*');
 
         this.Cost[0] = int.Parse(Cost[0]);              //비용(골드)
         this.Cost[1] = int.Parse(Cost2[0]);
@@ -144,6 +145,7 @@ public class Building : MonoBehaviour
         isFliped = getBuilding.isFliped;
        BuildingPosiiton_x = getBuilding.BuildingPosiiton_x;
         BuildingPosiiton_y = getBuilding.BuildingPosiiton_y;
+        Reward = getBuilding.Reward;
 
     }
     public void SetValueParse(BuildingParse parse)
@@ -575,12 +577,17 @@ public class Building : MonoBehaviour
     // Update is called once per frame
     public void Upgrade()
     { //GameObject Level1building, Level2building, Level3building;
-        if (Level < 3)
+        if (Level < 2)
         {
             //GameObject UPPannel = Instantiate(UpgradePannel);
             UpgradePannel2.gameObject.SetActive(true);
             Debug.Log("buildings.length: "+buildings.Length);
             UpgradePannel2.GetComponent<ChaButtonScript>().Upgrade(buildings, Level, this);
+
+            Text[] upgradeText = UpgradePannel2.GetComponentsInChildren<Text>();
+            Debug.Log(Reward.Length); Debug.Log("level: "+Level);
+            upgradeText[3].text = Reward[Level-1].ToString();     //업글 전 획득 재화
+            upgradeText[4].text = Reward[Level].ToString();                       //업글 후 획득 재화
 
         }
     }

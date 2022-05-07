@@ -66,7 +66,21 @@ public class LoadManager : MonoBehaviour
                     //CopyComponent(LoadBuilding, g);
                     Building g_Building = g.GetComponent<Building>();
                     g_Building.SetValue(LoadBuilding);      //새로 생성된 프리팹의 빌딩 스크립트 value 값을 기존에 있던 스크립트 value값 설정
-                    //g.transform.SetParent(buildings.transform);     //buildings를 부모로 설정
+                                                            //g.transform.SetParent(buildings.transform);     //buildings를 부모로 설정
+
+                    //Debug.Log("gm_Building.Building_Image: " + GameManager.BuildingArray[0].Building_Image);
+                    for (int j = 0; j < GameManager.BuildingArray.Length; j++)
+                    {
+                        if (g_Building.Building_Image== GameManager.BuildingArray[j].Building_Image)
+                        {
+                            Debug.Log("YesssssssssssssssssSetValueeeeeeeeeee");
+                            g_Building.Reward = GameManager.BuildingArray[j].Reward;
+                            g_Building.Cost = GameManager.BuildingArray[j].Cost;
+                            g_Building.ShinCost = GameManager.BuildingArray[j].ShinCost;
+                        }
+                       
+                    }
+
                     Debug.Log(LoadBuilding.Building_name);
                     g.name = LoadBuilding.Building_name;            //이름 재설정
 

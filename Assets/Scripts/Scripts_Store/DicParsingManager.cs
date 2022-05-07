@@ -89,12 +89,13 @@ public class DicParsingManager : MonoBehaviour
                 Debug.Log("ll");
                 break;
             }
-
-            Character character = new Character(pro_data[1],pro_data[2], pro_data[3], pro_data[4], pro_data[5], pro_data[6], pro_data[7], pro_data[8], pro_data[9]);
+            Debug.Log("pro_data: "+ pro_data[8]);
+           // Character character = new Character(pro_data[1],pro_data[2], pro_data[3], pro_data[4], pro_data[5], pro_data[6], pro_data[7], pro_data[8], pro_data[9]);
             Building building = new Building(pro_data[1], pro_data[2], pro_data[3], pro_data[4], pro_data[5], pro_data[6], pro_data[7], pro_data[8], pro_data[9], pro_data[10]);
             
             //잠금 유무     // 이름     //설명     //이미지    //가격1       //가격2      //가격3        //생성재화1         //생성재화2        //생성재화3
             DictionaryList.Add(building);
+            Debug.Log("DictionaryList: "+ DictionaryList.Count);
         }
 
    
