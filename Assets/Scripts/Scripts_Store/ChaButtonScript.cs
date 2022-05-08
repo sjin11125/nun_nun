@@ -113,6 +113,7 @@ public class ChaButtonScript : MonoBehaviour
 
             buildings[1].SetActive(true);
             building.Level += 1;
+
         }
         else
         {
@@ -120,6 +121,9 @@ public class ChaButtonScript : MonoBehaviour
             buildings[2].SetActive(true);
             building.Level += 1;
         }
+        GameManager.Money -= building.Cost[building.Level-1];
+        GameManager.ShinMoney -= building.ShinCost[building.Level-1];
+        Debug.Log("building.level:"+building.Level+ "      building.cost: "+ building.Cost[building.Level]);
         Debug.Log(building.Level);
         building.Type = BuildType.Empty;
         building.RefreshBuildingList();     //빌딩 리스트 새로고침

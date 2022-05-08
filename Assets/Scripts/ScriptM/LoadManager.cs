@@ -73,7 +73,6 @@ public class LoadManager : MonoBehaviour
                     {
                         if (g_Building.Building_Image== GameManager.BuildingArray[j].Building_Image)
                         {
-                            Debug.Log("YesssssssssssssssssSetValueeeeeeeeeee");
                             g_Building.Reward = GameManager.BuildingArray[j].Reward;
                             g_Building.Cost = GameManager.BuildingArray[j].Cost;
                             g_Building.ShinCost = GameManager.BuildingArray[j].ShinCost;

@@ -384,7 +384,7 @@ public class Building : MonoBehaviour
         if ((int)currentTime % 5 == 0 && (int)currentTime != startingTime && isCountCoin == false)      //생성되고 5초 마다 재화생성 (건물마다 다르다!)
         {
             isCountCoin = true;
-            CountCoin += 1;
+            //CountCoin += 1;
 
             Coin_Button.gameObject.SetActive(true);
         }
@@ -404,9 +404,10 @@ public class Building : MonoBehaviour
     {
         //currentTime =  startingTime;
         isCoin = true;      //코인 먹었음
-        Debug.Log("coco");
-        GameManager.Money += CountCoin * 100;
-
+        Debug.Log("Reward: "+ Reward.Length);
+        Debug.Log("Level-1: " + (Level - 1));
+        GameManager.Money += Reward[Level-1];
+        Debug.Log(Building_Image+": "+Reward[Level - 1]);
 
         currentTime = (int)startingTime;
 

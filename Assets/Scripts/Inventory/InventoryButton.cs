@@ -27,14 +27,14 @@ public class InventoryButton : MonoBehaviour
                 }
             }
             Debug.Log(this_building.isLock);
-            if (this_building.isLock == "F")
+           /* if (this_building.isLock == "F")
             {
                 X_Image.gameObject.SetActive(false);
             }
             else
             {
                 X_Image.gameObject.SetActive(true);
-            }
+            }*/
 
         }
         else if(gameObject.tag == "Inven_Nuni")
@@ -42,7 +42,8 @@ public class InventoryButton : MonoBehaviour
             nunis= GameObject.Find("nunis");
             for (int i = 0; i < GameManager.CharacterList.Count; i++)
             {
-                if (this.gameObject.name == GameManager.CharacterList[i].cardName+"(Clone)")
+                //Debug.Log("GameManager.CharacterList[i].cardImage: "+ GameManager.CharacterList[i].cardImage);
+                if (this.gameObject.name == GameManager.CharacterList[i].cardImage)
                 {
                     Debug.Log("this Nuni");
                     this_nuni = GameManager.CharacterList[i];
@@ -67,10 +68,13 @@ public class InventoryButton : MonoBehaviour
 
             for (int i = 0; i < nuni_child.Length; i++)                     //누니 목록에서 해당 누니 찾아서 없애기
             {
-                if (nuni_child[i].gameObject.name == GameManager.CurrentBuilding.name)
+             //   Debug.Log("nuni_child[i].gameObject.name: " + nuni_child[i].gameObject.name);
+             //   Debug.Log("this_nuni.cardImage: " + this_nuni.cardImage + "(Clone)");fsdfssfsdfdfs
+                if (nuni_child[i].gameObject.name == this_nuni.cardImage+"(Clone)")
                 {
                     Card nuni_childs = nuni_child[i].gameObject.GetComponent<Card>();
-                    Destroy(nuni_child[i]);
+                    nuni_childs.isLock = "F";
+                    Destroy(nuni_child[i].gameObject);
                 }
             }
 
@@ -78,12 +82,15 @@ public class InventoryButton : MonoBehaviour
         }
         else                                    //누니가 배치 안된 상태
         {
-            this_building.isLock = "F";         //배치 된 상태로 바꾸기
+            this_nuni.isLock = "T";         //배치 된 상태로 바꾸기
 
             for (int i = 0; i < GameManager.CharacterList.Count; i++)           //Instatntiate 해주기
             {
+                Debug.Log("this_nuni.cardName: "+ this_nuni.cardName);
+                Debug.Log("GameManager.CharacterList[i].cardName: "+ GameManager.CharacterList[i].cardName);
                 if (this_nuni.cardName== GameManager.CharacterList[i].cardName)
                 {
+                    GameManager.CharacterList[i].isLock = "T";
                     Instantiate(GameManager.CharacterPrefab[this_nuni.cardImage], nunis.transform);
                 }
 

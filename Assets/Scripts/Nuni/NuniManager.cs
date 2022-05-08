@@ -65,7 +65,9 @@ public class NuniManager : MonoBehaviour                    //게임 시작하고 구글
             {
                 if (GameManager.AllNuniArray[i].cardName ==Nunis[j])
                 {
-                    GameManager.CharacterList.Add(GameManager.AllNuniArray[i]);
+                    Card nuni = GameManager.AllNuniArray[i];
+                    nuni.isLock = "T";
+                    GameManager.CharacterList.Add(nuni);
 
                 }
             }
