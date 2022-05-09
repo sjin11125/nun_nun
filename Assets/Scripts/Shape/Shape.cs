@@ -9,7 +9,7 @@ public class Shape : MonoBehaviour, IPointerClickHandler, IPointerUpHandler,
 {
     public GameObject squareShapeImage;
     Vector3 shapeSelectedScale = new Vector3(0.8f, 0.8f, 0.8f);
-    Vector2 offset = new Vector2(0f, 0f);
+    Vector2 offset = new Vector2(50f, 50f);
 
     [HideInInspector]
     public ShapeData CurrentShapeData;
