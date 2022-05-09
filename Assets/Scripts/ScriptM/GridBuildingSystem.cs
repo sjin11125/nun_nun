@@ -32,6 +32,9 @@ public class GridBuildingSystem : MonoBehaviour
 
     public UIAniManager UI_Manager;
     public GameObject buildings;
+    GameObject Canvas;
+
+    public GameObject Dialog;           //대화창
     //추가 1110
 
         //------------------------세이브 관련 변수들--------------------------------------
@@ -73,8 +76,9 @@ public class GridBuildingSystem : MonoBehaviour
         }
 
         Grid = GameObject.Find("back_down");
-       // if (SceneManager.GetActiveScene().name=="Main")
-       // StartButton = GameObject.Find("Start").GetComponent<Button>();
+        Canvas= GameObject.Find("Canvas");
+        // if (SceneManager.GetActiveScene().name=="Main")
+        // StartButton = GameObject.Find("Start").GetComponent<Button>();
 
     }
    public void GridLayerSetting()
@@ -208,7 +212,7 @@ public class GridBuildingSystem : MonoBehaviour
 
 
 
-            if (hit.transform != null)          // 오브젝트를 클릭 했을 때
+            if (hit.transform != null&& hit.transform.tag!="Nuni")          // 오브젝트를 클릭 했을 때
             {
 
                 Transform Building = hit.transform.parent;
@@ -306,6 +310,13 @@ public class GridBuildingSystem : MonoBehaviour
                     }
                 }
             }
+            /*if (hit.transform.tag=="Nuni")      //누니 클릭
+            {
+                Transform[] Spot = hit.transform.GetComponentsInChildren<Transform>();
+                Instantiate(Dialog,Canvas.transform);       //대화창뜨게
+
+                //RectTransform 
+            }*/
         }
         else if (Input.GetMouseButton(0) && SceneManager.GetActiveScene().name == "FriendMain")         //친구 씬에서 방명록킬때
         {

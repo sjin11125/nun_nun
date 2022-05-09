@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
     public static bool isStore = false;
 
     public GameObject Dont;
-
+    public static bool nuniDialogParse = false;
 
     //-----------------------------------여기서부터 재화---------------------------------
     public static int Money = 10000;            //재화
