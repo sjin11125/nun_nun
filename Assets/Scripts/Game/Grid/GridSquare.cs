@@ -120,7 +120,6 @@ public class GridSquare : MonoBehaviour
         {
             activeImage.transform.GetChild(0).gameObject.SetActive(true);
             shinActive = true;
-            print("hi");
         }
 
         Selected = true; //º±≈√µ 
