@@ -109,7 +109,11 @@ public class GoogleSheetManager : MonoBehaviour
         {
             yield return www.SendWebRequest();
             //Debug.Log(www.downloadHandler.text);
-            SceneManager.LoadScene("Main");
+
+            GameManager.NickName = nickname;
+            GameManager.Id = id;
+            StartCoroutine(Quest());
+            //SceneManager.LoadScene("Main");
         }
     }
 

@@ -157,7 +157,12 @@ public class InventoryButton : MonoBehaviour
                 {
                     //buildingprefab = building_child[i].gameObject;
                     GameManager.CurrentBuilding = building_child[i].gameObject;
-
+                    Building b = GameManager.CurrentBuilding.GetComponent<Building>();
+                    Debug.Log(b.area);
+                    gridBuildingSystem.prevArea = b.area;
+                    gridBuildingSystem.ClearArea2();
+                    gridBuildingSystem.CanTakeArea(b.area);
+                    //b.Remove(GameManager.CurrentBuilding.GetComponent<Building>());
                     Destroy(building_child[i].gameObject);
 
                 }
@@ -168,10 +173,11 @@ public class InventoryButton : MonoBehaviour
             GameManager.CurrentBuilding_Script = GameManager.CurrentBuilding.GetComponent<Building>();
             this_building.isLock = "F";         //배치 안된 상태로 바꾸기
             //X_Image.gameObject.SetActive(true);
+           
 
-         
 
-            
+
+
 
             for (int i = 0; i < building_child.Length; i++)
             {
@@ -200,6 +206,8 @@ public class InventoryButton : MonoBehaviour
         }
         else if(this_building.isLock == "F")                     //현재 배치된 상태가 아닌가
         {
+            //Destroy(gridBuildingSystem.temp_gameObject);
+            //Debug.Log("gridBuildingSystem.temp_gameObject.name: " + gridBuildingSystem.temp_gameObject.name);
             this_building.isLock = "T";         //배치 된 상태로 바꾸기
             GameManager.InvenButton =this.GetComponent<Button>();
             GameObject buildingprefab;

@@ -61,6 +61,8 @@ public class BuildingSave : MonoBehaviour
     {
         WWWForm form1 = new WWWForm();
         form1.AddField("order", "removeValue");
+        form1.AddField("player_nickname", GameManager.NickName);
+        Debug.Log("ID: "+id);
         form1.AddField("id", id);
         StartCoroutine(Post(form1));
 

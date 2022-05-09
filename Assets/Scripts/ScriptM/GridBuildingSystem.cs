@@ -24,7 +24,7 @@ public class GridBuildingSystem : MonoBehaviour
 
     private Building temp; //building type으로 temp 생성
     private Vector3 prevPos;
-    private BoundsInt prevArea;
+    public BoundsInt prevArea;
 
     public GameObject UpgradePannel;
     GameObject Grid;
@@ -36,7 +36,7 @@ public class GridBuildingSystem : MonoBehaviour
 
     public GameObject Dialog;           //대화창
     //추가 1110
-
+    public GameObject temp_gameObject;
         //------------------------세이브 관련 변수들--------------------------------------
     public static bool isSave = false;          //건물 건설이나 삭제했을 때 건물들 저장하는 변수
     public BuildingSave BSave;
@@ -111,6 +111,7 @@ public class GridBuildingSystem : MonoBehaviour
                                 Grid.GetComponent<SpriteRenderer>().sortingOrder = -48;
                                 //StartButton.enabled = true;
                                 temp = null;
+                                temp_gameObject = null;
                             }
                             // button.buttonok();
                         }
@@ -242,6 +243,10 @@ public class GridBuildingSystem : MonoBehaviour
                     dialo_window.GetComponent<NuniDialogParsing>().nuni = nuni_card;
                     dialo_window.GetComponentInChildren<Text>().text = nuni_dialog.Dialog[UnityEngine.Random.Range(0, nuni_dialog.Dialog.Length-1)];
                     //dialo_window
+                }
+                else if (hit.transform.tag == "bunsu")              //생명의 분수 클릭
+                {
+                    SceneManager.LoadScene("Shop");
                 }
             }
         }
@@ -459,6 +464,7 @@ public class GridBuildingSystem : MonoBehaviour
         for (int i = 0; i < arr.Length; i++)
        {
            arr[i] = tileBases[type];
+            Debug.Log("Type: "+ type.ToString());
        }
    }
 
@@ -495,9 +501,9 @@ public class GridBuildingSystem : MonoBehaviour
 
    public void InitializeWithBuilding() //생성버튼 눌렀을 때 building 을 prefab으로 해서 생성
    {
-        GameObject temp_gameObject = Instantiate(GameManager.CurrentBuilding, Vector3.zero, Quaternion.identity,buildings.transform) as GameObject;
-      
-        temp = temp_gameObject.GetComponent<Building>(); // 이때 building 프리펩의 속성 불러오기
+        temp_gameObject = Instantiate(GameManager.CurrentBuilding, Vector3.zero, Quaternion.identity,buildings.transform) as GameObject;
+        
+          temp = temp_gameObject.GetComponent<Building>(); // 이때 building 프리펩의 속성 불러오기
         Debug.Log("uuuuuuuuu"+ GameManager.BuildingArray.Length);
         for (int i = 0; i < GameManager.BuildingArray.Length; i++)
         {
@@ -525,7 +531,7 @@ public class GridBuildingSystem : MonoBehaviour
         temp.Placed = false;            //건물은 현재 배치가 안 된 상태
         ClearArea();
     }
-    private void ClearArea()
+    public void ClearArea()
    {
         Debug.Log("ClearArea()");
         TileBase[] toClear = new TileBase[prevArea.size.x * prevArea.size.y * prevArea.size.z];//0
@@ -533,8 +539,17 @@ public class GridBuildingSystem : MonoBehaviour
        FillTiles(toClear, TileType.Empty);
        TempTilemap.SetTilesBlock(prevArea, toClear);
    }
+    public void ClearArea2()
+    {
+        Debug.Log("ClearArea()");
+        TileBase[] toClear = new TileBase[prevArea.size.x * prevArea.size.y * prevArea.size.z];//0
+        Debug.Log(prevArea.position);
+        FillTiles(toClear, TileType.Empty);
+        TempTilemap.SetTilesBlock(prevArea, toClear);
+        SetTilesBlock(prevArea, TileType.White, MainTilemap);
 
-   private void FollowBuilding(bool isTransfer)                    //건물이 마우스 따라가게
+    }
+    private void FollowBuilding(bool isTransfer)                    //건물이 마우스 따라가게
    {
         Debug.Log("Following");
        ClearArea();
@@ -596,6 +611,7 @@ public class GridBuildingSystem : MonoBehaviour
     public void RemoveArea(BoundsInt area)
     {
         Debug.Log("RemoveArea()");
+        Debug.Log("RemoveArea(): "+area);
         SetTilesBlock(area, TileType.Empty, TempTilemap);        //TmpTilemap 비우기
         SetTilesBlock(area, TileType.White, MainTilemap);
     }

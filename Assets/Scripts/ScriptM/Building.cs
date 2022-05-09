@@ -357,15 +357,20 @@ public class Building : MonoBehaviour
         }
         else
         {
+
             Button_Pannel.gameObject.SetActive(true);
             Rotation_Pannel.gameObject.SetActive(true);
-            Remove_Pannel.gameObject.SetActive(true);
-            if (Type != BuildType.Make)
+            if (Building_Image != "bunsu_level(Clone)")
             {
-                UpgradePannel.gameObject.SetActive(true);
+                Remove_Pannel.gameObject.SetActive(true);
+                if (Type != BuildType.Make)
+                {
+                    UpgradePannel.gameObject.SetActive(true);
 
+                }
             }
         }
+       
 
 
 
@@ -451,8 +456,8 @@ public class Building : MonoBehaviour
         areaTemp.position = positionInt;
 
         //Debug.Log()
-        GameManager.Money += building.Cost[building.Level-1];          //자원 되돌리기
-        GameManager.ShinMoney += building.ShinCost[building.Level - 1];
+        GameManager.Money += building.Cost[building.Level];          //자원 되돌리기
+        GameManager.ShinMoney += building.ShinCost[building.Level ];
 
         GridBuildingSystem.current.RemoveArea(areaTemp);
         if (Type == BuildType.Make)      //상점에서 사고 설치X 바로 제거
