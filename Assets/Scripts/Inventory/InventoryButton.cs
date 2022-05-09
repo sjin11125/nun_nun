@@ -145,21 +145,42 @@ public class InventoryButton : MonoBehaviour
             if (this.gameObject.name == GameManager.BuildingList[i].Id)
             {
                 this_building = GameManager.BuildingList[i];
+                
             }
         }
         Transform[] building_child = buildings.GetComponentsInChildren<Transform>();
-      
+        if (gridBuildingSystem.temp_gameObject != null)                     //클릭한 곳 안따라가게
+        {
+            Building b = gridBuildingSystem.temp_gameObject.GetComponent<Building>();
+            Debug.Log(b.area);
+            gridBuildingSystem.prevArea = b.area;
+            gridBuildingSystem.ClearArea2();
+            gridBuildingSystem.CanTakeArea(b.area);
+
+            Destroy(gridBuildingSystem.temp_gameObject);
+        }
+        else
+        {
+
+        }
+        if (GameManager.CurrentBuilding!=null)
+        {
+           
+        }
         if (this_building.isLock=="T")      //현재 배치된 상태인가
         {
+            Debug.Log("TTTTTTTTTTTTTTT");
             for (int i = 0; i < building_child.Length; i++)
             {
                 if (building_child[i].name == this_building.Id)
                 {
                     //buildingprefab = building_child[i].gameObject;
                     GameManager.CurrentBuilding = building_child[i].gameObject;
+
+                    Debug.Log(building_child[i].name);
                     Building b = GameManager.CurrentBuilding.GetComponent<Building>();
-                    Debug.Log(b.area);
-                    gridBuildingSystem.prevArea = b.area;
+                    Debug.Log("b.area    "+b.area);
+                    gridBuildingSystem.prevArea2 = b.area;
                     gridBuildingSystem.ClearArea2();
                     gridBuildingSystem.CanTakeArea(b.area);
                     //b.Remove(GameManager.CurrentBuilding.GetComponent<Building>());
@@ -224,6 +245,12 @@ public class InventoryButton : MonoBehaviour
                     Building c = GameManager.CurrentBuilding.GetComponent<Building>();
                     
                     c.SetValue(this_building);
+
+                    Building b = GameManager.CurrentBuilding.GetComponent<Building>();
+                    Debug.Log(b.area);
+                    gridBuildingSystem.prevArea2 = b.area;
+                    gridBuildingSystem.ClearArea2();
+                    gridBuildingSystem.CanTakeArea(b.area);
                     break;
                 }
             }

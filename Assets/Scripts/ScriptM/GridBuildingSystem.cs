@@ -25,7 +25,7 @@ public class GridBuildingSystem : MonoBehaviour
     private Building temp; //building type으로 temp 생성
     private Vector3 prevPos;
     public BoundsInt prevArea;
-
+    public BoundsInt prevArea2;
     public GameObject UpgradePannel;
     GameObject Grid;
     public Button StartButton;
@@ -37,6 +37,7 @@ public class GridBuildingSystem : MonoBehaviour
     public GameObject Dialog;           //대화창
     //추가 1110
     public GameObject temp_gameObject;
+    bool isEditing=false;
         //------------------------세이브 관련 변수들--------------------------------------
     public static bool isSave = false;          //건물 건설이나 삭제했을 때 건물들 저장하는 변수
     public BuildingSave BSave;
@@ -83,7 +84,7 @@ public class GridBuildingSystem : MonoBehaviour
     }
    public void GridLayerSetting()
     {
-        Grid.GetComponent<SpriteRenderer>().sortingOrder = -48;
+        Grid.GetComponent<SpriteRenderer>().sortingOrder = 1;
     }
     public void Inven_Move(Transform hit)
     {
@@ -111,7 +112,7 @@ public class GridBuildingSystem : MonoBehaviour
                                 Grid.GetComponent<SpriteRenderer>().sortingOrder = -48;
                                 //StartButton.enabled = true;
                                 temp = null;
-                                temp_gameObject = null;
+                                
                             }
                             // button.buttonok();
                         }
@@ -202,6 +203,7 @@ public class GridBuildingSystem : MonoBehaviour
         if (GameManager.isEdit==true)
         {
             GameManager.isEdit = false;
+            isEditing = true;
             InitializeWithBuilding();
             temp.Type = BuildType.Move;
         }
@@ -214,6 +216,7 @@ public class GridBuildingSystem : MonoBehaviour
         {
             second = 0;
         }
+
         if (Input.GetMouseButtonUp(0) && SceneManager.GetActiveScene().name == "Main")
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -277,6 +280,7 @@ public class GridBuildingSystem : MonoBehaviour
                                     Grid.GetComponent<SpriteRenderer>().sortingOrder = -48;
                                     StartButton.enabled = true;
                                     temp = null;
+                                isEditing = false;
                                 }
                                 // button.buttonok();
                             }
@@ -384,7 +388,7 @@ public class GridBuildingSystem : MonoBehaviour
         }
 
 
-            if (second >= 2.0f)
+            if (second >= 2.0f&& isEditing==false)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
@@ -541,12 +545,12 @@ public class GridBuildingSystem : MonoBehaviour
    }
     public void ClearArea2()
     {
-        Debug.Log("ClearArea()");
-        TileBase[] toClear = new TileBase[prevArea.size.x * prevArea.size.y * prevArea.size.z];//0
-        Debug.Log(prevArea.position);
+        Debug.Log("ClearArea2()");
+        TileBase[] toClear = new TileBase[prevArea2.size.x * prevArea2.size.y * prevArea2.size.z];//0
+        Debug.Log(prevArea2.position);
         FillTiles(toClear, TileType.Empty);
-        TempTilemap.SetTilesBlock(prevArea, toClear);
-        SetTilesBlock(prevArea, TileType.White, MainTilemap);
+        TempTilemap.SetTilesBlock(prevArea2, toClear);
+        SetTilesBlock(prevArea2, TileType.White, MainTilemap);
 
     }
     private void FollowBuilding(bool isTransfer)                    //건물이 마우스 따라가게

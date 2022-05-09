@@ -513,7 +513,7 @@ public class Building : MonoBehaviour
             }
         }
         Building BuildingCurrent = gameObject.GetComponent<Building>();
-
+        
 
         if (buildtype == BuildType.Make)                       //새로 만드는 건가?
         {
@@ -549,7 +549,7 @@ public class Building : MonoBehaviour
         }
 
         gameObject.transform.parent = Parent.transform;
-
+        GridBuildingSystem.current.temp_gameObject = null;
     }
     public void BuildingListRemove()
     {
