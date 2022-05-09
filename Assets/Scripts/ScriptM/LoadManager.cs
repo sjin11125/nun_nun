@@ -125,10 +125,11 @@ public class LoadManager : MonoBehaviour
                 {
                     Card c = GameManager.CharacterList[i];
                     Debug.Log(c.cardImage);
-
-                    Instantiate(GameManager.CharacterPrefab[c.cardImage],nunis.transform);
+                    if (c.isLock=="T")
+                    {
+                        Instantiate(GameManager.CharacterPrefab[c.cardImage], nunis.transform);
+                    }
                 }
-
             }
 
             

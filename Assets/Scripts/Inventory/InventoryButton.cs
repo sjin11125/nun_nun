@@ -25,7 +25,7 @@ public class InventoryButton : MonoBehaviour
                 if (this.gameObject.name == GameManager.BuildingList[i].Building_name)
                 {
                     this_building = GameManager.BuildingList[i];
-                    gridBuildingSystem = gameObject.transform.parent.parent.GetComponent<GridBuildingSystem>();
+                    gridBuildingSystem = buildings.GetComponentInChildren<GridBuildingSystem>();
                 }
             }
             Debug.Log(this_building.isLock);
@@ -54,6 +54,8 @@ public class InventoryButton : MonoBehaviour
             }
 
         }
+
+        
 
     }
 
@@ -108,9 +110,9 @@ public class InventoryButton : MonoBehaviour
     {
 
         WWWForm form1 = new WWWForm();
-        form1.AddField("order", "nuniSave");
+        form1.AddField("order", "nuniUpdate");
         form1.AddField("player_nickname", GameManager.NickName);
-        form1.AddField("nuni", nuni.cardName + ":T");
+        form1.AddField("nuni", nuni.cardName +":"+this_nuni.isLock);
 
 
 
@@ -124,42 +126,48 @@ public class InventoryButton : MonoBehaviour
         {
             yield return www.SendWebRequest();
             //Debug.Log(www.downloadHandler.text);
-            if (www.isDone) NuniResponse(www.downloadHandler.text);
+           // if (www.isDone) NuniResponse(www.downloadHandler.text);
             //else print("웹의 응답이 없습니다.");*/
         }
 
     }
-    void NuniResponse(string json)                          //누니 불러오기
-    {
-        //List<QuestInfo> Questlist = new List<QuestInfo>();
-        Debug.Log(json);
-        if (json == "null")
-        {
-            return;
-        }
-        if (string.IsNullOrEmpty(json))
-        {
-            Debug.Log(json);
-            return;
-        }
-        //누니 이름 받아서 겜메 모든 누니 배열에서 누니 정보 받아서 넣기
 
 
-    }
     public void Click()         //건축물 버튼 클릭했을 때
     {
+        for (int i = 0; i < GameManager.BuildingList.Count; i++)
+        {
+            if (this.gameObject.name == GameManager.BuildingList[i].Building_name)
+            {
+                this_building = GameManager.BuildingList[i];
+            }
+        }
+        Transform[] building_child = buildings.GetComponentsInChildren<Transform>();
+      
         if (this_building.isLock=="T")      //현재 배치된 상태인가
         {
+            for (int i = 0; i < building_child.Length; i++)
+            {
+                if (building_child[i].name == this_building.Building_name)
+                {
+                    //buildingprefab = building_child[i].gameObject;
+                    GameManager.CurrentBuilding = building_child[i].gameObject;
+
+                    Destroy(building_child[i].gameObject);
+
+                }
+            }
             GameManager.isEdit = false;
            
-            GameManager.CurrentBuilding = null;
-            GameManager.CurrentBuilding_Script = null;
-            this_building.isLock = "F";         //배치 안된 상태로 바꾸기
-            X_Image.gameObject.SetActive(true);
+            //GameManager.CurrentBuilding = null;
+            GameManager.CurrentBuilding_Script = GameManager.CurrentBuilding.GetComponent<Building>();
+            //this_building.isLock = "F";         //배치 안된 상태로 바꾸기
+            //X_Image.gameObject.SetActive(true);
 
-            Transform[] building_child=buildings.GetComponentsInChildren<Transform>();
+         
 
-            Destroy(GameManager.CurrentBuilding);
+            
+
             for (int i = 0; i < building_child.Length; i++)
             {
                 if (building_child[i].gameObject.name ==GameManager.CurrentBuilding.name)
@@ -183,38 +191,44 @@ public class InventoryButton : MonoBehaviour
                 }
                 
             }
+            GameManager.CurrentBuilding = null;
         }
-        else                                    //현재 배치된 상태가 아닌가
+        else if(this_building.isLock == "F")                     //현재 배치된 상태가 아닌가
         {
             //this_building.isLock = "T";         //배치 된 상태로 바꾸기
             GameManager.InvenButton =this.GetComponent<Button>();
-            
-            X_Image.gameObject.SetActive(false);
+            GameObject buildingprefab;
             Debug.Log("image: " + this_building.Building_Image);
-            GameObject buildingprefab = GameManager.BuildingPrefabData[this_building.Building_Image];
 
-            GameManager.CurrentBuilding  = buildingprefab;
-            Building b = buildingprefab.GetComponent<Building>();
-            Building c = GameManager.CurrentBuilding.GetComponent<Building>();
-            c = b.GetComponent<Building>().DeepCopy();
-            c.SetValue(b);
+            for (int i = 0; i < GameManager.BuildingArray.Length; i++)
+            {
+                Debug.Log("GameManager.BuildingArray[i].Building_name:   "+ GameManager.BuildingArray[i].Building_Image);
+                Debug.Log("this_building.Building_name:    "+ this_building.Building_Image);
+                if (GameManager.BuildingArray[i].Building_Image== this_building.Building_Image)
+                {
+                    Debug.Log("this_building.Building_Image    "+ GameManager.BuildingPrefabData[this_building.Building_Image].name);
+                    GameManager.CurrentBuilding =GameManager.BuildingPrefabData[this_building.Building_Image];
+                    Building c = GameManager.CurrentBuilding.GetComponent<Building>();
+                    c.SetValue(this_building);
+
+                    break;
+                }
+            }
+            if (GameManager.CurrentBuilding == null)
+            {
+                Debug.Log("GameManager.CurrentBuilding is null");
+            }
+            else
+                Debug.Log("not null");
             GameManager.CurrentBuilding_Script = this_building;
 
             //GameManager.CurrentBuilding.name = this_building.Building_Image;
+            gridBuildingSystem.GridLayerSetting();
             GameManager.isEdit = true;
-            gridBuildingSystem.Inven_Move(GameManager.CurrentBuilding.transform);
+            //gridBuildingSystem.Inven_Move(GameManager.CurrentBuilding.transform);
 
 
         }
     }
-
-
-   /* public void Place()         //건물 버튼 클릭했을 때(배치)
-    {
-        X_Button.SetActive(false);
-    }
-    public void X_Place()       //건물 회수
-    {
-        X_Button.SetActive(true);
-    }*/
+    
 }

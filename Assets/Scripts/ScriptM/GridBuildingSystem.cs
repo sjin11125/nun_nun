@@ -77,7 +77,10 @@ public class GridBuildingSystem : MonoBehaviour
        // StartButton = GameObject.Find("Start").GetComponent<Button>();
 
     }
-   
+   public void GridLayerSetting()
+    {
+        Grid.GetComponent<SpriteRenderer>().sortingOrder = -48;
+    }
     public void Inven_Move(Transform hit)
     {
         if (hit.transform != null)          // 오브젝트를 클릭 했을 때
@@ -93,6 +96,7 @@ public class GridBuildingSystem : MonoBehaviour
                     {
                         if (temp.CanBePlaced())         //건물이 배치 될 수 있는가? 네
                         {
+                            temp.Type = BuildType.Move;
                             //temp.level += 1;        //레벨 +1
                             temp.Place(temp.Type);
                             //UI_Manager.Start();
@@ -179,6 +183,7 @@ public class GridBuildingSystem : MonoBehaviour
         if (ChaButtonScript.isEdit==true)
         {
             ChaButtonScript.isEdit = false;
+            Debug.Log("initialize");
             InitializeWithBuilding();
         }
         if (GameManager.isEdit==true)
@@ -200,7 +205,6 @@ public class GridBuildingSystem : MonoBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
-            Debug.Log("isMoveLock: " + GameManager.isMoveLock);
 
 
 
