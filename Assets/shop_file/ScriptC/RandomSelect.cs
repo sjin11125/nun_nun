@@ -76,7 +76,7 @@ public class RandomSelect : MonoBehaviour
         WWWForm form1 = new WWWForm();
         form1.AddField("order", "nuniSave");
         form1.AddField("player_nickname", GameManager.NickName);
-        form1.AddField("nuni", nuni.cardName) ;
+        form1.AddField("nuni", nuni.cardName+":T") ;
 
 
 

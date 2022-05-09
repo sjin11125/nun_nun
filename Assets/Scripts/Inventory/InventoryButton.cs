@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
+
 public class InventoryButton : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -99,8 +101,51 @@ public class InventoryButton : MonoBehaviour
 
 
         }
+        StartCoroutine(NuniSave(this_nuni));          //구글 스크립트에 업데이트
     }
-    public void Click()         //버튼 클릭했을 때
+    IEnumerator NuniSave(Card nuni)                //누니 구글 스크립트에 저장
+    {
+
+        WWWForm form1 = new WWWForm();
+        form1.AddField("order", "nuniSave");
+        form1.AddField("player_nickname", GameManager.NickName);
+        form1.AddField("nuni", nuni.cardName + ":T");
+
+
+
+        yield return StartCoroutine(Post(form1));                        //구글 스크립트로 초기화했는지 물어볼때까지 대기
+
+
+    }
+    IEnumerator Post(WWWForm form)
+    {
+        using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // 반드시 using을 써야한다
+        {
+            yield return www.SendWebRequest();
+            //Debug.Log(www.downloadHandler.text);
+            if (www.isDone) NuniResponse(www.downloadHandler.text);
+            //else print("웹의 응답이 없습니다.");*/
+        }
+
+    }
+    void NuniResponse(string json)                          //누니 불러오기
+    {
+        //List<QuestInfo> Questlist = new List<QuestInfo>();
+        Debug.Log(json);
+        if (json == "null")
+        {
+            return;
+        }
+        if (string.IsNullOrEmpty(json))
+        {
+            Debug.Log(json);
+            return;
+        }
+        //누니 이름 받아서 겜메 모든 누니 배열에서 누니 정보 받아서 넣기
+
+
+    }
+    public void Click()         //건축물 버튼 클릭했을 때
     {
         if (this_building.isLock=="T")      //현재 배치된 상태인가
         {
