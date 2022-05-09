@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
     public static bool isStore = false;
 
     public GameObject Dont;
-
+    public static bool nuniDialogParse = false;
 
     //-----------------------------------여기서부터 재화---------------------------------
     public static int Money = 10000;            //재화
@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour
 
     public static string friend_nickname;       //현재 들어가있는 친구닉넴
 
-    public static string URL = "https://script.google.com/macros/s/AKfycbxyN7SIl3jt0MGmuoUAprFSP6f3XmPT5jMFIXoLg842LjwUhU-hG04o2SIL_rG2y6YF/exec";
+    public static string URL = "https://script.google.com/macros/s/AKfycbye9Ygj1yn7H5UEcNXd25y4h1toRyx8T2hhjMcQeta_dH1os-lH10X31vHkfbKIQ68t/exec";
     //----------------------------------------------------------------------------------------------
 
 

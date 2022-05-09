@@ -15,13 +15,4 @@ public class OnPointerDownTest : MonoBehaviour
     {
         
     }
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        Debug.Log("누르고 있음");
-        //StartCoroutine("PressCheck");
-    }
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        Debug.Log("뗌");
-    }
 }

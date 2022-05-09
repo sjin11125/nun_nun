@@ -32,6 +32,9 @@ public class GridBuildingSystem : MonoBehaviour
 
     public UIAniManager UI_Manager;
     public GameObject buildings;
+    GameObject Canvas;
+
+    public GameObject Dialog;           //대화창
     //추가 1110
 
         //------------------------세이브 관련 변수들--------------------------------------
@@ -73,11 +76,15 @@ public class GridBuildingSystem : MonoBehaviour
         }
 
         Grid = GameObject.Find("back_down");
-       // if (SceneManager.GetActiveScene().name=="Main")
-       // StartButton = GameObject.Find("Start").GetComponent<Button>();
+        Canvas= GameObject.Find("Canvas");
+        // if (SceneManager.GetActiveScene().name=="Main")
+        // StartButton = GameObject.Find("Start").GetComponent<Button>();
 
     }
-   
+   public void GridLayerSetting()
+    {
+        Grid.GetComponent<SpriteRenderer>().sortingOrder = -48;
+    }
     public void Inven_Move(Transform hit)
     {
         if (hit.transform != null)          // 오브젝트를 클릭 했을 때
@@ -93,6 +100,7 @@ public class GridBuildingSystem : MonoBehaviour
                     {
                         if (temp.CanBePlaced())         //건물이 배치 될 수 있는가? 네
                         {
+                            temp.Type = BuildType.Move;
                             //temp.level += 1;        //레벨 +1
                             temp.Place(temp.Type);
                             //UI_Manager.Start();
@@ -179,6 +187,7 @@ public class GridBuildingSystem : MonoBehaviour
         if (ChaButtonScript.isEdit==true)
         {
             ChaButtonScript.isEdit = false;
+            Debug.Log("initialize");
             InitializeWithBuilding();
         }
         if (GameManager.isEdit==true)
@@ -200,11 +209,10 @@ public class GridBuildingSystem : MonoBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
-            Debug.Log("isMoveLock: " + GameManager.isMoveLock);
 
 
 
-            if (hit.transform != null)          // 오브젝트를 클릭 했을 때
+            if (hit.transform != null&& hit.transform.tag!="Nuni")          // 오브젝트를 클릭 했을 때
             {
 
                 Transform Building = hit.transform.parent;
@@ -302,10 +310,34 @@ public class GridBuildingSystem : MonoBehaviour
                     }
                 }
             }
-        }
-        
+            /*if (hit.transform.tag=="Nuni")      //누니 클릭
+            {
+                Transform[] Spot = hit.transform.GetComponentsInChildren<Transform>();
+                Instantiate(Dialog,Canvas.transform);       //대화창뜨게
 
-        if (second >= 2.0f)
+                //RectTransform 
+            }*/
+        }
+        else if (Input.GetMouseButton(0) && SceneManager.GetActiveScene().name == "FriendMain")         //친구 씬에서 방명록킬때
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
+            Debug.Log("isMoveLock: " + GameManager.isMoveLock);
+
+
+
+            if (hit.transform != null)          // 오브젝트를 클릭 했을 때
+            {
+                if (hit.transform.tag == "VisitorBook")
+                {
+                    VisitorBooksWindow.gameObject.SetActive(true);
+                }
+
+            }
+        }
+
+
+            if (second >= 2.0f)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);

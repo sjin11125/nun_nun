@@ -35,8 +35,6 @@ public class BuildingSave : MonoBehaviour
         form.AddField("buildingPosiiton_y", update_building.BuildingPosition.y.ToString());
         form.AddField("isLock", update_building.isLock);
         form.AddField("building_name", update_building.Building_name);
-        form.AddField("cost", update_building.Cost);
-        form.AddField("shinCost", update_building.ShinCost);
         form.AddField("level", update_building.Level);
         form.AddField("isFlied", update_building.isFliped.ToString());
         StartCoroutine(SavePost(form));
@@ -53,8 +51,6 @@ public class BuildingSave : MonoBehaviour
         form.AddField("buildingPosiiton_y", buildings.BuildingPosition.y.ToString());
         form.AddField("isLock", buildings.isLock);
         form.AddField("building_name", buildings.Building_name);
-        form.AddField("cost", buildings.Cost);
-        form.AddField("shinCost", buildings.ShinCost);
         form.AddField("level", buildings.Level);
         form.AddField("isFliped",buildings.isFliped.ToString());
         StartCoroutine(SavePost(form));
