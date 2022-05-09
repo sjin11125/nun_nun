@@ -52,6 +52,7 @@ public class InventoryButton : MonoBehaviour
                     gridBuildingSystem = gameObject.transform.parent.parent.GetComponent<GridBuildingSystem>();
                 }
             }
+
         }
 
     }
@@ -175,7 +176,7 @@ public class InventoryButton : MonoBehaviour
                     Building building_childs= building_child[i].gameObject.GetComponent<Building>();
                     building_childs.isLock = "F";
                     building_childs.BuildingPosiiton_x = "0";
-                    building_childs.BuildingPosiiton_y = "0";
+                    building_childs.BuildingPosiiton_y = "0";  
 
                     building_childs.save.UpdateValue(building_childs);
                     Destroy(building_child[i].gameObject);

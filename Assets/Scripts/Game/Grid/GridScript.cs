@@ -34,9 +34,6 @@ public class GridScript : MonoBehaviour
     static public int ThreeHorizontalItem = 30;
 
     public GameObject QuestControll;
-
-    bool usekeeptrue = false;
-    bool usetrashtrue = false;
     public GameObject KeepShapeObj;
     [HideInInspector]
     public String KeepColor, KeepShape;
@@ -284,20 +281,6 @@ public class GridScript : MonoBehaviour
         }
 
         var completedLines = CheckIfSquaresAreCompleted(lines);//행(0-5)렬(0-5) 정보전달 및 변수에 반환 int값 저장
-        if(keepSquareIndex != 30)
-        {
-            if (_gridSquares[keepSquareIndex].GetComponent<GridSquare>().activeImage.gameObject.activeSelf == true)
-            {
-                usekeeptrue = true;
-            }
-        }
-        if(trashCanIndex != 30)
-        {
-            if (_gridSquares[trashCanIndex].GetComponent<GridSquare>().activeImage.gameObject.activeSelf == true)
-            {
-                usetrashtrue = true;
-            }
-        }
         if (completedLines > 2)
         {
             //TODO: Play bouns animation.
@@ -605,7 +588,7 @@ public class GridScript : MonoBehaviour
                  .GetChild(0).gameObject.SetActive(false);
                 comp.SquareOccupied = false;
                 comp.Selected = false;
-                if (usekeeptrue)
+                if (comp.activeImage.gameObject.activeSelf == true)
                 {                    
                     KeepColor = colors[keepSquareIndex];//킵 아이템 자리에 정보를 저장해놓는다
                     KeepShape = shapes[keepSquareIndex];
@@ -613,7 +596,6 @@ public class GridScript : MonoBehaviour
                     Invoke("OnInvoke", 0.1f);
                     comp.activeImage.gameObject.SetActive(false);
                     comp.NonKeep();
-                    usekeeptrue = false;
                     /*
                     GameObject keepInstance = Instantiate(KeepShapeObj) as GameObject;
                     keepInstance.transform.SetParent(gameObject.transform, false);
@@ -663,11 +645,10 @@ public class GridScript : MonoBehaviour
             var comp = _gridSquares[trashCanIndex].GetComponent<GridSquare>();
             if(TrashItemTurn < 1)
             {
-                comp.SquareOccupied = false;
+                comp.SquareOccupied = false;//사용가능상태
                 comp.Selected = false;
-                _gridSquares[trashCanIndex].transform.GetChild(0).gameObject.transform
-               .GetChild(0).gameObject.SetActive(false);
-                if (usetrashtrue)
+                comp.normalImage.gameObject.transform.GetChild(0).gameObject.SetActive(false);//숫자끄기
+                if (comp.activeImage.gameObject.activeSelf == true)//뭐를 넣음
                 {
                     //TrashItemTurn = 30;
                     Invoke("trashInvoke", 0.1f);
