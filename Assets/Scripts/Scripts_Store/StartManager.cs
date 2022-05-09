@@ -19,16 +19,35 @@ public class StartManager : MonoBehaviour
     public static Sprite ChaImage_;
     GameObject Window;
 
-   public static List<int> itemList = new List<int>();
-    public Sprite[] ItemImages;
+    //int[] itemList = new int[10] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+   public static Dictionary<int, bool> itemList = new Dictionary<int, bool> {
+                                                    {0,false},
+                                                    { 1,false},
+                                                    { 2,false},
+                                                    { 3,false},
+                                                    { 4,false},
+                                                    { 5,false},
+                                                    { 6,false},
+                                                    { 7,false},
+                                                    { 8,false},
+                                                    { 9,false}
+                                                        };
+    public Sprite[] ItemImages;         //아이템 이미지들
+    public Sprite LockImage;
+
     string[] ItemInfo = {"지우개다","킵이다","쓰레기통이다","미리보기다","새로고침이다" };
     /* 아이템 목록
- * 0: 지우개
- * 1: 킵
- * 2: 쓰레기통
- * 3: 미리보기
- * 4: 새로고침
- */
+    * 0: 지우개               (황제)
+    * 1: 킵                   (비서)
+    * 2: 쓰레기통             (청소부)
+    * 3: 미리보기             (탐정)
+    * 4: 새로고침             (개발자)
+    * 5: <=>                  (과학자)
+    * 6: 가로3개              (팡팡)
+    * 7: 세로3개              (펑펑)
+    * 8: 모든 대체할수 있는 말(유니콘)
+    * 9: 말의 색깔을 바꾼다   (마법사)
+    */
     public static Button[] LockButton;
 
     public static GameObject Canvas;
@@ -52,72 +71,87 @@ public class StartManager : MonoBehaviour
 
     public void CharacterOpen()
     {
-    
+
         float p = 0;
 
         //RefreshButtonArray(NuNiInformation);         //소유하지 않은 건물들 새로고침
 
         List<Button> LockButtonList = new List<Button>();       //잠긴 캐릭터들 버튼 들어있는 리스트
-       
-        
-        for (int j = 0; j < NuNiInformation.Length; j++)         //시작하기 전 캐릭터 나타내기
+
+
+        for (int j = 0; j < itemList.Count; j++)         //시작하기 전 캐릭터 나타내기
         {
-            if (NuNiInformation[j].Item != 99)
+            Card[] NuniArray = GameManager.CharacterList.ToArray();
+            for (int i = 0; i < NuniArray.Length; i++)
             {
-                if (NuNiInformation[j].Item != 10)
+                if (NuniArray[i].Item == j)
                 {
-                    DogamCha = Instantiate(CharacterPrefab);
-                    DogamCha.transform.SetParent(Scroll.transform);
 
-                    Transform[] ChaPrefabChilds = DogamCha.GetComponentsInChildren<Transform>();
+                    itemList[j] = true;
 
-                    //도감 캐릭터 버튼 
-                    DogamCha.GetComponent<RectTransform>().name = j.ToString();
+                    
 
-                    Button DogamChaButton = DogamCha.GetComponent<Button>();
-                    Image[] image = DogamChaButton.GetComponentsInChildren<Image>();
-
-                    Text CharacterName = ChaPrefabChilds[1].GetComponent<Text>();
-                    if (NuNiInformation[j].isLock == "F")      //캐릭터가 잠겨있지 않음
-                    {
-
-                        //Debug.Log(NuNiInformation[j].GetCharacter("Name"));
-                        string ChaName;
-
-                        //BuildingPrefabChilds[4].tag = "unLock";
-                        ChaName = NuNiInformation[j].cardImage;
-
-                        CharacterName.text = NuNiInformation[j].cardName;
-
-                        NuNiInformation[j].SetChaImage(GameManager.GetCharacterImage(ChaName));
-                        Debug.Log(NuNiInformation[j].Item);
-
-                        image[1].sprite = ItemImages[NuNiInformation[j].Item];//NuNiInformation[j].GetChaImange();   //캐릭터 이름 값 받아와서 이미지 찾기
-
-
-
-                    }
-
-                    else                            //잠겼으면 잠금 이미지 넣기
-                    {
-                        //BuildingPrefabChilds[4].tag = "Lock";
-                        CharacterName.text = "잠겼다링";
-                        //NuNiInformation[j].SetChaImage(GameManager.DogamChaImageData["Lock"]);
-                        //image[1].sprite = GameManager.DogamChaImageData["Lock"];
-
-                        // DogamChaButton.enabled = false;
-                        //DogamChaButton.GetComponent<Image>().sprite = GameManager.DogamChaImageData["Lock"];
-
-                        LockButtonList.Add(DogamChaButton);
-
-
-                    }
+                    /* //BuildingPrefabChilds[4].tag = "unLock";
+                    
+                     continue;*/
                 }
-
-
-
-                p += 100f;
             }
+           
+
+
+
+            /* 
+              else                            //잠겼으면 잠금 이미지 넣기
+              {
+                  //BuildingPrefabChilds[4].tag = "Lock";
+                  CharacterName.text = "잠겼다링";
+                  //NuNiInformation[j].SetChaImage(GameManager.DogamChaImageData["Lock"]);
+                  //image[1].sprite = GameManager.DogamChaImageData["Lock"];
+
+                  // DogamChaButton.enabled = false;
+                  //DogamChaButton.GetComponent<Image>().sprite = GameManager.DogamChaImageData["Lock"];
+
+                  LockButtonList.Add(DogamChaButton);
+
+
+              }*/
+        }
+        for (int j = 0; j < itemList.Count; j++)
+        {
+            DogamCha = Instantiate(CharacterPrefab);
+            DogamCha.transform.SetParent(Scroll.transform);
+
+            Transform[] ChaPrefabChilds = DogamCha.GetComponentsInChildren<Transform>();
+
+            //도감 캐릭터 버튼 
+            DogamCha.GetComponent<RectTransform>().name = j.ToString();
+
+            Button DogamChaButton = DogamCha.GetComponent<Button>();
+            Image[] image = DogamChaButton.GetComponentsInChildren<Image>();
+
+            Text CharacterName = ChaPrefabChilds[1].GetComponent<Text>();
+
+            if (itemList[j] == true)
+            {
+                image[1].sprite = ItemImages[j];//NuNiInformation[j].GetChaImange();   //캐릭터 이름 값 받아와서 이미지 찾기
+                
+                //GameManager.Items[j] = true;
+            }
+            else
+            {
+                image[1].sprite = LockImage;//NuNiInformation[j].GetChaImange();   //캐릭터 이름 값 받아와서 이미지 찾기
+                DogamCha.tag = "Lock";
+                //GameManager.Items[j] = false;
+            }
+
+           /* string ChaName  = NuNiInformation[j].cardImage;
+
+            CharacterName.text = NuNiInformation[j].cardName;
+
+            NuNiInformation[j].SetChaImage(GameManager.GetCharacterImage(ChaName));
+            Debug.Log(NuNiInformation[j].Item);*/
+
+            
         }
         //LockButton = LockButtonList.ToArray();      //잠긴 버튼 리스트 배열로 만들어서 넣기
 

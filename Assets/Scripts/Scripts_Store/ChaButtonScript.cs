@@ -15,7 +15,7 @@ public class ChaButtonScript : MonoBehaviour
     public bool isCheck = false;
 
     public Text ButtonText;
-    
+
     /* 아이템 목록
 * 0: 지우개(배치되어있는거 버림)
 * 1: 킵
@@ -43,7 +43,7 @@ public class ChaButtonScript : MonoBehaviour
     {
         Grid = GameObject.Find("back_down");
     }
-    public void Islockfalse()=> GameManager.isMoveLock = false;
+    public void Islockfalse() => GameManager.isMoveLock = false;
     public void NuniInfoClick()
     {
         GameObject NuniInfo = Instantiate(NuniInfoPannel) as GameObject;        //누니 정보 패널 Instantiate
@@ -61,11 +61,11 @@ public class ChaButtonScript : MonoBehaviour
                 Text[] InfoTexts = NuniInfo.GetComponentsInChildren<Text>();
                 Image[] InfoImage = NuniInfo.GetComponentsInChildren<Image>();
                 Image[] stars = NuniInfo.transform.Find("Stars").GetComponentsInChildren<Image>();
-                
 
-                for (int j = 0; j <int.Parse( GameManager.AllNuniArray[i].Star); j++)   //별 넣기
+
+                for (int j = 0; j < int.Parse(GameManager.AllNuniArray[i].Star); j++)   //별 넣기
                 {
-                    stars[j].color = new Color(1,1,1);
+                    stars[j].color = new Color(1, 1, 1);
                 }
                 InfoImage[2].sprite = nuni.GetChaImange();
 
@@ -123,7 +123,7 @@ public class ChaButtonScript : MonoBehaviour
         Debug.Log(building.Level);
         building.Type = BuildType.Empty;
         building.RefreshBuildingList();     //빌딩 리스트 새로고침
-      
+
     }
     // Update is called once per frame
     void Update()
@@ -184,12 +184,12 @@ public class ChaButtonScript : MonoBehaviour
 
     public void CloseButtonClick2()
     {
-        Transform[] Windows= WindowClose.transform.GetComponentsInChildren<Transform>();
-        Transform[] child= Windows[1].GetComponentsInChildren<Transform>();
+        Transform[] Windows = WindowClose.transform.GetComponentsInChildren<Transform>();
+        Transform[] child = Windows[1].GetComponentsInChildren<Transform>();
         for (int i = 0; i < child.Length; i++)
         {
             Destroy(child[i].gameObject);
-            
+
         }
         GameManager.isMoveLock = false;
     }
@@ -205,16 +205,19 @@ public class ChaButtonScript : MonoBehaviour
             //ChaButtonClick();
         }
     }
-  
+
     public void ChaButtonClick()        //잠겨있지 않은 캐릭터 버튼 클릭
     {
 
-
+        if (gameObject.tag == "Lock")
+        {
+            return;
+        }
 
         StartManager.ChaIndex = int.Parse(gameObject.transform.name);
 
 
-        int item = StartManager.NuNiInformation[StartManager.ChaIndex].Item;
+        int item = StartManager.ChaIndex;
 
 
 
@@ -222,22 +225,12 @@ public class ChaButtonScript : MonoBehaviour
         Transform[] ChaChild;
         ChaChild = ChaPanel2.GetComponentsInChildren<Transform>();      //캐릭터패널2 자식 오브젝트
 
-        if (item != 10)
-        {
-            //도감 캐릭터 정보 대입
-            Image chaimage = ChaChild[2].GetComponent<Image>();            //캐릭터 이미지
-            Text iteminfo = ChaChild[1].GetComponent<Text>();      //아이템 설명
-
-
+       
 
             //chaimage.sprite = StartManager.NuNiInformation[StartManager.ChaIndex].GetChaImange();
-            Debug.Log(GameManager.items);
+            Debug.Log("StartManager.ChaIndex: "+item);
             if (GameManager.Items[item] != true)
             {
-                if (GameManager.items > 4)
-                {
-                    return;
-                }
                 GameManager.Items[item] = true;
                 GameManager.items += 1;
                 Check.SetActive(true);
@@ -248,21 +241,31 @@ public class ChaButtonScript : MonoBehaviour
                 GameManager.items -= 1;
                 Check.SetActive(false);
             }
-        }
-                 /* 아이템 목록
-                 * 0: 지우개
-                 * 1: 킵
-                 * 2: 쓰레기통
-                 * 3: 미리보기
-                 * 4: 새로고침
-                 */
+
+            /* 아이템 목록
+   * 0: 지우개               (황제)
+   * 1: 킵                   (비서)
+   * 2: 쓰레기통             (청소부)
+   * 3: 미리보기             (탐정)
+   * 4: 새로고침             (개발자)
+   * 5: <=>                  (과학자)
+   * 6: 가로3개              (팡팡)
+   * 7: 세로3개              (펑펑)
+   * 8: 모든 대체할수 있는 말(유니콘)
+   * 9: 말의 색깔을 바꾼다   (마법사)
+   */
+
+
+
+        
+
+
     }
-    
     public void LockChaButtonClick()        //캐릭터 살려고 할 때 클릭하는
     {
         DogamManager.ChaIndex = int.Parse(gameObject.name);
 
-    
+
         GameObject DogamCha = Instantiate(LockPanel);
         DogamCha.transform.SetParent(StartManager.Canvas.transform);
         DogamCha.GetComponent<RectTransform>().localPosition = new Vector3(0, 0, 0);
@@ -279,7 +282,7 @@ public class ChaButtonScript : MonoBehaviour
             int pay = DogamManager.BuildingInformation[DogamManager.ChaIndex].Cost;
             int shinPay = DogamManager.BuildingInformation[DogamManager.ChaIndex].ShinCost;
 
-            if (GameManager.Money < pay || GameManager.ShinMoney< shinPay)      //돈이나 자원이 모자르면 거절 메세지 띄움
+            if (GameManager.Money < pay || GameManager.ShinMoney < shinPay)      //돈이나 자원이 모자르면 거절 메세지 띄움
             {
                 UIManager.isSetMoney = -1;
             }
@@ -295,7 +298,7 @@ public class ChaButtonScript : MonoBehaviour
 
                 UIManager.isSetMoney = 1;
                 //BuildingInformation.isLock = "F";      //안잠김으로 바꿈
-                                                       // BuildingInformation.SetCharImage(GameManager.GetDogamChaImage(BuildingInformation.GetCharacter("ImageName")));        //이미지 다시 바꿈
+                // BuildingInformation.SetCharImage(GameManager.GetDogamChaImage(BuildingInformation.GetCharacter("ImageName")));        //이미지 다시 바꿈
 
                 //GameManager.BuildingArray[DogamManager.ChaIndex] = BuildingInformation;           //건물 설명
 
@@ -313,7 +316,7 @@ public class ChaButtonScript : MonoBehaviour
                 Transform parent = transform.parent.transform.parent.transform.parent.transform.parent.transform.parent;
 
                 Transform[] Window = parent.GetComponentsInChildren<Transform>();  //StoreWindow
-                //parent.gameObject.SetActive(false);
+                                                                                   //parent.gameObject.SetActive(false);
 
                 GameManager.CurrentBuilding = buildingprefab;
                 Building b = buildingprefab.GetComponent<Building>();
@@ -333,7 +336,7 @@ public class ChaButtonScript : MonoBehaviour
                 parent.gameObject.SetActive(false);
                 isEdit = true;
             }
-       
+
         }
 
         GameManager.isStore = false;
