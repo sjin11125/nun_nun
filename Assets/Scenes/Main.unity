@@ -378,7 +378,7 @@ MonoBehaviour:
   - {fileID: 172813267}
   - {fileID: 520616660}
   NuniImages: {fileID: 679971042827572430, guid: dc466110583c111439180e31976538df, type: 3}
-  Canvas: {fileID: 0}
+  Canvas: {fileID: 1210573211}
   ProfileImage: {fileID: 0}
 --- !u!1 &51320817
 GameObject:
@@ -1452,6 +1452,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1035652537, guid: 5dea2f5e904f37c439bf4db567b9e457, type: 3}
+      propertyPath: Dialog
+      value: 
+      objectReference: {fileID: 1451770790923805246, guid: 95e962f668f8ae34fba30ca80e95422e, type: 3}
+    - target: {fileID: 1035652537, guid: 5dea2f5e904f37c439bf4db567b9e457, type: 3}
       propertyPath: buildings
       value: 
       objectReference: {fileID: 721536679}
@@ -1550,7 +1554,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0.9999986}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2740,9 +2744,10 @@ GameObject:
   - component: {fileID: 284193957}
   - component: {fileID: 284193959}
   - component: {fileID: 284193958}
+  - component: {fileID: 284193960}
   m_Layer: 5
   m_Name: Button (1)
-  m_TagString: Untagged
+  m_TagString: Profile_Image
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2804,6 +2809,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 284193956}
   m_CullTransparentMesh: 1
+--- !u!114 &284193960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 284193956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c95c948ada1edf74a9e65e8d93d101e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Profile: []
+  NuniImages: {fileID: 0}
+  Canvas: {fileID: 0}
+  ProfileImage: {fileID: 0}
 --- !u!1 &355273448
 GameObject:
   m_ObjectHideFlags: 0
@@ -7303,7 +7324,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.0004086367, y: 0.000031159954}
+  m_AnchoredPosition: {x: 0.0004086367, y: -0.0000213724}
   m_SizeDelta: {x: 0, y: 915.19}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1210573213
@@ -9181,8 +9202,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 148102376}
   m_HandleRect: {fileID: 148102375}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 0.9999986
+  m_Value: 1
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -13000,7 +13021,6 @@ MonoBehaviour:
   QuestText:
   - {fileID: 1860296651}
   - {fileID: 1860296650}
-  - {fileID: 1860296649}
 --- !u!1 &1846051678
 GameObject:
   m_ObjectHideFlags: 0
@@ -13548,6 +13568,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -6601691336363857274, guid: fbfefd71279b72341aef0f6348d8db71, type: 3}
+    - target: {fileID: 3375672185072272465, guid: bfbb97af5a6c6ca4b979543216427bc9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3472205559905802765, guid: bfbb97af5a6c6ca4b979543216427bc9, type: 3}
       propertyPath: m_Type
       value: 1
@@ -13616,17 +13640,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 250949244262803108, guid: bfbb97af5a6c6ca4b979543216427bc9, type: 3}
   m_PrefabInstance: {fileID: 1860296646}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1860296649 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7405157687281240822, guid: bfbb97af5a6c6ca4b979543216427bc9, type: 3}
-  m_PrefabInstance: {fileID: 1860296646}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1860296650 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4680152665730236211, guid: bfbb97af5a6c6ca4b979543216427bc9, type: 3}

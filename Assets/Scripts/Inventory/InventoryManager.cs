@@ -35,7 +35,7 @@ public class InventoryManager : MonoBehaviour
             
             GameObject inven=Instantiate(inventory_prefab,Content) as GameObject;         //인벤 버튼 프리팹 생성
 
-            inven.gameObject.name = GameManager.BuildingList[i].Building_name;
+            inven.gameObject.name = GameManager.BuildingList[i].Id;
             inven.gameObject.tag = "Inven_Building";            //인벤 버튼 태그 설정
 
             

@@ -327,6 +327,7 @@ public class ChaButtonScript : MonoBehaviour
                 Building c = GameManager.CurrentBuilding.GetComponent<Building>();
                 c.Building_Image = buildingname;
                 c = b.GetComponent<Building>().DeepCopy();
+
                 c.SetValue(b);
 
                 Transform Windows = gameObject.transform.parent.parent;

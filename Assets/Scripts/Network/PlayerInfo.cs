@@ -33,6 +33,7 @@ public class PlayerInfo : MonoBehaviour                 //플레이어 프로필 스크립
                 Nuniimage.sprite = GameManager.CharacterList[i].Image;
             }
         }
+       
     }
 
     public void ImageEnroll()       //프로필 이미지 등록
@@ -43,7 +44,7 @@ public class PlayerInfo : MonoBehaviour                 //플레이어 프로필 스크립
         }
         else
         {
-            GameManager.ProfileImage = gameObject.GetComponent<Image>().sprite;
+            GameManager.ProfileImage = gameObject.transform.parent.GetComponent<Image>().sprite;
             Debug.Log("image: "+ GameManager.ProfileImage.name);
             WWWForm form1 = new WWWForm();
             form1.AddField("order", "setProfileImage");
@@ -75,6 +76,17 @@ public class PlayerInfo : MonoBehaviour                 //플레이어 프로필 스크립
         if (gameObject.tag=="Profile")
         {
             gameObject.GetComponent<Image>().sprite = GameManager.ProfileImage;
+        }
+        if (gameObject.tag == "Profile_Image")
+        {
+            gameObject.GetComponent<Image>().sprite = GameManager.ProfileImage;
+            /*  for (int i = 0; i < GameManager.CharacterList.Count; i++)
+              {
+                  if (GameManager.ProfileImage.name== GameManager.CharacterList[i].Image.name)
+                  {
+                      profile_image.sprite = GameManager.CharacterList[i].Image;
+                  }
+              }*/
         }
     }
 }

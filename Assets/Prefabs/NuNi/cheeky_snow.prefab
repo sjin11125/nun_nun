@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &198640168310463914
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 834832447195817171}
+  m_Layer: 0
+  m_Name: DialogSpot
+  m_TagString: Untagged
+  m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &834832447195817171
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 198640168310463914}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 6.2266665, z: 0}
+  m_LocalScale: {x: 6.666667, y: 6.666667, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3861417074059375536}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &746954066577057259
 GameObject:
   m_ObjectHideFlags: 0
@@ -10,10 +40,9 @@ GameObject:
   m_Component:
   - component: {fileID: 746954066577057256}
   - component: {fileID: -2259295042744451341}
-  - component: {fileID: -2210737052743179790}
   m_Layer: 0
   m_Name: cheeky_snow
-  m_TagString: Nuni
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -59,22 +88,6 @@ MonoBehaviour:
   Building: []
   Gold: 
   Image: {fileID: 0}
---- !u!58 &-2210737052743179790
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 746954066577057259}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
 --- !u!1 &746954067222833950
 GameObject:
   m_ObjectHideFlags: 0
@@ -148,7 +161,7 @@ GameObject:
   - component: {fileID: 3861417074059375539}
   m_Layer: 0
   m_Name: clean_body
-  m_TagString: Untagged
+  m_TagString: Nuni
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -163,7 +176,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 834832447195817171}
   m_Father: {fileID: 3861417073238815736}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -230,9 +244,10 @@ GameObject:
   - component: {fileID: 3861417074170521475}
   - component: {fileID: 3861417074170521472}
   - component: {fileID: 3861417074170521473}
+  - component: {fileID: 2279879092600509690}
   m_Layer: 0
   m_Name: snow1
-  m_TagString: Untagged
+  m_TagString: Nuni
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -308,3 +323,19 @@ MonoBehaviour:
   speed: 0.5
   startWaitTime: 3
   moveSpot: {fileID: 746954067222833951}
+--- !u!58 &2279879092600509690
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3861417074170521478}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.10380606, y: 0}
+  serializedVersion: 2
+  m_Radius: 1.9249772

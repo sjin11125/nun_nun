@@ -28,6 +28,8 @@ public class GameManager : MonoBehaviour
 
     public static bool isEdit = false;
     public static Button InvenButton;
+
+    public static List<string> IDs;        //건물 아이디
     //----------------------------------------------------이까지 건물----------------------------------------------------
 
 
@@ -51,6 +53,7 @@ public class GameManager : MonoBehaviour
     public GameObject Dont;
     public static bool nuniDialogParse = false;
 
+    public static List<NuniDialog> NuniDialog;          //누니 상호작용 대화 
     //-----------------------------------여기서부터 재화---------------------------------
     public static int Money = 10000;            //재화
     public static int ShinMoney = 100000;
@@ -68,7 +71,7 @@ public class GameManager : MonoBehaviour
 
     public static string friend_nickname;       //현재 들어가있는 친구닉넴
 
-    public static string URL = "https://script.google.com/macros/s/AKfycbye9Ygj1yn7H5UEcNXd25y4h1toRyx8T2hhjMcQeta_dH1os-lH10X31vHkfbKIQ68t/exec";
+    public static string URL = "https://script.google.com/macros/s/AKfycbx83c1S6krKdVvdHC7Xsd3yiZrT7olipegaMYABsx-cz4Z3B1wcLdFS3pTcDp2Z4Ci2/exec";
     //----------------------------------------------------------------------------------------------
 
 
@@ -92,7 +95,7 @@ public class GameManager : MonoBehaviour
    public static QuestInfo[] Quest;                 //퀘스트 목록
     public static QuestInfo[] QuestProgress;        //퀘스트 진행상황
     public static bool isReset;             //퀘스트 초기화 햇니?
-
+    public static bool QParse = false;
     public static bool[] QuestActive;                 //블록 얼마 깻는지 확인
     public static int QuestColor = 0;                   //뭔 블록 깨야하는지    
     void Start()
@@ -105,9 +108,9 @@ public class GameManager : MonoBehaviour
         CharacterImageData = new Dictionary<string, Sprite>();
         CharacterList = new List<Card>();
         BuildingNumber = new Dictionary<string, int>();
-
+        IDs = new List<string>();
         Quest = new QuestInfo[3];                     //퀘스트 
-
+        NuniDialog = new List<NuniDialog>();
         Debug.Log("GameManager Start");
         for (int i = 0; i < BuildingPrefabInspector.Length; i++)        //빌딩 프리팹 정보 불러오기
         {
@@ -219,5 +222,35 @@ public class GameManager : MonoBehaviour
         //GameSave();
         print("exit");
         Application.Quit();
+    }
+
+    public static string IDGenerator()
+    {
+        string alpha= "qwertyuipoasdfjkl123456789";
+        string id="";
+
+        bool isCount = false;
+        do
+        {
+
+            for (int i = 0; i < 5; i++)
+            {
+                id += alpha[Random.Range(0, 24)];
+            }
+            for (int i = 0; i < IDs.Count; i++)
+            {
+                if (IDs[i] == id)
+                {
+                    isCount = false;
+                }
+                else
+                {
+                    isCount = true;
+                    IDs.Add(id);
+                }
+            }
+        } while (isCount == true);
+        Debug.Log(id);
+        return id;
     }
 }

@@ -22,6 +22,7 @@ public class BuildingParse
     public string isFliped = "F";
     public string BuildingPosiiton_x;
     public string BuildingPosiiton_y;
+    public string Id;
     //-----------------------------------------------------------
 
 }
@@ -59,7 +60,7 @@ public class Building : MonoBehaviour
     public string isFliped = "F";
     public string BuildingPosiiton_x;
     public string BuildingPosiiton_y;
-
+    public string Id;
     //-----------------------------------------------------------
 
     public int layer_y;   // 건물 레이어
@@ -146,7 +147,7 @@ public class Building : MonoBehaviour
        BuildingPosiiton_x = getBuilding.BuildingPosiiton_x;
         BuildingPosiiton_y = getBuilding.BuildingPosiiton_y;
         Reward = getBuilding.Reward;
-
+        Id = getBuilding.Id;
     }
     public void SetValueParse(BuildingParse parse)
     {
@@ -161,6 +162,7 @@ public class Building : MonoBehaviour
         isFliped = parse.isFliped;
         BuildingPosiiton_x = parse.BuildingPosiiton_x;
         BuildingPosiiton_y = parse.BuildingPosiiton_y;
+        Id = parse.Id;
     }
     public Building DeepCopy()
     {
@@ -460,7 +462,7 @@ public class Building : MonoBehaviour
         else                                //설치하고 제거
         {
             BuildingListRemove();
-            save.RemoveValue(Building_name);
+            save.RemoveValue(Id);
             Destroy(gameObject);
         }
     }
@@ -514,6 +516,7 @@ public class Building : MonoBehaviour
             Building_name = gameObject.name;
             Debug.Log("Building_Image: " + Building_Image);
             GameManager.BuildingNumber[Building_Image]++; //해당 건물의 갯수 추가
+            Id = GameManager.IDGenerator();
             BuildingListAdd();      //현재 가지고 있는 건물 리스트에 추가
             buildtype = BuildType.Empty;
 
@@ -525,8 +528,9 @@ public class Building : MonoBehaviour
         else if (buildtype == BuildType.Move)               //이동할 때
         {
             Debug.Log("Move");
-            gameObject.name = GameManager.CurrentBuilding_Script.Building_name;
-            Building_name= GameManager.CurrentBuilding_Script.Building_name;
+            gameObject.name = GameManager.CurrentBuilding_Script.Id;
+            Id = GameManager.CurrentBuilding_Script.Id;
+            Building_name = GameManager.CurrentBuilding_Script.Building_name;
             isLock = "T";
             RefreshBuildingList();
 
