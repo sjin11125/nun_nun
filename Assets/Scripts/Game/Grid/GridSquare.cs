@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 using UnityEngine.EventSystems;
 
 public class GridSquare : MonoBehaviour
@@ -18,11 +19,8 @@ public class GridSquare : MonoBehaviour
     public int SquareIndex { get; set; }
     public bool SquareOccupied { get; set; }
 
-    public GameObject activeObj;
-
-    public string keepCurrentColor;
+    public string currentColor;
     public string currentShape;
-    public Sprite keepImage;
     public static bool UseKeepBool = false;
 
     private float clickTime;
@@ -34,11 +32,17 @@ public class GridSquare : MonoBehaviour
 
     public bool shinActive;
 
-    void Start()
+    public Sprite trashAndKeep;
+    public bool IMtrash = false;
+
+    public GameObject KeepShapeObj;
+    public bool IMkeep = false;
+
+    void Awake()
     {
         Selected = false;
         SquareOccupied = false;
-        keepCurrentColor = null;
+        currentColor = null;
         currentShape = null;
         shinActive = false;
 
@@ -80,9 +84,9 @@ public class GridSquare : MonoBehaviour
                             }
                             else if (GridScript.ChangeShapeItem <= 0 && ChangeShapeItem.changeActive)
                             {
-                                ChangeShapeObj.GetComponent<ChangeShapeItem>().RainbowItemUse(keepCurrentColor);//컬러바꾸는 아이템 함수 호출
+                                ChangeShapeObj.GetComponent<ChangeShapeItem>().RainbowItemUse(currentColor);//컬러바꾸는 아이템 함수 호출
                                 ChangeShapeItem.squareObj = this.gameObject;
-                                print(keepCurrentColor);
+                                print(currentColor);
                             }
                         }
                     }
@@ -116,7 +120,8 @@ public class GridSquare : MonoBehaviour
     {
         hooverImage.gameObject.SetActive(false);//선택되고있는중에뜨는 진한색끄고
         activeImage.gameObject.SetActive(true);//선택된 색 켜기
-        if (squareImage.transform.GetChild(0).gameObject.activeSelf)//shin이 켜져있으면
+
+        if (squareImage.transform.GetChild(0).gameObject.activeSelf && !IMtrash)//shin이 켜져있으면
         {
             activeImage.transform.GetChild(0).gameObject.SetActive(true);
             shinActive = true;
@@ -127,15 +132,40 @@ public class GridSquare : MonoBehaviour
         
         if (activeImage.gameObject.activeSelf == true)
         {
-            activeImage.GetComponent<Image>().sprite = spriteImage.sprite;//쉐이프 스프라이트 전달       
+            if (IMtrash)
+            {
+                activeImage.sprite = trashAndKeep;
+                if (GridScript.TrashItemTurn < 1)
+                {
+                    GridScript.TrashItemTurn = 20;
+                }
+            }
+            else if (IMkeep)
+            {
+                activeImage.sprite = trashAndKeep;
+                if (GridScript.KeepItemTurn < 1)
+                {
+                    GameObject keepInstance = Instantiate(KeepShapeObj, this.transform.parent);
+                    keepInstance.transform.localPosition = new Vector3(-377f, -660.5f, 0);
+                    keepInstance.GetComponent<CreateKeepShape>().keepColor = currentColor;
+                    keepInstance.GetComponent<CreateKeepShape>().keepShape = currentShape;
+                    keepInstance.GetComponent<CreateKeepShape>().keepSprite = spriteImage.sprite;
+                    keepInstance.GetComponent<Image>().sprite = spriteImage.sprite;
+                    NonKeep();
+                }
+            }
+            else
+            {
+                activeImage.sprite = spriteImage.sprite;//쉐이프 스프라이트 전달
+            }         
         }
     }
 
     public void Deactivate()
     {
         activeImage.gameObject.SetActive(false);
-        activeImage.GetComponent<Image>().sprite = null;//사라지고나면 색깔 안담기게해놓기 이거사실없어도될듯?
-        keepCurrentColor = null;
+        activeImage.sprite = null;//사라지고나면 색깔 안담기게해놓기 이거사실없어도될듯?
+        currentColor = null;
         currentShape = null;
 
         activeImage.transform.GetChild(0).gameObject.SetActive(false);
@@ -155,7 +185,7 @@ public class GridSquare : MonoBehaviour
 
     public void SetImage(bool setFirstImage)
     {
-        normalImage.GetComponent<Image>().sprite = setFirstImage ? normalImages[1] : normalImages[0];
+        normalImage.sprite = setFirstImage ? normalImages[1] : normalImages[0];
     }
 
     private void OnTriggerEnter2D(Collider2D collision)//충돌처음
@@ -168,7 +198,7 @@ public class GridSquare : MonoBehaviour
             GameObject ShapeStorageObj = GameObject.FindGameObjectWithTag("ShapeStorage");
             if (ShapeStorageObj != null)//여기서 항상 들어갈때 shape의 정보를 받는다
             {                             
-                keepCurrentColor = ShapeStorageObj.GetComponent<ShapeStorage>().shapeColor;
+                currentColor = ShapeStorageObj.GetComponent<ShapeStorage>().shapeColor;
                 currentShape = ShapeStorageObj.GetComponent<ShapeStorage>().shapeShape;               
             }
         }
@@ -198,31 +228,21 @@ public class GridSquare : MonoBehaviour
         {
             Selected = false;//선택안된걸로해
             hooverImage.gameObject.SetActive(false);//진한색 꺼
-            keepCurrentColor = null;
+            currentColor = null;
             currentShape = null;
         }
         else if (collision.GetComponent<ShapeSquare>() != null)
         {
             collision.GetComponent<ShapeSquare>().UnSetOccupied();//레드라이트꺼
         }
-        
-        GameObject GridObj = GameObject.FindGameObjectWithTag("Grid");
-        if (GridObj != null && UseKeepBool == true)//킵쉐이프 사용 시
-        {
-            keepCurrentColor = GridObj.GetComponent<GridScript>().KeepColor;//나갈때확인해서 keep을 사용했던거라면
-            currentShape = GridObj.GetComponent<GridScript>().KeepShape;
-        }
     }
 
-    public void UseSquareKeep()//킵 프리팹과 닿으면 켜지는 함수
+    public void UseSquareKeep(string color, string shape, Sprite sprite)//킵 프리팹과 닿으면 켜지는 함수
     {
         UseKeepBool = true;
-        
-        hooverImage.gameObject.SetActive(false);//선택되고있는중에뜨는 진한색끄고
-        activeImage.gameObject.SetActive(true);//선택된 색 켜기
+        currentColor = color;
+        currentShape = shape;
 
-        Selected = true; //선택됨
-        SquareOccupied = true; //사용중
-        gameObject.transform.GetChild(2).gameObject.GetComponent<Image>().sprite = keepImage;        
+        activeImage.GetComponent<Image>().sprite = sprite;    //이걸로 인식못하고 일반 오브젝트로 인식해서 위에 문과 부딫힘    
     }
 }

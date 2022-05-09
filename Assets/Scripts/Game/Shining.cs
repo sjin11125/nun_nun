@@ -11,7 +11,6 @@ public class Shining : MonoBehaviour
     public void ShinActive()//shapeStorage¿¡¼­ ÄÑ±â
     {
         int pers = Random.Range(0, 100);
-        print(pers);
         if (pers == 0 || pers == 1|| pers == 2)        //3ÆÛ È®·ü·Î ¶ß°Ô
         {
             gameObject.SetActive(true);

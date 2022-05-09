@@ -87,7 +87,7 @@ public class RainbowItem : MonoBehaviour
                     if (hit.collider.gameObject == squareColorObj)//바꾸고있는 애가아니라
                     {
                         squareColorObj.transform.GetChild(2).GetComponent<Image>().sprite = RainbowItemChange(colorK);
-                        squareColorObj.GetComponent<GridSquare>().keepCurrentColor = getColorName[colorK];//색깔전달
+                        squareColorObj.GetComponent<GridSquare>().currentColor = getColorName[colorK];//색깔전달
                         colorK++;
                     }
                     else//다른 스퀘어면

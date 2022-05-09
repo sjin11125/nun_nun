@@ -13,10 +13,8 @@ public class CreateKeepShape : MonoBehaviour, IPointerDownHandler,IBeginDragHand
 
     public string keepColor;
     public string keepShape;
+    public Sprite keepSprite;
     public GameObject hitKeepObj;
-    GameObject KeepObj;
-    int HitChildCount;
-    int keepIndex;
 
     private void Awake()
     {       
@@ -24,20 +22,6 @@ public class CreateKeepShape : MonoBehaviour, IPointerDownHandler,IBeginDragHand
         gameObject.tag = "KeepShape";
         rectTransform = GetComponent<RectTransform>();
         canvas = GameObject.FindGameObjectWithTag("Canvas").GetComponent<Canvas>();
-
-        GameObject ItemControllerObj = GameObject.FindGameObjectWithTag("ItemController");//컨트롤러에서 선택한 인덱스에 따라 위치 결정
-        if (ItemControllerObj != null)
-        {
-            keepIndex = ItemControllerObj.GetComponent<ItemController>().keepItemIndex;
-        }
-
-        KeepObj = GameObject.FindGameObjectWithTag("Grid").transform.GetChild(keepIndex).gameObject;
-        if (KeepObj != null)
-        {
-            gameObject.GetComponent<Image>().sprite = KeepObj.GetComponent<GridSquare>().activeImage.sprite;
-            keepColor = KeepObj.GetComponent<GridSquare>().keepCurrentColor;
-            keepShape = KeepObj.GetComponent<GridSquare>().currentShape;
-        }
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
@@ -45,9 +29,7 @@ public class CreateKeepShape : MonoBehaviour, IPointerDownHandler,IBeginDragHand
         {
             if (collision.gameObject.GetComponent<GridSquare>().SquareOccupied == false)//비어있으면
             {
-                hitKeepObj = collision.gameObject;
-                hitKeepObj.GetComponent<GridSquare>().keepImage = gameObject.GetComponent<Image>().sprite;//스프라이트를 상대 스퀘어에 전달
-                HitChildCount = hitKeepObj.transform.GetSiblingIndex();//그리드에서 몇번째 인덱스와 부딫혔나               
+                hitKeepObj = collision.gameObject;            
                 drop = true;
             }
         }
@@ -67,9 +49,9 @@ public class CreateKeepShape : MonoBehaviour, IPointerDownHandler,IBeginDragHand
 
         if (drop == true)//놓았으면
         {
-            hitKeepObj.GetComponent<GridSquare>().UseSquareKeep();//상대 오브젝트를 켠다
+            hitKeepObj.GetComponent<GridSquare>().UseSquareKeep(keepColor, keepShape, keepSprite);//상대 오브젝트를 켠다
+            hitKeepObj.GetComponent<GridSquare>().ActivateSquare();
             GridScript.KeepItemTurn = 30;
-            KeepObj.SetActive(true);
             Destroy(this.gameObject);//이 프리팹은 삭제된다
         }
     }
