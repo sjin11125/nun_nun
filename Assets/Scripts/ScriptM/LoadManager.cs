@@ -121,13 +121,18 @@ public class LoadManager : MonoBehaviour
 
             if (SceneManager.GetActiveScene().name == "Main" && GameManager.CharacterList != null)       //메인씬에서 로드하기(누니)
             {
+                Debug.Log("GameManager.: " + GameManager.CharacterList.Count);
                 for (int i = 0; i < GameManager.CharacterList.Count; i++)
                 {
+                    Debug.Log("not t.: " + i);
                     Card c = GameManager.CharacterList[i];
-                    Debug.Log(c.cardImage);
                     if (c.isLock=="T")
                     {
                         Instantiate(GameManager.CharacterPrefab[c.cardImage], nunis.transform);
+                    }
+                    else
+                    {  
+                        Debug.Log("not t.: " + c.cardName+"   "  + c.isLock);
                     }
                 }
             }

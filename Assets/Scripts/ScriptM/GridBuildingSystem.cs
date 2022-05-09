@@ -212,111 +212,115 @@ public class GridBuildingSystem : MonoBehaviour
 
 
 
-            if (hit.transform != null&& hit.transform.tag!="Nuni")          // 오브젝트를 클릭 했을 때
+            if (hit.transform != null)          // 오브젝트를 클릭 했을 때
             {
-
-                Transform Building = hit.transform.parent;
-                if (temp != null)
+                if (hit.transform.tag != "Nuni")
                 {
-                    if (temp.Placed == false)               //건물이 배치가 안 된 상태인가?
-                    {
-                        Building hit_building = temp.GetComponent<Building>();
-                        if (hit.transform.tag == "Button")      //건물 배치 확인 버튼
-                        {
-                            if (temp.CanBePlaced())         //건물이 배치 될 수 있는가? 네
-                            {
-                                //temp.level += 1;        //레벨 +1
-                                temp.Place(temp.Type);
-                                UI_Manager.Start();
 
+
+                    Transform Building = hit.transform.parent;
+                    if (temp != null)
+                    {
+                        if (temp.Placed == false)               //건물이 배치가 안 된 상태인가?
+                        {
+                            Building hit_building = temp.GetComponent<Building>();
+                            if (hit.transform.tag == "Button")      //건물 배치 확인 버튼
+                            {
+                                if (temp.CanBePlaced())         //건물이 배치 될 수 있는가? 네
+                                {
+                                    //temp.level += 1;        //레벨 +1
+                                    temp.Place(temp.Type);
+                                    UI_Manager.Start();
+
+                                    Grid.GetComponent<SpriteRenderer>().sortingOrder = -48;
+                                    StartButton.enabled = true;
+                                    temp = null;
+                                }
+                                // button.buttonok();
+                            }
+                            if (hit.transform.tag == "Rotation")        //건물 회전 버튼
+                            {
+
+                                if (hit_building.isFliped == "T")
+                                {
+                                    hit_building.isFliped = "F";
+                                }
+                                else
+                                {
+                                    hit_building.isFliped = "T";
+                                }
+                                hit_building.Rotation();
+
+
+                            }
+                            if (hit.transform.tag == "Upgrade")         //업그레이드
+                            {
+                                GameManager.isMoveLock = true;
+                                hit_building.Type = BuildType.Upgrade;
+                                hit_building.Upgrade();
+                            }
+                            if (hit.transform.tag == "Remove")          //제거
+                            {
+                                temp.Remove(temp);
+                                //UI_Manager.Start();
                                 Grid.GetComponent<SpriteRenderer>().sortingOrder = -48;
-                                StartButton.enabled = true;
-                                temp = null;
+
                             }
-                            // button.buttonok();
                         }
-                        if (hit.transform.tag == "Rotation")        //건물 회전 버튼
+
+                    }
+                    else             //temp가 없을 때               //건물이 배치 된 상태
+                    {
+
+
+                        if (hit.transform.tag == "Coin_Button")           //재화 버튼 누르면(되긴 하는데 수정해야함)
                         {
+                            //Transform BuildingCoin = hit.transform.parent;
+                            Building.GetComponent<Building>().Coin_OK();
 
-                            if (hit_building.isFliped == "T")
-                            {
-                                hit_building.isFliped = "F";
-                            }
-                            else
-                            {
-                                hit_building.isFliped = "T";
-                            }
-                            hit_building.Rotation();
-
-
+                            Debug.Log("huan");
                         }
-                        if (hit.transform.tag == "Upgrade")         //업그레이드
-                        {
-                            GameManager.isMoveLock = true;
-                            hit_building.Type = BuildType.Upgrade;
-                            hit_building.Upgrade();
-                        }
-                        if (hit.transform.tag == "Remove")          //제거
-                        {
-                            temp.Remove(temp);
-                            //UI_Manager.Start();
-                            Grid.GetComponent<SpriteRenderer>().sortingOrder = -48;
 
+                        else if (hit.transform.tag == "VisitorBook")
+                        {
+                            VisitorBooksWindow.gameObject.SetActive(true);
                         }
                     }
 
                 }
-                else             //temp가 없을 때               //건물이 배치 된 상태
+                else   // 빈 공간을 클릭했을 때
                 {
-
-
-                    if (hit.transform.tag == "Coin_Button")           //재화 버튼 누르면(되긴 하는데 수정해야함)
+                    if (temp != null)
                     {
-                        //Transform BuildingCoin = hit.transform.parent;
-                        Building.GetComponent<Building>().Coin_OK();
-
-                        Debug.Log("huan");
-                    }
-
-                    else if (hit.transform.tag == "VisitorBook")
-                    {
-                        VisitorBooksWindow.gameObject.SetActive(true);
-                    }
-                }
-
-            }
-            else   // 빈 공간을 클릭했을 때
-            {
-                if (temp != null)
-                {
-                    if (!temp.Placed)           //건물이 놓여지지 않았다.(마우스가 클릭하는 데로 건물 따라감)
-                    {
-                        if (temp.Type != BuildType.Upgrade)
+                        if (!temp.Placed)           //건물이 놓여지지 않았다.(마우스가 클릭하는 데로 건물 따라감)
                         {
-
-
-                            Vector2 touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                            Vector3Int cellPos = gridLayout.LocalToCell(touchPos);
-                            Debug.Log("mouse");
-                            if (prevPos != cellPos)
+                            if (temp.Type != BuildType.Upgrade)
                             {
-                                temp.transform.localPosition = gridLayout.CellToLocalInterpolated(cellPos
-                                    + new Vector3(.5f, .5f, 0f)); //Vector3
-                                prevPos = cellPos;
-                                FollowBuilding(false); // 마우스가 위의 좌표 따라감. 
-                            }
-                        }
 
+
+                                Vector2 touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                                Vector3Int cellPos = gridLayout.LocalToCell(touchPos);
+                                Debug.Log("mouse");
+                                if (prevPos != cellPos)
+                                {
+                                    temp.transform.localPosition = gridLayout.CellToLocalInterpolated(cellPos
+                                        + new Vector3(.5f, .5f, 0f)); //Vector3
+                                    prevPos = cellPos;
+                                    FollowBuilding(false); // 마우스가 위의 좌표 따라감. 
+                                }
+                            }
+
+                        }
                     }
                 }
             }
-            /*if (hit.transform.tag=="Nuni")      //누니 클릭
+            else if(hit.transform.tag=="Nuni")      //누니 클릭
             {
                 Transform[] Spot = hit.transform.GetComponentsInChildren<Transform>();
                 Instantiate(Dialog,Canvas.transform);       //대화창뜨게
 
                 //RectTransform 
-            }*/
+            }
         }
         else if (Input.GetMouseButton(0) && SceneManager.GetActiveScene().name == "FriendMain")         //친구 씬에서 방명록킬때
         {

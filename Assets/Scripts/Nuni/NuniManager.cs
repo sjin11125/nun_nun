@@ -61,11 +61,14 @@ public class NuniManager : MonoBehaviour                    //게임 시작하고 구글
         
         for (int j = 0; j < Nunis.Length; j++)
         {
+            
             string[] Nunis_nuni = Nunis[j].Split(':');
             for (int i = 0; i < GameManager.AllNuniArray.Length; i++)
             {
                 if (GameManager.AllNuniArray[i].cardName == Nunis_nuni[0])
                 {
+                    Debug.Log(Nunis_nuni[0]);
+                    Debug.Log(GameManager.AllNuniArray[i].cardName);
                     Card nuni = GameManager.AllNuniArray[i];
                     if (Nunis_nuni[1] == "T")
                     {
