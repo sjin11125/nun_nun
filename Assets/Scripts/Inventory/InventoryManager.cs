@@ -19,7 +19,11 @@ public class InventoryManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (GameManager.isUpdate==true)
+        {
+            GameManager.isUpdate = false;
+            Inventory_Building_Open();
+        }
     }
 
     public void Inventory_Building_Open()            //건물 인벤 버튼 눌렀을 때

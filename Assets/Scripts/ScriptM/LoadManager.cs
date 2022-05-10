@@ -79,7 +79,6 @@ public class LoadManager : MonoBehaviour
                         }
                        
                     }
-
                     Debug.Log(LoadBuilding.Building_name);
                     g.name = LoadBuilding.Id;          //이름 재설정
 

@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     public static Button InvenButton;
 
     public static List<string> IDs;        //건물 아이디
+    public static bool isUpdate = false;        //건물 목록 강제로 업데이트
     //----------------------------------------------------이까지 건물----------------------------------------------------
 
 

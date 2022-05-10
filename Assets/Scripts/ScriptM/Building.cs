@@ -470,13 +470,14 @@ public class Building : MonoBehaviour
             save.RemoveValue(Id);
             Destroy(gameObject);
         }
+        GameManager.isUpdate = true;
     }
     public void Place_Initial(BuildType buildtype)
     {
         Vector3 vec = new Vector3(float.Parse(BuildingPosiiton_x), float.Parse(BuildingPosiiton_y), 0);
-        Vector3Int positionInt = GridBuildingSystem.current.gridLayout.LocalToCell(vec);
+        area.position = GridBuildingSystem.current.gridLayout.WorldToCell(vec);
         BoundsInt areaTemp = area;
-        areaTemp.position = positionInt;
+        //areaTemp.position = positionInt;
         Placed = true;      // 배치 했니? 네
         GridBuildingSystem.current.TakeArea(areaTemp);      //타일 맵 설정
         transform.position = vec;

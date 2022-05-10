@@ -149,20 +149,7 @@ public class InventoryButton : MonoBehaviour
             }
         }
         Transform[] building_child = buildings.GetComponentsInChildren<Transform>();
-        if (gridBuildingSystem.temp_gameObject != null)                     //클릭한 곳 안따라가게
-        {
-            Building b = gridBuildingSystem.temp_gameObject.GetComponent<Building>();
-            Debug.Log(b.area);
-            gridBuildingSystem.prevArea = b.area;
-            gridBuildingSystem.ClearArea2();
-            gridBuildingSystem.CanTakeArea(b.area);
-
-            Destroy(gridBuildingSystem.temp_gameObject);
-        }
-        else
-        {
-
-        }
+     
         if (GameManager.CurrentBuilding!=null)
         {
            
@@ -181,7 +168,7 @@ public class InventoryButton : MonoBehaviour
                     Building b = GameManager.CurrentBuilding.GetComponent<Building>();
                     Debug.Log("b.area    "+b.area);
                     gridBuildingSystem.prevArea2 = b.area;
-                    gridBuildingSystem.ClearArea2();
+                    gridBuildingSystem.RemoveArea(b.area);
                     gridBuildingSystem.CanTakeArea(b.area);
                     //b.Remove(GameManager.CurrentBuilding.GetComponent<Building>());
                     Destroy(building_child[i].gameObject);

@@ -140,6 +140,7 @@ public class GridBuildingSystem : MonoBehaviour
                         if (hit.transform.tag == "Remove")          //제거
                         {
                             temp.Remove(temp);
+
                             //UI_Manager.Start();
                             Grid.GetComponent<SpriteRenderer>().sortingOrder = -48;
 
