@@ -37,6 +37,10 @@ public class GridSquare : MonoBehaviour
 
     public GameObject KeepShapeObj;
     public bool IMkeep = false;
+    Sprite currentSprite;
+    bool currentShin;
+
+    private GameObject settigPanel;
 
     void Awake()
     {
@@ -58,6 +62,7 @@ public class GridSquare : MonoBehaviour
             rainbowObj = GetRainbow.transform.GetChild(4).gameObject;//레인보우 아이템 오브젝트를 받아
             ChangeShapeObj = GetRainbow.transform.GetChild(5).gameObject;
         }
+        settigPanel = GameObject.FindGameObjectWithTag("SettingPanel");
     }
 
     private void Update()
@@ -80,13 +85,11 @@ public class GridSquare : MonoBehaviour
                             {
                                 rainbowObj.GetComponent<RainbowItem>().RainbowItemUse(currentShape);//레인보우 아이템 함수 호출
                                 RainbowItem.squareColorObj = this.gameObject;
-                                print(currentShape);
                             }
                             else if (GridScript.ChangeShapeItem <= 0 && ChangeShapeItem.changeActive)
                             {
                                 ChangeShapeObj.GetComponent<ChangeShapeItem>().RainbowItemUse(currentColor);//컬러바꾸는 아이템 함수 호출
                                 ChangeShapeItem.squareObj = this.gameObject;
-                                print(currentColor);
                             }
                         }
                     }
@@ -105,12 +108,6 @@ public class GridSquare : MonoBehaviour
         }
     }
 
-    //temp function remove it
-    public bool CanWeUseThisSquare()
-    {
-        return hooverImage.gameObject.activeSelf;
-    }
-
     public void PlaceShapeOnBoard()//그리스 스크립트 CheckIfShapeCanBePlaced에서 사용
     {
         ActivateSquare();
@@ -118,10 +115,11 @@ public class GridSquare : MonoBehaviour
 
     public void ActivateSquare()
     {
+        settigPanel.GetComponent<AudioController>().Sound[2].Play();
         hooverImage.gameObject.SetActive(false);//선택되고있는중에뜨는 진한색끄고
         activeImage.gameObject.SetActive(true);//선택된 색 켜기
 
-        if (squareImage.transform.GetChild(0).gameObject.activeSelf && !IMtrash)//shin이 켜져있으면
+        if (squareImage.transform.GetChild(0).gameObject.activeSelf && !IMtrash && !IMkeep)//shin이 켜져있으면
         {
             activeImage.transform.GetChild(0).gameObject.SetActive(true);
             shinActive = true;
@@ -151,13 +149,18 @@ public class GridSquare : MonoBehaviour
                     keepInstance.GetComponent<CreateKeepShape>().keepShape = currentShape;
                     keepInstance.GetComponent<CreateKeepShape>().keepSprite = spriteImage.sprite;
                     keepInstance.GetComponent<Image>().sprite = spriteImage.sprite;
+                    keepInstance.GetComponent<CreateKeepShape>().keepShin = currentShin;
                     NonKeep();
                 }
+            }
+            else if (UseKeepBool)
+            {
+                activeImage.sprite = currentSprite;
             }
             else
             {
                 activeImage.sprite = spriteImage.sprite;//쉐이프 스프라이트 전달
-            }         
+            }
         }
     }
 
@@ -199,7 +202,8 @@ public class GridSquare : MonoBehaviour
             if (ShapeStorageObj != null)//여기서 항상 들어갈때 shape의 정보를 받는다
             {                             
                 currentColor = ShapeStorageObj.GetComponent<ShapeStorage>().shapeColor;
-                currentShape = ShapeStorageObj.GetComponent<ShapeStorage>().shapeShape;               
+                currentShape = ShapeStorageObj.GetComponent<ShapeStorage>().shapeShape;
+                currentShin = collision.transform.GetChild(0).gameObject.activeSelf;
             }
         }
         else if(collision.GetComponent<ShapeSquare>() != null)//쉐이프와 닿아있음
@@ -229,7 +233,6 @@ public class GridSquare : MonoBehaviour
             Selected = false;//선택안된걸로해
             hooverImage.gameObject.SetActive(false);//진한색 꺼
             currentColor = null;
-            currentShape = null;
         }
         else if (collision.GetComponent<ShapeSquare>() != null)
         {
@@ -242,7 +245,6 @@ public class GridSquare : MonoBehaviour
         UseKeepBool = true;
         currentColor = color;
         currentShape = shape;
-
-        activeImage.GetComponent<Image>().sprite = sprite;    //이걸로 인식못하고 일반 오브젝트로 인식해서 위에 문과 부딫힘    
+        currentSprite = sprite;  
     }
 }

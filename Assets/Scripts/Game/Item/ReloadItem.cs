@@ -10,6 +10,9 @@ public class ReloadItem : MonoBehaviour
     public int ItemTurn = 15;
     public Sprite getBlue;
     public Text number;
+
+    private GameObject settigPanel;
+
     void Start()
     {
         for (int i = 0; i < myChlid.Length; i++)
@@ -17,6 +20,7 @@ public class ReloadItem : MonoBehaviour
             myChlid[i] = gameObject.transform.GetChild(i).gameObject;
         }
         shapestorageObj = GameObject.FindGameObjectWithTag("ShapeStorage");
+        settigPanel = GameObject.FindGameObjectWithTag("SettingPanel");
     }
 
     void Update()
@@ -38,6 +42,7 @@ public class ReloadItem : MonoBehaviour
                         myChlid[1].gameObject.GetComponent<Image>().sprite = getBlue;
                         myChlid[0].SetActive(true);//파티클 켜기
                         myChlid[2].SetActive(true);//블락 이미지 켜기
+                        settigPanel.GetComponent<AudioController>().Sound[0].Play();
                     }
                 }
             }

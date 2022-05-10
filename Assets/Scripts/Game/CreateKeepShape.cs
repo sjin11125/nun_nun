@@ -14,6 +14,7 @@ public class CreateKeepShape : MonoBehaviour, IPointerDownHandler,IBeginDragHand
     public string keepColor;
     public string keepShape;
     public Sprite keepSprite;
+    public bool keepShin;
     public GameObject hitKeepObj;
 
     private void Awake()
@@ -23,6 +24,12 @@ public class CreateKeepShape : MonoBehaviour, IPointerDownHandler,IBeginDragHand
         rectTransform = GetComponent<RectTransform>();
         canvas = GameObject.FindGameObjectWithTag("Canvas").GetComponent<Canvas>();
     }
+
+    private void Start()
+    {
+        this.transform.GetChild(0).gameObject.SetActive(keepShin);
+    }
+
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "GridSquare")

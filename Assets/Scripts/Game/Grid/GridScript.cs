@@ -22,7 +22,10 @@ public class GridScript : MonoBehaviour
     public GameObject gameOver;
     int keepSquareIndex;
     int trashCanIndex;
+
     public GameObject effectShape;
+    private GameObject settigPanel;
+
     static public int EraserItemTurn = 10;
     static public int ReloadItemTurn = 15;
     static public int NextExchangeItemTurn = 15;
@@ -36,6 +39,10 @@ public class GridScript : MonoBehaviour
     public GameObject QuestControll;
 
     int completeShin = 0;
+
+    public GameObject ComboImg;
+    int Combo = 0;
+    List<GameObject> comboObject = new List<GameObject>();
 
     private void OnEnable()
     {
@@ -53,6 +60,7 @@ public class GridScript : MonoBehaviour
         _lineIndicator = GetComponent<LineIndicator>();
         CreateGrid();
         SettingKeep();
+        settigPanel = GameObject.FindGameObjectWithTag("SettingPanel");
     }
 
     void Update()
@@ -196,8 +204,8 @@ public class GridScript : MonoBehaviour
             GameEvents.MoveShapeToStartPosition();//처음위치로
         }
     }
-    
-    public void CheckIfKeepLineIsCompleted()//킵은 엔터때 색깔이 들어가기때문에 새로운 함수 생성함
+
+    private void CheckIfLine()
     {
         List<int[]> lines = new List<int[]>();
 
@@ -219,12 +227,6 @@ public class GridScript : MonoBehaviour
         }
 
         var completedLines = CheckIfSquaresAreCompleted(lines);//행(0-5)렬(0-5) 정보전달 및 변수에 반환 int값 저장
-
-        if (completedLines > 2)
-        {
-            //TODO: Play bouns animation.
-        }
-        //컴플릿 라인에 모든 스퀘어를 검사해서 샤인이 있으면 갯수 새서더하기
         var totalScores = 10 * completedLines;
         GameEvents.AddScores(totalScores, completeShin);
 
@@ -235,7 +237,36 @@ public class GridScript : MonoBehaviour
                 gameOver.gameObject.SetActive(true);
                 Time.timeScale = 0;
             }
+            Combo = 0;
+            settigPanel.GetComponent<AudioController>().Sound[3].pitch = 1;
+            if (GameObject.FindGameObjectsWithTag("Combo") != null)
+            {
+                comboObject.AddRange(GameObject.FindGameObjectsWithTag("Combo"));
+                foreach (var item in comboObject)
+                {
+                    Destroy(item);
+                }
+                comboObject.Clear();
+            }
         }
+        else
+        {
+            Combo += completedLines;
+            settigPanel.GetComponent<AudioController>().Sound[3].Play();
+            if (Combo > 1)
+            {
+                settigPanel.GetComponent<AudioController>().Sound[3].pitch += (Combo - 1) * 0.2f;
+                for (int i = 0; i < completedLines; i++)
+                {
+                    Instantiate(ComboImg, this.transform.parent.GetChild(0));
+                }
+            }
+        }
+    }
+
+    public void CheckIfKeepLineIsCompleted()//킵은 엔터때 색깔이 들어가기때문에 새로운 함수 생성함
+    {
+        CheckIfLine();
         KeepItemTurn++;
         EraserItemTurn++;
         ReloadItemTurn++;
@@ -246,45 +277,9 @@ public class GridScript : MonoBehaviour
         ThreeVerticalItem++;
         ThreeHorizontalItem++;
     }
-    
     private void CheckIfAnyLineIsCompleted()//하나 놓을때마다 한번실행
     {
-        List<int[]> lines = new List<int[]>();
-
-        //columns
-        foreach (var column in _lineIndicator.columnIndexes)//0-5
-        {
-            lines.Add(_lineIndicator.GetVerticalLine(column));//column은 0-4_5열
-        }
-
-        //rows
-        for (var row = 0; row < 5; row++)
-        {
-            List<int> data = new List<int>(5);
-            for (var index = 0; index < 5; index++)
-            {
-                data.Add(_lineIndicator.line_data[row, index]); //5행을 data에 저장
-            }
-            lines.Add(data.ToArray());//lines에 복사
-        }
-
-        var completedLines = CheckIfSquaresAreCompleted(lines);//행(0-5)렬(0-5) 정보전달 및 변수에 반환 int값 저장
-        if (completedLines > 2)
-        {
-            //TODO: Play bouns animation.
-        }
-
-        var totalScores = 10 * completedLines;
-        GameEvents.AddScores(totalScores, completeShin);
-
-        if (completedLines == 0)
-        {
-            if (GameOver())
-            {
-                gameOver.gameObject.SetActive(true);
-                Time.timeScale = 0;
-            }
-        }
+        CheckIfLine();
     }
 
     int[] sameColorColumLine = new int[5];
@@ -367,6 +362,7 @@ public class GridScript : MonoBehaviour
                 _gridSquares[completeIndexArray[i]].transform.localPosition.y, 0), Quaternion.identity) as GameObject;
             effect.transform.SetParent(GameObject.FindGameObjectWithTag("Grid").transform, false);
             //square가 사라지면 그 위치 값을 받아서 Instance 생성
+            //setting_panel 오디오 컨트롤러 3번 플레이
         }
         sameColorLine = true;
 
@@ -582,6 +578,7 @@ public class GridScript : MonoBehaviour
             else//KeepItemTurn이 1,2,3...일때
             {
                 comp.ActivateSquare();
+                _gridSquares[keepSquareIndex].SetActive(true);
                 _gridSquares[keepSquareIndex].transform.GetChild(0).gameObject.transform
                     .GetChild(0).gameObject.GetComponent<Text>().text = KeepItemTurn.ToString();
             }                     

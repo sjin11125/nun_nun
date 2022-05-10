@@ -12,11 +12,15 @@ public class EraserItem : MonoBehaviour
     bool buttonDown;
     public int ItemTurn= 20;
     public Text number;
+
+    private GameObject settigPanel;
+
     void Start()
     {
         GridScript.EraserItemTurn = ItemTurn;
         hooverObj.SetActive(true);
         number.text = GridScript.EraserItemTurn.ToString();
+        settigPanel = GameObject.FindGameObjectWithTag("SettingPanel");
     }
     void Update()
     {
@@ -37,6 +41,7 @@ public class EraserItem : MonoBehaviour
                     squareImage = contectSquare.transform.GetChild(2).gameObject.GetComponent<Image>();
                     squareImage.sprite = normalImage.sprite;//Èò»öÀ¸·Î ¹Ù²ã
                     buttonDown = false;
+                    settigPanel.GetComponent<AudioController>().Sound[0].Play();
                 }
             }
         }
