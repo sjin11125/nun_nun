@@ -57,6 +57,19 @@ public class FriendButton : MonoBehaviour
 
         StartCoroutine(SearchPost(form1));
     }
+
+    public void AddRecFriend()          //요청받은 친구 추가하기 버튼 누르면
+    {
+        string f_nickname = F_nickname.text;            //추가하려는 친구 닉
+
+        
+        WWWForm form1 = new WWWForm();
+        form1.AddField("order", "addFriend");
+        form1.AddField("friend_nickname", F_nickname.text);
+        form1.AddField("player_nickname", GameManager.NickName);
+
+        StartCoroutine(SearchPost(form1));
+    }
     IEnumerator EnrollPost(WWWForm form)
     {
         Debug.Log("EnrollPost");
@@ -154,6 +167,7 @@ public class FriendButton : MonoBehaviour
         for (int i = 0; i < friendInfos.Length; i++)
         {
             GameObject friendprefab = Instantiate(FriendPrefab, Content.transform) as GameObject;  //친구 프리팹 생성
+            friendprefab.tag = "addFriend";
             Transform friendPrefabChilds = friendprefab.GetComponent<Transform>();
             friendPrefabChilds.name = friendInfos[i].f_nickname;
             Text[] friendButtonText = friendprefab.GetComponentsInChildren<Text>();
