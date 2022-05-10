@@ -31,7 +31,7 @@ public class GridBuildingSystem : MonoBehaviour
     GameObject Grid;
     public Button StartButton;
 
-    public UIAniManager UI_Manager;
+ 
     public GameObject buildings;
     GameObject Canvas;
 
@@ -244,7 +244,7 @@ public class GridBuildingSystem : MonoBehaviour
                             {
                                 //temp.level += 1;        //레벨 +1
                                 temp.Place(temp.Type);
-                                UI_Manager.Start();
+                     
 
                                 Grid.GetComponent<SpriteRenderer>().sortingOrder = -48;
                                 StartButton.enabled = true;
