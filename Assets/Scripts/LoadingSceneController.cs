@@ -49,13 +49,23 @@ public class LoadingSceneController : MonoBehaviour
     [SerializeField]
     private Image progressBar;
 
+    BuildingSave build;
     private string loadSceneName;
-
     public void LoadScene(string sceneName)
     {
         gameObject.SetActive(true);
         SceneManager.sceneLoaded += OnSceneLoaded;
         loadSceneName = sceneName;
+        StartCoroutine(LoadSceneProcess());
+
+    }
+    public void LoadScene(string sceneName,BuildingSave build)
+    {
+        gameObject.SetActive(true);
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        loadSceneName = sceneName;
+        this.build= build;
+        build.BuildingLoad();
         StartCoroutine(LoadSceneProcess());
 
     }
@@ -88,6 +98,10 @@ public class LoadingSceneController : MonoBehaviour
                 }
             }
         }
+    }
+    public void BuildingLoading()
+    {
+        
     }
     private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1) // 씬로드가 끝나는 지점
     {
