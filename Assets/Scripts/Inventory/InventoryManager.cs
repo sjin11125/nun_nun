@@ -22,25 +22,30 @@ public class InventoryManager : MonoBehaviour
         if (GameManager.isUpdate==true)
         {
             GameManager.isUpdate = false;
+            Debug.Log("is Update");
             Inventory_Building_Open();
         }
     }
-
-    public void Inventory_Building_Open()            //건물 인벤 버튼 눌렀을 때
+    public void Inventory_Exit()
     {
         Transform[] Content_Child = Content.GetComponentsInChildren<Transform>();
         for (int i = 1; i < Content_Child.Length; i++)
         {
             Destroy(Content_Child[i].gameObject);
         }
-
+    }
+    public void Inventory_Building_Open()            //건물 인벤 버튼 눌렀을 때
+    {
+        Inventory_Exit();           //원래 있던 목록 다 지우기
+        Debug.Log("is Update");
         for (int i = 1; i < GameManager.BuildingList.Count; i++)
         {
-            if (GameManager.BuildingList[i].Id != "ii1y1")
+            if (GameManager.BuildingList[i].Id != "ii1y1")          //분수가 아니라면
             {
 
                 GameObject inven = Instantiate(inventory_prefab, Content) as GameObject;         //인벤 버튼 프리팹 생성
-
+                Debug.Log("GameManager.BuildingArray: " + GameManager.BuildingArray.Length);
+                Debug.Log("ID는 "+ GameManager.BuildingList[i].Id);
                 inven.gameObject.name = GameManager.BuildingList[i].Id;
                 inven.gameObject.tag = "Inven_Building";            //인벤 버튼 태그 설정
 

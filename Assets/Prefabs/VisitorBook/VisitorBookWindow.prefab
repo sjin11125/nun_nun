@@ -553,6 +553,7 @@ GameObject:
   - component: {fileID: 2713182999061460016}
   - component: {fileID: 2713182999061460022}
   - component: {fileID: 2713182999061460021}
+  - component: {fileID: 2352226732642933183}
   m_Layer: 5
   m_Name: VisitorBookWindow
   m_TagString: VisitorBook
@@ -651,6 +652,18 @@ MonoBehaviour:
   Content: {fileID: 2713182999106884280}
   VBPrefab: {fileID: 6313625040792332860, guid: 084f66d6b36f989478b7d326b6eb8e8f, type: 3}
   VBInput: {fileID: 2713183000389147402}
+--- !u!114 &2352226732642933183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2713182999061460018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 804190a7dcc1a1a4cb030a3f713c1d54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2713182999106884280
 GameObject:
   m_ObjectHideFlags: 0
@@ -1590,6 +1603,7 @@ GameObject:
   - component: {fileID: 2713183000389147400}
   - component: {fileID: 2713183000389147401}
   - component: {fileID: 2713183000389147402}
+  - component: {fileID: 9151444830792918857}
   m_Layer: 5
   m_Name: InputField
   m_TagString: Untagged
@@ -1722,6 +1736,35 @@ MonoBehaviour:
   m_CaretWidth: 1
   m_ReadOnly: 0
   m_ShouldActivateOnSelect: 1
+--- !u!114 &9151444830792918857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2713183000389147444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2352226732642933183}
+          m_TargetAssemblyTypeName: KeyBoard, Assembly-CSharp
+          m_MethodName: OpenKeyBoard
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &2713183000632711724
 GameObject:
   m_ObjectHideFlags: 0

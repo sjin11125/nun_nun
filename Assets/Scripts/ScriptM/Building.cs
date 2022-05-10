@@ -185,7 +185,7 @@ public class Building : MonoBehaviour
 
         BuildingCopy.Cost = this.Cost;
         BuildingCopy.ShinCost = this.ShinCost;
-
+        BuildingCopy.Id = this.Id;
         BuildingCopy.isFliped = isFliped;
         return BuildingCopy;
     }
@@ -518,14 +518,16 @@ public class Building : MonoBehaviour
 
         if (buildtype == BuildType.Make)                       //새로 만드는 건가?
         {
-            gameObject.name = Building_Image + GameManager.BuildingNumber[Building_Image];      //이름 재설정
+            
             Building_name = gameObject.name;
             Debug.Log("Building_Image: " + Building_Image);
             GameManager.BuildingNumber[Building_Image]++; //해당 건물의 갯수 추가
             Id = GameManager.IDGenerator();
+            gameObject.name = Id;      //이름 재설정
             BuildingListAdd();      //현재 가지고 있는 건물 리스트에 추가
             buildtype = BuildType.Empty;
-
+            Debug.Log("새로만듬");
+            
         }
         else if (buildtype == BuildType.Load)                    //로드할때
         {
@@ -577,12 +579,13 @@ public class Building : MonoBehaviour
         GameManager.BuildingList.Add(this.DeepCopy());      //현재 가지고 있는 빌딩 리스트에 추가
 
         GameManager.BuildingArray = GameManager.BuildingList.ToArray();
-
+        Debug.Log("GameManager.BuildingArray: "+ GameManager.BuildingArray.Length);
 
         GameManager.CurrentBuilding = null;
         //
 
         save.AddValue();
+        //GameManager.isUpdate = true;
     } 
     #endregion 
     // Update is called once per frame

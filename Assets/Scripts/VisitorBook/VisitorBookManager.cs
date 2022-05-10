@@ -126,6 +126,7 @@ public class VisitorBookManager : MonoBehaviour
 
     void Response(string json)                          
     {
+        Debug.Log(json);
         if (string.IsNullOrEmpty(json))
         {
             Debug.Log(json);
