@@ -115,12 +115,16 @@ public class GameManager : MonoBehaviour
     public static bool QParse = false;
     public static bool[] QuestActive;                 //블록 얼마 깻는지 확인
     public static int QuestColor = 0;                   //뭔 블록 깨야하는지    
+
+
+    public static bool isStrEdit = false;
     void Start()
     {
         BuildingList = new List<Building>();            //현재 가지고 있는 빌딩 리스트
         //
         DogamChaImageData = new Dictionary<string, Sprite>();       //전체 캐릭터 리스트(가지고 있지 않은것도 포함)
         BuildingPrefabData = new Dictionary<string, GameObject>();      //전체 빌딩 프리팹 리스트 (가지고 있지 않은 것도 포함)
+        StrPrefabData = new Dictionary<string, GameObject>();
         CharacterPrefab = new Dictionary<string, GameObject>();
         CharacterImageData = new Dictionary<string, Sprite>();
         CharacterList = new List<Card>();
@@ -148,6 +152,7 @@ public class GameManager : MonoBehaviour
         }      
         for (int i = 0; i < StrPrefabInspector.Length; i++)        //빌딩 프리팹 정보 불러오기
         {
+            Debug.Log(StrPrefabInspector[i]);
             StrPrefabData.Add(StrPrefabInspector[i].name+ "(Clone)", StrPrefabInspector[i]);
             if (StrPrefabInspector[i].GetComponent<Str>().Button_Pannel == null)
             {
@@ -197,7 +202,7 @@ public class GameManager : MonoBehaviour
         DicParsingManager DPManager = new DicParsingManager();
         AllNuniArray = DPManager.Parse_character(1);            //누니 정보 파싱
         BuildingArray = DPManager.Parse(0);    //도감 정보 파싱
-
+        StrArray = DPManager.Parse_Str(2);
         // Friends=new string[1] {"Vicky"};            //일단 친구는 비키만 있는걸로
         //친구 목록 불러오기
         //GetComponent<BuildingSave>().GetFriendLsit();           //친구 목록 불러오기

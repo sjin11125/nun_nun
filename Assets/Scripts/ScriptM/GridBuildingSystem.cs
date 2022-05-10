@@ -23,6 +23,7 @@ public class GridBuildingSystem : MonoBehaviour
     private static Dictionary<TileType, TileBase> tileBases = new Dictionary<TileType, TileBase>();
 
     private Building temp; //building type으로 temp 생성
+    private Str tempStr; //building type으로 temp 생성
     private Vector3 prevPos;
     public BoundsInt prevArea;
     public BoundsInt prevArea2;
@@ -207,6 +208,11 @@ public class GridBuildingSystem : MonoBehaviour
             isEditing = true;
             InitializeWithBuilding();
             temp.Type = BuildType.Move;
+        }
+        if (GameManager.isStrEdit == true)
+        {
+            GameManager.isStrEdit = false;
+            InitializeWithBuilding_str();
         }
         if (isGrid == true)
         {
@@ -502,12 +508,36 @@ public class GridBuildingSystem : MonoBehaviour
 
    }
 
-   #endregion
+    #endregion
 
 
-   #region Building Placement
+    #region Building Placement
+    public void InitializeWithBuilding_str() //생성버튼 눌렀을 때 building 을 prefab으로 해서 생성
+    {
+        temp_gameObject = Instantiate(GameManager.CurrentBuilding, Vector3.zero, Quaternion.identity, buildings.transform) as GameObject;
 
-   public void InitializeWithBuilding() //생성버튼 눌렀을 때 building 을 prefab으로 해서 생성
+        tempStr = temp_gameObject.GetComponent<Str>(); // 이때 building 프리펩의 속성 불러오기
+        Debug.Log("uuuuuuuuu" + GameManager.BuildingArray.Length);
+        for (int i = 0; i < GameManager.StrArray.Length; i++)
+        {
+            if (GameManager.StrArray[i].Building_Image == tempStr.Building_Image)
+            {
+                Debug.Log("Good");
+                tempStr.SetValue(GameManager.StrArray[i]);
+                break;
+            }
+        }
+
+
+        tempStr.Type = BuildType.Make;
+
+        tempStr.Rotation_Pannel.gameObject.SetActive(false);
+        tempStr.Placed = false;            //건물은 현재 배치가 안 된 상태
+        //temp.Building_name = temp_gameObject.name;
+        FollowBuilding_Str(false);           //건물이 마우스 따라가게 하는 함수
+
+    }
+    public void InitializeWithBuilding() //생성버튼 눌렀을 때 building 을 prefab으로 해서 생성
    {
         temp_gameObject = Instantiate(GameManager.CurrentBuilding, Vector3.zero, Quaternion.identity,buildings.transform) as GameObject;
         
@@ -557,6 +587,42 @@ public class GridBuildingSystem : MonoBehaviour
         SetTilesBlock(prevArea2, TileType.White, MainTilemap);
 
     }
+    private void FollowBuilding_Str(bool isTransfer)                    //건물이 마우스 따라가게
+    {
+        Debug.Log("Following");
+        ClearArea();
+
+
+        tempStr.area.position = gridLayout.WorldToCell(tempStr.gameObject.transform.position);
+        BoundsInt buildingArea = tempStr.area;
+
+        TileBase[] baseArray = GetTilesBlock(buildingArea, MainTilemap);
+        int size = baseArray.Length;
+
+
+        TileBase[] tileArray = new TileBase[size];
+
+        for (int i = 0; i < baseArray.Length; i++)
+        {
+
+            if (baseArray[i] == tileBases[TileType.White])
+            {
+                tileArray[i] = tileBases[TileType.Green];            //건물을 놓을 수 있다
+            }
+            else
+            {
+                FillTiles(baseArray, TileType.Red);
+                FillTiles(tileArray, TileType.Red);                  //건물을 놓을 수 없다
+
+                break;
+            }
+        }
+        TempTilemap.SetTilesBlock(buildingArea, tileArray);
+        prevArea = buildingArea;
+
+
+    }
+
     private void FollowBuilding(bool isTransfer)                    //건물이 마우스 따라가게
    {
         Debug.Log("Following");

@@ -66,7 +66,7 @@ public class DogamManager : MonoBehaviour
 
             DogamCha = Instantiate(DogamChaPrefab) as GameObject;
             DogamCha.transform.SetParent(Scroll.transform);
-
+            DogamCha.tag = "Str";
             Transform[] BuildingPrefabChilds = DogamCha.GetComponentsInChildren<Transform>();
             Text[] BuildingButtonText = DogamCha.GetComponentsInChildren<Text>();
 
