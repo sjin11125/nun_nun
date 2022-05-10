@@ -88,7 +88,7 @@ public class GameManager : MonoBehaviour
 
     public static string friend_nickname;       //현재 들어가있는 친구닉넴
 
-    public static string URL = "https://script.google.com/macros/s/AKfycbyAAckOrgfK7VdBtc8KVOq744-0VQb3Be99ccQu5lw3BXQBSH2rK87L5u0w48kXAklh/exec";
+    public static string URL = "https://script.google.com/macros/s/AKfycby3r6WZQ8NJCRsxjxHKIJlkEHdh3fR6KZ_kDu3HiXKvs7vArNxYdTQ8LbtN95n1HJel/exec";
     //----------------------------------------------------------------------------------------------
 
 
@@ -221,7 +221,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
         DontDestroyOnLoad(gameObject);  // 아래의 함수를 사용하여 씬이 전환되더라도 선언되었던 인스턴스가 파괴되지 않는다.
-
+    
     }
 
     public static GameManager Instance

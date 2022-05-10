@@ -16,7 +16,7 @@ public class TransferMap : MonoBehaviour
 
         
 
-        LoadingSceneController.Instance.LoadScene(transferMapName,builinSave);
+        LoadingSceneController.Instance.LoadScene(transferMapName);
         //builinSave.BuildingLoad();
     }
 }

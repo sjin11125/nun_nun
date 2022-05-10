@@ -71,6 +71,11 @@ public class StartManager : MonoBehaviour
 
     public void CharacterOpen()
     {
+        Transform[] child = Scroll.GetComponentsInChildren<Transform>();
+        for (int i = 1; i < child.Length; i++)
+        {
+            Destroy(child[i].gameObject);
+        }
 
         float p = 0;
 
@@ -89,32 +94,13 @@ public class StartManager : MonoBehaviour
 
                     itemList[j] = true;
 
-                    
-
-                    /* //BuildingPrefabChilds[4].tag = "unLock";
-                    
-                     continue;*/
+                 
                 }
             }
            
 
 
 
-            /* 
-              else                            //잠겼으면 잠금 이미지 넣기
-              {
-                  //BuildingPrefabChilds[4].tag = "Lock";
-                  CharacterName.text = "잠겼다링";
-                  //NuNiInformation[j].SetChaImage(GameManager.DogamChaImageData["Lock"]);
-                  //image[1].sprite = GameManager.DogamChaImageData["Lock"];
-
-                  // DogamChaButton.enabled = false;
-                  //DogamChaButton.GetComponent<Image>().sprite = GameManager.DogamChaImageData["Lock"];
-
-                  LockButtonList.Add(DogamChaButton);
-
-
-              }*/
         }
         for (int j = 0; j < itemList.Count; j++)
         {

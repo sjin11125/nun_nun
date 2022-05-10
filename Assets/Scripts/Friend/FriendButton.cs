@@ -14,6 +14,8 @@ public class FriendButton : MonoBehaviour
     public GameObject SearchFriendContents;
 
     public Text F_nickname;
+    public GameObject Content;
+    public GameObject FriendPrefab;
     // Start is called before the first frame update
     void Start()
     {
@@ -134,8 +136,33 @@ public class FriendButton : MonoBehaviour
     void RequireResponse(string json)
     {
         Debug.Log(json);
-      
+        Transform[] child = Content.GetComponentsInChildren<Transform>();           //老窜 檬扁拳
+        for (int k = 1; k < child.Length; k++)
+        {
+            Destroy(child[k].gameObject);
+        }
+
+        Newtonsoft.Json.Linq.JArray j = Newtonsoft.Json.Linq.JArray.Parse(json);
+        FriendInfo[] friendInfos = new FriendInfo[j.Count];
+        for (int i = 0; i < j.Count; i++)
+        {
+            friendInfos[i] = JsonUtility.FromJson<FriendInfo>(j[i].ToString());
+            Debug.Log(friendInfos[i].f_nickname);
+        }
+
+
+        for (int i = 0; i < friendInfos.Length; i++)
+        {
+            GameObject friendprefab = Instantiate(FriendPrefab, Content.transform) as GameObject;  //模备 橇府普 积己
+            Transform friendPrefabChilds = friendprefab.GetComponent<Transform>();
+            friendPrefabChilds.name = friendInfos[i].f_nickname;
+            Text[] friendButtonText = friendprefab.GetComponentsInChildren<Text>();
+            friendButtonText[0].text = friendInfos[i].f_nickname;
+            friendButtonText[1].text = friendInfos[i].f_info;
+        }
+
     }
+
 
 
 }

@@ -102,6 +102,7 @@ public class BuildingSave : MonoBehaviour
     public void BuildingLoad()              //로그인 했을 때 건물 불러와
     {
         WWWForm form1 = new WWWForm();
+        Debug.Log("건물로딩");
         isMe = true;                    //내 건물 불러온다!!!!!!!!!!!!!!!!
         form1.AddField("order", "getFriendBuilding");
         form1.AddField("loadedFriend", GameManager.NickName);
@@ -119,12 +120,18 @@ public class BuildingSave : MonoBehaviour
     }
     IEnumerator Post(WWWForm form)
     {
-            using (UnityWebRequest www = UnityWebRequest.Post(URL, form)) // 반드시 using을 써야한다
+        Debug.Log("불러오라");
+        using (UnityWebRequest www = UnityWebRequest.Post(URL, form)) // 반드시 using을 써야한다
             {
                 yield return www.SendWebRequest();
-                //Debug.Log(www.downloadHandler.text);
-                if (www.isDone) Response(www.downloadHandler.text);         //친구 건물 불러옴
-                                                                            //else print("웹의 응답이 없습니다.");*/
+            //Debug.Log(www.downloadHandler.text);
+            if (www.isDone)
+            {
+                
+                Response(www.downloadHandler.text);
+                
+            }    //친구 건물 불러옴
+            else print("웹의 응답이 없습니다.");
             }
         
     }
@@ -146,7 +153,7 @@ public class BuildingSave : MonoBehaviour
             Debug.Log(json);
             return;
         }
-        Debug.Log(json);
+        Debug.Log("josn:      "+json);
        
         if (isMe == false)                //친구 건물 불러오는거라면
         {

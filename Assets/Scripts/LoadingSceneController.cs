@@ -48,8 +48,7 @@ public class LoadingSceneController : MonoBehaviour
 
     [SerializeField]
     private Image progressBar;
-
-    BuildingSave build;
+    
     private string loadSceneName;
     public void LoadScene(string sceneName)
     {
@@ -59,23 +58,13 @@ public class LoadingSceneController : MonoBehaviour
         StartCoroutine(LoadSceneProcess());
 
     }
-    public void LoadScene(string sceneName,BuildingSave build)
-    {
-        gameObject.SetActive(true);
-        SceneManager.sceneLoaded += OnSceneLoaded;
-        loadSceneName = sceneName;
-        this.build= build;
-        build.BuildingLoad();
-        StartCoroutine(LoadSceneProcess());
-
-    }
+    
 
     private IEnumerator LoadSceneProcess()
     {
         //throw new NotImplementedException();
         progressBar.fillAmount = 0f;
         yield return StartCoroutine(Fade(true));
-
         AsyncOperation op = SceneManager.LoadSceneAsync(loadSceneName);
         op.allowSceneActivation = false;
 
