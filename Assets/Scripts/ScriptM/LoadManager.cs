@@ -79,12 +79,12 @@ public class LoadManager : MonoBehaviour
                         }
                        
                     }
-
                     Debug.Log(LoadBuilding.Building_name);
-                    g.name = LoadBuilding.Building_name;            //이름 재설정
+                    g.name = LoadBuilding.Id;          //이름 재설정
 
                     g_Building.Type = BuildType.Load;
                     g_Building.Place_Initial(g_Building.Type);
+                    GameManager.IDs.Add(LoadBuilding.Id);
                     Debug.Log(g.GetComponent<Building>().isFliped);
                    // g_Building.Rotation();
                    
@@ -109,7 +109,7 @@ public class LoadManager : MonoBehaviour
                     g_Building.SetValue(LoadBuilding);
                     //g.transform.position=new Vector3(LoadBuilding.BuildingPosition.x,LoadBuilding.BuildingPosition.y, 0);
                     Debug.Log(LoadBuilding.Building_name);
-                    g.name = LoadBuilding.Building_name;            //이름 재설정
+                    g.name = LoadBuilding.Id;            //이름 재설정
 
                     g_Building.Type = BuildType.Load;
                     g_Building.Place(g_Building.Type);
@@ -121,13 +121,20 @@ public class LoadManager : MonoBehaviour
 
             if (SceneManager.GetActiveScene().name == "Main" && GameManager.CharacterList != null)       //메인씬에서 로드하기(누니)
             {
+                Debug.Log("GameManager.: " + GameManager.CharacterList.Count);
                 for (int i = 0; i < GameManager.CharacterList.Count; i++)
                 {
+                    Debug.Log("not t.: " + i);
                     Card c = GameManager.CharacterList[i];
-                    Debug.Log(c.cardImage);
                     if (c.isLock=="T")
                     {
-                        Instantiate(GameManager.CharacterPrefab[c.cardImage], nunis.transform);
+                       GameObject nuni= Instantiate(GameManager.CharacterPrefab[c.cardImage], nunis.transform);
+                        Card nuni_card = nuni.GetComponent<Card>();
+                        nuni_card.SetValue(c);
+                    }
+                    else
+                    {  
+                        Debug.Log("not t.: " + c.cardName+"   "  + c.isLock);
                     }
                 }
             }

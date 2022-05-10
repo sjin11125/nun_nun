@@ -23,6 +23,8 @@ public class GoogleSheetManager : MonoBehaviour
     public QuestManager QuestManager;
     public NuniManager NuniManager;
     public BuildingSave MyBuildingLoad;
+
+    public GameObject WarningPannel;
     bool SetIDPass()
     {
         id = IDInput.text.Trim();
@@ -43,7 +45,9 @@ public class GoogleSheetManager : MonoBehaviour
     {
         if (!SetSignPass())
         {
-            print("아이디 or 비번 or 닉네임이 비어있습니다");
+            WarningPannel.SetActive(true);
+            Text t = WarningPannel.GetComponentInChildren<Text>();
+            t.text = "아이디 또는 비밀번호 또는 닉네임이 비어있습니다";
             return;
         }
 
@@ -61,7 +65,10 @@ public class GoogleSheetManager : MonoBehaviour
     {
         if (!SetIDPass())
         {
-            print("아이디 또는 비밀번호가 비어있습니다");
+            WarningPannel.SetActive(true);
+            Text t = WarningPannel.GetComponentInChildren<Text>();
+            t.text = "아이디 또는 비밀번호가 비어있습니다";
+           // print("아이디 또는 비밀번호가 비어있습니다");
             return;
         }
 
@@ -109,7 +116,12 @@ public class GoogleSheetManager : MonoBehaviour
         {
             yield return www.SendWebRequest();
             //Debug.Log(www.downloadHandler.text);
-            SceneManager.LoadScene("Main");
+
+            GameManager.NickName = nickname;
+            GameManager.Id = id;
+            Response(www.downloadHandler.text);
+            //StartCoroutine(Quest());
+            //SceneManager.LoadScene("Main");
         }
     }
 
@@ -133,6 +145,9 @@ public class GoogleSheetManager : MonoBehaviour
 
     void Response(string json)
     {
+        WarningPannel.SetActive(true);
+
+        Text t = WarningPannel.GetComponentInChildren<Text>();
         if (string.IsNullOrEmpty(json))
         {
             Debug.Log(json);
@@ -145,26 +160,25 @@ public class GoogleSheetManager : MonoBehaviour
 
         if (GD.result == "ERROR")
         {
-            print(GD.order + "을 실행할 수 없습니다. 에러 메시지 : " + GD.msg);
+            t.text=GD.msg;
             return;
         }
         else if (GD.result == "NickNameERROR")
         {
-            print("닉네임이 중복됩니다.");
+            t.text = "닉네임이 중복됩니다.";
         }
         if (GD.result == "OK")
         {
             if (GD.msg == "회원가입 완료")
             {
-                Debug.Log("회원가입 완료!");
+                t.text = "회원가입 완료!"+ nickname + "(" + id + ")님 환영합니다!!잠시만 기다려 주세요.";
             }
             else
             {
                 nickname = GD.nickname;
                GameManager.StateMessage= GD.state;
-                Debug.Log("로그인 완료!");
+                t.text = "로그인 완료!"+ nickname + "(" + id + ")님 환영합니다!! 잠시만 기다려 주세요 ";
             }
-            print(nickname + "(" + id + ")님 환영합니다!! ");
 
             GameManager.NickName = nickname;
             GameManager.Id = id;
@@ -174,8 +188,7 @@ public class GoogleSheetManager : MonoBehaviour
                     continue;
                 GameManager.ProfileImage = GameManager.AllNuniArray[i].Image;
             }
-            
-
+             
             StartCoroutine(Quest());
             
 

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using System;
+using Random = System.Random;
 
 [Serializable]
 public class QuestInfo   //구글 스크립트와 통신할 퀘스트 인포
@@ -24,7 +25,8 @@ public class QuestManager : MonoBehaviour
     QuestInfo[] QuestArray=new QuestInfo[3];          //퀘스트 진행상황 배열
     List<QuestInfo> GetQuestList = new List<QuestInfo>();
     bool isStart = false;
-   // bool isReset;           //일퀘 초기화 변수
+
+    string isReset;           //일퀘 초기화 변수
     // Start is called before the first frame update
     public IEnumerator QuestStart()                //시작할 때 구글 스크립트에서 일퀘 초기화 됐는지 확인하고 퀘스트 목록 불러옴
     {
@@ -40,7 +42,32 @@ public class QuestManager : MonoBehaviour
 
 
     }
+    void Start()
+    {
+        if (GameManager.QParse==false)
+        {
+            GameManager.QParse = true;
 
+            Questlist = new List<QuestInfo>();                       //그럼 엑셀에서 오늘의 퀘스트 목록 얻어서 퀘스트 초기화해주고 구글 스크립트에도 업데이트
+
+            Quest = new QuestInfo[3];
+
+            csvData = Resources.Load<TextAsset>("Quest");
+            string[] data = csvData.text.Split(new char[] { '\n' });    //엔터 기준으로 쪼갬. 
+
+            for (int i = 1; i < data.Length - 1; i++)
+            {
+                string[] pro_data = data[i].Split(',');
+                QuestInfo qeustOne = new QuestInfo();
+                qeustOne.quest = pro_data[0];
+                qeustOne.count = pro_data[2];
+                qeustOne.title = pro_data[1];
+                Questlist.Add(qeustOne); //퀘스트 리스트에 넣기
+            }
+            GameManager.Quest = Questlist.ToArray();
+        }
+      
+    }
     // Update is called once per frame
     void Update()
     {
@@ -52,6 +79,7 @@ public class QuestManager : MonoBehaviour
         form1.AddField("order", "questSave");
         form1.AddField("player_nickname", GameManager.NickName);
         form1.AddField("quest", quest);
+        form1.AddField("isReset", isReset);
         form1.AddField("time", DateTime.Now.ToString("yyyy.MM.dd"));
 
         StartCoroutine(Post(form1));
@@ -98,22 +126,7 @@ public class QuestManager : MonoBehaviour
     void Response_Time(string json)                          //퀘스트 초기화 확인
     {
         Debug.Log(json);
-        Questlist = new List<QuestInfo>();                       //그럼 엑셀에서 오늘의 퀘스트 목록 얻어서 퀘스트 초기화해주고 구글 스크립트에도 업데이트
-
-        Quest = new QuestInfo[3];
-
-        csvData = Resources.Load<TextAsset>("Quest");
-        string[] data = csvData.text.Split(new char[] { '\n' });    //엔터 기준으로 쪼갬. 
-
-        for (int i = 1; i < data.Length - 1; i++)
-        {
-            string[] pro_data = data[i].Split(',');
-            QuestInfo qeustOne = new QuestInfo();
-            qeustOne.quest = pro_data[0];
-            qeustOne.count = pro_data[2];
-            qeustOne.title = pro_data[1];
-            Questlist.Add(qeustOne); //퀘스트 리스트에 넣기
-        }
+       
 
         if (string.IsNullOrEmpty(json))
         {
@@ -123,8 +136,8 @@ public class QuestManager : MonoBehaviour
 
         if (json == DateTime.Now.ToString("yyyy.MM.dd"))                         //불러온 날짜가 오늘 날짜면 초기화 변수 true
         {
-            GameManager.isReset = true;
-            Debug.Log("isReset=true");
+            //GameManager.isReset = true;
+            isReset = "true";
             GameManager.Quest = Questlist.ToArray();
             QuestClick();    //초기화 했으면 구글 스크립트에서 진행상황만 불러오고 구글 스크립트에 오늘날짜 넣어
 
@@ -132,10 +145,8 @@ public class QuestManager : MonoBehaviour
         }
         else                                                                    //불러온 날짜가 오늘이 아니고(초기화 안했다면) 새로 가입했다면 false
         {
-            GameManager.isReset = false;
-
-            Debug.Log("GameManager.isReset: " + GameManager.isReset);
-            Debug.Log("isReset=false");
+            isReset = "false";
+            // GameManager.isReset = false;
 
 
           
@@ -145,19 +156,20 @@ public class QuestManager : MonoBehaviour
             {
                 Debug.Log("퀘스트는 널");
             }
-            for (int i = 0; i < Questlist.Count; i++)                   //퀘스트 목록
+
+            for (int i = 0; i < 3; i++)                   //퀘스트 목록
             {
-                //Debug.Log(Quest[i][0]);
-                //구글 스크립트에 퀘스트 리스트 업데이트
-                QuestSave(GameManager.Quest[i].quest);                             // 처음엔 퀘스트 아무것도 안했으니까 0으로 두자
+                QuestSave(GameManager.Quest[UnityEngine.Random.Range(0,14)].quest);                             // 처음엔 퀘스트 아무것도 안했으니까 0으로 두자
             }
         }
         isStart = true;
+
+
     }
         void Response(string json)                          //퀘스트 진행상황 불러오기
     {
         //List<QuestInfo> Questlist = new List<QuestInfo>();
-        Debug.Log(json);
+        Debug.Log("Quest: "+json);
         if (json=="null")
         {
             return;
@@ -167,6 +179,7 @@ public class QuestManager : MonoBehaviour
             Debug.Log(json);
             return;
         }
+        
         QuestInfo questInfo = JsonUtility.FromJson<QuestInfo>(json);
         
         GetQuestList.Add(questInfo);

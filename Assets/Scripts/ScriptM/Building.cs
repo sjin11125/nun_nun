@@ -22,6 +22,7 @@ public class BuildingParse
     public string isFliped = "F";
     public string BuildingPosiiton_x;
     public string BuildingPosiiton_y;
+    public string Id;
     //-----------------------------------------------------------
 
 }
@@ -59,7 +60,7 @@ public class Building : MonoBehaviour
     public string isFliped = "F";
     public string BuildingPosiiton_x;
     public string BuildingPosiiton_y;
-
+    public string Id;
     //-----------------------------------------------------------
 
     public int layer_y;   // 건물 레이어
@@ -146,7 +147,7 @@ public class Building : MonoBehaviour
        BuildingPosiiton_x = getBuilding.BuildingPosiiton_x;
         BuildingPosiiton_y = getBuilding.BuildingPosiiton_y;
         Reward = getBuilding.Reward;
-
+        Id = getBuilding.Id;
     }
     public void SetValueParse(BuildingParse parse)
     {
@@ -161,6 +162,7 @@ public class Building : MonoBehaviour
         isFliped = parse.isFliped;
         BuildingPosiiton_x = parse.BuildingPosiiton_x;
         BuildingPosiiton_y = parse.BuildingPosiiton_y;
+        Id = parse.Id;
     }
     public Building DeepCopy()
     {
@@ -355,15 +357,20 @@ public class Building : MonoBehaviour
         }
         else
         {
+
             Button_Pannel.gameObject.SetActive(true);
             Rotation_Pannel.gameObject.SetActive(true);
-            Remove_Pannel.gameObject.SetActive(true);
-            if (Type != BuildType.Make)
+            if (Building_Image != "bunsu_level(Clone)")
             {
-                UpgradePannel.gameObject.SetActive(true);
+                Remove_Pannel.gameObject.SetActive(true);
+                if (Type != BuildType.Make)
+                {
+                    UpgradePannel.gameObject.SetActive(true);
 
+                }
             }
         }
+       
 
 
 
@@ -449,8 +456,8 @@ public class Building : MonoBehaviour
         areaTemp.position = positionInt;
 
         //Debug.Log()
-        GameManager.Money += building.Cost[building.Level-1];          //자원 되돌리기
-        GameManager.ShinMoney += building.ShinCost[building.Level - 1];
+        GameManager.Money += building.Cost[building.Level];          //자원 되돌리기
+        GameManager.ShinMoney += building.ShinCost[building.Level ];
 
         GridBuildingSystem.current.RemoveArea(areaTemp);
         if (Type == BuildType.Make)      //상점에서 사고 설치X 바로 제거
@@ -460,16 +467,17 @@ public class Building : MonoBehaviour
         else                                //설치하고 제거
         {
             BuildingListRemove();
-            save.RemoveValue(Building_name);
+            save.RemoveValue(Id);
             Destroy(gameObject);
         }
+        GameManager.isUpdate = true;
     }
     public void Place_Initial(BuildType buildtype)
     {
         Vector3 vec = new Vector3(float.Parse(BuildingPosiiton_x), float.Parse(BuildingPosiiton_y), 0);
-        Vector3Int positionInt = GridBuildingSystem.current.gridLayout.LocalToCell(vec);
+        area.position = GridBuildingSystem.current.gridLayout.WorldToCell(vec);
         BoundsInt areaTemp = area;
-        areaTemp.position = positionInt;
+        //areaTemp.position = positionInt;
         Placed = true;      // 배치 했니? 네
         GridBuildingSystem.current.TakeArea(areaTemp);      //타일 맵 설정
         transform.position = vec;
@@ -506,7 +514,7 @@ public class Building : MonoBehaviour
             }
         }
         Building BuildingCurrent = gameObject.GetComponent<Building>();
-
+        
 
         if (buildtype == BuildType.Make)                       //새로 만드는 건가?
         {
@@ -514,6 +522,7 @@ public class Building : MonoBehaviour
             Building_name = gameObject.name;
             Debug.Log("Building_Image: " + Building_Image);
             GameManager.BuildingNumber[Building_Image]++; //해당 건물의 갯수 추가
+            Id = GameManager.IDGenerator();
             BuildingListAdd();      //현재 가지고 있는 건물 리스트에 추가
             buildtype = BuildType.Empty;
 
@@ -525,8 +534,9 @@ public class Building : MonoBehaviour
         else if (buildtype == BuildType.Move)               //이동할 때
         {
             Debug.Log("Move");
-            gameObject.name = GameManager.CurrentBuilding_Script.Building_name;
-            Building_name= GameManager.CurrentBuilding_Script.Building_name;
+            gameObject.name = GameManager.CurrentBuilding_Script.Id;
+            Id = GameManager.CurrentBuilding_Script.Id;
+            Building_name = GameManager.CurrentBuilding_Script.Building_name;
             isLock = "T";
             RefreshBuildingList();
 
@@ -540,7 +550,7 @@ public class Building : MonoBehaviour
         }
 
         gameObject.transform.parent = Parent.transform;
-
+        GridBuildingSystem.current.temp_gameObject = null;
     }
     public void BuildingListRemove()
     {
