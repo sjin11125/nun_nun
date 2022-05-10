@@ -182,6 +182,8 @@ public class GoogleSheetManager : MonoBehaviour
 
             GameManager.NickName = nickname;
             GameManager.Id = id;
+
+            Debug.Log(GameManager.AllNuniArray.Length);
             for (int i = 0; i < GameManager.AllNuniArray.Length; i++)
             {
                 if (GameManager.AllNuniArray[i].Image.name != GD.profile_image)

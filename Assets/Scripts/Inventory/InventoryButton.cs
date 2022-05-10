@@ -140,6 +140,7 @@ public class InventoryButton : MonoBehaviour
 
     public void Click()         //건축물 버튼 클릭했을 때
     {
+
         for (int i = 0; i < GameManager.BuildingList.Count; i++)
         {
             if (this.gameObject.name == GameManager.BuildingList[i].Id)
@@ -147,6 +148,10 @@ public class InventoryButton : MonoBehaviour
                 this_building = GameManager.BuildingList[i];
                 
             }
+        }
+        if (gridBuildingSystem.temp_gameObject!=null)
+        {
+            Destroy(gridBuildingSystem.temp_gameObject);
         }
         Transform[] building_child = buildings.GetComponentsInChildren<Transform>();
      

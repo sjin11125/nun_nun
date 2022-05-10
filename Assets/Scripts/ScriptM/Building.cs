@@ -520,7 +520,7 @@ public class Building : MonoBehaviour
         {
             
             Building_name = gameObject.name;
-            Debug.Log("Building_Image: " + Building_Image);
+            Debug.Log("BuildingPosiiton_x: " + BuildingPosiiton_x);
             GameManager.BuildingNumber[Building_Image]++; //해당 건물의 갯수 추가
             Id = GameManager.IDGenerator();
             gameObject.name = Id;      //이름 재설정

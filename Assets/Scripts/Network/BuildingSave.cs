@@ -40,6 +40,21 @@ public class BuildingSave : MonoBehaviour
         form.AddField("id", update_building.Id.ToString());
         StartCoroutine(SavePost(form));
     }
+    public void UpdateValue(Str update_str)
+    {
+        Debug.Log("UpdateValue");
+        WWWForm form = new WWWForm();
+        form.AddField("order", "updateValue_str");
+        form.AddField("building_image", update_str.Building_Image);
+        form.AddField("player_nickname", GameManager.NickName);
+        form.AddField("buildingPosiiton_x", update_str.BuildingPosition.x.ToString());
+        form.AddField("buildingPosiiton_y", update_str.BuildingPosition.y.ToString());
+        form.AddField("isLock", update_str.isLock);
+        form.AddField("building_name", update_str.Building_name);
+        form.AddField("isFlied", update_str.isFliped.ToString());
+        form.AddField("id", update_str.Id.ToString());
+        StartCoroutine(SavePost(form));
+    }
     public void AddValue()
     {
         WWWForm form = new WWWForm();
@@ -55,6 +70,22 @@ public class BuildingSave : MonoBehaviour
         form.AddField("level", buildings.Level);
         form.AddField("isFliped",buildings.isFliped.ToString());
         form.AddField("id", buildings.Id.ToString());
+        StartCoroutine(SavePost(form));
+    }
+    public void AddValue(Str str)
+    {
+        WWWForm form = new WWWForm();
+        Building buildings = GetComponent<Building>();
+        Debug.Log("건물저장");
+        form.AddField("order", "addValue");
+        form.AddField("player_nickname", GameManager.NickName);
+        form.AddField("building_image", str.Building_Image);
+        form.AddField("buildingPosiiton_x", str.BuildingPosition.x.ToString());
+        form.AddField("buildingPosiiton_y", buildings.BuildingPosition.y.ToString());
+        form.AddField("isLock", str.isLock);
+        form.AddField("building_name", str.Building_name);
+        form.AddField("isFliped", str.isFliped.ToString());
+        form.AddField("id", str.Id.ToString());
         StartCoroutine(SavePost(form));
     }
     public void RemoveValue(string id)
@@ -172,7 +203,9 @@ public class BuildingSave : MonoBehaviour
                 GameManager.BuildingList.Add(b);      //내 건물 리스트에 삽입
 
             }
+            Debug.Log("GameManager.BuildingList[0]"+GameManager.BuildingList[0].BuildingPosiiton_x);
             SceneManager.LoadScene("Main");
+            Debug.Log("GameManager.BuildingList[0]" + GameManager.BuildingList[0].BuildingPosiiton_x);
         }
     }
 }

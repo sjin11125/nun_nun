@@ -48,7 +48,7 @@ public class LoadManager : MonoBehaviour
 
                 for (int i = 0; i < GameManager.BuildingList.Count; i++)
                 {
-                    if (GameManager.BuildingList[i].isLock != "T")
+                    if (GameManager.BuildingList[i].isLock == "F")          //배치안되어있니?
                         continue;
 
                     Building LoadBuilding = GameManager.BuildingList[i];           // 현재 가지고 잇는 빌딩 리스트의 빌딩 컴포넌트
@@ -66,7 +66,7 @@ public class LoadManager : MonoBehaviour
                     //CopyComponent(LoadBuilding, g);
                     Building g_Building = g.GetComponent<Building>();
                     g_Building.SetValue(LoadBuilding);      //새로 생성된 프리팹의 빌딩 스크립트 value 값을 기존에 있던 스크립트 value값 설정
-                                                            //g.transform.SetParent(buildings.transform);     //buildings를 부모로 설정
+                    Debug.Log("IDIDIDIDID:  "+ LoadBuilding.BuildingPosiiton_x);                                      //g.transform.SetParent(buildings.transform);     //buildings를 부모로 설정
 
                     //Debug.Log("gm_Building.Building_Image: " + GameManager.BuildingArray[0].Building_Image);
                     for (int j = 0; j < GameManager.BuildingArray.Length; j++)
@@ -79,12 +79,12 @@ public class LoadManager : MonoBehaviour
                         }
                        
                     }
-                    Debug.Log(LoadBuilding.Building_name);
-                    g.name = LoadBuilding.Id;          //이름 재설정
+                    Debug.Log("ididkjflsnmfld:      "+g_Building.Building_name);
+                    g.name = g_Building.Id;          //이름 재설정
 
                     g_Building.Type = BuildType.Load;
                     g_Building.Place_Initial(g_Building.Type);
-                    GameManager.IDs.Add(LoadBuilding.Id);
+                    GameManager.IDs.Add(g_Building.Id);
                     Debug.Log(g.GetComponent<Building>().isFliped);
                    // g_Building.Rotation();
                    
