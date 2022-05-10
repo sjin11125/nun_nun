@@ -18,6 +18,8 @@ public class PlayerInfo : MonoBehaviour                 //플레이어 프로필 스크립
     public GameObject NuniImages,Canvas;
 
     public Image ProfileImage;      //내 프로필 이미지
+
+    public InputField InfoInput;        //한줄소개 수정
     // Start is called before the first frame update
     void Start()
     {
@@ -69,6 +71,18 @@ public class PlayerInfo : MonoBehaviour                 //플레이어 프로필 스크립
             
         }
 
+    }
+    public void EditInfo()
+    {
+        GameManager.ProfileImage = gameObject.transform.parent.GetComponent<Image>().sprite;
+        Debug.Log("image: " + GameManager.ProfileImage.name);
+        WWWForm form1 = new WWWForm();
+        form1.AddField("order", "setProfileInfo");
+        form1.AddField("player_nickname", GameManager.NickName);
+        form1.AddField("profile_info", InfoInput.text);
+
+
+        StartCoroutine(ImagePost(form1));
     }
     // Update is called once per frame
     void Update()
