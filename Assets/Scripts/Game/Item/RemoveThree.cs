@@ -12,6 +12,9 @@ public class RemoveThree : MonoBehaviour
     bool useRemove;
     bool centerhave;
     public Text number;
+
+    private GameObject settigPanel;
+
     void Start()
     {
         myChlid = new GameObject[3];
@@ -19,6 +22,7 @@ public class RemoveThree : MonoBehaviour
         {
             myChlid[i] = gameObject.transform.GetChild(i).gameObject;
         }
+        settigPanel = GameObject.FindGameObjectWithTag("SettingPanel");
     }
 
     void Update()
@@ -42,6 +46,7 @@ public class RemoveThree : MonoBehaviour
                         myChlid[1].SetActive(true);
                         myChlid[2].SetActive(true);
                         useRemove = false;
+                        settigPanel.GetComponent<AudioController>().Sound[0].Play();
                     }
                 }
                 else if (hit.collider.gameObject == myChlid[1])
