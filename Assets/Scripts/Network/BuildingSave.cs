@@ -35,10 +35,9 @@ public class BuildingSave : MonoBehaviour
         form.AddField("buildingPosiiton_y", update_building.BuildingPosition.y.ToString());
         form.AddField("isLock", update_building.isLock);
         form.AddField("building_name", update_building.Building_name);
-        form.AddField("cost", update_building.Cost);
-        form.AddField("shinCost", update_building.ShinCost);
         form.AddField("level", update_building.Level);
         form.AddField("isFlied", update_building.isFliped.ToString());
+        form.AddField("id", update_building.Id.ToString());
         StartCoroutine(SavePost(form));
     }
     public void AddValue()
@@ -53,17 +52,18 @@ public class BuildingSave : MonoBehaviour
         form.AddField("buildingPosiiton_y", buildings.BuildingPosition.y.ToString());
         form.AddField("isLock", buildings.isLock);
         form.AddField("building_name", buildings.Building_name);
-        form.AddField("cost", buildings.Cost);
-        form.AddField("shinCost", buildings.ShinCost);
         form.AddField("level", buildings.Level);
         form.AddField("isFliped",buildings.isFliped.ToString());
+        form.AddField("id", buildings.Id.ToString());
         StartCoroutine(SavePost(form));
     }
-    public void RemoveValue(string b_name)
+    public void RemoveValue(string id)
     {
         WWWForm form1 = new WWWForm();
         form1.AddField("order", "removeValue");
-        form1.AddField("remove_building", b_name);
+        form1.AddField("player_nickname", GameManager.NickName);
+        Debug.Log("ID: "+id);
+        form1.AddField("id", id);
         StartCoroutine(Post(form1));
 
         return;
@@ -164,7 +164,7 @@ public class BuildingSave : MonoBehaviour
                 Building b = new Building();
                 b.SetValueParse(Buildings);
 
-                Debug.Log("X: " + Buildings.BuildingPosiiton_x);
+                Debug.Log("Id: " + Buildings.Id);
                 /*  new Building(friendBuildings.isLock, friendBuildings.Building_name, friendBuildings.Reward, friendBuildings.Info, 
                   friendBuildings.Building_Image, friendBuildings.Cost.ToString(), friendBuildings.Level.ToString(), friendBuildings.Tree.ToString(),
                    friendBuildings.Grass.ToString(), friendBuildings.Snow.ToString(), friendBuildings.Ice.ToString(), friendBuildings.isFliped.ToString(), 

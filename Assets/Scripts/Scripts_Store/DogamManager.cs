@@ -66,10 +66,6 @@ public class DogamManager : MonoBehaviour
             Transform[] BuildingPrefabChilds = DogamCha.GetComponentsInChildren<Transform>();
             Text[] BuildingButtonText = DogamCha.GetComponentsInChildren<Text>();
 
-            for (int i = 0; i < BuildingButtonText.Length; i++)
-            {
-                Debug.Log(BuildingButtonText[i].name);
-            }
             //도감 캐릭터 버튼 
             DogamCha.GetComponent<RectTransform>().name = j.ToString();
 
@@ -88,10 +84,10 @@ public class DogamManager : MonoBehaviour
 
                 BuildingButtonText[0].text = BuildingInformation[j].Building_name;      //빌딩 이름 넣기
                 BuildingButtonText[1].text= BuildingInformation[j].Info;                //빌딩 설명 넣기
-                BuildingButtonText[2].text ="$"+ BuildingInformation[j].Cost;               //빌딩 가격 넣기
+                BuildingButtonText[2].text ="Buy";               //빌딩 가격 넣기
 
-                BuildingButtonText[3].text = BuildingInformation[j].ShinCost.ToString();             
-
+                BuildingButtonText[3].text = BuildingInformation[j].ShinCost[0].ToString();          //발광석 가격 넣기   
+                BuildingButtonText[4].text = BuildingInformation[j].Cost[0].ToString();          //발광석 가격 넣기   
 
             }
             else                            //잠겼으면 잠금 이미지 넣기

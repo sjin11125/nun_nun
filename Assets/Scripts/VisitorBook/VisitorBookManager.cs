@@ -4,15 +4,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
+
 public class VisitorBook
 {
     public string f_nickname;      //친구
-    public string f_massage;        //친구가 보낸 메세지
-    public VisitorBook(string nickname, string message)
+    public string f_message;        //친구가 보낸 메세지
+    public string f_time;        //친구가 보낸 메세지
+    public VisitorBook(string nickname, string message,string time)
     {
         this.f_nickname = nickname;
-        this.f_massage = message;
-
+        this.f_message = message;
+        this.f_time = time;
     }
 }
 public class VisitorBookManager : MonoBehaviour
@@ -25,22 +29,49 @@ public class VisitorBookManager : MonoBehaviour
 
     public GameObject VBPrefab;             //방명록 목록 프리팹
 
-    public InputField VBInput;          
+    public InputField VBInput;
+    
 
     public void VBWindowOpen()              //방명록 창 오픈했을 때
     {
-        VBWindow.SetActive(true);           
-        VisitorBookList();              //방명록 있나 확인
+        //VBWindow.SetActive(true);
+        
+    }
+
+    public void Start()
+    {
+        VBWindowOpen();
+        Debug.Log("VBWindow Open");
+        if (SceneManager.GetActiveScene().name=="FriendMain")           //친구 씬이냐
+        {
+            VBInput.gameObject.SetActive(true);
+            FriendVisitorBookList();              //친구 방명록 있나 확인
+        }
+        else                                                        //내 씬이냐
+        {
+            Debug.Log("내 씬");
+            VBInput.gameObject.SetActive(false);
+            VisitorBookList();              //방명록 있나 확인
+        }
     }
     // Start is called before the first frame update
-     public void VisitorBookList()  //방명록 불러옴
+    public void VisitorBookList()  //내 방명록 불러옴
+    {
+        Debug.Log("내 방명록 불러와");
+        WWWForm form = new WWWForm();
+        form.AddField("order", "getMessage");
+        form.AddField("player_nickname", GameManager.NickName);
+        //form.AddField("message", VBInput.text);
+        StartCoroutine(GetPost(form));
+    }
+
+    public void FriendVisitorBookList()         //친구 방명록 불러옴 
     {
         WWWForm form = new WWWForm();
-        form.AddField("order", "enrollMessage");
-        form.AddField("player_nickname", GameManager.NickName);
+        form.AddField("order", "getMessageFriend");
         form.AddField("friend_nickname", GameManager.friend_nickname);
-        form.AddField("message", VBInput.text);
-        StartCoroutine(Post(form));
+        //form.AddField("message", VBInput.text);
+        StartCoroutine(GetPost(form));
     }
 
     public void VisitorBookWrite()          //방명록 쓰기        (보내기 버튼에 넣기)
@@ -60,7 +91,50 @@ public class VisitorBookManager : MonoBehaviour
         {
             yield return www.SendWebRequest();
             //Debug.Log(www.downloadHandler.text);
-            
+
         }
+    }
+    IEnumerator GetPost(WWWForm form)
+    {
+        using (UnityWebRequest www = UnityWebRequest.Post(URL, form)) // 반드시 using을 써야한다
+        {
+            yield return www.SendWebRequest();
+            //Debug.Log(www.downloadHandler.text);
+            if (www.isDone) Response(www.downloadHandler.text);         //방명록 불러옴
+
+        }
+    }
+
+    void Response(string json)                          //건물 값 불러오기
+    {
+        if (string.IsNullOrEmpty(json))
+        {
+            Debug.Log(json);
+            return;
+        }
+        if (json == "null")                             //방명록에 아무것도 없다
+            return;
+
+        Newtonsoft.Json.Linq.JArray j = Newtonsoft.Json.Linq.JArray.Parse(json);
+        //Debug.Log("j.Count: "+j.Count);
+      
+        for (int i = 0; i < j.Count; i++)
+        {
+            Debug.Log(i);
+            VisitorBook friendBuildings;
+            friendBuildings = JsonUtility.FromJson<VisitorBook>(j[i].ToString());
+
+            GameObject VB = Instantiate(VBPrefab, Content.transform)as GameObject;
+
+            Text[] VBtext = VB.GetComponentsInChildren<Text>();
+
+            VBtext[0].text =friendBuildings.f_nickname;
+            VBtext[1].text = friendBuildings.f_message;
+            VBtext[2].text = friendBuildings.f_time;
+            //GameManager.FriendBuildingList.Add(b);      //친구의 건물 리스트에 삽입
+
+        }
+        Debug.Log(json);
+
     }
 }

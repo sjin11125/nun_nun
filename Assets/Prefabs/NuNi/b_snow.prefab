@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 746954066577057256}
   - component: {fileID: 8274901546127340577}
   m_Layer: 0
-  m_Name: tam_snow
+  m_Name: b_snow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -129,6 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3861417074059375536}
   - component: {fileID: 3861417074059375539}
+  - component: {fileID: 8274906132460303470}
   m_Layer: 0
   m_Name: clean_body
   m_TagString: Nuni
@@ -146,8 +147,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1827175656436116132}
+  m_Children: []
   m_Father: {fileID: 3861417073238815736}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -202,6 +202,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!58 &8274906132460303470
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3861417074059375537}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 2.5
 --- !u!1 &3861417074170521478
 GameObject:
   m_ObjectHideFlags: 0
@@ -214,7 +230,7 @@ GameObject:
   - component: {fileID: 3861417074170521475}
   - component: {fileID: 3861417074170521472}
   - component: {fileID: 3861417074170521473}
-  - component: {fileID: 2910622509375149588}
+  - component: {fileID: 3810136951570982876}
   m_Layer: 0
   m_Name: snow1
   m_TagString: Nuni
@@ -293,7 +309,7 @@ MonoBehaviour:
   speed: 0.5
   startWaitTime: 3
   moveSpot: {fileID: 746954067222833951}
---- !u!58 &2910622509375149588
+--- !u!58 &3810136951570982876
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -303,39 +319,9 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.13685107, y: 0}
+  m_Offset: {x: -0.16147575, y: 0}
   serializedVersion: 2
-  m_Radius: 1.99015
---- !u!1 &3906500441336437230
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1827175656436116132}
-  m_Layer: 0
-  m_Name: DialogSpot
-  m_TagString: Untagged
-  m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1827175656436116132
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3906500441336437230}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 6.2266665, z: 0}
-  m_LocalScale: {x: 6.666667, y: 6.666667, z: 1}
-  m_Children: []
-  m_Father: {fileID: 3861417074059375536}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Radius: 2.642255

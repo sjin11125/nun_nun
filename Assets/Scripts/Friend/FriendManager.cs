@@ -44,6 +44,16 @@ public class FriendManager : MonoBehaviour
         form.AddField("id", "1234");
         form.AddField("player_nickname", GameManager.NickName);
         form.AddField("info", "1234");
+        StartCoroutine(ListPost(form));
+    }
+    public void GetRecFriendLsit()         //추천친구 정보 불러오기
+    {
+
+
+        WWWForm form = new WWWForm();
+        form.AddField("order", "RecoommendFriend");
+        form.AddField("id", "1234");
+        form.AddField("player_nickname", GameManager.NickName);
         StartCoroutine(Post(form));
     }
 
@@ -57,7 +67,46 @@ public class FriendManager : MonoBehaviour
             else print("웹의 응답이 없습니다.");
         }
     }
+    IEnumerator ListPost(WWWForm form)
+    {
+        using (UnityWebRequest www = UnityWebRequest.Post(URL, form)) // 반드시 using을 써야한다
+        {
+            yield return www.SendWebRequest();
+            //Debug.Log(www.downloadHandler.text);
+            if (www.isDone) ListResponse(www.downloadHandler.text);
+            else print("웹의 응답이 없습니다.");
+        }
+    }
+    void ListResponse(string json)
+    {
+        if (string.IsNullOrEmpty(json)) return;
 
+        Debug.Log(json);
+
+        Newtonsoft.Json.Linq.JArray j = Newtonsoft.Json.Linq.JArray.Parse(json);
+        FriendInfo[] friendInfos = new FriendInfo[j.Count];
+        for (int i = 0; i < j.Count; i++)
+        {
+            friendInfos[i] = JsonUtility.FromJson<FriendInfo>(j[i].ToString());
+            Debug.Log(friendInfos[i].f_nickname);
+        }
+        GameManager.Friends = friendInfos;
+        for (int i = 0; i < GameManager.Friends.Length; i++)
+        { string[] friend = GameManager.Friends[i].f_nickname.Split(':');
+            Debug.Log(friend.Length);
+            if (friend.Length>=2)
+            {
+                continue;
+            }
+            GameObject friendprefab = Instantiate(FriendPrefab, Content.transform) as GameObject;  //친구 프리팹 생성
+            Transform friendPrefabChilds = friendprefab.GetComponent<Transform>();
+            friendPrefabChilds.name = GameManager.Friends[i].f_nickname;
+            Text[] friendButtonText = friendprefab.GetComponentsInChildren<Text>();
+            friendButtonText[0].text = friend[0];
+            friendButtonText[1].text = GameManager.Friends[i].f_info;
+        }           //친구 목록 세팅
+
+    }
     void Response(string json)
     {
         if (string.IsNullOrEmpty(json)) return;

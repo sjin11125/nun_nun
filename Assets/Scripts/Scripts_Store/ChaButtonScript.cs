@@ -113,6 +113,7 @@ public class ChaButtonScript : MonoBehaviour
 
             buildings[1].SetActive(true);
             building.Level += 1;
+
         }
         else
         {
@@ -120,6 +121,9 @@ public class ChaButtonScript : MonoBehaviour
             buildings[2].SetActive(true);
             building.Level += 1;
         }
+        GameManager.Money -= building.Cost[building.Level-1];
+        GameManager.ShinMoney -= building.ShinCost[building.Level-1];
+        Debug.Log("building.level:"+building.Level+ "      building.cost: "+ building.Cost[building.Level]);
         Debug.Log(building.Level);
         building.Type = BuildType.Empty;
         building.RefreshBuildingList();     //빌딩 리스트 새로고침
@@ -279,8 +283,8 @@ public class ChaButtonScript : MonoBehaviour
 
         if (gameObject.tag != "Lock")       //건물이 안잠겨있고
         {
-            int pay = DogamManager.BuildingInformation[DogamManager.ChaIndex].Cost;
-            int shinPay = DogamManager.BuildingInformation[DogamManager.ChaIndex].ShinCost;
+            int pay = DogamManager.BuildingInformation[DogamManager.ChaIndex].Cost[0];
+            int shinPay = DogamManager.BuildingInformation[DogamManager.ChaIndex].ShinCost[0];
 
             if (GameManager.Money < pay || GameManager.ShinMoney < shinPay)      //돈이나 자원이 모자르면 거절 메세지 띄움
             {
@@ -323,6 +327,7 @@ public class ChaButtonScript : MonoBehaviour
                 Building c = GameManager.CurrentBuilding.GetComponent<Building>();
                 c.Building_Image = buildingname;
                 c = b.GetComponent<Building>().DeepCopy();
+
                 c.SetValue(b);
 
                 Transform Windows = gameObject.transform.parent.parent;

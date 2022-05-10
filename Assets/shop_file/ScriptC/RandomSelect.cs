@@ -47,7 +47,7 @@ public class RandomSelect : MonoBehaviour
         // 생성 된 카드에 결과 리스트의 정보를 넣어줍니다.
         Card Nuni = cardUI.CardUISet(RandomCard());
         Debug.Log("Nuni level: " + Nuni.Level);
-        Nuni.isLock = "F";          //누니 잠금 품
+        Nuni.isLock = "T";          //누니 잠금 품
         GameManager.CharacterList.Add(Nuni);     //나온 결과를 리스트에 반영
                                                  //전체 누니 배열을 수정
 
@@ -76,7 +76,7 @@ public class RandomSelect : MonoBehaviour
         WWWForm form1 = new WWWForm();
         form1.AddField("order", "nuniSave");
         form1.AddField("player_nickname", GameManager.NickName);
-        form1.AddField("nuni", nuni.cardName) ;
+        form1.AddField("nuni", nuni.cardName+":T") ;
 
 
 
