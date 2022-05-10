@@ -60,9 +60,13 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 1a2533a3b2c9f4a4daeafc776f3c8b5d, type: 3}
   spriteImage: {fileID: 0}
   activeObj: {fileID: 30209628171898303}
-  keepCurrentColor: 
+  currentColor: 
   currentShape: 
-  keepImage: {fileID: 0}
+  shinActive: 0
+  trashAndKeep: {fileID: 21300000, guid: 071ed9bbd27a2744c80a28a7e104d974, type: 3}
+  IMtrash: 0
+  KeepShapeObj: {fileID: 382136203227040518, guid: 575c3710bcc6fb549a57d1d09969c74f, type: 3}
+  IMkeep: 0
 --- !u!61 &3993508897618940226
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -155,7 +159,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 071ed9bbd27a2744c80a28a7e104d974, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

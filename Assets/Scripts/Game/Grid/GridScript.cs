@@ -22,7 +22,10 @@ public class GridScript : MonoBehaviour
     public GameObject gameOver;
     int keepSquareIndex;
     int trashCanIndex;
+
     public GameObject effectShape;
+    private GameObject settigPanel;
+
     static public int EraserItemTurn = 10;
     static public int ReloadItemTurn = 15;
     static public int NextExchangeItemTurn = 15;
@@ -34,11 +37,12 @@ public class GridScript : MonoBehaviour
     static public int ThreeHorizontalItem = 30;
 
     public GameObject QuestControll;
-    public GameObject KeepShapeObj;
-    [HideInInspector]
-    public String KeepColor, KeepShape;
 
     int completeShin = 0;
+
+    public GameObject ComboImg;
+    int Combo = 0;
+    List<GameObject> comboObject = new List<GameObject>();
 
     private void OnEnable()
     {
@@ -55,20 +59,12 @@ public class GridScript : MonoBehaviour
         Time.timeScale = 1f;
         _lineIndicator = GetComponent<LineIndicator>();
         CreateGrid();
-        // 각 턴수를 다른 아이템 애들 스크립트 아이템턴에 전달
+        SettingKeep();
+        settigPanel = GameObject.FindGameObjectWithTag("SettingPanel");
     }
 
     void Update()
     {
-        if (keepSquareIndex != 30)
-        {
-            UseKeep();
-        }
-        if (trashCanIndex != 30)
-        {
-            UseTrashCan();
-        }
-        SettingKeep();
         GetInformation();
 
         if (GridSquare.UseKeepBool == true)//킵 시용시
@@ -208,8 +204,8 @@ public class GridScript : MonoBehaviour
             GameEvents.MoveShapeToStartPosition();//처음위치로
         }
     }
-    
-    public void CheckIfKeepLineIsCompleted()//킵은 엔터때 색깔이 들어가기때문에 새로운 함수 생성함
+
+    private void CheckIfLine()
     {
         List<int[]> lines = new List<int[]>();
 
@@ -231,12 +227,6 @@ public class GridScript : MonoBehaviour
         }
 
         var completedLines = CheckIfSquaresAreCompleted(lines);//행(0-5)렬(0-5) 정보전달 및 변수에 반환 int값 저장
-
-        if (completedLines > 2)
-        {
-            //TODO: Play bouns animation.
-        }
-        //컴플릿 라인에 모든 스퀘어를 검사해서 샤인이 있으면 갯수 새서더하기
         var totalScores = 10 * completedLines;
         GameEvents.AddScores(totalScores, completeShin);
 
@@ -247,7 +237,36 @@ public class GridScript : MonoBehaviour
                 gameOver.gameObject.SetActive(true);
                 Time.timeScale = 0;
             }
+            Combo = 0;
+            settigPanel.GetComponent<AudioController>().Sound[3].pitch = 1;
+            if (GameObject.FindGameObjectsWithTag("Combo") != null)
+            {
+                comboObject.AddRange(GameObject.FindGameObjectsWithTag("Combo"));
+                foreach (var item in comboObject)
+                {
+                    Destroy(item);
+                }
+                comboObject.Clear();
+            }
         }
+        else
+        {
+            Combo += completedLines;
+            settigPanel.GetComponent<AudioController>().Sound[3].Play();
+            if (Combo > 1)
+            {
+                settigPanel.GetComponent<AudioController>().Sound[3].pitch += (Combo - 1) * 0.2f;
+                for (int i = 0; i < completedLines; i++)
+                {
+                    Instantiate(ComboImg, this.transform.parent.GetChild(0));
+                }
+            }
+        }
+    }
+
+    public void CheckIfKeepLineIsCompleted()//킵은 엔터때 색깔이 들어가기때문에 새로운 함수 생성함
+    {
+        CheckIfLine();
         KeepItemTurn++;
         EraserItemTurn++;
         ReloadItemTurn++;
@@ -258,45 +277,9 @@ public class GridScript : MonoBehaviour
         ThreeVerticalItem++;
         ThreeHorizontalItem++;
     }
-    
     private void CheckIfAnyLineIsCompleted()//하나 놓을때마다 한번실행
     {
-        List<int[]> lines = new List<int[]>();
-
-        //columns
-        foreach (var column in _lineIndicator.columnIndexes)//0-5
-        {
-            lines.Add(_lineIndicator.GetVerticalLine(column));//column은 0-4_5열
-        }
-
-        //rows
-        for (var row = 0; row < 5; row++)
-        {
-            List<int> data = new List<int>(5);
-            for (var index = 0; index < 5; index++)
-            {
-                data.Add(_lineIndicator.line_data[row, index]); //5행을 data에 저장
-            }
-            lines.Add(data.ToArray());//lines에 복사
-        }
-
-        var completedLines = CheckIfSquaresAreCompleted(lines);//행(0-5)렬(0-5) 정보전달 및 변수에 반환 int값 저장
-        if (completedLines > 2)
-        {
-            //TODO: Play bouns animation.
-        }
-
-        var totalScores = 10 * completedLines;
-        GameEvents.AddScores(totalScores, completeShin);
-
-        if (completedLines == 0)
-        {
-            if (GameOver())
-            {
-                gameOver.gameObject.SetActive(true);
-                Time.timeScale = 0;
-            }
-        }
+        CheckIfLine();
     }
 
     int[] sameColorColumLine = new int[5];
@@ -350,6 +333,14 @@ public class GridScript : MonoBehaviour
                 QuestControll.GetComponent<QuestController>().QuestIndex();//퀘스트 함수 실행
             }
         }
+        if (trashCanIndex != 30)
+        {
+            UseTrashCan();
+        }
+        if (keepSquareIndex != 30)
+        {
+            UseKeep();
+        }
         return linesCompleted;
     }
 
@@ -371,6 +362,7 @@ public class GridScript : MonoBehaviour
                 _gridSquares[completeIndexArray[i]].transform.localPosition.y, 0), Quaternion.identity) as GameObject;
             effect.transform.SetParent(GameObject.FindGameObjectWithTag("Grid").transform, false);
             //square가 사라지면 그 위치 값을 받아서 Instance 생성
+            //setting_panel 오디오 컨트롤러 3번 플레이
         }
         sameColorLine = true;
 
@@ -383,7 +375,7 @@ public class GridScript : MonoBehaviour
     {
         for (int i = 0; i < 30; i++)
         {
-            colors[i] = _gridSquares[i].GetComponent<GridSquare>().keepCurrentColor;
+            colors[i] = _gridSquares[i].GetComponent<GridSquare>().currentColor;
             shapes[i] = _gridSquares[i].GetComponent<GridSquare>().currentShape;
         }
     }
@@ -572,95 +564,42 @@ public class GridScript : MonoBehaviour
 
     void UseKeep()//29번 스퀘어 클릭으로 shape에 색깔을 받을것임
     {
-        GameObject ItemControllerObj = GameObject.FindGameObjectWithTag("ItemController");//컨트롤러에서 선택한 인덱스에 따라 위치 결정
-        if (ItemControllerObj != null)
-        {
-            keepSquareIndex = ItemControllerObj.GetComponent<ItemController>().keepItemIndex;
-        }
-
         if (keepSquareIndex != 30)
         {           
             var comp = _gridSquares[keepSquareIndex].GetComponent<GridSquare>();//index번 친구
 
             if (KeepItemTurn < 1)
             {
+                comp.Deactivate();
+                comp.ClearOccupied();
                 _gridSquares[keepSquareIndex].transform.GetChild(0).gameObject.transform
-                 .GetChild(0).gameObject.SetActive(false);
-                comp.SquareOccupied = false;
-                comp.Selected = false;
-                if (comp.activeImage.gameObject.activeSelf == true)
-                {                    
-                    KeepColor = colors[keepSquareIndex];//킵 아이템 자리에 정보를 저장해놓는다
-                    KeepShape = shapes[keepSquareIndex];
-
-                    Invoke("OnInvoke", 0.1f);
-                    comp.activeImage.gameObject.SetActive(false);
-                    comp.NonKeep();
-                    /*
-                    GameObject keepInstance = Instantiate(KeepShapeObj) as GameObject;
-                    keepInstance.transform.SetParent(gameObject.transform, false);
-                    Vector3 pos = new Vector3(-377f, -660.5f, 0);
-                    keepInstance.transform.localPosition = pos;
-                    comp.activeImage.gameObject.SetActive(false);
-                    comp.NonKeep();
-                    usekeeptrue = false;
-                    */
-                }
+               .GetChild(0).gameObject.GetComponent<Text>().text = " ";
             }
             else//KeepItemTurn이 1,2,3...일때
             {
-                comp.SquareOccupied = true;
-                comp.Selected = true;
-                _gridSquares[keepSquareIndex].transform.GetChild(0).gameObject.transform
-                    .GetChild(0).gameObject.SetActive(true);
+                comp.ActivateSquare();
+                _gridSquares[keepSquareIndex].SetActive(true);
                 _gridSquares[keepSquareIndex].transform.GetChild(0).gameObject.transform
                     .GetChild(0).gameObject.GetComponent<Text>().text = KeepItemTurn.ToString();
             }                     
         }
     }
 
-    void OnInvoke()
-    {
-        GameObject keepInstance = Instantiate(KeepShapeObj) as GameObject;
-        keepInstance.transform.SetParent(gameObject.transform, false);
-        Vector3 pos = new Vector3(-377f, -660.5f, 0);
-        keepInstance.transform.localPosition = pos;
-    }
-
-    void trashInvoke()
-    {
-        TrashItemTurn = 30;
-    }
-
     void UseTrashCan()
     {
-        GameObject ItemControllerObj = GameObject.FindGameObjectWithTag("ItemController");
-        if (ItemControllerObj != null)
-        {
-            trashCanIndex = ItemControllerObj.GetComponent<ItemController>().trashCanItemIndex;
-        }
-
         if (trashCanIndex != 30)
         {
             var comp = _gridSquares[trashCanIndex].GetComponent<GridSquare>();
             if(TrashItemTurn < 1)
             {
-                comp.SquareOccupied = false;//사용가능상태
-                comp.Selected = false;
-                comp.normalImage.gameObject.transform.GetChild(0).gameObject.SetActive(false);//숫자끄기
-                if (comp.activeImage.gameObject.activeSelf == true)//뭐를 넣음
-                {
-                    //TrashItemTurn = 30;
-                    Invoke("trashInvoke", 0.1f);
-                    comp.activeImage.gameObject.SetActive(false);
-                }
+                comp.Deactivate();
+                comp.ClearOccupied();
+                _gridSquares[trashCanIndex].transform.GetChild(0).gameObject.transform
+               .GetChild(0).gameObject.GetComponent<Text>().text = " ";
             }
             else
             {
-                comp.SquareOccupied = true;
-                comp.Selected = true;
-                _gridSquares[trashCanIndex].transform.GetChild(0).gameObject.transform
-                .GetChild(0).gameObject.SetActive(true);
+                comp.ActivateSquare();
                 _gridSquares[trashCanIndex].transform.GetChild(0).gameObject.transform
                 .GetChild(0).gameObject.GetComponent<Text>().text = TrashItemTurn.ToString();
             }
@@ -669,12 +608,33 @@ public class GridScript : MonoBehaviour
 
     void SettingKeep()//LineIndicator로 열을 하나 더 만들었는데 우린 keep자리와 can자리만 필요하니 그게 아니라면 끄기
     {
+        GameObject ItemControllerObj = GameObject.FindGameObjectWithTag("ItemController");
+        if (ItemControllerObj != null)
+        {
+            trashCanIndex = ItemControllerObj.GetComponent<ItemController>().trashCanItemIndex;
+            keepSquareIndex = ItemControllerObj.GetComponent<ItemController>().keepItemIndex;
+        }
+
         for (int i = 25; i < 30; i++)//ItemController에서 선택받지못한 애들은 끄자
         {
             if (trashCanIndex != i && keepSquareIndex != i)
             {
                 var comp = _gridSquares[i].GetComponent<GridSquare>();
                 comp.NonKeep();//GridSquare에 자기자신을 끄는 함수 호출
+            }
+            else
+            {
+                var comp = _gridSquares[i].GetComponent<GridSquare>();
+                if(trashCanIndex == i)
+                {
+                    comp.IMtrash = true;
+                    UseTrashCan();
+                }
+                else if(keepSquareIndex == i)
+                {
+                    comp.IMkeep = true;
+                    UseKeep();
+                }
             }
         }
     }

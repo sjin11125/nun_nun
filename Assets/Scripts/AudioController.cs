@@ -7,14 +7,7 @@ public class AudioController : MonoBehaviour
     public AudioSource Music;
     public GameObject musicOn;
     public GameObject SoundOn;
-    public Sounds[] Sound;
-
-    [System.Serializable]
-    public struct Sounds
-    {
-        public string name;
-        public AudioSource audio;
-    }
+    public AudioSource[] Sound;
 
     public void Music_on()
     {
@@ -32,21 +25,21 @@ public class AudioController : MonoBehaviour
 
     public void Sound_on()
     {
-        if (Sound.Length > 0)
+        if (SoundOn.activeSelf)
         {
+            SoundOn.SetActive(false);
             for (int i = 0; i < Sound.Length; i++)
             {
-                if (SoundOn.activeSelf)
-                {
-                    Sound[i].audio.mute = true;
-                    SoundOn.SetActive(false);
-                }
-                else
-                {
-                    Sound[i].audio.mute = false;
-                    SoundOn.SetActive(true);
-                }
+                Sound[i].mute = true;
             }
-        }         
+        }
+        else
+        {
+            SoundOn.SetActive(true);
+            for (int i = 0; i < Sound.Length; i++)
+            {
+                Sound[i].mute = false;
+            }
+        }        
     }
 }

@@ -17,6 +17,8 @@ public class RainbowItem : MonoBehaviour
     public Text number;
     bool shapeItemAc;
 
+    private GameObject settigPanel;
+
     void Start()
     {
         myChlid = new GameObject[3];
@@ -38,6 +40,7 @@ public class RainbowItem : MonoBehaviour
             ChangeShapeObj = GetRainbow.transform.GetChild(5).gameObject;
             shapeItemAc = GetRainbow.transform.GetComponent<ItemController>().mainItemBool[7];
         }
+        settigPanel = GameObject.FindGameObjectWithTag("SettingPanel");
     }
 
     public void RainbowItemUse(string shape)
@@ -87,7 +90,7 @@ public class RainbowItem : MonoBehaviour
                     if (hit.collider.gameObject == squareColorObj)//바꾸고있는 애가아니라
                     {
                         squareColorObj.transform.GetChild(2).GetComponent<Image>().sprite = RainbowItemChange(colorK);
-                        squareColorObj.GetComponent<GridSquare>().keepCurrentColor = getColorName[colorK];//색깔전달
+                        squareColorObj.GetComponent<GridSquare>().currentColor = getColorName[colorK];//색깔전달
                         colorK++;
                     }
                     else//다른 스퀘어면
@@ -115,6 +118,7 @@ public class RainbowItem : MonoBehaviour
                         {
                             ChangeShapeObj.SetActive(true);
                         }
+                        settigPanel.GetComponent<AudioController>().Sound[0].Play();
                     }
                     else if (hit.collider.gameObject == myChlid[1])//사용
                     {
