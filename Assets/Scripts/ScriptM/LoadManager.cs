@@ -103,6 +103,7 @@ public class LoadManager : MonoBehaviour
                         Debug.Log(item.Key);
                     }
                     Debug.Log(LoadBuilding.BuildingPosiiton_x);
+                    Debug.Log(BuildingName);
                     GameObject g = Instantiate(GameManager.BuildingPrefabData[BuildingName],new Vector3(float.Parse( LoadBuilding.BuildingPosiiton_x),float.Parse(LoadBuilding.BuildingPosiiton_y), 0),Quaternion.identity) as GameObject;
 
                     Building g_Building = g.GetComponent<Building>();

@@ -374,7 +374,6 @@ public class GridBuildingSystem : MonoBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
-            Debug.Log("isMoveLock: " + GameManager.isMoveLock);
 
 
 
