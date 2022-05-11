@@ -143,6 +143,7 @@ GameObject:
   - component: {fileID: 4337750507591132674}
   - component: {fileID: 5799940734562750712}
   - component: {fileID: 4731096851794831002}
+  - component: {fileID: -4658160287490729801}
   m_Layer: 0
   m_Name: fence_level
   m_TagString: Str
@@ -202,7 +203,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2132867818646730806}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 84c48386a49fd104c9e6009abf0ed358, type: 3}
   m_Name: 
@@ -258,6 +259,50 @@ MonoBehaviour:
     Level: 
     isFlied: 
   isMe: 0
+--- !u!114 &-4658160287490729801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2132867818646730806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7e4fb413bcc80044a8d1f69d6b2cb55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Placed: 0
+  area:
+    m_Position: {x: 0, y: 0, z: 0}
+    m_Size: {x: 1, y: 1, z: 1}
+  Coin_Button: {fileID: 2132867819104901470, guid: 76385d16ace105b4a959d0e5c52ad629, type: 3}
+  currentTime: 0
+  startingTime: 60
+  Button_Pannel: {fileID: 2132867819840144644, guid: 76385d16ace105b4a959d0e5c52ad629, type: 3}
+  Rotation_Pannel: {fileID: 1697979522239847141, guid: 76385d16ace105b4a959d0e5c52ad629, type: 3}
+  Remove_Pannel: {fileID: 208536036088481188, guid: 76385d16ace105b4a959d0e5c52ad629, type: 3}
+  isCoin: 0
+  isCountCoin: 0
+  CountCoin: 0
+  BuildingPosition: {x: 0, y: 0}
+  isLock: T
+  Building_name: flower_level(Clone)0
+  Reward: 
+  Info: 
+  Building_Image: 
+  Cost: 
+  ShinCost: 
+  Level: 1
+  isFliped: F
+  BuildingPosiiton_x: 
+  BuildingPosiiton_y: 
+  Id: 
+  layer_y: 0
+  UpgradePannel: {fileID: 3322355556386377119, guid: 76385d16ace105b4a959d0e5c52ad629, type: 3}
+  UpgradePannel2: {fileID: 3990997439624646519, guid: 76385d16ace105b4a959d0e5c52ad629, type: 3}
+  buildings: []
+  Type: 0
+  save: {fileID: 0}
 --- !u!1 &2132867819840144645
 GameObject:
   m_ObjectHideFlags: 0

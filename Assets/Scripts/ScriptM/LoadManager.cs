@@ -94,7 +94,7 @@ public class LoadManager : MonoBehaviour
 
         }
         Debug.Log("Initial GameManager.StrList.count: " + GameManager.StrList.Count);
-        isLoad = true;
+       
 
     }
     void Response(string json)                          //건물 값 불러오기
@@ -147,15 +147,17 @@ public class LoadManager : MonoBehaviour
             form1.AddField("order", "getFriendBuilding");
             form1.AddField("loadedFriend", GameManager.NickName);
 
+            isLoad = true;
+            /* WWWForm form2 = new WWWForm();
+             Debug.Log("설치물로딩");
+             //isMe = true;                    //내 설치물 불러온다!!!!!!!!!!!!!!!!
+             form2.AddField("order", "getFriendStr");
+             form2.AddField("loadedFriend", GameManager.NickName);
+             StartCoroutine(Post_Str(form2)); */
 
-            WWWForm form2 = new WWWForm();
-            Debug.Log("설치물로딩");
-            //isMe = true;                    //내 설치물 불러온다!!!!!!!!!!!!!!!!
-            form2.AddField("order", "getFriendStr");
-            form2.AddField("loadedFriend", GameManager.NickName);
-            StartCoroutine(Post_Str(form2));
+
             StartCoroutine(Post(form1));
-
+           
 
             
         }
@@ -248,7 +250,7 @@ public class LoadManager : MonoBehaviour
 
                 }
             }
-            if (SceneManager.GetActiveScene().name == "Main" && GameManager.StrList != null)       //메인씬에서 로드하기(내 마을)
+          /* if (SceneManager.GetActiveScene().name == "Main" && GameManager.StrList != null)       //메인씬에서 로드하기(내 마을)
             {
                 //건물로드
                 Debug.Log("GameManager.StrList.Count: " + GameManager.StrList.Count);
@@ -276,16 +278,7 @@ public class LoadManager : MonoBehaviour
                     Debug.Log("IDIDIDIDID:  " + LoadBuilding.BuildingPosiiton_x);                                      //g.transform.SetParent(buildings.transform);     //buildings를 부모로 설정
 
                     //Debug.Log("gm_Building.Building_Image: " + GameManager.BuildingArray[0].Building_Image);
-                    /*for (int j = 0; j < GameManager.BuildingArray.Length; j++)
-                    {
-                        if (g_Building.Building_Image == GameManager.BuildingArray[j].Building_Image)
-                        {
-                            g_Building.Reward = GameManager.BuildingArray[j].Reward;
-                            g_Building.Cost = GameManager.BuildingArray[j].Cost;
-                            g_Building.ShinCost = GameManager.BuildingArray[j].ShinCost;
-                        }
-
-                    }*/
+               
                     Debug.Log("ididkjflsnmfld:      " + g_Building.Building_name);
                     g.name = g_Building.Id;          //이름 재설정
 
@@ -295,7 +288,7 @@ public class LoadManager : MonoBehaviour
                     // g_Building.Rotation();
 
                 }
-            }
+            }*/
             else if (SceneManager.GetActiveScene().name == "FriendMain")                            //친구 마을 씬
             {
                 for (int i = 0; i < GameManager.FriendBuildingList.Count; i++)

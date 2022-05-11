@@ -112,7 +112,6 @@ public class WonderAI : MonoBehaviour
 
             //ani.Play("1nuni_walk");
             //ani.Play("nuni_walk"); 기본이 
-            Debug.Log("움직이는중");
         }
 
     }

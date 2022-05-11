@@ -202,9 +202,9 @@ public class GameManager : MonoBehaviour
         DicParsingManager DPManager = new DicParsingManager();
         AllNuniArray = DPManager.Parse_character(1);            //누니 정보 파싱
         BuildingArray = DPManager.Parse(0);    //도감 정보 파싱
-        StrArray = DPManager.Parse_Str(2);
+       // StrArray = DPManager.Parse_Str(2);
 
-        Debug.Log("StrArray:    "+ StrArray.Length);
+       
         // Friends=new string[1] {"Vicky"};            //일단 친구는 비키만 있는걸로
         //친구 목록 불러오기
         //GetComponent<BuildingSave>().GetFriendLsit();           //친구 목록 불러오기
