@@ -84,18 +84,16 @@ public class InventoryManager : MonoBehaviour
             inven.gameObject.tag = "Inven_Nuni";            //인벤 버튼 태그 설정
 
             Image ButtonImage = inven.GetComponent<Image>();
-            Debug.Log("building image: " + GameManager.CharacterList[i].cardImage);
+            Debug.Log("building image: " + i);
 
 
-            Image PrefabImage;// = GameManager.GetDogamChaImage(GameManager.BuildingList[i].Building_Image);
+          
             ButtonImage.sprite = GameManager.GetCharacterImage(GameManager.CharacterList[i].cardImage);
 
-            if (GameManager.CharacterList[i].isLock == "T")
-            {
-                Button Button = inven.GetComponent<Button>();
-                //Button.enabled= false;              //이미 설치되어 있으면 버튼 클릭 못하고 X 뜸
+            inven.gameObject.GetComponent<InventoryButton>().this_nuni = GameManager.CharacterList[i];
+            Debug.Log("inven.gameObject.this_nuni: "+ inven.gameObject.GetComponent<InventoryButton>().this_nuni.isLock);
 
-            }
+
 
         }
     }
