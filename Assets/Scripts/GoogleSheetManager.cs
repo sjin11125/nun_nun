@@ -171,17 +171,21 @@ public class GoogleSheetManager : MonoBehaviour
         {
             if (GD.msg == "회원가입 완료")
             {
-                t.text = "회원가입 완료!"+ nickname + "(" + id + ")님 환영합니다!!잠시만 기다려 주세요.";
+                t.text = "회원가입 완료!"+ nickname + "(" + id + ")님 환영합니다!! " +
+                    "\n잠시만 기다려 주세요.";
             }
             else
             {
                 nickname = GD.nickname;
                GameManager.StateMessage= GD.state;
-                t.text = "로그인 완료!"+ nickname + "(" + id + ")님 환영합니다!! 잠시만 기다려 주세요 ";
+                t.text = "로그인 완료!"+ nickname + "(" + id + ")님 환영합니다!! " +
+                    "\n잠시만 기다려 주세요 ";
             }
 
             GameManager.NickName = nickname;
             GameManager.Id = id;
+
+            Debug.Log(GameManager.AllNuniArray.Length);
             for (int i = 0; i < GameManager.AllNuniArray.Length; i++)
             {
                 if (GameManager.AllNuniArray[i].Image.name != GD.profile_image)

@@ -2,32 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
 
 
 public class SettingMenu : MonoBehaviour
 {
-    [Header("Space between menu items")]
-    [SerializeField] Vector2 spacing;
-
-    //모션추가
-    [Space]
-    [Header("Main button rotation")]
-    [SerializeField] float rotationDuration;
-    [SerializeField] Ease rotationEase;
-
-    [Space]
-    [Header("Animation")]
-    [SerializeField] float expandDuration;
-    [SerializeField] float collapseDuration;
-    [SerializeField] Ease expandEase;
-    [SerializeField] Ease collapseEase;
-
-    [Space]
-    [Header("Fading")]
-    [SerializeField] float expandFadeDuration;
-    [SerializeField] float collapseFadeDuration;
-
 
 
     Button mainButton;
@@ -95,9 +73,7 @@ public class SettingMenu : MonoBehaviour
                 //menuItems[i].trans.position = mainButtonPosition + spacing * (i+1);
 
                 gameObject.transform.GetChild(i).position = new Vector3(mainButtonPosition.x, gameObject.transform.GetChild(i).position.y, gameObject.transform.GetChild(i).position.z);
-                menuItems[i].trans.DOMove(mainButtonPosition + spacing * (i + 1), expandDuration).SetEase(expandEase);
-                menuItems[i].img.DOFade(1f, expandFadeDuration).From(0f);
-
+                
                 if (gameObject.transform.GetChild(i).gameObject != mainButton)
                 {
 
@@ -110,8 +86,7 @@ public class SettingMenu : MonoBehaviour
             for (int i = 0; i < itemsCount; i++)
             {
                 //gameObject.transform.GetChild(i).localPosition = new Vector3(0, gameObject.transform.GetChild(i).localPosition.y, gameObject.transform.GetChild(i).localPosition.z);
-                menuItems[i].trans.DOMove(mainButtonPosition, collapseDuration).SetEase(collapseEase);
-                menuItems[i].img.DOFade(0f, collapseFadeDuration);
+               
                 // menuItems[i].trans.position = mainButtonPosition;
 
 

@@ -45,13 +45,20 @@ public class VisitorBookManager : MonoBehaviour
         if (SceneManager.GetActiveScene().name=="FriendMain")           //친구 씬이냐
         {
             VBInput.gameObject.SetActive(true);
-            FriendVisitorBookList();              //친구 방명록 있나 확인
+            if (gameObject.tag=="VisitorBook")
+            {
+                FriendVisitorBookList();              //친구 방명록 있나 확인
+            }
+            
         }
         else                                                        //내 씬이냐
         {
             Debug.Log("내 씬");
             VBInput.gameObject.SetActive(false);
-            VisitorBookList();              //방명록 있나 확인
+            if (gameObject.tag == "VisitorBook")
+            {
+                VisitorBookList();              //방명록 있나 확인
+            }
         }
     }
     // Start is called before the first frame update
@@ -67,6 +74,7 @@ public class VisitorBookManager : MonoBehaviour
 
     public void FriendVisitorBookList()         //친구 방명록 불러옴 
     {
+        Debug.Log("친구 방명록 불러와");
         WWWForm form = new WWWForm();
         form.AddField("order", "getMessageFriend");
         form.AddField("friend_nickname", GameManager.friend_nickname);
@@ -93,6 +101,17 @@ public class VisitorBookManager : MonoBehaviour
             //Debug.Log(www.downloadHandler.text);
 
         }
+        VisitorBook friendBuildings;
+        //friendBuildings = JsonUtility.FromJson<VisitorBook>(j[i].ToString());
+
+        GameObject VB = Instantiate(VBPrefab, Content.transform) as GameObject;
+
+        Text[] VBtext = VB.GetComponentsInChildren<Text>();
+
+        VBtext[0].text = GameManager.NickName;
+        VBtext[1].text = VBInput.text;
+        VBtext[2].text = DateTime.Now.ToString("yyyy.MM.dd");
+        //GameManager.FriendBuildingList.Add(b);      //친구의 건물 리스트에 삽입
     }
     IEnumerator GetPost(WWWForm form)
     {
@@ -105,8 +124,9 @@ public class VisitorBookManager : MonoBehaviour
         }
     }
 
-    void Response(string json)                          //건물 값 불러오기
+    void Response(string json)                          
     {
+        Debug.Log(json);
         if (string.IsNullOrEmpty(json))
         {
             Debug.Log(json);
@@ -116,7 +136,7 @@ public class VisitorBookManager : MonoBehaviour
             return;
 
         Newtonsoft.Json.Linq.JArray j = Newtonsoft.Json.Linq.JArray.Parse(json);
-        //Debug.Log("j.Count: "+j.Count);
+        Debug.Log("j.Count: "+j.Count);
       
         for (int i = 0; i < j.Count; i++)
         {
@@ -131,10 +151,9 @@ public class VisitorBookManager : MonoBehaviour
             VBtext[0].text =friendBuildings.f_nickname;
             VBtext[1].text = friendBuildings.f_message;
             VBtext[2].text = friendBuildings.f_time;
-            //GameManager.FriendBuildingList.Add(b);      //친구의 건물 리스트에 삽입
 
         }
-        Debug.Log(json);
+        
 
     }
 }

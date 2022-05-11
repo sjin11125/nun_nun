@@ -91,12 +91,20 @@ public class FriendManager : MonoBehaviour
             Debug.Log(friendInfos[i].f_nickname);
         }
         GameManager.Friends = friendInfos;
+
+
+
         for (int i = 0; i < GameManager.Friends.Length; i++)
         { string[] friend = GameManager.Friends[i].f_nickname.Split(':');
             Debug.Log(friend.Length);
             if (friend.Length>=2)
             {
                 continue;
+            }
+            Transform[] child = Content.GetComponentsInChildren<Transform>();           //일단 초기화
+            for (int k = 1; k < child.Length; k++)
+            {
+                Destroy(child[k].gameObject);
             }
             GameObject friendprefab = Instantiate(FriendPrefab, Content.transform) as GameObject;  //친구 프리팹 생성
             Transform friendPrefabChilds = friendprefab.GetComponent<Transform>();
@@ -112,7 +120,13 @@ public class FriendManager : MonoBehaviour
         if (string.IsNullOrEmpty(json)) return;
 
         Debug.Log(json);
-        
+
+        Transform[] child = Content.GetComponentsInChildren<Transform>();           //일단 초기화
+        for (int k = 1; k < child.Length; k++)
+        {
+            Destroy(child[k].gameObject);
+        }
+
         Newtonsoft.Json.Linq.JArray j= Newtonsoft.Json.Linq.JArray.Parse(json);
         FriendInfo[] friendInfos=new FriendInfo[j.Count];
         for (int i = 0; i < j.Count; i++)
@@ -127,6 +141,11 @@ public class FriendManager : MonoBehaviour
 
     public void FriendsList()
     {
+        Transform[] child = Content.GetComponentsInChildren<Transform>();           //일단 초기화
+        for (int k = 1; k < child.Length; k++)
+        {
+            Destroy(child[k].gameObject);
+        }
         for (int i = 0; i < GameManager.Friends.Length; i++)
         {
             GameObject friendprefab = Instantiate(FriendPrefab, Content.transform) as GameObject;  //친구 프리팹 생성

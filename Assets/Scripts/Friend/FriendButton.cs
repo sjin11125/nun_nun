@@ -14,6 +14,8 @@ public class FriendButton : MonoBehaviour
     public GameObject SearchFriendContents;
 
     public Text F_nickname;
+    public GameObject Content;
+    public GameObject FriendPrefab;
     // Start is called before the first frame update
     void Start()
     {
@@ -50,6 +52,19 @@ public class FriendButton : MonoBehaviour
 
         WWWForm form1 = new WWWForm();
         form1.AddField("order", "EnrollFriend");
+        form1.AddField("friend_nickname", F_nickname.text);
+        form1.AddField("player_nickname", GameManager.NickName);
+
+        StartCoroutine(SearchPost(form1));
+    }
+
+    public void AddRecFriend()          //요청받은 친구 추가하기 버튼 누르면
+    {
+        string f_nickname = F_nickname.text;            //추가하려는 친구 닉
+
+        
+        WWWForm form1 = new WWWForm();
+        form1.AddField("order", "addFriend");
         form1.AddField("friend_nickname", F_nickname.text);
         form1.AddField("player_nickname", GameManager.NickName);
 
@@ -134,8 +149,34 @@ public class FriendButton : MonoBehaviour
     void RequireResponse(string json)
     {
         Debug.Log(json);
-      
+        Transform[] child = Content.GetComponentsInChildren<Transform>();           //일단 초기화
+        for (int k = 1; k < child.Length; k++)
+        {
+            Destroy(child[k].gameObject);
+        }
+
+        Newtonsoft.Json.Linq.JArray j = Newtonsoft.Json.Linq.JArray.Parse(json);
+        FriendInfo[] friendInfos = new FriendInfo[j.Count];
+        for (int i = 0; i < j.Count; i++)
+        {
+            friendInfos[i] = JsonUtility.FromJson<FriendInfo>(j[i].ToString());
+            Debug.Log(friendInfos[i].f_nickname);
+        }
+
+
+        for (int i = 0; i < friendInfos.Length; i++)
+        {
+            GameObject friendprefab = Instantiate(FriendPrefab, Content.transform) as GameObject;  //친구 프리팹 생성
+            friendprefab.tag = "addFriend";
+            Transform friendPrefabChilds = friendprefab.GetComponent<Transform>();
+            friendPrefabChilds.name = friendInfos[i].f_nickname;
+            Text[] friendButtonText = friendprefab.GetComponentsInChildren<Text>();
+            friendButtonText[0].text = friendInfos[i].f_nickname;
+            friendButtonText[1].text = friendInfos[i].f_info;
+        }
+
     }
+
 
 
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Reflection;
+using UnityEngine.Networking;
 
 public class LoadManager : MonoBehaviour
 {
@@ -26,14 +27,76 @@ public class LoadManager : MonoBehaviour
         }
         return copy;
     }
+    IEnumerator Post(WWWForm form)
+    {
+        Debug.Log("불러오라");
+        using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // 반드시 using을 써야한다
+        {
+            yield return www.SendWebRequest();
+            //Debug.Log(www.downloadHandler.text);
+            if (www.isDone)
+            {
+
+                Response(www.downloadHandler.text);
+
+            }    //친구 건물 불러옴
+            else print("웹의 응답이 없습니다.");
+        }
+
+    }
+    void Response(string json)                          //건물 값 불러오기
+    {
+        if (string.IsNullOrEmpty(json))
+        {
+            Debug.Log(json);
+            return;
+        }
+        Debug.Log("josn:      " + json);
+
+        if (json == "Null")
+        {
+            return;
+        }
+        GameManager.BuildingList = new List<Building>();
+        Newtonsoft.Json.Linq.JArray j = Newtonsoft.Json.Linq.JArray.Parse(json);
+        //Debug.Log("j.Count: "+j.Count);
+        BuildingParse Buildings = new BuildingParse();
+        for (int i = 0; i < j.Count; i++)
+        {
+            Debug.Log(i);
+            Buildings = JsonUtility.FromJson<BuildingParse>(j[i].ToString());
+            Building b = new Building();
+            b.SetValueParse(Buildings);
+
+            Debug.Log("Id: " + Buildings.Id);
+            /*  new Building(friendBuildings.isLock, friendBuildings.Building_name, friendBuildings.Reward, friendBuildings.Info, 
+              friendBuildings.Building_Image, friendBuildings.Cost.ToString(), friendBuildings.Level.ToString(), friendBuildings.Tree.ToString(),
+               friendBuildings.Grass.ToString(), friendBuildings.Snow.ToString(), friendBuildings.Ice.ToString(), friendBuildings.isFliped.ToString(), 
+              friendBuildings.buildingPosiiton_x, friendBuildings.buildingPosiiton_y);*/
+            GameManager.BuildingList.Add(b);      //내 건물 리스트에 삽입
+
+        }
+        Debug.Log("GameManager.BuildingList[0]" + GameManager.BuildingList[0].BuildingPosiiton_x);
+        
+        Debug.Log("GameManager.BuildingList[0]" + GameManager.BuildingList[0].BuildingPosiiton_x);
+
+    }
+    //재화로드
+    //캐릭터 로드
     void Start()
     {
         if (SceneManager.GetActiveScene().name=="Main")
         {
             isLoad = true;
+            WWWForm form1 = new WWWForm();
+            Debug.Log("건물로딩");
+            //isMe = true;                    //내 건물 불러온다!!!!!!!!!!!!!!!!
+            form1.AddField("order", "getFriendBuilding");
+            form1.AddField("loadedFriend", GameManager.NickName);
+            StartCoroutine(Post(form1));
         }
-        //재화로드
-        //캐릭터 로드
+        
+        
         if (isLoad==true)
         {
             //isLoad = false;
@@ -48,13 +111,13 @@ public class LoadManager : MonoBehaviour
 
                 for (int i = 0; i < GameManager.BuildingList.Count; i++)
                 {
-                    if (GameManager.BuildingList[i].isLock != "T")
+                    if (GameManager.BuildingList[i].isLock == "F")          //배치안되어있니?
                         continue;
 
                     Building LoadBuilding = GameManager.BuildingList[i];           // 현재 가지고 잇는 빌딩 리스트의 빌딩 컴포넌트
                     string BuildingName = LoadBuilding.Building_Image;        //현재 가지고 있는 빌딩 리스트에서 빌딩 이름 부르기
                     Debug.Log(LoadBuilding.Placed);
-
+                    Debug.Log("BuildingName: "+ BuildingName);
                     GameObject BuildingPrefab = GameManager.BuildingPrefabData[BuildingName];           // 해당 건물 프리팹
                     GameObject g = Instantiate(BuildingPrefab, new Vector3(LoadBuilding.BuildingPosition.x, LoadBuilding.BuildingPosition.y, 0), Quaternion.identity,buildings.transform) as GameObject;
 
@@ -66,7 +129,7 @@ public class LoadManager : MonoBehaviour
                     //CopyComponent(LoadBuilding, g);
                     Building g_Building = g.GetComponent<Building>();
                     g_Building.SetValue(LoadBuilding);      //새로 생성된 프리팹의 빌딩 스크립트 value 값을 기존에 있던 스크립트 value값 설정
-                                                            //g.transform.SetParent(buildings.transform);     //buildings를 부모로 설정
+                    Debug.Log("IDIDIDIDID:  "+ LoadBuilding.BuildingPosiiton_x);                                      //g.transform.SetParent(buildings.transform);     //buildings를 부모로 설정
 
                     //Debug.Log("gm_Building.Building_Image: " + GameManager.BuildingArray[0].Building_Image);
                     for (int j = 0; j < GameManager.BuildingArray.Length; j++)
@@ -79,12 +142,12 @@ public class LoadManager : MonoBehaviour
                         }
                        
                     }
-                    Debug.Log(LoadBuilding.Building_name);
-                    g.name = LoadBuilding.Id;          //이름 재설정
+                    Debug.Log("ididkjflsnmfld:      "+g_Building.Building_name);
+                    g.name = g_Building.Id;          //이름 재설정
 
                     g_Building.Type = BuildType.Load;
                     g_Building.Place_Initial(g_Building.Type);
-                    GameManager.IDs.Add(LoadBuilding.Id);
+                    GameManager.IDs.Add(g_Building.Id);
                     Debug.Log(g.GetComponent<Building>().isFliped);
                    // g_Building.Rotation();
                    
@@ -103,6 +166,7 @@ public class LoadManager : MonoBehaviour
                         Debug.Log(item.Key);
                     }
                     Debug.Log(LoadBuilding.BuildingPosiiton_x);
+                    Debug.Log(BuildingName);
                     GameObject g = Instantiate(GameManager.BuildingPrefabData[BuildingName],new Vector3(float.Parse( LoadBuilding.BuildingPosiiton_x),float.Parse(LoadBuilding.BuildingPosiiton_y), 0),Quaternion.identity) as GameObject;
 
                     Building g_Building = g.GetComponent<Building>();

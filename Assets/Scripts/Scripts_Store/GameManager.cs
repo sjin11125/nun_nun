@@ -10,19 +10,28 @@ public class GameManager : MonoBehaviour
     static GameManager _Instance;
     public static bool parse = false;
     public Sprite[] DogamChaImageInspector;     //인스펙터에서 받아 온 건물 이미지
+    public Sprite[] DogamStrImageInspector;     //인스펙터에서 받아 온 설치물 이미지
 
     public static Sprite[] DogamChaImage;
+    public static Sprite[] DogamStrImage;
     public static Dictionary<string, Sprite> DogamChaImageData;
+    public static Dictionary<string, Sprite> DogamStrImageData;
 
     public static List<Building> BuildingList;          //가지고 있는 빌딩들
     public static List<Building> FriendBuildingList;          //친구가 가지고 있는 빌딩들
     public static Building[] BuildingArray;         //모든 빌딩들
     
-    public GameObject[] BuildingPrefabInspector;    //인스펙터에서 받아 온 건물 프리팹 배열
+    public GameObject[] BuildingPrefabInspector;    //인스펙터에서 받아 온 건물 프리팹 배열    
+
     public static Dictionary<string, GameObject> BuildingPrefabData;    //모든 빌딩 프리팹 딕셔너리
+    public static Dictionary<string, GameObject> StrPrefabData;    //모든 설치물 프리팹 딕셔너리
 
     public static GameObject CurrentBuilding;       //현재 수정중인 건물
     public static Building CurrentBuilding_Script;       //현재 수정중인 건물
+
+    public static GameObject CurrentStr;            //현재 수정중인 설치물
+    public static Str CurrentStr_Script;            //현재 수정중인 설치물
+
 
     public static Dictionary<string, int> BuildingNumber;            //건물이 종류별로 몇개 있는지(건물번호)
 
@@ -31,6 +40,13 @@ public class GameManager : MonoBehaviour
 
     public static List<string> IDs;        //건물 아이디
     public static bool isUpdate = false;        //건물 목록 강제로 업데이트
+
+    public static Str[] StrArray;           //모든 설치물
+    public static List<Str> StrList;     //가지고 있는 모든 설치물
+    public static Dictionary<string, Sprite> StrDict;
+
+    public GameObject[] StrPrefabInspector;    //인스펙터에서 받아 온 설치물 프리팹 배열
+
     //----------------------------------------------------이까지 건물----------------------------------------------------
 
 
@@ -72,7 +88,7 @@ public class GameManager : MonoBehaviour
 
     public static string friend_nickname;       //현재 들어가있는 친구닉넴
 
-    public static string URL = "https://script.google.com/macros/s/AKfycbyOqtJa8Bnzx9ezAtjfB-GlRjmuvZNjOdE1xNmP3ylCwlM6LQJNHpH3H244ZsIRQRNf/exec";
+    public static string URL = "https://script.google.com/macros/s/AKfycbzQj-w_qtGYxSXt8ar1svRQkjWOCqjM9_D7lq6oJ-bSdmr6KBAN9AK-Z4lXKbhNRNM/exec";
     //----------------------------------------------------------------------------------------------
 
 
@@ -99,12 +115,16 @@ public class GameManager : MonoBehaviour
     public static bool QParse = false;
     public static bool[] QuestActive;                 //블록 얼마 깻는지 확인
     public static int QuestColor = 0;                   //뭔 블록 깨야하는지    
+
+
+    public static bool isStrEdit = false;
     void Start()
     {
         BuildingList = new List<Building>();            //현재 가지고 있는 빌딩 리스트
         //
         DogamChaImageData = new Dictionary<string, Sprite>();       //전체 캐릭터 리스트(가지고 있지 않은것도 포함)
         BuildingPrefabData = new Dictionary<string, GameObject>();      //전체 빌딩 프리팹 리스트 (가지고 있지 않은 것도 포함)
+        StrPrefabData = new Dictionary<string, GameObject>();
         CharacterPrefab = new Dictionary<string, GameObject>();
         CharacterImageData = new Dictionary<string, Sprite>();
         CharacterList = new List<Card>();
@@ -112,6 +132,8 @@ public class GameManager : MonoBehaviour
         IDs = new List<string>();
         Quest = new QuestInfo[3];                     //퀘스트 
         NuniDialog = new List<NuniDialog>();
+        DogamStrImageData=new Dictionary<string, Sprite>();
+        StrList = new List<Str>();
         Debug.Log("GameManager Start");
         for (int i = 0; i < BuildingPrefabInspector.Length; i++)        //빌딩 프리팹 정보 불러오기
         {
@@ -127,7 +149,24 @@ public class GameManager : MonoBehaviour
                 Debug.Log("있");
             }
            
+        }      
+        for (int i = 0; i < StrPrefabInspector.Length; i++)        //빌딩 프리팹 정보 불러오기
+        {
+            Debug.Log(StrPrefabInspector[i]);
+            StrPrefabData.Add(StrPrefabInspector[i].name+ "(Clone)", StrPrefabInspector[i]);
+            if (StrPrefabInspector[i].GetComponent<Str>().Button_Pannel == null)
+            {
+                Debug.Log(i);
+                Debug.Log("없");
+            }
+            else
+            {
+                Debug.Log(i);
+                Debug.Log("있");
+            }
+           
         }
+
         //일단 시작하면 전체 빌딩 프리팹 리스트에서 이름 받아서 임시로 0으로 초기화
         for (int i = 0; i < BuildingPrefabInspector.Length; i++)
         {
@@ -139,7 +178,10 @@ public class GameManager : MonoBehaviour
             Debug.Log(DogamChaImageInspector[i].name);
             DogamChaImageData.Add(DogamChaImageInspector[i].name, DogamChaImageInspector[i]);
         }
-        
+        for (int i = 0; i < DogamStrImageInspector.Length; i++)
+        {
+            DogamStrImageData.Add(DogamStrImageInspector[i].name, DogamStrImageInspector[i]);
+        }
         for (int i = 0; i < CharacterImageInspector.Length; i++)        //캐릭터 
         {
             CharacterImageData.Add(CharacterImageInspector[i].name, CharacterImageInspector[i]);
@@ -160,7 +202,7 @@ public class GameManager : MonoBehaviour
         DicParsingManager DPManager = new DicParsingManager();
         AllNuniArray = DPManager.Parse_character(1);            //누니 정보 파싱
         BuildingArray = DPManager.Parse(0);    //도감 정보 파싱
-
+        StrArray = DPManager.Parse_Str(2);
         // Friends=new string[1] {"Vicky"};            //일단 친구는 비키만 있는걸로
         //친구 목록 불러오기
         //GetComponent<BuildingSave>().GetFriendLsit();           //친구 목록 불러오기
@@ -179,7 +221,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
         DontDestroyOnLoad(gameObject);  // 아래의 함수를 사용하여 씬이 전환되더라도 선언되었던 인스턴스가 파괴되지 않는다.
-
+    
     }
 
     public static GameManager Instance
