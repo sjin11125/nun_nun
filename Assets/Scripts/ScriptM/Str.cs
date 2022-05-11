@@ -328,7 +328,7 @@ public class Str : MonoBehaviour
         GameManager.CurrentStr = null;
         //
 
-        save.AddValue(this);
+        //save.AddValue(this);
         //GameManager.isUpdate = true;
     }
 }

@@ -228,11 +228,55 @@ public class GridBuildingSystem : MonoBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
-            Debug.Log(GameManager.BuildingList[0].BuildingPosiiton_x);
-            Debug.Log("GameManager.BuildingList: " + GameManager.BuildingList[0].BuildingPosiiton_x);
+
             if (hit.transform != null)          // 오브젝트를 클릭 했을 때
             {
                 Transform Building = hit.transform.parent;
+                if (tempStr != null)
+                {
+                    if (tempStr.Placed == false)
+                    {
+                        Str hit_str = tempStr.GetComponent<Str>();
+                        if (hit.transform.tag == "Button")      //건물 배치 확인 버튼
+                        {
+                            if (tempStr.CanBePlaced())         //건물이 배치 될 수 있는가? 네
+                            {
+                                //temp.level += 1;        //레벨 +1
+                                tempStr.Type = BuildType.Make;
+                                tempStr.Place(tempStr.Type);
+                                UI_Manager.Start();
+
+                                Grid.GetComponent<SpriteRenderer>().sortingOrder = -48;
+                                StartButton.enabled = true;
+                                tempStr = null;
+                                isEditing = false;
+                            }
+                            // button.buttonok();
+                        }
+                        if (hit.transform.tag == "Rotation")        //건물 회전 버튼
+                        {
+
+                            if (hit_str.isFliped == "T")
+                            {
+                                hit_str.isFliped = "F";
+                            }
+                            else
+                            {
+                                hit_str.isFliped = "T";
+                            }
+                            hit_str.Rotation();
+
+
+                        }
+                        if (hit.transform.tag == "Remove")          //제거
+                        {
+                            tempStr.Remove(tempStr);
+                            Grid.GetComponent<SpriteRenderer>().sortingOrder = -48;
+
+                        }
+                    }
+                    
+                }
                 if (temp != null)
                 {
                     if (temp.Placed == false)               //건물이 배치가 안 된 상태인가?
@@ -284,7 +328,7 @@ public class GridBuildingSystem : MonoBehaviour
                     }
 
                 }
-                else             //temp가 없을 때               //건물이 배치 된 상태
+               if (temp != null|| tempStr != null)   //temp가 없을 때               //건물이 배치 된 상태
                 {
 
 
@@ -366,6 +410,28 @@ public class GridBuildingSystem : MonoBehaviour
                                     + new Vector3(.5f, .5f, 0f)); //Vector3
                                 prevPos = cellPos;
                                 FollowBuilding(false); // 마우스가 위의 좌표 따라감. 
+                            }
+                        }
+
+                    }
+                }
+                if (tempStr != null)
+                {
+                    if (!tempStr.Placed)           //건물이 놓여지지 않았다.(마우스가 클릭하는 데로 건물 따라감)
+                    {
+                        if (tempStr.Type != BuildType.Upgrade)
+                        {
+
+
+                            Vector2 touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                            Vector3Int cellPos = gridLayout.LocalToCell(touchPos);
+                            Debug.Log("mouse");
+                            if (prevPos != cellPos)
+                            {
+                                tempStr.transform.localPosition = gridLayout.CellToLocalInterpolated(cellPos
+                                    + new Vector3(.5f, .5f, 0f)); //Vector3
+                                prevPos = cellPos;
+                                FollowBuilding_Str(false); // 마우스가 위의 좌표 따라감. 
                             }
                         }
 

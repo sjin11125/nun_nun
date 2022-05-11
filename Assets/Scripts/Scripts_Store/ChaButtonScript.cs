@@ -304,8 +304,14 @@ public class ChaButtonScript : MonoBehaviour
                 c = b.GetComponent< Str>().DeepCopy();
 
                 c.SetValue(b);
+
+                Transform parent = transform.parent.transform.parent.transform.parent.transform.parent.transform.parent;
+                parent.gameObject.SetActive(false);
             }
             GameManager.isStrEdit = true;
+            GameManager.isStore = false;
+            GameManager.isMoveLock = false;
+
             return;
         }
 

@@ -88,7 +88,7 @@ public class GameManager : MonoBehaviour
 
     public static string friend_nickname;       //현재 들어가있는 친구닉넴
 
-    public static string URL = "https://script.google.com/macros/s/AKfycbyAAckOrgfK7VdBtc8KVOq744-0VQb3Be99ccQu5lw3BXQBSH2rK87L5u0w48kXAklh/exec";
+    public static string URL = "https://script.google.com/macros/s/AKfycbzQj-w_qtGYxSXt8ar1svRQkjWOCqjM9_D7lq6oJ-bSdmr6KBAN9AK-Z4lXKbhNRNM/exec";
     //----------------------------------------------------------------------------------------------
 
 
@@ -133,7 +133,7 @@ public class GameManager : MonoBehaviour
         Quest = new QuestInfo[3];                     //퀘스트 
         NuniDialog = new List<NuniDialog>();
         DogamStrImageData=new Dictionary<string, Sprite>();
-
+        StrList = new List<Str>();
         Debug.Log("GameManager Start");
         for (int i = 0; i < BuildingPrefabInspector.Length; i++)        //빌딩 프리팹 정보 불러오기
         {
@@ -221,7 +221,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
         DontDestroyOnLoad(gameObject);  // 아래의 함수를 사용하여 씬이 전환되더라도 선언되었던 인스턴스가 파괴되지 않는다.
-
+    
     }
 
     public static GameManager Instance
