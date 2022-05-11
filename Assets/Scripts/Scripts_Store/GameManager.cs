@@ -206,8 +206,6 @@ public class GameManager : MonoBehaviour
         // Friends=new string[1] {"Vicky"};            //일단 친구는 비키만 있는걸로
         //친구 목록 불러오기
         //GetComponent<BuildingSave>().GetFriendLsit();           //친구 목록 불러오기
-
-        //GameLoad();
     }
     private void Awake()
     {
@@ -246,25 +244,6 @@ public class GameManager : MonoBehaviour
     {
         
         return GameManager.CharacterImageData[ImageName.Trim()];
-    }
-
-    /*public void GameSave()
-    {
-        PlayerPrefs.SetInt("Money", Money);//돈
-        PlayerPrefs.SetInt("ShinMoney", ShinMoney);//돈
-        PlayerPrefs.Save();
-        print("save");
-    }*/
-    public void GameLoad()
-    {
-        ShinMoney = 10000;
-        print("load");
-    }
-    public void GameExit()
-    {
-        //GameSave();
-        print("exit");
-        Application.Quit();
     }
 
     public static string IDGenerator()
