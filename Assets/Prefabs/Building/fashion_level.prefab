@@ -422,6 +422,7 @@ GameObject:
   - component: {fileID: 2132867818646730808}
   - component: {fileID: 4337750507591132674}
   - component: {fileID: -2284381711254009516}
+  - component: {fileID: 5878526963718784759}
   m_Layer: 0
   m_Name: fashion_level
   m_TagString: Building
@@ -482,12 +483,13 @@ MonoBehaviour:
   Reward: 
   Info: 
   Building_Image: 
-  Cost: 0
-  ShinCost: 0
+  Cost: 
+  ShinCost: 
   Level: 1
   isFliped: F
   BuildingPosiiton_x: 
   BuildingPosiiton_y: 
+  Id: 
   layer_y: 0
   UpgradePannel: {fileID: 3322355556386377119}
   UpgradePannel2: {fileID: 3990997439624646519}
@@ -507,7 +509,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.06591046, y: 1.0501559}
+  m_Offset: {x: 0.2152096, y: 0.7408937}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -518,7 +520,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.8748095, y: 2.2909627}
+  m_Size: {x: 2.96256, y: 2.120335}
   m_EdgeRadius: 0
 --- !u!114 &-2284381711254009516
 MonoBehaviour:
@@ -550,6 +552,27 @@ MonoBehaviour:
     Level: 
     isFlied: 
   isMe: 0
+--- !u!50 &5878526963718784759
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2132867818646730806}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
 --- !u!1 &2132867819104901471
 GameObject:
   m_ObjectHideFlags: 0
