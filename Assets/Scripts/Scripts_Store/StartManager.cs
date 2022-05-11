@@ -77,11 +77,6 @@ public class StartManager : MonoBehaviour
             Destroy(child[i].gameObject);
         }
 
-        float p = 0;
-
-        //RefreshButtonArray(NuNiInformation);         //소유하지 않은 건물들 새로고침
-
-        List<Button> LockButtonList = new List<Button>();       //잠긴 캐릭터들 버튼 들어있는 리스트
 
 
         for (int j = 0; j < itemList.Count; j++)         //시작하기 전 캐릭터 나타내기
