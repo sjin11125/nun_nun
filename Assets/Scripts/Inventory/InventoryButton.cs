@@ -7,7 +7,7 @@ using UnityEngine.Networking;
 public class InventoryButton : MonoBehaviour
 {
     // Start is called before the first frame update
-    public Button X_Image;     //건물 회수 버튼
+    public Image X_Image;     //건물 회수 버튼
 
     Building this_building;         //이 버튼에 해당하는 건물
     Card this_nuni;         //이 버튼에 해당하는 건물
@@ -34,14 +34,14 @@ public class InventoryButton : MonoBehaviour
                 }
             }
             Debug.Log(this_building.isLock);
-           /* if (this_building.isLock == "F")
+            if (this_building.isLock == "F")
             {
-                X_Image.gameObject.SetActive(false);
+                X_Image.gameObject.SetActive(true);
             }
             else
             {
-                X_Image.gameObject.SetActive(true);
-            }*/
+                X_Image.gameObject.SetActive(false);
+            }
 
         }
         else if(gameObject.tag == "Inven_Nuni")
@@ -185,7 +185,7 @@ public class InventoryButton : MonoBehaviour
             //GameManager.CurrentBuilding = null;
             GameManager.CurrentBuilding_Script = GameManager.CurrentBuilding.GetComponent<Building>();
             this_building.isLock = "F";         //배치 안된 상태로 바꾸기
-            //X_Image.gameObject.SetActive(true);
+            X_Image.gameObject.SetActive(false);
            
 
 
@@ -219,6 +219,7 @@ public class InventoryButton : MonoBehaviour
         }
         else if(this_building.isLock == "F")                     //현재 배치된 상태가 아닌가
         {
+            X_Image.gameObject.SetActive(true);
             //Destroy(gridBuildingSystem.temp_gameObject);
             //Debug.Log("gridBuildingSystem.temp_gameObject.name: " + gridBuildingSystem.temp_gameObject.name);
             this_building.isLock = "T";         //배치 된 상태로 바꾸기

@@ -73,6 +73,16 @@ public class Str : MonoBehaviour
         Id = getBuilding.Id;
         Cost = getBuilding.Cost;
     }
+    public void SetValueParse(StrParse parse)
+    {
+        isLock = parse.isLock;               //잠금 유무
+        Building_name = parse.Building_name;            //건물 이름
+        Building_Image = parse.Building_Image;          //빌딩 이미지 이름 *
+        isFliped = parse.isFliped;
+        BuildingPosiiton_x = parse.BuildingPosiiton_x;
+        BuildingPosiiton_y = parse.BuildingPosiiton_y;
+        Id = parse.Id;
+    }
     public Str DeepCopy()
     {
         Str StrCopy = new Str();

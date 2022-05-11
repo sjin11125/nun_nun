@@ -193,7 +193,7 @@ public class Building : MonoBehaviour
     {
         for (int i = 0; i < GameManager.BuildingList.Count; i++)
         {
-            if (GameManager.BuildingList[i].Building_name == Building_name)
+            if (GameManager.BuildingList[i].Id == Id)
             {
                 GameManager.BuildingList[i] = this.DeepCopy();
             }
