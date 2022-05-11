@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class UIManager2 : MonoBehaviour
 {
-
+    
     public GameObject GetButton;
     public GameObject backButton;
 
@@ -13,10 +13,16 @@ public class UIManager2 : MonoBehaviour
     public AudioSource backsound;
 
 
-    public void Click()
+    private void Start()
     {
-        water = GetComponent<AudioSource>();
-        water.Play();
+        
+
+    }
+    public void Click() // 버튼 눌럿을 때
+    {
+       
+       // water = GetComponent<AudioSource>();
+        //water.Play();
         Destroy(GetButton);
         //Button.SetBool("Get", false);
     }

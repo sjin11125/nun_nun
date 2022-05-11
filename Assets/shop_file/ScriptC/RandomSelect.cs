@@ -33,13 +33,14 @@ public class RandomSelect : MonoBehaviour
         ResultSelect();
         buttonsound.Play();     //효과음 재생
         
-        GameManager.Money -= 500;       //500원 빼기
+        GameManager.Money -= 2000;       //500원 빼기
 
         UiManager2.Click();
     }
 
     public void ResultSelect()
     {
+        //셀력결과
         // 가중치 랜덤을 돌리면서 결과 리스트에 넣어줍니다.
         result.Add(RandomCard());
         // 비어 있는 카드를 생성하고

@@ -6,7 +6,7 @@ public class GameExitController : MonoBehaviour
 {
     public void Awake()
     {
-        //GameLoad();
+        GameLoad();
     }
     public void GameSave()
     {
@@ -22,7 +22,7 @@ public class GameExitController : MonoBehaviour
     }
     public void GameExit()
     {
-        //GameSave();
+        GameSave();
         print("exit");
         Application.Quit();
     }

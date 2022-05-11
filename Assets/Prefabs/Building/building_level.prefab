@@ -274,6 +274,7 @@ GameObject:
   - component: {fileID: 2132867818646730808}
   - component: {fileID: 4337750507591132674}
   - component: {fileID: 375238227081988929}
+  - component: {fileID: 7431593027793571911}
   m_Layer: 0
   m_Name: building_level
   m_TagString: Building
@@ -360,7 +361,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.5048978}
+  m_Offset: {x: 0.12900889, y: 0.5874635}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -371,7 +372,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.2004462}
+  m_Size: {x: 2.0630333, y: 1.7990475}
   m_EdgeRadius: 0
 --- !u!114 &375238227081988929
 MonoBehaviour:
@@ -403,6 +404,27 @@ MonoBehaviour:
     Level: 
     isFlied: 
   isMe: 0
+--- !u!50 &7431593027793571911
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2132867818646730806}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
 --- !u!1 &2132867819104901471
 GameObject:
   m_ObjectHideFlags: 0
@@ -1455,13 +1477,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a775106deafbe64daa4fb580ae6c8b1, type: 3}
---- !u!224 &4467152901347740530 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 5066180194701751630, guid: 4a775106deafbe64daa4fb580ae6c8b1, type: 3}
-  m_PrefabInstance: {fileID: 8912680763273592380}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4467152901347740531 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5066180194701751631, guid: 4a775106deafbe64daa4fb580ae6c8b1, type: 3}
+  m_PrefabInstance: {fileID: 8912680763273592380}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &4467152901347740530 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5066180194701751630, guid: 4a775106deafbe64daa4fb580ae6c8b1, type: 3}
   m_PrefabInstance: {fileID: 8912680763273592380}
   m_PrefabAsset: {fileID: 0}

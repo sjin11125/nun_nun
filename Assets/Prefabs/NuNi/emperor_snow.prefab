@@ -159,6 +159,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3861417074059375536}
   - component: {fileID: 3861417074059375539}
+  - component: {fileID: 8473992055032120887}
   m_Layer: 0
   m_Name: clean_body
   m_TagString: Nuni
@@ -232,6 +233,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!111 &8473992055032120887
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3861417074059375537}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 30270afd3c407e643a99218303729a76, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 30270afd3c407e643a99218303729a76, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &3861417074170521478
 GameObject:
   m_ObjectHideFlags: 0
@@ -287,7 +304,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!95 &3861417074170521472
 Animator:
   serializedVersion: 3
@@ -333,7 +350,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.10327936, y: 0}
