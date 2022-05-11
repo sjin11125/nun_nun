@@ -90,7 +90,7 @@ public class Str : MonoBehaviour
     {
         for (int i = 0; i < GameManager.StrList.Count; i++)
         {
-            if (GameManager.StrList[i].Building_name == Building_name)
+            if (GameManager.StrList[i].Id == Id)
             {
                 GameManager.StrList[i] = this.DeepCopy();
             }
@@ -283,9 +283,9 @@ public class Str : MonoBehaviour
         else if (buildtype == BuildType.Move)               //이동할 때
         {
             Debug.Log("Move");
-            gameObject.name = GameManager.CurrentBuilding_Script.Id;
-            Id = GameManager.CurrentBuilding_Script.Id;
-            Building_name = GameManager.CurrentBuilding_Script.Building_name;
+            gameObject.name = GameManager.CurrentStr_Script.Id;
+            Id = GameManager.CurrentStr_Script.Id;
+            Building_name = GameManager.CurrentStr_Script.Building_name;
             isLock = "T";
             RefreshStrList();
 

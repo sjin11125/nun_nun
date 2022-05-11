@@ -70,7 +70,6 @@ public class WonderAI : MonoBehaviour
                 moveSpot.position = new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
                 if(moveSpot.position.x > ai.transform.position.x)
                 {
-                    Debug.Log("멈추는중");
                     for (int i = 0; i < rend.Length; i++) // 뒤집히기
                     {
                         rend[i].flipX=true;
@@ -95,7 +94,6 @@ public class WonderAI : MonoBehaviour
             {
                 waitTime -= Time.deltaTime; //wait - deltaTIme=0이 될 때 까지 움직여라
                 //얘가 움직이는 함수
-                Debug.Log("움직이는중");
                     
             }
            

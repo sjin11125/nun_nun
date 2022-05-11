@@ -75,7 +75,6 @@ public class BuildingSave : MonoBehaviour
     public void AddValue(Str str)
     {
         WWWForm form = new WWWForm();
-        Building buildings = GetComponent<Building>();
         Debug.Log("설치물 저장");
         form.AddField("order", "addValueStr");
         form.AddField("player_nickname", GameManager.NickName);
