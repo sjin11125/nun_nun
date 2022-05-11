@@ -107,13 +107,14 @@ public class Str : MonoBehaviour
         SpriteRenderer spriterenderer = GetComponentInChildren<SpriteRenderer>();
         spriterenderer.flipX = isflip_bool;
 
-      
-                if (isFliped == "T")
+
+        if (isFliped == "T")
                 {
                     isFliped = "F";
                 }
                 else
                     isFliped = "T";
+        
         RefreshStrList();//설치물 리스트 새로고침
     }
     void Awake()
@@ -178,14 +179,14 @@ public class Str : MonoBehaviour
         {
             Button_Pannel.gameObject.SetActive(false);     // 배치하는 버튼 사라지게
             Rotation_Pannel.gameObject.SetActive(false);        //회전 버튼 사라지게
-   
+            Remove_Pannel.gameObject.SetActive(false);
         }
         else
         {
 
             Button_Pannel.gameObject.SetActive(true);
             Rotation_Pannel.gameObject.SetActive(true);
-     
+            Remove_Pannel.gameObject.SetActive(true);
         }
     }
     public bool CanBePlaced()           //건물이 놓여질 수 있는지 체크
@@ -328,7 +329,7 @@ public class Str : MonoBehaviour
         GameManager.CurrentStr = null;
         //
 
-        //save.AddValue(this);
+        save.AddValue(this);
         //GameManager.isUpdate = true;
     }
 }

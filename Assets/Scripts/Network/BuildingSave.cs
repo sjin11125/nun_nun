@@ -44,7 +44,7 @@ public class BuildingSave : MonoBehaviour
     {
         Debug.Log("UpdateValue");
         WWWForm form = new WWWForm();
-        form.AddField("order", "updateValue_str");
+        form.AddField("order", "updateValueStr");
         form.AddField("building_image", update_str.Building_Image);
         form.AddField("player_nickname", GameManager.NickName);
         form.AddField("buildingPosiiton_x", update_str.BuildingPosition.x.ToString());
@@ -76,22 +76,32 @@ public class BuildingSave : MonoBehaviour
     {
         WWWForm form = new WWWForm();
         Building buildings = GetComponent<Building>();
-        Debug.Log("건물저장");
-        form.AddField("order", "addValue");
+        Debug.Log("설치물 저장");
+        form.AddField("order", "addValueStr");
         form.AddField("player_nickname", GameManager.NickName);
+        form.AddField("building_name", str.Building_name);
         form.AddField("building_image", str.Building_Image);
         form.AddField("buildingPosiiton_x", str.BuildingPosition.x.ToString());
-        form.AddField("buildingPosiiton_y", buildings.BuildingPosition.y.ToString());
-        form.AddField("isLock", str.isLock);
-        form.AddField("building_name", str.Building_name);
-        form.AddField("isFliped", str.isFliped.ToString());
+        form.AddField("buildingPosiiton_y", str.BuildingPosition.y.ToString());
+        form.AddField("isFlied", str.isFliped.ToString());
         form.AddField("id", str.Id.ToString());
         StartCoroutine(SavePost(form));
+        Debug.Log("설치물 저장완료");
     }
     public void RemoveValue(string id)
     {
         WWWForm form1 = new WWWForm();
         form1.AddField("order", "removeValue");
+        form1.AddField("player_nickname", GameManager.NickName);
+        Debug.Log("ID: "+id);
+        form1.AddField("id", id);
+        StartCoroutine(Post(form1));
+
+        return;
+    } public void RemoveValue_str(string id)
+    {
+        WWWForm form1 = new WWWForm();
+        form1.AddField("order", "removeValueStr");
         form1.AddField("player_nickname", GameManager.NickName);
         Debug.Log("ID: "+id);
         form1.AddField("id", id);
