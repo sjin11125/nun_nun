@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class CameraMovement : MonoBehaviour
@@ -77,6 +78,10 @@ public class CameraMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (EventSystem.current.IsPointerOverGameObject())      //UI를 클릭했냐
+        {
+            return;
+        }
 
         //업데이트에 줌을 적어보자     if (GameManager.isMoveLock==false)
         {

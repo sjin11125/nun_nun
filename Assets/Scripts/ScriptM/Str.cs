@@ -221,6 +221,17 @@ public class Str : MonoBehaviour
         areaTemp.position = positionInt;
 
         //Debug.Log()
+        for (int i = 0; i < GameManager.StrArray.Length; i++)
+        {
+            if (GameManager.StrArray[i].Building_Image+"(Clone)"==Building_Image)
+            {
+                Cost = GameManager.StrArray[i].Cost;
+            }
+            
+        }
+        Debug.Log(GameManager.StrArray[0].Building_Image);
+        Debug.Log(Building_Image);
+        Debug.Log(Cost);
         GameManager.Money += int.Parse( Cost);          //자원 되돌리기
 
         GridBuildingSystem.current.RemoveArea(areaTemp);

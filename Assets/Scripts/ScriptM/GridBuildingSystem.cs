@@ -117,7 +117,10 @@ public class GridBuildingSystem : MonoBehaviour
         {
             second = 0;
         }
-
+        if (EventSystem.current.IsPointerOverGameObject())      //UI를 클릭했냐
+        {
+            return;
+        }
         if (Input.GetMouseButtonUp(0) && SceneManager.GetActiveScene().name == "Main")
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
