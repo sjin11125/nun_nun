@@ -68,7 +68,7 @@ public class Str : MonoBehaviour
         Building_name = getBuilding.Building_name;
         Building_Image = getBuilding.Building_Image;
         isFliped = getBuilding.isFliped;
-        BuildingPosiiton_x = getBuilding.BuildingPosiiton_y;
+        BuildingPosiiton_x = getBuilding.BuildingPosiiton_x;
         BuildingPosiiton_y = getBuilding.BuildingPosiiton_y;
         Id = getBuilding.Id;
         Cost = getBuilding.Cost;
