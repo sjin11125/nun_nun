@@ -71,6 +71,7 @@ public class Str : MonoBehaviour
         BuildingPosiiton_x = getBuilding.BuildingPosiiton_y;
         BuildingPosiiton_y = getBuilding.BuildingPosiiton_y;
         Id = getBuilding.Id;
+        Cost = getBuilding.Cost;
     }
     public Str DeepCopy()
     {
@@ -82,6 +83,7 @@ public class Str : MonoBehaviour
         StrCopy.BuildingPosiiton_x=BuildingPosiiton_x;
         StrCopy. BuildingPosiiton_y=BuildingPosiiton_y;
         StrCopy.Id = Id ;
+        StrCopy.Cost = Cost;
         return StrCopy;
     }
     public void RefreshStrList()               //빌딩 리스트 새로고침
@@ -219,7 +221,7 @@ public class Str : MonoBehaviour
         else                                //설치하고 제거
         {
             StrListRemove();
-            save.RemoveValue(Id);
+            save.RemoveValue_str(Id);
             Destroy(gameObject);
         }
         GameManager.isUpdate = true;
