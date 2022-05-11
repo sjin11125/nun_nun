@@ -6,25 +6,28 @@ public class Settings : MonoBehaviour
 {
     public GameObject settingPanel;
     private Animation anim;
+    bool animac;
 
     void Start()
     {
-        settingPanel.SetActive(false);
         anim = GetComponent<Animation>();
+        Time.timeScale = 1;
+        animac = false;
     }
 
     public void SettingOnClick()
-    {   
-        if (settingPanel.activeSelf == false)//켜져있지않음
+    {
+        if (animac == false)//켜져있지않음
         {
-            settingPanel.SetActive(true);
             anim.Play("SettingBtn");
-            settingPanel.GetComponent<Animation>().Play("SettingPanel");
+            settingPanel.GetComponent<Animator>().SetTrigger("PanelOn");
+            animac = true;
         }
         else//켜져있음
         {
             anim.Play("SettingBtnClose");
-            settingPanel.GetComponent<Animation>().Play("SettingPanelClose");
+            settingPanel.GetComponent<Animator>().SetTrigger("PanelOff");
+            animac = false;
         }
     }
 }
