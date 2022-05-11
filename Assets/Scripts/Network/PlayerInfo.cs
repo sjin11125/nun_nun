@@ -72,9 +72,9 @@ public class PlayerInfo : MonoBehaviour                 //플레이어 프로필 스크립
         }
 
     }
-    public void EditInfo()
+    public void EditInfo()      
     {
-        GameManager.ProfileImage = gameObject.transform.parent.GetComponent<Image>().sprite;
+        GameManager.StateMessage = InfoInput.text;
         Debug.Log("image: " + GameManager.ProfileImage.name);
         WWWForm form1 = new WWWForm();
         form1.AddField("order", "setProfileInfo");
@@ -90,6 +90,9 @@ public class PlayerInfo : MonoBehaviour                 //플레이어 프로필 스크립
         if (gameObject.tag=="Profile")
         {
             gameObject.GetComponent<Image>().sprite = GameManager.ProfileImage;
+        
+            Profile[0].text = GameManager.NickName;
+            Profile[1].text = GameManager.StateMessage;
         }
         if (gameObject.tag == "Profile_Image")
         {

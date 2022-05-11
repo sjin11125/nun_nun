@@ -107,13 +107,14 @@ public class Str : MonoBehaviour
         SpriteRenderer spriterenderer = GetComponentInChildren<SpriteRenderer>();
         spriterenderer.flipX = isflip_bool;
 
-      
-                if (isFliped == "T")
+
+        if (isFliped == "T")
                 {
                     isFliped = "F";
                 }
                 else
                     isFliped = "T";
+        
         RefreshStrList();//설치물 리스트 새로고침
     }
     void Awake()
