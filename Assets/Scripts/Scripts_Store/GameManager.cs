@@ -88,7 +88,7 @@ public class GameManager : MonoBehaviour
 
     public static string friend_nickname;       //현재 들어가있는 친구닉넴
 
-    public static string URL = "https://script.google.com/macros/s/AKfycbzQj-w_qtGYxSXt8ar1svRQkjWOCqjM9_D7lq6oJ-bSdmr6KBAN9AK-Z4lXKbhNRNM/exec";
+    public static string URL = "https://script.google.com/macros/s/AKfycbwYiYjRHyL2pAY1bjT3z40ao3LYRcOBlzzOE4YP9Zg9zHgMOXZmMfkgrdd5HTKs2lPP/exec";
     //----------------------------------------------------------------------------------------------
 
 
