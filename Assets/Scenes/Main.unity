@@ -2444,8 +2444,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1898545908968710933, guid: 8f237ecc7c0838e43b899f2d97cea752, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -1096.875
+      objectReference: {fileID: 0}
+    - target: {fileID: 1898545908968710933, guid: 8f237ecc7c0838e43b899f2d97cea752, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 279.0662
+      objectReference: {fileID: 0}
+    - target: {fileID: 1898545908968710933, guid: 8f237ecc7c0838e43b899f2d97cea752, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.000104771
+      value: -0.00000387502
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f237ecc7c0838e43b899f2d97cea752, type: 3}
@@ -2496,6 +2504,25 @@ MonoBehaviour:
   inventory_nuni_prefab: {fileID: 2236633136755091253, guid: 0171688ffe1bfff4788196a4587df52d, type: 3}
   Content: {fileID: 267303996}
   gridBuildingSystem: {fileID: 0}
+--- !u!1 &267303998 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1898545908968710934, guid: 8f237ecc7c0838e43b899f2d97cea752, type: 3}
+  m_PrefabInstance: {fileID: 267303991}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &267303999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 267303998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 2
+  m_VerticalFit: 0
 --- !u!1 &276669629
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,7 +10,7 @@ public class InventoryButton : MonoBehaviour
     public Image X_Image;     //건물 회수 버튼
 
     Building this_building;         //이 버튼에 해당하는 건물
-    Card this_nuni;         //이 버튼에 해당하는 건물
+    public Card this_nuni;         //이 버튼에 해당하는 건물
     GridBuildingSystem gridBuildingSystem;
 
     public GameObject buildings;
@@ -46,18 +46,26 @@ public class InventoryButton : MonoBehaviour
         }
         else if(gameObject.tag == "Inven_Nuni")
         {
-            nunis= GameObject.Find("nunis");
-            for (int i = 0; i < GameManager.CharacterList.Count; i++)
-            {
-                //Debug.Log("GameManager.CharacterList[i].cardImage: "+ GameManager.CharacterList[i].cardImage);
-                if (this.gameObject.name == GameManager.CharacterList[i].cardImage)
-                {
-                    Debug.Log("this Nuni");
-                    this_nuni = GameManager.CharacterList[i];
-                    gridBuildingSystem = gameObject.transform.parent.parent.GetComponent<GridBuildingSystem>();
-                }
-            }
+            nunis= GameObject.Find("nunis"); 
+            gridBuildingSystem = gameObject.transform.parent.parent.GetComponent<GridBuildingSystem>();
 
+            /*  for (int i = 0; i < GameManager.CharacterList.Count; i++)
+              {
+
+
+
+                      this_nuni = GameManager.CharacterList[i];
+
+              }*/
+            Debug.Log("this_nuni.isLock: "+this_nuni.isLock);
+            if (this_nuni.isLock == "F")
+            {
+                X_Image.gameObject.SetActive(true);
+            }
+            else
+            {
+                X_Image.gameObject.SetActive(false);
+            }
         }
 
         
@@ -71,29 +79,38 @@ public class InventoryButton : MonoBehaviour
     }
     public void nuni_Click()
     {
+        Debug.Log("this_nuni.isLock:   " + this_nuni.isLock);
         if (this_nuni.isLock=="T")      //누니가 배치된 상태
         {
             this_nuni.isLock = "F";         //배치 안된 상태로 바꾸기
             Transform[] nuni_child = nunis.GetComponentsInChildren<Transform>();
-
+            X_Image.gameObject.SetActive(true);
             for (int i = 0; i < nuni_child.Length; i++)                     //누니 목록에서 해당 누니 찾아서 없애기
             {
              //   Debug.Log("nuni_child[i].gameObject.name: " + nuni_child[i].gameObject.name);
              //   Debug.Log("this_nuni.cardImage: " + this_nuni.cardImage + "(Clone)");fsdfssfsdfdfs
                 if (nuni_child[i].gameObject.name == this_nuni.cardImage+"(Clone)")
                 {
+                    
                     Card nuni_childs = nuni_child[i].gameObject.GetComponent<Card>();
-                    nuni_childs.isLock = "F";
-                    Destroy(nuni_child[i].gameObject);
+                    if (nuni_childs.isLock=="T")
+                    {
+                        nuni_childs.isLock = "F";
+                        Destroy(nuni_child[i].gameObject);
+                        StartCoroutine(NuniSave(this_nuni));          //구글 스크립트에 업데이트
+                    }
+                   
+                    return;
                 }
             }
-
+          
 
         }
         else                                    //누니가 배치 안된 상태
         {
             this_nuni.isLock = "T";         //배치 된 상태로 바꾸기
 
+            X_Image.gameObject.SetActive(false);
             for (int i = 0; i < GameManager.CharacterList.Count; i++)           //Instatntiate 해주기
             {
                 Debug.Log("this_nuni.cardName: "+ this_nuni.cardName);
@@ -102,14 +119,15 @@ public class InventoryButton : MonoBehaviour
                 {
                     GameManager.CharacterList[i].isLock = "T";
                     Instantiate(GameManager.CharacterPrefab[this_nuni.cardImage], nunis.transform);
+                    StartCoroutine(NuniSave(this_nuni));          //구글 스크립트에 업데이트
+                    return;
                 }
 
                 
             }
 
-
         }
-        StartCoroutine(NuniSave(this_nuni));          //구글 스크립트에 업데이트
+        
     }
     IEnumerator NuniSave(Card nuni)                //누니 구글 스크립트에 저장
     {
@@ -185,7 +203,7 @@ public class InventoryButton : MonoBehaviour
             //GameManager.CurrentBuilding = null;
             GameManager.CurrentBuilding_Script = GameManager.CurrentBuilding.GetComponent<Building>();
             this_building.isLock = "F";         //배치 안된 상태로 바꾸기
-            X_Image.gameObject.SetActive(false);
+            X_Image.gameObject.SetActive(true);
            
 
 
@@ -219,7 +237,7 @@ public class InventoryButton : MonoBehaviour
         }
         else if(this_building.isLock == "F")                     //현재 배치된 상태가 아닌가
         {
-            X_Image.gameObject.SetActive(true);
+            X_Image.gameObject.SetActive(false);
             //Destroy(gridBuildingSystem.temp_gameObject);
             //Debug.Log("gridBuildingSystem.temp_gameObject.name: " + gridBuildingSystem.temp_gameObject.name);
             this_building.isLock = "T";         //배치 된 상태로 바꾸기
