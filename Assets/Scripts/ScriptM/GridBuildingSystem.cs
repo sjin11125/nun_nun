@@ -244,7 +244,7 @@ public class GridBuildingSystem : MonoBehaviour
                                 //temp.level += 1;        //레벨 +1
                                 tempStr.Type = BuildType.Make;
                                 tempStr.Place(tempStr.Type);
-                                UI_Manager.Start();
+                                //UI_Manager.Start();
 
                                 Grid.GetComponent<SpriteRenderer>().sortingOrder = -48;
                                 StartButton.enabled = true;
