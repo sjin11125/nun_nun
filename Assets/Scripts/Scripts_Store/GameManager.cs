@@ -133,7 +133,7 @@ public class GameManager : MonoBehaviour
         Quest = new QuestInfo[3];                     //퀘스트 
         NuniDialog = new List<NuniDialog>();
         DogamStrImageData=new Dictionary<string, Sprite>();
-
+        StrList = new List<Str>();
         Debug.Log("GameManager Start");
         for (int i = 0; i < BuildingPrefabInspector.Length; i++)        //빌딩 프리팹 정보 불러오기
         {
