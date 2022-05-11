@@ -102,9 +102,6 @@ public class WonderAI : MonoBehaviour
 
                 //얘가 움직이는 함수
 
-                Debug.Log("멈추는중");
-                //ani.Play("1nuni_nwalk");
-
             }
 
 
