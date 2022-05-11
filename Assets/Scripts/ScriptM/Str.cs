@@ -68,9 +68,20 @@ public class Str : MonoBehaviour
         Building_name = getBuilding.Building_name;
         Building_Image = getBuilding.Building_Image;
         isFliped = getBuilding.isFliped;
-        BuildingPosiiton_x = getBuilding.BuildingPosiiton_y;
+        BuildingPosiiton_x = getBuilding.BuildingPosiiton_x;
         BuildingPosiiton_y = getBuilding.BuildingPosiiton_y;
         Id = getBuilding.Id;
+        Cost = getBuilding.Cost;
+    }
+    public void SetValueParse(StrParse parse)
+    {
+        isLock = parse.isLock;               //잠금 유무
+        Building_name = parse.Building_name;            //건물 이름
+        Building_Image = parse.Building_Image;          //빌딩 이미지 이름 *
+        isFliped = parse.isFliped;
+        BuildingPosiiton_x = parse.BuildingPosiiton_x;
+        BuildingPosiiton_y = parse.BuildingPosiiton_y;
+        Id = parse.Id;
     }
     public Str DeepCopy()
     {
@@ -82,13 +93,14 @@ public class Str : MonoBehaviour
         StrCopy.BuildingPosiiton_x=BuildingPosiiton_x;
         StrCopy. BuildingPosiiton_y=BuildingPosiiton_y;
         StrCopy.Id = Id ;
+        StrCopy.Cost = Cost;
         return StrCopy;
     }
     public void RefreshStrList()               //빌딩 리스트 새로고침
     {
         for (int i = 0; i < GameManager.StrList.Count; i++)
         {
-            if (GameManager.StrList[i].Building_name == Building_name)
+            if (GameManager.StrList[i].Id == Id)
             {
                 GameManager.StrList[i] = this.DeepCopy();
             }
@@ -209,6 +221,17 @@ public class Str : MonoBehaviour
         areaTemp.position = positionInt;
 
         //Debug.Log()
+        for (int i = 0; i < GameManager.StrArray.Length; i++)
+        {
+            if (GameManager.StrArray[i].Building_Image+"(Clone)"==Building_Image)
+            {
+                Cost = GameManager.StrArray[i].Cost;
+            }
+            
+        }
+        Debug.Log(GameManager.StrArray[0].Building_Image);
+        Debug.Log(Building_Image);
+        Debug.Log(Cost);
         GameManager.Money += int.Parse( Cost);          //자원 되돌리기
 
         GridBuildingSystem.current.RemoveArea(areaTemp);
@@ -219,7 +242,7 @@ public class Str : MonoBehaviour
         else                                //설치하고 제거
         {
             StrListRemove();
-            save.RemoveValue(Id);
+            save.RemoveValue_str(Id);
             Destroy(gameObject);
         }
         GameManager.isUpdate = true;
@@ -281,9 +304,9 @@ public class Str : MonoBehaviour
         else if (buildtype == BuildType.Move)               //이동할 때
         {
             Debug.Log("Move");
-            gameObject.name = GameManager.CurrentBuilding_Script.Id;
-            Id = GameManager.CurrentBuilding_Script.Id;
-            Building_name = GameManager.CurrentBuilding_Script.Building_name;
+            gameObject.name = GameManager.CurrentStr_Script.Id;
+            Id = GameManager.CurrentStr_Script.Id;
+            Building_name = GameManager.CurrentStr_Script.Building_name;
             isLock = "T";
             RefreshStrList();
 

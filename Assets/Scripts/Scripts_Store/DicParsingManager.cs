@@ -51,11 +51,10 @@ public class DicParsingManager : MonoBehaviour
             string ImageName = StrList[i].Building_Image;
             if (GameManager.DogamStrImageData.ContainsKey(ImageName))
             {
-                StrList[i].SetChaImage(GameManager.DogamStrImageData[ImageName]);     //누니 이미지 넣기     
+                StrList[i].SetChaImage(GameManager.DogamStrImageData[ImageName]);     //설치물 이미지 넣기     
 
             }
         }
-        Debug.Log("StrList: "+ StrList.Count);
         return StrList.ToArray();
 
 

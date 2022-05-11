@@ -27,13 +27,25 @@ public class PlayerInfo : MonoBehaviour                 //플레이어 프로필 스크립
         {
             Profile[0].text = GameManager.NickName;
             Profile[1].text = GameManager.StateMessage;
-
-            for (int i = 0; i < GameManager.CharacterList.Count; i++)
+            for (int i = 0; i < GameManager.AllNuniArray.Length; i++)
             {
-                GameObject image = Instantiate(NuniImages, Canvas.transform);
-                Image Nuniimage = image.GetComponent<Image>();
-                Nuniimage.sprite = GameManager.CharacterList[i].Image;
+                bool isNuni=false;
+                for (int j   = 0; j < GameManager.CharacterList.Count; j++)
+                {
+                    if (GameManager.CharacterList[j].cardImage== GameManager.AllNuniArray[i].cardImage)
+                    {
+                        isNuni = true;
+                    }
+                    
+                }
+                if (isNuni)
+                {
+                    GameObject image = Instantiate(NuniImages, Canvas.transform);
+                    Image Nuniimage = image.GetComponent<Image>();
+                    Nuniimage.sprite = GameManager.AllNuniArray[i].Image;
+                }
             }
+           
         }
        
     }
@@ -72,7 +84,7 @@ public class PlayerInfo : MonoBehaviour                 //플레이어 프로필 스크립
         }
 
     }
-    public void EditInfo()      
+    public void EditInfo()                  //한줄소개 수정
     {
         GameManager.StateMessage = InfoInput.text;
         Debug.Log("image: " + GameManager.ProfileImage.name);

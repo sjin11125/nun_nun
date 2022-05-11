@@ -135,7 +135,15 @@ public class StartManager : MonoBehaviour
             
         }
         //LockButton = LockButtonList.ToArray();      //잠긴 버튼 리스트 배열로 만들어서 넣기
-
+        GridScript.EraserItemTurn = 10;
+        GridScript.ReloadItemTurn = 15;
+        GridScript.NextExchangeItemTurn = 15;
+        GridScript.KeepItemTurn = 30;
+        GridScript.TrashItemTurn = 20;
+        GridScript.RainbowItemTurn = 40;
+        GridScript.ChangeShapeItem = 40;
+        GridScript.ThreeVerticalItem = 30;
+        GridScript.ThreeHorizontalItem = 30;
     }
 
 
