@@ -24,19 +24,6 @@ public class RandomSelect : MonoBehaviour
 
     public Transform parent;
     public GameObject cardprefab;
-    public AudioSource buttonsound;
-
-    public UIManager2 UiManager2;
-
-    public void click()
-    {
-        ResultSelect();
-        buttonsound.Play();     //효과음 재생
-        
-        GameManager.Money -= 2000;       //500원 빼기
-
-        UiManager2.Click();
-    }
 
     public void ResultSelect()
     {
