@@ -7,6 +7,7 @@ public class DogamManager : MonoBehaviour
 {   //엑셀에 있는 모든 건물 정보 받아서 상점 패널에 넣기
     public GameObject DogamChaPrefab;
     public static Building[] BuildingInformation;
+    public static Str[] StrInformation;
     public static int ChaIndex;
     
     public static bool isParsing = false;
@@ -30,6 +31,7 @@ public class DogamManager : MonoBehaviour
     void Start()
     {
         DicParsingManager DPManager = new DicParsingManager();
+        //StrInformation = DPManager.Parse_Str(2);    //설치물 정보 파싱
         BuildingInformation = DPManager.Parse(0);    //건물 정보 파싱
     }
 
@@ -38,7 +40,79 @@ public class DogamManager : MonoBehaviour
     {
 
     }
-   
+    public void StrOpen()
+    {Transform[] scroll_child=Scroll.GetComponentsInChildren<Transform>();
+        for (int i = 1; i < scroll_child.Length; i++)
+        {
+            Destroy(scroll_child[i].gameObject);
+        }
+        if (isParsing == false)
+        {
+            Debug.Log("sadfsadfasdfasd");
+          
+            //GameManager.BuildingArray = BuildingInformation;
+            isParsing = true;
+        }
+        GameManager.isStore = true;
+
+        ChaImage = GameManager.DogamStrImage;       //빌딩 이미지를 받아옴
+
+
+        List<Button> LockButtonList = new List<Button>();       //잠긴 건물들 버튼 들어있는 리스트
+
+
+        for (int j = 0; j < StrInformation.Length; j++)         //상점 나타내기
+        {
+
+            DogamCha = Instantiate(DogamChaPrefab) as GameObject;
+            DogamCha.transform.SetParent(Scroll.transform);
+            DogamCha.tag = "Str";
+            Transform[] BuildingPrefabChilds = DogamCha.GetComponentsInChildren<Transform>();
+            Text[] BuildingButtonText = DogamCha.GetComponentsInChildren<Text>();
+
+            //도감 캐릭터 버튼 
+            DogamCha.GetComponent<RectTransform>().name = j.ToString();
+
+            Button DogamChaButton = DogamCha.GetComponent<Button>();
+            Image[] image = DogamChaButton.GetComponentsInChildren<Image>();
+            // Text BuildingButtonText = BuildingPrefabChilds[5].GetComponent<Text>();
+
+            if (StrInformation[j].isLock == "F")      //건물이 잠겨있지 않음
+            {
+                string ChaName;
+
+                BuildingPrefabChilds[4].tag = "unLock";
+                ChaName = StrInformation[j].Building_Image;
+                //BuildingInformation[j].SetCharImage(GameManager.GetDogamChaImage(ChaName));
+                image[1].sprite = GameManager.GetDogamChaImage(ChaName);   //건물 이름 값 받아와서 이미지 찾기
+
+                BuildingButtonText[0].text = StrInformation[j].Building_name;      //빌딩 이름 넣기
+                BuildingButtonText[1].text = StrInformation[j].Info;                //빌딩 설명 넣기
+                BuildingButtonText[2].text = "Buy";               //빌딩 가격 넣기
+
+               // BuildingButtonText[3].text = BuildingInformation[j].ShinCost[0].ToString();          //발광석 가격 넣기   
+                BuildingButtonText[4].text = StrInformation[j].Cost.ToString();          //발광석 가격 넣기   
+
+            }
+            else                            //잠겼으면 잠금 이미지 넣기
+            {
+                BuildingPrefabChilds[4].tag = "Lock";
+                image[1].sprite = GameManager.DogamChaImageData["Lock"];
+                //DogamChaButton.GetComponent<Image>().sprite = GameManager.DogamChaImageData["Lock"];
+
+                LockButtonList.Add(DogamChaButton);
+
+
+            }
+
+        }
+
+
+        //LockButton = LockButtonList.ToArray();      //잠긴 버튼 리스트 배열로 만들어서 넣기
+
+
+    }
+
 
     public void DogamOpen()
     {

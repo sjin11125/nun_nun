@@ -141,11 +141,12 @@ GameObject:
   m_Component:
   - component: {fileID: 2132867819163425409}
   - component: {fileID: 4337750507591132674}
+  - component: {fileID: 5799940734562750712}
   - component: {fileID: 4731096851794831002}
   - component: {fileID: -4658160287490729801}
   m_Layer: 0
   m_Name: fence_level
-  m_TagString: Building
+  m_TagString: Str
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -195,6 +196,39 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.6229495, y: 0.6725502}
   m_EdgeRadius: 0
+--- !u!114 &5799940734562750712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2132867818646730806}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84c48386a49fd104c9e6009abf0ed358, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Placed: 0
+  isLock: 
+  Building_name: 
+  Building_Image: 
+  isFliped: F
+  BuildingPosiiton_x: 
+  BuildingPosiiton_y: 
+  Id: 
+  Cost: 
+  Info: 
+  Image: {fileID: 0}
+  Type: 0
+  save: {fileID: 0}
+  layer_y: 0
+  Button_Pannel: {fileID: 2132867819840144644}
+  Rotation_Pannel: {fileID: 1521779684985540404}
+  Remove_Pannel: {fileID: 8683623568285823557}
+  area:
+    m_Position: {x: 0, y: 0, z: 0}
+    m_Size: {x: 1, y: 1, z: 1}
+  BuildingPosition: {x: 0, y: 0}
 --- !u!114 &4731096851794831002
 MonoBehaviour:
   m_ObjectHideFlags: 0
