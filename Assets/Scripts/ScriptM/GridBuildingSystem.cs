@@ -142,7 +142,10 @@ public class GridBuildingSystem : MonoBehaviour
                                 temp = null;
                                 isEditing = false;
                                 GameManager.CurrentBuilding_Script = null;
-                                GameManager.CurrentBuilding = null;
+                                if (GameManager.CurrentBuilding_Button!=null)       //인벤이 눌렀나
+                                {
+                                    GameManager.CurrentBuilding_Button.this_building.isLock = "T";
+                                }
                             }
                             // button.buttonok();
                         }

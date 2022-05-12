@@ -9,7 +9,7 @@ public class InventoryButton : MonoBehaviour
     // Start is called before the first frame update
     public Image X_Image;     //건물 회수 버튼
 
-    Building this_building;         //이 버튼에 해당하는 건물
+  public  Building this_building;         //이 버튼에 해당하는 건물
     public Card this_nuni;         //이 버튼에 해당하는 건물
     GridBuildingSystem gridBuildingSystem;
 
