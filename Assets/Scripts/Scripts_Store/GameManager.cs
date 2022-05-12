@@ -116,8 +116,13 @@ public class GameManager : MonoBehaviour
     public static bool[] QuestActive;                 //블록 얼마 깻는지 확인
     public static int QuestColor = 0;                   //뭔 블록 깨야하는지    
 
-
     public static bool isStrEdit = false;
+
+    public static bool gameMusicOn = true;
+    public static bool mainMusicOn = true;
+    public static bool gameSoundOn = true;
+    public static bool mainSoundOn = true;
+
     void Start()
     {
         BuildingList = new List<Building>();            //현재 가지고 있는 빌딩 리스트

@@ -15,6 +15,9 @@ public class InventoryButton : MonoBehaviour
 
     public GameObject buildings;
     public GameObject nunis;
+
+    private GameObject settigPanel;
+
     void Start()
     {
         if (gameObject.tag=="Inven_Building")
@@ -68,8 +71,7 @@ public class InventoryButton : MonoBehaviour
             }
         }
 
-        
-
+        settigPanel = GameObject.FindGameObjectWithTag("SettingPanel");
     }
 
     // Update is called once per frame
@@ -127,7 +129,7 @@ public class InventoryButton : MonoBehaviour
             }
 
         }
-        
+        settigPanel.GetComponent<AudioController>().Sound[0].Play();
     }
     IEnumerator NuniSave(Card nuni)                //누니 구글 스크립트에 저장
     {
@@ -280,6 +282,7 @@ public class InventoryButton : MonoBehaviour
 
 
         }
+        settigPanel.GetComponent<AudioController>().Sound[0].Play();
     }
     
 }

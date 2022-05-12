@@ -38,10 +38,13 @@ public class ChaButtonScript : MonoBehaviour
     public GameObject WindowClose;
 
     public GameObject NuniUpgradeButton;
-    // Start is called before the first frame update
+
+    private GameObject settigPanel;
+
     void Start()
     {
         Grid = GameObject.Find("back_down");
+        settigPanel = GameObject.FindGameObjectWithTag("SettingPanel");
     }
     public void Islockfalse() => GameManager.isMoveLock = false;
     public void NuniInfoClick()
@@ -374,7 +377,7 @@ public class ChaButtonScript : MonoBehaviour
         GameManager.isMoveLock = false;
 
 
-
+        settigPanel.GetComponent<AudioController>().Sound[1].Play();
     }
 }
 
