@@ -71,10 +71,6 @@ public class PlayerInfo : MonoBehaviour                 //플레이어 프로필 스크립
         }
 
         //구글 스크립트에 업데이트
-
-        //사운드 재생
-        GameObject settigPanel = GameObject.FindGameObjectWithTag("SettingPanel");
-        settigPanel.GetComponent<AudioController>().Sound[0].Play();
     }
 
     IEnumerator ImagePost(WWWForm form)
