@@ -23,9 +23,12 @@ public class GameManager : MonoBehaviour
     public static Dictionary<string, GameObject> BuildingPrefabData;    //모든 빌딩 프리팹 딕셔너리
 
     public static GameObject CurrentBuilding;       //현재 수정중인 건물
-    public static Button CurrentBuildingButton;         //현재 수정중인 인벤버튼
 
     public static Building CurrentBuilding_Script;
+
+
+    public static InventoryButton CurrentBuilding_Button=null;            //현재 수정중인 인벤 버튼
+
 
     public static Dictionary<string, int> BuildingNumber;            //건물이 종류별로 몇개 있는지(건물번호)
 

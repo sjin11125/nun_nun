@@ -158,6 +158,7 @@ public class InventoryButton : MonoBehaviour
 
     public void Click()         //건축물 버튼 클릭했을 때
     {
+       
 
         for (int i = 0; i < GameManager.BuildingList.Count; i++)
         {
@@ -167,9 +168,30 @@ public class InventoryButton : MonoBehaviour
                 
             }
         }
+
         if (gridBuildingSystem.temp_gameObject!=null)
         {
             Destroy(gridBuildingSystem.temp_gameObject);
+        }
+
+        if (GameManager.CurrentBuilding_Button == null)       //그 전에 클릭했던 버튼이 없을 때
+        {
+            GameManager.CurrentBuilding_Button = this;
+        }
+        else
+        {
+            if (GameManager.CurrentBuilding_Button.this_building.Id!=this.this_building.Id&& GameManager.CurrentBuilding_Button.this_building.isLock == "T")
+            {
+                if (true)       //그 건물이 진짜로 배치됐냐
+                {
+
+                }
+                Debug.Log("나 아님");
+                GameManager.CurrentBuilding_Button.this_building.isLock = "F";
+                GameManager.CurrentBuilding_Button.X_Image.gameObject.SetActive(true);
+                GameManager.CurrentBuilding_Button = this;
+            }
+
         }
         Transform[] building_child = buildings.GetComponentsInChildren<Transform>();
      
@@ -234,6 +256,7 @@ public class InventoryButton : MonoBehaviour
                 
             }
             GameManager.CurrentBuilding = null;
+            GameManager.CurrentBuilding_Button = null;
         }
         else if(this_building.isLock == "F")                     //현재 배치된 상태가 아닌가
         {
@@ -277,7 +300,7 @@ public class InventoryButton : MonoBehaviour
             gridBuildingSystem.GridLayerSetting();
             GameManager.isEdit = true;
             //gridBuildingSystem.Inven_Move(GameManager.CurrentBuilding.transform);
-
+            GameManager.CurrentBuilding_Button = this;
 
         }
     }

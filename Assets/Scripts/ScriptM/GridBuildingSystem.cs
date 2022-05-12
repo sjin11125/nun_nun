@@ -123,51 +123,7 @@ public class GridBuildingSystem : MonoBehaviour
             if (hit.transform != null)          // 오브젝트를 클릭 했을 때
             {
                 Transform Building = hit.transform.parent;
-                /*if (tempStr != null)
-                {
-                    if (tempStr.Placed == false)
-                    {
-                        Str hit_str = tempStr.GetComponent<Str>();
-                        if (hit.transform.tag == "Button")      //건물 배치 확인 버튼
-                        {
-                            if (tempStr.CanBePlaced())         //건물이 배치 될 수 있는가? 네
-                            {
-                                //temp.level += 1;        //레벨 +1
-                                tempStr.Type = BuildType.Make;
-                                tempStr.Place(tempStr.Type);
-                                //UI_Manager.Start();
-
-                                Grid.GetComponent<SpriteRenderer>().sortingOrder = -48;
-                                StartButton.enabled = true;
-                                tempStr = null;
-                                isEditing = false;
-                            }
-                            // button.buttonok();
-                        }
-                        if (hit.transform.tag == "Rotation")        //건물 회전 버튼
-                        {
-
-                            if (hit_str.isFliped == "T")
-                            {
-                                hit_str.isFliped = "F";
-                            }
-                            else
-                            {
-                                hit_str.isFliped = "T";
-                            }
-                            hit_str.Rotation();
-
-
-                        }
-                        if (hit.transform.tag == "Remove")          //제거
-                        {
-                            tempStr.Remove(tempStr);
-                            Grid.GetComponent<SpriteRenderer>().sortingOrder = -48;
-
-                        }
-                    }
-                    
-                }*/
+              
                 if (temp != null)
                 {
                     if (temp.Placed == false)               //건물이 배치가 안 된 상태인가?
@@ -181,10 +137,12 @@ public class GridBuildingSystem : MonoBehaviour
                                 temp.Place(temp.Type);
                      
 
-                                Grid.GetComponent<SpriteRenderer>().sortingOrder = -48;
+                                Grid.GetComponent<SpriteRenderer>().sortingOrder = -48;             //메인 타일 안보이게
                                 StartButton.enabled = true;
                                 temp = null;
                                 isEditing = false;
+                                GameManager.CurrentBuilding_Script = null;
+                                GameManager.CurrentBuilding = null;
                             }
                             // button.buttonok();
                         }
@@ -213,7 +171,7 @@ public class GridBuildingSystem : MonoBehaviour
                         {
                             temp.Remove(temp);
                             //UI_Manager.Start();
-                            Grid.GetComponent<SpriteRenderer>().sortingOrder = -48;
+                            Grid.GetComponent<SpriteRenderer>().sortingOrder = -48;         //메인 타일 안보이게
 
                         }
                     }
@@ -319,7 +277,9 @@ public class GridBuildingSystem : MonoBehaviour
 
             if (hit.transform.tag == "Building" && GameManager.isStore == false)           //빌딩을 눌렀을 때 업그레이드 할래 위치 바꿀래 회전할래
             {
+                Grid.GetComponent<SpriteRenderer>().sortingOrder = -50;             //메인 타일 보이게
                 temp = hit.transform.GetComponent<Building>();
+                GameManager.CurrentBuilding_Script = temp;
                 //UI_Manager.StartOpen();     //ui 중앙으로 이동
                 temp.Type = BuildType.Move;
                 temp.Placed = false;        //배치가 안 된 상태로 변환
@@ -344,7 +304,7 @@ public class GridBuildingSystem : MonoBehaviour
             }
             
             // BuildEdit(hit);
-
+            isGrid = false;
         }
         if (Input.GetMouseButtonDown(0)&&SceneManager.GetActiveScene().name=="Main") //마우스를 누르고 있을 때             지금 내 닉넴과 마을
         {
@@ -354,13 +314,16 @@ public class GridBuildingSystem : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
 
-            if (hit.collider != null&&hit.collider.tag!="Nuni")
+            if (hit.collider != null)
             {
+                if (hit.collider.tag == "Building" && hit.collider.tag != "Nuni")
+                {
 
-                isGrid = true;
-                Debug.Log("second: " + second);
-                
-                //StartCoroutine(WaitSecond(hit));
+                    isGrid = true;
+                    Debug.Log("second: " + second);
+
+                    //StartCoroutine(WaitSecond(hit));
+                }
             }
 
         }
@@ -368,6 +331,7 @@ public class GridBuildingSystem : MonoBehaviour
         {
             second = 0;
             isGrid = false;
+            Debug.Log("isGird: "+isGrid);
         }
         //다 필요없고 ok버튼을 눌렀을 때
 
