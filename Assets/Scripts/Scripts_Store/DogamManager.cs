@@ -31,7 +31,7 @@ public class DogamManager : MonoBehaviour
     void Start()
     {
         DicParsingManager DPManager = new DicParsingManager();
-        StrInformation = DPManager.Parse_Str(2);    //설치물 정보 파싱
+        //StrInformation = DPManager.Parse_Str(2);    //설치물 정보 파싱
         BuildingInformation = DPManager.Parse(0);    //건물 정보 파싱
     }
 

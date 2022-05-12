@@ -75,7 +75,6 @@ public class BuildingSave : MonoBehaviour
     public void AddValue(Str str)
     {
         WWWForm form = new WWWForm();
-        Building buildings = GetComponent<Building>();
         Debug.Log("설치물 저장");
         form.AddField("order", "addValueStr");
         form.AddField("player_nickname", GameManager.NickName);
@@ -117,6 +116,15 @@ public class BuildingSave : MonoBehaviour
         form1.AddField("order", "getFriendBuilding");
         form1.AddField("loadedFriend", GameManager.NickName);
         StartCoroutine(Post(form1));
+    }  
+    public void StrLoad()              //로그인 했을 때 건물 불러와
+    {
+        WWWForm form1 = new WWWForm();
+        Debug.Log("설치물로딩");
+        isMe = true;                    //내 설치물들 불러온다!!!!!!!!!!!!!!!!
+        form1.AddField("order", "getFriendStr");
+        form1.AddField("loadedFriend", GameManager.NickName);
+        StartCoroutine(Post_Str(form1));
     }
     public void FriendBuildindLoad()
     {
@@ -127,6 +135,33 @@ public class BuildingSave : MonoBehaviour
         form1.AddField("order", "getFriendBuilding");
         form1.AddField("loadedFriend", FriendNickname);
         StartCoroutine(Post(form1));
+    }
+    public void FriendStrLoad()
+    {
+        string FriendNickname = gameObject.transform.parent.name;
+        GameManager.friend_nickname = FriendNickname;
+        WWWForm form1 = new WWWForm();
+        isMe = false;                   //친구 건물 불러올거지롱 메롱
+        form1.AddField("order", "getFriendStr");
+        form1.AddField("loadedFriend", FriendNickname);
+        StartCoroutine(Post_Str(form1));
+    }
+    IEnumerator Post_Str(WWWForm form)
+    {
+        Debug.Log("설치물불러오라");
+        using (UnityWebRequest www = UnityWebRequest.Post(URL, form)) // 반드시 using을 써야한다
+        {
+            yield return www.SendWebRequest();
+            //Debug.Log(www.downloadHandler.text);
+            if (www.isDone)
+            {
+
+                Response_Str(www.downloadHandler.text);
+
+            }    //친구 건물 불러옴
+            else print("웹의 응답이 없습니다.");
+        }
+
     }
     IEnumerator Post(WWWForm form)
     {
@@ -155,6 +190,71 @@ public class BuildingSave : MonoBehaviour
                                                                         //else print("웹의 응답이 없습니다.");*/
         }
 
+    }
+    void Response_Str(string json)                          //건물 값 불러오기
+    {
+        if (string.IsNullOrEmpty(json))
+        {
+            Debug.Log(json);
+            return;
+        }
+        Debug.Log("josn:      " + json);
+
+        if (isMe == false)                //친구 건물 불러오는거라면
+        {
+            if (json == "Null")
+            {
+                SceneManager.LoadScene("FriendMain");
+                return;
+            }
+            GameManager.StrList = new List<Str>();
+            Newtonsoft.Json.Linq.JArray j = Newtonsoft.Json.Linq.JArray.Parse(json);
+            //Debug.Log("j.Count: "+j.Count);
+            StrParse friendBuildings = new StrParse();
+            for (int i = 0; i < j.Count; i++)
+            {
+                Debug.Log(i);
+                friendBuildings = JsonUtility.FromJson<StrParse>(j[i].ToString());
+                Str b = new Str();
+                b.SetValueParse(friendBuildings);
+
+                Debug.Log("X: " + friendBuildings.BuildingPosiiton_x);
+                /*  new Building(friendBuildings.isLock, friendBuildings.Building_name, friendBuildings.Reward, friendBuildings.Info, 
+                  friendBuildings.Building_Image, friendBuildings.Cost.ToString(), friendBuildings.Level.ToString(), friendBuildings.Tree.ToString(),
+                   friendBuildings.Grass.ToString(), friendBuildings.Snow.ToString(), friendBuildings.Ice.ToString(), friendBuildings.isFliped.ToString(), 
+                  friendBuildings.buildingPosiiton_x, friendBuildings.buildingPosiiton_y);*/
+                GameManager.StrList.Add(b);      //친구의 건물 리스트에 삽입
+
+            }
+            Debug.Log(GameManager.FriendBuildingList.Count);
+            SceneManager.LoadScene("FriendMain");
+        }
+        else                                    //로그인했을 때 내 건물 불러오는거라면
+        {
+            if (json == "Null")
+            {
+                SceneManager.LoadScene("Main");
+                return;
+            }
+            GameManager.StrList = new List<Str>();
+            Newtonsoft.Json.Linq.JArray j = Newtonsoft.Json.Linq.JArray.Parse(json);
+            //Debug.Log("j.Count: "+j.Count);
+            StrParse Buildings = new StrParse();
+            for (int i = 0; i < j.Count; i++)
+            {
+                Debug.Log(i);
+                Buildings = JsonUtility.FromJson<StrParse>(j[i].ToString());
+                Str b = new Str();
+                b.SetValueParse(Buildings);
+
+                Debug.Log("Id: " + Buildings.Id);
+                GameManager.StrList.Add(b);      //내 건물 리스트에 삽입
+
+            }
+            Debug.Log("GameManager.BuildingList[0]" + GameManager.BuildingList[0].BuildingPosiiton_x);
+            SceneManager.LoadScene("Main");
+            Debug.Log("GameManager.BuildingList[0]" + GameManager.BuildingList[0].BuildingPosiiton_x);
+        }
     }
     void Response(string json)                          //건물 값 불러오기
     {

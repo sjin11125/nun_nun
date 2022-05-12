@@ -55,9 +55,7 @@ public class NuniDialogParsing : MonoBehaviour
                     pre_data = data[i].Split(',');
                     Dialog.Add(pre_data[1]);
 
-                    Debug.Log(pre_data[1]);
                     i++;
-                    Debug.Log("i: " + i);
                 }
 
             } while (data[i].Split(',')[0] == "");

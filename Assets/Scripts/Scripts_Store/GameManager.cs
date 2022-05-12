@@ -88,7 +88,7 @@ public class GameManager : MonoBehaviour
 
     public static string friend_nickname;       //현재 들어가있는 친구닉넴
 
-    public static string URL = "https://script.google.com/macros/s/AKfycbwYiYjRHyL2pAY1bjT3z40ao3LYRcOBlzzOE4YP9Zg9zHgMOXZmMfkgrdd5HTKs2lPP/exec";
+    public static string URL = "https://script.google.com/macros/s/AKfycbyEygoAJNYzqaLgda_3okgsRfAISZj4Un1H69VMON0dIOklfyQKVHDsyhM-n42X-g0C/exec";
     //----------------------------------------------------------------------------------------------
 
 
@@ -202,7 +202,9 @@ public class GameManager : MonoBehaviour
         DicParsingManager DPManager = new DicParsingManager();
         AllNuniArray = DPManager.Parse_character(1);            //누니 정보 파싱
         BuildingArray = DPManager.Parse(0);    //도감 정보 파싱
-        StrArray = DPManager.Parse_Str(2);
+       // StrArray = DPManager.Parse_Str(2);
+
+       
         // Friends=new string[1] {"Vicky"};            //일단 친구는 비키만 있는걸로
         //친구 목록 불러오기
         //GetComponent<BuildingSave>().GetFriendLsit();           //친구 목록 불러오기
