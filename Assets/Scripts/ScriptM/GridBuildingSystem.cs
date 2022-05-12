@@ -334,7 +334,6 @@ public class GridBuildingSystem : MonoBehaviour
         {
             second = 0;
             isGrid = false;
-            Debug.Log("isGird: "+isGrid);
         }
         //다 필요없고 ok버튼을 눌렀을 때
 
