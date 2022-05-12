@@ -288,6 +288,10 @@ public class Building : MonoBehaviour
         {
             //GameObject UPPannel = Instantiate(UpgradePannel);
             Level1building = gameObject.transform.Find("building").gameObject;
+            if (gameObject.transform.Find("building2").gameObject!=null)
+            {
+
+            }
             Level2building = gameObject.transform.Find("building2").gameObject;
             //Level3building = gameObject.transform.Find("building3").gameObject;
             buildings[0] = Level1building;
