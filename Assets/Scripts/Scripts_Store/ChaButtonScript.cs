@@ -279,41 +279,7 @@ public class ChaButtonScript : MonoBehaviour
     public void LockChaButtonClick2()       //빌딩 살려고 구매버튼 클릭할 때
     {
         DogamManager.ChaIndex = int.Parse(gameObject.transform.parent.name);
-        if (gameObject.transform.parent.tag=="Str")          //설치물이라면
-        {
-            int pay =int.Parse( DogamManager.StrInformation[DogamManager.ChaIndex].Cost);
-
-            if (GameManager.Money < pay )      //돈이나 자원이 모자르면 거절 메세지 띄움
-            {
-                UIManager.isSetMoney = -1;
-            }
-            else
-            {
-                Grid.GetComponent<SpriteRenderer>().sortingOrder = -50;
-
-                GameManager.Money -= pay;       //자원빼기
-
-                string buildingname = DogamManager.StrInformation[DogamManager.ChaIndex].Building_Image;
-                Debug.Log("buildingname: "+ buildingname);
-                GameObject buildingprefab = GameManager.StrPrefabData[buildingname+"(Clone)"];
-
-                GameManager.CurrentBuilding = buildingprefab;
-                Str b = buildingprefab.GetComponent<Str>();
-                Str c = GameManager.CurrentBuilding.GetComponent<Str>();
-                c.Building_Image = buildingname;
-                c = b.GetComponent< Str>().DeepCopy();
-
-                c.SetValue(b);
-
-                Transform parent = transform.parent.transform.parent.transform.parent.transform.parent.transform.parent;
-                parent.gameObject.SetActive(false);
-            }
-            GameManager.isStrEdit = true;
-            GameManager.isStore = false;
-            GameManager.isMoveLock = false;
-
-            return;
-        }
+        
 
         if (gameObject.tag != "Lock")       //건물이 안잠겨있고
         {
