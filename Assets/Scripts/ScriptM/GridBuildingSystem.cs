@@ -48,7 +48,6 @@ public class GridBuildingSystem : MonoBehaviour
 
     public GameObject VisitorBooksWindow;           //방명록창
 
-    private GameObject settigPanel;
 
     #region unity Methods  
     private void Awake()
@@ -62,7 +61,7 @@ public class GridBuildingSystem : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        settigPanel = GameObject.FindGameObjectWithTag("SettingPanel");
+
     }
     private void Start()
     {
@@ -316,7 +315,6 @@ public class GridBuildingSystem : MonoBehaviour
                 }
                 else if (hit.transform.tag == "bunsu")              //생명의 분수 클릭
                 {
-                    settigPanel.GetComponent<AudioController>().Sound[1].Play();
                     SceneManager.LoadScene("Shop");
                     Debug.Log("GameManager.BuildingList: "+GameManager.BuildingList[0].BuildingPosiiton_x);
                 }

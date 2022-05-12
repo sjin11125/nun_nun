@@ -11,7 +11,7 @@ public class Settings : MonoBehaviour
     void Start()
     {
         anim = GetComponent<Animation>();
-        //Time.timeScale = 1;
+        Time.timeScale = 1;
         animac = false;
     }
 
