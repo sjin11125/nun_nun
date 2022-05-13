@@ -19,6 +19,7 @@ public class StartManager : MonoBehaviour
     public static Sprite ChaImage_;
     GameObject Window;
 
+    public Text ItemInfoText;
     //int[] itemList = new int[10] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
    public static Dictionary<int, bool> itemList = new Dictionary<int, bool> {
                                                     {0,false},
@@ -120,7 +121,8 @@ public class StartManager : MonoBehaviour
             }
             else
             {
-                image[1].sprite = LockImage;//NuNiInformation[j].GetChaImange();   //캐릭터 이름 값 받아와서 이미지 찾기
+                //image[1].sprite = LockImage;//NuNiInformation[j].GetChaImange();   //캐릭터 이름 값 받아와서 이미지 찾기
+                Instantiate(ItemImages[10], DogamCha.transform);
                 DogamCha.tag = "Lock";
                 //GameManager.Items[j] = false;
             }
