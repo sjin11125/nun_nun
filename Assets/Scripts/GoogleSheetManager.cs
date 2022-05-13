@@ -25,6 +25,23 @@ public class GoogleSheetManager : MonoBehaviour
     public BuildingSave MyBuildingLoad;
 
     public GameObject WarningPannel;
+
+    private void Awake()
+    {
+        if (id != null)
+        {
+            id = PlayerPrefs.GetString("Id");
+            pass = PlayerPrefs.GetString("Pass");
+            nickname = PlayerPrefs.GetString("Nickname");
+            Login();
+        }
+        else
+        {
+            GameManager.Money = 1000;
+            GameManager.ShinMoney = 0;
+        }
+    }
+
     bool SetIDPass()
     {
         id = IDInput.text.Trim();
@@ -78,6 +95,10 @@ public class GoogleSheetManager : MonoBehaviour
         form.AddField("pass", pass);
 
         StartCoroutine(Post(form));
+
+        PlayerPrefs.SetString("Id", id);
+        PlayerPrefs.SetString("Pass", pass);
+        PlayerPrefs.SetString("Nickname", nickname);       
     }
 
 

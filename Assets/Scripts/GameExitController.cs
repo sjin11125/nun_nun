@@ -1,13 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameExitController : MonoBehaviour
 {
     public void Awake()
     {
         GameLoad();
+
+        int tutorialsDone = PlayerPrefs.GetInt("TutorialDone", 0);
+        if (tutorialsDone == 0)
+        {
+            SceneManager.LoadScene("TutorialsScene");
+            return;
+        }
     }
+
     public void GameSave()
     {
         PlayerPrefs.SetInt("Money", GameManager.Money);//µ·
@@ -17,7 +26,9 @@ public class GameExitController : MonoBehaviour
     }
     public void GameLoad()
     {
-        GameManager.ShinMoney = 10000;
+        GameManager.Money = PlayerPrefs.GetInt("Money");
+        GameManager.ShinMoney = PlayerPrefs.GetInt("ShinMoney");
+        //GameManager.ShinMoney = 10000;
         print("load");
     }
     public void GameExit()
