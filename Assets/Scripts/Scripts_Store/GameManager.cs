@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using UnityEngine.Networking;
 
 public class GameManager : MonoBehaviour
 {   
@@ -81,9 +80,9 @@ public class GameManager : MonoBehaviour
 
     public static string friend_nickname;       //현재 들어가있는 친구닉넴
 
-    public static string URL = "https://script.google.com/macros/s/AKfycbwuFrSckULIRGLsLRzSHOknHp-AyvN7I6JADRwviJblDQex0fdyk88wbUnhztLoErB2/exec";
-
-    public static bool isReward;        //일괄수확 가능한지
+    public static string URL = "https://script.google.com/macros/s/AKfycbyEygoAJNYzqaLgda_3okgsRfAISZj4Un1H69VMON0dIOklfyQKVHDsyhM-n42X-g0C/exec";
+   
+    
     
     //----------------------------------------------------------------------------------------------
 
@@ -182,9 +181,6 @@ public class GameManager : MonoBehaviour
         DicParsingManager DPManager = new DicParsingManager();
         AllNuniArray = DPManager.Parse_character(1);            //누니 정보 파싱
         BuildingArray = DPManager.Parse(0);    //도감 정보 파싱
-
-
-       
     }
     private void Awake()
     {

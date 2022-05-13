@@ -354,13 +354,13 @@ public class Building : MonoBehaviour
             Rotation_Pannel.gameObject.SetActive(false);        //회전 버튼 사라지게
             UpgradePannel.gameObject.SetActive(false);
             Remove_Pannel.gameObject.SetActive(false);
-            /*if (Building_Image != "bunsu_level(Clone)")
+            if (Building_Image != "bunsu_level(Clone)")
             {
-               ( if (isCoin == false)      //코인 아직 안먹었으면
+                if (isCoin == false)      //코인 아직 안먹었으면
                 {
                     Coin();     //재화 생성되게
-                }*
-            }*/
+                }
+            }
         }
         else
         {
