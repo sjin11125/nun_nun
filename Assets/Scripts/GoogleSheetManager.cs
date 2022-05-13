@@ -211,8 +211,9 @@ public class GoogleSheetManager : MonoBehaviour
     IEnumerator Quest()
     {
        // gameObject.GetComponent<BuildingSave>().BuildingLoad();         //내 건물 불러와
-        yield return StartCoroutine( QuestManager.QuestStart()); //퀘스트 설정할 때까지 대기
+        //yield return StartCoroutine( QuestManager.QuestStart()); //퀘스트 설정할 때까지 대기
         yield return StartCoroutine(NuniManager.NuniStart()); //누니 설정할 때까지 대기
+        yield return StartCoroutine(NuniManager.RewardStart()); //누니 설정할 때까지 대기
         MyBuildingLoad.BuildingLoad();
 
     }
