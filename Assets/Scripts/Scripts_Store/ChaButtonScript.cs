@@ -229,6 +229,8 @@ public class ChaButtonScript : MonoBehaviour
 
 
 
+        Transform[] ChaChild;
+        ChaChild = ChaPanel2.GetComponentsInChildren<Transform>();      //캐릭터패널2 자식 오브젝트
 
        
 

@@ -19,7 +19,6 @@ public class StartManager : MonoBehaviour
     public static Sprite ChaImage_;
     GameObject Window;
 
-    public Text ItemInfoText;
     //int[] itemList = new int[10] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
    public static Dictionary<int, bool> itemList = new Dictionary<int, bool> {
                                                     {0,false},
@@ -33,7 +32,7 @@ public class StartManager : MonoBehaviour
                                                     { 8,false},
                                                     { 9,false}
                                                         };
-    public GameObject[] ItemImages;         //아이템 이미지들
+    public Sprite[] ItemImages;         //아이템 이미지들
     public Sprite LockImage;
 
     string[] ItemInfo = {"지우개다","킵이다","쓰레기통이다","미리보기다","새로고침이다" };
@@ -115,14 +114,13 @@ public class StartManager : MonoBehaviour
 
             if (itemList[j] == true)
             {
-               // image[1].sprite = ItemImages[j];//NuNiInformation[j].GetChaImange();   //캐릭터 이름 값 받아와서 이미지 찾기
-                Instantiate(ItemImages[j], DogamCha.transform);
+                image[1].sprite = ItemImages[j];//NuNiInformation[j].GetChaImange();   //캐릭터 이름 값 받아와서 이미지 찾기
+                
                 //GameManager.Items[j] = true;
             }
             else
             {
-                //image[1].sprite = LockImage;//NuNiInformation[j].GetChaImange();   //캐릭터 이름 값 받아와서 이미지 찾기
-                Instantiate(ItemImages[10], DogamCha.transform);
+                image[1].sprite = LockImage;//NuNiInformation[j].GetChaImange();   //캐릭터 이름 값 받아와서 이미지 찾기
                 DogamCha.tag = "Lock";
                 //GameManager.Items[j] = false;
             }
