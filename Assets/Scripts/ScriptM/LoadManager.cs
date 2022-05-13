@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Reflection;
 using UnityEngine.Networking;
+using System;
 
 public class LoadManager : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class LoadManager : MonoBehaviour
 
     public GameObject buildings;
     public GameObject nunis;
+
+    bool isLoaded;      //건물 다 불러왔는지
     //public GameObject 
     Component CopyComponent(Component original, GameObject destination)
     {
@@ -81,12 +84,13 @@ public class LoadManager : MonoBehaviour
         Debug.Log("GameManager.BuildingList[0]" + GameManager.BuildingList[0].BuildingPosiiton_x);
 
         Debug.Log("GameManager.BuildingList[0]" + GameManager.BuildingList[0].BuildingPosiiton_x);
-
+        isLoaded = true;
     }
     //재화로드
     //캐릭터 로드
     void Start()
     {
+        isLoaded = false;
         if (SceneManager.GetActiveScene().name == "Main")
         {
 
@@ -132,8 +136,6 @@ public class LoadManager : MonoBehaviour
                 }
             }
 
-
-
         }
     }
 
@@ -142,6 +144,31 @@ public class LoadManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (isLoaded==true)          //일괄수확 할수있니?
+        {
+            isLoaded = false;
+            int MyReward = 0;
+            for (int i = 0; i < GameManager.BuildingList.Count; i++)
+            {
+                for (int j = 0; j < GameManager.BuildingArray.Length; j++)
+                {
+                    if (GameManager.BuildingList[i].Building_Image == GameManager.BuildingArray[j].Building_Image)
+                        MyReward += GameManager.BuildingArray[j].Reward[GameManager.BuildingList[i].Level - 1];
+                }
+            }
+            GameManager.Money += MyReward;
+
+
+            WWWForm form1 = new WWWForm();
+            form1.AddField("order", "questSave");
+            form1.AddField("player_nickname", GameManager.NickName);
+            form1.AddField("time", DateTime.Now.ToString("yyyy.MM.dd"));
+
+            StartCoroutine(Post(form1));//구글 시트에 오늘날짜 업데이트 해주기
+
+            Debug.Log("내돈: "+MyReward);
+        }
         if (isLoad == true)
         {
             isLoad = false;
