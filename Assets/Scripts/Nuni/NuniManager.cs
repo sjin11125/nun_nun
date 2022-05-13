@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,43 +16,6 @@ public class NuniManager : MonoBehaviour                    //게임 시작하고 구글
     void Update()
     {
         
-    }
-    public IEnumerator RewardStart()
-    {
-        WWWForm form = new WWWForm();
-        form.AddField("order", "questTime");
-        form.AddField("player_nickname", GameManager.NickName);
-        yield return StartCoroutine(RewardPost(form));
-    }
-
-    IEnumerator RewardPost(WWWForm form)
-    {
-        Debug.Log("RewardPost");
-        using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // 반드시 using을 써야한다
-        {
-            yield return www.SendWebRequest();
-            //Debug.Log(www.downloadHandler.text);
-            if (www.isDone) Reward_response(www.downloadHandler.text);
-            else print("웹의 응답이 없습니다.");
-        }
-
-    }
-
-    void Reward_response(string json)
-    {
-        Debug.Log("날짜: "+json);
-        string time = json;
-        if (time!= DateTime.Now.ToString("yyyy.MM.dd"))     //오늘날짜가 아니냐 일괄수확 가능
-        {
-            Debug.Log("마지막으로 수확했던 날짜: " + time);
-            Debug.Log("오늘날짜: "+DateTime.Now.ToString("yyyy.MM.dd"));
-            GameManager.isReward=true;
-        }
-        else
-        {
-            GameManager.isReward = false;               //오늘날짜면 수확 불가능
-        }
-        Debug.Log("수확가능여부: "+ GameManager.isReward);
     }
     public IEnumerator NuniStart()          //시작할 때 구글 스크립트에서 누니 목록 불러옴
     {
