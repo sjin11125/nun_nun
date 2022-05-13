@@ -280,7 +280,7 @@ public class GridBuildingSystem : MonoBehaviour
             Debug.Log("temp is null");
             
 
-            if (hit.transform.tag == "Building" && GameManager.isStore == false)           //빌딩을 눌렀을 때 업그레이드 할래 위치 바꿀래 회전할래
+            if (hit.transform.tag == "Building" && GameManager.isStore == false)
             {
                 Grid.GetComponent<SpriteRenderer>().sortingOrder = -50;             //메인 타일 보이게
                 temp = hit.transform.GetComponent<Building>();
@@ -296,7 +296,7 @@ public class GridBuildingSystem : MonoBehaviour
                 int size = baseArray.Length;
                 for (int i = 0; i < size; i++)
                 {
-                    baseArray[i] = tileBases[TileType.White];
+                    baseArray[i] = tileBases[TileType.Empty];
                     //FillTiles(baseArray, TileType.White);
                     Debug.Log("tiles");
                 }
@@ -336,7 +336,6 @@ public class GridBuildingSystem : MonoBehaviour
         {
             second = 0;
             isGrid = false;
-            Debug.Log("isGird: "+isGrid);
         }
         //다 필요없고 ok버튼을 눌렀을 때
 
