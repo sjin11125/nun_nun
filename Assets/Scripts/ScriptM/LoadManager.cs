@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using UnityEngine;using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Reflection;
 using UnityEngine.Networking;
@@ -15,6 +15,8 @@ public class LoadManager : MonoBehaviour
     public GameObject nunis;
 
     bool isLoaded;      //건물 다 불러왔는지
+
+    public GameObject RewardPannel;     //일괄수익 판넬
     //public GameObject 
     Component CopyComponent(Component original, GameObject destination)
     {
@@ -145,9 +147,9 @@ public class LoadManager : MonoBehaviour
     void Update()
     {
 
-        if (isLoaded==true)          //일괄수확 할수있니?
+        if (GameManager.isReward == true)          //일괄수확 할수있니?
         {
-            isLoaded = false;
+            GameManager.isReward = false;
             int MyReward = 0;
             for (int i = 0; i < GameManager.BuildingList.Count; i++)
             {
@@ -168,6 +170,9 @@ public class LoadManager : MonoBehaviour
             StartCoroutine(Post(form1));//구글 시트에 오늘날짜 업데이트 해주기
 
             Debug.Log("내돈: "+MyReward);
+            RewardPannel.SetActive(true);
+            Text[] rewardText = RewardPannel.GetComponentsInChildren<Text>();
+            rewardText[1].text = MyReward.ToString();
         }
         if (isLoad == true)
         {
