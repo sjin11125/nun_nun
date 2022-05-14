@@ -65,17 +65,31 @@ public class ChaButtonScript : MonoBehaviour
                 Image[] InfoImage = NuniInfo.GetComponentsInChildren<Image>();
                 Image[] stars = NuniInfo.transform.Find("Stars").GetComponentsInChildren<Image>();
 
-
-                for (int j = 0; j < int.Parse(GameManager.AllNuniArray[i].Star); j++)   //별 넣기
+                if (nuni.Star == "2")
                 {
-                    stars[j].color = new Color(1, 1, 1);
+                    Debug.Log("이 누니는 현재 " + nuni.Star + "성 입니다.");
+                    InfoImage[1].color = new Color(210 / 255f, 150 / 255f, 255 / 255f);
+                    
                 }
+                else if (nuni.Star == "3")
+                {
+                    Debug.Log("이 누니는 현재 " + nuni.Star + "성 입니다.");
+                    InfoImage[1].color = new Color(255 / 255f, 249 / 255f, 167 / 255f);
+                    
+                    Debug.Log(InfoImage[1].name);
+                }
+                /* for (int j = 0; j < int.Parse(GameManager.AllNuniArray[i].Star); j++)   //별 넣기
+                 {
+                     stars[j].color = new Color(1, 1, 1);
+                 }*/
                 InfoImage[2].sprite = nuni.GetChaImange();
 
                 InfoTexts[0].text = nuni.cardName;      //누니 이름 넣기
                 InfoTexts[1].text = nuni.Info;                  //누니 설명
                 InfoTexts[2].text = nuni.Effect; //누니 보유 효과
 
+                
+               
 
             }
         }
