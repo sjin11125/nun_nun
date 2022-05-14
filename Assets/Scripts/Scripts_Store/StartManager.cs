@@ -36,7 +36,18 @@ public class StartManager : MonoBehaviour
     public GameObject[] ItemImages;         //아이템 이미지들
     public Sprite LockImage;
 
-    string[] ItemInfo = {"지우개다","킵이다","쓰레기통이다","미리보기다","새로고침이다" };
+    string[] ItemInfos = { "배치된 말 중 원하는 말을 하나 삭제한다. ",
+                          "등장한 말을 다른 곳에 킵 하고 다시 사용할 수 있게 한다.",
+                          "배치하기 전 등장한 말을 삭제할 수 있다.",
+                          "다음에 나올 말을 미리 볼 수 있다.",
+                          "등장한 말을 랜덤으로 교체 할 수 있다.",
+                          "다음에 나올 말과 현재 배치해야 하는 말을 교체할 수 있다.",
+                          "배치된 타일중 아이템 기준 위아래로 타일제거한다.",
+                          "배치된 타일 중 아이템 기준 양옆으로 타일 제거한다.",
+                          "모든 종류의 말을 대체할 수 있는 말 하나 생성한다.",
+                          "배치된 말의 색깔을 바꿀 수 있다."};
+   public Sprite[] ItenImage;
+    public Text ItemInfo;
     /* 아이템 목록
     * 0: 지우개               (황제)
     * 1: 킵                   (비서)
@@ -67,7 +78,7 @@ public class StartManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        ItemInfo.text = ItemInfos[StartManager.ChaIndex];
     }
 
     public void CharacterOpen()
@@ -115,14 +126,14 @@ public class StartManager : MonoBehaviour
 
             if (itemList[j] == true)
             {
-               // image[1].sprite = ItemImages[j];//NuNiInformation[j].GetChaImange();   //캐릭터 이름 값 받아와서 이미지 찾기
-                Instantiate(ItemImages[j], DogamCha.transform);
+                image[1].sprite = ItenImage[j];//NuNiInformation[j].GetChaImange();   //캐릭터 이름 값 받아와서 이미지 찾기
+                //Instantiate(ItemImages[j], DogamCha.transform);
                 //GameManager.Items[j] = true;
             }
             else
             {
-                //image[1].sprite = LockImage;//NuNiInformation[j].GetChaImange();   //캐릭터 이름 값 받아와서 이미지 찾기
-                Instantiate(ItemImages[10], DogamCha.transform);
+                image[1].sprite = LockImage;//NuNiInformation[j].GetChaImange();   //캐릭터 이름 값 받아와서 이미지 찾기
+                //Instantiate(ItemImages[10], DogamCha.transform);
                 DogamCha.tag = "Lock";
                 //GameManager.Items[j] = false;
             }
