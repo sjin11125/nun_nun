@@ -40,12 +40,62 @@ public class InventoryManager : MonoBehaviour
         Debug.Log("is Update");
         for (int i = 1; i < GameManager.BuildingList.Count; i++)
         {
-            if (GameManager.BuildingList[i].Id != "ii1y1")          //분수가 아니라면
+            bool isStr = false;
+            for (int j = 0; j < GameManager.StrArray.Length; j++)
+            {
+                if (GameManager.BuildingList[i].Building_Image == GameManager.StrArray[j].Building_Image)       //설치물인가
+                {
+                    isStr = true;
+                }
+            }
+            if (GameManager.BuildingList[i].Id != "ii1y1"&&isStr==false)          //분수가 아니고 설치물이 아니라면
+            {
+                
+              
+                GameObject inven = Instantiate(inventory_prefab, Content) as GameObject;         //인벤 버튼 프리팹 생성
+                Debug.Log("GameManager.BuildingArray: " + GameManager.BuildingArray.Length);
+                Debug.Log("ID는 "+ GameManager.BuildingList[i].Id);
+                inven.gameObject.name = GameManager.BuildingList[i].Id;
+                inven.gameObject.tag = "Inven_Building";            //인벤 버튼 태그 설정
+
+
+
+                Image ButtonImage = inven.GetComponent<Image>();
+                Debug.Log("building image: " + GameManager.BuildingList[i].Building_Image);
+
+
+                Image PrefabImage;// = GameManager.GetDogamChaImage(GameManager.BuildingList[i].Building_Image);
+                ButtonImage.sprite = GameManager.GetDogamChaImage(GameManager.BuildingList[i].Building_Image);
+
+                if (GameManager.BuildingList[i].isLock == "T")
+                {
+                    Button Button = inven.GetComponent<Button>();
+                    //Button.enabled= false;              //이미 설치되어 있으면 버튼 클릭 못하고 X 뜸
+
+                }
+            }
+        }
+    }
+    public void Inventory_Structure_Open()            //설치물 인벤 버튼 눌렀을 때
+    {
+        Inventory_Exit();           //원래 있던 목록 다 지우기
+        Debug.Log("is Update");
+        for (int i = 1; i < GameManager.BuildingList.Count; i++)
+        {
+            bool isStr = false;
+            for (int j = 0; j < GameManager.StrArray.Length; j++)
+            {
+                if (GameManager.BuildingList[i].Building_Image == GameManager.StrArray[j].Building_Image)       //설치물인가
+                {
+                    isStr = true;
+                }
+            }
+            if (GameManager.BuildingList[i].Id != "ii1y1"&&isStr==true)          //분수가 아니고 설치물이라면
             {
 
                 GameObject inven = Instantiate(inventory_prefab, Content) as GameObject;         //인벤 버튼 프리팹 생성
                 Debug.Log("GameManager.BuildingArray: " + GameManager.BuildingArray.Length);
-                Debug.Log("ID는 "+ GameManager.BuildingList[i].Id);
+                Debug.Log("ID는 " + GameManager.BuildingList[i].Id);
                 inven.gameObject.name = GameManager.BuildingList[i].Id;
                 inven.gameObject.tag = "Inven_Building";            //인벤 버튼 태그 설정
 
@@ -91,7 +141,8 @@ public class InventoryManager : MonoBehaviour
             ButtonImage.sprite = GameManager.GetCharacterImage(GameManager.CharacterList[i].cardImage);
 
             inven.gameObject.GetComponent<InventoryButton>().this_nuni = GameManager.CharacterList[i];
-            Debug.Log("inven.gameObject.this_nuni: "+ inven.gameObject.GetComponent<InventoryButton>().this_nuni.isLock);
+            Debug.Log(i+"   inven.gameObject.this_nuni: "+ inven.gameObject.GetComponent<InventoryButton>().this_nuni.cardName);
+            Debug.Log(i + "   inven.gameObject.this_nuni: " + GameManager.CharacterList[i].isLock);
 
 
 

@@ -20,7 +20,10 @@ public class Card : MonoBehaviour
     public string Gold;   //보유효과
 
     public Sprite Image;
+    public Card()
+    {
 
+    }
     public Card(Card c)
     {
         isLock = c.isLock;

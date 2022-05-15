@@ -70,6 +70,7 @@ public class DicParsingManager : MonoBehaviour
         }
         
         List<Building> DictionaryList = new List<Building>(); //도감 캐릭터 리스트 생성.
+        List<Building> DictionaryStrList = new List<Building>(); //도감 캐릭터 리스트 생성.
         if (index==0)
         {
             csvData = Resources.Load<TextAsset>("Dogam");    //csv파일 가져옴
@@ -86,18 +87,28 @@ public class DicParsingManager : MonoBehaviour
 
             if (pro_data[0]=="end")
             {
-                Debug.Log("ll");
                 break;
             }
-            Debug.Log("pro_data: "+ pro_data[8]);
            // Character character = new Character(pro_data[1],pro_data[2], pro_data[3], pro_data[4], pro_data[5], pro_data[6], pro_data[7], pro_data[8], pro_data[9]);
-            Building building = new Building(pro_data[1], pro_data[2], pro_data[3], pro_data[4], pro_data[5], pro_data[6], pro_data[7], pro_data[8], pro_data[9], pro_data[10]);
-            
-            //잠금 유무     // 이름     //설명     //이미지    //가격1       //가격2      //가격3        //생성재화1         //생성재화2        //생성재화3
-            DictionaryList.Add(building);
-            Debug.Log("DictionaryList: "+ DictionaryList.Count);
-        }
+            Building building = new Building(pro_data[1], pro_data[2], pro_data[3], pro_data[4], pro_data[5], pro_data[6], pro_data[7], pro_data[8], pro_data[9], pro_data[10], pro_data[12]);
 
+            //잠금 유무     // 이름     //설명     //이미지    //가격1       //가격2      //가격3        //생성재화1         //생성재화2        //생성재화3      //설치물인지
+            if (pro_data[11] == "T")          //설치물인가
+            {
+                Debug.Log("설치물: " + pro_data[2]);
+                DictionaryStrList.Add(building);
+            }
+            else                                //설치물 아닌가                               
+            {
+                Debug.Log("설치물인가? " + pro_data[11]);
+                DictionaryList.Add(building);
+            }
+
+            //Debug.Log(i + "  pro_data: " + pro_data[12]);
+
+            Debug.Log("DictionaryStrList: "+ DictionaryStrList.Count);
+        }
+        GameManager.StrArray = DictionaryStrList.ToArray();
    
         return DictionaryList.ToArray();
     }

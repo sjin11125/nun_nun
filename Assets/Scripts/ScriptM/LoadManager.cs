@@ -121,6 +121,10 @@ public class LoadManager : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name == "Main" && GameManager.CharacterList != null)       //메인씬에서 로드하기(누니)
         {
+            for (int j = 0; j < GameManager.CharacterList.Count; j++)
+            {
+                Debug.Log(GameManager.CharacterList[j].name + "는 현재 "+GameManager.CharacterList[j].isLock);
+            }
             Debug.Log("GameManager.: " + GameManager.CharacterList.Count);
             for (int i = 0; i < GameManager.CharacterList.Count; i++)
             {

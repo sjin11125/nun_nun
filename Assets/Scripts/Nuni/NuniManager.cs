@@ -105,9 +105,11 @@ public class NuniManager : MonoBehaviour                    //게임 시작하고 구글
             {
                 if (GameManager.AllNuniArray[i].cardName == Nunis_nuni[0])
                 {
-                    Debug.Log(Nunis_nuni[0]);
+                    Card nuni = new Card();
+                       Debug.Log(Nunis_nuni[0]);
                     Debug.Log(GameManager.AllNuniArray[i].cardName);
-                    Card nuni = GameManager.AllNuniArray[i];
+                    nuni= GameManager.AllNuniArray[i];
+                    //Debug.Log("누니는 현재 "+Nunis_nuni[1]);
                     if (Nunis_nuni[1] == "T")
                     {
                         nuni.isLock = "T";
@@ -116,9 +118,17 @@ public class NuniManager : MonoBehaviour                    //게임 시작하고 구글
                     else
                         nuni.isLock = "F";
                     GameManager.CharacterList.Add(nuni);
-
+                    break;
+                  
                 }
             }
+            Debug.Log("누니의 총 갯수는 "+ GameManager.CharacterList.Count);
+            for (int k = 0; k < GameManager.CharacterList.Count; k++)
+            {
+
+                Debug.Log("들어간 값: " + GameManager.CharacterList[k].isLock);
+            }
+
         }
     }
 
