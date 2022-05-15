@@ -39,17 +39,17 @@ public class LoadManager : MonoBehaviour
         {
             yield return www.SendWebRequest();
             //Debug.Log(www.downloadHandler.text);
-            /*if (www.isDone)
+            if (www.isDone)
             {
 
                 MoneyResponse(www.downloadHandler.text);
 
-            }    //친구 건물 불러옴
-            else print("웹의 응답이 없습니다.");*/
+            }  
+            else print("웹의 응답이 없습니다.");
         }
 
     }
-    void MoneyResponse(string json)                          //건물 값 불러오기
+    void MoneyResponse(string json)                          //자원 값 불러오기
     {
         if (string.IsNullOrEmpty(json))
         {
@@ -141,7 +141,7 @@ public class LoadManager : MonoBehaviour
             StartCoroutine(Post(form1));
 
             WWWForm form2 = new WWWForm();
-            Debug.Log("건물로딩");
+            Debug.Log("자원로딩");
             //isMe = true;                    //자원 불러오기
             form1.AddField("order", "getMoney");
             form1.AddField("player_nickname", GameManager.NickName);
