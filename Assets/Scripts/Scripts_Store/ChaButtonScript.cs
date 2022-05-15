@@ -293,13 +293,28 @@ public class ChaButtonScript : MonoBehaviour
 
     public void LockChaButtonClick2()       //빌딩 살려고 구매버튼 클릭할 때
     {
-        DogamManager.ChaIndex = int.Parse(gameObject.transform.parent.name);
-        
+       string buildingName = gameObject.transform.parent.name;
+        Building building=new Building();
 
         if (gameObject.tag != "Lock")       //건물이 안잠겨있고
         {
-            int pay = DogamManager.BuildingInformation[DogamManager.ChaIndex].Cost[0];
-            int shinPay = DogamManager.BuildingInformation[DogamManager.ChaIndex].ShinCost[0];
+            for (int i = 0; i < DogamManager.BuildingInformation.Length; i++)
+            {
+                if (DogamManager.BuildingInformation[i].Building_name == buildingName)
+                {
+                    building.SetValue(DogamManager.BuildingInformation[i]);
+                }
+            }
+            for (int i = 0; i < GameManager.StrArray.Length; i++)
+            {
+                if (GameManager.StrArray[i].Building_name == buildingName)
+                {
+                    building.SetValue(GameManager.StrArray[i]);
+                }
+
+            }
+            int pay = building.Cost[0];
+            int shinPay = building.ShinCost[0];
 
             if (GameManager.Money < pay || GameManager.ShinMoney < shinPay)      //돈이나 자원이 모자르면 거절 메세지 띄움
             {
@@ -309,8 +324,7 @@ public class ChaButtonScript : MonoBehaviour
             {
 
                 Grid.GetComponent<SpriteRenderer>().sortingOrder = -50;
-
-                Building BuildingInformation = DogamManager.BuildingInformation[DogamManager.ChaIndex];
+                
 
                 GameManager.Money -= pay;       //자원빼기
                 GameManager.ShinMoney -= shinPay;
@@ -328,7 +342,8 @@ public class ChaButtonScript : MonoBehaviour
                 Debug.Log(GameManager.BuildingPrefabData.Count);
 
                 //게임매니저에 잇는 건물 프리팹 배열에서 같은 이름을 가진 프리팹을 찾아 Instantiate하고 상점 창 닫기
-                string buildingname = DogamManager.BuildingInformation[DogamManager.ChaIndex].Building_Image;
+           
+                string buildingname = building.Building_Image;
                 GameObject buildingprefab = GameManager.BuildingPrefabData[buildingname];
 
 

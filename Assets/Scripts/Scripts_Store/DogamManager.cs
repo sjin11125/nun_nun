@@ -61,7 +61,7 @@ public class DogamManager : MonoBehaviour
             Text[] BuildingButtonText = DogamCha.GetComponentsInChildren<Text>();
 
             //도감 캐릭터 버튼 
-            DogamCha.GetComponent<RectTransform>().name = j.ToString();
+            DogamCha.GetComponent<RectTransform>().name = GameManager.StrArray[j].Building_name;
 
             Button DogamChaButton = DogamCha.GetComponent<Button>();
             Image[] image = DogamChaButton.GetComponentsInChildren<Image>();
@@ -125,7 +125,7 @@ public class DogamManager : MonoBehaviour
             Text[] BuildingButtonText = DogamCha.GetComponentsInChildren<Text>();
 
             //도감 캐릭터 버튼 
-            DogamCha.GetComponent<RectTransform>().name = j.ToString();
+            DogamCha.GetComponent<RectTransform>().name = BuildingInformation[j].Building_name;
 
             Button DogamChaButton = DogamCha.GetComponent<Button>();
             Image[] image = DogamChaButton.GetComponentsInChildren<Image>();

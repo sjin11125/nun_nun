@@ -57,7 +57,13 @@ public class LoadManager : MonoBehaviour
             return;
         }
         Debug.Log("현재돈:      " + json);
+        string[] moneys = json.Split('@');
+        Debug.Log(moneys[0] +"    "+ moneys[1]);
+        GameManager.Money =int.Parse(moneys[0].ToString());
+        GameManager.ShinMoney= int.Parse(moneys[1].ToString());
 
+        Debug.Log("돈: " + GameManager.Money);
+        Debug.Log("발광석: " + GameManager.ShinMoney);
     }
     IEnumerator Post(WWWForm form)
     {
@@ -143,8 +149,8 @@ public class LoadManager : MonoBehaviour
             WWWForm form2 = new WWWForm();
             Debug.Log("자원로딩");
             //isMe = true;                    //자원 불러오기
-            form1.AddField("order", "getMoney");
-            form1.AddField("player_nickname", GameManager.NickName);
+            form2.AddField("order", "getMoney");
+            form2.AddField("player_nickname", GameManager.NickName);
 
             StartCoroutine(MoneyPost(form2));
 
