@@ -16,6 +16,10 @@ public class NuniDialogParsing : MonoBehaviour
     public Card nuni;
     GameObject nunis;
     Vector2 ve;
+
+    public bool isMove;
+    public GameObject nuniObject;
+
     void Start()
     {
         if (gameObject.tag == "Dialog")
@@ -26,10 +30,10 @@ public class NuniDialogParsing : MonoBehaviour
     public void Parse_character()                //누니 정보 불러옴 
     {
         List<Card> CharacterList = new List<Card>();
-       
-            csvData = Resources.Load<TextAsset>("Cha_Dialogue");    //csv파일 가져옴
-    
-        
+
+        csvData = Resources.Load<TextAsset>("Cha_Dialogue");    //csv파일 가져옴
+
+
 
         string[] data = csvData.text.Split(new char[] { '\n' });    //엔터 기준으로 쪼갬.
         Debug.Log("data.Length" + data.Length);
@@ -46,7 +50,7 @@ public class NuniDialogParsing : MonoBehaviour
 
             do
             {
-                if (i >= data.Length - 1 || data[i].Split(',')[0] == "end") 
+                if (i >= data.Length - 1 || data[i].Split(',')[0] == "end")
                 {
                     return;
                 }
@@ -61,16 +65,16 @@ public class NuniDialogParsing : MonoBehaviour
             } while (data[i].Split(',')[0] == "");
             nuniDialog.Dialog = Dialog.ToArray();
             Debug.Log(nuniDialog.Nuni);
-           
-            
-            
+
+
+
             GameManager.NuniDialog.Add(nuniDialog);
 
 
 
         }
-        
-        
+
+
 
 
 
@@ -80,8 +84,8 @@ public class NuniDialogParsing : MonoBehaviour
     }
     void Update()
     {
-       
-        if (gameObject.tag!="Dialog")
+
+        if (gameObject.tag != "Dialog")
         {
             if (GameManager.nuniDialogParse == false)
             {
@@ -96,30 +100,45 @@ public class NuniDialogParsing : MonoBehaviour
         }
         else
         {
-            nunis = GameObject.Find("nunis");
-            Transform[] Nunis = nunis.GetComponentsInChildren<Transform>();
-            for (int i = 1; i < Nunis.Length; i++)
+            if (isMove)
             {
-                if (Nunis[i].name==nuni.cardImage+ "(Clone)")
-                {
-                    Debug.Log("Nunis[i].GetComponentsInChildren<Transform>()[5].gameObject:   "+ Nunis[i].GetComponentsInChildren<Transform>()[2].gameObject.transform.position);
-                    MoveSpot = Nunis[i].GetComponentsInChildren<Transform>()[5].gameObject;
+                
+                Nuni_movespot(nuniObject);
 
 
-                    
-                       RectTransform rect = gameObject.GetComponent<RectTransform>();
-                    rect.transform.position = Camera.main.WorldToScreenPoint(MoveSpot.transform.position);
-                    Invoke("Destroy_self",3f);
 
-                }
             }
-            
-        }
-        
-    }
 
+        }
+      
+    }
+    public void Nuni_movespot(GameObject nuniObject)
+    {
+        nunis = GameObject.Find("nunis");
+        Transform[] Nunis = nunis.GetComponentsInChildren<Transform>();
+        for (int i = 1; i < Nunis.Length; i++)
+        {
+            if (Nunis[i].gameObject== nuniObject)
+            {
+                Debug.Log("Nunis[i].GetComponentsInChildren<Transform>()[5].gameObject:   " + Nunis[i].GetComponentsInChildren<Transform>()[2].gameObject.transform.position);
+                MoveSpot = Nunis[i].gameObject.GetComponentsInChildren<Transform>()[5].gameObject;
+
+
+
+                RectTransform rect = gameObject.GetComponent<RectTransform>();
+                rect.transform.position = Camera.main.WorldToScreenPoint(MoveSpot.transform.position);
+                Invoke("Destroy_self", 3f);
+                
+            }
+            else
+            {
+                Debug.Log("다르다");
+            }
+        }
+    }
     void Destroy_self()
     {
+        isMove = false;
         Destroy(gameObject);
     }
 }

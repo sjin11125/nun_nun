@@ -204,7 +204,11 @@ public class GridBuildingSystem : MonoBehaviour
                     //child[2]
                     dialo_window.GetComponent<NuniDialogParsing>().nuni = nuni_card;
                     dialo_window.GetComponentInChildren<Text>().text = nuni_dialog.Dialog[UnityEngine.Random.Range(0, nuni_dialog.Dialog.Length-1)];
-                    //dialo_window
+                    Debug.Log("누니 오브젝트 이름: " + hit.transform.parent.gameObject.name);
+                    
+                    dialo_window.GetComponent<NuniDialogParsing>().nuniObject = hit.transform.parent.gameObject;
+                    dialo_window.GetComponent<NuniDialogParsing>().isMove = true;
+                    //dialo_windowi
                 }
                 else if (hit.transform.tag == "bunsu")              //생명의 분수 클릭
                 {
