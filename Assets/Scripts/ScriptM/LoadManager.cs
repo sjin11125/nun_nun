@@ -32,6 +32,33 @@ public class LoadManager : MonoBehaviour
         }
         return copy;
     }
+    IEnumerator MoneyPost(WWWForm form)
+    {
+        Debug.Log("불러오라");
+        using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // 반드시 using을 써야한다
+        {
+            yield return www.SendWebRequest();
+            //Debug.Log(www.downloadHandler.text);
+            /*if (www.isDone)
+            {
+
+                MoneyResponse(www.downloadHandler.text);
+
+            }    //친구 건물 불러옴
+            else print("웹의 응답이 없습니다.");*/
+        }
+
+    }
+    void MoneyResponse(string json)                          //건물 값 불러오기
+    {
+        if (string.IsNullOrEmpty(json))
+        {
+            Debug.Log(json);
+            return;
+        }
+        Debug.Log("현재돈:      " + json);
+
+    }
     IEnumerator Post(WWWForm form)
     {
         Debug.Log("불러오라");
@@ -112,19 +139,25 @@ public class LoadManager : MonoBehaviour
 
 
             StartCoroutine(Post(form1));
-           
 
-            
+            WWWForm form2 = new WWWForm();
+            Debug.Log("건물로딩");
+            //isMe = true;                    //자원 불러오기
+            form1.AddField("order", "getMoney");
+            form1.AddField("player_nickname", GameManager.NickName);
+
+            StartCoroutine(MoneyPost(form2));
+
         }
 
-
+        Debug.Log("누니갯수: "+GameManager.CharacterList.Count);
 
         if (SceneManager.GetActiveScene().name == "Main" && GameManager.CharacterList != null)       //메인씬에서 로드하기(누니)
         {
-            for (int j = 0; j < GameManager.CharacterList.Count; j++)
+            /*for (int j = 0; j < GameManager.CharacterList.Count; j++)
             {
-                Debug.Log(GameManager.CharacterList[j].name + "는 현재 "+GameManager.CharacterList[j].isLock);
-            }
+                Debug.Log(GameManager.CharacterList[j].name);
+            }*/
             Debug.Log("GameManager.: " + GameManager.CharacterList.Count);
             for (int i = 0; i < GameManager.CharacterList.Count; i++)
             {

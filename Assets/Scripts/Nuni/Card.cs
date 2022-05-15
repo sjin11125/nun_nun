@@ -18,6 +18,7 @@ public class Card : MonoBehaviour
 
     public string[] Building;     //보유시 영향을 주는 건물
     public string Gold;   //보유효과
+    public string weight;       //가중치
 
     public Sprite Image;
     public Card()
@@ -39,7 +40,7 @@ public class Card : MonoBehaviour
         Building = c.Building;
         Gold = c.Gold;
         Image = c.Image;
-
+        weight = c.weight;
 
     }
     public void SetValue(Card c)
@@ -57,13 +58,13 @@ public class Card : MonoBehaviour
         Building = c.Building;
         Gold = c.Gold;
         Image = c.Image;
-
+        weight = c.weight;
     }
     //public int weight;
-    //잠금    /   이름  /  아이템 /   이미지 /  가격  /  레벨  /  별   /  게이지 /  설명  / 보유효과  / 건물  / 골드 획득량
+    //잠금    /   이름  /  아이템 /   이미지 /  가격  /  레벨  /  별   /  게이지 /  설명  / 보유효과  / 건물  / 골드 획득량/가중치
 
     public Card(string islock, string cardname, string item, string cardimage, string cost, string level,
-       string star, string gauge, string info, string effect, string building, string gold)
+       string star, string gauge, string info, string effect, string building, string gold,string weight)
     {
         isLock = islock;
         this.cardName = cardname;
@@ -80,7 +81,7 @@ public class Card : MonoBehaviour
 
 
         Gold = gold;
-
+        this.weight = weight;
     }
 
     public void SetChaImage(Sprite image)
