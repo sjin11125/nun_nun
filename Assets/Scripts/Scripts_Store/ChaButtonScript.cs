@@ -46,7 +46,15 @@ public class ChaButtonScript : MonoBehaviour
         Grid = GameObject.Find("back_down");
         settigPanel = GameObject.FindGameObjectWithTag("SettingPanel");
     }
-    public void Islockfalse() => GameManager.isMoveLock = false;
+    public void Islockfalse()
+    {
+        GameManager.isMoveLock = false;
+        Building building = buildings[0].transform.parent.GetComponent<Building>();
+        string building_name = buildings[0].transform.parent.name;
+        building.Type = BuildType.Empty;
+
+      
+    }
     public void NuniInfoClick()
     {
         GameObject NuniInfo = Instantiate(NuniInfoPannel) as GameObject;        //누니 정보 패널 Instantiate
