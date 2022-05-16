@@ -23,6 +23,7 @@ public class BuildingParse
     public string BuildingPosiiton_x;
     public string BuildingPosiiton_y;
     public string Id;
+    public string str;      //설치물인지
     //-----------------------------------------------------------
 
 }
@@ -61,6 +62,7 @@ public class Building : MonoBehaviour
     public string BuildingPosiiton_x;
     public string BuildingPosiiton_y;
     public string Id;
+    public string str;      //설치물인지
     //-----------------------------------------------------------
 
     public int layer_y;   // 건물 레이어
@@ -80,7 +82,7 @@ public class Building : MonoBehaviour
     public Building()
     {
     }
-    public Building(string islock, string buildingname, string info, string image, string cost,string cost2,string cost3, string Reward, string Reward2, string Reward3)           //파싱할 때 쓰는 생성자
+    public Building(string islock, string buildingname, string info, string image, string cost,string cost2,string cost3, string Reward, string Reward2, string Reward3, string isStr)           //파싱할 때 쓰는 생성자
     {//잠금 유무     // 이름     //설명     //이미지    //가격1       //가격2      //가격3        //생성재화1         //생성재화2        //생성재화3
 
         isLock = islock;
@@ -106,8 +108,9 @@ public class Building : MonoBehaviour
 
         this.ShinCost[0] = int.Parse(Cost[1]);                //비용(발광석)
         this.ShinCost[1] = int.Parse(Cost2[1]);
-        this.ShinCost[2] = int.Parse(Cost3[1]);            
-       
+        this.ShinCost[2] = int.Parse(Cost3[1]);
+
+        this.str = isStr;
 
     }
   /*  public Building(string islock, string buildingname,string reward,string info,string image,string cost, string shinCost, string level,string isfliped,string building_x,string building_y)           //파싱할 때 쓰는 생성자

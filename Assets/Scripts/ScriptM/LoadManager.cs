@@ -32,6 +32,41 @@ public class LoadManager : MonoBehaviour
         }
         return copy;
     }
+    IEnumerator MoneyPost(WWWForm form)
+    {
+        Debug.Log("불러오라");
+        using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // 반드시 using을 써야한다
+        {
+            yield return www.SendWebRequest();
+            //Debug.Log(www.downloadHandler.text);
+            if (www.isDone)
+            {
+
+                MoneyResponse(www.downloadHandler.text);
+
+            }  
+            else print("웹의 응답이 없습니다.");
+        }
+
+    }
+    void MoneyResponse(string json)                          //자원 값 불러오기
+    {
+        if (string.IsNullOrEmpty(json))
+        {
+            Debug.Log(json);
+            return;
+        }
+        Debug.Log("현재돈:      " + json);
+        string[] moneys = json.Split('@');
+        Debug.Log(moneys[0] +"    "+ moneys[1]);
+        GameManager.Money =int.Parse(moneys[0].ToString());
+        GameManager.ShinMoney= int.Parse(moneys[1].ToString());
+
+        Debug.Log("돈: " + GameManager.Money);
+        Debug.Log("발광석: " + GameManager.ShinMoney);
+
+        StartCoroutine(RewardStart());  //일괄수확 가능한지
+    }
     IEnumerator Post(WWWForm form)
     {
         Debug.Log("불러오라");
@@ -88,6 +123,43 @@ public class LoadManager : MonoBehaviour
         Debug.Log("GameManager.BuildingList[0]" + GameManager.BuildingList[0].BuildingPosiiton_x);
         isLoaded = true;
     }
+    public IEnumerator RewardStart()
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("order", "questTime");
+        form.AddField("player_nickname", GameManager.NickName);
+        yield return StartCoroutine(RewardPost(form));
+    }
+
+    IEnumerator RewardPost(WWWForm form)
+    {
+        Debug.Log("RewardPost");
+        using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // 반드시 using을 써야한다
+        {
+            yield return www.SendWebRequest();
+            //Debug.Log(www.downloadHandler.text);
+            if (www.isDone) Reward_response(www.downloadHandler.text);
+            else print("웹의 응답이 없습니다.");
+        }
+
+    }
+
+    void Reward_response(string json)
+    {
+        Debug.Log("날짜: " + json);
+        string time = json;
+        if (time != DateTime.Now.ToString("yyyy.MM.dd"))     //오늘날짜가 아니냐 일괄수확 가능
+        {
+            Debug.Log("마지막으로 수확했던 날짜: " + time);
+            Debug.Log("오늘날짜: " + DateTime.Now.ToString("yyyy.MM.dd"));
+            GameManager.isReward = true;
+        }
+        else
+        {
+            GameManager.isReward = false;               //오늘날짜면 수확 불가능
+        }
+        Debug.Log("수확가능여부: " + GameManager.isReward);
+    }
     //재화로드
     //캐릭터 로드
     void Start()
@@ -112,15 +184,25 @@ public class LoadManager : MonoBehaviour
 
 
             StartCoroutine(Post(form1));
-           
 
-            
+            WWWForm form2 = new WWWForm();
+            Debug.Log("자원로딩");
+            //isMe = true;                    //자원 불러오기
+            form2.AddField("order", "getMoney");
+            form2.AddField("player_nickname", GameManager.NickName);
+
+            StartCoroutine(MoneyPost(form2));
+
         }
 
-
+        Debug.Log("누니갯수: "+GameManager.CharacterList.Count);
 
         if (SceneManager.GetActiveScene().name == "Main" && GameManager.CharacterList != null)       //메인씬에서 로드하기(누니)
         {
+            /*for (int j = 0; j < GameManager.CharacterList.Count; j++)
+            {
+                Debug.Log(GameManager.CharacterList[j].name);
+            }*/
             Debug.Log("GameManager.: " + GameManager.CharacterList.Count);
             for (int i = 0; i < GameManager.CharacterList.Count; i++)
             {

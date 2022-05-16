@@ -31,10 +31,6 @@ public class InventoryButton : MonoBehaviour
                     this_building = GameManager.BuildingList[i];
                     gridBuildingSystem = buildings.GetComponentInChildren<GridBuildingSystem>();
                 }
-                else
-                {
-                    Debug.Log("this.gameObject.name:  "+ this.gameObject.name);
-                }
             }
             Debug.Log(this_building.isLock);
             if (this_building.isLock == "F")

@@ -46,7 +46,15 @@ public class ChaButtonScript : MonoBehaviour
         Grid = GameObject.Find("back_down");
         settigPanel = GameObject.FindGameObjectWithTag("SettingPanel");
     }
-    public void Islockfalse() => GameManager.isMoveLock = false;
+    public void Islockfalse()
+    {
+        GameManager.isMoveLock = false;
+        Building building = buildings[0].transform.parent.GetComponent<Building>();
+        string building_name = buildings[0].transform.parent.name;
+        building.Type = BuildType.Empty;
+
+      
+    }
     public void NuniInfoClick()
     {
         GameObject NuniInfo = Instantiate(NuniInfoPannel) as GameObject;        //누니 정보 패널 Instantiate
@@ -65,17 +73,31 @@ public class ChaButtonScript : MonoBehaviour
                 Image[] InfoImage = NuniInfo.GetComponentsInChildren<Image>();
                 Image[] stars = NuniInfo.transform.Find("Stars").GetComponentsInChildren<Image>();
 
-
-                for (int j = 0; j < int.Parse(GameManager.AllNuniArray[i].Star); j++)   //별 넣기
+                if (nuni.Star == "2")
                 {
-                    stars[j].color = new Color(1, 1, 1);
+                    Debug.Log("이 누니는 현재 " + nuni.Star + "성 입니다.");
+                    InfoImage[1].color = new Color(210 / 255f, 150 / 255f, 255 / 255f);
+                    
                 }
+                else if (nuni.Star == "3")
+                {
+                    Debug.Log("이 누니는 현재 " + nuni.Star + "성 입니다.");
+                    InfoImage[1].color = new Color(255 / 255f, 249 / 255f, 167 / 255f);
+                    
+                    Debug.Log(InfoImage[1].name);
+                }
+                /* for (int j = 0; j < int.Parse(GameManager.AllNuniArray[i].Star); j++)   //별 넣기
+                 {
+                     stars[j].color = new Color(1, 1, 1);
+                 }*/
                 InfoImage[2].sprite = nuni.GetChaImange();
 
                 InfoTexts[0].text = nuni.cardName;      //누니 이름 넣기
                 InfoTexts[1].text = nuni.Info;                  //누니 설명
                 InfoTexts[2].text = nuni.Effect; //누니 보유 효과
 
+                
+               
 
             }
         }
@@ -279,13 +301,28 @@ public class ChaButtonScript : MonoBehaviour
 
     public void LockChaButtonClick2()       //빌딩 살려고 구매버튼 클릭할 때
     {
-        DogamManager.ChaIndex = int.Parse(gameObject.transform.parent.name);
-        
+       string buildingName = gameObject.transform.parent.name;
+        Building building=new Building();
 
         if (gameObject.tag != "Lock")       //건물이 안잠겨있고
         {
-            int pay = DogamManager.BuildingInformation[DogamManager.ChaIndex].Cost[0];
-            int shinPay = DogamManager.BuildingInformation[DogamManager.ChaIndex].ShinCost[0];
+            for (int i = 0; i < DogamManager.BuildingInformation.Length; i++)
+            {
+                if (DogamManager.BuildingInformation[i].Building_name == buildingName)
+                {
+                    building.SetValue(DogamManager.BuildingInformation[i]);
+                }
+            }
+            for (int i = 0; i < GameManager.StrArray.Length; i++)
+            {
+                if (GameManager.StrArray[i].Building_name == buildingName)
+                {
+                    building.SetValue(GameManager.StrArray[i]);
+                }
+
+            }
+            int pay = building.Cost[0];
+            int shinPay = building.ShinCost[0];
 
             if (GameManager.Money < pay || GameManager.ShinMoney < shinPay)      //돈이나 자원이 모자르면 거절 메세지 띄움
             {
@@ -295,8 +332,7 @@ public class ChaButtonScript : MonoBehaviour
             {
 
                 Grid.GetComponent<SpriteRenderer>().sortingOrder = -50;
-
-                Building BuildingInformation = DogamManager.BuildingInformation[DogamManager.ChaIndex];
+                
 
                 GameManager.Money -= pay;       //자원빼기
                 GameManager.ShinMoney -= shinPay;
@@ -314,7 +350,8 @@ public class ChaButtonScript : MonoBehaviour
                 Debug.Log(GameManager.BuildingPrefabData.Count);
 
                 //게임매니저에 잇는 건물 프리팹 배열에서 같은 이름을 가진 프리팹을 찾아 Instantiate하고 상점 창 닫기
-                string buildingname = DogamManager.BuildingInformation[DogamManager.ChaIndex].Building_Image;
+           
+                string buildingname = building.Building_Image;
                 GameObject buildingprefab = GameManager.BuildingPrefabData[buildingname];
 
 

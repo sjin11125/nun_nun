@@ -16,9 +16,11 @@ public class GameManager : MonoBehaviour
     public static Dictionary<string, Sprite> DogamChaImageData;
 
     public static List<Building> BuildingList;          //가지고 있는 빌딩들
+    public static List<Building> StrList;          //가지고 있는 설치물들
     public static List<Building> FriendBuildingList;          //친구가 가지고 있는 빌딩들
     public static Building[] BuildingArray;         //모든 빌딩들
-    
+    public static Building[] StrArray;         //모든 빌딩들
+
     public GameObject[] BuildingPrefabInspector;    //인스펙터에서 받아 온 건물 프리팹 배열    
 
     public static Dictionary<string, GameObject> BuildingPrefabData;    //모든 빌딩 프리팹 딕셔너리
@@ -81,7 +83,7 @@ public class GameManager : MonoBehaviour
 
     public static string friend_nickname;       //현재 들어가있는 친구닉넴
 
-    public static string URL = "https://script.google.com/macros/s/AKfycbwuFrSckULIRGLsLRzSHOknHp-AyvN7I6JADRwviJblDQex0fdyk88wbUnhztLoErB2/exec";
+    public static string URL = "https://script.google.com/macros/s/AKfycbzO55rHQAxcUS4eDwbU4i0xD_QYWQriyB0N8DpeBzvfVgyYttNLxANaThIiD3mJEKkP/exec";
 
     public static bool isReward;        //일괄수확 가능한지
     

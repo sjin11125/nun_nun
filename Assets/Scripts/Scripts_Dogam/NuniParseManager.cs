@@ -33,21 +33,27 @@ public class NuniParseManager : MonoBehaviour
 
             Button NuniButton = NuniPannel.GetComponentInChildren<Button>();
             Image[] image = NuniPannel.GetComponentsInChildren<Image>();
+            Text NuniName = NuniPannel.GetComponentInChildren<Text>();
 
+            Card nuni = GameManager.AllNuniArray[i];
+            NuniButton.enabled = true;
+            image[1].sprite = nuni.GetChaImange();   //누니 이미지 넣기
+            NuniPannel.name = nuni.cardImage;        //누니 이름 넣기
+            NuniName.text = nuni.cardName;
 
-            if (GameManager.AllNuniArray[i].isLock=="F")       // 누니를 현재 가지고 있을 때
-            {
-                Card nuni = GameManager.AllNuniArray[i];
-                NuniButton.enabled = true;
-                image[2].sprite = nuni.GetChaImange();   //누니 이미지 넣기
-                NuniPannel.name = nuni.cardImage;        //누니 이름 넣기
-                
-            }
-            else
-            {
-                NuniButton.enabled = false;
-                NuniPannel.name = "?";
-            }
+            /* if (GameManager.AllNuniArray[i].isLock=="F")       // 누니를 현재 가지고 있을 때
+             {
+                 Card nuni = GameManager.AllNuniArray[i];
+                 NuniButton.enabled = true;
+                 image[2].sprite = nuni.GetChaImange();   //누니 이미지 넣기
+                 NuniPannel.name = nuni.cardImage;        //누니 이름 넣기
+
+             }
+             else
+             {
+                 NuniButton.enabled = false;
+                 NuniPannel.name = "?";
+             }*/
 
 
         }
