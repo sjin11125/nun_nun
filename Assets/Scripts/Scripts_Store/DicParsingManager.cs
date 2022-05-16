@@ -111,7 +111,7 @@ public class DicParsingManager : MonoBehaviour
         GameManager.StrArray = DictionaryStrList.ToArray();
         for (int i = 0; i < DictionaryList.Count; i++)
         {
-            Debug.Log("건물이름: "+ DictionaryList[i].Building_name+ "건물레벨: "+DictionaryList[i].Level);
+           // Debug.Log("건물이름: "+ DictionaryList[i].Building_name+ "건물레벨: "+DictionaryList[i].Level);
         }
         return DictionaryList.ToArray();
     }

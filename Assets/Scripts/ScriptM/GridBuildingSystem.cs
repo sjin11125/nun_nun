@@ -411,6 +411,7 @@ public class GridBuildingSystem : MonoBehaviour
             if (GameManager.BuildingArray[i].Building_Image==temp.Building_Image)
             {
                 Debug.Log("Good");
+                GameManager.BuildingArray[i].Level = 1;
                 temp.SetValue(GameManager.BuildingArray[i]);
                 Debug.Log("uuuuuuuuu: " + GameManager.BuildingArray[i].Level);
                 break;
