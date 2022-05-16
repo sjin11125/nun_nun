@@ -10,7 +10,9 @@ public class FinishTutorialsItemControl : TutorialsItemControl
         // 튜토리얼 완성 기록
         PlayerPrefs.SetInt("TutorialDone", 1);
 
+        // home scene을 연다.
         SceneManager.LoadScene("Main");
+
 
         base.Run();
     }
