@@ -8,7 +8,7 @@ public class RemoveThree : MonoBehaviour
     GameObject[] myChlid;
     private Image squareImage;
     public Image normalImage;
-    public int ItemTurn = 3;
+    public int ItemTurn;
     bool useRemove;
     bool centerhave;
     public Text number;
@@ -23,6 +23,7 @@ public class RemoveThree : MonoBehaviour
             myChlid[i] = gameObject.transform.GetChild(i).gameObject;
         }
         settigPanel = GameObject.FindGameObjectWithTag("SettingPanel");
+        myChlid[1].GetComponent<BoxCollider2D>().enabled = false;
     }
 
     void Update()
@@ -45,6 +46,7 @@ public class RemoveThree : MonoBehaviour
                         myChlid[0].SetActive(false);
                         myChlid[1].SetActive(true);
                         myChlid[2].SetActive(true);
+                        myChlid[1].GetComponent<BoxCollider2D>().enabled = false;
                         useRemove = false;
                         settigPanel.GetComponent<AudioController>().Sound[0].Play();
                     }
@@ -57,12 +59,13 @@ public class RemoveThree : MonoBehaviour
                     centerhave = false;
                 }
             }
-        }
+        }//자식 2가 트루면 1에 박스콜라이더 끄기
 
         number.text = GridScript.ThreeVerticalItem.ToString();//항상 숫자를 받는데
         if (GridScript.ThreeVerticalItem <= 0)
         {
             myChlid[2].SetActive(false);//0이하면 사용가능해지게
+            myChlid[1].GetComponent<BoxCollider2D>().enabled = true;
         }
     }
     void FindUpDown(GameObject center)
