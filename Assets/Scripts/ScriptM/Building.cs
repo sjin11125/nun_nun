@@ -477,8 +477,8 @@ public class Building : MonoBehaviour
         Debug.Log("building.Cost: " + building.Cost.Length);
         Debug.Log("building.Cost2: " + building.Cost[0]);
 
-        GameManager.Money += building.Cost[building.Level-1];          //자원 되돌리기
-        GameManager.ShinMoney += building.ShinCost[building.Level-1 ];
+        GameManager.Money += building.Cost[building.Level-1]/10;          //자원 되돌리기
+        GameManager.ShinMoney += building.ShinCost[building.Level-1 ]/10;
 
         GridBuildingSystem.current.RemoveArea(areaTemp);
         if (Type == BuildType.Make)      //상점에서 사고 설치X 바로 제거

@@ -187,7 +187,7 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < BuildingArray.Length; i++)
         {
-            Debug.Log("건물이름: " + BuildingArray[i].Building_name + "건물레벨: " + BuildingArray[i].Level);
+            Debug.Log("건물이름: " + BuildingArray[i].Building_name + "건물cost: " + BuildingArray[i].Cost[0]);
         }
        
     }

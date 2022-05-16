@@ -411,13 +411,25 @@ public class GridBuildingSystem : MonoBehaviour
             if (GameManager.BuildingArray[i].Building_Image==temp.Building_Image)
             {
                 Debug.Log("Good");
+                Debug.Log("Good "+ GameManager.BuildingArray[i].Building_name);
                 GameManager.BuildingArray[i].Level = 1;
                 temp.SetValue(GameManager.BuildingArray[i]);
-                Debug.Log("uuuuuuuuu: " + GameManager.BuildingArray[i].Level);
+                Debug.Log("uuuuuuuuu: " + GameManager.BuildingArray[i].Cost[0]);
                 break;
             }
         }
-       
+        for (int i = 0; i < GameManager.StrArray.Length; i++)
+        {
+            if (GameManager.StrArray[i].Building_Image == temp.Building_Image)
+            {
+                Debug.Log("Good");
+                Debug.Log("Good " + GameManager.StrArray[i].Building_name);
+                GameManager.StrArray[i].Level = 1;
+                temp.SetValue(GameManager.StrArray[i]);
+                Debug.Log("uuuuuuuuu: " + GameManager.StrArray[i].Cost[0]);
+                break;
+            }
+        }
 
         temp.Type = BuildType.Make;
 
