@@ -405,17 +405,18 @@ public class GridBuildingSystem : MonoBehaviour
         temp_gameObject = Instantiate(GameManager.CurrentBuilding, Vector3.zero, Quaternion.identity,buildings.transform) as GameObject;
         
           temp = temp_gameObject.GetComponent<Building>(); // 이때 building 프리펩의 속성 불러오기
-        Debug.Log("uuuuuuuuu"+ GameManager.BuildingArray.Length);
+        
         for (int i = 0; i < GameManager.BuildingArray.Length; i++)
         {
             if (GameManager.BuildingArray[i].Building_Image==temp.Building_Image)
             {
                 Debug.Log("Good");
                 temp.SetValue(GameManager.BuildingArray[i]);
+                Debug.Log("uuuuuuuuu: " + GameManager.BuildingArray[i].Level);
                 break;
             }
         }
-
+       
 
         temp.Type = BuildType.Make;
 

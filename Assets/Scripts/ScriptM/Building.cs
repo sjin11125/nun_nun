@@ -111,6 +111,7 @@ public class Building : MonoBehaviour
         this.ShinCost[2] = int.Parse(Cost3[1]);
 
         this.str = isStr;
+        Level = 1;
 
     }
   /*  public Building(string islock, string buildingname,string reward,string info,string image,string cost, string shinCost, string level,string isfliped,string building_x,string building_y)           //파싱할 때 쓰는 생성자
@@ -472,7 +473,10 @@ public class Building : MonoBehaviour
         BoundsInt areaTemp = area;
         areaTemp.position = positionInt;
 
-        //Debug.Log()
+        Debug.Log("level: " + building.Level);
+        Debug.Log("building.Cost: " + building.Cost.Length);
+        Debug.Log("building.Cost2: " + building.Cost[0]);
+
         GameManager.Money += building.Cost[building.Level-1];          //자원 되돌리기
         GameManager.ShinMoney += building.ShinCost[building.Level-1 ];
 

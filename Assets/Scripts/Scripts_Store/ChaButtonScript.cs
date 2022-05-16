@@ -326,6 +326,7 @@ public class ChaButtonScript : MonoBehaviour
                 if (DogamManager.BuildingInformation[i].Building_name == buildingName)
                 {
                     building.SetValue(DogamManager.BuildingInformation[i]);
+                    Debug.Log("빌딩은 현재 "+ building.Level+"레벨");
                 }
             }
             for (int i = 0; i < GameManager.StrArray.Length; i++)
@@ -342,6 +343,7 @@ public class ChaButtonScript : MonoBehaviour
             if (GameManager.Money < pay || GameManager.ShinMoney < shinPay)      //돈이나 자원이 모자르면 거절 메세지 띄움
             {
                 UIManager.isSetMoney = -1;
+                Debug.Log("결제못함");
             }
             else                    // 결제함
             {
@@ -380,11 +382,12 @@ public class ChaButtonScript : MonoBehaviour
                 Building c = GameManager.CurrentBuilding.GetComponent<Building>();
                 c.Building_Image = buildingname;
                 c = b.GetComponent<Building>().DeepCopy();
-
+                b.Level = 1;
                 c.SetValue(b);
-
+                Debug.Log("빌딩은 현재 " +b.Level + "레벨");
                 parent.gameObject.SetActive(false);
                 isEdit = true;
+                
             }
 
         }
