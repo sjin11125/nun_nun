@@ -271,7 +271,7 @@ public class Building : MonoBehaviour
 
         //Placed = false;
 
-        child = GetComponentsInChildren<Transform>();
+       // child = GetComponentsInChildren<Transform>();
 
         // Debug.Log(child[6].name);
         //Coin_Button= child[6];
@@ -281,8 +281,8 @@ public class Building : MonoBehaviour
 
         //Text countdownText = GetComponent<Text>();
 
-        layer_y = 10;
-        child[1].GetComponent<SpriteRenderer>().sortingOrder = layer_y;
+        //layer_y = 10;
+        //child[1].GetComponent<SpriteRenderer>().sortingOrder = layer_y;
 
 
         //-------------레벨 별 건물--------------------
@@ -308,7 +308,14 @@ public class Building : MonoBehaviour
                 buildings[0].SetActive(true);
                 buildings[1].SetActive(false);
                 //buildings[2].SetActive(false);
-                buildings[0].GetComponent<SpriteRenderer>().sortingOrder = layer_y;
+                //buildings[0].GetComponent<SpriteRenderer>().sortingOrder = layer_y;
+                child = GetComponentsInChildren<Transform>();
+                Debug.Log("buildings: "+ child[1].gameObject.name);
+                Debug.Log("sorting order: "+ (int)transform.position.y);
+                child[1].GetComponent<SpriteRenderer>().sortingOrder = (int)transform.position.y;
+               // SpriteRenderer[] buildingsSprite= gameObject.GetComponentsInChildren<SpriteRenderer>();
+                //buildingsSprite[1].sortingOrder = layer_y;
+
                 break;
             case 2:
                 buildings[0].SetActive(true);
@@ -466,8 +473,8 @@ public class Building : MonoBehaviour
         areaTemp.position = positionInt;
 
         //Debug.Log()
-        GameManager.Money += building.Cost[building.Level];          //자원 되돌리기
-        GameManager.ShinMoney += building.ShinCost[building.Level ];
+        GameManager.Money += building.Cost[building.Level-1];          //자원 되돌리기
+        GameManager.ShinMoney += building.ShinCost[building.Level-1 ];
 
         GridBuildingSystem.current.RemoveArea(areaTemp);
         if (Type == BuildType.Make)      //상점에서 사고 설치X 바로 제거
@@ -509,7 +516,7 @@ public class Building : MonoBehaviour
         //currentTime = startingTime;
         //원래 업데이트 부분
         BuildingPosition = transform.position;          //위치 저장
-        layer_y = (int)(-transform.position.y / 0.6);             //레이어 설정
+        layer_y = (int)-transform.position.y;      //레이어 설정
         isLock = "T";           //배치했다
 
         if (layer_y == 0 || layer_y == 1)
