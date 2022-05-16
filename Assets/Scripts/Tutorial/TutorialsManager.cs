@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TutorialsManager : MonoBehaviour
 {
@@ -42,5 +43,10 @@ public class TutorialsManager : MonoBehaviour
             items[itemIndex].gameObject.SetActive(true);
         }
 
+        if (items.Length == itemIndex)
+        {
+            PlayerPrefs.SetInt("TutorialDone", 1);
+            SceneManager.LoadScene("Main");
+        }
     }
 }
