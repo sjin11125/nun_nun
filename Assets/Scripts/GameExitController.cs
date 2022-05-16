@@ -2,23 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 public class GameExitController : MonoBehaviour
 {
     public void Awake()
     {
-        //GameLoad();
+        GameLoad();
+
+        int tutorialsDone = PlayerPrefs.GetInt("TutorialDone", 0);
+        if (tutorialsDone == 0)
+        {
+            SceneManager.LoadScene("TutorialsScene");
+            return;
+        }
     }
+
     public void GameSave()
-    {/*
-        PlayerPrefs.SetInt("Money", GameManager.Money);//µ·
-        PlayerPrefs.SetInt("ShinMoney", GameManager.ShinMoney);//µ·
+    {
+        PlayerPrefs.SetInt("Money", GameManager.Money);//ÂµÂ·
+        PlayerPrefs.SetInt("ShinMoney", GameManager.ShinMoney);//ÂµÂ·
         PlayerPrefs.Save();
         print("save");*/
 
         WWWForm form2 = new WWWForm();
-        Debug.Log("ÀÚ¿øÀúÀå");
-        //isMe = true;                    //ÀÚ¿ø ºÒ·¯¿À±â
+        Debug.Log("Ã€ÃšÂ¿Ã¸Ã€ÃºÃ€Ã¥");
+        //isMe = true;                    //Ã€ÃšÂ¿Ã¸ ÂºÃ’Â·Â¯Â¿Ã€Â±Ã¢
         form2.AddField("order", "setMoney");
         form2.AddField("player_nickname", GameManager.NickName);
         form2.AddField("money", GameManager.Money.ToString()+"|"+GameManager.ShinMoney.ToString());
@@ -27,39 +36,41 @@ public class GameExitController : MonoBehaviour
     }
     IEnumerator MoneyPost(WWWForm form)
     {
-        Debug.Log("ÀúÀåÇÏ¶ó");
-        using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // ¹İµå½Ã usingÀ» ½á¾ßÇÑ´Ù
+        Debug.Log("Ã€ÃºÃ€Ã¥Ã‡ÃÂ¶Ã³");
+        using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // Â¹ÃÂµÃ¥Â½Ãƒ usingÃ€Â» Â½Ã¡Â¾ÃŸÃ‡Ã‘Â´Ã™
         {
             yield return www.SendWebRequest();
             //Debug.Log(www.downloadHandler.text);
-           /* if (www.isDone)
+            if (www.isDone)
             {
 
                 MoneyResponse(www.downloadHandler.text);
 
             }
-            else print("À¥ÀÇ ÀÀ´äÀÌ ¾ø½À´Ï´Ù.");*/
+            else print("Ã€Â¥Ã€Ã‡ Ã€Ã€Â´Ã¤Ã€ÃŒ Â¾Ã¸Â½Ã€Â´ÃÂ´Ã™.");
         }
 
     }
 
-   /* void MoneyResponse(string json)                          //ÀÚ¿ø °ª ºÒ·¯¿À±â
+    void MoneyResponse(string json)                          //Ã€ÃšÂ¿Ã¸ Â°Âª ÂºÃ’Â·Â¯Â¿Ã€Â±Ã¢
     {
         if (string.IsNullOrEmpty(json))
         {
             Debug.Log(json);
             return;
         }
-        Debug.Log("ÇöÀçµ·:      " + json);
+        Debug.Log("Ã‡Ã¶Ã€Ã§ÂµÂ·:      " + json);
         string[] moneys = json.Split('|');
 
         GameManager.Money = int.Parse(moneys[0]);
         GameManager.ShinMoney = int.Parse(moneys[1]);
 
-    }*/
+    }
     public void GameLoad()
     {
-        GameManager.ShinMoney = 10000;
+        GameManager.Money = PlayerPrefs.GetInt("Money");
+        GameManager.ShinMoney = PlayerPrefs.GetInt("ShinMoney");
+        //GameManager.ShinMoney = 10000;
         print("load");
     }
     public void GameExit()

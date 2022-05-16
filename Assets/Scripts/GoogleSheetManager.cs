@@ -64,7 +64,7 @@ public class GoogleSheetManager : MonoBehaviour
         {
             WarningPannel.SetActive(true);
             Text t = WarningPannel.GetComponentInChildren<Text>();
-            t.text = "¾ÆÀÌµğ ¶Ç´Â ºñ¹Ğ¹øÈ£ ¶Ç´Â ´Ğ³×ÀÓÀÌ ºñ¾îÀÖ½À´Ï´Ù";
+            t.text = "ì•„ì´ë”” ë˜ëŠ” ë¹„ë°€ë²ˆí˜¸ ë˜ëŠ” ë‹‰ë„¤ì„ì´ ë¹„ì–´ìˆìŠµë‹ˆë‹¤";
             return;
         }
 
@@ -88,8 +88,8 @@ public class GoogleSheetManager : MonoBehaviour
         {
             WarningPannel.SetActive(true);
             Text t = WarningPannel.GetComponentInChildren<Text>();
-            t.text = "¾ÆÀÌµğ ¶Ç´Â ºñ¹Ğ¹øÈ£°¡ ºñ¾îÀÖ½À´Ï´Ù";
-           // print("¾ÆÀÌµğ ¶Ç´Â ºñ¹Ğ¹øÈ£°¡ ºñ¾îÀÖ½À´Ï´Ù");
+            t.text = "ì•„ì´ë”” ë˜ëŠ” ë¹„ë°€ë²ˆí˜¸ê°€ ë¹„ì–´ìˆìŠµë‹ˆë‹¤";
+           // print("ì•„ì´ë”” ë˜ëŠ” ë¹„ë°€ë²ˆí˜¸ê°€ ë¹„ì–´ìˆìŠµë‹ˆë‹¤");
             return;
         }
 
@@ -99,6 +99,10 @@ public class GoogleSheetManager : MonoBehaviour
         form.AddField("pass", pass);
 
         StartCoroutine(Post(form));
+
+        PlayerPrefs.SetString("Id", id);
+        PlayerPrefs.SetString("Pass", pass);
+        PlayerPrefs.SetString("Nickname", nickname);       
     }
 
 
@@ -133,7 +137,7 @@ public class GoogleSheetManager : MonoBehaviour
 
     IEnumerator SignPost(WWWForm form)
     {
-        using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // ¹İµå½Ã usingÀ» ½á¾ßÇÑ´Ù
+        using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // ë°˜ë“œì‹œ usingì„ ì¨ì•¼í•œë‹¤
         {
             yield return www.SendWebRequest();
             //Debug.Log(www.downloadHandler.text);
@@ -150,16 +154,16 @@ public class GoogleSheetManager : MonoBehaviour
 
     IEnumerator Post(WWWForm form)
     {
-        using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // ¹İµå½Ã usingÀ» ½á¾ßÇÑ´Ù
+        using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // ë°˜ë“œì‹œ usingì„ ì¨ì•¼í•œë‹¤
         {
             yield return www.SendWebRequest();
             //Debug.Log(www.downloadHandler.text);
             if (www.isDone)
             {
                 Response(www.downloadHandler.text);
-                Debug.Log("ÀÀ´äÀÕ´Ù");
+                Debug.Log("ì‘ë‹µì‡ë‹¤");
             }
-            else print("À¥ÀÇ ÀÀ´äÀÌ ¾ø½À´Ï´Ù.");
+            else print("ì›¹ì˜ ì‘ë‹µì´ ì—†ìŠµë‹ˆë‹¤.");
         }
     }
 
@@ -186,21 +190,21 @@ public class GoogleSheetManager : MonoBehaviour
         }
         else if (GD.result == "NickNameERROR")
         {
-            t.text = "´Ğ³×ÀÓÀÌ Áßº¹µË´Ï´Ù.";
+            t.text = "ë‹‰ë„¤ì„ì´ ì¤‘ë³µë©ë‹ˆë‹¤.";
         }
         if (GD.result == "OK")
         {
-            if (GD.msg == "È¸¿ø°¡ÀÔ ¿Ï·á")
+            if (GD.msg == "íšŒì›ê°€ì… ì™„ë£Œ")
             {
-                t.text = "È¸¿ø°¡ÀÔ ¿Ï·á!"+ nickname + "(" + id + ")´Ô È¯¿µÇÕ´Ï´Ù!! " +
-                    "\nÀá½Ã¸¸ ±â´Ù·Á ÁÖ¼¼¿ä.";
+                t.text = "íšŒì›ê°€ì… ì™„ë£Œ!"+ nickname + "(" + id + ")ë‹˜ í™˜ì˜í•©ë‹ˆë‹¤!! " +
+                    "\nì ì‹œë§Œ ê¸°ë‹¤ë ¤ ì£¼ì„¸ìš”.";
             }
             else
             {
                 nickname = GD.nickname;
                GameManager.StateMessage= GD.state;
-                t.text = "·Î±×ÀÎ ¿Ï·á!"+ nickname + "(" + id + ")´Ô È¯¿µÇÕ´Ï´Ù!! " +
-                    "\nÀá½Ã¸¸ ±â´Ù·Á ÁÖ¼¼¿ä ";
+                t.text = "ë¡œê·¸ì¸ ì™„ë£Œ!"+ nickname + "(" + id + ")ë‹˜ í™˜ì˜í•©ë‹ˆë‹¤!! " +
+                    "\nì ì‹œë§Œ ê¸°ë‹¤ë ¤ ì£¼ì„¸ìš” ";
             }
 
             GameManager.NickName = nickname;
@@ -231,10 +235,10 @@ public class GoogleSheetManager : MonoBehaviour
     }
     IEnumerator Quest()
     {
-       // gameObject.GetComponent<BuildingSave>().BuildingLoad();         //³» °Ç¹° ºÒ·¯¿Í
-        //yield return StartCoroutine( QuestManager.QuestStart()); //Äù½ºÆ® ¼³Á¤ÇÒ ¶§±îÁö ´ë±â
-        yield return StartCoroutine(NuniManager.NuniStart()); //´©´Ï ¼³Á¤ÇÒ ¶§±îÁö ´ë±â
-       // yield return StartCoroutine(NuniManager.RewardStart()); //º¸»ó ÀÏ°ı¼ö·É ¼³Á¤ÇÒ ¶§±îÁö ´ë±â
+       // gameObject.GetComponent<BuildingSave>().BuildingLoad();         //ë‚´ ê±´ë¬¼ ë¶ˆëŸ¬ì™€
+        //yield return StartCoroutine( QuestManager.QuestStart()); //í€˜ìŠ¤íŠ¸ ì„¤ì •í•  ë•Œê¹Œì§€ ëŒ€ê¸°
+        yield return StartCoroutine(NuniManager.NuniStart()); //ëˆ„ë‹ˆ ì„¤ì •í•  ë•Œê¹Œì§€ ëŒ€ê¸°
+       // yield return StartCoroutine(NuniManager.RewardStart()); //ë³´ìƒ ì¼ê´„ìˆ˜ë ¹ ì„¤ì •í•  ë•Œê¹Œì§€ ëŒ€ê¸°
         MyBuildingLoad.BuildingLoad();
 
     }
