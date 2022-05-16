@@ -24,4 +24,9 @@ public class AnimationEvent : MonoBehaviour
         //누니 애니메이션 종료
         settigPanel.GetComponent<AudioController>().Sound[2].Play();
     }
+
+    public void EffectEnd29()
+    {
+        Destroy(this.gameObject);
+    }
 }
