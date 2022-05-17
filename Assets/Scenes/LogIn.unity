@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -162,7 +162,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: e4eadef015cb0884a9e41c30b657a26a, type: 3}
+    m_Font: {fileID: 12800000, guid: ac1186f0096ce404d9714c5f5f32b6df, type: 3}
     m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
@@ -387,7 +387,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: e4eadef015cb0884a9e41c30b657a26a, type: 3}
+    m_Font: {fileID: 12800000, guid: ac1186f0096ce404d9714c5f5f32b6df, type: 3}
     m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
@@ -854,7 +854,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: e4eadef015cb0884a9e41c30b657a26a, type: 3}
+    m_Font: {fileID: 12800000, guid: ac1186f0096ce404d9714c5f5f32b6df, type: 3}
     m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
@@ -1180,7 +1180,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: e4eadef015cb0884a9e41c30b657a26a, type: 3}
+    m_Font: {fileID: 12800000, guid: ac1186f0096ce404d9714c5f5f32b6df, type: 3}
     m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
@@ -1957,6 +1957,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MoveSpot: {fileID: 0}
   nuni: {fileID: 0}
+  isMove: 0
+  nuniObject: {fileID: 0}
 --- !u!1 &867282683
 GameObject:
   m_ObjectHideFlags: 0
@@ -2434,7 +2436,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: e4eadef015cb0884a9e41c30b657a26a, type: 3}
+    m_Font: {fileID: 12800000, guid: ac1186f0096ce404d9714c5f5f32b6df, type: 3}
     m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
@@ -2494,7 +2496,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: e4eadef015cb0884a9e41c30b657a26a, type: 3}
+    m_Font: {fileID: 12800000, guid: ac1186f0096ce404d9714c5f5f32b6df, type: 3}
     m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
@@ -2568,7 +2570,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -24.1}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1003633723
@@ -2592,7 +2594,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: e4eadef015cb0884a9e41c30b657a26a, type: 3}
+    m_Font: {fileID: 12800000, guid: ac1186f0096ce404d9714c5f5f32b6df, type: 3}
     m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
@@ -2659,27 +2661,27 @@ PrefabInstance:
     - target: {fileID: 7830889426656656929, guid: b81e78635323eed4690a9801c1c32229, type: 3}
       propertyPath: DogamChaImageInspector.Array.data[1]
       value: 
-      objectReference: {fileID: 21300000, guid: d3399c0172ada1f458e610d89071b773, type: 3}
+      objectReference: {fileID: 21300000, guid: e7b04327d96255b4a8efe0a6762a8919, type: 3}
     - target: {fileID: 7830889426656656929, guid: b81e78635323eed4690a9801c1c32229, type: 3}
       propertyPath: DogamChaImageInspector.Array.data[2]
       value: 
-      objectReference: {fileID: 21300000, guid: b8094300bc3af0f4788b1c4a20bb6128, type: 3}
+      objectReference: {fileID: 21300000, guid: 8575de828fa10664887bd05005cb49cc, type: 3}
     - target: {fileID: 7830889426656656929, guid: b81e78635323eed4690a9801c1c32229, type: 3}
       propertyPath: DogamChaImageInspector.Array.data[3]
       value: 
-      objectReference: {fileID: 21300000, guid: 49a582fad35932e478e833d8e20129a1, type: 3}
+      objectReference: {fileID: 21300000, guid: e1f5e9cd2f747f3468ecb2f0e1318799, type: 3}
     - target: {fileID: 7830889426656656929, guid: b81e78635323eed4690a9801c1c32229, type: 3}
       propertyPath: DogamChaImageInspector.Array.data[4]
       value: 
-      objectReference: {fileID: 21300000, guid: 52305f3cc69f4024ebae04dccb27c151, type: 3}
+      objectReference: {fileID: 21300000, guid: c7a3ae82465d4f64fadc51caa1fe2b28, type: 3}
     - target: {fileID: 7830889426656656929, guid: b81e78635323eed4690a9801c1c32229, type: 3}
       propertyPath: DogamChaImageInspector.Array.data[5]
       value: 
-      objectReference: {fileID: 21300000, guid: 78028d4ec79cdae4ab031fb78a7e5dd2, type: 3}
+      objectReference: {fileID: 21300000, guid: f9cc6f1e2051a6b4d8b02aad871cdff7, type: 3}
     - target: {fileID: 7830889426656656929, guid: b81e78635323eed4690a9801c1c32229, type: 3}
       propertyPath: DogamChaImageInspector.Array.data[6]
       value: 
-      objectReference: {fileID: 21300000, guid: 9d686891cc14cca408b66dad84a87507, type: 3}
+      objectReference: {fileID: 21300000, guid: bf71553beaf0f674187a053b22391349, type: 3}
     - target: {fileID: 7830889426656656929, guid: b81e78635323eed4690a9801c1c32229, type: 3}
       propertyPath: DogamChaImageInspector.Array.data[7]
       value: 
@@ -2687,11 +2689,11 @@ PrefabInstance:
     - target: {fileID: 7830889426656656929, guid: b81e78635323eed4690a9801c1c32229, type: 3}
       propertyPath: DogamChaImageInspector.Array.data[8]
       value: 
-      objectReference: {fileID: 21300000, guid: e8991f20e81a2a8459708954093f3ec5, type: 3}
+      objectReference: {fileID: 21300000, guid: 82719dfaad315c94a877dfb5623695a5, type: 3}
     - target: {fileID: 7830889426656656929, guid: b81e78635323eed4690a9801c1c32229, type: 3}
       propertyPath: DogamChaImageInspector.Array.data[9]
       value: 
-      objectReference: {fileID: 21300000, guid: fb8cff6e81c9e304bb46e5bd2a092f91, type: 3}
+      objectReference: {fileID: 21300000, guid: a801e25e56b6f7545a91d424ba7fd564, type: 3}
     - target: {fileID: 7830889426656656929, guid: b81e78635323eed4690a9801c1c32229, type: 3}
       propertyPath: DogamStrImageInspector.Array.data[0]
       value: 
@@ -2819,19 +2821,19 @@ PrefabInstance:
     - target: {fileID: 7830889426656656929, guid: b81e78635323eed4690a9801c1c32229, type: 3}
       propertyPath: DogamChaImageInspector.Array.data[10]
       value: 
-      objectReference: {fileID: 21300000, guid: d2816400ea1b9314e9de8404570e0fca, type: 3}
+      objectReference: {fileID: 21300000, guid: 04f45d1f5165a874c840499c76c3447d, type: 3}
     - target: {fileID: 7830889426656656929, guid: b81e78635323eed4690a9801c1c32229, type: 3}
       propertyPath: DogamChaImageInspector.Array.data[11]
       value: 
-      objectReference: {fileID: 21300000, guid: 7920182740bb1c74aa4b0c13e7ef9351, type: 3}
+      objectReference: {fileID: 21300000, guid: 3f588e7886b43a445add1dc0c9e4949b, type: 3}
     - target: {fileID: 7830889426656656929, guid: b81e78635323eed4690a9801c1c32229, type: 3}
       propertyPath: DogamChaImageInspector.Array.data[12]
       value: 
-      objectReference: {fileID: 21300000, guid: 29bf3ad305f1ee14e9ccaabf23ab5e38, type: 3}
+      objectReference: {fileID: 21300000, guid: d9f8583a0b295284bb36fadb87363598, type: 3}
     - target: {fileID: 7830889426656656929, guid: b81e78635323eed4690a9801c1c32229, type: 3}
       propertyPath: DogamChaImageInspector.Array.data[13]
       value: 
-      objectReference: {fileID: 21300000, guid: 0f2388e41abc0484080204e89bfc5cbd, type: 3}
+      objectReference: {fileID: 21300000, guid: 214b15f316a62e4418603dcc1ed85b46, type: 3}
     - target: {fileID: 7830889426656656929, guid: b81e78635323eed4690a9801c1c32229, type: 3}
       propertyPath: BuildingPrefabInspector.Array.data[10]
       value: 
@@ -3342,7 +3344,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: e4eadef015cb0884a9e41c30b657a26a, type: 3}
+    m_Font: {fileID: 12800000, guid: ac1186f0096ce404d9714c5f5f32b6df, type: 3}
     m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
@@ -3548,7 +3550,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: e4eadef015cb0884a9e41c30b657a26a, type: 3}
+    m_Font: {fileID: 12800000, guid: ac1186f0096ce404d9714c5f5f32b6df, type: 3}
     m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
@@ -3713,7 +3715,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 435, y: 12}
+  m_AnchoredPosition: {x: 465, y: -93}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1566627248
@@ -3953,7 +3955,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: e4eadef015cb0884a9e41c30b657a26a, type: 3}
+    m_Font: {fileID: 12800000, guid: ac1186f0096ce404d9714c5f5f32b6df, type: 3}
     m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
@@ -4224,7 +4226,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: e4eadef015cb0884a9e41c30b657a26a, type: 3}
+    m_Font: {fileID: 12800000, guid: ac1186f0096ce404d9714c5f5f32b6df, type: 3}
     m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
@@ -4308,7 +4310,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: e4eadef015cb0884a9e41c30b657a26a, type: 3}
+    m_Font: {fileID: 12800000, guid: ac1186f0096ce404d9714c5f5f32b6df, type: 3}
     m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
