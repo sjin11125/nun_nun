@@ -73,30 +73,18 @@ public class ChaButtonScript : MonoBehaviour
                 Image[] InfoImage = NuniInfo.GetComponentsInChildren<Image>();
                 Image[] stars = NuniInfo.transform.Find("Stars").GetComponentsInChildren<Image>();
 
-                if (nuni.Star == "1")
+                if (nuni.Star == "2")
                 {
                     Debug.Log("이 누니는 현재 " + nuni.Star + "성 입니다.");
-                    InfoImage[1].color = new Color(244 / 255f, 255 / 255f, 162 / 255f);
-
-                    Debug.Log(InfoImage[1].name);
-
-
-                  /*  Debug.Log("이 누니는 현재 " + nuni.Star + "성 입니다.");
-                    InfoImage[1].color = new Color(210 / 255f, 150 / 255f, 255 / 255f);*/
+                    InfoImage[1].color = new Color(210 / 255f, 150 / 255f, 255 / 255f);
                     
                 }
                 else if (nuni.Star == "3")
                 {
                     Debug.Log("이 누니는 현재 " + nuni.Star + "성 입니다.");
-                    InfoImage[1].color = new Color(255 / 255f, 168 / 255f, 255 / 255f);
+                    InfoImage[1].color = new Color(255 / 255f, 249 / 255f, 167 / 255f);
                     
                     Debug.Log(InfoImage[1].name);
-                }
-                else
-                {
-                    Debug.Log("이 누니는 현재 " + nuni.Star + "성 입니다.");
-                   // InfoImage[1].color = new Color(210 / 255f, 150 / 255f, 255 / 255f);
-
                 }
                 /* for (int j = 0; j < int.Parse(GameManager.AllNuniArray[i].Star); j++)   //별 넣기
                  {
@@ -151,14 +139,11 @@ public class ChaButtonScript : MonoBehaviour
             buildings[1].SetActive(true);
             building.Level += 1;
 
-            SpriteRenderer spriteRenderer = buildings[1].GetComponentInChildren<SpriteRenderer>();
-            spriteRenderer.sortingOrder = buildings[0].GetComponentInChildren<SpriteRenderer>().sortingOrder + 1;
         }
         else
         {
             Debug.Log("222");
             buildings[2].SetActive(true);
-
             building.Level += 1;
         }
         GameManager.Money -= building.Cost[building.Level-1];
@@ -326,7 +311,6 @@ public class ChaButtonScript : MonoBehaviour
                 if (DogamManager.BuildingInformation[i].Building_name == buildingName)
                 {
                     building.SetValue(DogamManager.BuildingInformation[i]);
-                    Debug.Log("빌딩은 현재 "+ building.Level+"레벨");
                 }
             }
             for (int i = 0; i < GameManager.StrArray.Length; i++)
@@ -343,7 +327,6 @@ public class ChaButtonScript : MonoBehaviour
             if (GameManager.Money < pay || GameManager.ShinMoney < shinPay)      //돈이나 자원이 모자르면 거절 메세지 띄움
             {
                 UIManager.isSetMoney = -1;
-                Debug.Log("결제못함");
             }
             else                    // 결제함
             {
@@ -382,12 +365,11 @@ public class ChaButtonScript : MonoBehaviour
                 Building c = GameManager.CurrentBuilding.GetComponent<Building>();
                 c.Building_Image = buildingname;
                 c = b.GetComponent<Building>().DeepCopy();
-                b.Level = 1;
+
                 c.SetValue(b);
-                Debug.Log("빌딩은 현재 " +b.Level + "레벨");
+
                 parent.gameObject.SetActive(false);
                 isEdit = true;
-                
             }
 
         }

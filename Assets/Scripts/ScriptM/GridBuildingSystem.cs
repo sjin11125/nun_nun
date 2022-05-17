@@ -279,7 +279,7 @@ public class GridBuildingSystem : MonoBehaviour
         }
 
 
-            if (second >= 1.3f&& isEditing==false)
+            if (second >= 2.0f&& isEditing==false)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
@@ -407,31 +407,17 @@ public class GridBuildingSystem : MonoBehaviour
         temp_gameObject = Instantiate(GameManager.CurrentBuilding, Vector3.zero, Quaternion.identity,buildings.transform) as GameObject;
         
           temp = temp_gameObject.GetComponent<Building>(); // 이때 building 프리펩의 속성 불러오기
-        
+        Debug.Log("uuuuuuuuu"+ GameManager.BuildingArray.Length);
         for (int i = 0; i < GameManager.BuildingArray.Length; i++)
         {
             if (GameManager.BuildingArray[i].Building_Image==temp.Building_Image)
             {
                 Debug.Log("Good");
-                Debug.Log("Good "+ GameManager.BuildingArray[i].Building_name);
-                GameManager.BuildingArray[i].Level = 1;
                 temp.SetValue(GameManager.BuildingArray[i]);
-                Debug.Log("uuuuuuuuu: " + GameManager.BuildingArray[i].Cost[0]);
                 break;
             }
         }
-        for (int i = 0; i < GameManager.StrArray.Length; i++)
-        {
-            if (GameManager.StrArray[i].Building_Image == temp.Building_Image)
-            {
-                Debug.Log("Good");
-                Debug.Log("Good " + GameManager.StrArray[i].Building_name);
-                GameManager.StrArray[i].Level = 1;
-                temp.SetValue(GameManager.StrArray[i]);
-                Debug.Log("uuuuuuuuu: " + GameManager.StrArray[i].Cost[0]);
-                break;
-            }
-        }
+
 
         temp.Type = BuildType.Make;
 
