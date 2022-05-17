@@ -12,11 +12,11 @@ public class GameExitController : MonoBehaviour
         
         int tutorialsDone = PlayerPrefs.GetInt("TutorialDone", 0);
         
-        if (tutorialsDone == 0)
+      /*  if (tutorialsDone == 0)
         {
             SceneManager.LoadScene("TutorialsScene");
             return;
-        }
+        }*/
     }
 
     public void GameSave()
