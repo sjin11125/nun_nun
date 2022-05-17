@@ -286,34 +286,36 @@ public class GridBuildingSystem : MonoBehaviour
             Debug.Log("isMoveLock: " + GameManager.isMoveLock);
 
             Debug.Log("temp is null");
-            
 
-            if (hit.transform.tag == "Building" && GameManager.isStore == false)
+            if (hit.transform != null)
             {
-                Grid.GetComponent<SpriteRenderer>().sortingOrder = -50;             //메인 타일 보이게
-                temp = hit.transform.GetComponent<Building>();
-                GameManager.CurrentBuilding_Script = temp;
-                //UI_Manager.StartOpen();     //ui 중앙으로 이동
-                temp.Type = BuildType.Move;
-                temp.Placed = false;        //배치가 안 된 상태로 변환
-
-                temp.area.position = gridLayout.WorldToCell(temp.gameObject.transform.position);
-                BoundsInt buildingArea = temp.area;
-
-                TileBase[] baseArray = GetTilesBlock(buildingArea, MainTilemap);
-                int size = baseArray.Length;
-                for (int i = 0; i < size; i++)
+                if (hit.transform.tag == "Building" && GameManager.isStore == false)
                 {
-                    baseArray[i] = tileBases[TileType.Empty];
-                    //FillTiles(baseArray, TileType.White);
-                    Debug.Log("tiles");
-                }
-                TempTilemap.SetTilesBlock(buildingArea, baseArray);
-                SetTilesBlock(buildingArea, TileType.White, MainTilemap);
+                    Grid.GetComponent<SpriteRenderer>().sortingOrder = -50;             //메인 타일 보이게
+                    temp = hit.transform.GetComponent<Building>();
+                    GameManager.CurrentBuilding_Script = temp;
+                    //UI_Manager.StartOpen();     //ui 중앙으로 이동
+                    temp.Type = BuildType.Move;
+                    temp.Placed = false;        //배치가 안 된 상태로 변환
 
-                //FollowBuilding(true);
-                Grid.GetComponent<SpriteRenderer>().sortingOrder = -50;
-                Debug.Log("Level: " + temp.Level);
+                    temp.area.position = gridLayout.WorldToCell(temp.gameObject.transform.position);
+                    BoundsInt buildingArea = temp.area;
+
+                    TileBase[] baseArray = GetTilesBlock(buildingArea, MainTilemap);
+                    int size = baseArray.Length;
+                    for (int i = 0; i < size; i++)
+                    {
+                        baseArray[i] = tileBases[TileType.Empty];
+                        //FillTiles(baseArray, TileType.White);
+                        Debug.Log("tiles");
+                    }
+                    TempTilemap.SetTilesBlock(buildingArea, baseArray);
+                    SetTilesBlock(buildingArea, TileType.White, MainTilemap);
+
+                    //FollowBuilding(true);
+                    Grid.GetComponent<SpriteRenderer>().sortingOrder = -50;
+                    Debug.Log("Level: " + temp.Level);
+                }
             }
             
             // BuildEdit(hit);

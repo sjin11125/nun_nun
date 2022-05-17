@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TutorialsItemControl : MonoBehaviour
 {
@@ -14,19 +15,13 @@ public class TutorialsItemControl : MonoBehaviour
     [SerializeField] [Header("사용자 입력 대기시 표시할 게임오브젝트")] GameObject gameObjectToShow;
 
     bool isReadyToInput = false;
+    public bool goNext;
 
-
-    private void Start()
-    {
-
-    }
     private void OnEnable()
     {
-
         Invoke("ShowGameObject", timeToInput);
-
     }
-    // Update is called once per frame
+
     void Update()
     {
         // 입력대기 상태가 되면 터치를 입력 받는다.
@@ -35,25 +30,12 @@ public class TutorialsItemControl : MonoBehaviour
             if (itemType == ItemType.touch)
             {
                 // 입력을 하면 계속 진행
-                if (Input.GetMouseButtonDown(0))
+                if (Input.GetMouseButtonDown(0) && goNext)
                 {
-                   // RaycastHit2D hit;
-                   // Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                    //hit = Physics2D.Raycast(pos, Vector2.zero, 0f);
-
-                   // if (hit.collider != null)
-                    //{
-                     //   if(hit.collider.gameObject == gameObjectToShow)
-                     //   {
-                            Run();
-                      //  }
-                   // }                   
+                    Run();                  
                 }
-
             }
-
         }
-
     }
 
     virtual protected void Run()
@@ -70,18 +52,26 @@ public class TutorialsItemControl : MonoBehaviour
         {
             parentTutorialsManager.ActiveNextItem();
         }
-
-        Time.timeScale = 1.0f;
     }
 
     void ShowGameObject()
     {
         isReadyToInput = true;
-        Time.timeScale = 0.0f;
 
         if (gameObjectToShow == null)
             return;
 
         gameObjectToShow.SetActive(true);
+    }
+
+    public void HiRandomOnclick()
+    {
+        LoadingSceneController.Instance.LoadScene("TutorialsShop");
+        goNext = true;
+    }
+
+    public void StoreCloseOnclick()
+    {
+        goNext = true;
     }
 }

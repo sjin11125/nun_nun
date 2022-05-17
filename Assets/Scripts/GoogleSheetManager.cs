@@ -28,7 +28,7 @@ public class GoogleSheetManager : MonoBehaviour
 
     private void Awake()
     {
-        if (id != null)
+        if (RandomSelect.isTuto == 1)
         {
             id = PlayerPrefs.GetString("Id");
             pass = PlayerPrefs.GetString("Pass");

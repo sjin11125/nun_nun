@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class TutorialsManager : MonoBehaviour
 {
     [SerializeField] [Header("Tutorials items")] TutorialsItemControl[] items;
-    int itemIndex = 0;
-    // Start is called before the first frame update
+    public static int itemIndex;
+    GameObject bunsu;
+
     void Start()
     {
         // 모든 아이템을 비활성화 하고, 첫번째 것만 활성화 한다.
@@ -21,32 +21,49 @@ public class TutorialsManager : MonoBehaviour
         {
             item.gameObject.SetActive(false);
         }
-
-        itemIndex = -1;
+        bunsu = GameObject.FindWithTag("bunsu");
         ActiveNextItem();
     }
 
     // 다음 아이템을 활성화 한다.
     public void ActiveNextItem()
     {
-        // 현재 아이템 비활성화
-        if (itemIndex > -1 && itemIndex < items.Length)
-        {
-            items[itemIndex].gameObject.SetActive(false);
-        }
-
-        // 인덱스 변경
-        itemIndex++;
-
-        if (itemIndex > -1 && itemIndex < items.Length)
-        {
-            items[itemIndex].gameObject.SetActive(true);
-        }
-
         if (items.Length == itemIndex)
         {
-            PlayerPrefs.SetInt("TutorialDone", 1);
-            SceneManager.LoadScene("Main");
+            //PlayerPrefs.SetInt("TutorialsDone", 1);
+            this.gameObject.SetActive(false);
+            bunsu.gameObject.SetActive(true);
+        }
+        else
+        {
+            if (itemIndex - 1 > -1 && itemIndex - 1 < items.Length)
+            {
+                items[itemIndex - 1].gameObject.SetActive(false);// 전 아이템 비활성화
+            }
+
+            if (itemIndex > -1 && itemIndex < items.Length)
+            {
+                items[itemIndex].gameObject.SetActive(true);// 아이템 활성화
+                if (itemIndex == 0)
+                {
+                    GameManager.Money = 2000;
+                    GameManager.ShinMoney = 0;
+                }
+                if (itemIndex == 1)
+                {
+                    bunsu = GameObject.FindWithTag("bunsu");
+                }
+                if (itemIndex == 2)        //ii1y1
+                {
+                    bunsu.gameObject.SetActive(false);
+                }
+                if (itemIndex == 10)
+                {
+                    GameManager.Money += 100;
+                    GameManager.ShinMoney += 1;
+                }
+            }
+            itemIndex++;
         }
     }
 }

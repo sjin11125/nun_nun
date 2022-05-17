@@ -8,6 +8,8 @@ public class RandomSelect : MonoBehaviour
     public List<Card> deck;  // 카드 덱
     public int total = 0;  // 카드들의 가중치 총 합
 
+    public static int isTuto;
+
     void Start()
     {
         deck = new List<Card>();
@@ -106,7 +108,14 @@ public class RandomSelect : MonoBehaviour
     {
         // 이렇게하면 가중치 랜덤함수 (확률이 다름)
 
-        return GameManager.AllNuniArray[Random.Range(0, GameManager.AllNuniArray.Length)];
+        if (isTuto == 0)
+        {
+            return GameManager.AllNuniArray[6];
+        }
+        else
+        {
+            return GameManager.AllNuniArray[Random.Range(0, GameManager.AllNuniArray.Length)];
+        }
     }
 
 }
