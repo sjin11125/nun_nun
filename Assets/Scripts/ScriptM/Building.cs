@@ -315,7 +315,19 @@ public class Building : MonoBehaviour
                 Debug.Log("buildings: "+ child[1].gameObject.name);
                 Debug.Log("sorting order: "+ (int)transform.position.y);
                 //child[1].GetComponent<SpriteRenderer>().sortingOrder = (int)transform.position.y;
-                buildings[0].GetComponent<SortingGroup>().sortingOrder = -(int)transform.position.y ;
+                if ((int)transform.position.x<0)
+                {
+                    buildings[0].GetComponent<SortingGroup>().sortingOrder = ((int)transform.position.y + (int)transform.position.x);
+                }
+                else
+                buildings[0].GetComponent<SortingGroup>().sortingOrder = -((int)transform.position.y + (int)transform.position.x);
+                /*if((int)transform.position.x<0)
+                    buildings[0].GetComponent<SortingGroup>().sortingOrder = -((int)transform.position.y + (int)transform.position.x);
+                else
+                {
+                    buildings[0].GetComponent<SortingGroup>().sortingOrder = ((int)transform.position.y - (int)transform.position.x);
+
+                }*/
                 Debug.Log(" buildings[0]:  " + buildings[0].transform.parent.gameObject.name);
                 Debug.Log(" buildings[0] layer:  " + buildings[0].GetComponent<SortingGroup>().sortingOrder);
                 // SpriteRenderer[] buildingsSprite= gameObject.GetComponentsInChildren<SpriteRenderer>();
@@ -326,8 +338,15 @@ public class Building : MonoBehaviour
                 buildings[0].SetActive(true);
                 buildings[1].SetActive(true);
                 //buildings[2].SetActive(false);
-                buildings[1].GetComponentInChildren<SortingGroup>().sortingOrder = -(int)transform.position.y + 1;
-                
+                if ((int)transform.position.x > (int)transform.position.y)
+                {
+                    buildings[0].GetComponent<SortingGroup>().sortingOrder = ((int)transform.position.y + (int)transform.position.x);
+                }
+                else
+                    buildings[0].GetComponent<SortingGroup>().sortingOrder = -((int)transform.position.y + (int)transform.position.x); buildings[1].GetComponentInChildren<SortingGroup>().sortingOrder = -(int)transform.position.y + 1;
+                Debug.Log(" buildings[0]:  " + buildings[0].transform.parent.gameObject.name);
+                Debug.Log(" buildings[0] layer:  " + buildings[0].GetComponent<SortingGroup>().sortingOrder);
+
                 break;
             case 3:
                 buildings[0].SetActive(false);
@@ -507,6 +526,14 @@ public class Building : MonoBehaviour
         Placed = true;      // 배치 했니? 네
         GridBuildingSystem.current.TakeArea(areaTemp);      //타일 맵 설정
         transform.position = vec;
+        Debug.Log("areaTemp: " + Id);
+        Debug.Log("areaTemp: " + areaTemp.position);
+        //Debug.Log("index: "+ (-((int)transform.position.y - (int)transform.position.x)));
+       /* buildings[0].GetComponent<SortingGroup>().sortingOrder = -((int)transform.position.y- (int)transform.position.x);
+        if (Level == 2)
+        {
+            buildings[1].GetComponentInChildren<SortingGroup>().sortingOrder = -((int)transform.position.y-(int)transform.position.x);
+        }*/
     }
     public void Place(BuildType buildtype)         //건물 배치
     {
@@ -515,7 +542,7 @@ public class Building : MonoBehaviour
         Vector3 vec = transform.position;
         Vector3Int positionInt = GridBuildingSystem.current.gridLayout.LocalToCell(vec);
         BoundsInt areaTemp = area;
-        Debug.Log(areaTemp.position);
+        Debug.Log( "areaTemp: "+areaTemp.position);
         //areaTemp.position = positionInt;
         //Debug.Log(areaTemp.position);
         Placed = true;      // 배치 했니? 네

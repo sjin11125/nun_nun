@@ -271,18 +271,23 @@ public class ChaButtonScript : MonoBehaviour
 
             //chaimage.sprite = StartManager.NuNiInformation[StartManager.ChaIndex].GetChaImange();
             Debug.Log("StartManager.ChaIndex: "+item);
-            if (GameManager.Items[item] != true)
+
+        if (GameManager.Items[item] != true)
+        {
+            if (GameManager.items <= 2)
             {
                 GameManager.Items[item] = true;
                 GameManager.items += 1;
                 Check.SetActive(true);
             }
-            else
-            {
-                GameManager.Items[item] = false;
-                GameManager.items -= 1;
-                Check.SetActive(false);
-            }
+
+        }
+        else
+        {
+            GameManager.Items[item] = false;
+            GameManager.items -= 1;
+            Check.SetActive(false);
+        }
 
         /* 아이템 목록
 * 0: 지우개               (황제)
