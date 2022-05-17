@@ -397,6 +397,7 @@ public class ChaButtonScript : MonoBehaviour
 
 
         settigPanel.GetComponent<AudioController>().Sound[1].Play();
+        GameObject.FindWithTag("TutoBuy").GetComponent<TutorialsItemControl>().goNext = true;
     }
 }
 

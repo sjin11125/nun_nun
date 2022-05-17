@@ -6,16 +6,22 @@ using UnityEngine.SceneManagement;
 
 public class GameExitController : MonoBehaviour
 {
+    public GameObject TutoManager;
     public void Awake()
     {
-        GameLoad();
+        int tutorialsDone = PlayerPrefs.GetInt("TutorialsDone", 0);
         
-        int tutorialsDone = PlayerPrefs.GetInt("TutorialDone", 0);
-        
-        if (tutorialsDone == 0)
+        if (tutorialsDone == 0)//종료는 튜토매니저
         {
-            SceneManager.LoadScene("TutorialsScene");
+            TutoManager.SetActive(true);
+            RandomSelect.isTuto = 0;
             return;
+        }
+        else
+        {
+            TutoManager.SetActive(false);
+            RandomSelect.isTuto = 1;
+            GameLoad();
         }
     }
 

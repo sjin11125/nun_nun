@@ -42,7 +42,7 @@ public class LoadManager : MonoBehaviour
             if (www.isDone)
             {
 
-                MoneyResponse(www.downloadHandler.text);
+                //MoneyResponse(www.downloadHandler.text);
 
             }  
             else print("웹의 응답이 없습니다.");
@@ -58,7 +58,7 @@ public class LoadManager : MonoBehaviour
         }
         Debug.Log("현재돈:      " + json);
         string[] moneys = json.Split('@');
-        Debug.Log(moneys[0] +"    "+ moneys[1]);
+        Debug.Log(moneys[0] +"    "+ moneys[1]);//
         GameManager.Money =int.Parse(moneys[0].ToString());
         GameManager.ShinMoney= int.Parse(moneys[1].ToString());
 
