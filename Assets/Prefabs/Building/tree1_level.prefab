@@ -265,7 +265,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.019247532, y: 0.60479474}
+  m_Offset: {x: 0.022077702, y: 0.5786221}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -276,7 +276,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.4884982, y: 1.2348008}
+  m_Size: {x: 0.1964667, y: 1.2871461}
   m_EdgeRadius: 0
 --- !u!114 &4731096851794831002
 MonoBehaviour:
@@ -346,6 +346,7 @@ MonoBehaviour:
   BuildingPosiiton_x: 
   BuildingPosiiton_y: 
   Id: 
+  str: 
   layer_y: 0
   UpgradePannel: {fileID: 3322355556386377119, guid: 76385d16ace105b4a959d0e5c52ad629, type: 3}
   UpgradePannel2: {fileID: 3990997439624646519, guid: 76385d16ace105b4a959d0e5c52ad629, type: 3}
@@ -413,6 +414,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2132867819981942806}
   - component: {fileID: 2132867819981942809}
+  - component: {fileID: 1107711020459302489}
   m_Layer: 0
   m_Name: building
   m_TagString: Untagged
@@ -485,6 +487,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!210 &1107711020459302489
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2132867819981942807}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &5139545430878492225
 GameObject:
   m_ObjectHideFlags: 0

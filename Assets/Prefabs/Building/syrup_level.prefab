@@ -256,6 +256,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3505730606114392438}
   - component: {fileID: 3276481892438715136}
+  - component: {fileID: 9010877009294082164}
   m_Layer: 0
   m_Name: Ultari
   m_TagString: Untagged
@@ -328,6 +329,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!210 &9010877009294082164
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1826626686832014713}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &1853321195589852292
 GameObject:
   m_ObjectHideFlags: 0
@@ -489,6 +501,7 @@ MonoBehaviour:
   BuildingPosiiton_x: 
   BuildingPosiiton_y: 
   Id: 
+  str: 
   layer_y: 0
   UpgradePannel: {fileID: 3322355556386377119}
   UpgradePannel2: {fileID: 3990997439624646519}
@@ -508,7 +521,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.12677634, y: 0.9130672}
+  m_Offset: {x: 0.114129364, y: 0.7202016}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -519,7 +532,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.9965413, y: 2.3029487}
+  m_Size: {x: 1.6803681, y: 1.6136913}
   m_EdgeRadius: 0
 --- !u!114 &-2284381711254009516
 MonoBehaviour:
@@ -806,6 +819,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2132867819981942806}
   - component: {fileID: 2132867819981942809}
+  - component: {fileID: 5034269002096740375}
   m_Layer: 0
   m_Name: building
   m_TagString: Untagged
@@ -878,6 +892,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!210 &5034269002096740375
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2132867819981942807}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &2947379992679928801
 GameObject:
   m_ObjectHideFlags: 0
@@ -1455,13 +1480,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a775106deafbe64daa4fb580ae6c8b1, type: 3}
---- !u!224 &3990997439624646518 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 5066180194701751630, guid: 4a775106deafbe64daa4fb580ae6c8b1, type: 3}
-  m_PrefabInstance: {fileID: 8155015127574460984}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3990997439624646519 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5066180194701751631, guid: 4a775106deafbe64daa4fb580ae6c8b1, type: 3}
+  m_PrefabInstance: {fileID: 8155015127574460984}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &3990997439624646518 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5066180194701751630, guid: 4a775106deafbe64daa4fb580ae6c8b1, type: 3}
   m_PrefabInstance: {fileID: 8155015127574460984}
   m_PrefabAsset: {fileID: 0}

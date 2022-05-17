@@ -143,6 +143,7 @@ GameObject:
   - component: {fileID: 4337750507591132674}
   - component: {fileID: 4731096851794831002}
   - component: {fileID: -4658160287490729801}
+  - component: {fileID: 5299571436958618749}
   m_Layer: 0
   m_Name: fence_level
   m_TagString: Building
@@ -177,13 +178,13 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2132867818646730806}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.047978103, y: 0.0058754683}
+  m_Offset: {x: 0.019357145, y: -0.055702925}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -194,7 +195,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6229495, y: 0.6725502}
+  m_Size: {x: 0.56570756, y: 0.48347843}
   m_EdgeRadius: 0
 --- !u!114 &4731096851794831002
 MonoBehaviour:
@@ -264,6 +265,7 @@ MonoBehaviour:
   BuildingPosiiton_x: 
   BuildingPosiiton_y: 
   Id: 
+  str: 
   layer_y: 0
   UpgradePannel: {fileID: 3322355556386377119, guid: 76385d16ace105b4a959d0e5c52ad629, type: 3}
   UpgradePannel2: {fileID: 3990997439624646519, guid: 76385d16ace105b4a959d0e5c52ad629, type: 3}
@@ -272,6 +274,22 @@ MonoBehaviour:
   - {fileID: 6943732884510202777}
   Type: 0
   save: {fileID: 0}
+--- !u!70 &5299571436958618749
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2132867818646730806}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.038909424, y: -0.06917201}
+  m_Size: {x: 0.5547064, y: 0.29963437}
+  m_Direction: 1
 --- !u!1 &2132867819840144645
 GameObject:
   m_ObjectHideFlags: 0
@@ -331,6 +349,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2132867819981942806}
   - component: {fileID: 2132867819981942809}
+  - component: {fileID: 9047229945739978487}
   m_Layer: 0
   m_Name: building
   m_TagString: Untagged
@@ -403,6 +422,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!210 &9047229945739978487
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2132867819981942807}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &4046615942298129214
 GameObject:
   m_ObjectHideFlags: 0
