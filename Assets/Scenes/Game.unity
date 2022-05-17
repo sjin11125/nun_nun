@@ -149,7 +149,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3143575}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bf6cbac4102f2c459d60ebda4578797, type: 3}
+  m_Script: {fileID: 11500000, guid: f49a13bf47b80e74ebeb51ca5aefacef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   items:
@@ -158,6 +158,7 @@ MonoBehaviour:
   - {fileID: 1511544128}
   - {fileID: 379659784}
   - {fileID: 1432204168}
+  itemIndex: 0
 --- !u!4 &3143577
 Transform:
   m_ObjectHideFlags: 0
@@ -811,6 +812,7 @@ MonoBehaviour:
   timeToInput: 1
   gameObjectToShow: {fileID: 18544104}
   goNext: 1
+  isGame: 1
 --- !u!4 &18544106
 Transform:
   m_ObjectHideFlags: 0
@@ -1163,6 +1165,7 @@ MonoBehaviour:
   timeToInput: 1
   gameObjectToShow: {fileID: 53161491}
   goNext: 1
+  isGame: 1
 --- !u!4 &53161493
 Transform:
   m_ObjectHideFlags: 0
@@ -1361,6 +1364,7 @@ MonoBehaviour:
   timeToInput: 1
   gameObjectToShow: {fileID: 77537155}
   goNext: 1
+  isGame: 1
 --- !u!4 &77537157
 Transform:
   m_ObjectHideFlags: 0
@@ -3271,12 +3275,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 214260858}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bf6cbac4102f2c459d60ebda4578797, type: 3}
+  m_Script: {fileID: 11500000, guid: f49a13bf47b80e74ebeb51ca5aefacef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   items:
   - {fileID: 2102091634}
   - {fileID: 1543731165}
+  itemIndex: 0
 --- !u!4 &214260860
 Transform:
   m_ObjectHideFlags: 0
@@ -5603,6 +5608,7 @@ MonoBehaviour:
   timeToInput: 1
   gameObjectToShow: {fileID: 379659783}
   goNext: 1
+  isGame: 1
 --- !u!4 &379659785
 Transform:
   m_ObjectHideFlags: 0
@@ -10138,6 +10144,7 @@ MonoBehaviour:
   timeToInput: 1
   gameObjectToShow: {fileID: 694161791}
   goNext: 1
+  isGame: 1
 --- !u!4 &694161793
 Transform:
   m_ObjectHideFlags: 0
@@ -10995,7 +11002,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 763158738}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bf6cbac4102f2c459d60ebda4578797, type: 3}
+  m_Script: {fileID: 11500000, guid: f49a13bf47b80e74ebeb51ca5aefacef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   items:
@@ -11004,6 +11011,7 @@ MonoBehaviour:
   - {fileID: 53161492}
   - {fileID: 694161792}
   - {fileID: 77537156}
+  itemIndex: 0
 --- !u!4 &763158740
 Transform:
   m_ObjectHideFlags: 0
@@ -15357,6 +15365,7 @@ MonoBehaviour:
   timeToInput: 1
   gameObjectToShow: {fileID: 1193088776}
   goNext: 1
+  isGame: 1
 --- !u!4 &1193088778
 Transform:
   m_ObjectHideFlags: 0
@@ -16703,6 +16712,7 @@ MonoBehaviour:
   timeToInput: 1
   gameObjectToShow: {fileID: 1294653210}
   goNext: 1
+  isGame: 1
 --- !u!4 &1294653212
 Transform:
   m_ObjectHideFlags: 0
@@ -16751,6 +16761,7 @@ MonoBehaviour:
   timeToInput: 1
   gameObjectToShow: {fileID: 1302747628}
   goNext: 1
+  isGame: 1
 --- !u!4 &1302747630
 Transform:
   m_ObjectHideFlags: 0
@@ -17665,6 +17676,7 @@ MonoBehaviour:
   timeToInput: 1
   gameObjectToShow: {fileID: 1353637415}
   goNext: 1
+  isGame: 1
 --- !u!4 &1353637417
 Transform:
   m_ObjectHideFlags: 0
@@ -18231,6 +18243,7 @@ MonoBehaviour:
   timeToInput: 1
   gameObjectToShow: {fileID: 1432204167}
   goNext: 1
+  isGame: 1
 --- !u!4 &1432204169
 Transform:
   m_ObjectHideFlags: 0
@@ -18896,13 +18909,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1485249470}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bf6cbac4102f2c459d60ebda4578797, type: 3}
+  m_Script: {fileID: 11500000, guid: f49a13bf47b80e74ebeb51ca5aefacef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   items:
   - {fileID: 1616822607}
   - {fileID: 1193088777}
   - {fileID: 1294653211}
+  itemIndex: 0
 --- !u!4 &1485249472
 Transform:
   m_ObjectHideFlags: 0
@@ -19395,6 +19409,7 @@ MonoBehaviour:
   timeToInput: 1
   gameObjectToShow: {fileID: 1511544127}
   goNext: 1
+  isGame: 1
 --- !u!4 &1511544129
 Transform:
   m_ObjectHideFlags: 0
@@ -19774,6 +19789,7 @@ MonoBehaviour:
   timeToInput: 1
   gameObjectToShow: {fileID: 1537258411}
   goNext: 1
+  isGame: 1
 --- !u!1 &1540329936
 GameObject:
   m_ObjectHideFlags: 0
@@ -19905,6 +19921,7 @@ MonoBehaviour:
   timeToInput: 1
   gameObjectToShow: {fileID: 1543731164}
   goNext: 1
+  isGame: 1
 --- !u!4 &1543731166
 Transform:
   m_ObjectHideFlags: 0
@@ -20941,6 +20958,7 @@ MonoBehaviour:
   timeToInput: 1
   gameObjectToShow: {fileID: 1616822606}
   goNext: 1
+  isGame: 1
 --- !u!4 &1616822608
 Transform:
   m_ObjectHideFlags: 0
@@ -21068,6 +21086,7 @@ MonoBehaviour:
   timeToInput: 1
   gameObjectToShow: {fileID: 1620563382}
   goNext: 1
+  isGame: 1
 --- !u!4 &1620563384
 Transform:
   m_ObjectHideFlags: 0
@@ -22731,6 +22750,7 @@ MonoBehaviour:
   timeToInput: 1
   gameObjectToShow: {fileID: 1714220291}
   goNext: 1
+  isGame: 1
 --- !u!4 &1714220293
 Transform:
   m_ObjectHideFlags: 0
@@ -23312,12 +23332,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1756052823}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bf6cbac4102f2c459d60ebda4578797, type: 3}
+  m_Script: {fileID: 11500000, guid: f49a13bf47b80e74ebeb51ca5aefacef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   items:
   - {fileID: 1302747629}
   - {fileID: 2047165195}
+  itemIndex: 0
 --- !u!4 &1756052825
 Transform:
   m_ObjectHideFlags: 0
@@ -24667,6 +24688,7 @@ MonoBehaviour:
   timeToInput: 1
   gameObjectToShow: {fileID: 1850951702}
   goNext: 1
+  isGame: 1
 --- !u!4 &1850951704
 Transform:
   m_ObjectHideFlags: 0
@@ -26960,6 +26982,7 @@ MonoBehaviour:
   timeToInput: 1
   gameObjectToShow: {fileID: 1976959057}
   goNext: 1
+  isGame: 1
 --- !u!1 &1983213960
 GameObject:
   m_ObjectHideFlags: 0
@@ -28647,6 +28670,7 @@ MonoBehaviour:
   timeToInput: 1
   gameObjectToShow: {fileID: 2047165194}
   goNext: 1
+  isGame: 1
 --- !u!4 &2047165196
 Transform:
   m_ObjectHideFlags: 0
@@ -29291,6 +29315,7 @@ MonoBehaviour:
   timeToInput: 1
   gameObjectToShow: {fileID: 2102091633}
   goNext: 1
+  isGame: 1
 --- !u!4 &2102091635
 Transform:
   m_ObjectHideFlags: 0
@@ -35336,7 +35361,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8797584634521308390}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bf6cbac4102f2c459d60ebda4578797, type: 3}
+  m_Script: {fileID: 11500000, guid: f49a13bf47b80e74ebeb51ca5aefacef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   items:
@@ -35344,6 +35369,7 @@ MonoBehaviour:
   - {fileID: 18544105}
   - {fileID: 1976959059}
   - {fileID: 1537258413}
+  itemIndex: 0
 --- !u!114 &8797584635157847884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35866,6 +35892,7 @@ MonoBehaviour:
   timeToInput: 1
   gameObjectToShow: {fileID: 8797584635989760664}
   goNext: 1
+  isGame: 1
 --- !u!4 &8797584635989760670
 Transform:
   m_ObjectHideFlags: 0

@@ -32,7 +32,11 @@ public class TutorialsManager : MonoBehaviour
         {
             //PlayerPrefs.SetInt("TutorialsDone", 1);
             this.gameObject.SetActive(false);
-            bunsu.gameObject.SetActive(true);
+            if(bunsu != null)
+            {
+                bunsu.gameObject.SetActive(true);
+            }
+            RandomSelect.isTuto = 1;
         }
         else
         {
@@ -55,7 +59,10 @@ public class TutorialsManager : MonoBehaviour
                 }
                 if (itemIndex == 2)        //ii1y1
                 {
-                    bunsu.gameObject.SetActive(false);
+                    if (bunsu != null)
+                    {
+                        bunsu.gameObject.SetActive(false);
+                    }
                 }
                 if (itemIndex == 10)
                 {

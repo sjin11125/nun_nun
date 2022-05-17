@@ -16,6 +16,7 @@ public class TutorialsItemControl : MonoBehaviour
 
     bool isReadyToInput = false;
     public bool goNext;
+    public bool isGame;
 
     private void OnEnable()
     {
@@ -47,10 +48,21 @@ public class TutorialsItemControl : MonoBehaviour
         gameObjectToShow.SetActive(false);
 
         // 다음 아이템 활성화
-        TutorialsManager parentTutorialsManager = parentTutorialsManager = transform.parent.GetComponent<TutorialsManager>();
-        if (parentTutorialsManager != null)
+        if (isGame)
         {
-            parentTutorialsManager.ActiveNextItem();
+            GameTutorialsManager parentTutorialsManager = parentTutorialsManager = transform.parent.GetComponent<GameTutorialsManager>();
+            if (parentTutorialsManager != null)
+            {
+                parentTutorialsManager.ActiveNextItem();
+            }
+        }
+        else
+        {
+            TutorialsManager parentTutorialsManager = parentTutorialsManager = transform.parent.GetComponent<TutorialsManager>();
+            if (parentTutorialsManager != null)
+            {
+                parentTutorialsManager.ActiveNextItem();
+            }
         }
     }
 
