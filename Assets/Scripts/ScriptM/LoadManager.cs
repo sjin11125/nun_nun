@@ -164,6 +164,7 @@ public class LoadManager : MonoBehaviour
     void Start()
     {
         isLoaded = false;
+        GameManager.items = 0;          //아이템 초기화
         if (SceneManager.GetActiveScene().name == "Main")
         {
 
