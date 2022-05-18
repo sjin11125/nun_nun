@@ -42,7 +42,7 @@ public class LoadManager : MonoBehaviour
             if (www.isDone)
             {
 
-                //MoneyResponse(www.downloadHandler.text);
+                MoneyResponse(www.downloadHandler.text);
 
             }  
             else print("웹의 응답이 없습니다.");
@@ -164,6 +164,7 @@ public class LoadManager : MonoBehaviour
     void Start()
     {
         isLoaded = false;
+        GameManager.items = 0;          //아이템 초기화
         if (SceneManager.GetActiveScene().name == "Main")
         {
 
@@ -298,6 +299,16 @@ public class LoadManager : MonoBehaviour
                             g_Building.Reward = GameManager.BuildingArray[j].Reward;
                             g_Building.Cost = GameManager.BuildingArray[j].Cost;
                             g_Building.ShinCost = GameManager.BuildingArray[j].ShinCost;
+                        }
+
+                    }
+                    for (int j = 0; j < GameManager.StrArray.Length; j++)
+                    {
+                        if (g_Building.Building_Image == GameManager.StrArray[j].Building_Image)
+                        {
+                            g_Building.Reward = GameManager.StrArray[j].Reward;
+                            g_Building.Cost = GameManager.StrArray[j].Cost;
+                            g_Building.ShinCost = GameManager.StrArray[j].ShinCost;
                         }
 
                     }

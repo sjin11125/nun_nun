@@ -28,7 +28,7 @@ public class GoogleSheetManager : MonoBehaviour
 
     private void Awake()
     {
-        if (RandomSelect.isTuto == 1)
+      /*  if (RandomSelect.isTuto == 1)
         {
             id = PlayerPrefs.GetString("Id");
             pass = PlayerPrefs.GetString("Pass");
@@ -39,7 +39,7 @@ public class GoogleSheetManager : MonoBehaviour
         {
             GameManager.Money = 0;
             GameManager.ShinMoney = 0;
-        }
+        }*/
     }
 
     bool SetIDPass()
@@ -97,6 +97,7 @@ public class GoogleSheetManager : MonoBehaviour
         form.AddField("order", "login");
         form.AddField("id", id);
         form.AddField("pass", pass);
+        //form.AddField("player_nickname", nickname);
 
         StartCoroutine(Post(form));
 
@@ -210,7 +211,7 @@ public class GoogleSheetManager : MonoBehaviour
             GameManager.NickName = nickname;
             GameManager.Id = id;
 
-            Debug.Log(GameManager.AllNuniArray.Length);
+            Debug.Log("프로필 이미지: "+ GD.profile_image);
             for (int i = 0; i < GameManager.AllNuniArray.Length; i++)
             {
                 if (GameManager.AllNuniArray[i].Image.name != GD.profile_image)

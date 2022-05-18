@@ -179,7 +179,6 @@ public class BuildingSave : MonoBehaviour
             BuildingParse Buildings = new BuildingParse();
             for (int i = 0; i < j.Count; i++)
             {
-                Debug.Log(i);
                 Buildings = JsonUtility.FromJson<BuildingParse>(j[i].ToString());
                 Building b = new Building();
                 b.SetValueParse(Buildings);
