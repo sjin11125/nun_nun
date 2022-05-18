@@ -233,6 +233,7 @@ public class GridSquare : MonoBehaviour
             Selected = false;//선택안된걸로해
             hooverImage.gameObject.SetActive(false);//진한색 꺼
             currentColor = null;
+            currentShape = null;
         }
         else if (collision.GetComponent<ShapeSquare>() != null)
         {
@@ -243,7 +244,7 @@ public class GridSquare : MonoBehaviour
     public void UseSquareKeep(string color, string shape, Sprite sprite)//킵 프리팹과 닿으면 켜지는 함수
     {
         UseKeepBool = true;
-        currentColor = color;
+        currentColor = color;//킵 생성 후 커런트 컬러에 킵 컬러가 담김
         currentShape = shape;
         currentSprite = sprite;  
     }
