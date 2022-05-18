@@ -255,6 +255,7 @@ public class InventoryButton : MonoBehaviour
             }
             GameManager.CurrentBuilding = null;
             GameManager.CurrentBuilding_Button = null;
+            gridBuildingSystem.GridLayerNoSetting();                //메인 타일 안보이게
         }
         else if(this_building.isLock == "F")                     //현재 배치된 상태가 아닌가
         {
@@ -295,7 +296,7 @@ public class InventoryButton : MonoBehaviour
             GameManager.CurrentBuilding_Script = this_building;
 
             //GameManager.CurrentBuilding.name = this_building.Building_Image;
-            gridBuildingSystem.GridLayerSetting();
+            gridBuildingSystem.GridLayerSetting();          //메인 타일 보이게
             GameManager.isEdit = true;
             //gridBuildingSystem.Inven_Move(GameManager.CurrentBuilding.transform);
             GameManager.CurrentBuilding_Button = this;

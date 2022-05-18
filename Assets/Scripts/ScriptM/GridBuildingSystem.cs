@@ -85,7 +85,11 @@ public class GridBuildingSystem : MonoBehaviour
     }
    public void GridLayerSetting()
     {
-        Grid.GetComponent<SpriteRenderer>().sortingOrder = 1;
+        MainTilemap.GetComponent<TilemapRenderer>().sortingOrder = -45;             //메인 타일 보이게
+    }
+    public void GridLayerNoSetting()
+    {
+        MainTilemap.GetComponent<TilemapRenderer>().sortingOrder = -50;             //메인 타일 안보이게
     }
    
     private void Update()
