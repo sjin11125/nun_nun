@@ -575,6 +575,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2132867819981942806}
   - component: {fileID: 2132867819981942809}
+  - component: {fileID: 7430847385047000610}
   m_Layer: 0
   m_Name: building
   m_TagString: Untagged
@@ -647,6 +648,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!210 &7430847385047000610
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2132867819981942807}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &3559313347634379084
 GameObject:
   m_ObjectHideFlags: 0
@@ -904,6 +916,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4173121513778704234}
   - component: {fileID: 3253577530980404765}
+  - component: {fileID: 6452768353058663117}
   m_Layer: 0
   m_Name: Flower (2)
   m_TagString: Untagged
@@ -976,6 +989,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!210 &6452768353058663117
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6795177501775376089}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &7022534429672592650
 GameObject:
   m_ObjectHideFlags: 0
@@ -1484,6 +1508,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a775106deafbe64daa4fb580ae6c8b1, type: 3}
+--- !u!1 &4467152901347740531 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5066180194701751631, guid: 4a775106deafbe64daa4fb580ae6c8b1, type: 3}
+  m_PrefabInstance: {fileID: 8912680763273592380}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &4467152901347740530 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5066180194701751630, guid: 4a775106deafbe64daa4fb580ae6c8b1, type: 3}
@@ -1500,8 +1529,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8afe11d9dd10e54f830d20bf9ca765c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &4467152901347740531 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5066180194701751631, guid: 4a775106deafbe64daa4fb580ae6c8b1, type: 3}
-  m_PrefabInstance: {fileID: 8912680763273592380}
-  m_PrefabAsset: {fileID: 0}
