@@ -67,8 +67,8 @@ public class GameManager : MonoBehaviour
 
     public static List<NuniDialog> NuniDialog;          //누니 상호작용 대화 
     //-----------------------------------여기서부터 재화---------------------------------
-    public static int Money;            //재화
-    public static int ShinMoney;
+    public static int Money = 0;            //재화
+    public static int ShinMoney = 0;
 
     //---------------------------------------------------------------------------------------------
     //--------------------------------여기서부터 플레이어 정보-------------------------------------
