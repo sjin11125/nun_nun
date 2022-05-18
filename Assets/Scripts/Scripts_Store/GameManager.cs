@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour
 
     public static string friend_nickname;       //현재 들어가있는 친구닉넴
 
-    public static string URL = "https://script.google.com/macros/s/AKfycbzO55rHQAxcUS4eDwbU4i0xD_QYWQriyB0N8DpeBzvfVgyYttNLxANaThIiD3mJEKkP/exec";
+    public static string URL = "https://script.google.com/macros/s/AKfycbxBcqBvG5pYLC-yJ6sXUmeX0ie8cozsP9tAjYnkhbj_yPNti-4AsP1ILQlfRGF9g-ql/exec";
 
     public static bool isReward;        //일괄수확 가능한지
     
@@ -174,7 +174,6 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < DogamChaImageInspector.Length; i++)     // 빌딩 이미지 불러오기
         {
-            Debug.Log(DogamChaImageInspector[i].name);
             DogamChaImageData.Add(DogamChaImageInspector[i].name, DogamChaImageInspector[i]);
         }
         for (int i = 0; i < CharacterImageInspector.Length; i++)        //캐릭터 
@@ -197,7 +196,6 @@ public class GameManager : MonoBehaviour
         DicParsingManager DPManager = new DicParsingManager();
         AllNuniArray = DPManager.Parse_character(1);            //누니 정보 파싱
         BuildingArray = DPManager.Parse(0);    //도감 정보 파싱
-
 
        
     }

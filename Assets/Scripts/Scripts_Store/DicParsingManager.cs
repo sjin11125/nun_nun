@@ -91,25 +91,25 @@ public class DicParsingManager : MonoBehaviour
             }
            // Character character = new Character(pro_data[1],pro_data[2], pro_data[3], pro_data[4], pro_data[5], pro_data[6], pro_data[7], pro_data[8], pro_data[9]);
             Building building = new Building(pro_data[1], pro_data[2], pro_data[3], pro_data[4], pro_data[5], pro_data[6], pro_data[7], pro_data[8], pro_data[9], pro_data[10], pro_data[12]);
-
+            building.Level = 1;
             //잠금 유무     // 이름     //설명     //이미지    //가격1       //가격2      //가격3        //생성재화1         //생성재화2        //생성재화3      //설치물인지
             if (pro_data[11] == "T")          //설치물인가
             {
-                Debug.Log("설치물: " + pro_data[2]);
                 DictionaryStrList.Add(building);
             }
             else                                //설치물 아닌가                               
             {
-                Debug.Log("설치물인가? " + pro_data[11]);
                 DictionaryList.Add(building);
             }
 
             //Debug.Log(i + "  pro_data: " + pro_data[12]);
 
-            Debug.Log("DictionaryStrList: "+ DictionaryStrList.Count);
         }
         GameManager.StrArray = DictionaryStrList.ToArray();
-   
+        for (int i = 0; i < DictionaryList.Count; i++)
+        {
+           // Debug.Log("건물이름: "+ DictionaryList[i].Building_name+ "건물레벨: "+DictionaryList[i].Level);
+        }
         return DictionaryList.ToArray();
     }
     // Update is called once per frame

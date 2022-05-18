@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System;
 using System.IO;
+using UnityEngine.Rendering;
 //using UnityEngine.EventSystems;
 
 [Serializable]
@@ -111,6 +112,7 @@ public class Building : MonoBehaviour
         this.ShinCost[2] = int.Parse(Cost3[1]);
 
         this.str = isStr;
+        Level = 1;
 
     }
   /*  public Building(string islock, string buildingname,string reward,string info,string image,string cost, string shinCost, string level,string isfliped,string building_x,string building_y)           //파싱할 때 쓰는 생성자
@@ -271,7 +273,7 @@ public class Building : MonoBehaviour
 
         //Placed = false;
 
-        child = GetComponentsInChildren<Transform>();
+       // child = GetComponentsInChildren<Transform>();
 
         // Debug.Log(child[6].name);
         //Coin_Button= child[6];
@@ -281,8 +283,8 @@ public class Building : MonoBehaviour
 
         //Text countdownText = GetComponent<Text>();
 
-        layer_y = 10;
-        child[1].GetComponent<SpriteRenderer>().sortingOrder = layer_y;
+        //layer_y = 10;
+        //child[1].GetComponent<SpriteRenderer>().sortingOrder = layer_y;
 
 
         //-------------레벨 별 건물--------------------
@@ -308,13 +310,43 @@ public class Building : MonoBehaviour
                 buildings[0].SetActive(true);
                 buildings[1].SetActive(false);
                 //buildings[2].SetActive(false);
-                buildings[0].GetComponent<SpriteRenderer>().sortingOrder = layer_y;
+                //buildings[0].GetComponent<SpriteRenderer>().sortingOrder = layer_y;
+                child = GetComponentsInChildren<Transform>();
+                Debug.Log("buildings: "+ child[1].gameObject.name);
+                Debug.Log("sorting order: "+ (int)transform.position.y);
+                //child[1].GetComponent<SpriteRenderer>().sortingOrder = (int)transform.position.y;
+                if ((int)transform.position.x<0)
+                {
+                    buildings[0].GetComponent<SortingGroup>().sortingOrder = ((int)transform.position.y + (int)transform.position.x);
+                }
+                else
+                buildings[0].GetComponent<SortingGroup>().sortingOrder = -((int)transform.position.y + (int)transform.position.x);
+                /*if((int)transform.position.x<0)
+                    buildings[0].GetComponent<SortingGroup>().sortingOrder = -((int)transform.position.y + (int)transform.position.x);
+                else
+                {
+                    buildings[0].GetComponent<SortingGroup>().sortingOrder = ((int)transform.position.y - (int)transform.position.x);
+
+                }*/
+                Debug.Log(" buildings[0]:  " + buildings[0].transform.parent.gameObject.name);
+                Debug.Log(" buildings[0] layer:  " + buildings[0].GetComponent<SortingGroup>().sortingOrder);
+                // SpriteRenderer[] buildingsSprite= gameObject.GetComponentsInChildren<SpriteRenderer>();
+                //buildingsSprite[1].sortingOrder = layer_y;
+
                 break;
             case 2:
                 buildings[0].SetActive(true);
                 buildings[1].SetActive(true);
                 //buildings[2].SetActive(false);
-                buildings[1].GetComponent<SpriteRenderer>().sortingOrder = layer_y;
+                if ((int)transform.position.x > (int)transform.position.y)
+                {
+                    buildings[0].GetComponent<SortingGroup>().sortingOrder = ((int)transform.position.y + (int)transform.position.x);
+                }
+                else
+                    buildings[0].GetComponent<SortingGroup>().sortingOrder = -((int)transform.position.y + (int)transform.position.x); buildings[1].GetComponentInChildren<SortingGroup>().sortingOrder = -(int)transform.position.y + 1;
+                Debug.Log(" buildings[0]:  " + buildings[0].transform.parent.gameObject.name);
+                Debug.Log(" buildings[0] layer:  " + buildings[0].GetComponent<SortingGroup>().sortingOrder);
+
                 break;
             case 3:
                 buildings[0].SetActive(false);
@@ -465,9 +497,12 @@ public class Building : MonoBehaviour
         BoundsInt areaTemp = area;
         areaTemp.position = positionInt;
 
-        //Debug.Log()
-        GameManager.Money += building.Cost[building.Level];          //자원 되돌리기
-        GameManager.ShinMoney += building.ShinCost[building.Level ];
+        Debug.Log("level: " + building.Level);
+        Debug.Log("building.Cost: " + building.Cost.Length);
+        Debug.Log("building.Cost2: " + building.Cost[0]);
+
+        GameManager.Money += building.Cost[building.Level-1]/10;          //자원 되돌리기
+        GameManager.ShinMoney += building.ShinCost[building.Level-1 ]/10;
 
         GridBuildingSystem.current.RemoveArea(areaTemp);
         if (Type == BuildType.Make)      //상점에서 사고 설치X 바로 제거
@@ -491,6 +526,14 @@ public class Building : MonoBehaviour
         Placed = true;      // 배치 했니? 네
         GridBuildingSystem.current.TakeArea(areaTemp);      //타일 맵 설정
         transform.position = vec;
+        Debug.Log("areaTemp: " + Id);
+        Debug.Log("areaTemp: " + areaTemp.position);
+        //Debug.Log("index: "+ (-((int)transform.position.y - (int)transform.position.x)));
+       /* buildings[0].GetComponent<SortingGroup>().sortingOrder = -((int)transform.position.y- (int)transform.position.x);
+        if (Level == 2)
+        {
+            buildings[1].GetComponentInChildren<SortingGroup>().sortingOrder = -((int)transform.position.y-(int)transform.position.x);
+        }*/
     }
     public void Place(BuildType buildtype)         //건물 배치
     {
@@ -499,30 +542,30 @@ public class Building : MonoBehaviour
         Vector3 vec = transform.position;
         Vector3Int positionInt = GridBuildingSystem.current.gridLayout.LocalToCell(vec);
         BoundsInt areaTemp = area;
-        Debug.Log(areaTemp.position);
+        Debug.Log( "areaTemp: "+areaTemp.position);
         //areaTemp.position = positionInt;
         //Debug.Log(areaTemp.position);
         Placed = true;      // 배치 했니? 네
-
+        buildings[0].GetComponent<SortingGroup>().sortingOrder = -(int)transform.position.y;
+        if (Level==2)
+        {
+            buildings[1].GetComponentInChildren<SortingGroup>().sortingOrder = -(int)transform.position.y;
+        }
         GridBuildingSystem.current.TakeArea(areaTemp);      //타일 맵 설정
 
         //currentTime = startingTime;
         //원래 업데이트 부분
         BuildingPosition = transform.position;          //위치 저장
-        layer_y = (int)(-transform.position.y / 0.6);             //레이어 설정
+        layer_y = (int)-transform.position.y;      //레이어 설정
         isLock = "T";           //배치했다
 
-        if (layer_y == 0 || layer_y == 1)
-        {
-            layer_y = 2;
-        }
-        for (int i = 0; i < buildings.Length; i++)
+       /* for (int i = 0; i < buildings.Length; i++)
         {
             if (buildings[i] != null)
             {
                 buildings[i].GetComponent<SpriteRenderer>().sortingOrder = layer_y;
             }
-        }
+        }*/
         Building BuildingCurrent = gameObject.GetComponent<Building>();
         
 
