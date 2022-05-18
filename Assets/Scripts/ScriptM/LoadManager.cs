@@ -110,7 +110,6 @@ public class LoadManager : MonoBehaviour
             Building b = new Building();
             b.SetValueParse(Buildings);
 
-            Debug.Log("Id: " + Buildings.Id);
             /*  new Building(friendBuildings.isLock, friendBuildings.Building_name, friendBuildings.Reward, friendBuildings.Info, 
               friendBuildings.Building_Image, friendBuildings.Cost.ToString(), friendBuildings.Level.ToString(), friendBuildings.Tree.ToString(),
                friendBuildings.Grass.ToString(), friendBuildings.Snow.ToString(), friendBuildings.Ice.ToString(), friendBuildings.isFliped.ToString(), 
