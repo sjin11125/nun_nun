@@ -55,7 +55,7 @@ public class FriendButton : MonoBehaviour
         form1.AddField("friend_nickname", F_nickname.text);
         form1.AddField("player_nickname", GameManager.NickName);
 
-        StartCoroutine(EnrollPost(form1));
+        StartCoroutine(SearchPost(form1));
     }
 
     public void AddRecFriend()          //요청받은 친구 추가하기 버튼 누르면
@@ -148,12 +148,7 @@ public class FriendButton : MonoBehaviour
     }
     void RequireResponse(string json)
     {
-        if (json == "")
-        {
-            return;
-        }
         Debug.Log(json);
-        
         Transform[] child = Content.GetComponentsInChildren<Transform>();           //일단 초기화
         for (int k = 1; k < child.Length; k++)
         {

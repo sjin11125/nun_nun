@@ -88,10 +88,6 @@ public class FriendManager : MonoBehaviour
         for (int i = 0; i < j.Count; i++)
         {
             friendInfos[i] = JsonUtility.FromJson<FriendInfo>(j[i].ToString());
-            if (friendInfos[i].f_nickname=="")      //친구가 없다
-            {
-                return;
-            }
             Debug.Log(friendInfos[i].f_nickname);
         }
         GameManager.Friends = friendInfos;

@@ -174,6 +174,7 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < DogamChaImageInspector.Length; i++)     // 빌딩 이미지 불러오기
         {
+            Debug.Log(DogamChaImageInspector[i].name);
             DogamChaImageData.Add(DogamChaImageInspector[i].name, DogamChaImageInspector[i]);
         }
         for (int i = 0; i < CharacterImageInspector.Length; i++)        //캐릭터 
@@ -197,6 +198,10 @@ public class GameManager : MonoBehaviour
         AllNuniArray = DPManager.Parse_character(1);            //누니 정보 파싱
         BuildingArray = DPManager.Parse(0);    //도감 정보 파싱
 
+        for (int i = 0; i < BuildingArray.Length; i++)
+        {
+            Debug.Log("건물이름: " + BuildingArray[i].Building_name + "건물cost: " + BuildingArray[i].Cost[0]);
+        }
        
     }
 

@@ -70,6 +70,8 @@ public class NuniManager : MonoBehaviour                    //게임 시작하고 구글
                 if (GameManager.AllNuniArray[i].cardName == Nunis_nuni[0])
                 {
                     Card nuni = new Card();
+                       Debug.Log(Nunis_nuni[0]);
+                    Debug.Log(GameManager.AllNuniArray[i].cardName);
                     nuni.SetValue( GameManager.AllNuniArray[i]);
                     //Debug.Log("누니는 현재 "+Nunis_nuni[1]);
                     if (Nunis_nuni[1] == "T")

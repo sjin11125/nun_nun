@@ -64,6 +64,7 @@ public class NuniDialogParsing : MonoBehaviour
 
             } while (data[i].Split(',')[0] == "");
             nuniDialog.Dialog = Dialog.ToArray();
+            Debug.Log(nuniDialog.Nuni);
 
 
 
@@ -91,7 +92,10 @@ public class NuniDialogParsing : MonoBehaviour
                 GameManager.nuniDialogParse = true;
                 Parse_character();
 
-
+                for (int j = 0; j < GameManager.NuniDialog.Count; j++)
+                {
+                    Debug.Log("Nunis: " + GameManager.NuniDialog[j].Nuni);
+                }
             }
         }
         else
