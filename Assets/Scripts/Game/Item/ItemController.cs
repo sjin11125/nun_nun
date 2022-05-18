@@ -27,7 +27,7 @@ public class ItemController : MonoBehaviour
             eraserItem.SetActive(false);
         }
 
-        if (mainItemBool[1] == false)
+        if (mainItemBool[1] == true)
         {
             keepItemIndex = 25;
             keepshdow.SetActive(true);
