@@ -8,21 +8,17 @@ public class GameExitController : MonoBehaviour
 {
     public GameObject TutoManager;
     public void Awake()
-    {
-        /*int tutorialsDone = PlayerPrefs.GetInt("TutorialsDone", 0);
-        
-        if (tutorialsDone == 0)//종료는 튜토매니저
+    {       
+        if (TutorialsManager.itemIndex < 14)
         {
             TutoManager.SetActive(true);
             RandomSelect.isTuto = 0;
-            return;
         }
         else
         {
             TutoManager.SetActive(false);
             RandomSelect.isTuto = 1;
-            GameLoad();
-        }*/
+        }
     }
 
     public void GameSave()
@@ -67,12 +63,7 @@ public class GameExitController : MonoBehaviour
         GameManager.ShinMoney = int.Parse(moneys[1]);
 
     }
-    public void GameLoad()
-    {
-        GameManager.Money = PlayerPrefs.GetInt("Money");
-        GameManager.ShinMoney = PlayerPrefs.GetInt("ShinMoney");
-        print("load");
-    }
+
     public void GameExit()
     {
         GameSave();

@@ -28,12 +28,16 @@ public class GoogleSheetManager : MonoBehaviour
 
     private void Awake()
     {
-      /*  if (RandomSelect.isTuto == 1)
+        TutorialsManager.itemIndex = PlayerPrefs.GetInt("TutorialsDone");
+        if (TutorialsManager.itemIndex > 13)
         {
-            id = PlayerPrefs.GetString("Id");
-            pass = PlayerPrefs.GetString("Pass");
-            nickname = PlayerPrefs.GetString("Nickname");
-            Login();
+            WWWForm form = new WWWForm();
+            form.AddField("order", "register");
+            form.AddField("id", PlayerPrefs.GetString("Id"));
+            form.AddField("pass", PlayerPrefs.GetString("Pass"));
+            form.AddField("player_nickname", PlayerPrefs.GetString("Nickname"));
+
+            StartCoroutine(SignPost(form));
         }
         else
         {
