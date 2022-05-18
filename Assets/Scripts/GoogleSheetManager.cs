@@ -28,7 +28,7 @@ public class GoogleSheetManager : MonoBehaviour
 
     private void Awake()
     {
-        if (RandomSelect.isTuto == 1)
+      /*  if (RandomSelect.isTuto == 1)
         {
             id = PlayerPrefs.GetString("Id");
             pass = PlayerPrefs.GetString("Pass");
@@ -39,7 +39,7 @@ public class GoogleSheetManager : MonoBehaviour
         {
             GameManager.Money = 0;
             GameManager.ShinMoney = 0;
-        }
+        }*/
     }
 
     bool SetIDPass()

@@ -141,8 +141,7 @@ public class GridBuildingSystem : MonoBehaviour
                                 //temp.level += 1;        //레벨 +1
                                 temp.Place(temp.Type);
                      
-
-                                Grid.GetComponent<SpriteRenderer>().sortingOrder = -48;             //메인 타일 안보이게
+                                MainTilemap.GetComponent<TilemapRenderer>().sortingOrder = -50;       //메인 타일 안보이게
                                 StartButton.enabled = true;
                                 temp = null;
                                 isEditing = false;
@@ -179,7 +178,7 @@ public class GridBuildingSystem : MonoBehaviour
                         {
                             temp.Remove(temp);
                             //UI_Manager.Start();
-                            Grid.GetComponent<SpriteRenderer>().sortingOrder = -48;         //메인 타일 안보이게
+                            MainTilemap.GetComponent<TilemapRenderer>().sortingOrder = -50;         //메인 타일 안보이게
 
                         }
                     }
@@ -291,7 +290,7 @@ public class GridBuildingSystem : MonoBehaviour
             {
                 if (hit.transform.tag == "Building" && GameManager.isStore == false)
                 {
-                    Grid.GetComponent<SpriteRenderer>().sortingOrder = -50;             //메인 타일 보이게
+                    MainTilemap.GetComponent<TilemapRenderer>().sortingOrder = -45;             //메인 타일 보이게
                     temp = hit.transform.GetComponent<Building>();
                     GameManager.CurrentBuilding_Script = temp;
                     //UI_Manager.StartOpen();     //ui 중앙으로 이동
@@ -313,7 +312,7 @@ public class GridBuildingSystem : MonoBehaviour
                     SetTilesBlock(buildingArea, TileType.White, MainTilemap);
 
                     //FollowBuilding(true);
-                    Grid.GetComponent<SpriteRenderer>().sortingOrder = -50;
+                   // MainTilemap.GetComponent<TilemapRenderer>().sortingOrder = -50;
                     Debug.Log("Level: " + temp.Level);
                 }
             }
