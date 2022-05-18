@@ -153,6 +153,7 @@ public class GridBuildingSystem : MonoBehaviour
                                     {
                                         GameManager.CurrentBuilding_Button.this_building.isLock = "T";
                                     }
+                                    GameObject.FindWithTag("TutoBuy").GetComponent<TutorialsItemControl>().goNext = true;
                                 }
                                 // button.buttonok();
                             }
