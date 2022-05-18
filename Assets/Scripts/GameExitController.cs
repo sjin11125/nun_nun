@@ -9,7 +9,7 @@ public class GameExitController : MonoBehaviour
     public GameObject TutoManager;
     public void Awake()
     {       
-        if (TutorialsManager.itemIndex < 14)//종료는 튜토매니저
+        if (TutorialsManager.itemIndex < 14)
         {
             TutoManager.SetActive(true);
             RandomSelect.isTuto = 0;
@@ -32,7 +32,7 @@ public class GameExitController : MonoBehaviour
         //isMe = true;                 
         form2.AddField("order", "setMoney");
         form2.AddField("player_nickname", GameManager.NickName);
-        form2.AddField("money", GameManager.Money.ToString()+"|"+GameManager.ShinMoney.ToString());
+        form2.AddField("money", GameManager.Money.ToString()+"@"+GameManager.ShinMoney.ToString());
 
         StartCoroutine(MoneyPost(form2));
     }

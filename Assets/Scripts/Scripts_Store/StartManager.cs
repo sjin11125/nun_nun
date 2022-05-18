@@ -33,7 +33,7 @@ public class StartManager : MonoBehaviour
                                                     { 8,false},
                                                     { 9,false}
                                                         };
-    public GameObject[] ItemImages;         //아이템 이미지들
+    public Sprite[] ItemImages;         //아이템 이미지들
     public Sprite LockImage;
 
     string[] ItemInfos = { "배치된 말 중 원하는 말을 하나 삭제한다. ",
@@ -42,11 +42,11 @@ public class StartManager : MonoBehaviour
                           "다음에 나올 말을 미리 볼 수 있다.",
                           "등장한 말을 랜덤으로 교체 할 수 있다.",
                           "다음에 나올 말과 현재 배치해야 하는 말을 교체할 수 있다.",
-                          "배치된 타일중 아이템 기준 위아래로 타일제거한다.",
-                          "배치된 타일 중 아이템 기준 양옆으로 타일 제거한다.",
-                          "모든 종류의 말을 대체할 수 있는 말 하나 생성한다.",
-                          "배치된 말의 색깔을 바꿀 수 있다."};
-   public Sprite[] ItenImage;
+                          "배치된 말의 색깔을 바꿀 수 있다.",//배치된 말의 색깔을 바꿀 수 있다.
+                          "모든 종류의 말을 대체할 수 있는 말 하나 생성한다.",//모든 종류의 말을 대체할 수 있는 말 하나 생성한다.
+                          "배치된 타일중 아이템 기준 위아래로 타일제거한다.",//배치된 타일중 아이템 기준 위아래로 타일제거한다.
+                          "배치된 타일 중 아이템 기준 양옆으로 타일 제거한다."};//배치된 타일 중 아이템 기준 양옆으로 타일 제거한다.
+    public Sprite[] ItenImage;
     public Text ItemInfo;
     /* 아이템 목록
     * 0: 지우개               (황제)
