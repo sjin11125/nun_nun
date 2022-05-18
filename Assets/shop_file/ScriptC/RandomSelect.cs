@@ -13,6 +13,12 @@ public class RandomSelect : MonoBehaviour
     void Start()
     {
         deck = new List<Card>();
+        for (int i = 0; i < GameManager.AllNuniArray.Length; i++)
+        {
+            Debug.Log(i);
+            total += int.Parse(GameManager.AllNuniArray[i].weight);
+        }
+
         Debug.Log(GameManager.BuildingList.Count);
         for (int i = 0; i < GameManager.AllNuniArray.Length; i++)
         {
