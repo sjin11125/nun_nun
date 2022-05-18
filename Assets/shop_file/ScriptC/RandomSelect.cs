@@ -13,6 +13,12 @@ public class RandomSelect : MonoBehaviour
     void Start()
     {
         deck = new List<Card>();
+        for (int i = 0; i < GameManager.AllNuniArray.Length; i++)
+        {
+            Debug.Log(i);
+            total += int.Parse(GameManager.AllNuniArray[i].weight);
+        }
+
         Debug.Log(GameManager.BuildingList.Count);
         for (int i = 0; i < GameManager.AllNuniArray.Length; i++)
         {
@@ -114,7 +120,23 @@ public class RandomSelect : MonoBehaviour
         }
         else
         {
-            return GameManager.AllNuniArray[Random.Range(0, GameManager.AllNuniArray.Length)];
+            int weight = 0;
+            int selectNum = 0;
+            selectNum = Mathf.RoundToInt(total * Random.Range(0.0f, 1.0f));
+
+            for (int i = 0; i < GameManager.AllNuniArray.Length; i++)
+            {
+                weight += int.Parse(GameManager.AllNuniArray[i].weight);
+                if (selectNum <= weight)
+                {
+                    Card temp = new Card(GameManager.AllNuniArray[i]);
+                    return temp;
+                }
+
+            }
+            return null;
+            // 이렇게하면 가중치 랜덤함수 (확률이 다름)
+            //원래는 return deck[Random.Range(0,deck.Count)];
         }
     }
 
