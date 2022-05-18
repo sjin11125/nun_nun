@@ -315,12 +315,21 @@ public class Building : MonoBehaviour
                 Debug.Log("buildings: "+ child[1].gameObject.name);
                 Debug.Log("sorting order: "+ (int)transform.position.y);
                 //child[1].GetComponent<SpriteRenderer>().sortingOrder = (int)transform.position.y;
-                if ((int)transform.position.x<0)
+                if ((int)transform.position.x < 0)
                 {
-                    buildings[0].GetComponent<SortingGroup>().sortingOrder = ((int)transform.position.y + (int)transform.position.x);
+                    if (buildings[0].GetComponent<SortingGroup>() != null)
+                    {
+                        buildings[0].GetComponent<SortingGroup>().sortingOrder = ((int)transform.position.y + (int)transform.position.x);
+                    }
                 }
                 else
-                buildings[0].GetComponent<SortingGroup>().sortingOrder = -((int)transform.position.y + (int)transform.position.x);
+                {
+                    if (buildings[0].GetComponent<SortingGroup>() != null)
+                    {
+                        buildings[0].GetComponent<SortingGroup>().sortingOrder = -((int)transform.position.y + (int)transform.position.x);
+                    }
+                }
+               
                 /*if((int)transform.position.x<0)
                     buildings[0].GetComponent<SortingGroup>().sortingOrder = -((int)transform.position.y + (int)transform.position.x);
                 else
@@ -329,7 +338,10 @@ public class Building : MonoBehaviour
 
                 }*/
                 Debug.Log(" buildings[0]:  " + buildings[0].transform.parent.gameObject.name);
-                Debug.Log(" buildings[0] layer:  " + buildings[0].GetComponent<SortingGroup>().sortingOrder);
+                if (buildings[0].GetComponent<SortingGroup>() != null)
+                {
+                    Debug.Log(" buildings[0] layer:  " + buildings[0].GetComponent<SortingGroup>().sortingOrder);
+                }
                 // SpriteRenderer[] buildingsSprite= gameObject.GetComponentsInChildren<SpriteRenderer>();
                 //buildingsSprite[1].sortingOrder = layer_y;
 
@@ -340,10 +352,18 @@ public class Building : MonoBehaviour
                 //buildings[2].SetActive(false);
                 if ((int)transform.position.x > (int)transform.position.y)
                 {
-                    buildings[0].GetComponent<SortingGroup>().sortingOrder = ((int)transform.position.y + (int)transform.position.x);
+                    if (buildings[0].GetComponent<SortingGroup>() != null)
+                    {
+                        buildings[0].GetComponent<SortingGroup>().sortingOrder = ((int)transform.position.y + (int)transform.position.x);
+                    }
                 }
                 else
-                    buildings[0].GetComponent<SortingGroup>().sortingOrder = -((int)transform.position.y + (int)transform.position.x); buildings[1].GetComponentInChildren<SortingGroup>().sortingOrder = -(int)transform.position.y + 1;
+                {
+                    if (buildings[0].GetComponent<SortingGroup>() != null)
+                    {
+                        buildings[0].GetComponent<SortingGroup>().sortingOrder = -((int)transform.position.y + (int)transform.position.x); buildings[1].GetComponentInChildren<SortingGroup>().sortingOrder = -(int)transform.position.y + 1;
+                    }
+                }
                 Debug.Log(" buildings[0]:  " + buildings[0].transform.parent.gameObject.name);
                 Debug.Log(" buildings[0] layer:  " + buildings[0].GetComponent<SortingGroup>().sortingOrder);
 
