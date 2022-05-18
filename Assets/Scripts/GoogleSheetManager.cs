@@ -43,7 +43,7 @@ public class GoogleSheetManager : MonoBehaviour
         {
             GameManager.Money = 0;
             GameManager.ShinMoney = 0;
-        }*/
+        }
     }
 
     bool SetIDPass()
