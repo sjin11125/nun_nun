@@ -95,18 +95,15 @@ public class DicParsingManager : MonoBehaviour
             //잠금 유무     // 이름     //설명     //이미지    //가격1       //가격2      //가격3        //생성재화1         //생성재화2        //생성재화3      //설치물인지
             if (pro_data[11] == "T")          //설치물인가
             {
-                Debug.Log("설치물: " + pro_data[2]);
                 DictionaryStrList.Add(building);
             }
             else                                //설치물 아닌가                               
             {
-                Debug.Log("설치물인가? " + pro_data[11]);
                 DictionaryList.Add(building);
             }
 
             //Debug.Log(i + "  pro_data: " + pro_data[12]);
 
-            Debug.Log("DictionaryStrList: "+ DictionaryStrList.Count);
         }
         GameManager.StrArray = DictionaryStrList.ToArray();
         for (int i = 0; i < DictionaryList.Count; i++)
