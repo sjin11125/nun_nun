@@ -56,9 +56,8 @@ public class CreateKeepShape : MonoBehaviour, IPointerDownHandler,IBeginDragHand
 
         if (drop == true)//놓았으면
         {
-            hitKeepObj.GetComponent<GridSquare>().UseSquareKeep(keepColor, keepShape, keepSprite);//상대 오브젝트를 켠다
-            hitKeepObj.GetComponent<GridSquare>().ActivateSquare();
             GridScript.KeepItemTurn = 30;
+            hitKeepObj.GetComponent<GridSquare>().UseSquareKeep(keepColor, keepShape, keepSprite);//상대 오브젝트를 켠다
             Destroy(this.gameObject);//이 프리팹은 삭제된다
         }
     }

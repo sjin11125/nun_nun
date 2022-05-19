@@ -21,7 +21,7 @@ public class GridSquare : MonoBehaviour
 
     public string currentColor;
     public string currentShape;
-    public static bool UseKeepBool = false;
+    public bool UseKeepBool = false;
 
     private float clickTime;
     private float minClickTime = 0.8f;
@@ -106,6 +106,11 @@ public class GridSquare : MonoBehaviour
         {
             clickTime += Time.deltaTime;
         }
+
+        if (UseKeepBool)
+        {
+            GameObject.FindGameObjectWithTag("Grid").GetComponent<GridScript>().CheckIfKeepLineIsCompleted();
+        }
     }
 
     public void PlaceShapeOnBoard()//그리스 스크립트 CheckIfShapeCanBePlaced에서 사용
@@ -153,19 +158,29 @@ public class GridSquare : MonoBehaviour
                     NonKeep();
                 }
             }
-            else if (UseKeepBool)
-            {
-                activeImage.sprite = currentSprite;
-            }
             else
             {
-                activeImage.sprite = spriteImage.sprite;//쉐이프 스프라이트 전달
+                if (UseKeepBool)
+                {
+                    activeImage.sprite = currentSprite;
+                    print("usekeep" + currentColor + " " + currentShape);
+                }
+                else
+                {
+                    activeImage.sprite = spriteImage.sprite;//쉐이프 스프라이트 전달
+                    print("normal" + currentColor + " " + currentShape);
+                }
             }
         }
     }
 
     public void Deactivate()
     {
+        if (UseKeepBool)
+        {
+            UseKeepBool = false;
+            print("usekeep Deactive" + currentColor + " " + currentShape);
+        }
         activeImage.gameObject.SetActive(false);
         activeImage.sprite = null;//사라지고나면 색깔 안담기게해놓기 이거사실없어도될듯?
         currentColor = null;
@@ -246,6 +261,7 @@ public class GridSquare : MonoBehaviour
         UseKeepBool = true;
         currentColor = color;//킵 생성 후 커런트 컬러에 킵 컬러가 담김
         currentShape = shape;
-        currentSprite = sprite;  
+        currentSprite = sprite;
+        ActivateSquare();
     }
 }
