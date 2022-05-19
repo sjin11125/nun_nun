@@ -75,6 +75,7 @@ public class Building : MonoBehaviour
     GameObject Parent;
 
     public GameObject[] buildings;     // 레벨별 건물
+    public Sprite[] buildings_image;    //레벨별 건물 이미지(2,3레벨)
 
     
     public BuildType Type;
@@ -308,7 +309,7 @@ public class Building : MonoBehaviour
         {
             case 1:
                 buildings[0].SetActive(true);
-                buildings[1].SetActive(false);
+                //buildings[1].SetActive(false);
                 //buildings[2].SetActive(false);
                 //buildings[0].GetComponent<SpriteRenderer>().sortingOrder = layer_y;
                 child = GetComponentsInChildren<Transform>();
@@ -334,10 +335,10 @@ public class Building : MonoBehaviour
                 break;
             case 2:
                 buildings[0].SetActive(true);
-                buildings[1].SetActive(true);
+                //buildings[1].SetActive(true);
                 //buildings[2].SetActive(false);
-               
-                    buildings[0].GetComponent<SortingGroup>().sortingOrder = -(int)transform.position.y;
+                buildings[0].GetComponent<SpriteRenderer>().sprite = buildings_image[Level-2];
+                buildings[0].GetComponent<SortingGroup>().sortingOrder = -(int)transform.position.y;
                
                     buildings[1].GetComponentInChildren<SortingGroup>().sortingOrder = (-buildings[0].GetComponent<SortingGroup>().sortingOrder)+1;
                 Debug.Log(" buildings[0]:  " + buildings[0].transform.parent.gameObject.name);
@@ -541,10 +542,10 @@ public class Building : MonoBehaviour
         //Debug.Log(areaTemp.position);
         Placed = true;      // 배치 했니? 네
         buildings[0].GetComponent<SortingGroup>().sortingOrder = -(int)transform.position.y;
-        if (Level==2)
+        /*if (Level==2)
         {
             buildings[1].GetComponentInChildren<SortingGroup>().sortingOrder = -(int)transform.position.y;
-        }
+        }*/
         GridBuildingSystem.current.TakeArea(areaTemp);      //타일 맵 설정
 
         //currentTime = startingTime;

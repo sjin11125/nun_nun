@@ -148,17 +148,18 @@ public class ChaButtonScript : MonoBehaviour
 
             Debug.Log(buildings.Length);
 
-            buildings[1].SetActive(true);
+           // buildings[1].SetActive(true);
             building.Level += 1;
 
+            buildings[0].GetComponent<SpriteRenderer>().sprite = building.buildings_image[building.Level - 2];
             SpriteRenderer spriteRenderer = buildings[1].GetComponentInChildren<SpriteRenderer>();
             spriteRenderer.sortingOrder = buildings[0].GetComponentInChildren<SpriteRenderer>().sortingOrder + 1;
         }
         else
         {
             Debug.Log("222");
-            buildings[2].SetActive(true);
-
+            //buildings[2].SetActive(true);
+            buildings[0].GetComponent<SpriteRenderer>().sprite = building.buildings_image[building.Level -2];
             building.Level += 1;
         }
         GameManager.Money -= building.Cost[building.Level-1];
