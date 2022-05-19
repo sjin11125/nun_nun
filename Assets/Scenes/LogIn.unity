@@ -322,12 +322,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 41042874}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 776.9303, y: 1012.18146, z: -14.61522}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 418.15625, y: -10.445679, z: 91.8927}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_Father: {fileID: 2043363612}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &167004294
 GameObject:
@@ -499,6 +499,8 @@ GameObject:
   - component: {fileID: 281042273}
   - component: {fileID: 281042272}
   - component: {fileID: 281042274}
+  - component: {fileID: 281042275}
+  - component: {fileID: 281042276}
   m_Layer: 5
   m_Name: SigninPannel
   m_TagString: Untagged
@@ -523,7 +525,7 @@ RectTransform:
   - {fileID: 1171930902}
   - {fileID: 812125364}
   m_Father: {fileID: 2029078930}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -575,11 +577,68 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 281042270}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 804190a7dcc1a1a4cb030a3f713c1d54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &281042275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 281042270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10b54a94ff355974ea42be88b5adf11c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GD:
+    order: 
+    result: 
+    msg: 
+    value: 
+    nickname: 
+    state: 
+    profile_image: 
+  IDInput: {fileID: 402700002}
+  PassInput: {fileID: 539740431}
+  NicknameInput: {fileID: 2070751357}
+  QuestManager: {fileID: 1980512270}
+  NuniManager: {fileID: 853950860}
+  MyBuildingLoad: {fileID: 281042276}
+  WarningPannel: {fileID: 1895708895}
+--- !u!114 &281042276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 281042270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a11ed494d8df73549b2ad882df51f11e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GD:
+    order: 
+    result: 
+    msg: 
+    row_size: 
+    length: 
+    BuildingPosition_x: 
+    BuildingPosition_y: 
+    isLock: 
+    Building_name: 
+    Reward: 
+    Info: 
+    Building_Image: 
+    Cost: 
+    ShinCost: 
+    Level: 
+    isFlied: 
+  isMe: 0
 --- !u!1 &300819402
 GameObject:
   m_ObjectHideFlags: 0
@@ -700,12 +759,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 300819402}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 776.9303, y: 1012.18146, z: -14.61522}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 418.15625, y: -10.445679, z: 91.8927}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_Father: {fileID: 2043363612}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &352314604
 GameObject:
@@ -1660,7 +1719,7 @@ RectTransform:
   m_LocalScale: {x: 6, y: 4, z: 1}
   m_Children: []
   m_Father: {fileID: 2029078930}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2039,8 +2098,6 @@ GameObject:
   - component: {fileID: 900836460}
   - component: {fileID: 900836459}
   - component: {fileID: 900836458}
-  - component: {fileID: 900836461}
-  - component: {fileID: 900836462}
   m_Layer: 5
   m_Name: LoginButton
   m_TagString: Untagged
@@ -2112,20 +2169,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 900836461}
+      - m_Target: {fileID: 1572906189}
         m_TargetAssemblyTypeName: GoogleSheetManager, Assembly-CSharp
-        m_MethodName: Login
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1572906188}
-        m_TargetAssemblyTypeName: KeyBoard, Assembly-CSharp
         m_MethodName: Login
         m_Mode: 1
         m_Arguments:
@@ -2186,63 +2231,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 900836456}
   m_CullTransparentMesh: 1
---- !u!114 &900836461
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 900836456}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10b54a94ff355974ea42be88b5adf11c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GD:
-    order: 
-    result: 
-    msg: 
-    value: 
-    nickname: 
-    state: 
-    profile_image: 
-  IDInput: {fileID: 1672243902}
-  PassInput: {fileID: 867282685}
-  NicknameInput: {fileID: 0}
-  QuestManager: {fileID: 1980512270}
-  NuniManager: {fileID: 853950860}
-  MyBuildingLoad: {fileID: 900836462}
-  WarningPannel: {fileID: 1895708895}
---- !u!114 &900836462
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 900836456}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a11ed494d8df73549b2ad882df51f11e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GD:
-    order: 
-    result: 
-    msg: 
-    row_size: 
-    length: 
-    BuildingPosition_x: 
-    BuildingPosition_y: 
-    isLock: 
-    Building_name: 
-    Reward: 
-    Info: 
-    Building_Image: 
-    Cost: 
-    ShinCost: 
-    Level: 
-    isFlied: 
-  isMe: 0
 --- !u!1 &921929546
 GameObject:
   m_ObjectHideFlags: 0
@@ -2271,7 +2259,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 2029078930}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &926179164
 GameObject:
@@ -2839,69 +2827,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b81e78635323eed4690a9801c1c32229, type: 3}
---- !u!1 &1095481124
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1095481125}
-  - component: {fileID: 1095481126}
-  m_Layer: 5
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1095481125
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1095481124}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 2029078930}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1095481126
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1095481124}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10b54a94ff355974ea42be88b5adf11c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GD:
-    order: 
-    result: 
-    msg: 
-    value: 
-    nickname: 
-    state: 
-    profile_image: 
-  IDInput: {fileID: 0}
-  PassInput: {fileID: 0}
-  NicknameInput: {fileID: 0}
-  QuestManager: {fileID: 0}
-  NuniManager: {fileID: 0}
-  MyBuildingLoad: {fileID: 0}
-  WarningPannel: {fileID: 0}
 --- !u!1 &1171930901
 GameObject:
   m_ObjectHideFlags: 0
@@ -2914,8 +2839,6 @@ GameObject:
   - component: {fileID: 1171930906}
   - component: {fileID: 1171930905}
   - component: {fileID: 1171930904}
-  - component: {fileID: 1171930903}
-  - component: {fileID: 1171930907}
   m_Layer: 5
   m_Name: SigninButton
   m_TagString: Untagged
@@ -2943,33 +2866,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -99}
   m_SizeDelta: {x: 265.95, y: 106.772}
   m_Pivot: {x: 0.5, y: 0}
---- !u!114 &1171930903
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1171930901}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10b54a94ff355974ea42be88b5adf11c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GD:
-    order: 
-    result: 
-    msg: 
-    value: 
-    nickname: 
-    state: 
-    profile_image: 
-  IDInput: {fileID: 402700002}
-  PassInput: {fileID: 539740431}
-  NicknameInput: {fileID: 2070751357}
-  QuestManager: {fileID: 1980512270}
-  NuniManager: {fileID: 853950860}
-  MyBuildingLoad: {fileID: 1171930907}
-  WarningPannel: {fileID: 1895708895}
 --- !u!114 &1171930904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3014,7 +2910,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1171930903}
+      - m_Target: {fileID: 281042275}
         m_TargetAssemblyTypeName: GoogleSheetManager, Assembly-CSharp
         m_MethodName: Register
         m_Mode: 1
@@ -3076,36 +2972,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1171930901}
   m_CullTransparentMesh: 1
---- !u!114 &1171930907
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1171930901}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a11ed494d8df73549b2ad882df51f11e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GD:
-    order: 
-    result: 
-    msg: 
-    row_size: 
-    length: 
-    BuildingPosition_x: 
-    BuildingPosition_y: 
-    isLock: 
-    Building_name: 
-    Reward: 
-    Info: 
-    Building_Image: 
-    Cost: 
-    ShinCost: 
-    Level: 
-    isFlied: 
-  isMe: 0
 --- !u!1 &1314463856
 GameObject:
   m_ObjectHideFlags: 0
@@ -3380,12 +3246,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1507065615}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 776.9303, y: 1012.18146, z: -14.61522}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 418.15625, y: -10.445679, z: 91.8927}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_Father: {fileID: 2043363612}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1512638412
 GameObject:
@@ -3731,6 +3597,8 @@ GameObject:
   - component: {fileID: 1572906187}
   - component: {fileID: 1572906186}
   - component: {fileID: 1572906188}
+  - component: {fileID: 1572906189}
+  - component: {fileID: 1572906190}
   m_Layer: 5
   m_Name: LoginPannel
   m_TagString: Untagged
@@ -3754,7 +3622,7 @@ RectTransform:
   - {fileID: 900836457}
   - {fileID: 1963855797}
   m_Father: {fileID: 2029078930}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -3806,11 +3674,68 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1572906184}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 804190a7dcc1a1a4cb030a3f713c1d54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1572906189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1572906184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10b54a94ff355974ea42be88b5adf11c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GD:
+    order: 
+    result: 
+    msg: 
+    value: 
+    nickname: 
+    state: 
+    profile_image: 
+  IDInput: {fileID: 1672243902}
+  PassInput: {fileID: 867282685}
+  NicknameInput: {fileID: 0}
+  QuestManager: {fileID: 1980512270}
+  NuniManager: {fileID: 853950860}
+  MyBuildingLoad: {fileID: 1572906190}
+  WarningPannel: {fileID: 1895708895}
+--- !u!114 &1572906190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1572906184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a11ed494d8df73549b2ad882df51f11e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GD:
+    order: 
+    result: 
+    msg: 
+    row_size: 
+    length: 
+    BuildingPosition_x: 
+    BuildingPosition_y: 
+    isLock: 
+    Building_name: 
+    Reward: 
+    Info: 
+    Building_Image: 
+    Cost: 
+    ShinCost: 
+    Level: 
+    isFlied: 
+  isMe: 0
 --- !u!1 &1622485202
 GameObject:
   m_ObjectHideFlags: 0
@@ -4255,7 +4180,7 @@ RectTransform:
   - {fileID: 1566627247}
   - {fileID: 352314605}
   m_Father: {fileID: 2029078930}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -4312,7 +4237,6 @@ GameObject:
   - component: {fileID: 1963855800}
   - component: {fileID: 1963855799}
   - component: {fileID: 1963855798}
-  - component: {fileID: 1963855801}
   m_Layer: 5
   m_Name: SigninButton
   m_TagString: Untagged
@@ -4446,33 +4370,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1963855796}
   m_CullTransparentMesh: 1
---- !u!114 &1963855801
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1963855796}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10b54a94ff355974ea42be88b5adf11c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GD:
-    order: 
-    result: 
-    msg: 
-    value: 
-    nickname: 
-    state: 
-    profile_image: 
-  IDInput: {fileID: 1672243902}
-  PassInput: {fileID: 867282685}
-  NicknameInput: {fileID: 0}
-  QuestManager: {fileID: 0}
-  NuniManager: {fileID: 0}
-  MyBuildingLoad: {fileID: 0}
-  WarningPannel: {fileID: 0}
 --- !u!1 &1980512269
 GameObject:
   m_ObjectHideFlags: 0
@@ -4609,7 +4506,6 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 722255005}
-  - {fileID: 1095481125}
   - {fileID: 741217738}
   - {fileID: 1572906185}
   - {fileID: 281042271}
@@ -4623,6 +4519,39 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &2043363611
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2043363612}
+  m_Layer: 0
+  m_Name: Sound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2043363612
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2043363611}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 358.77405, y: 1022.62714, z: -106.50792}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 41042876}
+  - {fileID: 300819404}
+  - {fileID: 1507065617}
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2070751355
 GameObject:
   m_ObjectHideFlags: 0

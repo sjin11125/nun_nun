@@ -30,13 +30,13 @@ public class TutorialsManager : MonoBehaviour
     {
         if (items.Length == itemIndex)
         {
-            //PlayerPrefs.SetInt("TutorialsDone", 1);
             this.gameObject.SetActive(false);
             if(bunsu != null)
             {
                 bunsu.gameObject.SetActive(true);
             }
             RandomSelect.isTuto = 1;
+            PlayerPrefs.SetInt("TutorialsDone", itemIndex);
         }
         else
         {

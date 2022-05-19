@@ -67,8 +67,8 @@ public class GameManager : MonoBehaviour
 
     public static List<NuniDialog> NuniDialog;          //누니 상호작용 대화 
     //-----------------------------------여기서부터 재화---------------------------------
-    public static int Money;            //재화
-    public static int ShinMoney;
+    public static int Money = 0;            //재화
+    public static int ShinMoney = 0;
 
     //---------------------------------------------------------------------------------------------
     //--------------------------------여기서부터 플레이어 정보-------------------------------------
@@ -132,6 +132,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
         DontDestroyOnLoad(gameObject);  // 아래의 함수를 사용하여 씬이 전환되더라도 선언되었던 인스턴스가 파괴되지 않는다.
+        GameLoad();
     }
 
     void Start()
@@ -252,5 +253,12 @@ public class GameManager : MonoBehaviour
         } while (isCount == true);
         Debug.Log(id);
         return id;
+    }
+
+    public void GameLoad()
+    {
+        GameManager.Money = PlayerPrefs.GetInt("Money");
+        GameManager.ShinMoney = PlayerPrefs.GetInt("ShinMoney");
+        print("load");
     }
 }

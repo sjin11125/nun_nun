@@ -27,19 +27,23 @@ public class GoogleSheetManager : MonoBehaviour
     public GameObject WarningPannel;
 
     private void Awake()
-    {
-      /*  if (RandomSelect.isTuto == 1)
+    {        
+        TutorialsManager.itemIndex = PlayerPrefs.GetInt("TutorialsDone");
+        if (TutorialsManager.itemIndex > 13)
         {
-            id = PlayerPrefs.GetString("Id");
-            pass = PlayerPrefs.GetString("Pass");
-            nickname = PlayerPrefs.GetString("Nickname");
-            Login();
+            WWWForm form = new WWWForm();
+            form.AddField("order", "login");
+            form.AddField("id", PlayerPrefs.GetString("Id"));
+            form.AddField("pass", PlayerPrefs.GetString("Pass"));
+
+            StartCoroutine(Post(form));
         }
         else
         {
             GameManager.Money = 0;
             GameManager.ShinMoney = 0;
-        }*/
+        }
+        
     }
 
     bool SetIDPass()
@@ -80,10 +84,6 @@ public class GoogleSheetManager : MonoBehaviour
 
     public void Login()
     {
-        PlayerPrefs.SetString("Id", id);
-        PlayerPrefs.SetString("Pass", pass);
-        PlayerPrefs.SetString("Nickname", nickname);
-
         if (!SetIDPass())
         {
             WarningPannel.SetActive(true);
@@ -103,7 +103,7 @@ public class GoogleSheetManager : MonoBehaviour
 
         PlayerPrefs.SetString("Id", id);
         PlayerPrefs.SetString("Pass", pass);
-        PlayerPrefs.SetString("Nickname", nickname);       
+        PlayerPrefs.SetString("Nickname", nickname);
     }
 
 
@@ -240,7 +240,6 @@ public class GoogleSheetManager : MonoBehaviour
         //yield return StartCoroutine( QuestManager.QuestStart()); //퀘스트 설정할 때까지 대기
         yield return StartCoroutine(NuniManager.NuniStart()); //누니 설정할 때까지 대기
        // yield return StartCoroutine(NuniManager.RewardStart()); //보상 일괄수령 설정할 때까지 대기
-        MyBuildingLoad.BuildingLoad();
-
+            MyBuildingLoad.BuildingLoad();
     }
 }

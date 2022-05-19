@@ -152,9 +152,23 @@ public class GridBuildingSystem : MonoBehaviour
                                 GameManager.CurrentBuilding_Script = null;
                                 if (GameManager.CurrentBuilding_Button!=null)       //인벤이 눌렀나
                                 {
-                                    GameManager.CurrentBuilding_Button.this_building.isLock = "T";
+                                    //temp.level += 1;        //레벨 +1
+                                    temp.Place(temp.Type);
+
+
+                                    Grid.GetComponent<SpriteRenderer>().sortingOrder = -48;             //메인 타일 안보이게
+                                    StartButton.enabled = true;
+                                    temp = null;
+                                    isEditing = false;
+                                    GameManager.CurrentBuilding_Script = null;
+                                    if (GameManager.CurrentBuilding_Button != null)       //인벤이 눌렀나
+                                    {
+                                        GameManager.CurrentBuilding_Button.this_building.isLock = "T";
+                                    }
+                                   
                                 }
                             }
+                            GameObject.FindWithTag("TutoBuy").GetComponent<TutorialsItemControl>().goNext = true;
                             // button.buttonok();
                         }
                         if (hit.transform.tag == "Rotation")        //건물 회전 버튼
