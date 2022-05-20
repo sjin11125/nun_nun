@@ -48,11 +48,6 @@ public class TutorialsManager : MonoBehaviour
             if (itemIndex > -1 && itemIndex < items.Length)
             {
                 items[itemIndex].gameObject.SetActive(true);// 아이템 활성화
-                if (itemIndex == 0)
-                {
-                    GameManager.Money = 2000;
-                    GameManager.ShinMoney = 0;
-                }
                 if (itemIndex == 1)
                 {
                     bunsu = GameObject.FindWithTag("bunsu");

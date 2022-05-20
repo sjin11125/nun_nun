@@ -163,12 +163,10 @@ public class GridSquare : MonoBehaviour
                 if (UseKeepBool)
                 {
                     activeImage.sprite = currentSprite;
-                    print("usekeep" + currentColor + " " + currentShape);
                 }
                 else
                 {
                     activeImage.sprite = spriteImage.sprite;//쉐이프 스프라이트 전달
-                    print("normal" + currentColor + " " + currentShape);
                 }
             }
         }
@@ -179,7 +177,6 @@ public class GridSquare : MonoBehaviour
         if (UseKeepBool)
         {
             UseKeepBool = false;
-            print("usekeep Deactive" + currentColor + " " + currentShape);
         }
         activeImage.gameObject.SetActive(false);
         activeImage.sprite = null;//사라지고나면 색깔 안담기게해놓기 이거사실없어도될듯?

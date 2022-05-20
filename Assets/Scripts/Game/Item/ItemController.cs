@@ -27,7 +27,7 @@ public class ItemController : MonoBehaviour
             eraserItem.SetActive(false);
         }
 
-        if (mainItemBool[1] == false)//
+        if (mainItemBool[1] == true)
         {
             keepItemIndex = 25;
             keepshdow.SetActive(true);
@@ -88,7 +88,7 @@ public class ItemController : MonoBehaviour
         {
             ChangeShapeItem.SetActive(false);
         }
-        if (mainItemBool[8] == false)//
+        if (mainItemBool[8] == true)
         {
             ThreeVerticalItem.SetActive(true);
         }
@@ -96,7 +96,7 @@ public class ItemController : MonoBehaviour
         {
             ThreeVerticalItem.SetActive(false);
         }
-        if (mainItemBool[9] == false)//
+        if (mainItemBool[9] == true)
         {
             ThreeHorizontalTtem.SetActive(true);
         }

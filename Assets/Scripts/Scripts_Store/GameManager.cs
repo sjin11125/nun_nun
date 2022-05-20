@@ -132,11 +132,11 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
         DontDestroyOnLoad(gameObject);  // 아래의 함수를 사용하여 씬이 전환되더라도 선언되었던 인스턴스가 파괴되지 않는다.
-        GameLoad();
     }
 
     void Start()
     {
+        GameLoad();
         BuildingList = new List<Building>();            //현재 가지고 있는 빌딩 리스트
         //
         DogamChaImageData = new Dictionary<string, Sprite>();       //전체 캐릭터 리스트(가지고 있지 않은것도 포함)
@@ -257,8 +257,16 @@ public class GameManager : MonoBehaviour
 
     public void GameLoad()
     {
-        GameManager.Money = PlayerPrefs.GetInt("Money");
-        GameManager.ShinMoney = PlayerPrefs.GetInt("ShinMoney");
+        if (TutorialsManager.itemIndex < 14)
+        {
+            Money = 2000;
+            ShinMoney = 0;
+        }
+        else
+        {
+            Money = PlayerPrefs.GetInt("Money");
+            ShinMoney = PlayerPrefs.GetInt("ShinMoney");
+        }
         print("load");
     }
 }
