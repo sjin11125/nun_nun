@@ -66,12 +66,6 @@ public class GridScript : MonoBehaviour
     void Update()
     {
         GetInformation();
-
-        if (GridSquare.UseKeepBool == true)//Åµ ½Ã¿ë½Ã
-        {
-            CheckIfKeepLineIsCompleted();
-            GridSquare.UseKeepBool = false;
-        }
     }
 
     private void CreateGrid()

@@ -32,41 +32,7 @@ public class LoadManager : MonoBehaviour
         }
         return copy;
     }
-    IEnumerator MoneyPost(WWWForm form)
-    {
-        Debug.Log("불러오라");
-        using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // 반드시 using을 써야한다
-        {
-            yield return www.SendWebRequest();
-            //Debug.Log(www.downloadHandler.text);
-            if (www.isDone)
-            {
 
-                MoneyResponse(www.downloadHandler.text);
-
-            }  
-            else print("웹의 응답이 없습니다.");
-        }
-
-    }
-    void MoneyResponse(string json)                          //자원 값 불러오기
-    {
-        if (string.IsNullOrEmpty(json))
-        {
-            Debug.Log(json);
-            return;
-        }
-        Debug.Log("현재돈:      " + json);
-        string[] moneys = json.Split('@');
-        Debug.Log(moneys[0] +"    "+ moneys[1]);//
-        GameManager.Money =int.Parse(moneys[0].ToString());
-        GameManager.ShinMoney= int.Parse(moneys[1].ToString());
-
-        Debug.Log("돈: " + GameManager.Money);
-        Debug.Log("발광석: " + GameManager.ShinMoney);
-
-        StartCoroutine(RewardStart());  //일괄수확 가능한지
-    }
     IEnumerator Post(WWWForm form)
     {
         Debug.Log("불러오라");
@@ -190,9 +156,6 @@ public class LoadManager : MonoBehaviour
             //isMe = true;                    //자원 불러오기
             form2.AddField("order", "getMoney");
             form2.AddField("player_nickname", GameManager.NickName);
-
-            StartCoroutine(MoneyPost(form2));
-
         }
 
         Debug.Log("누니갯수: "+GameManager.CharacterList.Count);
@@ -252,9 +215,12 @@ public class LoadManager : MonoBehaviour
             StartCoroutine(Post(form1));//구글 시트에 오늘날짜 업데이트 해주기
 
             Debug.Log("내돈: "+MyReward);
-            RewardPannel.SetActive(true);
-            Text[] rewardText = RewardPannel.GetComponentsInChildren<Text>();
-            rewardText[1].text = MyReward.ToString();
+            if (TutorialsManager.itemIndex > 13)//튜토리얼이 끝났으면
+            {
+                RewardPannel.SetActive(true);
+                Text[] rewardText = RewardPannel.GetComponentsInChildren<Text>();
+                rewardText[1].text = MyReward.ToString();
+            }          
         }
         if (isLoad == true)
         {
