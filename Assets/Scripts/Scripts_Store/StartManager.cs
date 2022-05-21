@@ -73,11 +73,18 @@ public class StartManager : MonoBehaviour
             isParsing = true;
         }
         Canvas = GameObject.Find("Canvas");
+        StartManager.ChaIndex = 99;
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (ChaIndex==99)
+        {
+            ItemInfo.text = "";
+        }
+        else
         ItemInfo.text = ItemInfos[StartManager.ChaIndex];
     }
 

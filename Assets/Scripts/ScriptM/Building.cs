@@ -71,6 +71,7 @@ public class Building : MonoBehaviour
     
     public GameObject UpgradePannel;
     public GameObject UpgradePannel2;
+    public GameObject RemovePannel;
 
     GameObject Parent;
 
@@ -488,8 +489,14 @@ public class Building : MonoBehaviour
         }
         return false;
     }
+    public void Sell_Pannel()
+    {
+
+        RemovePannel.gameObject.SetActive(true);
+    }
     public void Remove(Building building)
     {
+
         Vector3Int positionInt = GridBuildingSystem.current.gridLayout.LocalToCell(transform.position);
         BoundsInt areaTemp = area;
         areaTemp.position = positionInt;
@@ -634,9 +641,11 @@ public class Building : MonoBehaviour
 
         save.AddValue();
         //GameManager.isUpdate = true;
-    } 
-    #endregion 
+    }
+    #endregion
     // Update is called once per frame
+  
+    
     public void Upgrade()
     { //GameObject Level1building, Level2building, Level3building;
         if (Level < 2)

@@ -40,10 +40,12 @@ public class GoogleSheetManager : MonoBehaviour
         }
         else
         {
-            GameManager.Money = 0;
-            GameManager.ShinMoney = 0;
+            Debug.Log("튜토안함");
+            GameManager.Money = 2100;
+            GameManager.ShinMoney = 1;
+            
         }
-        
+      
     }
 
     bool SetIDPass()

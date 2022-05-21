@@ -116,6 +116,10 @@ public class ChaButtonScript : MonoBehaviour
 
 
     }
+    public void IsSell()            //건물 제거한다고 했을 때
+    {
+       this.gameObject.SetActive(true);
+    }
     public void IsUpgrade()         //건물 업그레이드 할 것 인가?
     {
         GameManager.isMoveLock = false;
