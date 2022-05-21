@@ -198,7 +198,8 @@ public class GridBuildingSystem : MonoBehaviour
                         }
                         if (hit.transform.tag == "Remove")          //제거
                         {
-                            temp.Remove(temp);
+                            hit_building.Sell_Pannel();
+                            //temp.Remove(temp);
                             //UI_Manager.Start();
                             MainTilemap.GetComponent<TilemapRenderer>().sortingOrder = -50;         //메인 타일 안보이게
 

@@ -493,6 +493,9 @@ public class Building : MonoBehaviour
     {
 
         RemovePannel.gameObject.SetActive(true);
+        RemovePannel.transform.parent = GameObject.Find("O").transform;
+        RemovePannel.GetComponent<RectTransform>().localPosition = new Vector3(0, 0, 0);
+        RemovePannel.GetComponent<ChaButtonScript>().DowngradeBuilding = this;
     }
     public void Remove(Building building)
     {

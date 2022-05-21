@@ -40,7 +40,7 @@ public class GoogleSheetManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("튜토안함");
+            Debug.Log("튜토안함: "+ TutorialsManager.itemIndex);
             GameManager.Money = 2100;
             GameManager.ShinMoney = 1;
             

@@ -165,6 +165,7 @@ public class LoadManager : MonoBehaviour
     {
         isLoaded = false;
         GameManager.items = 0;          //아이템 초기화
+
         if (SceneManager.GetActiveScene().name == "Main")
         {
 
@@ -192,6 +193,11 @@ public class LoadManager : MonoBehaviour
             form2.AddField("player_nickname", GameManager.NickName);
 
             StartCoroutine(MoneyPost(form2));
+
+            if (TutorialsManager.itemIndex>13)
+            {
+                Camera.main.GetComponent<Transform>().position = new Vector3(0, 0, -10);
+            }
 
         }
 
