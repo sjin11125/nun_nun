@@ -169,7 +169,15 @@ public class InventoryButton : MonoBehaviour
 
         if (gridBuildingSystem.temp_gameObject!=null)
         {
+            Building c = gridBuildingSystem.temp_gameObject.GetComponent<Building>();
+
+
+            gridBuildingSystem.prevArea2 = c.area;
+            gridBuildingSystem.ClearArea2();
+            //gridBuildingSystem.CanTakeArea(c.area);
             Destroy(gridBuildingSystem.temp_gameObject);
+
+            
         }
 
         if (GameManager.CurrentBuilding_Button == null)       //그 전에 클릭했던 버튼이 없을 때
@@ -180,10 +188,7 @@ public class InventoryButton : MonoBehaviour
         {
             if (GameManager.CurrentBuilding_Button.this_building.Id!=this.this_building.Id&& GameManager.CurrentBuilding_Button.this_building.isLock == "T")
             {
-                if (true)       //그 건물이 진짜로 배치됐냐
-                {
-
-                }
+                
                 Debug.Log("나 아님");
                 GameManager.CurrentBuilding_Button.this_building.isLock = "F";
                 GameManager.CurrentBuilding_Button.X_Image.gameObject.SetActive(true);
@@ -193,13 +198,18 @@ public class InventoryButton : MonoBehaviour
         }
         Transform[] building_child = buildings.GetComponentsInChildren<Transform>();
      
-        if (GameManager.CurrentBuilding!=null)
-        {
-           
-        }
         if (this_building.isLock=="T")      //현재 배치된 상태인가
         {
             Debug.Log("TTTTTTTTTTTTTTT");
+            if (GameManager.CurrentBuilding != null)
+            {
+                Building c = GameManager.CurrentBuilding.GetComponent<Building>();
+
+
+                gridBuildingSystem.prevArea2 = c.area;
+                gridBuildingSystem.ClearArea2();
+                //gridBuildingSystem.CanTakeArea(c.area);
+            }
             for (int i = 0; i < building_child.Length; i++)
             {
                 if (building_child[i].name == this_building.Id)
@@ -214,6 +224,8 @@ public class InventoryButton : MonoBehaviour
                     gridBuildingSystem.RemoveArea(b.area);
                     gridBuildingSystem.CanTakeArea(b.area);
                     //b.Remove(GameManager.CurrentBuilding.GetComponent<Building>());
+                    Building c = building_child[i].gameObject.GetComponent<Building>();
+                    gridBuildingSystem.RemoveArea(c.area);
                     Destroy(building_child[i].gameObject);
 
                 }
@@ -266,6 +278,15 @@ public class InventoryButton : MonoBehaviour
             GameManager.InvenButton =this.GetComponent<Button>();
             GameObject buildingprefab;
             Debug.Log("image: " + this_building.Building_Image);
+            if (GameManager.CurrentBuilding!=null)
+            {
+                Building c = GameManager.CurrentBuilding.GetComponent<Building>();
+
+             
+                gridBuildingSystem.prevArea2 = c.area;
+                gridBuildingSystem.ClearArea2();
+                gridBuildingSystem.CanTakeArea(c.area);
+            }
 
             for (int i = 0; i < GameManager.BuildingArray.Length; i++)
             {
@@ -277,6 +298,26 @@ public class InventoryButton : MonoBehaviour
                     GameManager.CurrentBuilding =GameManager.BuildingPrefabData[this_building.Building_Image];
                     Building c = GameManager.CurrentBuilding.GetComponent<Building>();
                     
+                    c.SetValue(this_building);
+
+                    Building b = GameManager.CurrentBuilding.GetComponent<Building>();
+                    Debug.Log(b.area);
+                    gridBuildingSystem.prevArea2 = b.area;
+                    gridBuildingSystem.ClearArea2();
+                    gridBuildingSystem.CanTakeArea(b.area);
+                    break;
+                }
+            }
+            for (int i = 0; i < GameManager.StrArray.Length; i++)
+            {
+                Debug.Log("GameManager.StrArray[i].Building_name:   " + GameManager.StrArray[i].Building_Image);
+                Debug.Log("this_building.Building_name:    " + this_building.Building_Image);
+                if (GameManager.StrArray[i].Building_Image == this_building.Building_Image)
+                {
+                    Debug.Log("this_building.Building_Image    " + GameManager.BuildingPrefabData[this_building.Building_Image].name);
+                    GameManager.CurrentBuilding = GameManager.BuildingPrefabData[this_building.Building_Image];
+                    Building c = GameManager.CurrentBuilding.GetComponent<Building>();
+
                     c.SetValue(this_building);
 
                     Building b = GameManager.CurrentBuilding.GetComponent<Building>();

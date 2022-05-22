@@ -9524,6 +9524,7 @@ GameObject:
   - component: {fileID: 1034591606}
   - component: {fileID: 1034591605}
   - component: {fileID: 1034591604}
+  - component: {fileID: 1034591607}
   m_Layer: 5
   m_Name: Inven_btn
   m_TagString: Untagged
@@ -9606,10 +9607,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: set_tag
-        m_Mode: 5
+      - m_Target: {fileID: 1034591607}
+        m_TargetAssemblyTypeName: InventoryManager, Assembly-CSharp
+        m_MethodName: Inventory_Building_Open
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -9692,6 +9693,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1034591602}
   m_CullTransparentMesh: 0
+--- !u!114 &1034591607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1034591602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c77f783ec89ef2e488738aea68be24ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventory_prefab: {fileID: 2236633136755091253, guid: 9367a89363d66a24e9a006b4349ecce0, type: 3}
+  inventory_nuni_prefab: {fileID: 0}
+  Content: {fileID: 267303996}
+  gridBuildingSystem: {fileID: 227647489}
 --- !u!1 &1036677284
 GameObject:
   m_ObjectHideFlags: 0
