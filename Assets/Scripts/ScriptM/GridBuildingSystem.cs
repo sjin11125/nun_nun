@@ -118,7 +118,7 @@ public class GridBuildingSystem : MonoBehaviour
         }
         if (Input.touchCount>0)
         {
-            if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))     //UI를 클릭했냐
+            if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))     //UI를 터치했냐
             {
                 return;
             }
