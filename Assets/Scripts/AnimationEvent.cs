@@ -14,9 +14,13 @@ public class AnimationEvent : MonoBehaviour
 
     public void NuniActive()
     {
-        //Ä«µå µ¦ ¿¢Æ¼ºê
-        rand.GetComponent<RandomSelect>().ResultSelect();
-        GameManager.Money -= 2000;       //500¿ø »©±â
+        if (GameManager.Money>=2000)
+        {
+            rand.GetComponent<RandomSelect>().ResultSelect();
+            GameManager.Money -= 2000;       //2000¿ø »©±â
+        }
+      
+       
     }
 
     public void NuniAnimationEnd()

@@ -116,7 +116,15 @@ public class ChaButtonScript : MonoBehaviour
 
 
     }
-    public void IsUpgrade()         //건물 업그레이드 할 것 인가?
+    public void IsSell()            //건물 제거한다고 했을 때
+    {
+        //.gameObject.SetActive(true);
+
+        // Building remove_building = DowngradeBuilding;
+        // Debug.Log(gameObject.transform.parent.parent.gameObject.name);
+        DowngradeBuilding.Remove(DowngradeBuilding);
+    }
+    public void IsUpgrade()         //건물 업그레이드 한다고 했을 때
     {
         GameManager.isMoveLock = false;
         Building building = buildings[0].transform.parent.GetComponent<Building>();
@@ -148,17 +156,18 @@ public class ChaButtonScript : MonoBehaviour
 
             Debug.Log(buildings.Length);
 
-            buildings[1].SetActive(true);
+           // buildings[1].SetActive(true);
             building.Level += 1;
 
+            buildings[0].GetComponent<SpriteRenderer>().sprite = building.buildings_image[building.Level - 2];
             SpriteRenderer spriteRenderer = buildings[1].GetComponentInChildren<SpriteRenderer>();
             spriteRenderer.sortingOrder = buildings[0].GetComponentInChildren<SpriteRenderer>().sortingOrder + 1;
         }
         else
         {
             Debug.Log("222");
-            buildings[2].SetActive(true);
-
+            //buildings[2].SetActive(true);
+            buildings[0].GetComponent<SpriteRenderer>().sprite = building.buildings_image[building.Level -2];
             building.Level += 1;
         }
         GameManager.Money -= building.Cost[building.Level-1];

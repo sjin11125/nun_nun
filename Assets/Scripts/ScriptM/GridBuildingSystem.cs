@@ -85,7 +85,11 @@ public class GridBuildingSystem : MonoBehaviour
     }
    public void GridLayerSetting()
     {
-        Grid.GetComponent<SpriteRenderer>().sortingOrder = 1;
+        MainTilemap.GetComponent<TilemapRenderer>().sortingOrder = -45;             //메인 타일 보이게
+    }
+    public void GridLayerNoSetting()
+    {
+        MainTilemap.GetComponent<TilemapRenderer>().sortingOrder = -50;             //메인 타일 안보이게
     }
    
     private void Update()
@@ -112,10 +116,14 @@ public class GridBuildingSystem : MonoBehaviour
         {
             second = 0;
         }
-        /*if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))     //UI를 클릭했냐
+        if (Input.touchCount>0)
         {
-            return;
-        }*/
+            if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))     //UI를 터치했냐
+            {
+                return;
+            }
+        }
+       
         if (EventSystem.current.IsPointerOverGameObject())      //UI를 클릭했냐
         {
             return;
@@ -140,13 +148,7 @@ public class GridBuildingSystem : MonoBehaviour
                             {
                                 //temp.level += 1;        //레벨 +1
                                 temp.Place(temp.Type);
-                     
-                                MainTilemap.GetComponent<TilemapRenderer>().sortingOrder = -50;       //메인 타일 안보이게
-                                StartButton.enabled = true;
-                                temp = null;
-                                isEditing = false;
-                                GameManager.CurrentBuilding_Script = null;
-                                if (GameManager.CurrentBuilding_Button!=null)       //인벤이 눌렀나
+                                if (GameManager.CurrentBuilding_Button != null)       //인벤이 눌렀나
                                 {
                                     //temp.level += 1;        //레벨 +1
                                     temp.Place(temp.Type);
@@ -160,11 +162,22 @@ public class GridBuildingSystem : MonoBehaviour
                                     if (GameManager.CurrentBuilding_Button != null)       //인벤이 눌렀나
                                     {
                                         GameManager.CurrentBuilding_Button.this_building.isLock = "T";
+                                        GameManager.CurrentBuilding_Button = null;
                                     }
-                                   
+
                                 }
+                                MainTilemap.GetComponent<TilemapRenderer>().sortingOrder = -50;       //메인 타일 안보이게
+                                StartButton.enabled = true;
+                                temp = null;
+                                isEditing = false;
+                                GameManager.CurrentBuilding_Script = null;
+                                
                             }
-                            GameObject.FindWithTag("TutoBuy").GetComponent<TutorialsItemControl>().goNext = true;
+                            if (GameObject.FindWithTag("TutoBuy")!=null)
+                            {
+                                GameObject.FindWithTag("TutoBuy").GetComponent<TutorialsItemControl>().goNext = true;
+
+                            }
                             // button.buttonok();
                         }
                         if (hit.transform.tag == "Rotation")        //건물 회전 버튼
@@ -190,7 +203,8 @@ public class GridBuildingSystem : MonoBehaviour
                         }
                         if (hit.transform.tag == "Remove")          //제거
                         {
-                            temp.Remove(temp);
+                            hit_building.Sell_Pannel();
+                            //temp.Remove(temp);
                             //UI_Manager.Start();
                             MainTilemap.GetComponent<TilemapRenderer>().sortingOrder = -50;         //메인 타일 안보이게
 
