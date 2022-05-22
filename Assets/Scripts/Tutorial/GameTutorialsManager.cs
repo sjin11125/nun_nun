@@ -6,27 +6,36 @@ public class GameTutorialsManager : MonoBehaviour
 {
     [SerializeField] [Header("Tutorials items")] TutorialsItemControl[] items;
     public int itemIndex;
+    public bool isItem;
+
     void Start()
     {
-        if (RandomSelect.isTuto == 0)
+        if (!isItem)
         {
-            // 모든 아이템을 비활성화 하고, 첫번째 것만 활성화 한다.
-            if (items == null)
-                return;
-
-            if (items.Length == 0)
-                return;
-
-            foreach (var item in items)
+            if(RandomSelect.isTuto == 0)
             {
-                item.gameObject.SetActive(false);
+                ItemHooverOnClick();
             }
-            ActiveNextItem();
+            else
+            {
+                this.gameObject.SetActive(false);
+            }
         }
-        else
+    }
+
+    public void ItemHooverOnClick()
+    {
+        if (items == null)
+            return;
+
+        if (items.Length == 0)
+            return;
+
+        foreach (var item in items)
         {
-            this.gameObject.SetActive(false);
+            item.gameObject.SetActive(false);
         }
+        ActiveNextItem();
     }
 
     public void ActiveNextItem()
@@ -34,6 +43,10 @@ public class GameTutorialsManager : MonoBehaviour
         if (items.Length == itemIndex)
         {
             this.gameObject.SetActive(false);
+            if (isItem)
+            {
+                itemIndex = 0;
+            }
         }
         else
         {
