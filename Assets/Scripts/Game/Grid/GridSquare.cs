@@ -66,6 +66,16 @@ public class GridSquare : MonoBehaviour
         settigPanel = GameObject.FindGameObjectWithTag("SettingPanel");
     }
 
+    
+    private void FixedUpdate()
+    {
+        if (UseKeepBool)
+        {
+            GameObject.FindGameObjectWithTag("Grid").GetComponent<GridScript>().CheckIfKeepLineIsCompleted();
+            UseKeepBool = false;
+        }
+    }
+    
     private void Update()
     {
         Vector2 wp = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -106,11 +116,6 @@ public class GridSquare : MonoBehaviour
         if (isClick)
         {
             clickTime += Time.deltaTime;
-        }
-
-        if (UseKeepBool)
-        {
-            GameObject.FindGameObjectWithTag("Grid").GetComponent<GridScript>().CheckIfKeepLineIsCompleted();
         }
     }
 
@@ -163,7 +168,7 @@ public class GridSquare : MonoBehaviour
             {
                 if (UseKeepBool)
                 {
-                    activeImage.sprite = currentSprite;
+                    activeImage.sprite = currentSprite;                   
                 }
                 else
                 {
@@ -175,10 +180,6 @@ public class GridSquare : MonoBehaviour
 
     public void Deactivate()
     {
-        if (UseKeepBool)
-        {
-            UseKeepBool = false;
-        }
         activeImage.gameObject.SetActive(false);
         activeImage.sprite = null;//사라지고나면 색깔 안담기게해놓기 이거사실없어도될듯?
         currentColor = null;
