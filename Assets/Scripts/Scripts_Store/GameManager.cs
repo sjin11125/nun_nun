@@ -122,6 +122,7 @@ public class GameManager : MonoBehaviour
     public static bool mainSoundOn = true;
     private void Awake()
     {
+        //PlayerPrefs.DeleteAll();
         if (_Instance == null)
         {
             _Instance = this;

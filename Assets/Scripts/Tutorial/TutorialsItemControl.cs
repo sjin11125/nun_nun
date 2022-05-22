@@ -50,15 +50,18 @@ public class TutorialsItemControl : MonoBehaviour
         // 다음 아이템 활성화
         if (isGame)
         {
-            GameTutorialsManager parentTutorialsManager = parentTutorialsManager = transform.parent.GetComponent<GameTutorialsManager>();
+            GameTutorialsManager parentTutorialsManager = transform.parent.GetComponent<GameTutorialsManager>();
             if (parentTutorialsManager != null)
             {
-                parentTutorialsManager.ActiveNextItem();
+              //  if (!parentTutorialsManager.isItem)
+               // {
+                    parentTutorialsManager.ActiveNextItem();
+               // }
             }
         }
         else
         {
-            TutorialsManager parentTutorialsManager = parentTutorialsManager = transform.parent.GetComponent<TutorialsManager>();
+            TutorialsManager parentTutorialsManager = transform.parent.GetComponent<TutorialsManager>();
             if (parentTutorialsManager != null)
             {
                 parentTutorialsManager.ActiveNextItem();

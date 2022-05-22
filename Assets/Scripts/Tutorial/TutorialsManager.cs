@@ -50,10 +50,7 @@ public class TutorialsManager : MonoBehaviour
                 items[itemIndex].gameObject.SetActive(true);// 아이템 활성화
                 if (itemIndex == 1)
                 {
-                    bunsu = GameObject.FindWithTag("bunsu");
-                }
-                if (itemIndex == 2)        //ii1y1
-                {
+                    bunsu = GameObject.FindWithTag("bunsu"); //ii1y1
                     if (bunsu != null)
                     {
                         bunsu.gameObject.SetActive(false);
