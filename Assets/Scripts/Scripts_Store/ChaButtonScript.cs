@@ -16,7 +16,7 @@ public class ChaButtonScript : MonoBehaviour
 
     public Text ButtonText;
 
-    public GameObject CanclePannel;
+    public Text CancleText;
 
     /* 아이템 목록
 * 0: 지우개(배치되어있는거 버림)
@@ -135,7 +135,7 @@ public class ChaButtonScript : MonoBehaviour
         Debug.Log(building_name);
         if (GameManager.Money < building.Cost[building.Level - 1]||GameManager.ShinMoney< building.ShinCost[building.Level - 1])
         {
-            CanclePannel.SetActive(true);
+            CancleText.gameObject.SetActive(true);
             return;
         }
         if (Level == 0)
