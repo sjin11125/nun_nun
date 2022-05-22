@@ -37,7 +37,16 @@ public class GoogleSheetManager : MonoBehaviour
             form.AddField("pass", PlayerPrefs.GetString("Pass"));
 
             StartCoroutine(Post(form));
-        }      
+
+        }
+        else
+        {
+            Debug.Log("튜토안함: "+ TutorialsManager.itemIndex);
+            GameManager.Money = 2000;
+            GameManager.ShinMoney = 0;
+            
+        }
+
     }
 
     bool SetIDPass()

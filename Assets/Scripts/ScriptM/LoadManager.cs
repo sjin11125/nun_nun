@@ -14,9 +14,9 @@ public class LoadManager : MonoBehaviour
     public GameObject buildings;
     public GameObject nunis;
 
-    bool isLoaded;      //°Ç¹° ´Ù ºÒ·¯¿Ô´ÂÁö
+    bool isLoaded;      //ï¿½Ç¹ï¿½ ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½Ô´ï¿½ï¿½ï¿½
 
-    public GameObject RewardPannel;     //ÀÏ°ý¼öÀÍ ÆÇ³Ú
+    public GameObject RewardPannel;     //ï¿½Ï°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç³ï¿½
     //public GameObject 
     Component CopyComponent(Component original, GameObject destination)
     {
@@ -35,8 +35,8 @@ public class LoadManager : MonoBehaviour
 
     IEnumerator Post(WWWForm form)
     {
-        Debug.Log("ºÒ·¯¿À¶ó");
-        using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // ¹Ýµå½Ã usingÀ» ½á¾ßÇÑ´Ù
+        Debug.Log("ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½");
+        using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // ï¿½Ýµï¿½ï¿½ usingï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½
         {
             yield return www.SendWebRequest();
             //Debug.Log(www.downloadHandler.text);
@@ -45,14 +45,14 @@ public class LoadManager : MonoBehaviour
 
                 Response(www.downloadHandler.text);
 
-            }    //Ä£±¸ °Ç¹° ºÒ·¯¿È
-            else print("À¥ÀÇ ÀÀ´äÀÌ ¾ø½À´Ï´Ù.");
+            }    //Ä£ï¿½ï¿½ ï¿½Ç¹ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½
+            else print("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
         }
 
     }
    
    
-    void Response(string json)                          //°Ç¹° °ª ºÒ·¯¿À±â
+    void Response(string json)                          //ï¿½Ç¹ï¿½ ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½
     {
         if (string.IsNullOrEmpty(json))
         {
@@ -80,7 +80,7 @@ public class LoadManager : MonoBehaviour
               friendBuildings.Building_Image, friendBuildings.Cost.ToString(), friendBuildings.Level.ToString(), friendBuildings.Tree.ToString(),
                friendBuildings.Grass.ToString(), friendBuildings.Snow.ToString(), friendBuildings.Ice.ToString(), friendBuildings.isFliped.ToString(), 
               friendBuildings.buildingPosiiton_x, friendBuildings.buildingPosiiton_y);*/
-            GameManager.BuildingList.Add(b);      //³» °Ç¹° ¸®½ºÆ®¿¡ »ðÀÔ
+            GameManager.BuildingList.Add(b);      //ï¿½ï¿½ ï¿½Ç¹ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
         }
         Debug.Log("GameManager.BuildingList[0]" + GameManager.BuildingList[0].BuildingPosiiton_x);
@@ -99,51 +99,52 @@ public class LoadManager : MonoBehaviour
     IEnumerator RewardPost(WWWForm form)
     {
         Debug.Log("RewardPost");
-        using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // ¹Ýµå½Ã usingÀ» ½á¾ßÇÑ´Ù
+        using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // ï¿½Ýµï¿½ï¿½ usingï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½
         {
             yield return www.SendWebRequest();
             //Debug.Log(www.downloadHandler.text);
             if (www.isDone) Reward_response(www.downloadHandler.text);
-            else print("À¥ÀÇ ÀÀ´äÀÌ ¾ø½À´Ï´Ù.");
+            else print("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
         }
 
     }
 
     void Reward_response(string json)
     {
-        Debug.Log("³¯Â¥: " + json);
+        Debug.Log("ï¿½ï¿½Â¥: " + json);
         string time = json;
-        if (time != DateTime.Now.ToString("yyyy.MM.dd"))     //¿À´Ã³¯Â¥°¡ ¾Æ´Ï³Ä ÀÏ°ý¼öÈ® °¡´É
+        if (time != DateTime.Now.ToString("yyyy.MM.dd"))     //ï¿½ï¿½ï¿½Ã³ï¿½Â¥ï¿½ï¿½ ï¿½Æ´Ï³ï¿½ ï¿½Ï°ï¿½ï¿½ï¿½È® ï¿½ï¿½ï¿½ï¿½
         {
-            Debug.Log("¸¶Áö¸·À¸·Î ¼öÈ®Çß´ø ³¯Â¥: " + time);
-            Debug.Log("¿À´Ã³¯Â¥: " + DateTime.Now.ToString("yyyy.MM.dd"));
+            Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È®ï¿½ß´ï¿½ ï¿½ï¿½Â¥: " + time);
+            Debug.Log("ï¿½ï¿½ï¿½Ã³ï¿½Â¥: " + DateTime.Now.ToString("yyyy.MM.dd"));
             GameManager.isReward = true;
         }
         else
         {
-            GameManager.isReward = false;               //¿À´Ã³¯Â¥¸é ¼öÈ® ºÒ°¡´É
+            GameManager.isReward = false;               //ï¿½ï¿½ï¿½Ã³ï¿½Â¥ï¿½ï¿½ ï¿½ï¿½È® ï¿½Ò°ï¿½ï¿½ï¿½
         }
-        Debug.Log("¼öÈ®°¡´É¿©ºÎ: " + GameManager.isReward);
+        Debug.Log("ï¿½ï¿½È®ï¿½ï¿½ï¿½É¿ï¿½ï¿½ï¿½: " + GameManager.isReward);
     }
-    //ÀçÈ­·Îµå
-    //Ä³¸¯ÅÍ ·Îµå
+    //ï¿½ï¿½È­ï¿½Îµï¿½
+    //Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½
     void Start()
     {
         isLoaded = false;
-        GameManager.items = 0;          //¾ÆÀÌÅÛ ÃÊ±âÈ­
+        GameManager.items = 0;          //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
+
         if (SceneManager.GetActiveScene().name == "Main")
         {
 
             WWWForm form1 = new WWWForm();
-            Debug.Log("°Ç¹°·Îµù");
-            //isMe = true;                    //³» °Ç¹° ºÒ·¯¿Â´Ù!!!!!!!!!!!!!!!!
+            Debug.Log("ï¿½Ç¹ï¿½ï¿½Îµï¿½");
+            //isMe = true;                    //ï¿½ï¿½ ï¿½Ç¹ï¿½ ï¿½Ò·ï¿½ï¿½Â´ï¿½!!!!!!!!!!!!!!!!
             form1.AddField("order", "getFriendBuilding");
             form1.AddField("loadedFriend", GameManager.NickName);
 
             isLoad = true;
             /* WWWForm form2 = new WWWForm();
-             Debug.Log("¼³Ä¡¹°·Îµù");
-             //isMe = true;                    //³» ¼³Ä¡¹° ºÒ·¯¿Â´Ù!!!!!!!!!!!!!!!!
+             Debug.Log("ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½Îµï¿½");
+             //isMe = true;                    //ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½Â´ï¿½!!!!!!!!!!!!!!!!
              form2.AddField("order", "getFriendStr");
              form2.AddField("loadedFriend", GameManager.NickName);
              StartCoroutine(Post_Str(form2)); */
@@ -152,15 +153,23 @@ public class LoadManager : MonoBehaviour
             StartCoroutine(Post(form1));
 
             WWWForm form2 = new WWWForm();
-            Debug.Log("ÀÚ¿ø·Îµù");
-            //isMe = true;                    //ÀÚ¿ø ºÒ·¯¿À±â
+            Debug.Log("ï¿½Ú¿ï¿½ï¿½Îµï¿½");
+            //isMe = true;                    //ï¿½Ú¿ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½
             form2.AddField("order", "getMoney");
             form2.AddField("player_nickname", GameManager.NickName);
+
+
+            //StartCoroutine(MoneyPost(form2));
+
+            if (TutorialsManager.itemIndex>13)
+            {
+                Camera.main.GetComponent<Transform>().position = new Vector3(0, 0, -10);
+            }
         }
 
-        Debug.Log("´©´Ï°¹¼ö: "+GameManager.CharacterList.Count);
+        Debug.Log("ï¿½ï¿½ï¿½Ï°ï¿½ï¿½ï¿½: "+GameManager.CharacterList.Count);
 
-        if (SceneManager.GetActiveScene().name == "Main" && GameManager.CharacterList != null)       //¸ÞÀÎ¾À¿¡¼­ ·ÎµåÇÏ±â(´©´Ï)
+        if (SceneManager.GetActiveScene().name == "Main" && GameManager.CharacterList != null)       //ï¿½ï¿½ï¿½Î¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½Ï±ï¿½(ï¿½ï¿½ï¿½ï¿½)
         {
             /*for (int j = 0; j < GameManager.CharacterList.Count; j++)
             {
@@ -192,7 +201,7 @@ public class LoadManager : MonoBehaviour
     void Update()
     {
 
-        if (GameManager.isReward == true)          //ÀÏ°ý¼öÈ® ÇÒ¼öÀÖ´Ï?
+        if (GameManager.isReward == true)          //ï¿½Ï°ï¿½ï¿½ï¿½È® ï¿½Ò¼ï¿½ï¿½Ö´ï¿½?
         {
             GameManager.isReward = false;
             int MyReward = 0;
@@ -212,10 +221,10 @@ public class LoadManager : MonoBehaviour
             form1.AddField("player_nickname", GameManager.NickName);
             form1.AddField("time", DateTime.Now.ToString("yyyy.MM.dd"));
 
-            StartCoroutine(Post(form1));//±¸±Û ½ÃÆ®¿¡ ¿À´Ã³¯Â¥ ¾÷µ¥ÀÌÆ® ÇØÁÖ±â
+            StartCoroutine(Post(form1));//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½Ã³ï¿½Â¥ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½Ö±ï¿½
 
-            Debug.Log("³»µ·: "+MyReward);
-            if (TutorialsManager.itemIndex > 13)//Æ©Åä¸®¾óÀÌ ³¡³µÀ¸¸é
+            Debug.Log("ï¿½ï¿½ï¿½ï¿½: "+MyReward);
+            if (TutorialsManager.itemIndex > 13)//Æ©ï¿½ä¸®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             {
                 RewardPannel.SetActive(true);
                 Text[] rewardText = RewardPannel.GetComponentsInChildren<Text>();
@@ -230,32 +239,32 @@ public class LoadManager : MonoBehaviour
             {
                 GameManager.Items[i] = false;
             }
-            if (SceneManager.GetActiveScene().name == "Main" && GameManager.BuildingList != null)       //¸ÞÀÎ¾À¿¡¼­ ·ÎµåÇÏ±â(³» ¸¶À»)
+            if (SceneManager.GetActiveScene().name == "Main" && GameManager.BuildingList != null)       //ï¿½ï¿½ï¿½Î¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½Ï±ï¿½(ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
             {
-                //°Ç¹°·Îµå
+                //ï¿½Ç¹ï¿½ï¿½Îµï¿½
                 Debug.Log("GameManager.BuildingList.Count: " + GameManager.BuildingList.Count);
 
                 for (int i = 0; i < GameManager.BuildingList.Count; i++)
                 {
-                    if (GameManager.BuildingList[i].isLock == "F")          //¹èÄ¡¾ÈµÇ¾îÀÖ´Ï?
+                    if (GameManager.BuildingList[i].isLock == "F")          //ï¿½ï¿½Ä¡ï¿½ÈµÇ¾ï¿½ï¿½Ö´ï¿½?
                         continue;
 
-                    Building LoadBuilding = GameManager.BuildingList[i];           // ÇöÀç °¡Áö°í ÀÕ´Â ºôµù ¸®½ºÆ®ÀÇ ºôµù ÄÄÆ÷³ÍÆ®
-                    string BuildingName = LoadBuilding.Building_Image;        //ÇöÀç °¡Áö°í ÀÖ´Â ºôµù ¸®½ºÆ®¿¡¼­ ºôµù ÀÌ¸§ ºÎ¸£±â
+                    Building LoadBuilding = GameManager.BuildingList[i];           // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Õ´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+                    string BuildingName = LoadBuilding.Building_Image;        //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ ï¿½Î¸ï¿½ï¿½ï¿½
                     Debug.Log(LoadBuilding.Placed);
                     Debug.Log("BuildingName: " + BuildingName);
-                    GameObject BuildingPrefab = GameManager.BuildingPrefabData[BuildingName];           // ÇØ´ç °Ç¹° ÇÁ¸®ÆÕ
+                    GameObject BuildingPrefab = GameManager.BuildingPrefabData[BuildingName];           // ï¿½Ø´ï¿½ ï¿½Ç¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                     GameObject g = Instantiate(BuildingPrefab, new Vector3(LoadBuilding.BuildingPosition.x, LoadBuilding.BuildingPosition.y, 0), Quaternion.identity, buildings.transform) as GameObject;
 
-                    //  Building PrefabBuilding = BuildingPrefab.GetComponent<Building>();      //ÇØ´ç °Ç¹° ÇÁ¸®ÆÕÀÇ ºôµù ½ºÅ©¸³Æ®
+                    //  Building PrefabBuilding = BuildingPrefab.GetComponent<Building>();      //ï¿½Ø´ï¿½ ï¿½Ç¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®
                     //Component tempData = BuildingPrefab.GetComponent<Building>().GetType();
-                    // PrefabBuilding = LoadBuilding;          //ÇÁ¸®ÆÕÀ¸·Î »ý¼ºµÈ ÇÏ¿ì½º ¿ÀºêÁ§Æ®ÀÇ ºôµù ½ºÅ©¸³Æ® ´ëÀÔ                                                                   
-                    //ÇØ´ç °Ç¹°ÀÇ ÇÁ¸®ÆÕ Å¬·Ð »ý¼º ÈÄ ºôµù ½ºÅ©¸³Æ® º¹Á¦
+                    // PrefabBuilding = LoadBuilding;          //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¿ì½º ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½                                                                   
+                    //ï¿½Ø´ï¿½ ï¿½Ç¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 
                     //CopyComponent(LoadBuilding, g);
                     Building g_Building = g.GetComponent<Building>();
-                    g_Building.SetValue(LoadBuilding);      //»õ·Î »ý¼ºµÈ ÇÁ¸®ÆÕÀÇ ºôµù ½ºÅ©¸³Æ® value °ªÀ» ±âÁ¸¿¡ ÀÖ´ø ½ºÅ©¸³Æ® value°ª ¼³Á¤
-                    Debug.Log("IDIDIDIDID:  " + LoadBuilding.BuildingPosiiton_x);                                      //g.transform.SetParent(buildings.transform);     //buildings¸¦ ºÎ¸ð·Î ¼³Á¤
+                    g_Building.SetValue(LoadBuilding);      //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ® value ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ® valueï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+                    Debug.Log("IDIDIDIDID:  " + LoadBuilding.BuildingPosiiton_x);                                      //g.transform.SetParent(buildings.transform);     //buildingsï¿½ï¿½ ï¿½Î¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
                     //Debug.Log("gm_Building.Building_Image: " + GameManager.BuildingArray[0].Building_Image);
                     for (int j = 0; j < GameManager.BuildingArray.Length; j++)
@@ -279,7 +288,7 @@ public class LoadManager : MonoBehaviour
 
                     }
                     Debug.Log("ididkjflsnmfld:      " + g_Building.Building_name);
-                    g.name = g_Building.Id;          //ÀÌ¸§ Àç¼³Á¤
+                    g.name = g_Building.Id;          //ï¿½Ì¸ï¿½ ï¿½ç¼³ï¿½ï¿½
 
                     g_Building.Type = BuildType.Load;
                     g_Building.Place_Initial(g_Building.Type);
@@ -290,12 +299,12 @@ public class LoadManager : MonoBehaviour
                 }
             }
           
-            else if (SceneManager.GetActiveScene().name == "FriendMain")                            //Ä£±¸ ¸¶À» ¾À
+            else if (SceneManager.GetActiveScene().name == "FriendMain")                            //Ä£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
             {
                 for (int i = 0; i < GameManager.FriendBuildingList.Count; i++)
                 {
-                    Building LoadBuilding = GameManager.FriendBuildingList[i];           // ÇöÀç °¡Áö°í ÀÕ´Â ºôµù ¸®½ºÆ®ÀÇ ºôµù ÄÄÆ÷³ÍÆ®
-                    string BuildingName = LoadBuilding.Building_Image;        //ÇöÀç °¡Áö°í ÀÖ´Â ºôµù ¸®½ºÆ®¿¡¼­ ºôµù ÀÌ¸§ ºÎ¸£±â
+                    Building LoadBuilding = GameManager.FriendBuildingList[i];           // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Õ´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+                    string BuildingName = LoadBuilding.Building_Image;        //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ ï¿½Î¸ï¿½ï¿½ï¿½
                     Debug.Log(BuildingName);
 
                     foreach (var item in GameManager.BuildingPrefabData)
@@ -310,7 +319,7 @@ public class LoadManager : MonoBehaviour
                     g_Building.SetValue(LoadBuilding);
                     //g.transform.position=new Vector3(LoadBuilding.BuildingPosition.x,LoadBuilding.BuildingPosition.y, 0);
                     Debug.Log(LoadBuilding.Building_name);
-                    g.name = LoadBuilding.Id;            //ÀÌ¸§ Àç¼³Á¤
+                    g.name = LoadBuilding.Id;            //ï¿½Ì¸ï¿½ ï¿½ç¼³ï¿½ï¿½
 
                     g_Building.Type = BuildType.Load;
                     g_Building.Place(g_Building.Type);
