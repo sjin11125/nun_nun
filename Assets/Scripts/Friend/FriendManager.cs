@@ -96,20 +96,21 @@ public class FriendManager : MonoBehaviour
         }
         GameManager.Friends = friendInfos;
 
-
-
+        Transform[] child = Content.GetComponentsInChildren<Transform>();           //일단 초기화
+        for (int k = 1; k < child.Length; k++)
+        {
+            Destroy(child[k].gameObject);
+        }
         for (int i = 0; i < GameManager.Friends.Length; i++)
-        { string[] friend = GameManager.Friends[i].f_nickname.Split(':');
+        {
+            string[] friend = GameManager.Friends[i].f_nickname.Split(':');
             Debug.Log(friend.Length);
             if (friend.Length>=2)
             {
                 continue;
             }
-            Transform[] child = Content.GetComponentsInChildren<Transform>();           //일단 초기화
-            for (int k = 1; k < child.Length; k++)
-            {
-                Destroy(child[k].gameObject);
-            }
+          
+          
             GameObject friendprefab = Instantiate(FriendPrefab, Content.transform) as GameObject;  //친구 프리팹 생성
             Transform friendPrefabChilds = friendprefab.GetComponent<Transform>();
             friendPrefabChilds.name = GameManager.Friends[i].f_nickname;
