@@ -192,8 +192,15 @@ public class BuildingSave : MonoBehaviour
 
             }
             Debug.Log("GameManager.BuildingList[0]"+GameManager.BuildingList[0].BuildingPosiiton_x);
-            SceneManager.LoadScene("Main");
+            if (gameObject.GetComponent<LoadManager>() != null)
+            {
+                Debug.Log("현재 내 오브젝트 이름은 "+gameObject.name);
+                gameObject.GetComponent<LoadManager>().BuildingLoad();
+            }
+            else
+                SceneManager.LoadScene("Main");
             Debug.Log("GameManager.BuildingList[0]" + GameManager.BuildingList[0].BuildingPosiiton_x);
+            
         }
     }
 }
