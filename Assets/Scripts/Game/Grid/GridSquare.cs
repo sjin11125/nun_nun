@@ -21,7 +21,7 @@ public class GridSquare : MonoBehaviour
 
     public string currentColor;
     public string currentShape;
-    public bool UseKeepBool = false;
+    public bool UseKeepBool;
 
     private float clickTime;
     private float minClickTime = 0.8f;
@@ -49,6 +49,7 @@ public class GridSquare : MonoBehaviour
         currentColor = null;
         currentShape = null;
         shinActive = false;
+        UseKeepBool = false;
 
         GameObject contectShape = GameObject.FindGameObjectWithTag("Shape");
         if (contectShape != null)
