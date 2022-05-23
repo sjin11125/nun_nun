@@ -73,6 +73,36 @@ public class FriendButton : MonoBehaviour
 
         StartCoroutine(SearchPost(form1));
     }
+    public void RemoveFriend()          //요청받은 친구 추가하기 버튼 누르면
+    {
+        string f_nickname = gameObject.transform.parent.gameObject.name;            //추가하려는 친구 닉
+
+
+        WWWForm form1 = new WWWForm();
+        form1.AddField("order", "RemoveFriend");
+        string[] str = F_nickname.text.Split(':');
+        form1.AddField("friend_nickname", F_nickname.text);
+        form1.AddField("player_nickname", GameManager.NickName);
+
+        StartCoroutine(RemovePost(form1));
+    }
+    IEnumerator RemovePost(WWWForm form)
+    {
+        Debug.Log("RemovePost");
+        using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // 반드시 using을 써야한다
+        {
+            yield return www.SendWebRequest();
+            //Debug.Log(www.downloadHandler.text);
+            if (www.isDone)
+            {
+                //SearchResponse(www.downloadHandler.text);
+                Destroy(gameObject.transform.parent.gameObject);
+                Debug.Log("응답잇다");
+            }
+            else print("웹의 응답이 없습니다.");
+        }
+
+    }
     IEnumerator EnrollPost(WWWForm form)
     {
         Debug.Log("EnrollPost");
@@ -136,7 +166,17 @@ public class FriendButton : MonoBehaviour
         Text[] SearchText=Search.GetComponentsInChildren<Text>();
         SearchText[0].text = friendInfo.f_nickname;
         SearchText[1].text = friendInfo.f_info;
+
+        Image[] friendImage = Search.GetComponentsInChildren<Image>();
+        for (int j = 0; j < GameManager.AllNuniArray.Length; j++)
+        {
+            if (GameManager.AllNuniArray[j].Image.name != friendInfo.f_image)
+                continue;
+            friendImage[1].sprite = GameManager.AllNuniArray[j].Image;
+        }
+
         LoadingObejct.SetActive(false);
+
     }
 
 
@@ -189,6 +229,17 @@ public class FriendButton : MonoBehaviour
             Text[] friendButtonText = friendprefab.GetComponentsInChildren<Text>();
             friendButtonText[0].text = friendInfos[i].f_nickname;
             friendButtonText[1].text = friendInfos[i].f_info;
+
+
+            Image[] friendImage = friendPrefabChilds.GetComponentsInChildren<Image>();
+            for (int o = 0; o < GameManager.AllNuniArray.Length; o++)
+            {
+                if (GameManager.AllNuniArray[o].Image.name != friendInfos[i].f_image)
+                    continue;
+                friendImage[1].sprite = GameManager.AllNuniArray[o].Image;
+            }
+
+
         }
         LoadingObejct.SetActive(false);
     }

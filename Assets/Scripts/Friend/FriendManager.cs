@@ -124,6 +124,15 @@ public class FriendManager : MonoBehaviour
             Text[] friendButtonText = friendprefab.GetComponentsInChildren<Text>();
             friendButtonText[0].text = friend[0];
             friendButtonText[1].text = GameManager.Friends[i].f_info;
+
+            Image[] friendImage = friendprefab.GetComponentsInChildren<Image>();
+            Debug.Log("戚耕走醤ちちちちちちちち     " + friendImage.Length);
+            for (int k = 0; k < GameManager.AllNuniArray.Length; k++)
+            {
+                if (GameManager.AllNuniArray[k].Image.name != GameManager.Friends[i].f_image)
+                    continue;
+                friendImage[1].sprite = GameManager.AllNuniArray[k].Image;
+            }
         }           //庁姥 鯉系 室特
         LoadingObjcet.SetActive(false);
     }
@@ -166,6 +175,16 @@ public class FriendManager : MonoBehaviour
             Text[] friendButtonText = friendprefab.GetComponentsInChildren<Text>();
             friendButtonText[0].text = GameManager.Friends[i].f_nickname;
             friendButtonText[1].text = GameManager.Friends[i].f_info;
+
+            Image[] friendImage= friendprefab.GetComponentsInChildren<Image>();
+            Debug.Log("戚耕走醤ちちちちちちちち     "+ friendImage.Length);
+            for (int j   = 0; j < GameManager.AllNuniArray.Length; j++)
+            {
+                if (GameManager.AllNuniArray[j].Image.name != GameManager.Friends[i].f_image)
+                    continue;
+                friendImage[1].sprite = GameManager.AllNuniArray[j].Image;
+            }
+             
         }
         LoadingObjcet.SetActive(false);
     }
