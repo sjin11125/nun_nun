@@ -65,7 +65,8 @@ public class FriendButton : MonoBehaviour
         
         WWWForm form1 = new WWWForm();
         form1.AddField("order", "addFriend");
-        form1.AddField("friend_nickname", F_nickname.text);
+        string[] str = F_nickname.text.Split(':');
+        form1.AddField("friend_nickname", str[0]);
         form1.AddField("player_nickname", GameManager.NickName);
 
         StartCoroutine(SearchPost(form1));

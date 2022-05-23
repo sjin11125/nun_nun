@@ -16,6 +16,8 @@ public class ChaButtonScript : MonoBehaviour
 
     public Text ButtonText;
 
+    public Text CancleText;
+
     /* 아이템 목록
 * 0: 지우개(배치되어있는거 버림)
 * 1: 킵
@@ -126,10 +128,16 @@ public class ChaButtonScript : MonoBehaviour
     }
     public void IsUpgrade()         //건물 업그레이드 한다고 했을 때
     {
+       
         GameManager.isMoveLock = false;
         Building building = buildings[0].transform.parent.GetComponent<Building>();
         string building_name = buildings[0].transform.parent.name;
         Debug.Log(building_name);
+        if (GameManager.Money < building.Cost[building.Level - 1]||GameManager.ShinMoney< building.ShinCost[building.Level - 1])
+        {
+            CancleText.gameObject.SetActive(true);
+            return;
+        }
         if (Level == 0)
         {
             Debug.Log("000");
@@ -176,6 +184,8 @@ public class ChaButtonScript : MonoBehaviour
         Debug.Log(building.Level);
         building.Type = BuildType.Empty;
         building.RefreshBuildingList();     //빌딩 리스트 새로고침
+
+        gameObject.transform.parent.gameObject.SetActive(false);
 
     }
     // Update is called once per frame

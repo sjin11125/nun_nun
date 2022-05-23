@@ -67,7 +67,12 @@ public class LoadingSceneController : MonoBehaviour
         yield return StartCoroutine(Fade(true));
         AsyncOperation op = SceneManager.LoadSceneAsync(loadSceneName);
         op.allowSceneActivation = false;
-
+        if (loadSceneName=="Main")
+        {
+            BuildingSave buildingsave = this.GetComponent<BuildingSave>();
+            buildingsave.BuildingLoad();
+        }
+       
         float timer = 0f;
         while(!op.isDone)
         {

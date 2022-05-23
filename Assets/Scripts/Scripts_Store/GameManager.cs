@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
     public static Dictionary<string, int> BuildingNumber;            //건물이 종류별로 몇개 있는지(건물번호)
 
     public static bool isEdit = false;
+    public static bool isInvenEdit = false;
     public static Button InvenButton;
 
     public static List<string> IDs;        //건물 아이디
@@ -83,7 +84,7 @@ public class GameManager : MonoBehaviour
 
     public static string friend_nickname;       //현재 들어가있는 친구닉넴
 
-    public static string URL = "https://script.google.com/macros/s/AKfycbzCSV3FRBvI0FZ-lnxG5QvisNGeuUWZIw5S5Fx64AQh2KrIv4si6j5X6xXuLWdJOV9h/exec";
+    public static string URL = "https://script.google.com/macros/s/AKfycbyWaSRoVObEkGZRpBDRYcmKkMvCeeAIUPrTQrUYChXryfyl3P_199OlGvUI9fOj3ij8/exec";
 
     public static bool isReward;        //일괄수확 가능한지
     

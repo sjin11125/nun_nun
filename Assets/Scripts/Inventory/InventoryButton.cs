@@ -165,7 +165,16 @@ public class InventoryButton : MonoBehaviour
                 this_building = GameManager.BuildingList[i];
                 
             }
-        }
+        }  
+
+      /*  for (int i = 0; i < GameManager.StrList.Count; i++)
+        {
+            if (this.gameObject.name == GameManager.StrList[i].Id)
+            {
+                this_building = GameManager.StrList[i];
+                
+            }
+        }*/
 
         if (gridBuildingSystem.temp_gameObject!=null)
         {
@@ -338,7 +347,7 @@ public class InventoryButton : MonoBehaviour
 
             //GameManager.CurrentBuilding.name = this_building.Building_Image;
             gridBuildingSystem.GridLayerSetting();          //메인 타일 보이게
-            GameManager.isEdit = true;
+            GameManager.isInvenEdit = true;
             //gridBuildingSystem.Inven_Move(GameManager.CurrentBuilding.transform);
             GameManager.CurrentBuilding_Button = this;
 

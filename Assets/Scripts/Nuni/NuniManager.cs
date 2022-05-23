@@ -93,6 +93,7 @@ public class NuniManager : MonoBehaviour                    //게임 시작하고 구글
 
             Debug.Log("들어간 값: " + GameManager.CharacterList[k].isLock);
         }
+        SceneManager.LoadScene("Main");
     }
 
 }
