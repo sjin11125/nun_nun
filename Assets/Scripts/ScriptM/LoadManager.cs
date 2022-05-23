@@ -18,6 +18,8 @@ public class LoadManager : MonoBehaviour
 
     public GameObject RewardPannel;     //�ϰ����� �ǳ�
     public BuildingSave buildingsave;
+
+    public GameObject LoadingNuni;
     //public GameObject 
     Component CopyComponent(Component original, GameObject destination)
     {
@@ -263,9 +265,19 @@ public class LoadManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!GameManager.isLoading)
+        {
+            LoadingNuni.SetActive(true);
+
+        }
+        else
+        {
+            LoadingNuni.SetActive(false);
+        }
 
         if (GameManager.isReward == true&&GameManager.isLoading==true)          //�ϰ���Ȯ �Ҽ��ִ�?
         {
+            LoadingNuni.SetActive(false);
             GameManager.isReward = false;
             int MyReward = 0;
             for (int i = 0; i < GameManager.BuildingList.Count; i++)
