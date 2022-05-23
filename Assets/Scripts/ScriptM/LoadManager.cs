@@ -68,7 +68,7 @@ public class LoadManager : MonoBehaviour
         }
         GameManager.BuildingList = new List<Building>();
         Newtonsoft.Json.Linq.JArray j = Newtonsoft.Json.Linq.JArray.Parse(json);
-        //Debug.Log("j.Count: "+j.Count);
+
         BuildingParse Buildings = new BuildingParse();
         for (int i = 0; i < j.Count; i++)
         {
@@ -77,10 +77,6 @@ public class LoadManager : MonoBehaviour
             Building b = new Building();
             b.SetValueParse(Buildings);
 
-            /*  new Building(friendBuildings.isLock, friendBuildings.Building_name, friendBuildings.Reward, friendBuildings.Info, 
-              friendBuildings.Building_Image, friendBuildings.Cost.ToString(), friendBuildings.Level.ToString(), friendBuildings.Tree.ToString(),
-               friendBuildings.Grass.ToString(), friendBuildings.Snow.ToString(), friendBuildings.Ice.ToString(), friendBuildings.isFliped.ToString(), 
-              friendBuildings.buildingPosiiton_x, friendBuildings.buildingPosiiton_y);*/
             GameManager.BuildingList.Add(b);      //�� �ǹ� ����Ʈ�� ����
 
         }
@@ -106,6 +102,16 @@ public class LoadManager : MonoBehaviour
             //Debug.Log(www.downloadHandler.text);
             if (www.isDone) Reward_response(www.downloadHandler.text);
             else print("���� ������ �����ϴ�.");
+        }
+
+    }
+    IEnumerator TimePost(WWWForm form)
+    {
+        Debug.Log("TimePost");
+        using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // �ݵ�� using�� ����Ѵ�
+        {
+            yield return www.SendWebRequest();
+            //Debug.Log(www.downloadHandler.text);
         }
 
     }
@@ -135,30 +141,25 @@ public class LoadManager : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name == "Main")
         {
+            if (TutorialsManager.itemIndex > 13)
+            {
+                WWWForm form1 = new WWWForm();
+                Debug.Log("�ǹ��ε�");
+                //isMe = true;                    //�� �ǹ� �ҷ��´�!!!!!!!!!!!!!!!!
+                form1.AddField("order", "getFriendBuilding");
+                form1.AddField("loadedFriend", GameManager.NickName);
 
-            WWWForm form1 = new WWWForm();
-            Debug.Log("�ǹ��ε�");
-            //isMe = true;                    //�� �ǹ� �ҷ��´�!!!!!!!!!!!!!!!!
-            form1.AddField("order", "getFriendBuilding");
-            form1.AddField("loadedFriend", GameManager.NickName);
-
-            //isLoad = true;
-            /* WWWForm form2 = new WWWForm();
-             Debug.Log("��ġ���ε�");
-             //isMe = true;                    //�� ��ġ�� �ҷ��´�!!!!!!!!!!!!!!!!
-             form2.AddField("order", "getFriendStr");
-             form2.AddField("loadedFriend", GameManager.NickName);
-             StartCoroutine(Post_Str(form2)); */
-
+                StartCoroutine(RewardStart());          //오늘 재화 받을 수 있는지
+            }
 
             //   StartCoroutine(Post(form1));
             buildingsave.BuildingLoad();
 
-            WWWForm form2 = new WWWForm();
+           /* WWWForm form2 = new WWWForm();
             Debug.Log("�ڿ��ε�");
             //isMe = true;                    //�ڿ� �ҷ�����
             form2.AddField("order", "getMoney");
-            form2.AddField("player_nickname", GameManager.NickName);
+            form2.AddField("player_nickname", GameManager.NickName);*/
 
 
             //StartCoroutine(MoneyPost(form2));
@@ -263,7 +264,7 @@ public class LoadManager : MonoBehaviour
     void Update()
     {
 
-        if (GameManager.isReward == true)          //�ϰ���Ȯ �Ҽ��ִ�?
+        if (GameManager.isReward == true&&GameManager.isLoading==true)          //�ϰ���Ȯ �Ҽ��ִ�?
         {
             GameManager.isReward = false;
             int MyReward = 0;
@@ -283,7 +284,7 @@ public class LoadManager : MonoBehaviour
             form1.AddField("player_nickname", GameManager.NickName);
             form1.AddField("time", DateTime.Now.ToString("yyyy.MM.dd"));
 
-            StartCoroutine(Post(form1));//���� ��Ʈ�� ���ó�¥ ������Ʈ ���ֱ�
+            StartCoroutine(TimePost(form1));//���� ��Ʈ�� ���ó�¥ ������Ʈ ���ֱ�
 
             Debug.Log("����: "+MyReward);
             if (TutorialsManager.itemIndex > 13)//Ʃ�丮���� ��������

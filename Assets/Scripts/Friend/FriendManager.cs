@@ -30,6 +30,8 @@ public class FriendManager : MonoBehaviour
     public FriendInfo Fr;
 
     public GameObject FriendPrefab;
+
+    public GameObject LoadingObjcet;
     public void FriendWindowOpen()
     {
         Content.SetActive(true);
@@ -38,7 +40,7 @@ public class FriendManager : MonoBehaviour
     public void GetFriendLsit()         //친구 정보 불러오기
     {
 
-
+        LoadingObjcet.SetActive(true);
         WWWForm form = new WWWForm();
         form.AddField("order", "getFriend");
         form.AddField("id", "1234");
@@ -49,7 +51,7 @@ public class FriendManager : MonoBehaviour
     public void GetRecFriendLsit()         //추천친구 정보 불러오기
     {
 
-
+        LoadingObjcet.SetActive(true);
         WWWForm form = new WWWForm();
         form.AddField("order", "RecoommendFriend");
         form.AddField("id", "1234");
@@ -82,7 +84,11 @@ public class FriendManager : MonoBehaviour
         if (string.IsNullOrEmpty(json)) return;
 
         Debug.Log(json);
-
+        if (json == "")
+        {
+            LoadingObjcet.SetActive(false);
+            return;
+        }
         Newtonsoft.Json.Linq.JArray j = Newtonsoft.Json.Linq.JArray.Parse(json);
         FriendInfo[] friendInfos = new FriendInfo[j.Count];
         for (int i = 0; i < j.Count; i++)
@@ -90,6 +96,7 @@ public class FriendManager : MonoBehaviour
             friendInfos[i] = JsonUtility.FromJson<FriendInfo>(j[i].ToString());
             if (friendInfos[i].f_nickname=="")      //친구가 없다
             {
+                LoadingObjcet.SetActive(false);
                 return;
             }
             Debug.Log(friendInfos[i].f_nickname);
@@ -118,7 +125,7 @@ public class FriendManager : MonoBehaviour
             friendButtonText[0].text = friend[0];
             friendButtonText[1].text = GameManager.Friends[i].f_info;
         }           //친구 목록 세팅
-
+        LoadingObjcet.SetActive(false);
     }
     void Response(string json)
     {
@@ -160,7 +167,7 @@ public class FriendManager : MonoBehaviour
             friendButtonText[0].text = GameManager.Friends[i].f_nickname;
             friendButtonText[1].text = GameManager.Friends[i].f_info;
         }
-        
+        LoadingObjcet.SetActive(false);
     }
     // Start is called before the first frame update
     void Start()

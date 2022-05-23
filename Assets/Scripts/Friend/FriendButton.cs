@@ -16,6 +16,7 @@ public class FriendButton : MonoBehaviour
     public Text F_nickname;
     public GameObject Content;
     public GameObject FriendPrefab;
+    public GameObject LoadingObejct;
     // Start is called before the first frame update
     void Start()
     {
@@ -40,7 +41,8 @@ public class FriendButton : MonoBehaviour
 
     public void RequireFriend()         //받은 친구 요청 보기
     {
-        WWWForm form1 = new WWWForm();
+        LoadingObejct.SetActive(true);
+           WWWForm form1 = new WWWForm();
         form1.AddField("order", "requireFriend");
         form1.AddField("player_nickname", GameManager.NickName);
 
@@ -89,8 +91,9 @@ public class FriendButton : MonoBehaviour
     }
     public void SearchFriend()              //친구 검색 버튼 누르기
     {
-       // SearchButton.OnSubmit();
-       Transform[] ContentsChild= SearchFriendContents.GetComponentsInChildren<Transform>();        //다 지우기
+        // SearchButton.OnSubmit();
+        LoadingObejct.SetActive(true);
+        Transform[] ContentsChild= SearchFriendContents.GetComponentsInChildren<Transform>();        //다 지우기
         for (int i = 1; i < ContentsChild.Length; i++)
         {
             Destroy(ContentsChild[i].gameObject);
@@ -123,11 +126,17 @@ public class FriendButton : MonoBehaviour
     void SearchResponse(string json)
     {
         Debug.Log(json);
+        if (json == "")
+        {
+            LoadingObejct.SetActive(false);
+            return;
+        }
         FriendInfo friendInfo =JsonUtility.FromJson<FriendInfo>(json);
         GameObject Search = Instantiate(SearchFriendPrefab, SearchFriendContents.transform)as GameObject;
         Text[] SearchText=Search.GetComponentsInChildren<Text>();
         SearchText[0].text = friendInfo.f_nickname;
         SearchText[1].text = friendInfo.f_info;
+        LoadingObejct.SetActive(false);
     }
 
 
@@ -151,6 +160,7 @@ public class FriendButton : MonoBehaviour
     {
         if (json == "")
         {
+            LoadingObejct.SetActive(false);
             return;
         }
         Debug.Log(json);
@@ -180,7 +190,7 @@ public class FriendButton : MonoBehaviour
             friendButtonText[0].text = friendInfos[i].f_nickname;
             friendButtonText[1].text = friendInfos[i].f_info;
         }
-
+        LoadingObejct.SetActive(false);
     }
 
 

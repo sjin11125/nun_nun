@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
     public static List<string> IDs;        //건물 아이디
     public static bool isUpdate = false;        //건물 목록 강제로 업데이트
 
-
+    public static bool isLoading = false;           //건물 다 로딩됐는지
     //----------------------------------------------------이까지 건물----------------------------------------------------
 
 
@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour
 
     public static string friend_nickname;       //현재 들어가있는 친구닉넴
 
-    public static string URL = "https://script.google.com/macros/s/AKfycbyWaSRoVObEkGZRpBDRYcmKkMvCeeAIUPrTQrUYChXryfyl3P_199OlGvUI9fOj3ij8/exec";
+    public static string URL = "https://script.google.com/macros/s/AKfycbydN7wMZqqwuvVOSRACJsrcHEAopBn5JkdB3Lti9xJHdFcJdKTNJiGfW6hn9M3B6TvI/exec";
 
     public static bool isReward;        //일괄수확 가능한지
     
