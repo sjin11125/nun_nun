@@ -888,12 +888,16 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 9ae961d906eaa5149972d3f2e82e5ecd, type: 3}
     - target: {fileID: 348563024, guid: 5dea2f5e904f37c439bf4db567b9e457, type: 3}
       propertyPath: m_SortingOrder
-      value: 1
+      value: -47
       objectReference: {fileID: 0}
     - target: {fileID: 729126928, guid: 5dea2f5e904f37c439bf4db567b9e457, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: d717ad2728f3744409b5b32c432ea446, type: 3}
+    - target: {fileID: 729126928, guid: 5dea2f5e904f37c439bf4db567b9e457, type: 3}
+      propertyPath: m_SortingOrder
+      value: -48
+      objectReference: {fileID: 0}
     - target: {fileID: 1035652537, guid: 5dea2f5e904f37c439bf4db567b9e457, type: 3}
       propertyPath: UI_Manager
       value: 
@@ -2174,6 +2178,7 @@ MonoBehaviour:
   ItemImages: []
   isCheck: 0
   ButtonText: {fileID: 0}
+  CancleText: {fileID: 0}
   DowngradeBuilding: {fileID: 0}
   isUpgrade: 0
   NuniInfoPannel: {fileID: 0}
@@ -5116,6 +5121,7 @@ MonoBehaviour:
   ItemImages: []
   isCheck: 0
   ButtonText: {fileID: 0}
+  CancleText: {fileID: 0}
   DowngradeBuilding: {fileID: 0}
   isUpgrade: 0
   NuniInfoPannel: {fileID: 0}
@@ -5466,6 +5472,7 @@ MonoBehaviour:
   ItemImages: []
   isCheck: 0
   ButtonText: {fileID: 0}
+  CancleText: {fileID: 0}
   DowngradeBuilding: {fileID: 0}
   isUpgrade: 0
   NuniInfoPannel: {fileID: 0}
@@ -8522,6 +8529,7 @@ MonoBehaviour:
   ItemImages: []
   isCheck: 0
   ButtonText: {fileID: 0}
+  CancleText: {fileID: 0}
   DowngradeBuilding: {fileID: 0}
   isUpgrade: 0
   NuniInfoPannel: {fileID: 0}
@@ -9380,7 +9388,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildings: {fileID: 721536679}
   nunis: {fileID: 0}
+  isLoaded: 0
   RewardPannel: {fileID: 0}
+  buildingsave: {fileID: 0}
 --- !u!4 &2084656256
 Transform:
   m_ObjectHideFlags: 0

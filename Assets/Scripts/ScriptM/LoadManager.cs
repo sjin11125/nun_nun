@@ -293,48 +293,37 @@ public class LoadManager : MonoBehaviour
                 rewardText[1].text = MyReward.ToString();
             }          
         }
-        if (isLoad == true)
-        {
-            isLoad = false;
-            //isLoad = false;
-           
-            if (SceneManager.GetActiveScene().name == "Main" && GameManager.BuildingList != null)       //���ξ����� �ε��ϱ�(�� ����)
+      if (SceneManager.GetActiveScene().name == "FriendMain"&& isLoaded==false)                            //ģ�� ���� ��
             {
-                //�ǹ��ε�
-                Debug.Log("GameManager.BuildingList.Count: " + GameManager.BuildingList.Count);
+            isLoaded = true;
+            for (int i = 0; i < GameManager.FriendBuildingList.Count; i++)
+            {
+                Building LoadBuilding = GameManager.FriendBuildingList[i];           // ���� ������ �մ� ���� ����Ʈ�� ���� ������Ʈ
+                string BuildingName = LoadBuilding.Building_Image;        //���� ������ �ִ� ���� ����Ʈ���� ���� �̸� �θ���
+                Debug.Log(BuildingName);
 
-              
-            }
-          
-            else if (SceneManager.GetActiveScene().name == "FriendMain")                            //ģ�� ���� ��
-            {
-                for (int i = 0; i < GameManager.FriendBuildingList.Count; i++)
+                foreach (var item in GameManager.BuildingPrefabData)
                 {
-                    Building LoadBuilding = GameManager.FriendBuildingList[i];           // ���� ������ �մ� ���� ����Ʈ�� ���� ������Ʈ
-                    string BuildingName = LoadBuilding.Building_Image;        //���� ������ �ִ� ���� ����Ʈ���� ���� �̸� �θ���
-                    Debug.Log(BuildingName);
-
-                    foreach (var item in GameManager.BuildingPrefabData)
-                    {
-                        Debug.Log(item.Key);
-                    }
-                    Debug.Log(LoadBuilding.BuildingPosiiton_x);
-                    Debug.Log(BuildingName);
-                    GameObject g = Instantiate(GameManager.BuildingPrefabData[BuildingName], new Vector3(float.Parse(LoadBuilding.BuildingPosiiton_x), float.Parse(LoadBuilding.BuildingPosiiton_y), 0), Quaternion.identity) as GameObject;
-
-                    Building g_Building = g.GetComponent<Building>();
-                    g_Building.SetValue(LoadBuilding);
-                    //g.transform.position=new Vector3(LoadBuilding.BuildingPosition.x,LoadBuilding.BuildingPosition.y, 0);
-                    Debug.Log(LoadBuilding.Building_name);
-                    g.name = LoadBuilding.Id;            //�̸� �缳��
-
-                    g_Building.Type = BuildType.Load;
-                    g_Building.Place(g_Building.Type);
-                    Debug.Log(g.GetComponent<Building>().isFliped);
-                    // g_Building.Rotation();
-
+                    Debug.Log(item.Key);
                 }
+                Debug.Log(LoadBuilding.BuildingPosiiton_x);
+                Debug.Log(BuildingName);
+                GameObject BuildingPrefab = GameManager.BuildingPrefabData[BuildingName];
+                GameObject g = Instantiate(BuildingPrefab, new Vector3(LoadBuilding.BuildingPosition.x, LoadBuilding.BuildingPosition.y, 0), Quaternion.identity, buildings.transform) as GameObject;
+
+                Building g_Building = g.GetComponent<Building>();
+                g_Building.SetValue(LoadBuilding);
+                //g.transform.position=new Vector3(LoadBuilding.BuildingPosition.x,LoadBuilding.BuildingPosition.y, 0);
+                Debug.Log(LoadBuilding.Building_name);
+                g.name = LoadBuilding.Id;            //�̸� �缳��
+
+                g_Building.Type = BuildType.Load;
+                g_Building.Place_Initial(g_Building.Type);
+                Debug.Log(g.GetComponent<Building>().isFliped);
+                // g_Building.Rotation();
+
             }
+            
 
         }
 
