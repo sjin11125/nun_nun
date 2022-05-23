@@ -83,7 +83,22 @@ public class GridBuildingSystem : MonoBehaviour
         // StartButton = GameObject.Find("Start").GetComponent<Button>();
 
     }
-   public void GridLayerSetting()
+    public bool IsPointerOverUIObject(Vector2 touchPos)
+    {
+        PointerEventData eventDataCurrentPosition
+            = new PointerEventData(EventSystem.current);
+
+        eventDataCurrentPosition.position = touchPos;
+
+        List<RaycastResult> results = new List<RaycastResult>();
+
+
+        EventSystem.current
+        .RaycastAll(eventDataCurrentPosition, results);
+
+        return results.Count > 0;
+    }
+    public void GridLayerSetting()
     {
         MainTilemap.GetComponent<TilemapRenderer>().sortingOrder = -45;             //메인 타일 보이게
     }
@@ -122,15 +137,15 @@ public class GridBuildingSystem : MonoBehaviour
         {
             second = 0;
         }
-        if (Input.touchCount>0)
+       /* if (Input.touchCount>0)
         {
-            if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))     //UI를 터치했냐
+            if (IsPointerOverUIObject(Input.GetTouch(0).fingerId))     //UI를 터치했냐
             {
                 return;
             }
-        }
+        }*/
        
-        if (EventSystem.current.IsPointerOverGameObject())      //UI를 클릭했냐
+        if (EventSystem.current.IsPointerOverGameObject(0))      //UI를 클릭했냐
         {
             return;
         }
