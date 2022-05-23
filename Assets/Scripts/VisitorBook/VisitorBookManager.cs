@@ -11,7 +11,8 @@ public class VisitorBook
 {
     public string f_nickname;      //친구
     public string f_message;        //친구가 보낸 메세지
-    public string f_time;        //친구가 보낸 메세지
+    public string f_time;        //친구가 보낸 시간
+    public string f_image;        //친구프사
     public VisitorBook(string nickname, string message,string time)
     {
         this.f_nickname = nickname;
@@ -152,6 +153,18 @@ public class VisitorBookManager : MonoBehaviour
             VBtext[1].text = friendBuildings.f_message;
             VBtext[2].text = friendBuildings.f_time;
 
+            Image[] Images= VB.GetComponentsInChildren<Image>();
+            for (int k = 0; k < GameManager.AllNuniArray.Length; k++)
+            {
+                if (GameManager.AllNuniArray[k].Image.name != friendBuildings.f_image)
+                    continue;
+                else
+                {
+                    Images[1].sprite = GameManager.AllNuniArray[k].Image;
+                    return;
+                }
+               
+            }
         }
         
 

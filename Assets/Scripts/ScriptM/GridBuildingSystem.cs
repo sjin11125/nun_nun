@@ -275,7 +275,14 @@ public class GridBuildingSystem : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
 
+            if (hit.transform != null)          // 오브젝트를 클릭 했을 때
+            {
+                if (hit.transform.tag == "VisitorBook")
+                {
+                    VisitorBooksWindow.gameObject.SetActive(true);
+                }
 
+            }
 
             if (hit.transform != null)          // 오브젝트를 클릭 했을 때
             {
@@ -504,7 +511,7 @@ public class GridBuildingSystem : MonoBehaviour
                 Debug.Log("Good");
                 Debug.Log("Good " + GameManager.BuildingArray[i].Building_name);
                 temp.Cost = GameManager.BuildingArray[i].Cost;
-                Debug.Log("uuuuuuuuu: " + GameManager.BuildingArray[i].Cost[0]);
+                //Debug.Log("uuuuuuuuu: " + GameManager.BuildingArray[i].Cost[0]);
                 break;
             }
         }
