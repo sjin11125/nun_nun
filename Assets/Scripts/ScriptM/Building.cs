@@ -521,6 +521,7 @@ public class Building : MonoBehaviour
             Destroy(gameObject);
         }
         GameManager.isUpdate = true;
+
     }
     public void Place_Initial(BuildType buildtype)
     {

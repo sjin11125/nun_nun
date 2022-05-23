@@ -107,6 +107,12 @@ public class GridBuildingSystem : MonoBehaviour
             InitializeWithBuilding();
             temp.Type = BuildType.Move;
         }
+        if (GameManager.isInvenEdit==true)
+        {
+            GameManager.isInvenEdit = false;
+            InitializeWithBuilding_InvenButton();
+            temp.Type = BuildType.Move;
+        }
         if (isGrid == true)
         {
             second += Time.deltaTime;
@@ -318,6 +324,7 @@ public class GridBuildingSystem : MonoBehaviour
             {
                 if (hit.transform.tag == "Building" && GameManager.isStore == false)
                 {
+                    Debug.Log("꾹눌러");
                     MainTilemap.GetComponent<TilemapRenderer>().sortingOrder = -45;             //메인 타일 보이게
                     temp = hit.transform.GetComponent<Building>();
                     GameManager.CurrentBuilding_Script = temp;
@@ -469,6 +476,45 @@ public class GridBuildingSystem : MonoBehaviour
         FollowBuilding(false);           //건물이 마우스 따라가게 하는 함수
 
    }
+    public void InitializeWithBuilding_InvenButton() //인벤버튼 눌렀을 때 building 을 prefab으로 해서 생성
+    {
+        temp_gameObject = Instantiate(GameManager.CurrentBuilding, Vector3.zero, Quaternion.identity, buildings.transform) as GameObject;
+
+        temp = temp_gameObject.GetComponent<Building>(); // 이때 building 프리펩의 속성 불러오기
+        temp.SetValue(GameManager.CurrentBuilding_Script);
+        for (int i = 0; i < GameManager.BuildingArray.Length; i++)
+        {
+            if (GameManager.BuildingArray[i].Building_Image == temp.Building_Image)
+            {
+                Debug.Log("Good");
+                Debug.Log("Good " + GameManager.BuildingArray[i].Building_name);
+                temp.Cost = GameManager.BuildingArray[i].Cost;
+                Debug.Log("uuuuuuuuu: " + GameManager.BuildingArray[i].Cost[0]);
+                break;
+            }
+        }
+        for (int i = 0; i < GameManager.StrArray.Length; i++)
+        {
+            if (GameManager.StrArray[i].Building_Image == temp.Building_Image)
+            {
+                Debug.Log("Good");
+                Debug.Log("Good " + GameManager.StrArray[i].Building_name);
+                GameManager.StrArray[i].Level = 1;
+                temp.SetValue(GameManager.StrArray[i]);
+                Debug.Log("uuuuuuuuu: " + GameManager.StrArray[i].Cost[0]);
+                break;
+            }
+        }
+
+        temp.Type = BuildType.Make;
+
+        temp.Rotation_Pannel.gameObject.SetActive(false);
+        temp.UpgradePannel.SetActive(false);//업그레이드 패널 삭제
+        temp.Placed = false;            //건물은 현재 배치가 안 된 상태
+        //temp.Building_name = temp_gameObject.name;
+        FollowBuilding(false);           //건물이 마우스 따라가게 하는 함수
+
+    }
     public void ClickWithBuilding(Building click_building)
     {
         temp = click_building;
