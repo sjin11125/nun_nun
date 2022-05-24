@@ -145,7 +145,7 @@ public class FriendButton : MonoBehaviour
     }
     void SearchResponse(string json)
     {
-        if (json .Equals( "")
+        if (json .Equals( ""))
         {
             LoadingObejct.SetActive(false);
             return;
@@ -193,7 +193,7 @@ public class FriendButton : MonoBehaviour
     }
     void RequireResponse(string json)
     {
-        if (json .Equals( "")
+        if (json .Equals( ""))
         {
             LoadingObejct.SetActive(false);
             return;
