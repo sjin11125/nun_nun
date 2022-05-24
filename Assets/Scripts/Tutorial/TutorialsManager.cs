@@ -11,10 +11,10 @@ public class TutorialsManager : MonoBehaviour
     void Start()
     {
         // 모든 아이템을 비활성화 하고, 첫번째 것만 활성화 한다.
-        if (items == null)
+        if (items .Equals( null))
             return;
 
-        if (items.Length == 0)
+        if (items.Length .Equals( 0))
             return;
 
         foreach (var item in items)
@@ -28,7 +28,7 @@ public class TutorialsManager : MonoBehaviour
     // 다음 아이템을 활성화 한다.
     public void ActiveNextItem()
     {
-        if (items.Length == itemIndex)
+        if (items.Length .Equals( itemIndex))
         {
             this.gameObject.SetActive(false);
             if(bunsu != null)
@@ -48,7 +48,7 @@ public class TutorialsManager : MonoBehaviour
             if (itemIndex > -1 && itemIndex < items.Length)
             {
                 items[itemIndex].gameObject.SetActive(true);// 아이템 활성화
-                if (itemIndex == 1)
+                if (itemIndex .Equals( 1))
                 {
                     bunsu = GameObject.FindWithTag("bunsu"); //ii1y1
                     if (bunsu != null)
@@ -56,7 +56,7 @@ public class TutorialsManager : MonoBehaviour
                         bunsu.gameObject.SetActive(false);
                     }
                 }
-                if (itemIndex == 10)
+                if (itemIndex .Equals( 10))
                 {
                     GameManager.Money += 100;
                     GameManager.ShinMoney += 1;

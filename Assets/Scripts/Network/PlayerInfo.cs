@@ -23,7 +23,7 @@ public class PlayerInfo : MonoBehaviour                 //플레이어 프로필 스크립
     // Start is called before the first frame update
     void Start()
     {
-        if (gameObject.tag == "Profile")
+        if (gameObject.tag .Equals( "Profile"))
         {
             Profile[0].text = GameManager.NickName;
             Profile[1].text = GameManager.StateMessage;
@@ -32,7 +32,7 @@ public class PlayerInfo : MonoBehaviour                 //플레이어 프로필 스크립
                 bool isNuni=false;
                 for (int j   = 0; j < GameManager.CharacterList.Count; j++)
                 {
-                    if (GameManager.CharacterList[j].cardImage== GameManager.AllNuniArray[i].cardImage)
+                    if (GameManager.CharacterList[j].cardImage.Equals( GameManager.AllNuniArray[i].cardImage))
                     {
                         isNuni = true;
                     }
@@ -52,14 +52,9 @@ public class PlayerInfo : MonoBehaviour                 //플레이어 프로필 스크립
 
     public void ImageEnroll()       //프로필 이미지 등록
     {
-        if (gameObject.GetComponent<Image>().sprite == null)
-        {
-            Debug.Log("이미지 널");
-        }
-        else
+        if (gameObject.GetComponent<Image>().sprite != null)
         {
             GameManager.ProfileImage = gameObject.transform.parent.GetComponent<Image>().sprite;
-            Debug.Log("image: "+ GameManager.ProfileImage.name);
             WWWForm form1 = new WWWForm();
             form1.AddField("order", "setProfileImage");
             form1.AddField("player_nickname", GameManager.NickName);
@@ -79,11 +74,11 @@ public class PlayerInfo : MonoBehaviour                 //플레이어 프로필 스크립
 
     IEnumerator ImagePost(WWWForm form)
     {
-        Debug.Log("ImagePost");
+
         using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // 반드시 using을 써야한다
         {
             yield return www.SendWebRequest();
-            //Debug.Log(www.downloadHandler.text);
+     
             
         }
 
@@ -91,7 +86,7 @@ public class PlayerInfo : MonoBehaviour                 //플레이어 프로필 스크립
     public void EditInfo()                  //한줄소개 수정
     {
         GameManager.StateMessage = InfoInput.text;
-        Debug.Log("image: " + GameManager.ProfileImage.name);
+
         WWWForm form1 = new WWWForm();
         form1.AddField("order", "setProfileInfo");
         form1.AddField("player_nickname", GameManager.NickName);
@@ -103,19 +98,19 @@ public class PlayerInfo : MonoBehaviour                 //플레이어 프로필 스크립
     // Update is called once per frame
     void Update()
     {
-        if (gameObject.tag=="Profile")
+        if (gameObject.tag.Equals("Profile"))
         {
             gameObject.GetComponent<Image>().sprite = GameManager.ProfileImage;
         
             Profile[0].text = GameManager.NickName;
             Profile[1].text = GameManager.StateMessage;
         }
-        if (gameObject.tag == "Profile_Image")
+        if (gameObject.tag .Equals( "Profile_Image"))
         {
             gameObject.GetComponent<Image>().sprite = GameManager.ProfileImage;
             /*  for (int i = 0; i < GameManager.CharacterList.Count; i++)
               {
-                  if (GameManager.ProfileImage.name== GameManager.CharacterList[i].Image.name)
+                  if (GameManager.ProfileImage.name.Equals( GameManager.CharacterList[i].Image.name)
                   {
                       profile_image.sprite = GameManager.CharacterList[i].Image;
                   }

@@ -66,7 +66,7 @@ public class StartManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (isParsing == false)
+        if (isParsing .Equals( false))
         {
             DicParsingManager DPManager = new DicParsingManager();
             NuNiInformation = DPManager.Parse_character(1);    //도감 정보 파싱
@@ -80,7 +80,7 @@ public class StartManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (ChaIndex==99)
+        if (ChaIndex.Equals(99))
         {
             ItemInfo.text = "";
         }
@@ -103,7 +103,7 @@ public class StartManager : MonoBehaviour
             Card[] NuniArray = GameManager.CharacterList.ToArray();
             for (int i = 0; i < NuniArray.Length; i++)
             {
-                if (NuniArray[i].Item == j)
+                if (NuniArray[i].Item .Equals( j))
                 {
 
                     itemList[j] = true;
@@ -131,7 +131,7 @@ public class StartManager : MonoBehaviour
 
             Text CharacterName = ChaPrefabChilds[1].GetComponent<Text>();
 
-            if (itemList[j] == true)
+            if (itemList[j] .Equals( true))
             {
                 image[1].sprite = ItenImage[j];//NuNiInformation[j].GetChaImange();   //캐릭터 이름 값 받아와서 이미지 찾기
                 //Instantiate(ItemImages[j], DogamCha.transform);
@@ -176,7 +176,7 @@ public class StartManager : MonoBehaviour
         LockButton = new Button[CharactersArray.Length];        //
         for (int i = 0; i < CharactersArray.Length; i++)
         {
-            if (CharactersArray[i].GetCharacter("isLock") == "F")
+            if (CharactersArray[i].GetCharacter("isLock") .Equals( "F"))
             {
 
             }

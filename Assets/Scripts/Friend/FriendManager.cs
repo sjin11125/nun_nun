@@ -64,7 +64,6 @@ public class FriendManager : MonoBehaviour
         using (UnityWebRequest www = UnityWebRequest.Post(URL, form)) // 반드시 using을 써야한다
         {
             yield return www.SendWebRequest();
-            //Debug.Log(www.downloadHandler.text);
             if (www.isDone) Response(www.downloadHandler.text);
             else print("웹의 응답이 없습니다.");
         }
@@ -74,7 +73,6 @@ public class FriendManager : MonoBehaviour
         using (UnityWebRequest www = UnityWebRequest.Post(URL, form)) // 반드시 using을 써야한다
         {
             yield return www.SendWebRequest();
-            //Debug.Log(www.downloadHandler.text);
             if (www.isDone) ListResponse(www.downloadHandler.text);
             else print("웹의 응답이 없습니다.");
         }
@@ -83,8 +81,7 @@ public class FriendManager : MonoBehaviour
     {
         if (string.IsNullOrEmpty(json)) return;
 
-        Debug.Log(json);
-        if (json == "")
+        if (json .Equals( ""))
         {
             LoadingObjcet.SetActive(false);
             return;
@@ -94,12 +91,11 @@ public class FriendManager : MonoBehaviour
         for (int i = 0; i < j.Count; i++)
         {
             friendInfos[i] = JsonUtility.FromJson<FriendInfo>(j[i].ToString());
-            if (friendInfos[i].f_nickname=="")      //친구가 없다
+            if (friendInfos[i].f_nickname.Equals("")    )  //친구가 없다
             {
                 LoadingObjcet.SetActive(false);
                 return;
             }
-            Debug.Log(friendInfos[i].f_nickname);
         }
         GameManager.Friends = friendInfos;
 
@@ -111,7 +107,6 @@ public class FriendManager : MonoBehaviour
         for (int i = 0; i < GameManager.Friends.Length; i++)
         {
             string[] friend = GameManager.Friends[i].f_nickname.Split(':');
-            Debug.Log(friend.Length);
             if (friend.Length>=2)
             {
                 continue;
@@ -126,7 +121,6 @@ public class FriendManager : MonoBehaviour
             friendButtonText[1].text = GameManager.Friends[i].f_info;
 
             Image[] friendImage = friendprefab.GetComponentsInChildren<Image>();
-            Debug.Log("이미지야ㅑㅑㅑㅑㅑㅑㅑㅑ     " + friendImage.Length);
             for (int k = 0; k < GameManager.AllNuniArray.Length; k++)
             {
                 if (GameManager.AllNuniArray[k].Image.name != GameManager.Friends[i].f_image)
@@ -140,7 +134,7 @@ public class FriendManager : MonoBehaviour
     {
         if (string.IsNullOrEmpty(json)) return;
 
-        Debug.Log(json);
+
 
         Transform[] child = Content.GetComponentsInChildren<Transform>();           //일단 초기화
         for (int k = 1; k < child.Length; k++)
@@ -153,7 +147,7 @@ public class FriendManager : MonoBehaviour
         for (int i = 0; i < j.Count; i++)
         {
             friendInfos[i] = JsonUtility.FromJson<FriendInfo>(j[i].ToString());
-            Debug.Log(friendInfos[i].f_nickname);
+
         }
         GameManager.Friends = friendInfos;
         FriendsList();              //친구 목록 세팅
@@ -177,7 +171,7 @@ public class FriendManager : MonoBehaviour
             friendButtonText[1].text = GameManager.Friends[i].f_info;
 
             Image[] friendImage= friendprefab.GetComponentsInChildren<Image>();
-            Debug.Log("이미지야ㅑㅑㅑㅑㅑㅑㅑㅑ     "+ friendImage.Length);
+
             for (int j   = 0; j < GameManager.AllNuniArray.Length; j++)
             {
                 if (GameManager.AllNuniArray[j].Image.name != GameManager.Friends[i].f_image)

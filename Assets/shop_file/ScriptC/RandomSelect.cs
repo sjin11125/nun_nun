@@ -15,11 +15,9 @@ public class RandomSelect : MonoBehaviour
         deck = new List<Card>();
         for (int i = 0; i < GameManager.AllNuniArray.Length; i++)
         {
-            Debug.Log(i);
             total += int.Parse(GameManager.AllNuniArray[i].weight);
         }
 
-        Debug.Log(GameManager.BuildingList.Count);
         for (int i = 0; i < GameManager.AllNuniArray.Length; i++)
         {
             // deck[i] = GameManager.AllNuniArray[i];
@@ -42,29 +40,13 @@ public class RandomSelect : MonoBehaviour
         CardUI cardUI = Instantiate(cardprefab, parent).GetComponent<CardUI>();
         // 생성 된 카드에 결과 리스트의 정보를 넣어줍니다.
         Card Nuni = cardUI.CardUISet(RandomCard());
-        Debug.Log("Nuni level: " + Nuni.Level);
         Nuni.isLock = "T";          //누니 잠금 품
         GameManager.CharacterList.Add(Nuni);     //나온 결과를 리스트에 반영
                                                  //전체 누니 배열을 수정
 
 
-       /* for (int j = 0; j <= GameManager.CharacterList.Count; j++)
-        {
-            if (Nuni.cardImage == GameManager.CharacterList[j].cardImage)        //현재 가지고 있는 누니 중 있으면
-            {
-
-                GameManager.ShinMoney += int.Parse(Nuni.Level);  //근데 현재 가지고 있는 누니가 1성이면 1젬, 2성이면 2젬
-                Debug.Log("발광석: " + GameManager.ShinMoney);
-
-            }
-
-        }*/
         StartCoroutine(NuniSave(Nuni));          //구글 스크립트에 업데이트
-        Debug.Log("nuni save");
-        for (int i = 0; i < GameManager.CharacterList.Count; i++)
-        {
-            Debug.Log(GameManager.CharacterList[i].cardName);
-        }
+
     }
     IEnumerator NuniSave(Card nuni)                //누니 구글 스크립트에 저장
     {
@@ -94,14 +76,14 @@ public class RandomSelect : MonoBehaviour
     void NuniResponse(string json)                          //누니 불러오기
     {
         //List<QuestInfo> Questlist = new List<QuestInfo>();
-        Debug.Log(json);
-        if (json == "null")
+
+        if (json .Equals( "null"))
         {
             return;
         }
         if (string.IsNullOrEmpty(json))
         {
-            Debug.Log(json);
+            
             return;
         }
                        //누니 이름 받아서 겜메 모든 누니 배열에서 누니 정보 받아서 넣기
@@ -114,7 +96,7 @@ public class RandomSelect : MonoBehaviour
     {
         // 이렇게하면 가중치 랜덤함수 (확률이 다름)
 
-        if (isTuto == 0)
+        if (isTuto .Equals( 0))
         {
             return GameManager.AllNuniArray[6];
         }
