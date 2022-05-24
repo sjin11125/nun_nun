@@ -48,7 +48,9 @@ public class GridBuildingSystem : MonoBehaviour
     public GameObject VisitorBooksWindow;           //방명록창
 
     private GameObject settigPanel;
-
+    Touch tempTouchs;
+    Vector3 touchedPos;
+    bool touchOn = false;
     #region unity Methods  
     private void Awake()
     {
@@ -137,14 +139,27 @@ public class GridBuildingSystem : MonoBehaviour
         {
             second = 0;
         }
-       /* if (Input.touchCount>0)
-        {
-            if (IsPointerOverUIObject(Input.GetTouch(0).fingerId))     //UI를 터치했냐
+        if (Input.touchCount > 0)
+        {    //터치가 1개 이상이면.
+            
+            for (int i = 0; i < Input.touchCount; i++)
             {
-                return;
+                if (EventSystem.current.IsPointerOverGameObject(i) == false)
+                {
+                    tempTouchs = Input.GetTouch(i);
+                    if (tempTouchs.phase == TouchPhase.Began)
+                    {    //해당 터치가 시작됐다면.
+                        touchedPos = Camera.main.ScreenToWorldPoint(tempTouchs.position);//get world position.
+
+                        touchOn = true;
+
+                        break;   //한 프레임(update)에는 하나만.
+                    }
+                }
             }
-        }*/
-       
+        }
+
+
         if (EventSystem.current.IsPointerOverGameObject(0))      //UI를 클릭했냐
         {
             return;
