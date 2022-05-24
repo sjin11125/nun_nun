@@ -521,6 +521,7 @@ public class Building : MonoBehaviour
             Destroy(gameObject);
         }
         GameManager.isUpdate = true;
+
     }
     public void Place_Initial(BuildType buildtype)
     {
@@ -551,6 +552,7 @@ public class Building : MonoBehaviour
         //areaTemp.position = positionInt;
         //Debug.Log(areaTemp.position);
         Placed = true;      // 배치 했니? 네
+        Debug.Log(buildings.Length);
         buildings[0].GetComponent<SortingGroup>().sortingOrder = -(int)transform.position.y;
         /*if (Level==2)
         {

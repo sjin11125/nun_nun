@@ -30,6 +30,8 @@ public class FriendManager : MonoBehaviour
     public FriendInfo Fr;
 
     public GameObject FriendPrefab;
+
+    public GameObject LoadingObjcet;
     public void FriendWindowOpen()
     {
         Content.SetActive(true);
@@ -38,7 +40,7 @@ public class FriendManager : MonoBehaviour
     public void GetFriendLsit()         //친구 정보 불러오기
     {
 
-
+        LoadingObjcet.SetActive(true);
         WWWForm form = new WWWForm();
         form.AddField("order", "getFriend");
         form.AddField("id", "1234");
@@ -49,7 +51,7 @@ public class FriendManager : MonoBehaviour
     public void GetRecFriendLsit()         //추천친구 정보 불러오기
     {
 
-
+        LoadingObjcet.SetActive(true);
         WWWForm form = new WWWForm();
         form.AddField("order", "RecoommendFriend");
         form.AddField("id", "1234");
@@ -82,7 +84,11 @@ public class FriendManager : MonoBehaviour
         if (string.IsNullOrEmpty(json)) return;
 
         Debug.Log(json);
-
+        if (json == "")
+        {
+            LoadingObjcet.SetActive(false);
+            return;
+        }
         Newtonsoft.Json.Linq.JArray j = Newtonsoft.Json.Linq.JArray.Parse(json);
         FriendInfo[] friendInfos = new FriendInfo[j.Count];
         for (int i = 0; i < j.Count; i++)
@@ -90,34 +96,45 @@ public class FriendManager : MonoBehaviour
             friendInfos[i] = JsonUtility.FromJson<FriendInfo>(j[i].ToString());
             if (friendInfos[i].f_nickname=="")      //친구가 없다
             {
+                LoadingObjcet.SetActive(false);
                 return;
             }
             Debug.Log(friendInfos[i].f_nickname);
         }
         GameManager.Friends = friendInfos;
 
-
-
+        Transform[] child = Content.GetComponentsInChildren<Transform>();           //일단 초기화
+        for (int k = 1; k < child.Length; k++)
+        {
+            Destroy(child[k].gameObject);
+        }
         for (int i = 0; i < GameManager.Friends.Length; i++)
-        { string[] friend = GameManager.Friends[i].f_nickname.Split(':');
+        {
+            string[] friend = GameManager.Friends[i].f_nickname.Split(':');
             Debug.Log(friend.Length);
             if (friend.Length>=2)
             {
                 continue;
             }
-            Transform[] child = Content.GetComponentsInChildren<Transform>();           //일단 초기화
-            for (int k = 1; k < child.Length; k++)
-            {
-                Destroy(child[k].gameObject);
-            }
+          
+          
             GameObject friendprefab = Instantiate(FriendPrefab, Content.transform) as GameObject;  //친구 프리팹 생성
             Transform friendPrefabChilds = friendprefab.GetComponent<Transform>();
             friendPrefabChilds.name = GameManager.Friends[i].f_nickname;
             Text[] friendButtonText = friendprefab.GetComponentsInChildren<Text>();
             friendButtonText[0].text = friend[0];
             friendButtonText[1].text = GameManager.Friends[i].f_info;
-        }           //친구 목록 세팅
 
+            Image[] friendImage = friendprefab.GetComponentsInChildren<Image>();
+            Debug.Log("이미지야ㅑㅑㅑㅑㅑㅑㅑㅑ     " + friendImage.Length);
+            for (int k = 0; k < GameManager.AllNuniArray.Length; k++)
+            {
+                if (GameManager.AllNuniArray[k].Image.name != GameManager.Friends[i].f_image)
+                    continue;
+                friendImage[1].sprite = GameManager.AllNuniArray[k].Image;
+            }
+        }           //친구 목록 세팅
+        LoadingObjcet.SetActive(false);
     }
     void Response(string json)
     {
@@ -158,8 +175,18 @@ public class FriendManager : MonoBehaviour
             Text[] friendButtonText = friendprefab.GetComponentsInChildren<Text>();
             friendButtonText[0].text = GameManager.Friends[i].f_nickname;
             friendButtonText[1].text = GameManager.Friends[i].f_info;
+
+            Image[] friendImage= friendprefab.GetComponentsInChildren<Image>();
+            Debug.Log("이미지야ㅑㅑㅑㅑㅑㅑㅑㅑ     "+ friendImage.Length);
+            for (int j   = 0; j < GameManager.AllNuniArray.Length; j++)
+            {
+                if (GameManager.AllNuniArray[j].Image.name != GameManager.Friends[i].f_image)
+                    continue;
+                friendImage[1].sprite = GameManager.AllNuniArray[j].Image;
+            }
+             
         }
-        
+        LoadingObjcet.SetActive(false);
     }
     // Start is called before the first frame update
     void Start()

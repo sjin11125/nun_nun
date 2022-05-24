@@ -41,7 +41,7 @@ public class GoogleSheetManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("튜토안함: "+ TutorialsManager.itemIndex);
+            Debug.Log("튜토함: "+ TutorialsManager.itemIndex);
             GameManager.Money = 2000;
             GameManager.ShinMoney = 0;
             
@@ -243,6 +243,6 @@ public class GoogleSheetManager : MonoBehaviour
         //yield return StartCoroutine( QuestManager.QuestStart()); //퀘스트 설정할 때까지 대기
         yield return StartCoroutine(NuniManager.NuniStart()); //누니 설정할 때까지 대기
        // yield return StartCoroutine(NuniManager.RewardStart()); //보상 일괄수령 설정할 때까지 대기
-            MyBuildingLoad.BuildingLoad();
+MyBuildingLoad.BuildingLoad();
     }
 }
