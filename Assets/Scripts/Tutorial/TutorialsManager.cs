@@ -21,8 +21,27 @@ public class TutorialsManager : MonoBehaviour
         {
             item.gameObject.SetActive(false);
         }
-        bunsu = GameObject.FindWithTag("bunsu");
         ActiveNextItem();
+    }
+
+    private void Update()
+    {
+        if (itemIndex < 4)
+        {
+            bunsu = GameObject.FindWithTag("bunsu"); //ii1y1
+            if (bunsu != null)
+            {
+                bunsu.gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+            bunsu = GameObject.FindWithTag("bunsu"); //ii1y1
+            if (bunsu != null)
+            {
+                bunsu.gameObject.SetActive(true);
+            }
+        }
     }
 
     // 다음 아이템을 활성화 한다.
@@ -30,11 +49,6 @@ public class TutorialsManager : MonoBehaviour
     {
         if (items.Length == itemIndex)
         {
-            this.gameObject.SetActive(false);
-            if(bunsu != null)
-            {
-                bunsu.gameObject.SetActive(true);
-            }
             RandomSelect.isTuto = 1;
             PlayerPrefs.SetInt("TutorialsDone", itemIndex);
         }
@@ -44,18 +58,10 @@ public class TutorialsManager : MonoBehaviour
             {
                 items[itemIndex - 1].gameObject.SetActive(false);// 전 아이템 비활성화
             }
-
             if (itemIndex > -1 && itemIndex < items.Length)
             {
                 items[itemIndex].gameObject.SetActive(true);// 아이템 활성화
-                if (itemIndex == 1)
-                {
-                    bunsu = GameObject.FindWithTag("bunsu"); //ii1y1
-                    if (bunsu != null)
-                    {
-                        bunsu.gameObject.SetActive(false);
-                    }
-                }
+
                 if (itemIndex == 10)
                 {
                     GameManager.Money += 100;

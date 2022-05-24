@@ -166,7 +166,7 @@ public class LoadManager : MonoBehaviour
 
             //StartCoroutine(MoneyPost(form2));
 
-            if (TutorialsManager.itemIndex>13)
+            if (TutorialsManager.itemIndex>=3)
             {
                 Camera.main.GetComponent<Transform>().position = new Vector3(0, 0, -10);
             }
@@ -235,8 +235,11 @@ public class LoadManager : MonoBehaviour
                 if (g_Building.Building_Image == GameManager.BuildingArray[j].Building_Image)
                 {
                     g_Building.Reward = GameManager.BuildingArray[j].Reward;
+                    Debug.Log("보상은 "+ GameManager.BuildingArray[j].Reward[0]);
                     g_Building.Cost = GameManager.BuildingArray[j].Cost;
+                    Debug.Log("비용은 " + GameManager.BuildingArray[j].Cost[0]);
                     g_Building.ShinCost = GameManager.BuildingArray[j].ShinCost;
+                    Debug.Log("발광석은 " + GameManager.BuildingArray[j].ShinCost[0]);
                 }
 
             }

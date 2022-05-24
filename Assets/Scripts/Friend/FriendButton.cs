@@ -63,8 +63,10 @@ public class FriendButton : MonoBehaviour
     public void AddRecFriend()          //요청받은 친구 추가하기 버튼 누르면
     {
         string f_nickname = F_nickname.text;            //추가하려는 친구 닉
+        Button btn = GetComponent<Button>();
+        btn.interactable = false;       //버튼 못누르게
 
-        
+
         WWWForm form1 = new WWWForm();
         form1.AddField("order", "addFriend");
         string[] str = F_nickname.text.Split(':');
@@ -168,13 +170,22 @@ public class FriendButton : MonoBehaviour
         SearchText[1].text = friendInfo.f_info;
 
         Image[] friendImage = Search.GetComponentsInChildren<Image>();
-        for (int j = 0; j < GameManager.AllNuniArray.Length; j++)
+        for (int j = 0; j < GameManager.AllNuniArray.Length; j++)               //친구 프사 설정
         {
             if (GameManager.AllNuniArray[j].Image.name != friendInfo.f_image)
                 continue;
             friendImage[1].sprite = GameManager.AllNuniArray[j].Image;
         }
+        for (int i = 0; i < GameManager.Friends.Length; i++)
+        {
+            if (friendInfo.f_nickname== GameManager.Friends[i].f_nickname)      //친구목록에 있으면
+            {
 
+                Button[] btn = Search.GetComponentsInChildren<Button>();
+                btn[1].interactable = false;               //클릭못하게
+            }
+
+        }
         LoadingObejct.SetActive(false);
 
     }

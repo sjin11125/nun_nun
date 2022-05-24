@@ -177,14 +177,18 @@ public class FriendManager : MonoBehaviour
             friendButtonText[1].text = GameManager.Friends[i].f_info;
 
             Image[] friendImage= friendprefab.GetComponentsInChildren<Image>();
-            Debug.Log("戚耕走醤ちちちちちちちち     "+ friendImage.Length);
-            for (int j   = 0; j < GameManager.AllNuniArray.Length; j++)
+            for (int j   = 0; j < GameManager.Friends.Length; j++)
             {
-                if (GameManager.AllNuniArray[j].Image.name != GameManager.Friends[i].f_image)
-                    continue;
-                friendImage[1].sprite = GameManager.AllNuniArray[j].Image;
+                if (GameManager.Friends[i].f_nickname == GameManager.Friends[j].f_nickname)      //蓄探 庁姥鯉系拭 赤生檎
+                {
+
+                    Button[] btnn = friendprefab.GetComponentsInChildren<Button>();
+                    btnn[1].interactable = false;               //適遣公馬惟
+                }
+
             }
-             
+            Button[] btn= friendprefab.GetComponentsInChildren<Button>();
+
         }
         LoadingObjcet.SetActive(false);
     }
