@@ -400,7 +400,7 @@ public class Building : MonoBehaviour
 
             Button_Pannel.gameObject.SetActive(true);
             Rotation_Pannel.gameObject.SetActive(true);
-            if (Building_Image != "bunsu_level(Clone)")
+            if (Building_Image != "bunsu_level(Clone)"&&Building_Image!= "village_level(Clone)")
             {
                 Remove_Pannel.gameObject.SetActive(true);
                 if (Type != BuildType.Make)
@@ -690,11 +690,13 @@ public class Building : MonoBehaviour
                         Debug.Log("업글전: " + GameManager.BuildingArray[j].Reward[Level - 1]);
                         upgradeText[4].text = GameManager.BuildingArray[j].Reward[Level].ToString();                       //업글 후 획득 재화
                         Debug.Log("업글전: " + GameManager.BuildingArray[j].Reward[Level - 1]);
+                            upgradeText[6].text = "얼음: "+GameManager.BuildingArray[j].Cost[Level-1].ToString()+",   빛나는 얼음: "+ GameManager.BuildingArray[j].ShinCost[Level-1].ToString()+" 이 소모됩니다.";
                         return;
 
                     }
                 }
             }
+            
 
         }
     }

@@ -145,6 +145,7 @@ public class ChaButtonScript : MonoBehaviour
             buildings[0].GetComponent<SpriteRenderer>().sprite = building.buildings_image[building.Level -2];
             building.Level += 1;
         }
+       
         GameManager.Money -= building.Cost[building.Level-1];
         GameManager.ShinMoney -= building.ShinCost[building.Level-1];
 
