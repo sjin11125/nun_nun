@@ -657,15 +657,20 @@ public class Building : MonoBehaviour
             UpgradePannel2.GetComponent<ChaButtonScript>().Upgrade(buildings, Level, this);
 
             Text[] upgradeText = UpgradePannel2.GetComponentsInChildren<Text>();
+            Debug.Log("업그레이드 아이디: " + Id);
             for (int i = 0; i < GameManager.BuildingList.Count; i++)
             {
                 for (int j = 0; j < GameManager.BuildingArray.Length; j++)
                 {
-                    if (GameManager.BuildingList[i].Building_Image.Equals(GameManager.BuildingArray[j].Building_Image))
+                    if (Building_Image==GameManager.BuildingArray[j].Building_Image)
                     {
 
-                        upgradeText[3].text = Reward[Level - 1].ToString();     //업글 전 획득 재화
-                        upgradeText[4].text = Reward[Level].ToString();                       //업글 후 획득 재화
+                        upgradeText[3].text = GameManager.BuildingArray[j].Reward[Level - 1].ToString();     //업글 전 획득 재화
+                        Debug.Log("업글전: " + GameManager.BuildingArray[j].Reward[Level - 1]);
+                        upgradeText[4].text = GameManager.BuildingArray[j].Reward[Level].ToString();                       //업글 후 획득 재화
+                        Debug.Log("업글전: " + GameManager.BuildingArray[j].Reward[Level - 1]);
+                        return;
+
                     }
                 }
             }
