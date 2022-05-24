@@ -116,6 +116,9 @@ public class DogamManager : MonoBehaviour
 
         for (int j = 0; j < BuildingInformation.Length; j++)         //상점 나타내기
         {
+            if (BuildingInformation[j].Building_Image == "village_level(Clone)")
+                continue;
+
 
             DogamCha = Instantiate(DogamChaPrefab) as GameObject;
             DogamCha.transform.SetParent(Scroll.transform);
