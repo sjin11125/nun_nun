@@ -273,7 +273,7 @@ public class GameManager : MonoBehaviour
         form2.AddField("player_nickname", GameManager.NickName);   
     }
 
-    /*
+
     bool isPaused = false;
 
     void OnApplicationPause(bool pause)
@@ -292,11 +292,11 @@ public class GameManager : MonoBehaviour
                 GameLoad();
             }
         }
-    }*/
+    }
 
     void OnApplicationQuit()
     {
         /* 앱이 종료 될 때 처리 */
-        GameSave();
+        //GameSave();
     }
 }
