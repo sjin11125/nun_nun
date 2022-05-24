@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 public class GameExitController : MonoBehaviour
 {
     public GameObject TutoManager;
+    public GameObject ExitPanel;
+
     public void Awake()
     {       
         if (TutorialsManager.itemIndex < 14)
@@ -41,5 +43,24 @@ public class GameExitController : MonoBehaviour
         GameSave();
         print("exit");
         Application.Quit();
+    }
+
+    private void Update()
+    {
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            if (Input.GetKey(KeyCode.Home))
+            {
+                ExitPanel.SetActive(true);
+            }
+            else if (Input.GetKey(KeyCode.Escape))
+            {
+                ExitPanel.SetActive(true);
+            }
+            else if (Input.GetKey(KeyCode.Menu))
+            {
+                ExitPanel.SetActive(true);
+            }
+        }
     }
 }
