@@ -85,8 +85,7 @@ public class LoadManager : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name.Equals("Main"))
         {
-            GameManager.Money = 2100;
-            GameManager.ShinMoney = 5;
+            
             if (TutorialsManager.itemIndex > 13)
             {
                 WWWForm form1 = new WWWForm();
