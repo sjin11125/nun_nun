@@ -7,6 +7,7 @@ public class Settings : MonoBehaviour
     public GameObject settingPanel;
     private Animation anim;
     bool animac;
+    public GameObject ExitPanel;
 
     void Start()
     {
@@ -28,6 +29,25 @@ public class Settings : MonoBehaviour
             anim.Play("SettingBtnClose");
             settingPanel.GetComponent<Animator>().SetTrigger("PanelOff");
             animac = false;
+        }
+    }
+
+    private void Update()
+    {
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            if (Input.GetKey(KeyCode.Home))
+            {
+                ExitPanel.SetActive(true);
+            }
+            else if (Input.GetKey(KeyCode.Escape))
+            {
+                ExitPanel.SetActive(true);
+            }
+            else if (Input.GetKey(KeyCode.Menu))
+            {
+                ExitPanel.SetActive(true);
+            }
         }
     }
 }
