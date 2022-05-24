@@ -78,8 +78,6 @@ public class LoadManager : MonoBehaviour
     //ĳ���� �ε�
     void Start()
     {
-        GameManager.Money = 2000;
-        GameManager.ShinMoney = 10;
         isLoaded = false;
         GameManager.items = 0;          //������ �ʱ�ȭ
 

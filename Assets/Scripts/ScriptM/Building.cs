@@ -654,6 +654,26 @@ public class Building : MonoBehaviour
         {
             //GameObject UPPannel = Instantiate(UpgradePannel);
             UpgradePannel2.gameObject.SetActive(true);
+            if (buildings==null)
+            {
+                Debug.Log("빌딩 ㅓㄴㄹ") ;
+            }
+            if (Level == null)
+            {
+                Debug.Log("Level ㅓㄴㄹ") ;
+            }
+            if (this == null)
+            {
+                Debug.Log("this ㅓㄴㄹ") ;
+            }
+            if (UpgradePannel2==null)
+            {
+                Debug.Log("UpgradePannel2=ㅓㄴㄹ");
+            }
+            else
+            {
+                Debug.Log(UpgradePannel2.GetComponent<ChaButtonScript>());
+            }
             UpgradePannel2.GetComponent<ChaButtonScript>().Upgrade(buildings, Level, this);
 
             Text[] upgradeText = UpgradePannel2.GetComponentsInChildren<Text>();
