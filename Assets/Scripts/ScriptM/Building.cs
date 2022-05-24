@@ -653,6 +653,8 @@ public class Building : MonoBehaviour
         if (Level < 2)
         {
             //GameObject UPPannel = Instantiate(UpgradePannel);
+
+            UpgradePannel2.GetComponent<ChaButtonScript>().Upgrade(buildings, Level, this);
             UpgradePannel2.gameObject.SetActive(true);
             if (buildings==null)
             {
@@ -674,7 +676,6 @@ public class Building : MonoBehaviour
             {
                 Debug.Log(UpgradePannel2.GetComponent<ChaButtonScript>());
             }
-            UpgradePannel2.GetComponent<ChaButtonScript>().Upgrade(buildings, Level, this);
 
             Text[] upgradeText = UpgradePannel2.GetComponentsInChildren<Text>();
             Debug.Log("업그레이드 아이디: " + Id);

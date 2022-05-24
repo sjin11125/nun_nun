@@ -64,7 +64,9 @@ public class LoadManager : MonoBehaviour
 
     void Reward_response(string json)
     {
+        
         string time = json;
+        Debug.Log("보상 "+time);
         if (time != DateTime.Now.ToString("yyyy.MM.dd"))     //���ó�¥�� �ƴϳ� �ϰ���Ȯ ����
         {
             GameManager.isReward = true;
@@ -83,6 +85,8 @@ public class LoadManager : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name.Equals("Main"))
         {
+            GameManager.Money = 2100;
+            GameManager.ShinMoney = 5;
             if (TutorialsManager.itemIndex > 13)
             {
                 WWWForm form1 = new WWWForm();
@@ -108,7 +112,7 @@ public class LoadManager : MonoBehaviour
         }
 
 
-        if (SceneManager.GetActiveScene().name.Equals("Main") && GameManager.CharacterList==null )       //���ξ����� �ε��ϱ�(����)
+        if (SceneManager.GetActiveScene().name.Equals("Main") && GameManager.CharacterList!=null )       //���ξ����� �ε��ϱ�(����)
         {
             for (int i = 0; i < GameManager.CharacterList.Count; i++)
             {

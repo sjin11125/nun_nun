@@ -55,7 +55,7 @@ public class ChaButtonScript : MonoBehaviour
         string building_name = buildings[0].transform.parent.name;
         building.Type = BuildType.Empty;
 
-      
+        Destroy(gameObject.transform.parent.gameObject);
     }
     public void NuniInfoClick()
     {
@@ -119,7 +119,12 @@ public class ChaButtonScript : MonoBehaviour
         Building building = buildings[0].transform.parent.GetComponent<Building>();
         string building_name = buildings[0].transform.parent.name;
 
-        if (GameManager.Money < building.Cost[building.Level - 1]||GameManager.ShinMoney< building.ShinCost[building.Level - 1])
+        if (GameManager.Money < building.Cost[building.Level ])
+        {
+            CancleText.gameObject.SetActive(true);
+            return;
+        }
+        if (GameManager.ShinMoney < building.ShinCost[building.Level])
         {
             CancleText.gameObject.SetActive(true);
             return;
@@ -146,7 +151,7 @@ public class ChaButtonScript : MonoBehaviour
         building.Type = BuildType.Empty;
         building.RefreshBuildingList();     //빌딩 리스트 새로고침
 
-        gameObject.transform.parent.gameObject.SetActive(false);
+        Destroy(gameObject.transform.gameObject);
 
     }
     // Update is called once per frame
