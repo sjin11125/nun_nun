@@ -54,7 +54,7 @@ public class GridBuildingSystem : MonoBehaviour
     #region unity Methods  
     private void Awake()
     {
-        if (current .Equals( null))
+        if (current==null)
         {
             current = this;
             //isStart = true;

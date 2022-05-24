@@ -108,7 +108,7 @@ public class LoadManager : MonoBehaviour
         }
 
 
-        if (SceneManager.GetActiveScene().name.Equals("Main") && !GameManager.CharacterList.Equals(null) )       //���ξ����� �ε��ϱ�(����)
+        if (SceneManager.GetActiveScene().name.Equals("Main") && GameManager.CharacterList==null )       //���ξ����� �ε��ϱ�(����)
         {
             for (int i = 0; i < GameManager.CharacterList.Count; i++)
             {

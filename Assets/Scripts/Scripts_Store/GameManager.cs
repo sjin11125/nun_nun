@@ -124,7 +124,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         //PlayerPrefs.DeleteAll();
-        if (_Instance .Equals( null))
+        if (_Instance == null)
         {
             _Instance = this;
             isStart = true;
@@ -197,7 +197,7 @@ public class GameManager : MonoBehaviour
     {
         get
         {
-            if (_Instance .Equals( null))
+            if (_Instance ==null)
             {
                 return null;
             }

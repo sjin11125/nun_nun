@@ -174,7 +174,7 @@ public class InventoryButton : MonoBehaviour
             
         }
 
-        if (GameManager.CurrentBuilding_Button .Equals( null) )      //그 전에 클릭했던 버튼이 없을 때
+        if (GameManager.CurrentBuilding_Button ==null )      //그 전에 클릭했던 버튼이 없을 때
         {
             GameManager.CurrentBuilding_Button = this;
         }

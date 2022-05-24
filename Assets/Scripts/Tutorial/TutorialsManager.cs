@@ -11,7 +11,7 @@ public class TutorialsManager : MonoBehaviour
     void Start()
     {
         // ��� �������� ��Ȱ��ȭ �ϰ�, ù��° �͸� Ȱ��ȭ �Ѵ�.
-        if (items .Equals( null))
+        if (items==null)
             return;
 
         if (items.Length .Equals( 0))
@@ -67,7 +67,7 @@ public class TutorialsManager : MonoBehaviour
                     bunsu = GameObject.FindWithTag("bunsu"); //ii1y1
                     if (bunsu != null)
                     {
-                        bunsu.gameObject.SetActive(false);
+                        bunsu.SetActive(false);
                     }
                 }
                 if (itemIndex .Equals( 10))

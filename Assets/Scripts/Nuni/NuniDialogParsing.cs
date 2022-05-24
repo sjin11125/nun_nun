@@ -62,7 +62,7 @@ public class NuniDialogParsing : MonoBehaviour
                     i++;
                 }
 
-            } while (data[i].Split(',')[0] .Equals( ""));
+            } while (data[i].Split(',')[0] .Equals(""));
             nuniDialog.Dialog = Dialog.ToArray();
 
 
