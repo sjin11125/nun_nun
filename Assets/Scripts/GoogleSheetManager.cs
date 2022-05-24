@@ -41,7 +41,6 @@ public class GoogleSheetManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("튜토함: "+ TutorialsManager.itemIndex);
             GameManager.Money = 2000;
             GameManager.ShinMoney = 0;
             
@@ -53,7 +52,7 @@ public class GoogleSheetManager : MonoBehaviour
     {
         id = IDInput.text.Trim();
         pass = PassInput.text.Trim();
-        if (id == "" || pass == "") return false;
+        if (id .Equals( "") || pass .Equals( "")) return false;
         else return true;
     }
 
@@ -62,7 +61,7 @@ public class GoogleSheetManager : MonoBehaviour
         id = IDInput.text.Trim();
         pass = PassInput.text.Trim();
         nickname = NicknameInput.text.Trim();
-        if (id == "" || pass == "" || nickname == "") return false;
+        if (id .Equals( "") || pass .Equals( "" )|| nickname .Equals( "")) return false;
         else return true;
     }
     public void Register()
@@ -144,7 +143,6 @@ public class GoogleSheetManager : MonoBehaviour
         using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // 반드시 using을 써야한다
         {
             yield return www.SendWebRequest();
-            //Debug.Log(www.downloadHandler.text);
 
             GameManager.NickName = nickname;
             GameManager.Id = id;
@@ -161,11 +159,9 @@ public class GoogleSheetManager : MonoBehaviour
         using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // 반드시 using을 써야한다
         {
             yield return www.SendWebRequest();
-            //Debug.Log(www.downloadHandler.text);
             if (www.isDone)
             {
                 Response(www.downloadHandler.text);
-                Debug.Log("응답잇다");
             }
             else print("웹의 응답이 없습니다.");
         }
@@ -179,26 +175,24 @@ public class GoogleSheetManager : MonoBehaviour
         Text t = WarningPannel.GetComponentInChildren<Text>();
         if (string.IsNullOrEmpty(json))
         {
-            Debug.Log(json);
             return;
         }
-        Debug.Log(json);
         GD = JsonUtility.FromJson<GoogleData>(json);
         //System.Text.Encoding.UTF8.GetString(GD, 3, GD.Length - 3);
 
 
-        if (GD.result == "ERROR")
+        if (GD.result .Equals( "ERROR"))
         {
             t.text=GD.msg;
             return;
         }
-        else if (GD.result == "NickNameERROR")
+        else if (GD.result .Equals( "NickNameERROR"))
         {
             t.text = "닉네임이 중복됩니다.";
         }
-        if (GD.result == "OK")
+        if (GD.result .Equals( "OK"))
         {
-            if (GD.msg == "회원가입 완료")
+            if (GD.msg .Equals( "회원가입 완료"))
             {
                 t.text = "회원가입 완료!"+ nickname + "(" + id + ")님 환영합니다!! " +
                     "\n잠시만 기다려 주세요.";
@@ -214,7 +208,6 @@ public class GoogleSheetManager : MonoBehaviour
             GameManager.NickName = nickname;
             GameManager.Id = id;
 
-            Debug.Log("프로필 이미지: "+ GD.profile_image);
             for (int i = 0; i < GameManager.AllNuniArray.Length; i++)
             {
                 if (GameManager.AllNuniArray[i].Image.name != GD.profile_image)
@@ -230,12 +223,11 @@ public class GoogleSheetManager : MonoBehaviour
 
             return;
         }
-        if (GD.order == "getValue")
+        if (GD.order .Equals( "getValue"))
         {
             NicknameInput.text = GD.value;
         }
 
-        Debug.Log("");
     }
     IEnumerator Quest()
     {

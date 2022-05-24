@@ -42,11 +42,10 @@ public class VisitorBookManager : MonoBehaviour
     public void Start()
     {
         VBWindowOpen();
-        Debug.Log("VBWindow Open");
-        if (SceneManager.GetActiveScene().name=="FriendMain")           //친구 씬이냐
+        if (SceneManager.GetActiveScene().name.Equals("FriendMain"))    //친구 씬이냐
         {
             VBInput.gameObject.SetActive(true);
-            if (gameObject.tag=="VisitorBook")
+            if (gameObject.tag.Equals("VisitorBook"))
             {
                 FriendVisitorBookList();              //친구 방명록 있나 확인
             }
@@ -54,9 +53,9 @@ public class VisitorBookManager : MonoBehaviour
         }
         else                                                        //내 씬이냐
         {
-            Debug.Log("내 씬");
+          
             VBInput.gameObject.SetActive(false);
-            if (gameObject.tag == "VisitorBook")
+            if (gameObject.tag .Equals( "VisitorBook"))
             {
                 VisitorBookList();              //방명록 있나 확인
             }
@@ -65,7 +64,7 @@ public class VisitorBookManager : MonoBehaviour
     // Start is called before the first frame update
     public void VisitorBookList()  //내 방명록 불러옴
     {
-        Debug.Log("내 방명록 불러와");
+
         WWWForm form = new WWWForm();
         form.AddField("order", "getMessage");
         form.AddField("player_nickname", GameManager.NickName);
@@ -75,7 +74,7 @@ public class VisitorBookManager : MonoBehaviour
 
     public void FriendVisitorBookList()         //친구 방명록 불러옴 
     {
-        Debug.Log("친구 방명록 불러와");
+
         WWWForm form = new WWWForm();
         form.AddField("order", "getMessageFriend");
         form.AddField("friend_nickname", GameManager.friend_nickname);
@@ -85,7 +84,7 @@ public class VisitorBookManager : MonoBehaviour
 
     public void VisitorBookWrite()          //방명록 쓰기        (보내기 버튼에 넣기)
     {
-        Debug.Log("방명록 쓰기");
+   
         WWWForm form = new WWWForm();
         form.AddField("order", "enrollMessage");
         form.AddField("player_nickname", GameManager.NickName);
@@ -99,12 +98,9 @@ public class VisitorBookManager : MonoBehaviour
         using (UnityWebRequest www = UnityWebRequest.Post(URL, form)) // 반드시 using을 써야한다
         {
             yield return www.SendWebRequest();
-            //Debug.Log(www.downloadHandler.text);
+
 
         }
-        VisitorBook friendBuildings;
-        //friendBuildings = JsonUtility.FromJson<VisitorBook>(j[i].ToString());
-
         GameObject VB = Instantiate(VBPrefab, Content.transform) as GameObject;
 
         Text[] VBtext = VB.GetComponentsInChildren<Text>();
@@ -119,7 +115,7 @@ public class VisitorBookManager : MonoBehaviour
         using (UnityWebRequest www = UnityWebRequest.Post(URL, form)) // 반드시 using을 써야한다
         {
             yield return www.SendWebRequest();
-            //Debug.Log(www.downloadHandler.text);
+        
             if (www.isDone) Response(www.downloadHandler.text);         //방명록 불러옴
 
         }
@@ -127,21 +123,21 @@ public class VisitorBookManager : MonoBehaviour
 
     void Response(string json)                          
     {
-        Debug.Log(json);
+       
         if (string.IsNullOrEmpty(json))
         {
-            Debug.Log(json);
+         
             return;
         }
-        if (json == "null")                             //방명록에 아무것도 없다
+        if (json .Equals( "null")   )                          //방명록에 아무것도 없다
             return;
 
         Newtonsoft.Json.Linq.JArray j = Newtonsoft.Json.Linq.JArray.Parse(json);
-        Debug.Log("j.Count: "+j.Count);
+
       
         for (int i = 0; i < j.Count; i++)
         {
-            Debug.Log(i);
+ 
             VisitorBook friendBuildings;
             friendBuildings = JsonUtility.FromJson<VisitorBook>(j[i].ToString());
 

@@ -20,7 +20,7 @@ public class FriendButton : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (gameObject.tag=="FriendSearch")
+        if (gameObject.tag.Equals("FriendSearch"))
         {
             SearchButton = gameObject.GetComponent<Button>();
         }
@@ -90,16 +90,13 @@ public class FriendButton : MonoBehaviour
     }
     IEnumerator RemovePost(WWWForm form)
     {
-        Debug.Log("RemovePost");
         using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // 반드시 using을 써야한다
         {
             yield return www.SendWebRequest();
-            //Debug.Log(www.downloadHandler.text);
             if (www.isDone)
             {
                 //SearchResponse(www.downloadHandler.text);
                 Destroy(gameObject.transform.parent.gameObject);
-                Debug.Log("응답잇다");
             }
             else print("웹의 응답이 없습니다.");
         }
@@ -107,17 +104,11 @@ public class FriendButton : MonoBehaviour
     }
     IEnumerator EnrollPost(WWWForm form)
     {
-        Debug.Log("EnrollPost");
         using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // 반드시 using을 써야한다
         {
             yield return www.SendWebRequest();
             //Debug.Log(www.downloadHandler.text);
-            if (www.isDone)
-            {
-                //SearchResponse(www.downloadHandler.text);
-                Debug.Log("응답잇다");
-            }
-            else print("웹의 응답이 없습니다.");
+          
         }
 
     }
@@ -141,15 +132,12 @@ public class FriendButton : MonoBehaviour
 
     IEnumerator SearchPost(WWWForm form)
     {
-        Debug.Log("SearchPost");
         using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // 반드시 using을 써야한다
         {
             yield return www.SendWebRequest();
-            //Debug.Log(www.downloadHandler.text);
             if (www.isDone)
             {
                 SearchResponse(www.downloadHandler.text);
-                Debug.Log("응답잇다");
             }
             else print("웹의 응답이 없습니다.");
         }
@@ -157,8 +145,7 @@ public class FriendButton : MonoBehaviour
     }
     void SearchResponse(string json)
     {
-        Debug.Log(json);
-        if (json == "")
+        if (json .Equals( "")
         {
             LoadingObejct.SetActive(false);
             return;
@@ -193,15 +180,12 @@ public class FriendButton : MonoBehaviour
 
     IEnumerator RequirePost(WWWForm form)               //받은 친구 요청
     {
-        Debug.Log("RequirePost");
         using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // 반드시 using을 써야한다
         {
             yield return www.SendWebRequest();
-            //Debug.Log(www.downloadHandler.text);
             if (www.isDone)
             {
                 RequireResponse(www.downloadHandler.text);
-                Debug.Log("응답잇다");
             }
             else print("웹의 응답이 없습니다.");
         }
@@ -209,12 +193,11 @@ public class FriendButton : MonoBehaviour
     }
     void RequireResponse(string json)
     {
-        if (json == "")
+        if (json .Equals( "")
         {
             LoadingObejct.SetActive(false);
             return;
         }
-        Debug.Log(json);
         
         Transform[] child = Content.GetComponentsInChildren<Transform>();           //일단 초기화
         for (int k = 1; k < child.Length; k++)
@@ -227,7 +210,6 @@ public class FriendButton : MonoBehaviour
         for (int i = 0; i < j.Count; i++)
         {
             friendInfos[i] = JsonUtility.FromJson<FriendInfo>(j[i].ToString());
-            Debug.Log(friendInfos[i].f_nickname);
         }
 
 

@@ -10,11 +10,11 @@ public class TutorialsManager : MonoBehaviour
 
     void Start()
     {
-        // ¸ðµç ¾ÆÀÌÅÛÀ» ºñÈ°¼ºÈ­ ÇÏ°í, Ã¹¹øÂ° °Í¸¸ È°¼ºÈ­ ÇÑ´Ù.
-        if (items == null)
+        // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­ ï¿½Ï°ï¿½, Ã¹ï¿½ï¿½Â° ï¿½Í¸ï¿½ È°ï¿½ï¿½È­ ï¿½Ñ´ï¿½.
+        if (items .Equals( null))
             return;
 
-        if (items.Length == 0)
+        if (items.Length .Equals( 0))
             return;
 
         foreach (var item in items)
@@ -44,10 +44,10 @@ public class TutorialsManager : MonoBehaviour
         }
     }
 
-    // ´ÙÀ½ ¾ÆÀÌÅÛÀ» È°¼ºÈ­ ÇÑ´Ù.
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­ ï¿½Ñ´ï¿½.
     public void ActiveNextItem()
     {
-        if (items.Length == itemIndex)
+        if (items.Length .Equals( itemIndex))
         {
             RandomSelect.isTuto = 1;
             PlayerPrefs.SetInt("TutorialsDone", itemIndex);
@@ -56,13 +56,22 @@ public class TutorialsManager : MonoBehaviour
         {
             if (itemIndex - 1 > -1 && itemIndex - 1 < items.Length)
             {
-                items[itemIndex - 1].gameObject.SetActive(false);// Àü ¾ÆÀÌÅÛ ºñÈ°¼ºÈ­
+                items[itemIndex - 1].gameObject.SetActive(false);// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
             }
             if (itemIndex > -1 && itemIndex < items.Length)
             {
-                items[itemIndex].gameObject.SetActive(true);// ¾ÆÀÌÅÛ È°¼ºÈ­
+                items[itemIndex].gameObject.SetActive(true);// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­
 
-                if (itemIndex == 10)
+                if (itemIndex .Equals( 1))
+                {
+                    bunsu = GameObject.FindWithTag("bunsu"); //ii1y1
+                    if (bunsu != null)
+                    {
+                        bunsu.gameObject.SetActive(false);
+                    }
+                }
+                if (itemIndex .Equals( 10))
+
                 {
                     GameManager.Money += 100;
                     GameManager.ShinMoney += 1;

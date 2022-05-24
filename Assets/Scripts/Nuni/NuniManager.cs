@@ -21,7 +21,6 @@ public class NuniManager : MonoBehaviour                    //게임 시작하고 구글
     
     public IEnumerator NuniStart()          //시작할 때 구글 스크립트에서 누니 목록 불러옴
     {
-        Debug.Log("NuniStart");
         WWWForm form1 = new WWWForm();
         form1.AddField("order", "nuniGet");
         form1.AddField("player_nickname", GameManager.NickName);
@@ -34,7 +33,6 @@ public class NuniManager : MonoBehaviour                    //게임 시작하고 구글
     }
     IEnumerator NuniPost(WWWForm form)
     {
-        Debug.Log("NuniPost");
         using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // 반드시 using을 써야한다
         {
             yield return www.SendWebRequest();
@@ -46,20 +44,18 @@ public class NuniManager : MonoBehaviour                    //게임 시작하고 구글
     }
     void Response_Nuni(string json)                          
     {
-        //List<QuestInfo> Questlist = new List<QuestInfo>();
-        Debug.Log(json);
-        if (json == "null")
+       
+        if (json .Equals( "null"))
         {
             return;
         }
         if (string.IsNullOrEmpty(json))
         {
-            Debug.Log(json);
             return;
         }
         
         string[] Nunis = json.Split(',');//게임매니저에 있는 모든 누니배열에서 해당 누니 찾아서 가지고 있는 누니 배열에 넣기
-        Debug.Log(Nunis.Length);
+
         
         for (int j = 0; j < Nunis.Length; j++)
         {
@@ -67,12 +63,11 @@ public class NuniManager : MonoBehaviour                    //게임 시작하고 구글
             string[] Nunis_nuni = Nunis[j].Split(':');
             for (int i = 0; i < GameManager.AllNuniArray.Length; i++)
             {
-                if (GameManager.AllNuniArray[i].cardName == Nunis_nuni[0])
+                if (GameManager.AllNuniArray[i].cardName .Equals( Nunis_nuni[0]))
                 {
                     Card nuni = new Card();
                     nuni.SetValue( GameManager.AllNuniArray[i]);
-                    //Debug.Log("누니는 현재 "+Nunis_nuni[1]);
-                    if (Nunis_nuni[1] == "T")
+                    if (Nunis_nuni[1] .Equals( "T"))
                     {
                         nuni.isLock = "T";
 
@@ -87,12 +82,7 @@ public class NuniManager : MonoBehaviour                    //게임 시작하고 구글
            
 
         }
-        Debug.Log("누니의 총 갯수는 " + GameManager.CharacterList.Count);
-        for (int k = 0; k < GameManager.CharacterList.Count; k++)
-        {
-
-            Debug.Log("들어간 값: " + GameManager.CharacterList[k].isLock);
-        }
+ 
         SceneManager.LoadScene("Main");
     }
 

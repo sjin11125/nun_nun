@@ -22,7 +22,7 @@ public class NuniDialogParsing : MonoBehaviour
 
     void Start()
     {
-        if (gameObject.tag == "Dialog")
+        if (gameObject.tag .Equals( "Dialog"))
         {
             nunis = GameObject.Find("nunis");
         }
@@ -36,7 +36,7 @@ public class NuniDialogParsing : MonoBehaviour
 
 
         string[] data = csvData.text.Split(new char[] { '\n' });    //엔터 기준으로 쪼갬.
-        Debug.Log("data.Length" + data.Length);
+
 
 
         for (int i = 1; i < data.Length;)
@@ -50,7 +50,7 @@ public class NuniDialogParsing : MonoBehaviour
 
             do
             {
-                if (i >= data.Length - 1 || data[i].Split(',')[0] == "end")
+                if (i >= data.Length - 1 || data[i].Split(',')[0] .Equals( "end"))
                 {
                     return;
                 }
@@ -62,7 +62,7 @@ public class NuniDialogParsing : MonoBehaviour
                     i++;
                 }
 
-            } while (data[i].Split(',')[0] == "");
+            } while (data[i].Split(',')[0] .Equals( ""));
             nuniDialog.Dialog = Dialog.ToArray();
 
 
@@ -86,7 +86,7 @@ public class NuniDialogParsing : MonoBehaviour
 
         if (gameObject.tag != "Dialog")
         {
-            if (GameManager.nuniDialogParse == false)
+            if (GameManager.nuniDialogParse .Equals( false))
             {
                 GameManager.nuniDialogParse = true;
                 Parse_character();
@@ -114,21 +114,16 @@ public class NuniDialogParsing : MonoBehaviour
         Transform[] Nunis = nunis.GetComponentsInChildren<Transform>();
         for (int i = 1; i < Nunis.Length; i++)
         {
-            if (Nunis[i].gameObject== nuniObject)
+            if (Nunis[i].gameObject.Equals( nuniObject))
             {
-                Debug.Log("Nunis[i].GetComponentsInChildren<Transform>()[5].gameObject:   " + Nunis[i].GetComponentsInChildren<Transform>()[2].gameObject.transform.position);
                 MoveSpot = Nunis[i].gameObject.GetComponentsInChildren<Transform>()[5].gameObject;
 
 
 
                 RectTransform rect = gameObject.GetComponent<RectTransform>();
                 rect.transform.position = Camera.main.WorldToScreenPoint(MoveSpot.transform.position);
-                Invoke("Destroy_self", 3f);
+                Invoke(nameof(Destroy_self), 3f);
                 
-            }
-            else
-            {
-                Debug.Log("다르다");
             }
         }
     }

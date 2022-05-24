@@ -137,9 +137,9 @@ public class BuildingSave : MonoBehaviour
         }
         Debug.Log("josn:      "+json);
        
-        if (isMe == false)                //친구 건물 불러오는거라면
+        if (isMe .Equals( false) )               //친구 건물 불러오는거라면
         {
-            if (json == "Null")
+            if (json .Equals( "Null"))
             {
                 SceneManager.LoadScene("FriendMain");
                 return;
@@ -168,7 +168,7 @@ public class BuildingSave : MonoBehaviour
         }
         else                                    //로그인했을 때 내 건물 불러오는거라면
         {
-            if (json == "Null")
+            if (json .Equals( "Null"))
             {
                 SceneManager.LoadScene("Main");
                 return;

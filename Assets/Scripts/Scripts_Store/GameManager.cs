@@ -124,7 +124,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         //PlayerPrefs.DeleteAll();
-        if (_Instance == null)
+        if (_Instance .Equals( null))
         {
             _Instance = this;
             isStart = true;
@@ -152,20 +152,10 @@ public class GameManager : MonoBehaviour
         Quest = new QuestInfo[3];                     //퀘스트 
         NuniDialog = new List<NuniDialog>();
       
-        Debug.Log("GameManager Start");
         for (int i = 0; i < BuildingPrefabInspector.Length; i++)        //빌딩 프리팹 정보 불러오기
         {
             BuildingPrefabData.Add(BuildingPrefabInspector[i].name+ "(Clone)", BuildingPrefabInspector[i]);
-            if (BuildingPrefabInspector[i].GetComponent<Building>().Button_Pannel == null)
-            {
-                Debug.Log(i);
-                Debug.Log("없");
-            }
-            else
-            {
-                Debug.Log(i);
-                Debug.Log("있");
-            }
+  
            
         }      
       
@@ -188,7 +178,7 @@ public class GameManager : MonoBehaviour
             CharacterPrefab.Add(CharaterPrefabInspector[i].name, CharaterPrefabInspector[i]);
         }
 
-        if (SceneManager.GetActiveScene().name=="Main")
+        if (SceneManager.GetActiveScene().name.Equals("Main"))
         {
             //Dont.SetActive(true);
         }
@@ -207,7 +197,7 @@ public class GameManager : MonoBehaviour
     {
         get
         {
-            if (_Instance == null)
+            if (_Instance .Equals( null))
             {
                 return null;
             }
@@ -217,7 +207,6 @@ public class GameManager : MonoBehaviour
     
     public static Sprite GetDogamChaImage(string ImageName)
     {
-        Debug.Log(ImageName.Trim());
         return GameManager.DogamChaImageData[ImageName.Trim()];
 
     }
@@ -242,7 +231,7 @@ public class GameManager : MonoBehaviour
             }
             for (int i = 0; i < IDs.Count; i++)
             {
-                if (IDs[i] == id)
+                if (IDs[i] .Equals( id))
                 {
                     isCount = false;
                 }
@@ -252,8 +241,7 @@ public class GameManager : MonoBehaviour
                     IDs.Add(id);
                 }
             }
-        } while (isCount == true);
-        Debug.Log(id);
+        } while (isCount .Equals( true));
         return id;
     }
 
