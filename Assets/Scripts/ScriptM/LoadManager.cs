@@ -78,6 +78,8 @@ public class LoadManager : MonoBehaviour
     //ĳ���� �ε�
     void Start()
     {
+        GameManager.Money = 2000;
+        GameManager.ShinMoney = 10;
         isLoaded = false;
         GameManager.items = 0;          //������ �ʱ�ȭ
 
@@ -144,12 +146,21 @@ public class LoadManager : MonoBehaviour
             {
                 if (g_Building.Building_Image.Equals(GameManager.BuildingArray[j].Building_Image))
                 {
-                    g_Building.Reward = GameManager.BuildingArray[j].Reward;
-                    Debug.Log("보상은 "+ GameManager.BuildingArray[j].Reward[0]);
-                    g_Building.Cost = GameManager.BuildingArray[j].Cost;
-                    Debug.Log("비용은 " + GameManager.BuildingArray[j].Cost[0]);
-                    g_Building.ShinCost = GameManager.BuildingArray[j].ShinCost;
-                    Debug.Log("발광석은 " + GameManager.BuildingArray[j].ShinCost[0]);
+                    Debug.Log("아이디는 " + g_Building.Id);
+               
+                    if (GameManager.BuildingArray[j].Cost.Length!=0)
+                    {
+                        //g_Building.Reward = GameManager.BuildingArray[j].Reward;
+                        for (int p = 0; p < GameManager.BuildingArray[j].Reward.Length; p++)
+                        {
+                            g_Building.Reward[p] = GameManager.BuildingArray[j].Reward[p];
+                            Debug.Log("보상은 " + g_Building.Reward[p]);
+                        }
+                        
+                        g_Building.Cost = GameManager.BuildingArray[j].Cost;
+                        g_Building.ShinCost = GameManager.BuildingArray[j].ShinCost;
+                    }
+                  
                 }
 
             }
@@ -157,9 +168,13 @@ public class LoadManager : MonoBehaviour
             {
                 if (g_Building.Building_Image.Equals(GameManager.StrArray[j].Building_Image) )
                 {
-                    g_Building.Reward = GameManager.StrArray[j].Reward;
-                    g_Building.Cost = GameManager.StrArray[j].Cost;
-                    g_Building.ShinCost = GameManager.StrArray[j].ShinCost;
+                    if (GameManager.StrArray[j].Reward[0]!=0)
+                    {
+                        g_Building.Reward = GameManager.StrArray[j].Reward;
+                        g_Building.Cost = GameManager.StrArray[j].Cost;
+                        g_Building.ShinCost = GameManager.StrArray[j].ShinCost;
+                    }
+                
                 }
 
             }
