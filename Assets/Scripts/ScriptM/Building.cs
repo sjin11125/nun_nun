@@ -200,7 +200,7 @@ public class Building : MonoBehaviour
     {
         for (int i = 0; i < GameManager.BuildingList.Count; i++)
         {
-            if (GameManager.BuildingList[i].Id == Id)
+            if (GameManager.BuildingList[i].Id.Equals(Id))
             {
                 GameManager.BuildingList[i] = this.DeepCopy();
             }
@@ -212,7 +212,7 @@ public class Building : MonoBehaviour
     {
         bool isflip_bool;
 
-        if (isFliped == "F")
+        if (isFliped .Equals( "F"))
             isflip_bool = false;
         else
             isflip_bool = true;
@@ -235,7 +235,7 @@ public class Building : MonoBehaviour
                 {
                     transform[k].localPosition = new Vector3(-transform[k].localPosition.x, transform[k].localPosition.y, 0);
                 }
-                if (isFliped == "T")
+                if (isFliped .Equals( "T"))
                 {
                     isFliped = "F";
                 }
@@ -258,7 +258,7 @@ public class Building : MonoBehaviour
     {
         bool isflip_bool;
 
-        if (isFliped == "F")
+        if (isFliped .Equals( "F"))
             isflip_bool = false;
         else
             isflip_bool = true;
@@ -268,7 +268,7 @@ public class Building : MonoBehaviour
         currentTime = (int)startingTime;
         save = GetComponent<BuildingSave>();
         //TimeText = GameObject.Find("Canvas/TimeText"); //게임오브젝트 = 캔버스에 있는 TimeText로 설정
-        if (Type == BuildType.Make)
+        if (Type .Equals( BuildType.Make))
         {
             Building_Image = gameObject.name;       //이름 설정
         }
@@ -355,7 +355,7 @@ public class Building : MonoBehaviour
             default:
                 break;
         }
-        if (isflip_bool == true)
+        if (isflip_bool .Equals( true))
         {
             Rotation();
         }
@@ -381,7 +381,7 @@ public class Building : MonoBehaviour
         // current Time이 일정시간 밑으로 떨어졌을 때 수확 아이콘 생성
 
 
-        if (Placed == true)       // 건물 배치가 확정
+        if (Placed .Equals( true))       // 건물 배치가 확정
         {
             Button_Pannel.gameObject.SetActive(false);     // 배치하는 버튼 사라지게
             Rotation_Pannel.gameObject.SetActive(false);        //회전 버튼 사라지게
@@ -389,7 +389,7 @@ public class Building : MonoBehaviour
             Remove_Pannel.gameObject.SetActive(false);
             /*if (Building_Image != "bunsu_level(Clone)")
             {
-               ( if (isCoin == false)      //코인 아직 안먹었으면
+               ( if (isCoin .Equals( false)      //코인 아직 안먹었으면
                 {
                     Coin();     //재화 생성되게
                 }*
@@ -400,7 +400,7 @@ public class Building : MonoBehaviour
 
             Button_Pannel.gameObject.SetActive(true);
             Rotation_Pannel.gameObject.SetActive(true);
-            if (Building_Image != "bunsu_level(Clone)")
+            if (Building_Image != "bunsu_level(Clone)"&&Building_Image!= "village_level(Clone)")
             {
                 Remove_Pannel.gameObject.SetActive(true);
                 if (Type != BuildType.Make)
@@ -428,7 +428,7 @@ public class Building : MonoBehaviour
             currentTime = 0;
         }
 
-        if ((int)currentTime % 5 == 0 && (int)currentTime != startingTime && isCountCoin == false)      //생성되고 5초 마다 재화생성 (건물마다 다르다!)
+        if (((int)currentTime % 5 ).Equals( 0) && (int)currentTime != startingTime && isCountCoin .Equals( false) )     //생성되고 5초 마다 재화생성 (건물마다 다르다!)
         {
             isCountCoin = true;
             //CountCoin += 1;
@@ -451,16 +451,13 @@ public class Building : MonoBehaviour
     {
         //currentTime =  startingTime;
         isCoin = true;      //코인 먹었음
-        Debug.Log("Reward: "+ Reward.Length);
-        Debug.Log("Level-1: " + (Level - 1));
         GameManager.Money += Reward[Level-1];
-        Debug.Log(Building_Image+": "+Reward[Level - 1]);
 
         currentTime = (int)startingTime;
 
         isCoin = true;
 
-        if (currentTime == 0)
+        if (currentTime .Equals( 0))
         {
             //수정필요
             currentTime = (int)startingTime;
@@ -510,7 +507,7 @@ public class Building : MonoBehaviour
         GameManager.ShinMoney += building.ShinCost[building.Level-1 ]/3;
 
         GridBuildingSystem.current.RemoveArea(areaTemp);
-        if (Type == BuildType.Make)      //상점에서 사고 설치X 바로 제거
+        if (Type .Equals( BuildType.Make) )     //상점에서 사고 설치X 바로 제거
         {
             Destroy(gameObject);
         }
@@ -536,7 +533,7 @@ public class Building : MonoBehaviour
         Debug.Log("areaTemp: " + areaTemp.position);
         //Debug.Log("index: "+ (-((int)transform.position.y - (int)transform.position.x)));
        /* buildings[0].GetComponent<SortingGroup>().sortingOrder = -((int)transform.position.y- (int)transform.position.x);
-        if (Level == 2)
+        if (Level .Equals( 2)
         {
             buildings[1].GetComponentInChildren<SortingGroup>().sortingOrder = -((int)transform.position.y-(int)transform.position.x);
         }*/
@@ -554,7 +551,7 @@ public class Building : MonoBehaviour
         Placed = true;      // 배치 했니? 네
         Debug.Log(buildings.Length);
         buildings[0].GetComponent<SortingGroup>().sortingOrder = -(int)transform.position.y;
-        /*if (Level==2)
+        /*if (Level.Equals(2)
         {
             buildings[1].GetComponentInChildren<SortingGroup>().sortingOrder = -(int)transform.position.y;
         }*/
@@ -576,7 +573,7 @@ public class Building : MonoBehaviour
         Building BuildingCurrent = gameObject.GetComponent<Building>();
         
 
-        if (buildtype == BuildType.Make)                       //새로 만드는 건가?
+        if (buildtype .Equals( BuildType.Make)  )                     //새로 만드는 건가?
         {
             
             Building_name = gameObject.name;
@@ -589,11 +586,11 @@ public class Building : MonoBehaviour
             Debug.Log("새로만듬");
             
         }
-        else if (buildtype == BuildType.Load)                    //로드할때
+        else if (buildtype .Equals( BuildType.Load)  )                  //로드할때
         {
             buildtype = BuildType.Empty;
         }
-        else if (buildtype == BuildType.Move)               //이동할 때
+        else if (buildtype .Equals( BuildType.Move)   )            //이동할 때
         {
             Debug.Log("Move");
             gameObject.name = GameManager.CurrentBuilding_Script.Id;
@@ -618,7 +615,7 @@ public class Building : MonoBehaviour
     {
         for (int i = GameManager.BuildingList.Count - 1; i >=0; i--)
         {
-            if (GameManager.BuildingList[i].Building_name == Building_name)
+            if (GameManager.BuildingList[i].Building_name .Equals( Building_name))
             {
                 Debug.Log("Remove: "+GameManager.BuildingList[i].Building_name);
                 GameManager.BuildingList.RemoveAt(i);
@@ -656,14 +653,50 @@ public class Building : MonoBehaviour
         if (Level < 2)
         {
             //GameObject UPPannel = Instantiate(UpgradePannel);
-            UpgradePannel2.gameObject.SetActive(true);
-            Debug.Log("buildings.length: "+buildings.Length);
+
             UpgradePannel2.GetComponent<ChaButtonScript>().Upgrade(buildings, Level, this);
+            UpgradePannel2.gameObject.SetActive(true);
+            if (buildings==null)
+            {
+                Debug.Log("빌딩 ㅓㄴㄹ") ;
+            }
+            if (Level == null)
+            {
+                Debug.Log("Level ㅓㄴㄹ") ;
+            }
+            if (this == null)
+            {
+                Debug.Log("this ㅓㄴㄹ") ;
+            }
+            if (UpgradePannel2==null)
+            {
+                Debug.Log("UpgradePannel2=ㅓㄴㄹ");
+            }
+            else
+            {
+                Debug.Log(UpgradePannel2.GetComponent<ChaButtonScript>());
+            }
 
             Text[] upgradeText = UpgradePannel2.GetComponentsInChildren<Text>();
-            Debug.Log(Reward.Length); Debug.Log("level: "+Level);
-            upgradeText[3].text = Reward[Level-1].ToString();     //업글 전 획득 재화
-            upgradeText[4].text = Reward[Level].ToString();                       //업글 후 획득 재화
+            Debug.Log("업그레이드 아이디: " + Id);
+            for (int i = 0; i < GameManager.BuildingList.Count; i++)
+            {
+                for (int j = 0; j < GameManager.BuildingArray.Length; j++)
+                {
+                    if (Building_Image==GameManager.BuildingArray[j].Building_Image)
+                    {
+
+                        upgradeText[3].text = GameManager.BuildingArray[j].Reward[Level - 1].ToString();     //업글 전 획득 재화
+                        Debug.Log("업글전: " + GameManager.BuildingArray[j].Reward[Level - 1]);
+                        upgradeText[4].text = GameManager.BuildingArray[j].Reward[Level].ToString();                       //업글 후 획득 재화
+                        Debug.Log("업글전: " + GameManager.BuildingArray[j].Reward[Level - 1]);
+                            upgradeText[6].text = "얼음: "+GameManager.BuildingArray[j].Cost[Level-1].ToString()+",   빛나는 얼음: "+ GameManager.BuildingArray[j].ShinCost[Level-1].ToString()+" 이 소모됩니다.";
+                        return;
+
+                    }
+                }
+            }
+            
 
         }
     }

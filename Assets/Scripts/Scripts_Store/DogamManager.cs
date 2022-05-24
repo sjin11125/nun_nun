@@ -41,7 +41,6 @@ public class DogamManager : MonoBehaviour
    
     public void StrOpen()
     {
-        Debug.Log("설치물 배열 갯수: "+GameManager.StrArray.Length);
         Transform[] scroll_child = Scroll.GetComponentsInChildren<Transform>();
         for (int i = 1; i < scroll_child.Length; i++)
         {
@@ -67,7 +66,7 @@ public class DogamManager : MonoBehaviour
             Image[] image = DogamChaButton.GetComponentsInChildren<Image>();
             // Text BuildingButtonText = BuildingPrefabChilds[5].GetComponent<Text>();
 
-            if (GameManager.StrArray[j].isLock == "F")      //건물이 잠겨있지 않음
+            if (GameManager.StrArray[j].isLock .Equals( "F"))      //건물이 잠겨있지 않음
             {
                 string ChaName;
 
@@ -117,6 +116,9 @@ public class DogamManager : MonoBehaviour
 
         for (int j = 0; j < BuildingInformation.Length; j++)         //상점 나타내기
         {
+            if (BuildingInformation[j].Building_Image == "village_level(Clone)")
+                continue;
+
 
             DogamCha = Instantiate(DogamChaPrefab) as GameObject;
             DogamCha.transform.SetParent(Scroll.transform);
@@ -131,7 +133,7 @@ public class DogamManager : MonoBehaviour
             Image[] image = DogamChaButton.GetComponentsInChildren<Image>();
            // Text BuildingButtonText = BuildingPrefabChilds[5].GetComponent<Text>();
 
-            if (BuildingInformation[j].isLock == "F")      //건물이 잠겨있지 않음
+            if (BuildingInformation[j].isLock .Equals( "F") )     //건물이 잠겨있지 않음
             {
                 string ChaName;
 

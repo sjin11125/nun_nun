@@ -48,11 +48,13 @@ public class GridBuildingSystem : MonoBehaviour
     public GameObject VisitorBooksWindow;           //방명록창
 
     private GameObject settigPanel;
-
+    Touch tempTouchs;
+    Vector3 touchedPos;
+    bool touchOn = false;
     #region unity Methods  
     private void Awake()
     {
-        if (current == null)
+        if (current==null)
         {
             current = this;
             //isStart = true;
@@ -67,7 +69,7 @@ public class GridBuildingSystem : MonoBehaviour
     {
         string tilePath = @"Tiles\";
 
-        if (GameManager.isStart == true)        //tileBases에 아무것도 없으면
+        if (GameManager.isStart .Equals( true)  )      //tileBases에 아무것도 없으면
         {
             tileBases.Add(TileType.Empty, null);
             tileBases.Add(TileType.White, Resources.Load<TileBase>(tilePath + "white"));
@@ -79,7 +81,7 @@ public class GridBuildingSystem : MonoBehaviour
 
         Grid = GameObject.Find("back_down");
         Canvas= GameObject.Find("Canvas");
-        // if (SceneManager.GetActiveScene().name=="Main")
+        // if (SceneManager.GetActiveScene().name.Equals("Main")
         // StartButton = GameObject.Find("Start").GetComponent<Button>();
 
     }
@@ -109,47 +111,58 @@ public class GridBuildingSystem : MonoBehaviour
    
     private void Update()
     {
-        if (ChaButtonScript.isEdit==true)
+        if (ChaButtonScript.isEdit.Equals(true))
         {
             ChaButtonScript.isEdit = false;
-            Debug.Log("initialize");
             InitializeWithBuilding();
         }
-        if (GameManager.isEdit==true)
+        if (GameManager.isEdit.Equals(true))
         {
             GameManager.isEdit = false;
             isEditing = true;
             InitializeWithBuilding();
             temp.Type = BuildType.Move;
         }
-        if (GameManager.isInvenEdit==true)
+        if (GameManager.isInvenEdit.Equals(true))
         {
             GameManager.isInvenEdit = false;
             InitializeWithBuilding_InvenButton();
             temp.Type = BuildType.Move;
         }
-        if (isGrid == true)
+        if (isGrid .Equals( true))
         {
             second += Time.deltaTime;
-            Debug.Log("second: " + second);
         }
         else
         {
             second = 0;
         }
-       /* if (Input.touchCount>0)
-        {
-            if (IsPointerOverUIObject(Input.GetTouch(0).fingerId))     //UI를 터치했냐
+        if (Input.touchCount > 0)
+        {    //터치가 1개 이상이면.
+            
+            for (int i = 0; i < Input.touchCount; i++)
             {
-                return;
+                if (EventSystem.current.IsPointerOverGameObject(i) .Equals( false))
+                {
+                    tempTouchs = Input.GetTouch(i);
+                    if (tempTouchs.phase .Equals( TouchPhase.Began))
+                    {    //해당 터치가 시작됐다면.
+                        touchedPos = Camera.main.ScreenToWorldPoint(tempTouchs.position);//get world position.
+
+                        touchOn = true;
+
+                        break;   //한 프레임(update)에는 하나만.
+                    }
+                }
             }
-        }*/
-       
+        }
+
+
         if (EventSystem.current.IsPointerOverGameObject(0))      //UI를 클릭했냐
         {
             return;
         }
-        if (Input.GetMouseButtonUp(0) && SceneManager.GetActiveScene().name == "Main")
+        if (Input.GetMouseButtonUp(0) && SceneManager.GetActiveScene().name .Equals( "Main"))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
@@ -160,10 +173,10 @@ public class GridBuildingSystem : MonoBehaviour
               
                 if (temp != null)
                 {
-                    if (temp.Placed == false)               //건물이 배치가 안 된 상태인가?
+                    if (temp.Placed.Equals(false))             //건물이 배치가 안 된 상태인가?
                     {
                         Building hit_building = temp.GetComponent<Building>();
-                        if (hit.transform.tag == "Button")      //건물 배치 확인 버튼
+                        if (hit.transform.CompareTag("Button"))      //건물 배치 확인 버튼
                         {
                             if (temp.CanBePlaced())         //건물이 배치 될 수 있는가? 네
                             {
@@ -201,10 +214,10 @@ public class GridBuildingSystem : MonoBehaviour
                             }
                             // button.buttonok();
                         }
-                        if (hit.transform.tag == "Rotation")        //건물 회전 버튼
+                        if (hit.transform.CompareTag("Rotation"))        //건물 회전 버튼
                         {
 
-                            if (hit_building.isFliped == "T")
+                            if (hit_building.isFliped .Equals( "T"))
                             {
                                 hit_building.isFliped = "F";
                             }
@@ -216,13 +229,13 @@ public class GridBuildingSystem : MonoBehaviour
 
 
                         }
-                        if (hit.transform.tag == "Upgrade")         //업그레이드
+                        if (hit.transform.CompareTag("Upgrade"))         //업그레이드
                         {
                             GameManager.isMoveLock = true;
                             hit_building.Type = BuildType.Upgrade;
                             hit_building.Upgrade();
                         }
-                        if (hit.transform.tag == "Remove")          //제거
+                        if (hit.transform.CompareTag("Remove"))          //제거
                         {
                             hit_building.Sell_Pannel();
                             //temp.Remove(temp);
@@ -234,7 +247,7 @@ public class GridBuildingSystem : MonoBehaviour
 
                 }
                
-                if (hit.transform.tag == "Nuni")        //누니 클릭
+                if (hit.transform.CompareTag("Nuni"))        //누니 클릭
                 {
 
                     GameObject nuni = hit.transform.parent.gameObject;
@@ -242,13 +255,11 @@ public class GridBuildingSystem : MonoBehaviour
 
                     NuniDialog nuni_dialog = new NuniDialog();
 
-                    Debug.Log("GameManager.NuniDialog: " + hit.transform.parent.name);
                     for (int i = 0; i < GameManager.NuniDialog.Count; i++)
                     {
-                        if (nuni_card.cardName == GameManager.NuniDialog[i].Nuni)
+                        if (nuni_card.cardName .Equals( GameManager.NuniDialog[i].Nuni))
                         {
                             nuni_dialog = GameManager.NuniDialog[i];
-                            Debug.Log("Dialog: " + nuni_dialog.Nuni);
                         }
                     }
                     
@@ -256,30 +267,28 @@ public class GridBuildingSystem : MonoBehaviour
                     //child[2]
                     dialo_window.GetComponent<NuniDialogParsing>().nuni = nuni_card;
                     dialo_window.GetComponentInChildren<Text>().text = nuni_dialog.Dialog[UnityEngine.Random.Range(0, nuni_dialog.Dialog.Length-1)];
-                    Debug.Log("누니 오브젝트 이름: " + hit.transform.parent.gameObject.name);
-                    
+         
                     dialo_window.GetComponent<NuniDialogParsing>().nuniObject = hit.transform.parent.gameObject;
                     dialo_window.GetComponent<NuniDialogParsing>().isMove = true;
                     //dialo_windowi
                 }
-                else if (hit.transform.tag == "bunsu")              //생명의 분수 클릭
+                else if (hit.transform.CompareTag("bunsu"))              //생명의 분수 클릭
                 {
                     settigPanel.GetComponent<AudioController>().Sound[1].Play();
                     SceneManager.LoadScene("Shop");
-                    Debug.Log("GameManager.BuildingList: "+GameManager.BuildingList[0].BuildingPosiiton_x);
                 }
             }
         }
-        if (Input.GetMouseButton(0) && SceneManager.GetActiveScene().name == "Main")                    //그냥 클릭했을 때
+        if (Input.GetMouseButton(0) && SceneManager.GetActiveScene().name .Equals( "Main"))                    //그냥 클릭했을 때
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
 
             if (hit.transform != null)          // 오브젝트를 클릭 했을 때
             {
-                if (hit.transform.tag == "VisitorBook")
+                if (hit.transform.CompareTag("VisitorBook"))
                 {
-                    VisitorBooksWindow.gameObject.SetActive(true);
+                    VisitorBooksWindow.SetActive(true);
                 }
 
             }
@@ -302,7 +311,7 @@ public class GridBuildingSystem : MonoBehaviour
 
                             Vector2 touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                             Vector3Int cellPos = gridLayout.LocalToCell(touchPos);
-                            Debug.Log("mouse");
+      
                             if (prevPos != cellPos)
                             {
                                 temp.transform.localPosition = gridLayout.CellToLocalInterpolated(cellPos
@@ -316,7 +325,7 @@ public class GridBuildingSystem : MonoBehaviour
                 }
             }
         }
-        else if (Input.GetMouseButton(0) && SceneManager.GetActiveScene().name == "FriendMain")         //친구 씬에서 방명록킬때
+        else if (Input.GetMouseButton(0) && SceneManager.GetActiveScene().name .Equals( "FriendMain"))         //친구 씬에서 방명록킬때
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
@@ -325,28 +334,23 @@ public class GridBuildingSystem : MonoBehaviour
 
             if (hit.transform != null)          // 오브젝트를 클릭 했을 때
             {
-                if (hit.transform.tag == "VisitorBook")
+                if (hit.transform.CompareTag("VisitorBook"))
                 {
-                    VisitorBooksWindow.gameObject.SetActive(true);
+                    VisitorBooksWindow.SetActive(true);
                 }
 
             }
         }
 
 
-            if (second >= 1.3f&& isEditing==false)
+            if (second >= 1.3f&& isEditing.Equals(false))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
-            Debug.Log("isMoveLock: " + GameManager.isMoveLock);
-
-            Debug.Log("temp is null");
-
             if (hit.transform != null)
             {
-                if (hit.transform.tag == "Building" && GameManager.isStore == false)
+                if (hit.transform.CompareTag("Building") && GameManager.isStore .Equals( false))
                 {
-                    Debug.Log("꾹눌러");
                     MainTilemap.GetComponent<TilemapRenderer>().sortingOrder = -45;             //메인 타일 보이게
                     temp = hit.transform.GetComponent<Building>();
                     GameManager.CurrentBuilding_Script = temp;
@@ -362,22 +366,17 @@ public class GridBuildingSystem : MonoBehaviour
                     for (int i = 0; i < size; i++)
                     {
                         baseArray[i] = tileBases[TileType.Empty];
-                        //FillTiles(baseArray, TileType.White);
-                        Debug.Log("tiles");
                     }
                     TempTilemap.SetTilesBlock(buildingArea, baseArray);
                     SetTilesBlock(buildingArea, TileType.White, MainTilemap);
 
-                    //FollowBuilding(true);
-                   // MainTilemap.GetComponent<TilemapRenderer>().sortingOrder = -50;
-                    Debug.Log("Level: " + temp.Level);
                 }
             }
             
             // BuildEdit(hit);
             isGrid = false;
         }
-        if (Input.GetMouseButtonDown(0)&&SceneManager.GetActiveScene().name=="Main") //마우스를 누르고 있을 때             지금 내 닉넴과 마을
+        if (Input.GetMouseButtonDown(0)&&SceneManager.GetActiveScene().name.Equals("Main")) //마우스를 누르고 있을 때             지금 내 닉넴과 마을
         {
 
 
@@ -387,11 +386,10 @@ public class GridBuildingSystem : MonoBehaviour
 
             if (hit.collider != null)
             {
-                if (hit.collider.tag == "Building" && hit.collider.tag != "Nuni")
+                if (hit.collider.CompareTag("Building") && !hit.collider.CompareTag("Nuni"))
                 {
 
                     isGrid = true;
-                    Debug.Log("second: " + second);
 
                     //StartCoroutine(WaitSecond(hit));
                 }
@@ -419,18 +417,15 @@ public class GridBuildingSystem : MonoBehaviour
     }
    private static void FillTiles(TileBase[] arr, TileType type)
    {
-        Debug.Log("FillTiles()");
         for (int i = 0; i < arr.Length; i++)
        {
            arr[i] = tileBases[type];
-            Debug.Log("Type: "+ type.ToString());
        }
    }
 
 
    private static TileBase[] GetTilesBlock (BoundsInt area, Tilemap tilemap)
    {
-        Debug.Log("GetTilesBlock");
        TileBase[] array = new TileBase[area.size.x * area.size.y * area.size.z];
        int counter = 0;
 
@@ -445,7 +440,6 @@ public class GridBuildingSystem : MonoBehaviour
 
    private static void SetTilesBlock(BoundsInt area, TileType type, Tilemap tilemap)
    {
-        Debug.Log("SetTilesBlock(,,,)");
         int size = area.size.x * area.size.y * area.size.z;
        TileBase[] tileArray = new TileBase[size];
        FillTiles(tileArray, type);
@@ -466,25 +460,19 @@ public class GridBuildingSystem : MonoBehaviour
         
         for (int i = 0; i < GameManager.BuildingArray.Length; i++)
         {
-            if (GameManager.BuildingArray[i].Building_Image==temp.Building_Image)
+            if (GameManager.BuildingArray[i].Building_Image.Equals(temp.Building_Image))
             {
-                Debug.Log("Good");
-                Debug.Log("Good "+ GameManager.BuildingArray[i].Building_name);
                 GameManager.BuildingArray[i].Level = 1;
                 temp.SetValue(GameManager.BuildingArray[i]);
-                Debug.Log("uuuuuuuuu: " + GameManager.BuildingArray[i].Cost[0]);
                 break;
             }
         }
         for (int i = 0; i < GameManager.StrArray.Length; i++)
         {
-            if (GameManager.StrArray[i].Building_Image == temp.Building_Image)
+            if (GameManager.StrArray[i].Building_Image .Equals( temp.Building_Image))
             {
-                Debug.Log("Good");
-                Debug.Log("Good " + GameManager.StrArray[i].Building_name);
                 GameManager.StrArray[i].Level = 1;
                 temp.SetValue(GameManager.StrArray[i]);
-                Debug.Log("uuuuuuuuu: " + GameManager.StrArray[i].Cost[0]);
                 break;
             }
         }
@@ -506,24 +494,18 @@ public class GridBuildingSystem : MonoBehaviour
         temp.SetValue(GameManager.CurrentBuilding_Script);
         for (int i = 0; i < GameManager.BuildingArray.Length; i++)
         {
-            if (GameManager.BuildingArray[i].Building_Image == temp.Building_Image)
+            if (GameManager.BuildingArray[i].Building_Image .Equals( temp.Building_Image))
             {
-                Debug.Log("Good");
-                Debug.Log("Good " + GameManager.BuildingArray[i].Building_name);
                 temp.Cost = GameManager.BuildingArray[i].Cost;
-                //Debug.Log("uuuuuuuuu: " + GameManager.BuildingArray[i].Cost[0]);
                 break;
             }
         }
         for (int i = 0; i < GameManager.StrArray.Length; i++)
         {
-            if (GameManager.StrArray[i].Building_Image == temp.Building_Image)
+            if (GameManager.StrArray[i].Building_Image .Equals( temp.Building_Image))
             {
-                Debug.Log("Good");
-                Debug.Log("Good " + GameManager.StrArray[i].Building_name);
                 GameManager.StrArray[i].Level = 1;
                 temp.SetValue(GameManager.StrArray[i]);
-                Debug.Log("uuuuuuuuu: " + GameManager.StrArray[i].Cost[0]);
                 break;
             }
         }
@@ -545,17 +527,13 @@ public class GridBuildingSystem : MonoBehaviour
     }
     public void ClearArea()
    {
-        Debug.Log("ClearArea()");
         TileBase[] toClear = new TileBase[prevArea.size.x * prevArea.size.y * prevArea.size.z];//0
-        Debug.Log(prevArea.position);
        FillTiles(toClear, TileType.Empty);
        TempTilemap.SetTilesBlock(prevArea, toClear);
    }
     public void ClearArea2()
     {
-        Debug.Log("ClearArea2()");
         TileBase[] toClear = new TileBase[prevArea2.size.x * prevArea2.size.y * prevArea2.size.z];//0
-        Debug.Log(prevArea2.position);
         FillTiles(toClear, TileType.Empty);
         TempTilemap.SetTilesBlock(prevArea2, toClear);
         SetTilesBlock(prevArea2, TileType.White, MainTilemap);
@@ -565,7 +543,6 @@ public class GridBuildingSystem : MonoBehaviour
 
     private void FollowBuilding(bool isTransfer)                    //건물이 마우스 따라가게
    {
-        Debug.Log("Following");
        ClearArea();
 
 
@@ -581,7 +558,7 @@ public class GridBuildingSystem : MonoBehaviour
        for (int i = 0; i<baseArray.Length; i++)
        {
 
-           if (baseArray[i] == tileBases[TileType.White])
+           if (baseArray[i] .Equals( tileBases[TileType.White]))
            {
                tileArray[i] = tileBases[TileType.Green];            //건물을 놓을 수 있다
             }
@@ -601,14 +578,11 @@ public class GridBuildingSystem : MonoBehaviour
 
    public bool CanTakeArea(BoundsInt area)
    {
-        Debug.Log("CanTakeArea()");
         TileBase[] baseArray = GetTilesBlock(area, MainTilemap);
-        Debug.Log("CanTakeArea()         :"+ baseArray.Length);
         foreach (var b in baseArray)
        {
            if ( b != tileBases[TileType.White])
            {
-               Debug.Log("둘 수 없습니다.");
                return false;
            }
        }
@@ -618,14 +592,11 @@ public class GridBuildingSystem : MonoBehaviour
 
    public void TakeArea(BoundsInt area)
    {
-        Debug.Log("TakeArea()");
        SetTilesBlock(area, TileType.Empty, TempTilemap);        //TmpTilemap 비우기
        SetTilesBlock(area, TileType.Red, MainTilemap);
    }
     public void RemoveArea(BoundsInt area)
     {
-        Debug.Log("RemoveArea()");
-        Debug.Log("RemoveArea(): "+area);
         SetTilesBlock(area, TileType.Empty, TempTilemap);        //TmpTilemap 비우기
         SetTilesBlock(area, TileType.White, MainTilemap);
     }

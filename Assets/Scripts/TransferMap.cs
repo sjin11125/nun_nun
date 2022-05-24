@@ -12,8 +12,8 @@ public class TransferMap : MonoBehaviour
     {
         builinSave = gameObject.GetComponent<BuildingSave>() ;
         //GameManager.BuildingArray = GameManager.BuildingList.ToArray();
-        Debug.Log("Yahoo");
-        if (transferMapName=="Main")
+
+        if (transferMapName.Equals("Main"))
         {
             GameManager.isLoading = false;
         }

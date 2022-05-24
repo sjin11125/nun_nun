@@ -55,7 +55,7 @@ public class ChaButtonScript : MonoBehaviour
         string building_name = buildings[0].transform.parent.name;
         building.Type = BuildType.Empty;
 
-      
+        Destroy(gameObject.transform.parent.gameObject);
     }
     public void NuniInfoClick()
     {
@@ -66,7 +66,6 @@ public class ChaButtonScript : MonoBehaviour
 
         for (int i = 0; i < GameManager.AllNuniArray.Length; i++)
         {
-            // Debug.Log(transform.parent.name);
             if (transform.name == GameManager.AllNuniArray[i].cardImage)
             {
                 Card nuni = GameManager.AllNuniArray[i];
@@ -77,26 +76,17 @@ public class ChaButtonScript : MonoBehaviour
 
                 if (nuni.Star == "1")
                 {
-                    Debug.Log("이 누니는 현재 " + nuni.Star + "성 입니다.");
                     InfoImage[1].color = new Color(244 / 255f, 255 / 255f, 162 / 255f);
 
-                    Debug.Log(InfoImage[1].name);
-
-
-                  /*  Debug.Log("이 누니는 현재 " + nuni.Star + "성 입니다.");
-                    InfoImage[1].color = new Color(210 / 255f, 150 / 255f, 255 / 255f);*/
                     
                 }
                 else if (nuni.Star == "3")
                 {
-                    Debug.Log("이 누니는 현재 " + nuni.Star + "성 입니다.");
                     InfoImage[1].color = new Color(255 / 255f, 168 / 255f, 255 / 255f);
                     
-                    Debug.Log(InfoImage[1].name);
                 }
                 else
                 {
-                    Debug.Log("이 누니는 현재 " + nuni.Star + "성 입니다.");
                    // InfoImage[1].color = new Color(210 / 255f, 150 / 255f, 255 / 255f);
 
                 }
@@ -120,10 +110,6 @@ public class ChaButtonScript : MonoBehaviour
     }
     public void IsSell()            //건물 제거한다고 했을 때
     {
-        //.gameObject.SetActive(true);
-
-        // Building remove_building = DowngradeBuilding;
-        // Debug.Log(gameObject.transform.parent.parent.gameObject.name);
         DowngradeBuilding.Remove(DowngradeBuilding);
     }
     public void IsUpgrade()         //건물 업그레이드 한다고 했을 때
@@ -132,37 +118,19 @@ public class ChaButtonScript : MonoBehaviour
         GameManager.isMoveLock = false;
         Building building = buildings[0].transform.parent.GetComponent<Building>();
         string building_name = buildings[0].transform.parent.name;
-        Debug.Log(building_name);
-        if (GameManager.Money < building.Cost[building.Level - 1]||GameManager.ShinMoney< building.ShinCost[building.Level - 1])
+
+        if (GameManager.Money < building.Cost[building.Level ])
         {
             CancleText.gameObject.SetActive(true);
             return;
         }
-        if (Level == 0)
+        if (GameManager.ShinMoney < building.ShinCost[building.Level])
         {
-            Debug.Log("000");
-            /* for (int i = 6; i < buildingTrans.Length; i++)
-             {
-                 if (buildingTrans[i].name=="building2")
-                 {
-                     buildingTrans[i].gameObject.SetActive(true);
-                     return;
-                 }
-             }*/
+            CancleText.gameObject.SetActive(true);
+            return;
         }
-        else if (Level == 1)
+      if (Level == 1)
         {
-            Debug.Log("111");
-            /* for (int i = 6; i < buildingTrans.Length; i++)
-             {
-                 if (buildingTrans[i].name == "building3")
-                 {
-                     buildingTrans[i].gameObject.SetActive(true);
-                     return;
-                 }
-             }*/
-
-            Debug.Log(buildings.Length);
 
            // buildings[1].SetActive(true);
             building.Level += 1;
@@ -173,19 +141,18 @@ public class ChaButtonScript : MonoBehaviour
         }
         else
         {
-            Debug.Log("222");
             //buildings[2].SetActive(true);
             buildings[0].GetComponent<SpriteRenderer>().sprite = building.buildings_image[building.Level -2];
             building.Level += 1;
         }
+       
         GameManager.Money -= building.Cost[building.Level-1];
         GameManager.ShinMoney -= building.ShinCost[building.Level-1];
-        Debug.Log("building.level:"+building.Level+ "      building.cost: "+ building.Cost[building.Level]);
-        Debug.Log(building.Level);
+
         building.Type = BuildType.Empty;
         building.RefreshBuildingList();     //빌딩 리스트 새로고침
 
-        gameObject.transform.parent.gameObject.SetActive(false);
+        Destroy(gameObject.transform.gameObject);
 
     }
     // Update is called once per frame
@@ -201,7 +168,6 @@ public class ChaButtonScript : MonoBehaviour
     {                                                                   //현재 가지고 있는 건물 리스트에서 해당 건물 찾아서 레벨 수정
         ChaButtonScript.buildings = buildings;
         ChaButtonScript.Level = Level;
-        Debug.Log("this.buildings: " + ChaButtonScript.buildings.Length);
         Transform UPPannelTrans = gameObject.GetComponent<Transform>();
 
         transform.parent = GameObject.Find("O").transform;
@@ -284,13 +250,6 @@ public class ChaButtonScript : MonoBehaviour
 
 
 
-
-
-       
-
-            //chaimage.sprite = StartManager.NuNiInformation[StartManager.ChaIndex].GetChaImange();
-            Debug.Log("StartManager.ChaIndex: "+item);
-
         if (GameManager.Items[item] != true)
         {
             if (GameManager.items <= 2)
@@ -350,7 +309,6 @@ public class ChaButtonScript : MonoBehaviour
                 if (DogamManager.BuildingInformation[i].Building_name == buildingName)
                 {
                     building.SetValue(DogamManager.BuildingInformation[i]);
-                    Debug.Log("빌딩은 현재 "+ building.Level+"레벨");
                 }
             }
             for (int i = 0; i < GameManager.StrArray.Length; i++)
@@ -367,7 +325,6 @@ public class ChaButtonScript : MonoBehaviour
             if (GameManager.Money < pay || GameManager.ShinMoney < shinPay)      //돈이나 자원이 모자르면 거절 메세지 띄움
             {
                 UIManager.isSetMoney = -1;
-                Debug.Log("결제못함");
             }
             else                    // 결제함
             {
@@ -387,8 +344,6 @@ public class ChaButtonScript : MonoBehaviour
                 Transform[] trans = transform.parent.parent.parent.GetComponentsInChildren<Transform>();
                 //GridBuildingSystem[] grid = trans.GetComponentsInChildren<GridBuildingSystem>();
 
-                Debug.Log("DogamManager.ChaIndex: " + DogamManager.ChaIndex);
-                Debug.Log(GameManager.BuildingPrefabData.Count);
 
                 //게임매니저에 잇는 건물 프리팹 배열에서 같은 이름을 가진 프리팹을 찾아 Instantiate하고 상점 창 닫기
            
@@ -408,7 +363,6 @@ public class ChaButtonScript : MonoBehaviour
                 c = b.GetComponent<Building>().DeepCopy();
                 b.Level = 1;
                 c.SetValue(b);
-                Debug.Log("빌딩은 현재 " +b.Level + "레벨");
                 parent.gameObject.SetActive(false);
                 isEdit = true;
                 

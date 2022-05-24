@@ -8,9 +8,9 @@ using UnityEngine.UI;
 [Serializable]
 public class FriendInfo
 {
-    public string f_nickname;      //ÇÃ·¹ÀÌ¾î ´Ð³×ÀÓ
-    //public string SheetsNum;     //ÇÃ·¹ÀÌ¾î °Ç¹° Á¤º¸ µé¾îÀÖ´Â ½ºÇÁ·¹µå ½ÃÆ® id
-    public string f_info;          //»óÅÂ¸Þ¼¼Áö
+    public string f_nickname;      //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Ð³ï¿½ï¿½ï¿½
+    //public string SheetsNum;     //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Ç¹ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ® id
+    public string f_info;          //ï¿½ï¿½ï¿½Â¸Þ¼ï¿½ï¿½ï¿½
     public string f_id;
     public string f_image;
 
@@ -37,7 +37,7 @@ public class FriendManager : MonoBehaviour
         Content.SetActive(true);
         GetFriendLsit();
     }
-    public void GetFriendLsit()         //Ä£±¸ Á¤º¸ ºÒ·¯¿À±â
+    public void GetFriendLsit()         //Ä£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½
     {
 
         LoadingObjcet.SetActive(true);
@@ -48,7 +48,7 @@ public class FriendManager : MonoBehaviour
         form.AddField("info", "1234");
         StartCoroutine(ListPost(form));
     }
-    public void GetRecFriendLsit()         //ÃßÃµÄ£±¸ Á¤º¸ ºÒ·¯¿À±â
+    public void GetRecFriendLsit()         //ï¿½ï¿½ÃµÄ£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½
     {
 
         LoadingObjcet.SetActive(true);
@@ -61,30 +61,27 @@ public class FriendManager : MonoBehaviour
 
     IEnumerator Post(WWWForm form)
     {
-        using (UnityWebRequest www = UnityWebRequest.Post(URL, form)) // ¹Ýµå½Ã usingÀ» ½á¾ßÇÑ´Ù
+        using (UnityWebRequest www = UnityWebRequest.Post(URL, form)) // ï¿½Ýµï¿½ï¿½ usingï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½
         {
             yield return www.SendWebRequest();
-            //Debug.Log(www.downloadHandler.text);
             if (www.isDone) Response(www.downloadHandler.text);
-            else print("À¥ÀÇ ÀÀ´äÀÌ ¾ø½À´Ï´Ù.");
+            else print("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
         }
     }
     IEnumerator ListPost(WWWForm form)
     {
-        using (UnityWebRequest www = UnityWebRequest.Post(URL, form)) // ¹Ýµå½Ã usingÀ» ½á¾ßÇÑ´Ù
+        using (UnityWebRequest www = UnityWebRequest.Post(URL, form)) // ï¿½Ýµï¿½ï¿½ usingï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½
         {
             yield return www.SendWebRequest();
-            //Debug.Log(www.downloadHandler.text);
             if (www.isDone) ListResponse(www.downloadHandler.text);
-            else print("À¥ÀÇ ÀÀ´äÀÌ ¾ø½À´Ï´Ù.");
+            else print("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
         }
     }
     void ListResponse(string json)
     {
         if (string.IsNullOrEmpty(json)) return;
 
-        Debug.Log(json);
-        if (json == "")
+        if (json .Equals( ""))
         {
             LoadingObjcet.SetActive(false);
             return;
@@ -94,16 +91,15 @@ public class FriendManager : MonoBehaviour
         for (int i = 0; i < j.Count; i++)
         {
             friendInfos[i] = JsonUtility.FromJson<FriendInfo>(j[i].ToString());
-            if (friendInfos[i].f_nickname=="")      //Ä£±¸°¡ ¾ø´Ù
+            if (friendInfos[i].f_nickname.Equals("")    )  //Ä£ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             {
                 LoadingObjcet.SetActive(false);
                 return;
             }
-            Debug.Log(friendInfos[i].f_nickname);
         }
         GameManager.Friends = friendInfos;
 
-        Transform[] child = Content.GetComponentsInChildren<Transform>();           //ÀÏ´Ü ÃÊ±âÈ­
+        Transform[] child = Content.GetComponentsInChildren<Transform>();           //ï¿½Ï´ï¿½ ï¿½Ê±ï¿½È­
         for (int k = 1; k < child.Length; k++)
         {
             Destroy(child[k].gameObject);
@@ -111,14 +107,13 @@ public class FriendManager : MonoBehaviour
         for (int i = 0; i < GameManager.Friends.Length; i++)
         {
             string[] friend = GameManager.Friends[i].f_nickname.Split(':');
-            Debug.Log(friend.Length);
             if (friend.Length>=2)
             {
                 continue;
             }
           
           
-            GameObject friendprefab = Instantiate(FriendPrefab, Content.transform) as GameObject;  //Ä£±¸ ÇÁ¸®ÆÕ »ý¼º
+            GameObject friendprefab = Instantiate(FriendPrefab, Content.transform) as GameObject;  //Ä£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             Transform friendPrefabChilds = friendprefab.GetComponent<Transform>();
             friendPrefabChilds.name = GameManager.Friends[i].f_nickname;
             Text[] friendButtonText = friendprefab.GetComponentsInChildren<Text>();
@@ -126,23 +121,22 @@ public class FriendManager : MonoBehaviour
             friendButtonText[1].text = GameManager.Friends[i].f_info;
 
             Image[] friendImage = friendprefab.GetComponentsInChildren<Image>();
-            Debug.Log("ÀÌ¹ÌÁö¾ß¤Á¤Á¤Á¤Á¤Á¤Á¤Á¤Á     " + friendImage.Length);
             for (int k = 0; k < GameManager.AllNuniArray.Length; k++)
             {
                 if (GameManager.AllNuniArray[k].Image.name != GameManager.Friends[i].f_image)
                     continue;
                 friendImage[1].sprite = GameManager.AllNuniArray[k].Image;
             }
-        }           //Ä£±¸ ¸ñ·Ï ¼¼ÆÃ
+        }           //Ä£ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         LoadingObjcet.SetActive(false);
     }
     void Response(string json)
     {
         if (string.IsNullOrEmpty(json)) return;
 
-        Debug.Log(json);
 
-        Transform[] child = Content.GetComponentsInChildren<Transform>();           //ÀÏ´Ü ÃÊ±âÈ­
+
+        Transform[] child = Content.GetComponentsInChildren<Transform>();           //ï¿½Ï´ï¿½ ï¿½Ê±ï¿½È­
         for (int k = 1; k < child.Length; k++)
         {
             Destroy(child[k].gameObject);
@@ -153,23 +147,23 @@ public class FriendManager : MonoBehaviour
         for (int i = 0; i < j.Count; i++)
         {
             friendInfos[i] = JsonUtility.FromJson<FriendInfo>(j[i].ToString());
-            Debug.Log(friendInfos[i].f_nickname);
+
         }
         GameManager.Friends = friendInfos;
-        FriendsList();              //Ä£±¸ ¸ñ·Ï ¼¼ÆÃ
+        FriendsList();              //Ä£ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
     }
 
     public void FriendsList()
     {
-        Transform[] child = Content.GetComponentsInChildren<Transform>();           //ÀÏ´Ü ÃÊ±âÈ­
+        Transform[] child = Content.GetComponentsInChildren<Transform>();           //ï¿½Ï´ï¿½ ï¿½Ê±ï¿½È­
         for (int k = 1; k < child.Length; k++)
         {
             Destroy(child[k].gameObject);
         }
         for (int i = 0; i < GameManager.Friends.Length; i++)
         {
-            GameObject friendprefab = Instantiate(FriendPrefab, Content.transform) as GameObject;  //Ä£±¸ ÇÁ¸®ÆÕ »ý¼º
+            GameObject friendprefab = Instantiate(FriendPrefab, Content.transform) as GameObject;  //Ä£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             Transform friendPrefabChilds = friendprefab.GetComponent<Transform>();
             friendPrefabChilds.name = GameManager.Friends[i].f_nickname;
             Text[] friendButtonText = friendprefab.GetComponentsInChildren<Text>();
@@ -177,14 +171,20 @@ public class FriendManager : MonoBehaviour
             friendButtonText[1].text = GameManager.Friends[i].f_info;
 
             Image[] friendImage= friendprefab.GetComponentsInChildren<Image>();
-            Debug.Log("ÀÌ¹ÌÁö¾ß¤Á¤Á¤Á¤Á¤Á¤Á¤Á¤Á     "+ friendImage.Length);
-            for (int j   = 0; j < GameManager.AllNuniArray.Length; j++)
+
+            for (int j   = 0; j < GameManager.Friends.Length; j++)
+
             {
-                if (GameManager.AllNuniArray[j].Image.name != GameManager.Friends[i].f_image)
-                    continue;
-                friendImage[1].sprite = GameManager.AllNuniArray[j].Image;
+                if (GameManager.Friends[i].f_nickname == GameManager.Friends[j].f_nickname)      //ï¿½ï¿½Ãµ Ä£ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+                {
+
+                    Button[] btnn = friendprefab.GetComponentsInChildren<Button>();
+                    btnn[1].interactable = false;               //Å¬ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½
+                }
+
             }
-             
+            Button[] btn= friendprefab.GetComponentsInChildren<Button>();
+
         }
         LoadingObjcet.SetActive(false);
     }

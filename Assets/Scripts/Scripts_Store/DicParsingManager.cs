@@ -13,7 +13,7 @@ public class DicParsingManager : MonoBehaviour
     TextAsset csvData;
     void Start()
     {
-        if (GameManager.parse==false)
+        if (GameManager.parse.Equals(false))
         {
             GameManager.parse = true;
         }
@@ -21,21 +21,19 @@ public class DicParsingManager : MonoBehaviour
     public Card[] Parse_character(int index)                //누니 정보 불러옴 
     {
         List<Card> CharacterList = new List<Card>();
-        if (index == 1)
+        if (index .Equals( 1))
         {
             csvData = Resources.Load<TextAsset>("Character");    //csv파일 가져옴
 
         }
         string[] data = csvData.text.Split(new char[] { '\n' });    //엔터 기준으로 쪼갬.
-        //string[] pro_data;
-        Debug.Log(data.Length);
 
 
         for (int i = 1; i < data.Length - 1; i++)
         {
             string[] pro_data = data[i].Split(',');
 
-            if (pro_data[0] == "end")
+            if (pro_data[0] .Equals( "end"))
             {
                 break;
             }
@@ -64,28 +62,27 @@ public class DicParsingManager : MonoBehaviour
 
     public Building[] Parse(int index)
     {
-        if (GameManager.parse == false)
+        if (GameManager.parse .Equals( false))
         {
             GameManager.parse = true;
         }
         
         List<Building> DictionaryList = new List<Building>(); //도감 캐릭터 리스트 생성.
         List<Building> DictionaryStrList = new List<Building>(); //도감 캐릭터 리스트 생성.
-        if (index==0)
+        if (index.Equals(0))
         {
             csvData = Resources.Load<TextAsset>("Dogam");    //csv파일 가져옴
         }
 
         string[] data = csvData.text.Split(new char[] { '\n' });    //엔터 기준으로 쪼갬.
-        //string[] pro_data;
-        Debug.Log(data.Length);
+
       
         
         for (int i = 1; i < data.Length-1; i++)
         {
             string[] pro_data = data[i].Split(',');
 
-            if (pro_data[0]=="end")
+            if (pro_data[0].Equals("end"))
             {
                 break;
             }
@@ -93,7 +90,7 @@ public class DicParsingManager : MonoBehaviour
             Building building = new Building(pro_data[1], pro_data[2], pro_data[3], pro_data[4], pro_data[5], pro_data[6], pro_data[7], pro_data[8], pro_data[9], pro_data[10], pro_data[12]);
             building.Level = 1;
             //잠금 유무     // 이름     //설명     //이미지    //가격1       //가격2      //가격3        //생성재화1         //생성재화2        //생성재화3      //설치물인지
-            if (pro_data[11] == "T")          //설치물인가
+            if (pro_data[11] .Equals( "T") )         //설치물인가
             {
                 DictionaryStrList.Add(building);
             }
@@ -102,14 +99,9 @@ public class DicParsingManager : MonoBehaviour
                 DictionaryList.Add(building);
             }
 
-            //Debug.Log(i + "  pro_data: " + pro_data[12]);
-
         }
         GameManager.StrArray = DictionaryStrList.ToArray();
-        for (int i = 0; i < DictionaryList.Count; i++)
-        {
-           // Debug.Log("건물이름: "+ DictionaryList[i].Building_name+ "건물레벨: "+DictionaryList[i].Level);
-        }
+     
         return DictionaryList.ToArray();
     }
     // Update is called once per frame
