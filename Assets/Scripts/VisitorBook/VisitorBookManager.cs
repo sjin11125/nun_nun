@@ -31,7 +31,7 @@ public class VisitorBookManager : MonoBehaviour
     public GameObject VBPrefab;             //방명록 목록 프리팹
 
     public InputField VBInput;
-    
+    public GameObject LoadingNuni;      //로딩 누니 프리팹
 
     public void VBWindowOpen()              //방명록 창 오픈했을 때
     {
@@ -64,7 +64,7 @@ public class VisitorBookManager : MonoBehaviour
     // Start is called before the first frame update
     public void VisitorBookList()  //내 방명록 불러옴
     {
-
+        LoadingNuni.SetActive(true);            //로딩 누니 활성화
         WWWForm form = new WWWForm();
         form.AddField("order", "getMessage");
         form.AddField("player_nickname", GameManager.NickName);
@@ -129,8 +129,11 @@ public class VisitorBookManager : MonoBehaviour
          
             return;
         }
-        if (json .Equals( "null")   )                          //방명록에 아무것도 없다
+        if (json.Equals("null"))                          //방명록에 아무것도 없다
+        {
+            LoadingNuni.SetActive(false);
             return;
+        }
 
         Newtonsoft.Json.Linq.JArray j = Newtonsoft.Json.Linq.JArray.Parse(json);
 
@@ -162,7 +165,7 @@ public class VisitorBookManager : MonoBehaviour
                
             }
         }
-        
 
+        LoadingNuni.SetActive(false);
     }
 }
