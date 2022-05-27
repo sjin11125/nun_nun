@@ -54,7 +54,7 @@ public class BuildingSave : MonoBehaviour
         form.AddField("isLock", buildings.isLock);
         form.AddField("building_name", buildings.Building_name);
         form.AddField("level", buildings.Level);
-        form.AddField("isFliped",buildings.isFliped.ToString());
+        form.AddField("isFlied",buildings.isFliped.ToString());
         form.AddField("id", buildings.Id.ToString());
         StartCoroutine(SavePost(form));
     }

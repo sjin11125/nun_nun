@@ -217,7 +217,7 @@ public class GridBuildingSystem : MonoBehaviour
                         if (hit.transform.CompareTag("Rotation"))        //건물 회전 버튼
                         {
 
-                            if (hit_building.isFliped .Equals( "T"))
+                            if (hit_building.isFliped .Equals("T"))
                             {
                                 hit_building.isFliped = "F";
                             }

@@ -17,8 +17,8 @@ public class StartProgram : MonoBehaviour
 
         DBclient = new AmazonDynamoDBClient(credentials, RegionEndpoint.APNortheast2);
         context = new DynamoDBContext(DBclient);
-        CreateCharacter();
-       // FindItem();
+        //CreateCharacter();
+        FindInfo();
     }
 
     [DynamoDBTable("PlayerInfo")]
@@ -27,7 +27,7 @@ public class StartProgram : MonoBehaviour
         [DynamoDBHashKey] // Hash key.
         public string id { get; set; }
         [DynamoDBProperty]
-        public int Info { get; set; }
+        public string Info { get; set; }
     }
 
     private void CreateCharacter() //캐릭터 정보를 DB에 올리기
@@ -35,7 +35,7 @@ public class StartProgram : MonoBehaviour
         Character c1 = new Character
         {
             id = "happy",
-            Info = 1111,
+            Info = "1111",
         };
         context.SaveAsync(c1, (result) =>
         {
@@ -50,7 +50,7 @@ public class StartProgram : MonoBehaviour
     public void FindInfo() //DB에서 캐릭터 정보 받기
     {
         Character c;
-        context.LoadAsync<Character>("abcd", (AmazonDynamoDBResult<Character> result) =>
+        context.LoadAsync<Character>("1243", (AmazonDynamoDBResult<Character> result) =>
         {
             // id가 abcd인 캐릭터 정보를 DB에서 받아옴
             if (result.Exception != null)
