@@ -49,8 +49,6 @@ public class GridBuildingSystem : MonoBehaviour
 
     private GameObject settigPanel;
     Touch tempTouchs;
-    Vector3 touchedPos;
-    bool touchOn = false;
     #region unity Methods  
     private void Awake()
     {
@@ -84,21 +82,6 @@ public class GridBuildingSystem : MonoBehaviour
         // if (SceneManager.GetActiveScene().name.Equals("Main")
         // StartButton = GameObject.Find("Start").GetComponent<Button>();
 
-    }
-    public bool IsPointerOverUIObject(Vector2 touchPos)
-    {
-        PointerEventData eventDataCurrentPosition
-            = new PointerEventData(EventSystem.current);
-
-        eventDataCurrentPosition.position = touchPos;
-
-        List<RaycastResult> results = new List<RaycastResult>();
-
-
-        EventSystem.current
-        .RaycastAll(eventDataCurrentPosition, results);
-
-        return results.Count > 0;
     }
     public void GridLayerSetting()
     {
@@ -138,23 +121,10 @@ public class GridBuildingSystem : MonoBehaviour
             second = 0;
         }
         if (Input.touchCount > 0)
-        {    //터치가 1개 이상이면.
-            
-            for (int i = 0; i < Input.touchCount; i++)
-            {
-                if (EventSystem.current.IsPointerOverGameObject(i) .Equals( false))
-                {
-                    tempTouchs = Input.GetTouch(i);
-                    if (tempTouchs.phase .Equals( TouchPhase.Began))
-                    {    //해당 터치가 시작됐다면.
-                        touchedPos = Camera.main.ScreenToWorldPoint(tempTouchs.position);//get world position.
-
-                        touchOn = true;
-
-                        break;   //한 프레임(update)에는 하나만.
-                    }
-                }
-            }
+        {
+            if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
+                return; //UI 터치가 감지됐을 경우 return
+                        //여기서부터 화면 터치 코드
         }
 
 
@@ -292,13 +262,6 @@ public class GridBuildingSystem : MonoBehaviour
                 }
 
             }
-
-            if (hit.transform != null)          // 오브젝트를 클릭 했을 때
-            {
-
-
-
-            }
             else   // 빈 공간을 클릭했을 때
             {
                 if (temp != null)
@@ -349,7 +312,7 @@ public class GridBuildingSystem : MonoBehaviour
             RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
             if (hit.transform != null)
             {
-                if (hit.transform.CompareTag("Building") && GameManager.isStore .Equals( false))
+                if (hit.transform.CompareTag("Building"))               //건물이라면
                 {
                     MainTilemap.GetComponent<TilemapRenderer>().sortingOrder = -45;             //메인 타일 보이게
                     temp = hit.transform.GetComponent<Building>();
@@ -369,6 +332,10 @@ public class GridBuildingSystem : MonoBehaviour
                     }
                     TempTilemap.SetTilesBlock(buildingArea, baseArray);
                     SetTilesBlock(buildingArea, TileType.White, MainTilemap);
+
+                }
+                else if(hit.transform.CompareTag("Nuni"))           //누니라면
+                {
 
                 }
             }
