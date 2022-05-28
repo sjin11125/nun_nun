@@ -221,7 +221,8 @@ public class GridScript : MonoBehaviour
         }
 
         var completedLines = CheckIfSquaresAreCompleted(lines);//행(0-5)렬(0-5) 정보전달 및 변수에 반환 int값 저장
-        var totalScores = 0;
+        var totalScores = 10 * completedLines;
+        GameEvents.AddScores(totalScores, completeShin);
 
         if (completedLines == 0)
         {
@@ -253,15 +254,8 @@ public class GridScript : MonoBehaviour
                 {
                     Instantiate(ComboImg, this.transform.parent.GetChild(0));
                 }
-                totalScores = 10 * Combo;
-            }
-            else
-            {
-                totalScores = 10 * completedLines;
             }
         }
-        print(totalScores);
-        GameEvents.AddScores(totalScores, completeShin);
     }
 
     public void CheckIfKeepLineIsCompleted()//킵은 엔터때 색깔이 들어가기때문에 새로운 함수 생성함
