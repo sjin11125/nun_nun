@@ -259,4 +259,44 @@ public class GameManager : MonoBehaviour
         }
         print("load");
     }
+
+    public void GameSave()
+    {
+        PlayerPrefs.SetInt("Money", GameManager.Money);
+        PlayerPrefs.SetInt("ShinMoney", GameManager.ShinMoney);
+        PlayerPrefs.Save();
+        print("save");
+
+        WWWForm form2 = new WWWForm();
+        //isMe = true;                 
+        form2.AddField("order", "setMoney");
+        form2.AddField("player_nickname", GameManager.NickName);   
+    }
+
+
+    bool isPaused = false;
+
+    void OnApplicationPause(bool pause)
+    {
+        if (pause)//비활성화
+        {
+            isPaused = true;
+            GameSave();
+        }
+
+        else//활성화
+        {
+            if (isPaused)
+            {
+                isPaused = false;
+                GameLoad();
+            }
+        }
+    }
+
+    void OnApplicationQuit()
+    {
+        /* 앱이 종료 될 때 처리 */
+        //GameSave();
+    }
 }

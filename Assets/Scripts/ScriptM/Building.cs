@@ -690,7 +690,7 @@ public class Building : MonoBehaviour
                         Debug.Log("업글전: " + GameManager.BuildingArray[j].Reward[Level - 1]);
                         upgradeText[4].text = GameManager.BuildingArray[j].Reward[Level].ToString();                       //업글 후 획득 재화
                         Debug.Log("업글전: " + GameManager.BuildingArray[j].Reward[Level - 1]);
-                            upgradeText[6].text = "얼음: "+GameManager.BuildingArray[j].Cost[Level-1].ToString()+",   빛나는 얼음: "+ GameManager.BuildingArray[j].ShinCost[Level-1].ToString()+" 이 소모됩니다.";
+                            upgradeText[6].text = "얼음: "+GameManager.BuildingArray[j].Cost[Level].ToString()+",   빛나는 얼음: "+ GameManager.BuildingArray[j].ShinCost[Level].ToString()+" 이 소모됩니다.";
                         return;
 
                     }
