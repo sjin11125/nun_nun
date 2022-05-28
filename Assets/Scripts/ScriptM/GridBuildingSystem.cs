@@ -205,12 +205,12 @@ public class GridBuildingSystem : MonoBehaviour
                                 temp = null;
                                 isEditing = false;
                                 GameManager.CurrentBuilding_Script = null;
-                                
+
+                                settigPanel.GetComponent<AudioController>().Sound[1].Play();
                             }
                             if (GameObject.FindWithTag("TutoBuy")!=null)
                             {
                                 GameObject.FindWithTag("TutoBuy").GetComponent<TutorialsItemControl>().goNext = true;
-
                             }
                             // button.buttonok();
                         }
@@ -227,13 +227,14 @@ public class GridBuildingSystem : MonoBehaviour
                             }
                             hit_building.Rotation();
 
-
+                            settigPanel.GetComponent<AudioController>().Sound[0].Play();
                         }
                         if (hit.transform.CompareTag("Upgrade"))         //업그레이드
                         {
                             GameManager.isMoveLock = true;
                             hit_building.Type = BuildType.Upgrade;
                             hit_building.Upgrade();
+                            settigPanel.GetComponent<AudioController>().Sound[1].Play();
                         }
                         if (hit.transform.CompareTag("Remove"))          //제거
                         {
@@ -242,6 +243,7 @@ public class GridBuildingSystem : MonoBehaviour
                             //UI_Manager.Start();
                             MainTilemap.GetComponent<TilemapRenderer>().sortingOrder = -50;         //메인 타일 안보이게
 
+                            settigPanel.GetComponent<AudioController>().Sound[1].Play();
                         }
                     }
 
@@ -271,6 +273,8 @@ public class GridBuildingSystem : MonoBehaviour
                     dialo_window.GetComponent<NuniDialogParsing>().nuniObject = hit.transform.parent.gameObject;
                     dialo_window.GetComponent<NuniDialogParsing>().isMove = true;
                     //dialo_windowi
+
+                    settigPanel.GetComponent<AudioController>().Sound[0].Play();
                 }
                 else if (hit.transform.CompareTag("bunsu"))              //생명의 분수 클릭
                 {

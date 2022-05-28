@@ -105,8 +105,7 @@ public class ChaButtonScript : MonoBehaviour
 
             }
         }
-
-
+        settigPanel.GetComponent<AudioController>().Sound[0].Play();
     }
     public void IsSell()            //건물 제거한다고 했을 때
     {

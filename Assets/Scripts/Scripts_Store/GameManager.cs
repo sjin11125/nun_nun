@@ -293,10 +293,4 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
-    void OnApplicationQuit()
-    {
-        /* 앱이 종료 될 때 처리 */
-        //GameSave();
-    }
 }
