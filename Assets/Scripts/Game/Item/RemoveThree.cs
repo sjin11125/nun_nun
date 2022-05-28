@@ -51,13 +51,6 @@ public class RemoveThree : MonoBehaviour
                         settigPanel.GetComponent<AudioController>().Sound[0].Play();
                     }
                 }
-                else if (hit.collider.gameObject == myChlid[1])
-                {
-                    myChlid[0].SetActive(true);
-                    myChlid[1].SetActive(false);
-                    useRemove = true;
-                    centerhave = false;
-                }
             }
         }//자식 2가 트루면 1에 박스콜라이더 끄기
 
@@ -108,5 +101,13 @@ public class RemoveThree : MonoBehaviour
             squareImage = square.transform.GetChild(2).gameObject.GetComponent<Image>();
             squareImage.sprite = normalImage.sprite;
         }
+    }
+
+    public void OnClickChild1()
+    {
+        myChlid[0].SetActive(true);
+        myChlid[1].SetActive(false);
+        useRemove = true;
+        centerhave = false;
     }
 }

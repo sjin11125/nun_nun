@@ -100,39 +100,41 @@ public class ChangeShapeItem : MonoBehaviour
                             changeActive = false;
                         }
                     }
-                }
-                if (myChlid[2].activeSelf == false)
-                {
-                    if (hit.collider.gameObject == myChlid[0])//사용완료
-                    {
-                        GridScript.ChangeShapeItem = ItemTurn;
-                        myChlid[2].SetActive(true);
-                        myChlid[1].SetActive(true);
-                        myChlid[0].transform.GetChild(0).transform.gameObject.SetActive(true);
-                        myChlid[0].transform.GetChild(1).transform.gameObject.SetActive(false);
-                        myChlid[0].SetActive(false);
-                        GameObject.FindGameObjectWithTag("Grid").GetComponent<GridScript>().CheckIfKeepLineIsCompleted();
-                        squareObj = null;
-                        changeActive = false;
-                        if (colorItemAc)
-                        {
-                            rainbowObj.SetActive(true);
-                        }
-                        settigPanel.GetComponent<AudioController>().Sound[0].Play();
-                    }
-                    else if (hit.collider.gameObject == myChlid[1])//사용
-                    {
-                        myChlid[0].SetActive(true);
-                        myChlid[1].SetActive(false);
-                        changeActive = true;
-                        //얘를 사용누르면 컬러아이템은 꺼져야됨
-                        if (colorItemAc)
-                        {
-                            rainbowObj.SetActive(false);
-                        }
-                    }
-                }              
+                }           
             }
+        }
+    }
+
+    public void OnClickChild0()
+    {
+        if (myChlid[2].activeSelf == false)
+        {
+            GridScript.ChangeShapeItem = ItemTurn;
+            myChlid[2].SetActive(true);
+            myChlid[1].SetActive(true);
+            myChlid[0].transform.GetChild(0).transform.gameObject.SetActive(true);
+            myChlid[0].transform.GetChild(1).transform.gameObject.SetActive(false);
+            myChlid[0].SetActive(false);
+            GameObject.FindGameObjectWithTag("Grid").GetComponent<GridScript>().CheckIfKeepLineIsCompleted();
+            squareObj = null;
+            changeActive = false;
+            if (colorItemAc)
+            {
+                rainbowObj.SetActive(true);
+            }
+            settigPanel.GetComponent<AudioController>().Sound[0].Play();
+        }
+    }
+
+    public void OnClickChild1()
+    {
+        myChlid[0].SetActive(true);
+        myChlid[1].SetActive(false);
+        changeActive = true;
+        //얘를 사용누르면 컬러아이템은 꺼져야됨
+        if (colorItemAc)
+        {
+            rainbowObj.SetActive(false);
         }
     }
 }
