@@ -51,13 +51,6 @@ public class RemoveThreeHo : MonoBehaviour
                         settigPanel.GetComponent<AudioController>().Sound[0].Play();
                     }
                 }
-                else if(hit.collider.gameObject == myChlid[1])
-                {
-                    myChlid[0].SetActive(true);
-                    myChlid[1].SetActive(false);
-                    useRemove = true;
-                    centerhave = false;
-                }
             }
         }
 
@@ -112,5 +105,13 @@ public class RemoveThreeHo : MonoBehaviour
             squareImage = square.transform.GetChild(2).gameObject.GetComponent<Image>();
             squareImage.sprite = normalImage.sprite;
         }
+    }
+
+    public void OnClickChild1()
+    {
+        myChlid[0].SetActive(true);
+        myChlid[1].SetActive(false);
+        useRemove = true;
+        centerhave = false;
     }
 }

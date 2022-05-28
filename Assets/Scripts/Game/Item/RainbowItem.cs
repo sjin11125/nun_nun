@@ -100,39 +100,41 @@ public class RainbowItem : MonoBehaviour
                             rainbowActive = false;
                         }
                     }
-                }
-                if(myChlid[2].activeSelf == false)
-                {
-                    if (hit.collider.gameObject == myChlid[0])//사용완료
-                    {
-                        GridScript.RainbowItemTurn = ItemTurn;
-                        myChlid[2].SetActive(true);
-                        myChlid[1].SetActive(true);
-                        myChlid[0].transform.GetChild(0).transform.gameObject.SetActive(true);
-                        myChlid[0].transform.GetChild(1).transform.gameObject.SetActive(false);
-                        myChlid[0].SetActive(false);
-                        GameObject.FindGameObjectWithTag("Grid").GetComponent<GridScript>().CheckIfKeepLineIsCompleted();
-                        squareColorObj = null;
-                        rainbowActive = false;
-                        if (shapeItemAc)//이게 아니라 아이템 컨트롤러에서 트루면
-                        {
-                            ChangeShapeObj.SetActive(true);
-                        }
-                        settigPanel.GetComponent<AudioController>().Sound[0].Play();
-                    }
-                    else if (hit.collider.gameObject == myChlid[1])//사용
-                    {
-                        myChlid[0].SetActive(true);
-                        myChlid[1].SetActive(false);
-                        rainbowActive = true;
-                        //얘를 사용누르면 쉐이프아이템은 꺼져야됨
-                        if (shapeItemAc)
-                        {
-                            ChangeShapeObj.SetActive(false);
-                        }
-                    }
                 }               
             }
+        }
+    }
+
+    public void OnClickChild0()
+    {
+        if(myChlid[2].activeSelf == false)
+        {
+            GridScript.RainbowItemTurn = ItemTurn;
+            myChlid[2].SetActive(true);
+            myChlid[1].SetActive(true);
+            myChlid[0].transform.GetChild(0).transform.gameObject.SetActive(true);
+            myChlid[0].transform.GetChild(1).transform.gameObject.SetActive(false);
+            myChlid[0].SetActive(false);
+            GameObject.FindGameObjectWithTag("Grid").GetComponent<GridScript>().CheckIfKeepLineIsCompleted();
+            squareColorObj = null;
+            rainbowActive = false;
+            if (shapeItemAc)//이게 아니라 아이템 컨트롤러에서 트루면
+            {
+                ChangeShapeObj.SetActive(true);
+            }
+            settigPanel.GetComponent<AudioController>().Sound[0].Play();
+        }
+    }
+
+    public void OnClickChild1()
+    {
+        myChlid[0].SetActive(true);
+        myChlid[1].SetActive(false);
+        rainbowActive = true;
+        //얘를 사용누르면 쉐이프아이템은 꺼져야됨
+        if (shapeItemAc)
+        {
+            ChangeShapeObj.SetActive(false);
         }
     }
 }
