@@ -31,24 +31,28 @@ public class GoogleSheetManager : MonoBehaviour
         if(PlayerPrefs.GetString("Id") == null)
         {
             TutorialsManager.itemIndex = 0;
-        }
-
-        TutorialsManager.itemIndex = PlayerPrefs.GetInt("TutorialsDone");
-        if (TutorialsManager.itemIndex > 13)
-        {
-            WWWForm form = new WWWForm();
-            form.AddField("order", "login");
-            form.AddField("id", PlayerPrefs.GetString("Id"));
-            form.AddField("pass", PlayerPrefs.GetString("Pass"));
-
-            StartCoroutine(Post(form));
+            GameManager.Money = 2000;
+            GameManager.ShinMoney = 0;
         }
         else
         {
-            GameManager.Money = 2000;
-            GameManager.ShinMoney = 0;          
-        }
+            TutorialsManager.itemIndex = PlayerPrefs.GetInt("TutorialsDone");
+            if (TutorialsManager.itemIndex > 13)
+            {
+                WWWForm form = new WWWForm();
+                form.AddField("order", "login");
+                form.AddField("id", PlayerPrefs.GetString("Id"));
+                form.AddField("pass", PlayerPrefs.GetString("Pass"));
 
+                StartCoroutine(Post(form));
+            }
+            else
+            {
+                TutorialsManager.itemIndex = 0;
+                GameManager.Money = 2000;
+                GameManager.ShinMoney = 0;
+            }
+        }
     }
 
     bool SetIDPass()
