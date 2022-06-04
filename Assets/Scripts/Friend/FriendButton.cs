@@ -165,32 +165,35 @@ public class FriendButton : MonoBehaviour
                 continue;
             friendImage[1].sprite = GameManager.AllNuniArray[j].Image;
         }
+        Button[] btn = Search.GetComponentsInChildren<Button>();
+      
+
+        Text[] ButtonText = Search.GetComponentsInChildren<Text>();
+
         for (int i = 0; i < GameManager.Friends.Length; i++)                        //버튼 설정
         {
             if (friendInfo.f_nickname== GameManager.Friends[i].f_nickname)      //친구목록에 있으면
             {
-
-                Button[] btn = Search.GetComponentsInChildren<Button>();
-                btn[1].interactable = false;               //클릭못하게
-
-                Text[] ButtonText = Search.GetComponentsInChildren<Text>();
                 ButtonText[2].gameObject.SetActive(false);
                 ButtonText[3].gameObject.SetActive(true);
                 ButtonText[3].text = "추가됨";
-
-              
             }
-            if (GameManager.Friends[i].f_nickname.Split(':').Length >= 2)
+           else if (GameManager.Friends[i].f_nickname.Split(':').Length >= 2)
             {
                 if (friendInfo.f_nickname == GameManager.Friends[i].f_nickname.Split(':')[0])                           //이미 요청보냈었다.
                 {
                     Button[] btnn = Search.GetComponentsInChildren<Button>();
                     btnn[1].interactable = false;               //Ŭ�����ϰ�
-                    Text[] ButtonTexts = Search.GetComponentsInChildren<Text>();
-                    ButtonTexts[2].gameObject.SetActive(false);
-                    ButtonTexts[3].gameObject.SetActive(true);
-                    ButtonTexts[3].text = "요청됨";
+                    ButtonText[2].gameObject.SetActive(false);
+                    ButtonText[3].gameObject.SetActive(true);
+                    ButtonText[3].text = "요청됨";
                 }
+            }
+            else
+            {
+                ButtonText[2].gameObject.SetActive(true);
+                ButtonText[3].gameObject.SetActive(false);
+        
             }
         }
         LoadingObejct.SetActive(false);

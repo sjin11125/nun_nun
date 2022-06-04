@@ -45,7 +45,6 @@ public class FriendManager : MonoBehaviour
         LoadingObjcet.SetActive(true);
         WWWForm form = new WWWForm();
         form.AddField("order", "getFriend");
-        form.AddField("id", "1234");
         form.AddField("player_nickname", GameManager.NickName);
         form.AddField("info", "1234");
         StartCoroutine(ListPost(form));
@@ -56,7 +55,6 @@ public class FriendManager : MonoBehaviour
         LoadingObjcet.SetActive(true);
         WWWForm form = new WWWForm();
         form.AddField("order", "RecoommendFriend");
-        form.AddField("id", "1234");
         form.AddField("player_nickname", GameManager.NickName);
         StartCoroutine(Post(form));
     }
@@ -78,6 +76,39 @@ public class FriendManager : MonoBehaviour
             if (www.isDone) ListResponse(www.downloadHandler.text);
             else print("���� ������ �����ϴ�.");
         }
+    }
+    IEnumerator TempListPost(WWWForm form)
+    {
+        using (UnityWebRequest www = UnityWebRequest.Post(URL, form)) // �ݵ�� using�� ����Ѵ�
+        {
+            yield return www.SendWebRequest();
+            if (www.isDone) TempListResponse(www.downloadHandler.text);
+            else print("���� ������ �����ϴ�.");
+        }
+    }
+    void TempListResponse(string json)
+    {
+        if (string.IsNullOrEmpty(json)) return;
+
+        if (json.Equals(""))
+        {
+            LoadingObjcet.SetActive(false);
+            return;
+        }
+        Newtonsoft.Json.Linq.JArray j = Newtonsoft.Json.Linq.JArray.Parse(json);
+        FriendInfo[] friendInfos = new FriendInfo[j.Count];
+        for (int i = 0; i < j.Count; i++)
+        {
+            friendInfos[i] = JsonUtility.FromJson<FriendInfo>(j[i].ToString());
+            if (friendInfos[i].f_nickname.Equals(""))  //ģ���� ����
+            {
+                LoadingObjcet.SetActive(false);
+                return;
+            }
+        }
+        GameManager.Friends = friendInfos;
+
+        LoadingObjcet.SetActive(false);
     }
     void ListResponse(string json)
     {
@@ -152,6 +183,14 @@ public class FriendManager : MonoBehaviour
 
         }
         AllFriends = friendInfos;
+        LoadingObjcet.SetActive(true);
+
+        WWWForm form = new WWWForm();                   //친구목록 업데이트
+        form.AddField("order", "getFriend");
+        form.AddField("player_nickname", GameManager.NickName);
+        form.AddField("info", "1234");
+        StartCoroutine(TempListPost(form));
+
         FriendsList();              //ģ�� ��� ����
 
     }
