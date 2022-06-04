@@ -395,11 +395,11 @@ public class Building : MonoBehaviour
                 }*
             }*/
         }
-        else
+        else                            //확정 아닐 때
         {
 
-            Button_Pannel.gameObject.SetActive(true);
-            Rotation_Pannel.gameObject.SetActive(true);
+            Button_Pannel.gameObject.SetActive(true);               //확정 패널 뜨게
+            Rotation_Pannel.gameObject.SetActive(true);               //회전 패널 뜨게
             if (Building_Image != "bunsu_level(Clone)"&&Building_Image!= "village_level(Clone)")
             {
                 Remove_Pannel.gameObject.SetActive(true);
@@ -500,19 +500,21 @@ public class Building : MonoBehaviour
         Vector3Int positionInt = GridBuildingSystem.current.gridLayout.LocalToCell(transform.position);
         BoundsInt areaTemp = area;
         areaTemp.position = positionInt;
+        GridBuildingSystem.current.RemoveArea(areaTemp);
 
+     
        
 
-        GameManager.Money += building.Cost[building.Level-1]/10;          //자원 되돌리기
-        GameManager.ShinMoney += building.ShinCost[building.Level-1 ]/3;
-
-        GridBuildingSystem.current.RemoveArea(areaTemp);
+        
         if (Type .Equals( BuildType.Make) )     //상점에서 사고 설치X 바로 제거
         {
             Destroy(gameObject);
         }
         else                                //설치하고 제거
         {
+            GameManager.Money += building.Cost[building.Level - 1] / 10;          //자원 되돌리기
+            GameManager.ShinMoney += building.ShinCost[building.Level - 1] / 3;
+
             BuildingListRemove();
             save.RemoveValue(Id);
             Destroy(gameObject);
@@ -570,8 +572,6 @@ public class Building : MonoBehaviour
                 buildings[i].GetComponent<SpriteRenderer>().sortingOrder = layer_y;
             }
         }*/
-        Building BuildingCurrent = gameObject.GetComponent<Building>();
-        
 
         if (buildtype .Equals( BuildType.Make)  )                     //새로 만드는 건가?
         {
@@ -656,26 +656,7 @@ public class Building : MonoBehaviour
 
             UpgradePannel2.GetComponent<ChaButtonScript>().Upgrade(buildings, Level, this);
             UpgradePannel2.gameObject.SetActive(true);
-            if (buildings==null)
-            {
-                Debug.Log("빌딩 ㅓㄴㄹ") ;
-            }
-            if (Level == null)
-            {
-                Debug.Log("Level ㅓㄴㄹ") ;
-            }
-            if (this == null)
-            {
-                Debug.Log("this ㅓㄴㄹ") ;
-            }
-            if (UpgradePannel2==null)
-            {
-                Debug.Log("UpgradePannel2=ㅓㄴㄹ");
-            }
-            else
-            {
-                Debug.Log(UpgradePannel2.GetComponent<ChaButtonScript>());
-            }
+       
 
             Text[] upgradeText = UpgradePannel2.GetComponentsInChildren<Text>();
             Debug.Log("업그레이드 아이디: " + Id);

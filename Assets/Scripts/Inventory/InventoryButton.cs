@@ -82,6 +82,7 @@ public class InventoryButton : MonoBehaviour
                     {
                         nuni_childs.isLock = "F";
                         Destroy(nuni_child[i].gameObject);
+                        Debug.Log(nuni_child[i].gameObject.name);
                         StartCoroutine(NuniSave(this_nuni));          //구글 스크립트에 업데이트
                     }
                    
@@ -101,7 +102,8 @@ public class InventoryButton : MonoBehaviour
                 if (this_nuni.cardName.Equals( GameManager.CharacterList[i].cardName))
                 {
                     GameManager.CharacterList[i].isLock = "T";
-                    Instantiate(GameManager.CharacterPrefab[this_nuni.cardImage], nunis.transform);
+                    GameObject nuni = Instantiate(GameManager.CharacterPrefab[this_nuni.cardImage], nunis.transform) as GameObject;
+                    nuni.GetComponent<Card>().isLock = "T";
                     StartCoroutine(NuniSave(this_nuni));          //구글 스크립트에 업데이트
                     return;
                 }

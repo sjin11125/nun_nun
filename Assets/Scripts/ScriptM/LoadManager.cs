@@ -85,7 +85,6 @@ public class LoadManager : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name.Equals("Main"))
         {
-            
             if (TutorialsManager.itemIndex > 13)
             {
                 WWWForm form1 = new WWWForm();

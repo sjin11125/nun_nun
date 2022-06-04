@@ -78,6 +78,12 @@ public class CameraMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.touchCount > 0)
+        {
+            if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
+                return; //UI 터치가 감지됐을 경우 return
+                        //여기서부터 화면 터치 코드
+        }
         if (EventSystem.current.IsPointerOverGameObject())      //UI를 클릭했냐
         {
             return;

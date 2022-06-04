@@ -28,24 +28,31 @@ public class GoogleSheetManager : MonoBehaviour
 
     private void Awake()
     {        
-        TutorialsManager.itemIndex = PlayerPrefs.GetInt("TutorialsDone");
-        if (TutorialsManager.itemIndex > 13)
+        if(PlayerPrefs.GetString("Id") == null)
         {
-            WWWForm form = new WWWForm();
-            form.AddField("order", "login");
-            form.AddField("id", PlayerPrefs.GetString("Id"));
-            form.AddField("pass", PlayerPrefs.GetString("Pass"));
-
-            StartCoroutine(Post(form));
-
+            TutorialsManager.itemIndex = 0;
+            GameManager.Money = 2000;
+            GameManager.ShinMoney = 0;
         }
         else
         {
-            GameManager.Money = 2000;
-            GameManager.ShinMoney = 0;
-            
-        }
+            TutorialsManager.itemIndex = PlayerPrefs.GetInt("TutorialsDone");
+            if (TutorialsManager.itemIndex > 13)
+            {
+                WWWForm form = new WWWForm();
+                form.AddField("order", "login");
+                form.AddField("id", PlayerPrefs.GetString("Id"));
+                form.AddField("pass", PlayerPrefs.GetString("Pass"));
 
+                StartCoroutine(Post(form));
+            }
+            else
+            {
+                TutorialsManager.itemIndex = 0;
+                GameManager.Money = 2000;
+                GameManager.ShinMoney = 0;
+            }
+        }
     }
 
     bool SetIDPass()
@@ -81,6 +88,10 @@ public class GoogleSheetManager : MonoBehaviour
         form.AddField("player_nickname", nickname);
 
         StartCoroutine(SignPost(form));
+
+        PlayerPrefs.SetString("Id", id);
+        PlayerPrefs.SetString("Pass", pass);
+        PlayerPrefs.SetString("Nickname", nickname);
     }
 
 
