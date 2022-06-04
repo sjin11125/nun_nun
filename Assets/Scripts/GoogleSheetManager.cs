@@ -28,6 +28,11 @@ public class GoogleSheetManager : MonoBehaviour
 
     private void Awake()
     {        
+        if(PlayerPrefs.GetString("Id") == null)
+        {
+            TutorialsManager.itemIndex = 0;
+        }
+
         TutorialsManager.itemIndex = PlayerPrefs.GetInt("TutorialsDone");
         if (TutorialsManager.itemIndex > 13)
         {
@@ -37,13 +42,11 @@ public class GoogleSheetManager : MonoBehaviour
             form.AddField("pass", PlayerPrefs.GetString("Pass"));
 
             StartCoroutine(Post(form));
-
         }
         else
         {
             GameManager.Money = 2000;
-            GameManager.ShinMoney = 0;
-            
+            GameManager.ShinMoney = 0;          
         }
 
     }
@@ -81,6 +84,10 @@ public class GoogleSheetManager : MonoBehaviour
         form.AddField("player_nickname", nickname);
 
         StartCoroutine(SignPost(form));
+
+        PlayerPrefs.SetString("Id", id);
+        PlayerPrefs.SetString("Pass", pass);
+        PlayerPrefs.SetString("Nickname", nickname);
     }
 
 
