@@ -8,7 +8,7 @@ public class CameraMovement : MonoBehaviour
 { // 여기 일단 스킵
     public float zoomOutMin = 1;
     public float zoomOutMax = 5; // 이거 5로해야 안튀어나감
-    bool isTouch = false;
+    public static bool isTouch = false;
     //터치가 되지 않을까 해서 적어보는 코드
    // Vector3 touchStart;
 
