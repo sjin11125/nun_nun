@@ -7,7 +7,7 @@ public class ResolutionFixed : MonoBehaviour
 {
     private void Awake()
     {
-        SetResolution(); // 초기에 게임 해상도 고정
+        //SetResolution(); // 초기에 게임 해상도 고정
 
     }
     public void SetUpCanvasScaler(int setWidth, int setHeight)

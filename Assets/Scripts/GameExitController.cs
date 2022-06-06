@@ -10,8 +10,9 @@ public class GameExitController : MonoBehaviour
     public GameObject ExitPanel;
 
     public void Awake()
-    {       
-        if (PlayerPrefs.GetInt("TutorialsDone") < 14)
+    {
+        TutorialsManager.itemIndex  = PlayerPrefs.GetInt("TutorialsDone");
+        if (TutorialsManager.itemIndex < 14)
         {
             TutoManager.SetActive(true);
             RandomSelect.isTuto = 0;

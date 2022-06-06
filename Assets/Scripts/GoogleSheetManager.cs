@@ -92,6 +92,7 @@ public class GoogleSheetManager : MonoBehaviour
         PlayerPrefs.SetString("Pass", pass);
 
         TutorialsManager.itemIndex = 0;//초기화
+        PlayerPrefs.SetInt("TutorialsDone", TutorialsManager.itemIndex);
         GameManager.Money = 2000;
         GameManager.ShinMoney = 0;
     }
