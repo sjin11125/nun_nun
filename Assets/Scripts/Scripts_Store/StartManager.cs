@@ -125,6 +125,7 @@ public class StartManager : MonoBehaviour
 
             //도감 캐릭터 버튼 
             DogamCha.GetComponent<RectTransform>().name = j.ToString();
+            DogamCha.GetComponent<RectTransform>().localScale = new Vector3(1.5f, 1.5f, 1);
 
             Button DogamChaButton = DogamCha.GetComponent<Button>();
             Image[] image = DogamChaButton.GetComponentsInChildren<Image>();

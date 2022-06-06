@@ -25,18 +25,18 @@ RectTransform:
   m_GameObject: {fileID: 447435848400341369}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_Children:
   - {fileID: 714392909328258557}
   - {fileID: 1708591028636683112}
   m_Father: {fileID: 6327648163769899957}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -14.6, y: -25.7}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: -40, y: 38.6}
   m_SizeDelta: {x: 1, y: 1}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!1 &1594807042313501075
 GameObject:
   m_ObjectHideFlags: 0
@@ -66,17 +66,17 @@ RectTransform:
   m_GameObject: {fileID: 1594807042313501075}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_Children:
   - {fileID: 1594807043711417090}
   m_Father: {fileID: 6327648163769899957}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 115, y: -33}
-  m_SizeDelta: {x: 87.7358, y: 30}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -9.300003, y: 13.9999275}
+  m_SizeDelta: {x: 87.73581, y: 30}
+  m_Pivot: {x: 1, y: 0}
 --- !u!222 &1594807042313501079
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -189,6 +189,7 @@ MonoBehaviour:
   ItemImages: []
   isCheck: 0
   ButtonText: {fileID: 0}
+  CancleText: {fileID: 0}
   DowngradeBuilding: {fileID: 0}
   isUpgrade: 0
   NuniInfoPannel: {fileID: 0}
@@ -228,8 +229,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 53.2, y: 6.1168}
-  m_SizeDelta: {x: 204.7449, y: 28.8763}
+  m_AnchoredPosition: {x: 62, y: -41}
+  m_SizeDelta: {x: 320.2024, y: 118.9119}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1594807042984967276
 CanvasRenderer:
@@ -261,12 +262,12 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: ac1186f0096ce404d9714c5f5f32b6df, type: 3}
-    m_FontSize: 13
+    m_FontSize: 22
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -300,16 +301,16 @@ RectTransform:
   m_GameObject: {fileID: 1594807043534470339}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 0}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 0}
   m_Children: []
   m_Father: {fileID: 6327648163769899957}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -105.5, y: 2}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 27, y: 0}
   m_SizeDelta: {x: 80, y: 80}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &1594807043534470342
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -537,7 +538,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 49.4, y: 39.1}
+  m_AnchoredPosition: {x: 49.4, y: 49.30001}
   m_SizeDelta: {x: -194.3735, y: -83.0827}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6327648162948030684
@@ -570,7 +571,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: ac1186f0096ce404d9714c5f5f32b6df, type: 3}
-    m_FontSize: 15
+    m_FontSize: 25
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
@@ -738,6 +739,7 @@ MonoBehaviour:
   ItemImages: []
   isCheck: 0
   ButtonText: {fileID: 1594807043711417091}
+  CancleText: {fileID: 0}
   DowngradeBuilding: {fileID: 0}
   isUpgrade: 0
   NuniInfoPannel: {fileID: 0}

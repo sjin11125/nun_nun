@@ -126,6 +126,7 @@ public class DogamManager : MonoBehaviour
             Transform[] BuildingPrefabChilds = DogamCha.GetComponentsInChildren<Transform>();
             Text[] BuildingButtonText = DogamCha.GetComponentsInChildren<Text>();
 
+            DogamCha.GetComponent<RectTransform>().localScale = new Vector3(2f, 2f, 1);
             //도감 캐릭터 버튼 
             DogamCha.GetComponent<RectTransform>().name = BuildingInformation[j].Building_name;
 
