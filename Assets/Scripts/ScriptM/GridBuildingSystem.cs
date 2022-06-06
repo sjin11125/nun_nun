@@ -132,7 +132,7 @@ public class GridBuildingSystem : MonoBehaviour
         {
             return;
         }
-        if (Input.GetMouseButtonUp(0) && SceneManager.GetActiveScene().name .Equals( "Main"))
+        if (!CameraMovement.isTouch && Input.GetMouseButtonUp(0) && SceneManager.GetActiveScene().name .Equals( "Main"))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
@@ -253,7 +253,7 @@ public class GridBuildingSystem : MonoBehaviour
                 }
             }
         }
-        if (Input.GetMouseButton(0) && SceneManager.GetActiveScene().name .Equals( "Main"))                    //그냥 클릭했을 때
+        if (!CameraMovement.isTouch && Input.GetMouseButton(0) && SceneManager.GetActiveScene().name .Equals( "Main"))                    //그냥 클릭했을 때
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
@@ -292,7 +292,7 @@ public class GridBuildingSystem : MonoBehaviour
                 }
             }
         }
-        else if (Input.GetMouseButton(0) && SceneManager.GetActiveScene().name .Equals( "FriendMain"))         //친구 씬에서 방명록킬때
+        else if (!CameraMovement.isTouch && Input.GetMouseButton(0) && SceneManager.GetActiveScene().name .Equals( "FriendMain"))         //친구 씬에서 방명록킬때
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
