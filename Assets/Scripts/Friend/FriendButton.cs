@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -32,14 +32,14 @@ public class FriendButton : MonoBehaviour
         
     }
 
-    public void EnterFriend()               //Ä£±¸³× ¸¶À»·Î °¡±â
+    public void EnterFriend()               //ì¹œêµ¬ë„¤ ë§ˆì„ë¡œ ê°€ê¸°
     {
         string friendNickname = gameObject.name;
 
 
     }
 
-    public void RequireFriend()         //¹ŞÀº Ä£±¸ ¿äÃ» º¸±â
+    public void RequireFriend()         //ë°›ì€ ì¹œêµ¬ ìš”ì²­ ë³´ê¸°
     {
         LoadingObejct.SetActive(true);
            WWWForm form1 = new WWWForm();
@@ -48,9 +48,9 @@ public class FriendButton : MonoBehaviour
 
         StartCoroutine(RequirePost(form1));
     }
-    public void EnrollFriend()          //Ä£±¸ Ãß°¡ÇÏ±â ¹öÆ° ´©¸£¸é
+    public void EnrollFriend()          //ì¹œêµ¬ ì¶”ê°€í•˜ê¸° ë²„íŠ¼ ëˆ„ë¥´ë©´
     {
-        string f_nickname = F_nickname.text;            //Ãß°¡ÇÏ·Á´Â Ä£±¸ ´Ğ
+        string f_nickname = F_nickname.text;            //ì¶”ê°€í•˜ë ¤ëŠ” ì¹œêµ¬ ë‹‰
 
         WWWForm form1 = new WWWForm();
         form1.AddField("order", "EnrollFriend");
@@ -60,11 +60,11 @@ public class FriendButton : MonoBehaviour
         StartCoroutine(EnrollPost(form1));
     }
 
-    public void AddRecFriend()          //¿äÃ»¹ŞÀº Ä£±¸ Ãß°¡ÇÏ±â ¹öÆ° ´©¸£¸é
+    public void AddRecFriend()          //ìš”ì²­ë°›ì€ ì¹œêµ¬ ì¶”ê°€í•˜ê¸° ë²„íŠ¼ ëˆ„ë¥´ë©´
     {
-        string f_nickname = F_nickname.text;            //Ãß°¡ÇÏ·Á´Â Ä£±¸ ´Ğ
+        string f_nickname = F_nickname.text;            //ì¶”ê°€í•˜ë ¤ëŠ” ì¹œêµ¬ ë‹‰
         Button btn = GetComponent<Button>();
-        btn.interactable = false;       //¹öÆ° ¸ø´©¸£°Ô
+        btn.interactable = false;       //ë²„íŠ¼ ëª»ëˆ„ë¥´ê²Œ
 
 
         WWWForm form1 = new WWWForm();
@@ -75,9 +75,9 @@ public class FriendButton : MonoBehaviour
 
         StartCoroutine(SearchPost(form1));
     }
-    public void RemoveFriend()          //¿äÃ»¹ŞÀº Ä£±¸ Ãß°¡ÇÏ±â ¹öÆ° ´©¸£¸é
+    public void RemoveFriend()          //ìš”ì²­ë°›ì€ ì¹œêµ¬ ì¶”ê°€í•˜ê¸° ë²„íŠ¼ ëˆ„ë¥´ë©´
     {
-        string f_nickname = gameObject.transform.parent.gameObject.name;            //Ãß°¡ÇÏ·Á´Â Ä£±¸ ´Ğ
+        string f_nickname = gameObject.transform.parent.gameObject.name;            //ì¶”ê°€í•˜ë ¤ëŠ” ì¹œêµ¬ ë‹‰
 
 
         WWWForm form1 = new WWWForm();
@@ -90,7 +90,7 @@ public class FriendButton : MonoBehaviour
     }
     IEnumerator RemovePost(WWWForm form)
     {
-        using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // ¹İµå½Ã usingÀ» ½á¾ßÇÑ´Ù
+        using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // ë°˜ë“œì‹œ usingì„ ì¨ì•¼í•œë‹¤
         {
             yield return www.SendWebRequest();
             if (www.isDone)
@@ -98,13 +98,13 @@ public class FriendButton : MonoBehaviour
                 //SearchResponse(www.downloadHandler.text);
                 Destroy(gameObject.transform.parent.gameObject);
             }
-            else print("À¥ÀÇ ÀÀ´äÀÌ ¾ø½À´Ï´Ù.");
+            else print("ì›¹ì˜ ì‘ë‹µì´ ì—†ìŠµë‹ˆë‹¤.");
         }
 
     }
     IEnumerator EnrollPost(WWWForm form)
     {
-        using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // ¹İµå½Ã usingÀ» ½á¾ßÇÑ´Ù
+        using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // ë°˜ë“œì‹œ usingì„ ì¨ì•¼í•œë‹¤
         {
             yield return www.SendWebRequest();
             //Debug.Log(www.downloadHandler.text);
@@ -112,11 +112,11 @@ public class FriendButton : MonoBehaviour
         }
 
     }
-    public void SearchFriend()              //Ä£±¸ °Ë»ö ¹öÆ° ´©¸£±â
+    public void SearchFriend()              //ì¹œêµ¬ ê²€ìƒ‰ ë²„íŠ¼ ëˆ„ë¥´ê¸°
     {
         // SearchButton.OnSubmit();
         LoadingObejct.SetActive(true);
-        Transform[] ContentsChild= SearchFriendContents.GetComponentsInChildren<Transform>();        //´Ù Áö¿ì±â
+        Transform[] ContentsChild= SearchFriendContents.GetComponentsInChildren<Transform>();        //ë‹¤ ì§€ìš°ê¸°
         for (int i = 1; i < ContentsChild.Length; i++)
         {
             Destroy(ContentsChild[i].gameObject);
@@ -132,14 +132,14 @@ public class FriendButton : MonoBehaviour
 
     IEnumerator SearchPost(WWWForm form)
     {
-        using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // ¹İµå½Ã usingÀ» ½á¾ßÇÑ´Ù
+        using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // ë°˜ë“œì‹œ usingì„ ì¨ì•¼í•œë‹¤
         {
             yield return www.SendWebRequest();
             if (www.isDone)
             {
                 SearchResponse(www.downloadHandler.text);
             }
-            else print("À¥ÀÇ ÀÀ´äÀÌ ¾ø½À´Ï´Ù.");
+            else print("ì›¹ì˜ ì‘ë‹µì´ ì—†ìŠµë‹ˆë‹¤.");
         }
 
     }
@@ -150,6 +150,7 @@ public class FriendButton : MonoBehaviour
             LoadingObejct.SetActive(false);
             return;
         }
+        
         FriendInfo friendInfo =JsonUtility.FromJson<FriendInfo>(json);
         GameObject Search = Instantiate(SearchFriendPrefab, SearchFriendContents.transform)as GameObject;
         Text[] SearchText=Search.GetComponentsInChildren<Text>();
@@ -157,37 +158,59 @@ public class FriendButton : MonoBehaviour
         SearchText[1].text = friendInfo.f_info;
 
         Image[] friendImage = Search.GetComponentsInChildren<Image>();
-        for (int j = 0; j < GameManager.AllNuniArray.Length; j++)               //Ä£±¸ ÇÁ»ç ¼³Á¤
+        Debug.Log("ì¹œêµ¬í”„ì‚¬:   "+ friendInfo.f_image);
+        for (int j = 0; j < GameManager.AllNuniArray.Length; j++)               //ì¹œêµ¬ í”„ì‚¬ ì„¤ì •
         {
             if (GameManager.AllNuniArray[j].Image.name != friendInfo.f_image)
                 continue;
             friendImage[1].sprite = GameManager.AllNuniArray[j].Image;
         }
-        for (int i = 0; i < GameManager.Friends.Length; i++)
+        Button[] btn = Search.GetComponentsInChildren<Button>();
+      
+
+        Text[] ButtonText = Search.GetComponentsInChildren<Text>();
+
+        for (int i = 0; i < GameManager.Friends.Length; i++)                        //ë²„íŠ¼ ì„¤ì •
         {
-            if (friendInfo.f_nickname== GameManager.Friends[i].f_nickname)      //Ä£±¸¸ñ·Ï¿¡ ÀÖÀ¸¸é
+            if (friendInfo.f_nickname== GameManager.Friends[i].f_nickname)      //ì¹œêµ¬ëª©ë¡ì— ìˆìœ¼ë©´
             {
-
-                Button[] btn = Search.GetComponentsInChildren<Button>();
-                btn[1].interactable = false;               //Å¬¸¯¸øÇÏ°Ô
+                ButtonText[2].gameObject.SetActive(false);
+                ButtonText[3].gameObject.SetActive(true);
+                ButtonText[3].text = "ì¶”ê°€ë¨";
             }
-
+           else if (GameManager.Friends[i].f_nickname.Split(':').Length >= 2)
+            {
+                if (friendInfo.f_nickname == GameManager.Friends[i].f_nickname.Split(':')[0])                           //ì´ë¯¸ ìš”ì²­ë³´ëƒˆì—ˆë‹¤.
+                {
+                    Button[] btnn = Search.GetComponentsInChildren<Button>();
+                    btnn[1].interactable = false;               //Å¬ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½
+                    ButtonText[2].gameObject.SetActive(false);
+                    ButtonText[3].gameObject.SetActive(true);
+                    ButtonText[3].text = "ìš”ì²­ë¨";
+                }
+            }
+            else
+            {
+                ButtonText[2].gameObject.SetActive(true);
+                ButtonText[3].gameObject.SetActive(false);
+        
+            }
         }
         LoadingObejct.SetActive(false);
 
     }
 
 
-    IEnumerator RequirePost(WWWForm form)               //¹ŞÀº Ä£±¸ ¿äÃ»
+    IEnumerator RequirePost(WWWForm form)               //ë°›ì€ ì¹œêµ¬ ìš”ì²­
     {
-        using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // ¹İµå½Ã usingÀ» ½á¾ßÇÑ´Ù
+        using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // ë°˜ë“œì‹œ usingì„ ì¨ì•¼í•œë‹¤
         {
             yield return www.SendWebRequest();
             if (www.isDone)
             {
                 RequireResponse(www.downloadHandler.text);
             }
-            else print("À¥ÀÇ ÀÀ´äÀÌ ¾ø½À´Ï´Ù.");
+            else print("ì›¹ì˜ ì‘ë‹µì´ ì—†ìŠµë‹ˆë‹¤.");
         }
 
     }
@@ -199,7 +222,7 @@ public class FriendButton : MonoBehaviour
             return;
         }
         
-        Transform[] child = Content.GetComponentsInChildren<Transform>();           //ÀÏ´Ü ÃÊ±âÈ­
+        Transform[] child = Content.GetComponentsInChildren<Transform>();           //ì¼ë‹¨ ì´ˆê¸°í™”
         for (int k = 1; k < child.Length; k++)
         {
             Destroy(child[k].gameObject);
@@ -215,7 +238,7 @@ public class FriendButton : MonoBehaviour
 
         for (int i = 0; i < friendInfos.Length; i++)
         {
-            GameObject friendprefab = Instantiate(FriendPrefab, Content.transform) as GameObject;  //Ä£±¸ ÇÁ¸®ÆÕ »ı¼º
+            GameObject friendprefab = Instantiate(FriendPrefab, Content.transform) as GameObject;  //ì¹œêµ¬ í”„ë¦¬íŒ¹ ìƒì„±
             friendprefab.tag = "addFriend";
             Transform friendPrefabChilds = friendprefab.GetComponent<Transform>();
             friendPrefabChilds.name = friendInfos[i].f_nickname;

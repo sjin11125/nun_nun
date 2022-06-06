@@ -8,7 +8,7 @@ public class CameraMovement : MonoBehaviour
 { // 여기 일단 스킵
     public float zoomOutMin = 1;
     public float zoomOutMax = 5; // 이거 5로해야 안튀어나감
-
+    bool isTouch = false;
     //터치가 되지 않을까 해서 적어보는 코드
    // Vector3 touchStart;
 
@@ -81,11 +81,16 @@ public class CameraMovement : MonoBehaviour
         if (Input.touchCount > 0)
         {
             if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
+            {
+                isTouch = true; 
                 return; //UI 터치가 감지됐을 경우 return
-                        //여기서부터 화면 터치 코드
+
+            }
+            //여기서부터 화면 터치 코드
         }
         if (EventSystem.current.IsPointerOverGameObject())      //UI를 클릭했냐
         {
+            isTouch = true;
             return;
         }
 
@@ -110,11 +115,17 @@ public class CameraMovement : MonoBehaviour
                 cam.orthographicSize -= zoomModifier;
 
         }
-
+            if (Input.GetMouseButtonUp(0))
+            {
+                isTouch = false;
+            }
         cam.orthographicSize = Mathf.Clamp(cam.orthographicSize, 2f, 5f); // 축소, 확대 배율
-   
 
-        PanCamera();
+            if (isTouch==false)
+            {
+
+                PanCamera();
+            }
         }
 
 
