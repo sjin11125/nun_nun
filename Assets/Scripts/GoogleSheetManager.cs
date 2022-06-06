@@ -25,32 +25,22 @@ public class GoogleSheetManager : MonoBehaviour
     public BuildingSave MyBuildingLoad;
 
     public GameObject WarningPannel;
+    public GameObject retext;
+    public bool ifISign;
 
     private void Awake()
-    {        
-        if(PlayerPrefs.GetString("Id") == null)
+    {
+        if (!ifISign)
         {
-            TutorialsManager.itemIndex = 0;
-            GameManager.Money = 2000;
-            GameManager.ShinMoney = 0;
-        }
-        else
-        {
-            TutorialsManager.itemIndex = PlayerPrefs.GetInt("TutorialsDone");
-            if (TutorialsManager.itemIndex > 13)
+            if (PlayerPrefs.GetString("Id") != null)//회원가입후에
             {
-                WWWForm form = new WWWForm();
-                form.AddField("order", "login");
-                form.AddField("id", PlayerPrefs.GetString("Id"));
-                form.AddField("pass", PlayerPrefs.GetString("Pass"));
+                IDInput.text = PlayerPrefs.GetString("Id");
+                IDInput.enabled = false;
+                PassInput.text = PlayerPrefs.GetString("Pass");
+                PassInput.enabled = false;//인풋필드 못누르게하기
 
-                StartCoroutine(Post(form));
-            }
-            else
-            {
-                TutorialsManager.itemIndex = 0;
-                GameManager.Money = 2000;
-                GameManager.ShinMoney = 0;
+                GameManager.Money = PlayerPrefs.GetInt("Money");
+                GameManager.ShinMoney = PlayerPrefs.GetInt("ShinMoney");
             }
         }
     }
@@ -71,8 +61,17 @@ public class GoogleSheetManager : MonoBehaviour
         if (id .Equals( "") || pass .Equals( "" )|| nickname .Equals( "")) return false;
         else return true;
     }
-    public void Register()
+
+    public void SigninBtn()
     {
+        if (PlayerPrefs.GetString("Id") != null)//다시 회원가입
+        {
+            retext.SetActive(true);
+        }
+    }
+
+    public void Register()//회원가입
+    {        
         if (!SetSignPass())
         {
             WarningPannel.SetActive(true);
@@ -89,34 +88,32 @@ public class GoogleSheetManager : MonoBehaviour
 
         StartCoroutine(SignPost(form));
 
-        PlayerPrefs.SetString("Id", id);
+        PlayerPrefs.SetString("Id", id);//아이디비번 저장
         PlayerPrefs.SetString("Pass", pass);
-        PlayerPrefs.SetString("Nickname", nickname);
+
+        TutorialsManager.itemIndex = 0;//초기화
+        GameManager.Money = 2000;
+        GameManager.ShinMoney = 0;
     }
 
 
-    public void Login()
+    public void Login()//자동 로그인
     {
         if (!SetIDPass())
         {
             WarningPannel.SetActive(true);
             Text t = WarningPannel.GetComponentInChildren<Text>();
             t.text = "아이디 또는 비밀번호가 비어있습니다";
-           // print("아이디 또는 비밀번호가 비어있습니다");
+
             return;
         }
 
         WWWForm form = new WWWForm();
         form.AddField("order", "login");
-        form.AddField("id", id);
-        form.AddField("pass", pass);
-        //form.AddField("player_nickname", nickname);
+        form.AddField("id", PlayerPrefs.GetString("Id"));
+        form.AddField("pass", PlayerPrefs.GetString("Pass"));
 
         StartCoroutine(Post(form));
-
-        PlayerPrefs.SetString("Id", id);
-        PlayerPrefs.SetString("Pass", pass);
-        PlayerPrefs.SetString("Nickname", nickname);
     }
 
 

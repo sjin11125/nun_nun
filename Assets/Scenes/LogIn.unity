@@ -524,6 +524,7 @@ RectTransform:
   - {fileID: 2070751356}
   - {fileID: 1171930902}
   - {fileID: 812125364}
+  - {fileID: 347607661}
   m_Father: {fileID: 2029078930}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -609,6 +610,8 @@ MonoBehaviour:
   NuniManager: {fileID: 853950860}
   MyBuildingLoad: {fileID: 281042276}
   WarningPannel: {fileID: 1895708895}
+  retext: {fileID: 347607660}
+  ifISign: 1
 --- !u!114 &281042276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -766,6 +769,86 @@ Transform:
   m_Father: {fileID: 2043363612}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &347607660
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 347607661}
+  - component: {fileID: 347607663}
+  - component: {fileID: 347607662}
+  m_Layer: 5
+  m_Name: reText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &347607661
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 347607660}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 281042271}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -243, y: -481}
+  m_SizeDelta: {x: 160, y: 30}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &347607662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 347607660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: ac1186f0096ce404d9714c5f5f32b6df, type: 3}
+    m_FontSize: 40
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 4
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
+    m_LineSpacing: 1
+  m_Text: "\uB2E4\uC2DC \uD68C\uC6D0\uAC00\uC785\uD558\uBA74 \uC774\uC804 \uC815\uBCF4\uB97C
+    \uC783\uAC8C \uB429\uB2C8\uB2E4."
+--- !u!222 &347607663
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 347607660}
+  m_CullTransparentMesh: 1
 --- !u!1 &352314604
 GameObject:
   m_ObjectHideFlags: 0
@@ -3707,6 +3790,8 @@ MonoBehaviour:
   NuniManager: {fileID: 853950860}
   MyBuildingLoad: {fileID: 1572906190}
   WarningPannel: {fileID: 1895708895}
+  retext: {fileID: 347607660}
+  ifISign: 0
 --- !u!114 &1572906190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4367,6 +4452,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1507065616}
         m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
         m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1572906189}
+        m_TargetAssemblyTypeName: GoogleSheetManager, Assembly-CSharp
+        m_MethodName: SigninBtn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
