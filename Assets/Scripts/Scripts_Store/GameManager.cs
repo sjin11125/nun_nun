@@ -69,8 +69,8 @@ public class GameManager : MonoBehaviour
     public static List<NuniDialog> NuniDialog;          //누니 상호작용 대화 
     public Card CurrentNuni;
     //-----------------------------------여기서부터 재화---------------------------------
-    public static int Money = 0;            //재화
-    public static int ShinMoney = 0;
+    public static int Money;            //재화
+    public static int ShinMoney;
 
     //---------------------------------------------------------------------------------------------
     //--------------------------------여기서부터 플레이어 정보-------------------------------------
@@ -139,7 +139,6 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        GameLoad();
         BuildingList = new List<Building>();            //현재 가지고 있는 빌딩 리스트
         //
         DogamChaImageData = new Dictionary<string, Sprite>();       //전체 캐릭터 리스트(가지고 있지 않은것도 포함)
@@ -208,13 +207,13 @@ public class GameManager : MonoBehaviour
     
     public static Sprite GetDogamChaImage(string ImageName)
     {
-        return GameManager.DogamChaImageData[ImageName.Trim()];
+        return DogamChaImageData[ImageName.Trim()];
 
     }
     public static Sprite GetCharacterImage(string ImageName)
     {
         
-        return GameManager.CharacterImageData[ImageName.Trim()];
+        return CharacterImageData[ImageName.Trim()];
     }
 
     public static string IDGenerator()
@@ -246,52 +245,24 @@ public class GameManager : MonoBehaviour
         return id;
     }
 
-    public void GameLoad()
-    {
-        if (TutorialsManager.itemIndex < 14)
-        {
-            Money = 2000;
-            ShinMoney = 0;
-        }
-        else
-        {
-            Money = PlayerPrefs.GetInt("Money");
-            ShinMoney = PlayerPrefs.GetInt("ShinMoney");
-        }
-        print("load");
-    }
-
     public void GameSave()
     {
-        PlayerPrefs.SetInt("Money", GameManager.Money);
-        PlayerPrefs.SetInt("ShinMoney", GameManager.ShinMoney);
+        PlayerPrefs.SetInt("Money", Money);
+        PlayerPrefs.SetInt("ShinMoney", ShinMoney);
         PlayerPrefs.Save();
         print("save");
 
         WWWForm form2 = new WWWForm();
         //isMe = true;                 
         form2.AddField("order", "setMoney");
-        form2.AddField("player_nickname", GameManager.NickName);   
+        form2.AddField("player_nickname", NickName);   
     }
-
-
-    bool isPaused = false;
 
     void OnApplicationPause(bool pause)
     {
         if (pause)//비활성화
         {
-            isPaused = true;
             GameSave();
-        }
-
-        else//활성화
-        {
-            if (isPaused)
-            {
-                isPaused = false;
-                GameLoad();
-            }
         }
     }
 }

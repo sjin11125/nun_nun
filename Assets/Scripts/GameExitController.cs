@@ -11,7 +11,7 @@ public class GameExitController : MonoBehaviour
 
     public void Awake()
     {       
-        if (TutorialsManager.itemIndex < 14)
+        if (PlayerPrefs.GetInt("TutorialsDone") < 14)
         {
             TutoManager.SetActive(true);
             RandomSelect.isTuto = 0;
