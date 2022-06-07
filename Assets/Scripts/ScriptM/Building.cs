@@ -82,6 +82,8 @@ public class Building : MonoBehaviour
     public BuildType Type;
 
     public BuildingSave save;
+
+    bool isUp;
     public Building()
     {
     }
@@ -649,38 +651,77 @@ public class Building : MonoBehaviour
     // Update is called once per frame
   
     
-    public void Upgrade()
+    public bool Upgrade()
     { //GameObject Level1building, Level2building, Level3building;
         if (Level < 2)
         {
-            //GameObject UPPannel = Instantiate(UpgradePannel);
-
-            UpgradePannel2.GetComponent<ChaButtonScript>().Upgrade(buildings, Level, this);
-            UpgradePannel2.gameObject.SetActive(true);
-       
-
-            Text[] upgradeText = UpgradePannel2.GetComponentsInChildren<Text>();
-            Debug.Log("업그레이드 아이디: " + Id);
-            for (int i = 0; i < GameManager.BuildingList.Count; i++)
+            if (Building_Image == "building_level(Clone)" ||
+                   Building_Image == "village_level(Clone)" ||
+                   Building_Image == "fashion_level(Clone)")
             {
-                for (int j = 0; j < GameManager.BuildingArray.Length; j++)
+                for (int i = 0; i < GameManager.CharacterList.Count; i++)
                 {
-                    if (Building_Image==GameManager.BuildingArray[j].Building_Image)
+                    if (GameManager.CharacterList[i].cardName == "수리공누니")
                     {
-
-                        upgradeText[3].text = GameManager.BuildingArray[j].Reward[Level - 1].ToString();     //업글 전 획득 재화
-                        Debug.Log("업글전: " + GameManager.BuildingArray[j].Reward[Level - 1]);
-                        upgradeText[4].text = GameManager.BuildingArray[j].Reward[Level].ToString();                       //업글 후 획득 재화
-                        Debug.Log("업글전: " + GameManager.BuildingArray[j].Reward[Level - 1]);
-                            upgradeText[6].text = "얼음: "+GameManager.BuildingArray[j].Cost[Level].ToString()+",   빛나는 얼음: "+ GameManager.BuildingArray[j].ShinCost[Level].ToString()+" 이 소모됩니다.";
-                        return;
+                        isUp = true;
 
                     }
                 }
             }
+            //GameObject UPPannel = Instantiate(UpgradePannel);
+            if (Building_Image == "syrup_level(Clone)" ||
+             Building_Image == "fashion_level(Clone)" ||
+             Building_Image == "school_level(Clone)")
+            {
+                for (int i = 0; i < GameManager.CharacterList.Count; i++)
+                {
+                    if (GameManager.CharacterList[i].cardName == "페인트누니")
+                    {
+                        isUp = true;
+
+                    }
+                }
+            }
+            if (isUp == true)
+            {
+
+
+                UpgradePannel2.GetComponent<ChaButtonScript>().Upgrade(buildings, Level, this);
+                UpgradePannel2.gameObject.SetActive(true);
+
+
+                Text[] upgradeText = UpgradePannel2.GetComponentsInChildren<Text>();
+                Debug.Log("업그레이드 아이디: " + Id);
+
             
 
+
+                for (int i = 0; i < GameManager.BuildingList.Count; i++)
+                {
+                    for (int j = 0; j < GameManager.BuildingArray.Length; j++)
+                    {
+                        if (Building_Image == GameManager.BuildingArray[j].Building_Image)
+                        {
+
+                            upgradeText[3].text = GameManager.BuildingArray[j].Reward[Level - 1].ToString();     //업글 전 획득 재화
+                            Debug.Log("업글전: " + GameManager.BuildingArray[j].Reward[Level - 1]);
+                            upgradeText[4].text = GameManager.BuildingArray[j].Reward[Level].ToString();                       //업글 후 획득 재화
+                            Debug.Log("업글전: " + GameManager.BuildingArray[j].Reward[Level - 1]);
+                            upgradeText[6].text = "얼음: " + GameManager.BuildingArray[j].Cost[Level].ToString() + ",   빛나는 얼음: " + GameManager.BuildingArray[j].ShinCost[Level].ToString() + " 이 소모됩니다.";
+                            return true;
+
+                        }
+                    }
+                }
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
         }
+        return isUp;
     }
 
  

@@ -83,16 +83,17 @@ public class DogamManager : MonoBehaviour
                 BuildingButtonText[4].text = GameManager.StrArray[j].Cost[0].ToString();          //발광석 가격 넣기   
 
             }
-           /* else                            //잠겼으면 잠금 이미지 넣기
-            {
-                BuildingPrefabChilds[4].tag = "Lock";
-                image[1].sprite = GameManager.DogamChaImageData["Lock"];
-                //DogamChaButton.GetComponent<Image>().sprite = GameManager.DogamChaImageData["Lock"];
+            DogamCha.GetComponent<RectTransform>().localScale = new Vector3(2f, 2f, 1);
+            /* else                            //잠겼으면 잠금 이미지 넣기
+             {
+                 BuildingPrefabChilds[4].tag = "Lock";
+                 image[1].sprite = GameManager.DogamChaImageData["Lock"];
+                 //DogamChaButton.GetComponent<Image>().sprite = GameManager.DogamChaImageData["Lock"];
 
-                LockButtonList.Add(DogamChaButton);
+                 LockButtonList.Add(DogamChaButton);
 
 
-            }*/
+             }*/
 
         }
     }

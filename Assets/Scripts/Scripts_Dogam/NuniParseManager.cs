@@ -40,6 +40,7 @@ public class NuniParseManager : MonoBehaviour
             image[1].sprite = nuni.GetChaImange();   //누니 이미지 넣기
             NuniPannel.name = nuni.cardImage;        //누니 이름 넣기
             NuniName.text = nuni.cardName;
+            NuniPannel.GetComponent<RectTransform>().localScale = new Vector3(2.8f, 2.8f, 0);
 
             /* if (GameManager.AllNuniArray[i].isLock=="F")       // 누니를 현재 가지고 있을 때
              {

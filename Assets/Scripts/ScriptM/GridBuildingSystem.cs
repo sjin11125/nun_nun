@@ -50,6 +50,8 @@ public class GridBuildingSystem : MonoBehaviour
     private GameObject settigPanel;
     Touch tempTouchs;
     #region unity Methods  
+    public GameObject Effect;
+    bool upgrade = false;
     private void Awake()
     {
         if (current==null)
@@ -203,7 +205,11 @@ public class GridBuildingSystem : MonoBehaviour
                         {
                             GameManager.isMoveLock = true;
                             hit_building.Type = BuildType.Upgrade;
-                            hit_building.Upgrade();
+                            upgrade= hit_building.Upgrade();
+                            if (upgrade==false)
+                            {
+                                Effect.SetActive(true);
+                            }
                             settigPanel.GetComponent<AudioController>().Sound[1].Play();
                         }
                         if (hit.transform.CompareTag("Remove"))          //제거
