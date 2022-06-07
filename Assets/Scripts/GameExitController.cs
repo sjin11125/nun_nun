@@ -14,12 +14,18 @@ public class GameExitController : MonoBehaviour
         if (TutorialsManager.itemIndex < 14)
         {
             TutoManager.SetActive(true);
-            RandomSelect.isTuto = 0;
+            if (TutorialsManager.itemIndex > 9)
+            {
+                RandomSelect.isTuto = 1;
+            }
+            else
+            {
+                RandomSelect.isTuto = 0;//게임튜토 실행
+            }
         }
         else
         {
             TutoManager.SetActive(false);
-            RandomSelect.isTuto = 1;
         }
     }
 

@@ -77,6 +77,7 @@ public class TutorialsManager : MonoBehaviour
                     GameManager.ShinMoney += 1;
                 }
             }
+            PlayerPrefs.SetInt("TutorialsDone", itemIndex);
             itemIndex++;
         }
     }
