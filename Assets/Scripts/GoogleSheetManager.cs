@@ -41,6 +41,7 @@ public class GoogleSheetManager : MonoBehaviour
 
                 GameManager.Money = PlayerPrefs.GetInt("Money");
                 GameManager.ShinMoney = PlayerPrefs.GetInt("ShinMoney");
+                TutorialsManager.itemIndex = PlayerPrefs.GetInt("TutorialsDone");
             }
         }
     }

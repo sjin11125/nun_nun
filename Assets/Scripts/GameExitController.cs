@@ -11,7 +11,6 @@ public class GameExitController : MonoBehaviour
 
     public void Awake()
     {
-        TutorialsManager.itemIndex  = PlayerPrefs.GetInt("TutorialsDone");
         if (TutorialsManager.itemIndex < 14)
         {
             TutoManager.SetActive(true);
