@@ -33,15 +33,10 @@ public class VisitorBookManager : MonoBehaviour
     public InputField VBInput;
     public GameObject LoadingNuni;      //로딩 누니 프리팹
 
-    public void VBWindowOpen()              //방명록 창 오픈했을 때
-    {
-        //VBWindow.SetActive(true);
-        
-    }
+
 
     public void Start()
     {
-        VBWindowOpen();
         if (SceneManager.GetActiveScene().name.Equals("FriendMain"))    //친구 씬이냐
         {
             VBInput.gameObject.SetActive(true);
@@ -74,10 +69,10 @@ public class VisitorBookManager : MonoBehaviour
 
     public void FriendVisitorBookList()         //친구 방명록 불러옴 
     {
-
+        LoadingNuni.SetActive(true);            //로딩 누니 활성화
         WWWForm form = new WWWForm();
-        form.AddField("order", "getMessageFriend");
-        form.AddField("friend_nickname", GameManager.friend_nickname);
+        form.AddField("order", "getMessage");
+        form.AddField("player_nickname", GameManager.friend_nickname);
         //form.AddField("message", VBInput.text);
         StartCoroutine(GetPost(form));
     }
@@ -108,6 +103,9 @@ public class VisitorBookManager : MonoBehaviour
         VBtext[0].text = GameManager.NickName;
         VBtext[1].text = VBInput.text;
         VBtext[2].text = DateTime.Now.ToString("yyyy.MM.dd");
+
+        Image[] images = VB.GetComponentsInChildren<Image>();
+        images[1].sprite = GameManager.ProfileImage;
         //GameManager.FriendBuildingList.Add(b);      //친구의 건물 리스트에 삽입
     }
     IEnumerator GetPost(WWWForm form)
@@ -136,7 +134,7 @@ public class VisitorBookManager : MonoBehaviour
         }
 
         Newtonsoft.Json.Linq.JArray j = Newtonsoft.Json.Linq.JArray.Parse(json);
-
+        Debug.Log("j길이: "+j.Count);
       
         for (int i = 0; i < j.Count; i++)
         {
@@ -161,12 +159,12 @@ public class VisitorBookManager : MonoBehaviour
                 else
                 {
                     Images[1].sprite = GameManager.AllNuniArray[k].Image;
-                    return;
+                    
                 }
                
             }
         }
-
+        Debug.Log("The End");
         LoadingNuni.SetActive(false);
     }
 }
