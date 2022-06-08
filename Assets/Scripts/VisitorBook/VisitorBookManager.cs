@@ -153,9 +153,10 @@ public class VisitorBookManager : MonoBehaviour
             VBtext[2].text = friendBuildings.f_time;
 
             Image[] Images= VB.GetComponentsInChildren<Image>();
+            Debug.Log("friendBuildings.f_image: "+ friendBuildings.f_image);
             for (int k = 0; k < GameManager.AllNuniArray.Length; k++)
             {
-                if (GameManager.AllNuniArray[k].Image.name != friendBuildings.f_image)
+                if (GameManager.AllNuniArray[k].cardImage != friendBuildings.f_image)
                     continue;
                 else
                 {

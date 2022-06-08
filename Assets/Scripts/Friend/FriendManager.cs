@@ -213,25 +213,12 @@ public class FriendManager : MonoBehaviour
             friendButtonText[1].text = AllFriends[i].f_info;
 
             Image[] friendImage= friendprefab.GetComponentsInChildren<Image>();
-
-            for (int j   = 0; j < GameManager.Friends.Length; j++)
-
+            if (GameManager.Friends!=null)
             {
-                if (AllFriends[i].f_nickname == GameManager.Friends[j].f_nickname)      //이미 친구로 되어있다.
-                {
+                for (int j = 0; j < GameManager.Friends.Length; j++)
 
-                    Button[] btnn = friendprefab.GetComponentsInChildren<Button>();
-                    btnn[1].interactable = false;               //Ŭ�����ϰ�
-                    Text[] ButtonText = friendprefab.GetComponentsInChildren<Text>();
-                    ButtonText[2].gameObject.SetActive(false);
-                    ButtonText[3].gameObject.SetActive(true);
-                    ButtonText[3].text = "추가됨";
-                    alreadyFriend = true;
-                }
-                if (GameManager.Friends[j].f_nickname.Split(':').Length >= 2)
                 {
-                    
-                    if (AllFriends[i].f_nickname == GameManager.Friends[j].f_nickname.Split(':')[0])                           //이미 요청보냈었다.
+                    if (AllFriends[i].f_nickname == GameManager.Friends[j].f_nickname)      //이미 친구로 되어있다.
                     {
 
                         Button[] btnn = friendprefab.GetComponentsInChildren<Button>();
@@ -239,12 +226,29 @@ public class FriendManager : MonoBehaviour
                         Text[] ButtonText = friendprefab.GetComponentsInChildren<Text>();
                         ButtonText[2].gameObject.SetActive(false);
                         ButtonText[3].gameObject.SetActive(true);
-                        ButtonText[3].text = "요청됨";
+                        ButtonText[3].text = "추가됨";
                         alreadyFriend = true;
                     }
+                    if (GameManager.Friends[j].f_nickname.Split(':').Length >= 2)
+                    {
+
+                        if (AllFriends[i].f_nickname == GameManager.Friends[j].f_nickname.Split(':')[0])                           //이미 요청보냈었다.
+                        {
+
+                            Button[] btnn = friendprefab.GetComponentsInChildren<Button>();
+                            btnn[1].interactable = false;               //Ŭ�����ϰ�
+                            Text[] ButtonText = friendprefab.GetComponentsInChildren<Text>();
+                            ButtonText[2].gameObject.SetActive(false);
+                            ButtonText[3].gameObject.SetActive(true);
+                            ButtonText[3].text = "요청됨";
+                            alreadyFriend = true;
+                        }
+                    }
                 }
+               
             }
-            if (alreadyFriend==false)
+
+            if (alreadyFriend == false)
             {
 
                 Button[] btnn = friendprefab.GetComponentsInChildren<Button>();
