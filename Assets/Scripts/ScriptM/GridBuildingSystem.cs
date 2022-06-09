@@ -243,6 +243,7 @@ public class GridBuildingSystem : MonoBehaviour
                     
                     GameObject dialo_window = Instantiate(Dialog, Canvas.transform);
                     //child[2]
+                    dialo_window.transform.SetAsFirstSibling();
                     dialo_window.GetComponent<NuniDialogParsing>().nuni = nuni_card;
                     dialo_window.GetComponentInChildren<Text>().text = nuni_dialog.Dialog[UnityEngine.Random.Range(0, nuni_dialog.Dialog.Length-1)];
          
