@@ -113,8 +113,8 @@ public class FriendManager : MonoBehaviour
     void ListResponse(string json)
     {
         if (string.IsNullOrEmpty(json)) return;
-
-        if (json .Equals( ""))
+        Debug.Log("json: "+json);
+        if (json.Equals("null"))
         {
             LoadingObjcet.SetActive(false);
             return;
@@ -238,6 +238,7 @@ public class FriendManager : MonoBehaviour
                             Button[] btnn = friendprefab.GetComponentsInChildren<Button>();
                             btnn[1].interactable = false;               //Ŭ�����ϰ�
                             Text[] ButtonText = friendprefab.GetComponentsInChildren<Text>();
+                            Debug.Log("버튼 텍스트 길이: "+ButtonText.Length);
                             ButtonText[2].gameObject.SetActive(false);
                             ButtonText[3].gameObject.SetActive(true);
                             ButtonText[3].text = "요청됨";

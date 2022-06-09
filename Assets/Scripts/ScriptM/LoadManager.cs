@@ -80,6 +80,7 @@ public class LoadManager : MonoBehaviour
     //ĳ���� �ε�
     void Start()
     {
+        GameManager.isLoading = false;
         isLoaded = false;
         GameManager.items = 0;          //������ �ʱ�ȭ
 
@@ -274,11 +275,12 @@ public class LoadManager : MonoBehaviour
 
                 g_Building.Type = BuildType.Load;
                 g_Building.Place_Initial(g_Building.Type);
+                
                 // g_Building.Rotation();
 
             }
-            
 
+            GameManager.isLoading = true;
         }
 
     }
