@@ -25,6 +25,11 @@ public class NuniParseManager : MonoBehaviour
     {
         GameManager.isMoveLock = true;
         //GM에 있는 모든 누니 정보 불러서 패널에 넣기
+        Transform[] child=Scroll.GetComponentsInChildren<Transform>();
+        for (int j = 1; j < child.Length; j++)
+        {
+            Destroy(child[j].gameObject);
+        }
         for (int i = 0; i < GameManager.AllNuniArray.Length; i++)
         {
             GameObject NuniPannel = Instantiate(NuniPannelPrefab) as GameObject;

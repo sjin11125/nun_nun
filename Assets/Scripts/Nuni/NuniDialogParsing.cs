@@ -121,9 +121,8 @@ public class NuniDialogParsing : MonoBehaviour
 
 
                 RectTransform rect = gameObject.GetComponent<RectTransform>();
-                Debug.Log("누니 위치 :" +MoveSpot.transform.position);
                 rect.transform.position = MoveSpot.transform.position;
-                Invoke(nameof(Destroy_self), 10f);
+               // Invoke(nameof(Destroy_self), 3f);
                 
             }
         }
