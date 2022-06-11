@@ -100,8 +100,9 @@ public class ChaButtonScript : MonoBehaviour
                 InfoTexts[1].text = nuni.Info;                  //누니 설명
                 InfoTexts[2].text = nuni.Effect; //누니 보유 효과
 
-                
-               
+                NuniInfo.GetComponent<RectTransform>().localScale= new Vector3(1, 1, 1);
+
+
 
             }
         }

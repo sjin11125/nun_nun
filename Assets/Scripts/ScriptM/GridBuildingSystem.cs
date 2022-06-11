@@ -50,6 +50,8 @@ public class GridBuildingSystem : MonoBehaviour
     private GameObject settigPanel;
     Touch tempTouchs;
     #region unity Methods  
+    public GameObject Effect;
+    bool upgrade = false;
     private void Awake()
     {
         if (current==null)
@@ -203,7 +205,11 @@ public class GridBuildingSystem : MonoBehaviour
                         {
                             GameManager.isMoveLock = true;
                             hit_building.Type = BuildType.Upgrade;
-                            hit_building.Upgrade();
+                            upgrade= hit_building.Upgrade();
+                            if (upgrade==false)
+                            {
+                                Effect.SetActive(true);
+                            }
                             settigPanel.GetComponent<AudioController>().Sound[1].Play();
                         }
                         if (hit.transform.CompareTag("Remove"))          //제거
@@ -224,27 +230,35 @@ public class GridBuildingSystem : MonoBehaviour
 
                     GameObject nuni = hit.transform.parent.gameObject;
                     Card nuni_card = nuni.GetComponent<Card>();
-
-                    NuniDialog nuni_dialog = new NuniDialog();
-
-                    for (int i = 0; i < GameManager.NuniDialog.Count; i++)
+                    if (nuni_card.isDialog==false)                                               //누니 대사 안겹치게
                     {
-                        if (nuni_card.cardName .Equals( GameManager.NuniDialog[i].Nuni))
+                        nuni_card.isDialog=true; 
+
+                           NuniDialog nuni_dialog = new NuniDialog();
+
+                        for (int i = 0; i < GameManager.NuniDialog.Count; i++)
                         {
-                            nuni_dialog = GameManager.NuniDialog[i];
+                            if (nuni_card.cardName.Equals(GameManager.NuniDialog[i].Nuni))
+                            {
+                                nuni_dialog = GameManager.NuniDialog[i];
+                            }
                         }
+
+                        GameObject dialo_window = Instantiate(Dialog, Canvas.transform);
+                        //child[2]
+                        dialo_window.transform.SetAsFirstSibling();
+                        dialo_window.GetComponent<NuniDialogParsing>().nuni = nuni_card;
+                        dialo_window.GetComponentInChildren<Text>().text = nuni_dialog.Dialog[UnityEngine.Random.Range(0, nuni_dialog.Dialog.Length - 1)];
+
+                        dialo_window.GetComponent<NuniDialogParsing>().nuniObject = hit.transform.parent.gameObject;
+                        dialo_window.GetComponent<NuniDialogParsing>().isMove = true;
+                        //dialo_windowi
+
+                        settigPanel.GetComponent<AudioController>().Sound[0].Play();
+
+                        StartCoroutine(isDialog_done(nuni_card, dialo_window));
                     }
                     
-                    GameObject dialo_window = Instantiate(Dialog, Canvas.transform);
-                    //child[2]
-                    dialo_window.GetComponent<NuniDialogParsing>().nuni = nuni_card;
-                    dialo_window.GetComponentInChildren<Text>().text = nuni_dialog.Dialog[UnityEngine.Random.Range(0, nuni_dialog.Dialog.Length-1)];
-         
-                    dialo_window.GetComponent<NuniDialogParsing>().nuniObject = hit.transform.parent.gameObject;
-                    dialo_window.GetComponent<NuniDialogParsing>().isMove = true;
-                    //dialo_windowi
-
-                    settigPanel.GetComponent<AudioController>().Sound[0].Play();
                 }
                 else if (hit.transform.CompareTag("bunsu"))              //생명의 분수 클릭
                 {
@@ -419,10 +433,15 @@ public class GridBuildingSystem : MonoBehaviour
    }
 
     #endregion
-
-
+  
+    IEnumerator isDialog_done(Card nuni, GameObject dialog_Window)
+    {
+        yield return new WaitForSeconds(3f);
+        nuni.isDialog = false;
+        Destroy(dialog_Window);
+    }
     #region Building Placement
-    
+
     public void InitializeWithBuilding() //생성버튼 눌렀을 때 building 을 prefab으로 해서 생성
    {
         temp_gameObject = Instantiate(GameManager.CurrentBuilding, Vector3.zero, Quaternion.identity,buildings.transform) as GameObject;

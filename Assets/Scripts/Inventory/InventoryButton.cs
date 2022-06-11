@@ -103,6 +103,16 @@ public class InventoryButton : MonoBehaviour
                 {
                     GameManager.CharacterList[i].isLock = "T";
                     GameObject nuni = Instantiate(GameManager.CharacterPrefab[this_nuni.cardImage], nunis.transform) as GameObject;
+                   
+                    for (int j = 0; j < GameManager.AllNuniArray.Length; j++)
+                    {
+                        if (GameManager.AllNuniArray[j].cardImage != this_nuni.cardImage)
+                            continue;
+
+                      Card Value=  nuni.GetComponent<Card>();
+                        Value.SetValue(GameManager.AllNuniArray[j]);
+                    }
+                    
                     nuni.GetComponent<Card>().isLock = "T";
                     StartCoroutine(NuniSave(this_nuni));          //구글 스크립트에 업데이트
                     return;

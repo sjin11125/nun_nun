@@ -145,6 +145,7 @@ public class FriendButton : MonoBehaviour
     }
     void SearchResponse(string json)
     {
+        bool isdone=false;
         if (json .Equals( ""))
         {
             LoadingObejct.SetActive(false);
@@ -169,32 +170,41 @@ public class FriendButton : MonoBehaviour
       
 
         Text[] ButtonText = Search.GetComponentsInChildren<Text>();
-
-        for (int i = 0; i < GameManager.Friends.Length; i++)                        //버튼 설정
+        if (GameManager.Friends != null)
         {
-            if (friendInfo.f_nickname== GameManager.Friends[i].f_nickname)      //친구목록에 있으면
+            isdone = true;
+            for (int i = 0; i < GameManager.Friends.Length; i++)                        //버튼 설정
             {
-                ButtonText[2].gameObject.SetActive(false);
-                ButtonText[3].gameObject.SetActive(true);
-                ButtonText[3].text = "추가됨";
-            }
-           else if (GameManager.Friends[i].f_nickname.Split(':').Length >= 2)
-            {
-                if (friendInfo.f_nickname == GameManager.Friends[i].f_nickname.Split(':')[0])                           //이미 요청보냈었다.
+                if (friendInfo.f_nickname == GameManager.Friends[i].f_nickname)      //친구목록에 있으면
                 {
-                    Button[] btnn = Search.GetComponentsInChildren<Button>();
-                    btnn[1].interactable = false;               //Ŭ�����ϰ�
                     ButtonText[2].gameObject.SetActive(false);
                     ButtonText[3].gameObject.SetActive(true);
-                    ButtonText[3].text = "요청됨";
+                    ButtonText[3].text = "추가됨";
+                    
+                }
+                else if (GameManager.Friends[i].f_nickname.Split(':').Length >= 2)
+                {
+                    if (friendInfo.f_nickname == GameManager.Friends[i].f_nickname.Split(':')[0])                           //이미 요청보냈었다.
+                    {
+                        Button[] btnn = Search.GetComponentsInChildren<Button>();
+                        btnn[1].interactable = false;               //Ŭ�����ϰ�
+                        ButtonText[2].gameObject.SetActive(false);
+                        ButtonText[3].gameObject.SetActive(true);
+                        ButtonText[3].text = "요청됨";
+                    }
+                }
+                else
+                {
+                    ButtonText[2].gameObject.SetActive(true);
+                    ButtonText[3].gameObject.SetActive(false);
+
                 }
             }
-            else
-            {
-                ButtonText[2].gameObject.SetActive(true);
-                ButtonText[3].gameObject.SetActive(false);
-        
-            }
+        }
+        if (isdone==false)
+        {
+            ButtonText[2].gameObject.SetActive(true);
+            ButtonText[3].gameObject.SetActive(false);
         }
         LoadingObejct.SetActive(false);
 

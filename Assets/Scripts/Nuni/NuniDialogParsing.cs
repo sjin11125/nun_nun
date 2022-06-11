@@ -121,8 +121,8 @@ public class NuniDialogParsing : MonoBehaviour
 
 
                 RectTransform rect = gameObject.GetComponent<RectTransform>();
-                rect.transform.position = Camera.main.WorldToScreenPoint(MoveSpot.transform.position);
-                Invoke(nameof(Destroy_self), 3f);
+                rect.transform.position = MoveSpot.transform.position;
+               // Invoke(nameof(Destroy_self), 3f);
                 
             }
         }

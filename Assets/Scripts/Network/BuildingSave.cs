@@ -164,6 +164,7 @@ public class BuildingSave : MonoBehaviour
 
             }
             Debug.Log(GameManager.FriendBuildingList.Count);
+            GameManager.isLoading = true;
             SceneManager.LoadScene("FriendMain");
         }
         else                                    //로그인했을 때 내 건물 불러오는거라면

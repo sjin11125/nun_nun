@@ -25,6 +25,11 @@ public class NuniParseManager : MonoBehaviour
     {
         GameManager.isMoveLock = true;
         //GM에 있는 모든 누니 정보 불러서 패널에 넣기
+        Transform[] child=Scroll.GetComponentsInChildren<Transform>();
+        for (int j = 1; j < child.Length; j++)
+        {
+            Destroy(child[j].gameObject);
+        }
         for (int i = 0; i < GameManager.AllNuniArray.Length; i++)
         {
             GameObject NuniPannel = Instantiate(NuniPannelPrefab) as GameObject;
@@ -40,6 +45,7 @@ public class NuniParseManager : MonoBehaviour
             image[1].sprite = nuni.GetChaImange();   //누니 이미지 넣기
             NuniPannel.name = nuni.cardImage;        //누니 이름 넣기
             NuniName.text = nuni.cardName;
+            NuniPannel.GetComponent<RectTransform>().localScale = new Vector3(2.8f, 2.8f, 0);
 
             /* if (GameManager.AllNuniArray[i].isLock=="F")       // 누니를 현재 가지고 있을 때
              {

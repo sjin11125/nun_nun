@@ -41,6 +41,7 @@ public class GoogleSheetManager : MonoBehaviour
 
                 GameManager.Money = PlayerPrefs.GetInt("Money");
                 GameManager.ShinMoney = PlayerPrefs.GetInt("ShinMoney");
+                TutorialsManager.itemIndex = PlayerPrefs.GetInt("TutorialsDone");
             }
         }
     }
@@ -92,6 +93,7 @@ public class GoogleSheetManager : MonoBehaviour
         PlayerPrefs.SetString("Pass", pass);
 
         TutorialsManager.itemIndex = 0;//초기화
+        PlayerPrefs.SetInt("TutorialsDone", TutorialsManager.itemIndex);
         GameManager.Money = 2000;
         GameManager.ShinMoney = 0;
     }
@@ -99,6 +101,7 @@ public class GoogleSheetManager : MonoBehaviour
 
     public void Login()//자동 로그인
     {
+        
         if (!SetIDPass())
         {
             WarningPannel.SetActive(true);

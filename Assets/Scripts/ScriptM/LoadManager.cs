@@ -80,6 +80,7 @@ public class LoadManager : MonoBehaviour
     //ĳ���� �ε�
     void Start()
     {
+        GameManager.isLoading = false;
         isLoaded = false;
         GameManager.items = 0;          //������ �ʱ�ȭ
 
@@ -206,6 +207,9 @@ public class LoadManager : MonoBehaviour
             LoadingNuni.SetActive(false);
             GameManager.isReward = false;
             int MyReward = 0;
+
+            int nuni50 = 0;
+            int nuni30 = 0;
             for (int i = 0; i < GameManager.BuildingList.Count; i++)
             {
                 for (int j = 0; j < GameManager.BuildingArray.Length; j++)
@@ -213,6 +217,26 @@ public class LoadManager : MonoBehaviour
                     if (GameManager.BuildingList[i].Building_Image.Equals(GameManager.BuildingArray[j].Building_Image) )
                         MyReward += GameManager.BuildingArray[j].Reward[GameManager.BuildingList[i].Level - 1];
                 }
+
+            }
+
+            for (int i = 0; i < GameManager.CharacterList.Count; i++)
+            {
+
+                if (GameManager.CharacterList[i].cardName== "꾸러기누니"||
+                    GameManager.CharacterList[i].cardName == "꽃단누니" ||
+                    GameManager.CharacterList[i].cardName == "어린이누니" ||
+                    GameManager.CharacterList[i].cardName == "학생누니" )
+                {
+                    nuni50++;
+                }
+                if (GameManager.CharacterList[i].cardName == "셰프누니" ||
+                    GameManager.CharacterList[i].cardName == "패션누니" )
+                {
+                    nuni30++;
+                }
+                MyReward += nuni50 * 50 + nuni30 * 30;
+
             }
             GameManager.Money += MyReward;
 
@@ -251,11 +275,12 @@ public class LoadManager : MonoBehaviour
 
                 g_Building.Type = BuildType.Load;
                 g_Building.Place_Initial(g_Building.Type);
+                
                 // g_Building.Rotation();
 
             }
-            
 
+            GameManager.isLoading = true;
         }
 
     }
