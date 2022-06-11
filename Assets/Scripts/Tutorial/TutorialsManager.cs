@@ -10,11 +10,10 @@ public class TutorialsManager : MonoBehaviour
 
     void Start()
     {
-        // ��� �������� ��Ȱ��ȭ �ϰ�, ù��° �͸� Ȱ��ȭ �Ѵ�.
         if (items==null)
             return;
 
-        if (items.Length .Equals( 0))
+        if (items.Length.Equals( 0))
             return;
 
         foreach (var item in items)
@@ -44,7 +43,6 @@ public class TutorialsManager : MonoBehaviour
         }
     }
 
-    // ���� �������� Ȱ��ȭ �Ѵ�.
     public void ActiveNextItem()
     {
         if (items.Length .Equals( itemIndex))
@@ -62,7 +60,7 @@ public class TutorialsManager : MonoBehaviour
             {
                 items[itemIndex].gameObject.SetActive(true);// ������ Ȱ��ȭ
 
-                if (itemIndex .Equals( 1))
+                if (itemIndex.Equals(1))
                 {
                     bunsu = GameObject.FindWithTag("bunsu"); //ii1y1
                     if (bunsu != null)
@@ -70,11 +68,13 @@ public class TutorialsManager : MonoBehaviour
                         bunsu.SetActive(false);
                     }
                 }
-                if (itemIndex .Equals( 10))
-
+                if (itemIndex.Equals(10))
                 {
-                    GameManager.Money += 100;
-                    GameManager.ShinMoney += 1;
+                    if (GameManager.Money < 100 && GameManager.ShinMoney < 1)
+                    {
+                        GameManager.Money += 100;
+                        GameManager.ShinMoney += 1;
+                    }
                 }
             }
             PlayerPrefs.SetInt("TutorialsDone", itemIndex);
