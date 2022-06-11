@@ -56,7 +56,6 @@ public class GridScript : MonoBehaviour
 
     void Start()
     {
-        Time.timeScale = 1f;
         _lineIndicator = GetComponent<LineIndicator>();
         CreateGrid();
         SettingKeep();
@@ -225,11 +224,6 @@ public class GridScript : MonoBehaviour
 
         if (completedLines == 0)
         {
-            if (GameOver())
-            {
-                gameOver.gameObject.SetActive(true);
-                Time.timeScale = 0;
-            }
             Combo = 0;
             settigPanel.GetComponent<AudioController>().Sound[3].pitch = 1;
             if (GameObject.FindGameObjectsWithTag("Combo") != null)
@@ -241,6 +235,11 @@ public class GridScript : MonoBehaviour
                 }
                 comboObject.Clear();
             }
+            /*
+            if (GameOver())
+            {
+                gameOver.gameObject.SetActive(true);
+            }*/
         }
         else
         {
@@ -252,15 +251,16 @@ public class GridScript : MonoBehaviour
                 for (int i = 0; i < completedLines; i++)
                 {
                     Instantiate(ComboImg, this.transform.parent.GetChild(0));
+                    totalScores = 10 * Combo;
                 }
-                totalScores = 10 * Combo;
+                //totalScores = 10 * Combo;
             }
             else
             {
                 totalScores = 10 * completedLines;
             }
         }
-        print(totalScores);
+        
         GameEvents.AddScores(totalScores, completeShin);
     }
 
@@ -276,10 +276,18 @@ public class GridScript : MonoBehaviour
         ChangeShapeItem++;
         ThreeVerticalItem++;
         ThreeHorizontalItem++;
+        if (GameOver())
+        {
+            gameOver.gameObject.SetActive(true);
+        }
     }
     private void CheckIfAnyLineIsCompleted()//하나 놓을때마다 한번실행
     {
         CheckIfLine();
+        if (GameOver())
+        {
+            gameOver.gameObject.SetActive(true);
+        }
     }
 
     int[] sameColorColumLine = new int[5];
