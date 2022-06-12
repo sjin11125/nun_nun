@@ -43,6 +43,10 @@ public class GoogleSheetManager : MonoBehaviour
 
                 //GameManager.Money = PlayerPrefs.GetInt("Money");
                 //GameManager.ShinMoney = PlayerPrefs.GetInt("ShinMoney");
+                WWWForm form1 = new WWWForm();                          //자원 부르기
+                form1.AddField("order", "getMoney");
+                form1.AddField("player_nickname", GameManager.NickName);
+                StartCoroutine(MoneyPost(form1));
                 TutorialsManager.itemIndex = PlayerPrefs.GetInt("TutorialsDone");
             }
         }
@@ -104,12 +108,12 @@ public class GoogleSheetManager : MonoBehaviour
         GameManager.Money = 2000;
         GameManager.ShinMoney = 0;
         form2.AddField("money", GameManager.Money.ToString() + "@" + GameManager.ShinMoney.ToString()+ "@" + TutorialsManager.itemIndex);
-
+        form2.AddField("isUpdate", "true");
         StartCoroutine(SetPost(form2));
 
         //PlayerPrefs.SetInt("TutorialsDone", TutorialsManager.itemIndex);
-        
 
+       
 
     }
 
@@ -264,9 +268,10 @@ public class GoogleSheetManager : MonoBehaviour
                 WWWForm form = new WWWForm();
                 form.AddField("order", "setMoney");
                 form.AddField("player_nickname", GameManager.NickName);
-                string tempMoney = PlayerPrefs.GetInt("Money").ToString() + "@" + PlayerPrefs.GetInt("ShinMoney").ToString();
+                string tempMoney = PlayerPrefs.GetInt("Money").ToString() + "@" + PlayerPrefs.GetInt("ShinMoney").ToString() + "@" + PlayerPrefs.GetInt("TutorialsDone").ToString();
                 form.AddField("money", tempMoney );
                 form.AddField("isUpdate", "true");
+
 
                 StartCoroutine(SetPost(form));
             }
@@ -312,6 +317,7 @@ public class GoogleSheetManager : MonoBehaviour
 
         GameManager.Money =int.Parse( json.Split('@')[0]);          //자원설정
         GameManager.ShinMoney= int.Parse(json.Split('@')[1]);
+        TutorialsManager.itemIndex = int.Parse(json.Split('@')[2]);
         StartCoroutine(Quest());
     }
     IEnumerator Quest()
