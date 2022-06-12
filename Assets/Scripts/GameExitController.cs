@@ -50,11 +50,13 @@ public class GameExitController : MonoBehaviour
         using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // 반드시 using을 써야한다
         {
             yield return www.SendWebRequest();
+            /*
             if (www.isDone)
             {
             }
             else print("웹의 응답이 없습니다.");
             print("exit");
+            */
             Application.Quit();
         }
     }

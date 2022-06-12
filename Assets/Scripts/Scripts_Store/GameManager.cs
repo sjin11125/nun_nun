@@ -247,15 +247,20 @@ public class GameManager : MonoBehaviour
 
     public void GameSave()
     {
-        PlayerPrefs.SetInt("Money", Money);
-        PlayerPrefs.SetInt("ShinMoney", ShinMoney);
-        PlayerPrefs.Save();
-        print("save");
-
-        WWWForm form2 = new WWWForm();
+        WWWForm form2 = new WWWForm();                      //돈 저장
         //isMe = true;                 
         form2.AddField("order", "setMoney");
-        form2.AddField("player_nickname", NickName);   
+        form2.AddField("player_nickname", NickName);
+        form2.AddField("money", Money.ToString() + "@" + ShinMoney.ToString() + "@" + TutorialsManager.itemIndex);
+
+        StartCoroutine(SetPost(form2));
+    }
+    IEnumerator SetPost(WWWForm form)
+    {
+        using (UnityWebRequest www = UnityWebRequest.Post(URL, form)) // 반드시 using을 써야한다
+        {
+            yield return www.SendWebRequest();
+        }
     }
 
     void OnApplicationPause(bool pause)

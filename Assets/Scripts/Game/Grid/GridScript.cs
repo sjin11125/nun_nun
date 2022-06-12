@@ -276,7 +276,7 @@ public class GridScript : MonoBehaviour
         ChangeShapeItem++;
         ThreeVerticalItem++;
         ThreeHorizontalItem++;
-        if (GameOver())
+        if (GameOver() && Combo==0)
         {
             gameOver.gameObject.SetActive(true);
         }
@@ -284,7 +284,7 @@ public class GridScript : MonoBehaviour
     private void CheckIfAnyLineIsCompleted()//하나 놓을때마다 한번실행
     {
         CheckIfLine();
-        if (GameOver())
+        if (GameOver() && Combo==0)
         {
             gameOver.gameObject.SetActive(true);
         }
