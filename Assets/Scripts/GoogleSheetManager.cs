@@ -10,7 +10,7 @@ using UnityEngine.SceneManagement;
 [System.Serializable]
 public class GoogleData
 {
-    public string order, result, msg, value,nickname,state, profile_image;
+    public string order, result, msg, value,nickname,state, profile_image,isUpdate;
 }
 
 
@@ -19,7 +19,7 @@ public class GoogleSheetManager : MonoBehaviour
     string URL = GameManager.URL;
     public GoogleData GD;
     public InputField IDInput, PassInput, NicknameInput;
-    string id, pass, nickname,statemessage;
+    string id, pass, nickname, statemessage;
     public QuestManager QuestManager;
     public NuniManager NuniManager;
     public BuildingSave MyBuildingLoad;
@@ -39,10 +39,10 @@ public class GoogleSheetManager : MonoBehaviour
                 IDInput.text = PlayerPrefs.GetString("Id");
                 //IDInput.enabled = false;
                 PassInput.text = PlayerPrefs.GetString("Pass");
-               // PassInput.enabled = false;//인풋필드 못누르게하기
+                // PassInput.enabled = false;//인풋필드 못누르게하기
 
-                GameManager.Money = PlayerPrefs.GetInt("Money");
-                GameManager.ShinMoney = PlayerPrefs.GetInt("ShinMoney");
+                //GameManager.Money = PlayerPrefs.GetInt("Money");
+                //GameManager.ShinMoney = PlayerPrefs.GetInt("ShinMoney");
                 TutorialsManager.itemIndex = PlayerPrefs.GetInt("TutorialsDone");
             }
         }
@@ -52,16 +52,16 @@ public class GoogleSheetManager : MonoBehaviour
     {
         id = IDInput.text.Trim();
         pass = PassInput.text.Trim();
-        if (id .Equals( "") || pass .Equals( "")) return false;
+        if (id.Equals("") || pass.Equals("")) return false;
         else return true;
     }
-
+    
     bool SetSignPass()
     {
         id = IDInput.text.Trim();
         pass = PassInput.text.Trim();
         nickname = NicknameInput.text.Trim();
-        if (id .Equals( "") || pass .Equals( "" )|| nickname .Equals( "")) return false;
+        if (id.Equals("") || pass.Equals("") || nickname.Equals("")) return false;
         else return true;
     }
 
@@ -74,7 +74,7 @@ public class GoogleSheetManager : MonoBehaviour
     }
 
     public void Register()//회원가입
-    {        
+    {
         if (!SetSignPass())
         {
             WarningPannel.SetActive(true);
@@ -95,9 +95,22 @@ public class GoogleSheetManager : MonoBehaviour
         PlayerPrefs.SetString("Pass", pass);
 
         TutorialsManager.itemIndex = 0;//초기화
-        PlayerPrefs.SetInt("TutorialsDone", TutorialsManager.itemIndex);
+
+        WWWForm form2 = new WWWForm();                      //돈 저장
+        //isMe = true;                 
+        form2.AddField("order", "setMoney");
+        form2.AddField("player_nickname", GameManager.NickName);
+
         GameManager.Money = 2000;
         GameManager.ShinMoney = 0;
+        form2.AddField("money", GameManager.Money.ToString() + "@" + GameManager.ShinMoney.ToString()+ "@" + TutorialsManager.itemIndex);
+
+        StartCoroutine(SetPost(form2));
+
+        //PlayerPrefs.SetInt("TutorialsDone", TutorialsManager.itemIndex);
+        
+
+
     }
 
 
@@ -185,10 +198,22 @@ public class GoogleSheetManager : MonoBehaviour
             else print("웹의 응답이 없습니다.");
         }
     }
+    IEnumerator SetPost(WWWForm form)
+    {
+        using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // 반드시 using을 써야한다
+        {
+            yield return www.SendWebRequest();
+            if (www.isDone)
+            {
+            }
+            else print("웹의 응답이 없습니다.");
+        }
+    }
 
 
     void Response(string json)
     {
+        Debug.Log(json);
         WarningPannel.SetActive(true);
 
         Text t = WarningPannel.GetComponentInChildren<Text>();
@@ -200,27 +225,27 @@ public class GoogleSheetManager : MonoBehaviour
         //System.Text.Encoding.UTF8.GetString(GD, 3, GD.Length - 3);
 
 
-        if (GD.result .Equals( "ERROR"))
+        if (GD.result.Equals("ERROR"))
         {
-            t.text=GD.msg;
+            t.text = GD.msg;
             return;
         }
-        else if (GD.result .Equals( "NickNameERROR"))
+        else if (GD.result.Equals("NickNameERROR"))
         {
             t.text = "닉네임이 중복됩니다.";
         }
-        if (GD.result .Equals( "OK"))
+        if (GD.result.Equals("OK"))
         {
-            if (GD.msg .Equals( "회원가입 완료"))
+            if (GD.msg.Equals("회원가입 완료"))
             {
-                t.text = "회원가입 완료!"+ nickname + "(" + id + ")님 환영합니다!! " +
+                t.text = "회원가입 완료!" + nickname + "(" + id + ")님 환영합니다!! " +
                     "\n잠시만 기다려 주세요.";
             }
             else
             {
                 nickname = GD.nickname;
-               GameManager.StateMessage= GD.state;
-                t.text = "로그인 완료!"+ nickname + "(" + id + ")님 환영합니다!! " +
+                GameManager.StateMessage = GD.state;
+                t.text = "로그인 완료!" + nickname + "(" + id + ")님 환영합니다!! " +
                     "\n잠시만 기다려 주세요 ";
             }
 
@@ -233,27 +258,71 @@ public class GoogleSheetManager : MonoBehaviour
                     continue;
                 GameManager.ProfileImage = GameManager.AllNuniArray[i].Image;
             }
-             
-            StartCoroutine(Quest());
+            if (GD.isUpdate=="null")            //업데이트를 안한 상태인가
+            {
+                Debug.Log("업뎃안함");
+                WWWForm form = new WWWForm();
+                form.AddField("order", "setMoney");
+                form.AddField("player_nickname", GameManager.NickName);
+                string tempMoney = PlayerPrefs.GetInt("Money").ToString() + "@" + PlayerPrefs.GetInt("ShinMoney").ToString();
+                form.AddField("money", tempMoney );
+                form.AddField("isUpdate", "true");
+
+                StartCoroutine(SetPost(form));
+            }
+            WWWForm form1 = new WWWForm();                          //자원 부르기
+            form1.AddField("order", "getMoney");
+            form1.AddField("player_nickname", GameManager.NickName);
+            StartCoroutine(MoneyPost(form1));
+
             
 
+          
 
-               
+
 
             return;
         }
-        if (GD.order .Equals( "getValue"))
+        if (GD.order.Equals("getValue"))
         {
             NicknameInput.text = GD.value;
         }
 
     }
+    IEnumerator MoneyPost(WWWForm form)
+    {
+       
+        using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // 반드시 using을 써야한다
+        {
+            yield return www.SendWebRequest();
+            if (www.isDone)
+            {
+                MoneyResponse(www.downloadHandler.text);
+            }
+            else print("웹의 응답이 없습니다.");
+        }
+    }
+    public void MoneyResponse(string json)
+    {
+        Debug.Log("돈: " + json);
+        if (string.IsNullOrEmpty(json))
+        {
+            return;
+        }
+
+        GameManager.Money =int.Parse( json.Split('@')[0]);          //자원설정
+        GameManager.ShinMoney= int.Parse(json.Split('@')[1]);
+        StartCoroutine(Quest());
+    }
     IEnumerator Quest()
     {
-       // gameObject.GetComponent<BuildingSave>().BuildingLoad();         //내 건물 불러와
+        // gameObject.GetComponent<BuildingSave>().BuildingLoad();         //내 건물 불러와
         //yield return StartCoroutine( QuestManager.QuestStart()); //퀘스트 설정할 때까지 대기
+        //yield return StartCoroutine(IsUpdate());
         yield return StartCoroutine(NuniManager.NuniStart()); //누니 설정할 때까지 대기
-       // yield return StartCoroutine(NuniManager.RewardStart()); //보상 일괄수령 설정할 때까지 대기
-MyBuildingLoad.BuildingLoad();
+                                                              // yield return StartCoroutine(NuniManager.RewardStart()); //보상 일괄수령 설정할 때까지 대기
+        MyBuildingLoad.BuildingLoad();
     }
+
+    
 }

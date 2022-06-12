@@ -67,6 +67,7 @@ public class GridBuildingSystem : MonoBehaviour
     }
     private void Start()
     {
+        
         string tilePath = @"Tiles\";
 
         if (GameManager.isStart .Equals( true)  )      //tileBases에 아무것도 없으면
