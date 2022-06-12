@@ -511,6 +511,8 @@ public class Building : MonoBehaviour
         
         if (Type .Equals( BuildType.Make) )     //상점에서 사고 설치X 바로 제거
         {
+            GameManager.Money += building.Cost[building.Level - 1];          //자원 되돌리기
+            GameManager.ShinMoney += building.ShinCost[building.Level - 1];
             Destroy(gameObject);
         }
         else                                //설치하고 제거

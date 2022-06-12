@@ -204,7 +204,7 @@ public class GridBuildingSystem : MonoBehaviour
                         if (hit.transform.CompareTag("Upgrade"))         //업그레이드
                         {
                             GameManager.isMoveLock = true;
-                            hit_building.Type = BuildType.Upgrade;
+                            //hit_building.Type = BuildType.Upgrade;
                             upgrade= hit_building.Upgrade();
                             if (upgrade==false)
                             {

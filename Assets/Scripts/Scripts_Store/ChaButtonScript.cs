@@ -48,7 +48,7 @@ public class ChaButtonScript : MonoBehaviour
         Grid = GameObject.Find("back_down");
         settigPanel = GameObject.FindGameObjectWithTag("SettingPanel");
     }
-    public void Islockfalse()
+    public void Islockfalse()                                               //아니오 눌렀을 때
     {
         GameManager.isMoveLock = false;
         Building building = buildings[0].transform.parent.GetComponent<Building>();
