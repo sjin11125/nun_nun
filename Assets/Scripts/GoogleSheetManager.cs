@@ -28,6 +28,8 @@ public class GoogleSheetManager : MonoBehaviour
     public GameObject retext;
     public bool ifISign;
 
+    public GameObject loginBtn;
+
     private void Awake()
     {
         if (!ifISign)
@@ -35,9 +37,9 @@ public class GoogleSheetManager : MonoBehaviour
             if (PlayerPrefs.GetString("Id") != null)//회원가입후에
             {
                 IDInput.text = PlayerPrefs.GetString("Id");
-                IDInput.enabled = false;
+                //IDInput.enabled = false;
                 PassInput.text = PlayerPrefs.GetString("Pass");
-                PassInput.enabled = false;//인풋필드 못누르게하기
+               // PassInput.enabled = false;//인풋필드 못누르게하기
 
                 GameManager.Money = PlayerPrefs.GetInt("Money");
                 GameManager.ShinMoney = PlayerPrefs.GetInt("ShinMoney");
@@ -101,7 +103,6 @@ public class GoogleSheetManager : MonoBehaviour
 
     public void Login()//자동 로그인
     {
-        
         if (!SetIDPass())
         {
             WarningPannel.SetActive(true);
@@ -110,11 +111,18 @@ public class GoogleSheetManager : MonoBehaviour
 
             return;
         }
+        else
+        {
+            loginBtn.SetActive(false);
+        }
 
         WWWForm form = new WWWForm();
         form.AddField("order", "login");
         form.AddField("id", PlayerPrefs.GetString("Id"));
         form.AddField("pass", PlayerPrefs.GetString("Pass"));
+
+        PlayerPrefs.SetString("Id", id);//아이디비번 저장
+        PlayerPrefs.SetString("Pass", pass);
 
         StartCoroutine(Post(form));
     }
