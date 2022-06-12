@@ -67,6 +67,7 @@ public class GridBuildingSystem : MonoBehaviour
     }
     private void Start()
     {
+        
         string tilePath = @"Tiles\";
 
         if (GameManager.isStart .Equals( true)  )      //tileBases에 아무것도 없으면
@@ -204,7 +205,7 @@ public class GridBuildingSystem : MonoBehaviour
                         if (hit.transform.CompareTag("Upgrade"))         //업그레이드
                         {
                             GameManager.isMoveLock = true;
-                            hit_building.Type = BuildType.Upgrade;
+                            //hit_building.Type = BuildType.Upgrade;
                             upgrade= hit_building.Upgrade();
                             if (upgrade==false)
                             {

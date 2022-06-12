@@ -32,24 +32,36 @@ public class GameExitController : MonoBehaviour
 
     public void GameSave()
     {
-        PlayerPrefs.SetInt("Money", GameManager.Money);
+       /* PlayerPrefs.SetInt("Money", GameManager.Money);
         PlayerPrefs.SetInt("ShinMoney", GameManager.ShinMoney);
         PlayerPrefs.Save();
-        print("save");
+        print("save");*/
 
-        WWWForm form2 = new WWWForm();
+        WWWForm form2 = new WWWForm();                      //돈 저장
         //isMe = true;                 
         form2.AddField("order", "setMoney");
         form2.AddField("player_nickname", GameManager.NickName);
-        //form2.AddField("money", GameManager.Money.ToString()+"@"+GameManager.ShinMoney.ToString());
-
+        form2.AddField("money", GameManager.Money.ToString()+"@"+GameManager.ShinMoney.ToString() + "@" + TutorialsManager.itemIndex);
+      
+        StartCoroutine(SetPost(form2));
     }
-
+    IEnumerator SetPost(WWWForm form)
+    {
+        using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // 반드시 using을 써야한다
+        {
+            yield return www.SendWebRequest();
+            if (www.isDone)
+            {
+            }
+            else print("웹의 응답이 없습니다.");
+            print("exit");
+            Application.Quit();
+        }
+    }
     public void GameExit()
     {
         GameSave();
-        print("exit");
-        Application.Quit();
+        
     }
 
     private void Update()

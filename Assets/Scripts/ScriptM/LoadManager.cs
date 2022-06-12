@@ -99,7 +99,7 @@ public class LoadManager : MonoBehaviour
 
           
 
-            if (TutorialsManager.itemIndex>=3)
+            if (TutorialsManager.itemIndex>3)
             {
                 Camera.main.GetComponent<Transform>().position = new Vector3(0, 0, -10);
             }
