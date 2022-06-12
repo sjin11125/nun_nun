@@ -135,8 +135,8 @@ public class GoogleSheetManager : MonoBehaviour
 
         WWWForm form = new WWWForm();
         form.AddField("order", "login");
-        form.AddField("id", PlayerPrefs.GetString("Id"));
-        form.AddField("pass", PlayerPrefs.GetString("Pass"));
+        form.AddField("id", IDInput.text);
+        form.AddField("pass", PassInput.text);
 
         PlayerPrefs.SetString("Id", id);//아이디비번 저장
         PlayerPrefs.SetString("Pass", pass);
@@ -211,7 +211,12 @@ public class GoogleSheetManager : MonoBehaviour
             {
             }
             else print("웹의 응답이 없습니다.");
+            WWWForm form1 = new WWWForm();                          //자원 부르기
+            form1.AddField("order", "getMoney");
+            form1.AddField("player_nickname", GameManager.NickName);
+            StartCoroutine(MoneyPost(form1));
         }
+       
     }
 
 
@@ -262,27 +267,30 @@ public class GoogleSheetManager : MonoBehaviour
                     continue;
                 GameManager.ProfileImage = GameManager.AllNuniArray[i].Image;
             }
-            if (GD.isUpdate=="null")            //업데이트를 안한 상태인가
+            if (GD.isUpdate == "null")            //업데이트를 안한 상태인가
             {
                 Debug.Log("업뎃안함");
                 WWWForm form = new WWWForm();
                 form.AddField("order", "setMoney");
                 form.AddField("player_nickname", GameManager.NickName);
                 string tempMoney = PlayerPrefs.GetInt("Money").ToString() + "@" + PlayerPrefs.GetInt("ShinMoney").ToString() + "@" + PlayerPrefs.GetInt("TutorialsDone").ToString();
-                form.AddField("money", tempMoney );
+                form.AddField("money", tempMoney);
                 form.AddField("isUpdate", "true");
 
 
                 StartCoroutine(SetPost(form));
             }
-            WWWForm form1 = new WWWForm();                          //자원 부르기
-            form1.AddField("order", "getMoney");
-            form1.AddField("player_nickname", GameManager.NickName);
-            StartCoroutine(MoneyPost(form1));
+            else {
+                WWWForm form1 = new WWWForm();                          //자원 부르기
+                form1.AddField("order", "getMoney");
+                form1.AddField("player_nickname", GameManager.NickName);
+                StartCoroutine(MoneyPost(form1));
+            }
 
-            
 
-          
+       
+
+
 
 
 

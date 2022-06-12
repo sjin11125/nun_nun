@@ -54,13 +54,14 @@ public class GameExitController : MonoBehaviour
             {
             }
             else print("웹의 응답이 없습니다.");
+            print("exit");
+            Application.Quit();
         }
     }
     public void GameExit()
     {
         GameSave();
-        print("exit");
-        Application.Quit();
+        
     }
 
     private void Update()
