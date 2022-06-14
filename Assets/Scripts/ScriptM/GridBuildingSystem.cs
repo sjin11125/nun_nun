@@ -336,7 +336,6 @@ public class GridBuildingSystem : MonoBehaviour
                     MainTilemap.GetComponent<TilemapRenderer>().sortingOrder = -45;             //메인 타일 보이게
                     temp = hit.transform.GetComponent<Building>();
                     GameManager.CurrentBuilding_Script = temp;
-                    //UI_Manager.StartOpen();     //ui 중앙으로 이동
                     temp.Type = BuildType.Move;
                     temp.Placed = false;        //배치가 안 된 상태로 변환
 

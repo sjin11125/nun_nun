@@ -402,14 +402,18 @@ public class Building : MonoBehaviour
 
             Button_Pannel.gameObject.SetActive(true);               //확정 패널 뜨게
             Rotation_Pannel.gameObject.SetActive(true);               //회전 패널 뜨게
-            if (Building_Image != "bunsu_level(Clone)"&&Building_Image!= "village_level(Clone)")
+            if (Building_Image != "bunsu_level(Clone)")
             {
-                Remove_Pannel.gameObject.SetActive(true);
+                
                 if (Type != BuildType.Make)
                 {
                     UpgradePannel.gameObject.SetActive(true);
 
                 }
+            }
+            if (Building_Image != "village_level(Clone)")
+            {
+                Remove_Pannel.gameObject.SetActive(true);
             }
         }
        
@@ -655,16 +659,19 @@ public class Building : MonoBehaviour
     
     public bool Upgrade()
     { //GameObject Level1building, Level2building, Level3building;
+        Debug.Log("내 빌딩 이미지: " +Building_Image);
         if (Level < 2)
         {
             if (Building_Image == "building_level(Clone)" ||
                    Building_Image == "village_level(Clone)" ||
-                   Building_Image == "fashion_level(Clone)")
+                   Building_Image == "flower_level(Clone)")
             {
+                Debug.Log("해당 건물마자");
                 for (int i = 0; i < GameManager.CharacterList.Count; i++)
                 {
                     if (GameManager.CharacterList[i].cardName == "수리공누니")
                     {
+                        Debug.Log("해당 누니이써");
                         isUp = true;
 
                     }
@@ -675,10 +682,12 @@ public class Building : MonoBehaviour
              Building_Image == "fashion_level(Clone)" ||
              Building_Image == "school_level(Clone)")
             {
+                Debug.Log("해당 건물마자22");
                 for (int i = 0; i < GameManager.CharacterList.Count; i++)
                 {
                     if (GameManager.CharacterList[i].cardName == "페인트누니")
                     {
+                        Debug.Log("해당 누니이써222");
                         isUp = true;
 
                     }
