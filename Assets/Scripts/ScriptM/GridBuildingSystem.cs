@@ -207,7 +207,7 @@ public class GridBuildingSystem : MonoBehaviour
                             GameManager.isMoveLock = true;
                             //hit_building.Type = BuildType.Upgrade;
                             upgrade= hit_building.Upgrade();
-                            if (upgrade==false)
+                            if (upgrade==false&& hit_building.Level<2)
                             {
                                 Effect.SetActive(true);
                             }
@@ -239,8 +239,10 @@ public class GridBuildingSystem : MonoBehaviour
 
                         for (int i = 0; i < GameManager.NuniDialog.Count; i++)
                         {
+                            Debug.Log(GameManager.NuniDialog[i].Nuni);
                             if (nuni_card.cardName.Equals(GameManager.NuniDialog[i].Nuni))
                             {
+                                Debug.Log(nuni_card.cardName);
                                 nuni_dialog = GameManager.NuniDialog[i];
                             }
                         }
@@ -336,6 +338,7 @@ public class GridBuildingSystem : MonoBehaviour
                     MainTilemap.GetComponent<TilemapRenderer>().sortingOrder = -45;             //메인 타일 보이게
                     temp = hit.transform.GetComponent<Building>();
                     GameManager.CurrentBuilding_Script = temp;
+                    //UI_Manager.StartOpen();     //ui 중앙으로 이동
                     temp.Type = BuildType.Move;
                     temp.Placed = false;        //배치가 안 된 상태로 변환
 

@@ -644,7 +644,7 @@ public class Building : MonoBehaviour
     {
         GameManager.BuildingList.Add(this.DeepCopy());      //현재 가지고 있는 빌딩 리스트에 추가
 
-        GameManager.BuildingArray = GameManager.BuildingList.ToArray();
+        //GameManager.BuildingArray = GameManager.BuildingList.ToArray();
         Debug.Log("GameManager.BuildingArray: "+ GameManager.BuildingArray.Length);
 
         GameManager.CurrentBuilding = null;
