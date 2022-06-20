@@ -6379,16 +6379,56 @@ PrefabInstance:
       value: -17
       objectReference: {fileID: 0}
     - target: {fileID: 2713182999720546120, guid: ec8be013d48043b44ba732b48a58be87, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2713182999720546120, guid: ec8be013d48043b44ba732b48a58be87, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2713182999720546120, guid: ec8be013d48043b44ba732b48a58be87, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1469969028}
+    - target: {fileID: 2713182999720546120, guid: ec8be013d48043b44ba732b48a58be87, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1469969029}
+    - target: {fileID: 2713182999720546120, guid: ec8be013d48043b44ba732b48a58be87, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2713182999720546120, guid: ec8be013d48043b44ba732b48a58be87, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: VisitorBookWrite
       objectReference: {fileID: 0}
     - target: {fileID: 2713182999720546120, guid: ec8be013d48043b44ba732b48a58be87, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: set_text
+      objectReference: {fileID: 0}
+    - target: {fileID: 2713182999720546120, guid: ec8be013d48043b44ba732b48a58be87, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: VisitorBookManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2713182999720546120, guid: ec8be013d48043b44ba732b48a58be87, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UnityEngine.UI.Text, UnityEngine.UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 2713182999720546120, guid: ec8be013d48043b44ba732b48a58be87, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
+      value: '""'
+      objectReference: {fileID: 0}
+    - target: {fileID: 2713182999720546120, guid: ec8be013d48043b44ba732b48a58be87, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2713182999720546123, guid: ec8be013d48043b44ba732b48a58be87, type: 3}
+      propertyPath: m_Name
+      value: WriteButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 2713182999772604251, guid: ec8be013d48043b44ba732b48a58be87, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2713183000074052226, guid: ec8be013d48043b44ba732b48a58be87, type: 3}
       propertyPath: m_AnchorMax.x
@@ -6419,6 +6459,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3493ea1f40e6c304f9d8cb6837a42982, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1469969029 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2713182999772604249, guid: ec8be013d48043b44ba732b48a58be87, type: 3}
+  m_PrefabInstance: {fileID: 1469969025}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1528836049

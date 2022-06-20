@@ -106,6 +106,8 @@ public class VisitorBookManager : MonoBehaviour
 
         Image[] images = VB.GetComponentsInChildren<Image>();
         images[1].sprite = GameManager.ProfileImage;
+
+        VBInput.text = "";
         //GameManager.FriendBuildingList.Add(b);      //친구의 건물 리스트에 삽입
     }
     IEnumerator GetPost(WWWForm form)
