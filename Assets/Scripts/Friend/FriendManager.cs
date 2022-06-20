@@ -45,6 +45,7 @@ public class FriendManager : MonoBehaviour
         LoadingObjcet.SetActive(true);
         WWWForm form = new WWWForm();
         form.AddField("order", "getFriend");
+        Debug.Log("내 닉넴: "+GameManager.NickName);
         form.AddField("player_nickname", GameManager.NickName);
         form.AddField("info", "1234");
         StartCoroutine(ListPost(form));

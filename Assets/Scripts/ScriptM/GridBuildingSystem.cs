@@ -207,7 +207,7 @@ public class GridBuildingSystem : MonoBehaviour
                             GameManager.isMoveLock = true;
                             //hit_building.Type = BuildType.Upgrade;
                             upgrade= hit_building.Upgrade();
-                            if (upgrade==false)
+                            if (upgrade==false&& hit_building.Level<2)
                             {
                                 Effect.SetActive(true);
                             }
@@ -239,8 +239,10 @@ public class GridBuildingSystem : MonoBehaviour
 
                         for (int i = 0; i < GameManager.NuniDialog.Count; i++)
                         {
+                            Debug.Log(GameManager.NuniDialog[i].Nuni);
                             if (nuni_card.cardName.Equals(GameManager.NuniDialog[i].Nuni))
                             {
+                                Debug.Log(nuni_card.cardName);
                                 nuni_dialog = GameManager.NuniDialog[i];
                             }
                         }
