@@ -281,12 +281,19 @@ public class GridScript : MonoBehaviour
             gameOver.gameObject.SetActive(true);
         }
     }
-    private void CheckIfAnyLineIsCompleted()//하나 놓을때마다 한번실행
+    public void CheckIfAnyLineIsCompleted()//하나 놓을때마다 한번실행
     {
         CheckIfLine();
-        if (GameOver() && Combo==0)
-        {
-            gameOver.gameObject.SetActive(true);
+        if (GameOver())
+        {          
+            if (Combo == 0)
+            {
+                gameOver.gameObject.SetActive(true);
+            }
+            else
+            {
+                CheckIfLine();
+            }
         }
     }
 
@@ -562,7 +569,7 @@ public class GridScript : MonoBehaviour
                 fullNum++;
             }
         }
-        if(fullNum == 25)
+        if(fullNum > 24)
         {
             isGameover = true;
         }

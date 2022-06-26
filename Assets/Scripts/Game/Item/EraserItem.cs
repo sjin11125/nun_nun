@@ -42,6 +42,7 @@ public class EraserItem : MonoBehaviour
                     squareImage.sprite = normalImage.sprite;//Èò»öÀ¸·Î ¹Ù²ã
                     buttonDown = false;
                     settigPanel.GetComponent<AudioController>().Sound[0].Play();
+                    GameObject.FindGameObjectWithTag("Grid").GetComponent<GridScript>().CheckIfKeepLineIsCompleted();
                 }
             }
         }

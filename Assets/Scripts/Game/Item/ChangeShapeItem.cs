@@ -115,7 +115,7 @@ public class ChangeShapeItem : MonoBehaviour
             myChlid[0].transform.GetChild(0).transform.gameObject.SetActive(true);
             myChlid[0].transform.GetChild(1).transform.gameObject.SetActive(false);
             myChlid[0].SetActive(false);
-            GameObject.FindGameObjectWithTag("Grid").GetComponent<GridScript>().CheckIfKeepLineIsCompleted();
+            GameObject.FindGameObjectWithTag("Grid").GetComponent<GridScript>().CheckIfAnyLineIsCompleted();
             squareObj = null;
             changeActive = false;
             if (colorItemAc)
