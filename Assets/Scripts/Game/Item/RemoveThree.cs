@@ -8,7 +8,6 @@ public class RemoveThree : MonoBehaviour
     GameObject[] myChlid;
     private Image squareImage;
     public Image normalImage;
-    public int ItemTurn;
     bool useRemove;
     bool centerhave;
     public Text number;
@@ -42,7 +41,7 @@ public class RemoveThree : MonoBehaviour
                     }
                     if(centerhave == true)
                     {
-                        GridScript.ThreeVerticalItem = ItemTurn;
+                        GridScript.ThreeVerticalItem = 30;
                         myChlid[0].SetActive(false);
                         myChlid[1].SetActive(true);
                         myChlid[2].SetActive(true);

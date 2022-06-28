@@ -7,7 +7,6 @@ public class ReloadItem : MonoBehaviour
 {
     private GameObject[] myChlid = new GameObject[3];
     GameObject shapestorageObj;
-    public int ItemTurn = 15;
     public Sprite getBlue;
     public Text number;
 
@@ -21,6 +20,7 @@ public class ReloadItem : MonoBehaviour
         }
         shapestorageObj = GameObject.FindGameObjectWithTag("ShapeStorage");
         settigPanel = GameObject.FindGameObjectWithTag("SettingPanel");
+        number.text = GridScript.ReloadItemTurn.ToString();
     }
 
     void Update()
@@ -39,7 +39,7 @@ public class ReloadItem : MonoBehaviour
                     {
                         shapestorageObj.GetComponent<ShapeStorage>().ReloadItem();
                         shapestorageObj.GetComponent<ShapeStorage>().ReloadItem();
-                        GridScript.ReloadItemTurn = ItemTurn;
+                        GridScript.ReloadItemTurn = 15;
                         myChlid[1].gameObject.GetComponent<Image>().sprite = getBlue;
                         myChlid[0].SetActive(true);//파티클 켜기
                         myChlid[2].SetActive(true);//블락 이미지 켜기

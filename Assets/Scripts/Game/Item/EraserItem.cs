@@ -10,14 +10,12 @@ public class EraserItem : MonoBehaviour
     public GameObject normalObj;
     public GameObject hooverObj;
     bool buttonDown;
-    public int ItemTurn= 20;
     public Text number;
 
     private GameObject settigPanel;
 
     void Start()
     {
-        GridScript.EraserItemTurn = ItemTurn;
         hooverObj.SetActive(true);
         number.text = GridScript.EraserItemTurn.ToString();
         settigPanel = GameObject.FindGameObjectWithTag("SettingPanel");
@@ -28,7 +26,7 @@ public class EraserItem : MonoBehaviour
         
         if (Input.GetMouseButtonDown(0) && buttonDown == true)// && hooverObj.activeSelf == false) //좌클할때&&버튼 눌려있을때
         {
-            GridScript.EraserItemTurn = ItemTurn;
+            GridScript.EraserItemTurn = 10;
             Vector2 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(worldPoint, Vector2.zero);//광선을 쏴
             if (hit.collider != null)
@@ -54,7 +52,7 @@ public class EraserItem : MonoBehaviour
         }
         else
         {
-            if (GridScript.EraserItemTurn == ItemTurn)
+            if (GridScript.EraserItemTurn == 10)
             {
                 hooverObj.SetActive(true);
             }

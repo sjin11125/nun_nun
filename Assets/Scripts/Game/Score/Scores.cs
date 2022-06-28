@@ -95,4 +95,16 @@ public class Scores : MonoBehaviour
         GameManager.ShinMoney += currentShinScores_;
         GameManager.QuestActive = QuestController.QuestActive;
     }
+
+    public void GameRestart()
+    {
+        if (ItemController.reStart)
+        {
+            currentScores_ = 0;
+            currentShinScores_ = 0;
+            newBestScore_ = false;
+            newBestScoreObj.SetActive(false);
+            UpdateScoreText();
+        }
+    }
 }

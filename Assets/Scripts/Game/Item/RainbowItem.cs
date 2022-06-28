@@ -13,7 +13,6 @@ public class RainbowItem : MonoBehaviour
     public int colorK = 0;
     public static bool rainbowActive;
     GameObject ChangeShapeObj;
-    public int ItemTurn;
     public Text number;
     bool shapeItemAc;
 
@@ -109,7 +108,7 @@ public class RainbowItem : MonoBehaviour
     {
         if(myChlid[2].activeSelf == false)
         {
-            GridScript.RainbowItemTurn = ItemTurn;
+            GridScript.RainbowItemTurn = 40;
             myChlid[2].SetActive(true);
             myChlid[1].SetActive(true);
             myChlid[0].transform.GetChild(0).transform.gameObject.SetActive(true);

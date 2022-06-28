@@ -11,13 +11,37 @@ public class ItemController : MonoBehaviour
     public GameObject keepshdow;
     public GameObject trashshdow;
 
-    void Awake()
+    public GameObject startManagerObj;
+    public GameObject GameoverObj;
+
+    public static bool reStart;
+
+    private void Awake()
+    {
+        /*
+        for (int i = 0; i < GameManager.Items.Length; i++)
+        {
+            GameManager.Items[i] = false;
+        }*/
+        for (int i = 0; i < mainItemBool.Length; i++)
+        {
+            mainItemBool[i] = false;
+        }
+        SetItem();
+        reStart = false;
+    }
+    public void ItemActive()//게임시작에서 넣기
     {      
         for (int i = 0; i < mainItemBool.Length; i++)
         {
             mainItemBool[i] = GameManager.Items[i];
         }
-        
+        SetItem();
+        GameObject.FindGameObjectWithTag("Grid").GetComponent<GridScript>().SettingKeep();
+    }
+
+    void SetItem()
+    {
         if (mainItemBool[0] == true)
         {
             eraserItem.SetActive(true);
@@ -104,5 +128,27 @@ public class ItemController : MonoBehaviour
         {
             ThreeHorizontalTtem.SetActive(false);
         }
+    }
+
+    public void GameoverReStart()
+    {
+        startManagerObj.transform.parent.gameObject.SetActive(true);
+        GameoverObj.gameObject.SetActive(false);
+        startManagerObj.GetComponent<StartManager>().CharacterOpen();
+        for (int i = 0; i < mainItemBool.Length; i++)
+        {
+            mainItemBool[i] = false;
+        }
+        GridScript.EraserItemTurn = 10;
+        GridScript.ReloadItemTurn = 15;
+        GridScript.NextExchangeItemTurn = 15;
+        GridScript.KeepItemTurn = 30;
+        GridScript.TrashItemTurn = 20;
+        GridScript.RainbowItemTurn = 40;
+        GridScript.ChangeShapeItem = 40;
+        GridScript.ThreeVerticalItem = 30;
+        GridScript.ThreeHorizontalItem = 30;
+        SetItem();
+        reStart = true;
     }
 }
