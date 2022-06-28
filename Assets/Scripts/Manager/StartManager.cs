@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 public class StartManager : MonoBehaviour
 {
     public GameObject CharacterPrefab;
@@ -19,9 +19,10 @@ public class StartManager : MonoBehaviour
     public static Sprite ChaImage_;
     GameObject Window;
 
-    public Text ItemInfoText;
+    //public Text ItemInfoText;
+    //public TextMesh ItemInfoText;
     //int[] itemList = new int[10] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-   public static Dictionary<int, bool> itemList = new Dictionary<int, bool> {
+    public static Dictionary<int, bool> itemList = new Dictionary<int, bool> {
                                                     {0,false},
                                                     { 1,false},
                                                     { 2,false},
@@ -47,7 +48,7 @@ public class StartManager : MonoBehaviour
                           "배치된 얼음중 아이템 기준 위아래로 얼음을 제거한다.",//배치된 타일중 아이템 기준 위아래로 타일제거한다.
                           "배치된 얼음 중 아이템 기준 양옆으로 얼음을 제거한다."};//배치된 타일 중 아이템 기준 양옆으로 타일 제거한다.
     public Sprite[] ItenImage;
-    public Text ItemInfo;
+    public TextMeshProUGUI ItemInfo;
     /* 아이템 목록
     * 0: 지우개               (황제)
     * 1: 킵                   (비서)
