@@ -14,7 +14,7 @@ public class RemoveThree : MonoBehaviour
 
     private GameObject settigPanel;
 
-    void Start()
+    public void StartAndReStart()
     {
         myChlid = new GameObject[3];
         for (int i = 0; i < myChlid.Length; i++)
@@ -22,6 +22,9 @@ public class RemoveThree : MonoBehaviour
             myChlid[i] = gameObject.transform.GetChild(i).gameObject;
         }
         settigPanel = GameObject.FindGameObjectWithTag("SettingPanel");
+        myChlid[0].SetActive(false);
+        myChlid[1].SetActive(true);
+        myChlid[2].SetActive(true);
         myChlid[1].GetComponent<BoxCollider2D>().enabled = false;
     }
 

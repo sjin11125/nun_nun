@@ -12,12 +12,14 @@ public class NextExchangeItem : MonoBehaviour
 
     private GameObject settigPanel;
 
-    void Start()
+    public void StartAndReStart()
     {
         for (int i = 0; i < myChlid.Length; i++)
         {
             myChlid[i] = gameObject.transform.GetChild(i).gameObject;
         }
+        myChlid[1].SetActive(true);
+        myChlid[2].SetActive(true);
         shapestorageObj = GameObject.FindGameObjectWithTag("ShapeStorage");
         settigPanel = GameObject.FindGameObjectWithTag("SettingPanel");
     }

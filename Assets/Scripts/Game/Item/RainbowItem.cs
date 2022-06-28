@@ -18,7 +18,7 @@ public class RainbowItem : MonoBehaviour
 
     private GameObject settigPanel;
 
-    void Start()
+    public void StartAndReStart()
     {
         myChlid = new GameObject[3];
         getColors = new Sprite[6];
@@ -27,7 +27,10 @@ public class RainbowItem : MonoBehaviour
         {
             myChlid[i] = gameObject.transform.GetChild(i).gameObject;
         }
-        shapestorageObj = GameObject.FindGameObjectWithTag("ShapeStorage");
+        shapestorageObj = GameObject.FindGameObjectWithTag("ShapeStorage"); 
+        myChlid[0].SetActive(false);
+        myChlid[1].SetActive(true);
+        myChlid[2].SetActive(true);
 
         myChlid[0].transform.GetChild(0).transform.gameObject.SetActive(true);
         myChlid[0].transform.GetChild(1).transform.gameObject.SetActive(false);

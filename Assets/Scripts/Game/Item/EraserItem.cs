@@ -14,12 +14,13 @@ public class EraserItem : MonoBehaviour
 
     private GameObject settigPanel;
 
-    void Start()
+    public void StartAndReStart()
     {
+        normalObj.SetActive(true);
         hooverObj.SetActive(true);
-        number.text = GridScript.EraserItemTurn.ToString();
         settigPanel = GameObject.FindGameObjectWithTag("SettingPanel");
     }
+
     void Update()
     {
         number.text = GridScript.EraserItemTurn.ToString();

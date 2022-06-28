@@ -30,6 +30,7 @@ public class ItemController : MonoBehaviour
         SetItem();
         reStart = false;
     }
+
     public void ItemActive()//게임시작에서 넣기
     {      
         for (int i = 0; i < mainItemBool.Length; i++)
@@ -44,7 +45,9 @@ public class ItemController : MonoBehaviour
     {
         if (mainItemBool[0] == true)
         {
+            GridScript.EraserItemTurn = 10;
             eraserItem.SetActive(true);
+            eraserItem.GetComponent<EraserItem>().StartAndReStart();
         }
         else
         {
@@ -53,6 +56,7 @@ public class ItemController : MonoBehaviour
 
         if (mainItemBool[1] == true)
         {
+            GridScript.KeepItemTurn = 30;
             keepItemIndex = 25;
             keepshdow.SetActive(true);
         }
@@ -63,6 +67,7 @@ public class ItemController : MonoBehaviour
 
         if (mainItemBool[2] == true)
         {
+            GridScript.TrashItemTurn = 20;
             trashCanItemIndex = 29;
             trashshdow.SetActive(true);
         }
@@ -82,47 +87,64 @@ public class ItemController : MonoBehaviour
 
         if (mainItemBool[4] == true)
         {
+            GridScript.ReloadItemTurn = 15;
             nextResetItem.SetActive(true);
+            nextResetItem.GetComponent<ReloadItem>().StartAndReStart();
         }
         else
         {
             nextResetItem.SetActive(false);
         }
+
         if (mainItemBool[5] == true)
         {
+            GridScript.NextExchangeItemTurn = 15;
             NextExchangeItem.SetActive(true);
+            NextExchangeItem.GetComponent<NextExchangeItem>().StartAndReStart();
         }
         else
         {
             NextExchangeItem.SetActive(false);
         }
+
         if (mainItemBool[6] == true)
         {
+            GridScript.RainbowItemTurn = 40;
             RainbowItem.SetActive(true);
+            RainbowItem.GetComponent<RainbowItem>().StartAndReStart();
         }
         else
         {
             RainbowItem.SetActive(false);
         }
+
         if (mainItemBool[7] == true)
         {
+            GridScript.ChangeShapeItem = 40;
             ChangeShapeItem.SetActive(true);
+            ChangeShapeItem.GetComponent<ChangeShapeItem>().StartAndReStart();
         }
         else
         {
             ChangeShapeItem.SetActive(false);
         }
+
         if (mainItemBool[8] == true)
         {
+            GridScript.ThreeVerticalItem = 30;
             ThreeVerticalItem.SetActive(true);
+            ThreeVerticalItem.GetComponent<RemoveThree>().StartAndReStart();
         }
         else
         {
             ThreeVerticalItem.SetActive(false);
         }
+
         if (mainItemBool[9] == true)
         {
+            GridScript.ThreeHorizontalItem = 30;
             ThreeHorizontalTtem.SetActive(true);
+            ThreeHorizontalTtem.GetComponent<RemoveThreeHo>().StartAndReStart();
         }
         else
         {
@@ -139,16 +161,6 @@ public class ItemController : MonoBehaviour
         {
             mainItemBool[i] = false;
         }
-        GridScript.EraserItemTurn = 10;
-        GridScript.ReloadItemTurn = 15;
-        GridScript.NextExchangeItemTurn = 15;
-        GridScript.KeepItemTurn = 30;
-        GridScript.TrashItemTurn = 20;
-        GridScript.RainbowItemTurn = 40;
-        GridScript.ChangeShapeItem = 40;
-        GridScript.ThreeVerticalItem = 30;
-        GridScript.ThreeHorizontalItem = 30;
-        SetItem();
         reStart = true;
     }
 }
