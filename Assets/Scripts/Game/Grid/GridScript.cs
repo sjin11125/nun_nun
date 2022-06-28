@@ -277,24 +277,19 @@ public class GridScript : MonoBehaviour
         ChangeShapeItem++;
         ThreeVerticalItem++;
         ThreeHorizontalItem++;
+
         if (GameOver() && Combo==0)
         {
             gameOver.gameObject.SetActive(true);
         }
     }
+
     public void CheckIfAnyLineIsCompleted()//하나 놓을때마다 한번실행
     {
         CheckIfLine();
-        if (GameOver())
-        {          
-            if (Combo == 0)
-            {
-                gameOver.gameObject.SetActive(true);
-            }
-            else
-            {
-                CheckIfLine();
-            }
+        if (GameOver() && Combo == 0)
+        {
+            gameOver.gameObject.SetActive(true);
         }
     }
 
@@ -652,11 +647,13 @@ public class GridScript : MonoBehaviour
                 if(trashCanIndex == i)
                 {
                     comp.IMtrash = true;
+                    _gridSquares[i].SetActive(true);
                     UseTrashCan();
                 }
                 else if(keepSquareIndex == i)
                 {
                     comp.IMkeep = true;
+                    _gridSquares[i].SetActive(true);
                     UseKeep();
                 }
             }
@@ -673,11 +670,11 @@ public class GridScript : MonoBehaviour
                 comp.Deactivate();
                 comp.ClearOccupied();
             }
-            SettingKeep();
-
+           
             shapestorageObj = GameObject.FindGameObjectWithTag("ShapeStorage");
             shapestorageObj.GetComponent<ShapeStorage>().ReloadItem();
             shapestorageObj.GetComponent<ShapeStorage>().ReloadItem();
         }
+        SettingKeep();
     }
 }

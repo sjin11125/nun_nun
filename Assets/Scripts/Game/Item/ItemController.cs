@@ -18,27 +18,17 @@ public class ItemController : MonoBehaviour
 
     private void Awake()
     {
-        /*
-        for (int i = 0; i < GameManager.Items.Length; i++)
-        {
-            GameManager.Items[i] = false;
-        }*/
-        for (int i = 0; i < mainItemBool.Length; i++)
-        {
-            mainItemBool[i] = false;
-        }
-        SetItem();
+        ItemActive();
         reStart = false;
     }
 
-    public void ItemActive()//게임시작에서 넣기
+    public void ItemActive()//아이템 선택창에 게임 시작
     {      
-        for (int i = 0; i < mainItemBool.Length; i++)
+        for (int i = 0; i < mainItemBool.Length; i++)//선택한 아이템 전달
         {
             mainItemBool[i] = GameManager.Items[i];
         }
-        SetItem();
-        GameObject.FindGameObjectWithTag("Grid").GetComponent<GridScript>().SettingKeep();
+        SetItem();//아이템 세팅
     }
 
     void SetItem()
@@ -152,12 +142,13 @@ public class ItemController : MonoBehaviour
         }
     }
 
-    public void GameoverReStart()
+    public void GameoverReStart()//게임오버에 있는 리스타트버튼
     {
-        startManagerObj.transform.parent.gameObject.SetActive(true);
-        GameoverObj.gameObject.SetActive(false);
-        startManagerObj.GetComponent<StartManager>().CharacterOpen();
-        for (int i = 0; i < mainItemBool.Length; i++)
+        GameoverObj.gameObject.SetActive(false);//게임오버 판넬끄고
+        startManagerObj.transform.parent.gameObject.SetActive(true);//아이템 판넬 켜기
+
+        startManagerObj.GetComponent<StartManager>().CharacterOpen();//캐릭터 정보를 게임매니저에 전달
+        for (int i = 0; i < mainItemBool.Length; i++)//초기화
         {
             mainItemBool[i] = false;
         }
