@@ -20,7 +20,6 @@ public class ReloadItem : MonoBehaviour
         }
         shapestorageObj = GameObject.FindGameObjectWithTag("ShapeStorage");
         settigPanel = GameObject.FindGameObjectWithTag("SettingPanel");
-        number.text = GridScript.ReloadItemTurn.ToString();
     }
 
     void Update()
