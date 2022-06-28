@@ -7,17 +7,8 @@ public class ShopBuyScript : MonoBehaviour
 {
     public Text CancelText;
     public GameObject Water;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public static bool isfirst;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public void NuniBuy()
     {
         if (GameManager.Money < 2000)
@@ -27,9 +18,12 @@ public class ShopBuyScript : MonoBehaviour
         }
         else
         {
+            if (!isfirst)
+            {
+                Destroy(GameObject.FindGameObjectWithTag("Card").gameObject);
+            }
             Water.SetActive(true);
             gameObject.SetActive(false);
-            
         }
     }
 }

@@ -9,6 +9,10 @@ public class RandomSelect : MonoBehaviour
     public int total = 0;  // 카드들의 가중치 총 합
 
     public static int isTuto;
+    public List<Card> result = new List<Card>();  // 랜덤하게 선택된 카드를 담을 리스트
+
+    public Transform parent;
+    public GameObject cardprefab;
 
     void Start()
     {
@@ -21,15 +25,12 @@ public class RandomSelect : MonoBehaviour
         for (int i = 0; i < GameManager.AllNuniArray.Length; i++)
         {
             // deck[i] = GameManager.AllNuniArray[i];
-            Card c=new Card(GameManager.AllNuniArray[i]);
+            Card c = new Card(GameManager.AllNuniArray[i]);
             c.SetValue(GameManager.AllNuniArray[i]);
             deck.Add(c);
         }
+        ShopBuyScript.isfirst = true;
     }
-    public List<Card> result = new List<Card>();  // 랜덤하게 선택된 카드를 담을 리스트
-
-    public Transform parent;
-    public GameObject cardprefab;
 
     public void ResultSelect()
     {
@@ -46,7 +47,7 @@ public class RandomSelect : MonoBehaviour
 
 
         StartCoroutine(NuniSave(Nuni));          //구글 스크립트에 업데이트
-
+        ShopBuyScript.isfirst = false;
     }
     IEnumerator NuniSave(Card nuni)                //누니 구글 스크립트에 저장
     {

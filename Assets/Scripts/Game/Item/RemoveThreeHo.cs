@@ -8,14 +8,13 @@ public class RemoveThreeHo : MonoBehaviour
     GameObject[] myChlid;
     private Image squareImage;
     public Image normalImage;
-    public int ItemTurn;
     bool useRemove;
     bool centerhave;
     public Text number;
 
     private GameObject settigPanel;
 
-    void Start()
+    public void StartAndReStart()
     {
         myChlid = new GameObject[3];
         for (int i = 0; i < myChlid.Length; i++)
@@ -23,6 +22,9 @@ public class RemoveThreeHo : MonoBehaviour
             myChlid[i] = gameObject.transform.GetChild(i).gameObject;
         }
         settigPanel = GameObject.FindGameObjectWithTag("SettingPanel");
+        myChlid[0].SetActive(false);
+        myChlid[1].SetActive(true);
+        myChlid[2].SetActive(true);
         myChlid[1].GetComponent<BoxCollider2D>().enabled = false;
     }
 
@@ -42,7 +44,7 @@ public class RemoveThreeHo : MonoBehaviour
                     }
                     if (centerhave == true)
                     {
-                        GridScript.ThreeHorizontalItem = ItemTurn;
+                        GridScript.ThreeHorizontalItem = 30;
                         myChlid[0].SetActive(false);
                         myChlid[1].SetActive(true);
                         myChlid[2].SetActive(true);
