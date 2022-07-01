@@ -29,9 +29,19 @@ public class GoogleSheetManager : MonoBehaviour
     public bool ifISign;
 
     public GameObject loginBtn;
+    public string bestScoreKey_ = "bsdat";
+    private BestScoreData bestScores_ = new BestScoreData();
 
     private void Awake()
     {
+        if (BinaryDataStream.Exist(bestScoreKey_))
+        {
+            StartCoroutine(ReadDataFile());
+        }
+        else
+        {
+            Debug.Log("존재하지않음");
+        }
         if (!ifISign)
         {
             if (PlayerPrefs.GetString("Id") != null)//회원가입후에
@@ -107,6 +117,8 @@ public class GoogleSheetManager : MonoBehaviour
 
         GameManager.Money = 2000;
         GameManager.ShinMoney = 0;
+
+        
         form2.AddField("money", GameManager.Money.ToString() + "@" + GameManager.ShinMoney.ToString()+ "@" + TutorialsManager.itemIndex);
         form2.AddField("isUpdate", "true");
         StartCoroutine(SetPost(form2));
@@ -117,6 +129,14 @@ public class GoogleSheetManager : MonoBehaviour
 
     }
 
+    private IEnumerator ReadDataFile()
+    {
+        
+        bestScores_ = BinaryDataStream.Read<BestScoreData>(bestScoreKey_);
+        Debug.Log("최고기록: "+bestScores_.score);
+        yield return new WaitForEndOfFrame();
+
+    }
 
     public void Login()//자동 로그인
     {
@@ -137,6 +157,11 @@ public class GoogleSheetManager : MonoBehaviour
         form.AddField("order", "login");
         form.AddField("id", IDInput.text);
         form.AddField("pass", PassInput.text);
+
+        if (BinaryDataStream.Exist(bestScoreKey_))
+        {
+            StartCoroutine(ReadDataFile());
+        }
 
         PlayerPrefs.SetString("Id", id);//아이디비번 저장
         PlayerPrefs.SetString("Pass", pass);
@@ -273,7 +298,10 @@ public class GoogleSheetManager : MonoBehaviour
                 WWWForm form = new WWWForm();
                 form.AddField("order", "setMoney");
                 form.AddField("player_nickname", GameManager.NickName);
-                string tempMoney = PlayerPrefs.GetInt("Money").ToString() + "@" + PlayerPrefs.GetInt("ShinMoney").ToString() + "@" + PlayerPrefs.GetInt("TutorialsDone").ToString();
+
+               
+
+                string tempMoney = PlayerPrefs.GetInt("Money").ToString() + "@" + PlayerPrefs.GetInt("ShinMoney").ToString() + "@" + PlayerPrefs.GetInt("TutorialsDone").ToString() + "@" + bestScores_.score.ToString();
                 form.AddField("money", tempMoney);
                 form.AddField("isUpdate", "true");
 
