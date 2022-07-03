@@ -84,7 +84,7 @@ public class RemoveThree : MonoBehaviour
                 {
                     clearSquare(tempObj[up]);
                 }
-                if(down <26 && tempObj[down].transform.GetChild(2).gameObject.activeSelf == true)
+                if(down <25 && tempObj[down].transform.GetChild(2).gameObject.activeSelf == true)
                 {
                     clearSquare(tempObj[down]);
                 }
