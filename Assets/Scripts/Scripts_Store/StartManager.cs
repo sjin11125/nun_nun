@@ -14,10 +14,7 @@ public class StartManager : MonoBehaviour
     public static bool isParsing = false;
 
     GameObject DogamCha;
-    Sprite[] ChaImage;
-    Character Cha;
     public static Sprite ChaImage_;
-    GameObject Window;
 
     public Text ItemInfoText;
     //int[] itemList = new int[10] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
@@ -63,8 +60,8 @@ public class StartManager : MonoBehaviour
     public static Button[] LockButton;
 
     public static GameObject Canvas;
-    // Start is called before the first frame update
-    void Start()
+
+    void Awake()
     {
         if (isParsing .Equals( false))
         {
@@ -74,10 +71,9 @@ public class StartManager : MonoBehaviour
         }
         Canvas = GameObject.Find("Canvas");
         StartManager.ChaIndex = 99;
-
+        CharacterOpen();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (ChaIndex.Equals(99))
@@ -130,8 +126,6 @@ public class StartManager : MonoBehaviour
             Button DogamChaButton = DogamCha.GetComponent<Button>();
             Image[] image = DogamChaButton.GetComponentsInChildren<Image>();
 
-            Text CharacterName = ChaPrefabChilds[1].GetComponent<Text>();
-
             if (itemList[j] .Equals( true))
             {
                 image[1].sprite = ItenImage[j];//NuNiInformation[j].GetChaImange();   //캐릭터 이름 값 받아와서 이미지 찾기
@@ -156,15 +150,6 @@ public class StartManager : MonoBehaviour
             
         }
         //LockButton = LockButtonList.ToArray();      //잠긴 버튼 리스트 배열로 만들어서 넣기
-        GridScript.EraserItemTurn = 10;
-        GridScript.ReloadItemTurn = 15;
-        GridScript.NextExchangeItemTurn = 15;
-        GridScript.KeepItemTurn = 30;
-        GridScript.TrashItemTurn = 20;
-        GridScript.RainbowItemTurn = 40;
-        GridScript.ChangeShapeItem = 40;
-        GridScript.ThreeVerticalItem = 30;
-        GridScript.ThreeHorizontalItem = 30;
     }
 
 

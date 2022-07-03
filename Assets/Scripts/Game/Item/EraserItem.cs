@@ -10,25 +10,24 @@ public class EraserItem : MonoBehaviour
     public GameObject normalObj;
     public GameObject hooverObj;
     bool buttonDown;
-    public int ItemTurn= 20;
     public Text number;
 
     private GameObject settigPanel;
 
-    void Start()
+    public void StartAndReStart()
     {
-        GridScript.EraserItemTurn = ItemTurn;
+        normalObj.SetActive(true);
         hooverObj.SetActive(true);
-        number.text = GridScript.EraserItemTurn.ToString();
         settigPanel = GameObject.FindGameObjectWithTag("SettingPanel");
     }
+
     void Update()
     {
         number.text = GridScript.EraserItemTurn.ToString();
         
         if (Input.GetMouseButtonDown(0) && buttonDown == true)// && hooverObj.activeSelf == false) //ÁÂÅ¬ÇÒ¶§&&¹öÆ° ´­·ÁÀÖÀ»¶§
         {
-            GridScript.EraserItemTurn = ItemTurn;
+            GridScript.EraserItemTurn = 10;
             Vector2 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(worldPoint, Vector2.zero);//±¤¼±À» ½÷
             if (hit.collider != null)
@@ -42,6 +41,7 @@ public class EraserItem : MonoBehaviour
                     squareImage.sprite = normalImage.sprite;//Èò»öÀ¸·Î ¹Ù²ã
                     buttonDown = false;
                     settigPanel.GetComponent<AudioController>().Sound[0].Play();
+                    GameObject.FindGameObjectWithTag("Grid").GetComponent<GridScript>().CheckIfKeepLineIsCompleted();
                 }
             }
         }
@@ -53,7 +53,7 @@ public class EraserItem : MonoBehaviour
         }
         else
         {
-            if (GridScript.EraserItemTurn == ItemTurn)
+            if (GridScript.EraserItemTurn == 10)
             {
                 hooverObj.SetActive(true);
             }

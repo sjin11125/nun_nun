@@ -7,18 +7,19 @@ public class NextExchangeItem : MonoBehaviour
 {
     private GameObject[] myChlid = new GameObject[3];
     GameObject shapestorageObj;
-    public int ItemTurn = 15;
     public Sprite getBlue;
     public Text number;
 
     private GameObject settigPanel;
 
-    void Start()
+    public void StartAndReStart()
     {
         for (int i = 0; i < myChlid.Length; i++)
         {
             myChlid[i] = gameObject.transform.GetChild(i).gameObject;
         }
+        myChlid[1].SetActive(true);
+        myChlid[2].SetActive(true);
         shapestorageObj = GameObject.FindGameObjectWithTag("ShapeStorage");
         settigPanel = GameObject.FindGameObjectWithTag("SettingPanel");
     }
@@ -38,7 +39,7 @@ public class NextExchangeItem : MonoBehaviour
                     if (GridScript.NextExchangeItemTurn <= 0)
                     {
                         shapestorageObj.GetComponent<ShapeStorage>().nextExchangeItem();
-                        GridScript.NextExchangeItemTurn = ItemTurn;
+                        GridScript.NextExchangeItemTurn = 15;
                         myChlid[1].gameObject.GetComponent<Image>().sprite = getBlue;
                         myChlid[0].SetActive(true);//파티클 켜기
                         myChlid[2].SetActive(true);//블락 이미지 켜기

@@ -19,8 +19,9 @@ public class AnimationEvent : MonoBehaviour
             rand.GetComponent<RandomSelect>().ResultSelect();
             GameManager.Money -= 2000;       //2000¿ø »©±â
         }
-      
-       
+
+        GameObject.FindGameObjectWithTag("ShopBtn").transform.GetChild(0).gameObject.SetActive(true);
+        gameObject.SetActive(false);
     }
 
     public void NuniAnimationEnd()

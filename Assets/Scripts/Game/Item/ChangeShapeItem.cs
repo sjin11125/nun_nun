@@ -13,13 +13,12 @@ public class ChangeShapeItem : MonoBehaviour
     public int colorK = 0;
     public static bool changeActive;
     GameObject rainbowObj;
-    public int ItemTurn;
     public Text number;
     bool colorItemAc;
 
     private GameObject settigPanel;
 
-    void Start()
+    public void StartAndReStart()
     {
         myChlid = new GameObject[3];
         getShapes = new Sprite[6];
@@ -29,6 +28,9 @@ public class ChangeShapeItem : MonoBehaviour
             myChlid[i] = gameObject.transform.GetChild(i).gameObject;
         }
         shapestorageObj = GameObject.FindGameObjectWithTag("ShapeStorage");
+        myChlid[0].SetActive(false);
+        myChlid[1].SetActive(true);
+        myChlid[2].SetActive(true);
 
         myChlid[0].transform.GetChild(0).transform.gameObject.SetActive(true);
         myChlid[0].transform.GetChild(1).transform.gameObject.SetActive(false);
@@ -109,7 +111,7 @@ public class ChangeShapeItem : MonoBehaviour
     {
         if (myChlid[2].activeSelf == false)
         {
-            GridScript.ChangeShapeItem = ItemTurn;
+            GridScript.ChangeShapeItem = 40;
             myChlid[2].SetActive(true);
             myChlid[1].SetActive(true);
             myChlid[0].transform.GetChild(0).transform.gameObject.SetActive(true);

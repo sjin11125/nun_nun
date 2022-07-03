@@ -43,6 +43,7 @@ public class GridScript : MonoBehaviour
     public GameObject ComboImg;
     int Combo = 0;
     List<GameObject> comboObject = new List<GameObject>();
+    GameObject shapestorageObj;
 
     private void OnEnable()
     {
@@ -58,7 +59,7 @@ public class GridScript : MonoBehaviour
     {
         _lineIndicator = GetComponent<LineIndicator>();
         CreateGrid();
-        SettingKeep();
+        //SettingKeep();
         settigPanel = GameObject.FindGameObjectWithTag("SettingPanel");
     }
 
@@ -276,15 +277,17 @@ public class GridScript : MonoBehaviour
         ChangeShapeItem++;
         ThreeVerticalItem++;
         ThreeHorizontalItem++;
+
         if (GameOver() && Combo==0)
         {
             gameOver.gameObject.SetActive(true);
         }
     }
-    private void CheckIfAnyLineIsCompleted()//하나 놓을때마다 한번실행
+
+    public void CheckIfAnyLineIsCompleted()//하나 놓을때마다 한번실행
     {
         CheckIfLine();
-        if (GameOver() && Combo==0)
+        if (GameOver() && Combo == 0)
         {
             gameOver.gameObject.SetActive(true);
         }
@@ -554,6 +557,7 @@ public class GridScript : MonoBehaviour
     {
         bool isGameover = false;
         int fullNum = 0;
+        int fullSNum = 0;
 
         for (int i = 0; i < 25; i++)
         {         
@@ -562,7 +566,14 @@ public class GridScript : MonoBehaviour
                 fullNum++;
             }
         }
-        if(fullNum == 25)
+        for (int i = 0; i < 25; i++)
+        {
+            if (shapes[i] != null)
+            {
+                fullSNum++;
+            }
+        }
+        if(fullNum > 24 || fullSNum>24)
         {
             isGameover = true;
         }
@@ -614,7 +625,7 @@ public class GridScript : MonoBehaviour
         }
     }
 
-    void SettingKeep()//LineIndicator로 열을 하나 더 만들었는데 우린 keep자리와 can자리만 필요하니 그게 아니라면 끄기
+    public void SettingKeep()//LineIndicator로 열을 하나 더 만들었는데 우린 keep자리와 can자리만 필요하니 그게 아니라면 끄기
     {
         GameObject ItemControllerObj = GameObject.FindGameObjectWithTag("ItemController");
         if (ItemControllerObj != null)
@@ -636,14 +647,34 @@ public class GridScript : MonoBehaviour
                 if(trashCanIndex == i)
                 {
                     comp.IMtrash = true;
+                    _gridSquares[i].SetActive(true);
                     UseTrashCan();
                 }
                 else if(keepSquareIndex == i)
                 {
                     comp.IMkeep = true;
+                    _gridSquares[i].SetActive(true);
                     UseKeep();
                 }
             }
         }
+    }
+
+    public void GameRestart()
+    {
+        if (ItemController.reStart)
+        {
+            for (int i = 0; i < _gridSquares.Count; i++)
+            {
+                var comp = _gridSquares[i].GetComponent<GridSquare>();
+                comp.Deactivate();
+                comp.ClearOccupied();
+            }
+           
+            shapestorageObj = GameObject.FindGameObjectWithTag("ShapeStorage");
+            shapestorageObj.GetComponent<ShapeStorage>().ReloadItem();
+            shapestorageObj.GetComponent<ShapeStorage>().ReloadItem();
+        }
+        SettingKeep();
     }
 }

@@ -103,11 +103,11 @@ public class LoadManager : MonoBehaviour
             {
                 Camera.main.GetComponent<Transform>().position = new Vector3(0, 0, -10);
             }
-
+            /*
             for (int i = 0; i < GameManager.Items.Length; i++)
             {
                 GameManager.Items[i] = false;
-            }
+            }*/
         }
 
 
