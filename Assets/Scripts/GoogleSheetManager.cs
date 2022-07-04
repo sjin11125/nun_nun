@@ -25,7 +25,6 @@ public class GoogleSheetManager : MonoBehaviour
     public BuildingSave MyBuildingLoad;
 
     public GameObject WarningPannel;
-    public GameObject retext;
     public bool ifISign;
 
     public GameObject loginBtn;
@@ -67,14 +66,6 @@ public class GoogleSheetManager : MonoBehaviour
         nickname = NicknameInput.text.Trim();
         if (id.Equals("") || pass.Equals("") || nickname.Equals("")) return false;
         else return true;
-    }
-
-    public void SigninBtn()
-    {
-        if (PlayerPrefs.GetString("Id") != null)//다시 회원가입
-        {
-            retext.SetActive(true);
-        }
     }
 
     public void Register()//회원가입
