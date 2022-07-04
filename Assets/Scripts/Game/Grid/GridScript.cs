@@ -236,11 +236,11 @@ public class GridScript : MonoBehaviour
                 }
                 comboObject.Clear();
             }
-            /*
+            
             if (GameOver())
             {
                 gameOver.gameObject.SetActive(true);
-            }*/
+            }
         }
         else
         {
@@ -277,20 +277,23 @@ public class GridScript : MonoBehaviour
         ChangeShapeItem++;
         ThreeVerticalItem++;
         ThreeHorizontalItem++;
-
+        /*
         if (GameOver() && Combo==0)
         {
             gameOver.gameObject.SetActive(true);
         }
+        */
     }
 
     public void CheckIfAnyLineIsCompleted()//하나 놓을때마다 한번실행
     {
         CheckIfLine();
+        /*
         if (GameOver() && Combo == 0)
         {
             gameOver.gameObject.SetActive(true);
         }
+        */
     }
 
     int[] sameColorColumLine = new int[5];

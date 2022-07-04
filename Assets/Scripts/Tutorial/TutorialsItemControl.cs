@@ -81,7 +81,7 @@ public class TutorialsItemControl : MonoBehaviour
 
     public void HiRandomOnclick()
     {
-        LoadingSceneController.Instance.LoadScene("TutorialsShop");
+        LoadingSceneController.Instance.LoadScene("Shop");
         goNext = true;
     }
 

@@ -23,7 +23,8 @@ public class ShopBuyScript : MonoBehaviour
                 Destroy(GameObject.FindGameObjectWithTag("Card").gameObject);
             }
             Water.SetActive(true);
-            gameObject.SetActive(false);
+            gameObject.transform.GetChild(0).gameObject.SetActive(false);
+            gameObject.transform.GetChild(1).gameObject.SetActive(false);
         }
     }
 }
