@@ -103,8 +103,8 @@ public class GoogleSheetManager : MonoBehaviour
         StartCoroutine(SetPost(form2));
 
         //PlayerPrefs.SetInt("TutorialsDone", TutorialsManager.itemIndex);
+        loginBtn.SetActive(false);
 
-       
 
     }
 
