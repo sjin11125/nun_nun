@@ -21,6 +21,8 @@ public class AnimationEvent : MonoBehaviour
         }
 
         GameObject.FindGameObjectWithTag("ShopBtn").transform.GetChild(0).gameObject.SetActive(true);
+        GameObject.FindGameObjectWithTag("ShopBtn").transform.GetChild(1).gameObject.SetActive(true);
+        //GameObject.FindGameObjectWithTag("ShopBtn").gameObject.SetActive(true);
         gameObject.SetActive(false);
     }
 
