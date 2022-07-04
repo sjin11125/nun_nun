@@ -32,16 +32,11 @@ public class GameExitController : MonoBehaviour
 
     public void GameSave()
     {
-       /* PlayerPrefs.SetInt("Money", GameManager.Money);
-        PlayerPrefs.SetInt("ShinMoney", GameManager.ShinMoney);
-        PlayerPrefs.Save();
-        print("save");*/
-
         WWWForm form2 = new WWWForm();                      //µ∑ ¿˙¿Â
         //isMe = true;                 
         form2.AddField("order", "setMoney");
         form2.AddField("player_nickname", GameManager.NickName);
-        form2.AddField("money", GameManager.Money.ToString()+"@"+GameManager.ShinMoney.ToString() + "@" + TutorialsManager.itemIndex);
+        form2.AddField("money", GameManager.Money.ToString()+"@"+GameManager.ShinMoney.ToString() + "@" + TutorialsManager.itemIndex+"@"+GameManager.BestScore);
       
         StartCoroutine(SetPost(form2));
     }

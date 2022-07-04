@@ -77,7 +77,7 @@ public class DogamManager : MonoBehaviour
 
                 BuildingButtonText[0].text = GameManager.StrArray[j].Building_name;      //빌딩 이름 넣기
                 BuildingButtonText[1].text = GameManager.StrArray[j].Info;                //빌딩 설명 넣기
-                BuildingButtonText[2].text = "Buy";               //빌딩 가격 넣기
+                BuildingButtonText[2].text = "구매";               //빌딩 가격 넣기
 
                 BuildingButtonText[3].text = GameManager.StrArray[j].ShinCost[0].ToString();          //발광석 가격 넣기   
                 BuildingButtonText[4].text = GameManager.StrArray[j].Cost[0].ToString();          //발광석 가격 넣기   
@@ -146,7 +146,7 @@ public class DogamManager : MonoBehaviour
 
                 BuildingButtonText[0].text = BuildingInformation[j].Building_name;      //빌딩 이름 넣기
                 BuildingButtonText[1].text= BuildingInformation[j].Info;                //빌딩 설명 넣기
-                BuildingButtonText[2].text ="Buy";               //빌딩 가격 넣기
+                BuildingButtonText[2].text ="구매";               //빌딩 가격 넣기
 
                 BuildingButtonText[3].text = BuildingInformation[j].ShinCost[0].ToString();          //발광석 가격 넣기   
                 BuildingButtonText[4].text = BuildingInformation[j].Cost[0].ToString();          //발광석 가격 넣기   
