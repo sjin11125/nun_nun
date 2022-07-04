@@ -61,6 +61,33 @@ public class GoogleSheetManager : MonoBehaviour
             }
         }
     }
+    void Start()
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("order", "isUpdate");
+
+        StartCoroutine(VersionPost(form)); //최신 버전 불러오기
+    }
+    IEnumerator VersionPost(WWWForm form)
+    {
+        using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // 반드시 using을 써야한다
+        {
+            yield return www.SendWebRequest();
+
+            GameManager.NickName = nickname;
+            GameManager.Id = id;
+            VersionResponse(www.downloadHandler.text);
+            //StartCoroutine(Quest());
+            //SceneManager.LoadScene("Main");
+        }
+    }
+
+    void VersionResponse(string json)
+    {
+        GameManager.NewVersion = json;                  //최신버전 확인
+        Debug.Log(GameManager.NewVersion);
+        
+    }
 
     bool SetIDPass()
     {
@@ -133,6 +160,7 @@ public class GoogleSheetManager : MonoBehaviour
     {
         
         bestScores_ = BinaryDataStream.Read<BestScoreData>(bestScoreKey_);
+        GameManager.BestScore = bestScores_.score;
         Debug.Log("최고기록: "+bestScores_.score);
         yield return new WaitForEndOfFrame();
 
@@ -158,11 +186,7 @@ public class GoogleSheetManager : MonoBehaviour
         form.AddField("id", IDInput.text);
         form.AddField("pass", PassInput.text);
 
-        if (BinaryDataStream.Exist(bestScoreKey_))
-        {
-            StartCoroutine(ReadDataFile());
-        }
-
+   
         PlayerPrefs.SetString("Id", id);//아이디비번 저장
         PlayerPrefs.SetString("Pass", pass);
 
@@ -292,6 +316,7 @@ public class GoogleSheetManager : MonoBehaviour
                     continue;
                 GameManager.ProfileImage = GameManager.AllNuniArray[i].Image;
             }
+
             if (GD.isUpdate == "null")            //업데이트를 안한 상태인가
             {
                 Debug.Log("업뎃안함");
@@ -308,20 +333,20 @@ public class GoogleSheetManager : MonoBehaviour
 
                 StartCoroutine(SetPost(form));
             }
+            else if(GD.isUpdate == "true")  //최고기록 저장을 아직 안했는가
+            {
+                WWWForm form1 = new WWWForm();                          //자원을 먼저 부르고 저장한 다음 최고점수 저장
+                form1.AddField("order", "getMoney");
+                form1.AddField("player_nickname", GameManager.NickName);
+                StartCoroutine(MoneyPost(form1));
+
+            }
             else {
                 WWWForm form1 = new WWWForm();                          //자원 부르기
                 form1.AddField("order", "getMoney");
                 form1.AddField("player_nickname", GameManager.NickName);
                 StartCoroutine(MoneyPost(form1));
             }
-
-
-       
-
-
-
-
-
             return;
         }
         if (GD.order.Equals("getValue"))
@@ -338,10 +363,40 @@ public class GoogleSheetManager : MonoBehaviour
             yield return www.SendWebRequest();
             if (www.isDone)
             {
+               
                 MoneyResponse(www.downloadHandler.text);
             }
             else print("웹의 응답이 없습니다.");
         }
+    }
+    IEnumerator BestScorePost(WWWForm form)
+    {
+
+        using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // 반드시 using을 써야한다
+        {
+            yield return www.SendWebRequest();
+            if (www.isDone)
+            {
+
+                BestScoreResponse(www.downloadHandler.text);
+            }
+            else print("웹의 응답이 없습니다.");
+        }
+    }
+    public void BestScoreResponse(string json)
+    {
+        Debug.Log("최고기록 업뎃안함");                                  //서버에 최고기록 저장
+        WWWForm form = new WWWForm();
+        form.AddField("order", "setMoney");
+        form.AddField("player_nickname", GameManager.NickName);
+        string tempMoney = GameManager.Money.ToString() + "@" + GameManager.ShinMoney.ToString() + "@" + TutorialsManager.itemIndex.ToString() + "@" + GameManager.BestScore.ToString();
+        form.AddField("money", tempMoney);
+        form.AddField("isUpdate", "true");
+
+        GD.isUpdate = "null";
+        StartCoroutine(SetPost(form));
+
+
     }
     public void MoneyResponse(string json)
     {
@@ -351,10 +406,31 @@ public class GoogleSheetManager : MonoBehaviour
             return;
         }
 
-        GameManager.Money =int.Parse( json.Split('@')[0]);          //자원설정
-        GameManager.ShinMoney= int.Parse(json.Split('@')[1]);
+        GameManager.Money = int.Parse(json.Split('@')[0]);          //자원설정
+        GameManager.ShinMoney = int.Parse(json.Split('@')[1]);
         TutorialsManager.itemIndex = int.Parse(json.Split('@')[2]);
+
+
+
+        if (GD.isUpdate == "true")
+        {
+            WWWForm form = new WWWForm();
+            form.AddField("order", "setMoney");
+            form.AddField("player_nickname", GameManager.NickName);
+            string tempMoney = GameManager.Money.ToString() + "@" + GameManager.ShinMoney.ToString() + "@" + TutorialsManager.itemIndex.ToString() + "@" + GameManager.BestScore.ToString();
+            form.AddField("money", tempMoney);
+            form.AddField("isUpdate", "true");
+
+
+            StartCoroutine(BestScorePost(form));
+        }
+        else { 
+        GameManager.BestScore = int.Parse(json.Split('@')[3]);          //점수설정
         StartCoroutine(Quest());
+    }
+        
+        
+        
     }
     IEnumerator Quest()
     {

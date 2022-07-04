@@ -6,7 +6,11 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 
 public class GameManager : MonoBehaviour
-{   
+{
+   public static string NewVersion = "1.4.5";                   //최신버전
+    public static string CurVersion = "1.4.4";                    //현재버전
+
+
     public static bool isStart = false;
     static GameManager _Instance;
     public static bool parse = false;
@@ -72,6 +76,7 @@ public class GameManager : MonoBehaviour
     public static int Money;            //재화
     public static int ShinMoney;
 
+    
     //---------------------------------------------------------------------------------------------
     //--------------------------------여기서부터 플레이어 정보-------------------------------------
 
@@ -85,12 +90,14 @@ public class GameManager : MonoBehaviour
 
     public static string friend_nickname;       //현재 들어가있는 친구닉넴
 
-    public static string URL = "https://script.google.com/macros/s/AKfycbyvfhzkkLjqczQqwyelYhd45cNwoZPmvpGXN_exJ0NlndAE4MZLdgAcow2KhIs48BQ_/exec";
+    public static string URL = "https://script.google.com/macros/s/AKfycbwlkvOCOHwEa9OjfTolTEZN8NntPoNepVG47ycEA4UxcPNVv07RBA__xFjcwvldjL9U/exec";
 
     public static bool isReward;        //일괄수확 가능한지
-    
-    //----------------------------------------------------------------------------------------------
 
+    //----------------------------------------------------------------------------------------------
+    //------------------------------여기서부터 게임 정보----------------------------------------------
+    public static int BestScore;                //불러온 최고점수
+    public static bool isBScore;                    //스코어 업데이트
 
     public static bool isMoveLock = false;      //창 떴을 때 이동 못하게하는 변수
     /* 아이템 목록
@@ -257,7 +264,28 @@ public class GameManager : MonoBehaviour
         form2.AddField("order", "setMoney");
         form2.AddField("player_nickname", NickName);   
     }
+    public  void BestScoreSave()
+    {    
+        WWWForm form2 = new WWWForm();                      //돈 저장                
+        form2.AddField("order", "setMoney");
+        form2.AddField("player_nickname", GameManager.NickName);
+        form2.AddField("money", GameManager.Money.ToString() + "@" + GameManager.ShinMoney.ToString() + "@" + TutorialsManager.itemIndex + "@" + GameManager.BestScore);
 
+        StartCoroutine(SetPost(form2));
+    }
+    IEnumerator SetPost(WWWForm form)
+    {
+        using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // 반드시 using을 써야한다
+        {
+            yield return www.SendWebRequest();
+            if (www.isDone)
+            {
+            }
+            else print("웹의 응답이 없습니다.");
+            print("exit");
+            Application.Quit();
+        }
+    }
     void OnApplicationPause(bool pause)
     {
         if (pause)//비활성화
