@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+ using UnityEngine.SceneManagement;
 public class StartManager : MonoBehaviour
 {
     public GameObject CharacterPrefab;
@@ -71,18 +72,25 @@ public class StartManager : MonoBehaviour
             isParsing = true;
         }
         Canvas = GameObject.Find("Canvas");
-        StartManager.ChaIndex = 99;
-        CharacterOpen();
+        if (SceneManager.GetActiveScene().name.Equals("Game"))
+        {
+            StartManager.ChaIndex = 99;
+            CharacterOpen();
+        }
     }
 
     void Update()
     {
-        if (ChaIndex.Equals(99))
+        if (SceneManager.GetActiveScene().name.Equals("Game"))
         {
-            ItemInfo.text = "";
+            if (ChaIndex.Equals(99))
+            {
+                ItemInfo.text = "";
+            }
+            else
+                ItemInfo.text = ItemInfos[StartManager.ChaIndex];
         }
-        else
-        ItemInfo.text = ItemInfos[StartManager.ChaIndex];
+      
     }
 
     public void CharacterOpen()

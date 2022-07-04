@@ -63,18 +63,19 @@ public class ChaButtonScript : MonoBehaviour
         NuniInfo.transform.SetParent(StartManager.Canvas.transform);        //캔버스 부모설정
         NuniInfo.GetComponent<RectTransform>().localPosition = new Vector3(0, 0, 0);
 
-
         for (int i = 0; i < GameManager.AllNuniArray.Length; i++)
         {
             if (transform.name == GameManager.AllNuniArray[i].cardImage)
             {
+                Debug.Log("GameManager.AllNuniArray[i].cardImage: " + GameManager.AllNuniArray[i].cardImage);
                 Card nuni = GameManager.AllNuniArray[i];
 
                 Text[] InfoTexts = NuniInfo.GetComponentsInChildren<Text>();
                 Image[] InfoImage = NuniInfo.GetComponentsInChildren<Image>();
+                Debug.Log("InfoImage: "+ InfoImage.Length);
                 Image[] stars = NuniInfo.transform.Find("Stars").GetComponentsInChildren<Image>();
 
-                if (nuni.Star == "1")
+               /* if (nuni.Star == "1")
                 {
                     InfoImage[1].color = new Color(244 / 255f, 255 / 255f, 162 / 255f);
 
@@ -89,12 +90,12 @@ public class ChaButtonScript : MonoBehaviour
                 {
                    // InfoImage[1].color = new Color(210 / 255f, 150 / 255f, 255 / 255f);
 
-                }
+                }*/
                 /* for (int j = 0; j < int.Parse(GameManager.AllNuniArray[i].Star); j++)   //별 넣기
                  {
                      stars[j].color = new Color(1, 1, 1);
                  }*/
-                InfoImage[2].sprite = nuni.GetChaImange();
+                InfoImage[1].sprite = nuni.GetChaImange();
 
                 InfoTexts[0].text = nuni.cardName;      //누니 이름 넣기
                 InfoTexts[1].text = nuni.Info;                  //누니 설명
