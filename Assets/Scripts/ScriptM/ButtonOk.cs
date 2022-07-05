@@ -20,7 +20,19 @@ public class ButtonOk : MonoBehaviour
       
 
     }
+    public void UpdateUrl()
+    {
 
+#if UNITY_IOS
+     Application.OpenURL("https://apps.apple.com/kr/app/%EB%88%88-%EB%88%88/id1629395506");
+#else
+    Application.OpenURL("https://play.google.com/store/apps/details?id=com.SoMa.NuNNuN");
+#endif
+    }
+    public void UpdateNo()
+    {
+        Application.Quit();
+    }
     public void OnPointerDown(PointerEventData eventData)
     {
         if (temp.CanBePlaced())
