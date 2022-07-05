@@ -251,7 +251,7 @@ public class ChaButtonScript : MonoBehaviour
 
 
 
-        if (GameManager.Items[item] != true)
+        if (GameManager.Items[item] != true)                //해당 아이템이 선택 안되어있는 상태인가
         {
             if (GameManager.items <= 2)
             {

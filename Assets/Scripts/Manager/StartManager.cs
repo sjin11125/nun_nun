@@ -77,6 +77,13 @@ public class StartManager : MonoBehaviour
             StartManager.ChaIndex = 99;
             CharacterOpen();
         }
+        else if(SceneManager.GetActiveScene().name.Equals("Main"))      //마을 씬에선 아이템 선택 초기화
+        {
+            for (int i = 0; i < GameManager.Items.Length; i++)
+            {
+                GameManager.Items[i] = false;
+            }
+        }
     }
 
     void Update()
@@ -137,28 +144,25 @@ public class StartManager : MonoBehaviour
 
             if (itemList[j] .Equals( true))
             {
-                image[1].sprite = ItenImage[j];//NuNiInformation[j].GetChaImange();   //캐릭터 이름 값 받아와서 이미지 찾기
-                //Instantiate(ItemImages[j], DogamCha.transform);
-                //GameManager.Items[j] = true;
+                image[3].sprite = ItenImage[j];//NuNiInformation[j].GetChaImange();   //캐릭터 이름 값 받아와서 이미지 찾기
+
             }
             else
             {
-                image[1].sprite = LockImage;//NuNiInformation[j].GetChaImange();   //캐릭터 이름 값 받아와서 이미지 찾기
-                //Instantiate(ItemImages[10], DogamCha.transform);
+                image[3].sprite = LockImage;//NuNiInformation[j].GetChaImange();   //캐릭터 이름 값 받아와서 이미지 찾기
+
                 DogamCha.tag = "Lock";
-                //GameManager.Items[j] = false;
+
             }
+            int itemIndex = int.Parse(DogamCha.GetComponent<RectTransform>().name);
+           
+            if (GameManager.Items[itemIndex] ==true)                               //선택되어있는지 확인하기
+                image[1].gameObject.SetActive(true);
+            else
+                image[1].gameObject.SetActive(false);
+                
 
-           /* string ChaName  = NuNiInformation[j].cardImage;
-
-            CharacterName.text = NuNiInformation[j].cardName;
-
-            NuNiInformation[j].SetChaImage(GameManager.GetCharacterImage(ChaName));
-            Debug.Log(NuNiInformation[j].Item);*/
-
-            
         }
-        //LockButton = LockButtonList.ToArray();      //잠긴 버튼 리스트 배열로 만들어서 넣기
     }
 
 
