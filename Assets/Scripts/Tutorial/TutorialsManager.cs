@@ -70,7 +70,7 @@ public class TutorialsManager : MonoBehaviour
                 }
                 if (itemIndex.Equals(10))
                 {
-                    if (GameManager.Money < 100 && GameManager.ShinMoney < 1)
+                    if (GameManager.Money < 100 || GameManager.ShinMoney < 1)
                     {
                         GameManager.Money += 100;
                         GameManager.ShinMoney += 1;

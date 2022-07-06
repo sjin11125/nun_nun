@@ -89,4 +89,9 @@ public class TutorialsItemControl : MonoBehaviour
     {
         goNext = true;
     }
+
+    public void GameItem()
+    {
+        goNext = true;
+    }
 }
