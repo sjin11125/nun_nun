@@ -31,8 +31,13 @@ public class GoogleSheetManager : MonoBehaviour
     public string bestScoreKey_ = "bsdat";
     private BestScoreData bestScores_ = new BestScoreData();
 
+    public GameObject UpdatePanel;
     private void Awake()
     {
+        WWWForm form = new WWWForm();
+        form.AddField("order", "isUpdate");
+
+        StartCoroutine(VersionPost(form));
         if (BinaryDataStream.Exist(bestScoreKey_))
         {
             StartCoroutine(ReadDataFile());
@@ -52,29 +57,28 @@ public class GoogleSheetManager : MonoBehaviour
 
                 //GameManager.Money = PlayerPrefs.GetInt("Money");
                 //GameManager.ShinMoney = PlayerPrefs.GetInt("ShinMoney");
-                WWWForm form1 = new WWWForm();                          //자원 부르기
+                /*WWWForm form1 = new WWWForm();                          //자원 부르기
                 form1.AddField("order", "getMoney");
                 form1.AddField("player_nickname", GameManager.NickName);
-                StartCoroutine(MoneyPost(form1));
+                StartCoroutine(MoneyPost(form1));*/
                 TutorialsManager.itemIndex = PlayerPrefs.GetInt("TutorialsDone");
             }
         }
     }
+   
     void Start()
     {
-        WWWForm form = new WWWForm();
+       /* WWWForm form = new WWWForm();
         form.AddField("order", "isUpdate");
 
-        StartCoroutine(VersionPost(form)); //최신 버전 불러오기
+        StartCoroutine(VersionPost(form)); //최신 버전 불러오기*/
     }
     IEnumerator VersionPost(WWWForm form)
     {
         using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // 반드시 using을 써야한다
         {
             yield return www.SendWebRequest();
-
-            GameManager.NickName = nickname;
-            GameManager.Id = id;
+            
             VersionResponse(www.downloadHandler.text);
             //StartCoroutine(Quest());
             //SceneManager.LoadScene("Main");
@@ -85,7 +89,15 @@ public class GoogleSheetManager : MonoBehaviour
     {
         GameManager.NewVersion = json;                  //최신버전 확인
         Debug.Log(GameManager.NewVersion);
-        
+        if (GameManager.CurVersion!=json)           //최신버전이 아니면 업데이트 패널뜨게
+        {
+            GameManager.isUpdateDone = false;
+            UpdatePanel.SetActive(true);
+        }
+        else
+        {
+            GameManager.isUpdateDone = true;
+        }
     }
 
     bool SetIDPass()
@@ -159,31 +171,33 @@ public class GoogleSheetManager : MonoBehaviour
 
     public void Login()//자동 로그인
     {
-        if (!SetIDPass())
+        if (GameManager.isUpdateDone == true)
         {
-            WarningPannel.SetActive(true);
-            Text t = WarningPannel.GetComponentInChildren<Text>();
-            t.text = "아이디 또는 비밀번호가 비어있습니다";
+            if (!SetIDPass())
+            {
+                WarningPannel.SetActive(true);
+                Text t = WarningPannel.GetComponentInChildren<Text>();
+                t.text = "아이디 또는 비밀번호가 비어있습니다";
 
-            return;
+                return;
+            }
+            else
+            {
+                loginBtn.SetActive(false);
+            }
+
+            WWWForm form = new WWWForm();
+            form.AddField("order", "login");
+            form.AddField("id", IDInput.text);
+            form.AddField("pass", PassInput.text);
+
+
+            PlayerPrefs.SetString("Id", id);//아이디비번 저장
+            PlayerPrefs.SetString("Pass", pass);
+
+            StartCoroutine(Post(form));
         }
-        else
-        {
-            loginBtn.SetActive(false);
-        }
-
-        WWWForm form = new WWWForm();
-        form.AddField("order", "login");
-        form.AddField("id", IDInput.text);
-        form.AddField("pass", PassInput.text);
-
-   
-        PlayerPrefs.SetString("Id", id);//아이디비번 저장
-        PlayerPrefs.SetString("Pass", pass);
-
-        StartCoroutine(Post(form));
     }
-
 
     void OnApplicationQuit()
     {
