@@ -34,6 +34,10 @@ public class GoogleSheetManager : MonoBehaviour
     public GameObject UpdatePanel;
     private void Awake()
     {
+        WWWForm form = new WWWForm();
+        form.AddField("order", "isUpdate");
+
+        StartCoroutine(VersionPost(form));
         if (BinaryDataStream.Exist(bestScoreKey_))
         {
             StartCoroutine(ReadDataFile());
@@ -61,12 +65,13 @@ public class GoogleSheetManager : MonoBehaviour
             }
         }
     }
+   
     void Start()
     {
-        WWWForm form = new WWWForm();
+       /* WWWForm form = new WWWForm();
         form.AddField("order", "isUpdate");
 
-        StartCoroutine(VersionPost(form)); //최신 버전 불러오기
+        StartCoroutine(VersionPost(form)); //최신 버전 불러오기*/
     }
     IEnumerator VersionPost(WWWForm form)
     {

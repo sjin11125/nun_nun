@@ -14,20 +14,39 @@ public class ButtonOk : MonoBehaviour
 
     public Button button1;
 
+    bool isAndroid;
+    bool isIos;
+    public Text android_text;
+
     void start()
     {
         //button1.onClick.AddListener(TaskOnClick);
       
 
     }
-    public void UpdateUrl()
+    void Awake()
     {
-
-#if UNITY_IOS
-     Application.OpenURL("https://apps.apple.com/kr/app/%EB%88%88-%EB%88%88/id1629395506");
-#else
-    Application.OpenURL("https://play.google.com/store/apps/details?id=com.SoMa.NuNNuN");
+#if UNITY_EDITOR
+        isAndroid = true;
+        android_text.text = isAndroid.ToString();
+        
 #endif
+#if UNITY_ANDROID
+        isAndroid = true;
+        android_text.text = isAndroid.ToString();
+#endif
+#if UNITY_IOS
+        Application.OpenURL("market://details?id=com.SoMa.NuNNuN");
+#endif
+    }
+    public void UpdateUrl()             //마켓으로 가는 버튼
+    {
+        Debug.Log("yes");
+        Application.OpenURL("https://play.google.com/store/apps/details?id=com.SoMa.NuNNuN");
+        if (isAndroid)
+        {
+            Application.OpenURL("market://details?id=" + Application.identifier);
+        }
     }
     public void UpdateNo()
     {
