@@ -212,12 +212,13 @@ public class LoadManager : MonoBehaviour
             int nuni30 = 0;
             for (int i = 0; i < GameManager.BuildingList.Count; i++)            //보상획득
             {
+                Debug.Log(i + "    " + GameManager.BuildingList[i].Building_Image);
                 for (int j = 0; j < GameManager.BuildingArray.Length; j++)
                 {
                     if (GameManager.BuildingList[i].Building_Image.Equals(GameManager.BuildingArray[j].Building_Image))
                     {
                         MyReward += GameManager.BuildingArray[j].Reward[GameManager.BuildingList[i].Level - 1];
-                      
+                        Debug.Log(i + "    " + GameManager.BuildingArray[j].Reward[GameManager.BuildingList[i].Level - 1]);
                     }
                    
                 }
@@ -229,13 +230,15 @@ public class LoadManager : MonoBehaviour
                         && GameManager.CharacterList[y].cardName!=RewardedNuni.Find(x=>x==GameManager.CharacterList[y].cardName))//건물 보상 받는 누니인가
                     {
                         MyReward += int.Parse(GameManager.CharacterList[y].Gold);
-                        Debug.Log(i + "    " + GameManager.BuildingList[i].Building_Image);
+                        Debug.Log(i + "    " + GameManager.CharacterList[y].Gold);
+                        
                         Debug.Log(y + "    " + GameManager.CharacterList[y].cardName);
                         RewardedNuni.Add(GameManager.CharacterList[y].cardName);
                         
                     }
 
                 }
+                RewardedNuni.Clear();
 
             }
 

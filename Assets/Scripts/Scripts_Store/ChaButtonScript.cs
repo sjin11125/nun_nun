@@ -59,55 +59,42 @@ public class ChaButtonScript : MonoBehaviour
     }
     public void NuniInfoClick()
     {
-        GameObject NuniInfo = Instantiate(NuniInfoPannel) as GameObject;        //누니 정보 패널 Instantiate
+        /*GameObject NuniInfo = Instantiate(NuniInfoPannel) as GameObject;        //누니 정보 패널 Instantiate
         NuniInfo.transform.SetParent(StartManager.Canvas.transform);        //캔버스 부모설정
         NuniInfo.GetComponent<RectTransform>().localPosition = new Vector3(0, 0, 0);
-
+        */
+        Card nuni;
         for (int i = 0; i < GameManager.AllNuniArray.Length; i++)
         {
             if (transform.name == GameManager.AllNuniArray[i].cardImage)
             {
                 Debug.Log("GameManager.AllNuniArray[i].cardImage: " + GameManager.AllNuniArray[i].cardImage);
-                Card nuni = GameManager.AllNuniArray[i];
+                nuni = GameManager.AllNuniArray[i];
 
-                Text[] InfoTexts = NuniInfo.GetComponentsInChildren<Text>();
+              /*  Text[] InfoTexts = NuniInfo.GetComponentsInChildren<Text>();
                 Image[] InfoImage = NuniInfo.GetComponentsInChildren<Image>();
                 Debug.Log("InfoImage: "+ InfoImage.Length);
                 Image[] stars = NuniInfo.transform.Find("Stars").GetComponentsInChildren<Image>();
 
-               /* if (nuni.Star == "1")
-                {
-                    InfoImage[1].color = new Color(244 / 255f, 255 / 255f, 162 / 255f);
-
-                    
-                }
-                else if (nuni.Star == "3")
-                {
-                    InfoImage[1].color = new Color(255 / 255f, 168 / 255f, 255 / 255f);
-                    
-                }
-                else
-                {
-                   // InfoImage[1].color = new Color(210 / 255f, 150 / 255f, 255 / 255f);
-
-                }*/
-                /* for (int j = 0; j < int.Parse(GameManager.AllNuniArray[i].Star); j++)   //별 넣기
-                 {
-                     stars[j].color = new Color(1, 1, 1);
-                 }*/
                 InfoImage[1].sprite = nuni.GetChaImange();
 
                 InfoTexts[0].text = nuni.cardName;      //누니 이름 넣기
                 InfoTexts[1].text = nuni.Info;                  //누니 설명
                 InfoTexts[2].text = nuni.Effect; //누니 보유 효과
 
-                NuniInfo.GetComponent<RectTransform>().localScale= new Vector3(1, 1, 1);
+                NuniInfo.GetComponent<RectTransform>().localScale= new Vector3(1, 1, 1);*/
 
+                NuniParseManager.SelectedNuni.SetValue(nuni);           //NuniParseManager의 SelectedNuni에 클릭된 누니 정보 넣기
 
+                break;
 
             }
         }
-        settigPanel.GetComponent<AudioController>().Sound[0].Play();
+
+        
+        settigPanel.GetComponent<AudioController>().Sound[0].Play();            //클릭 소리
+
+        NuniParseManager.OpenNuniInfoPanel();               //누니 정보 패널 뜨기
     }
     public void IsSell()            //건물 제거한다고 했을 때
     {
