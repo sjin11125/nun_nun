@@ -59,18 +59,19 @@ public class ChaButtonScript : MonoBehaviour
     }
     public void NuniInfoClick()
     {
-        GameObject NuniInfo = Instantiate(NuniInfoPannel) as GameObject;        //누니 정보 패널 Instantiate
-        NuniInfo.transform.SetParent(StartManager.Canvas.transform);        //캔버스 부모설정
-        NuniInfo.GetComponent<RectTransform>().localPosition = new Vector3(0, 0, 0);
-
+        /* GameObject NuniInfo = Instantiate(NuniInfoPannel) as GameObject;        //누니 정보 패널 Instantiate
+         NuniInfo.transform.SetParent(StartManager.Canvas.transform);        //캔버스 부모설정
+         NuniInfo.GetComponent<RectTransform>().localPosition = new Vector3(0, 0, 0);
+        */
+        Card nuni;
         for (int i = 0; i < GameManager.AllNuniArray.Length; i++)
         {
             if (transform.name == GameManager.AllNuniArray[i].cardImage)
             {
-                Debug.Log("GameManager.AllNuniArray[i].cardImage: " + GameManager.AllNuniArray[i].cardImage);
-                Card nuni = GameManager.AllNuniArray[i];
+                //Debug.Log("GameManager.AllNuniArray[i].cardImage: " + GameManager.AllNuniArray[i].cardImage);
+                nuni = GameManager.AllNuniArray[i];
 
-                Text[] InfoTexts = NuniInfo.GetComponentsInChildren<Text>();
+                /*Text[] InfoTexts = NuniInfo.GetComponentsInChildren<Text>();
                 Image[] InfoImage = NuniInfo.GetComponentsInChildren<Image>();
                 Debug.Log("InfoImage: "+ InfoImage.Length);
                 Image[] stars = NuniInfo.transform.Find("Stars").GetComponentsInChildren<Image>();
@@ -94,7 +95,7 @@ public class ChaButtonScript : MonoBehaviour
                 /* for (int j = 0; j < int.Parse(GameManager.AllNuniArray[i].Star); j++)   //별 넣기
                  {
                      stars[j].color = new Color(1, 1, 1);
-                 }*/
+                 }
                 InfoImage[1].sprite = nuni.GetChaImange();
 
                 InfoTexts[0].text = nuni.cardName;      //누니 이름 넣기
@@ -103,10 +104,12 @@ public class ChaButtonScript : MonoBehaviour
 
                 NuniInfo.GetComponent<RectTransform>().localScale= new Vector3(1, 1, 1);
 
-
-
+                */
+                NuniParseManager.SelectedNuni.SetValue(nuni);
+                
             }
         }
+        NuniParseManager.NuniInfoOpen();
         settigPanel.GetComponent<AudioController>().Sound[0].Play();
     }
     public void IsSell()            //건물 제거한다고 했을 때
@@ -251,7 +254,7 @@ public class ChaButtonScript : MonoBehaviour
 
 
 
-        if (GameManager.Items[item] != true)
+        if (GameManager.Items[item] != true)                //해당 아이템이 선택 안되어있는 상태인가
         {
             if (GameManager.items <= 2)
             {

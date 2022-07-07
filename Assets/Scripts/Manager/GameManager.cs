@@ -7,8 +7,9 @@ using UnityEngine.Networking;
 
 public class GameManager : MonoBehaviour
 {
-   public static string NewVersion = "1.4.5";                   //최신버전
-    public static string CurVersion = "1.4.4";                    //현재버전
+   public static string NewVersion = "";                   //최신버전
+    public static string CurVersion = "1.4.5";                    //현재버전
+    public static bool isUpdateDone = false;                    //업데이트를 완료했냐
 
 
     public static bool isStart = false;
@@ -75,6 +76,7 @@ public class GameManager : MonoBehaviour
     //-----------------------------------여기서부터 재화---------------------------------
     public static int Money;            //재화
     public static int ShinMoney;
+    public static int Zem;
 
     
     //---------------------------------------------------------------------------------------------
@@ -90,7 +92,7 @@ public class GameManager : MonoBehaviour
 
     public static string friend_nickname;       //현재 들어가있는 친구닉넴
 
-    public static string URL = "https://script.google.com/macros/s/AKfycbwlkvOCOHwEa9OjfTolTEZN8NntPoNepVG47ycEA4UxcPNVv07RBA__xFjcwvldjL9U/exec";
+    public static string URL = "https://script.google.com/macros/s/AKfycbyD691UMjk3mqcyZKv7yPHo5NO38nIsHwejVJXawMV7taKrM-ZHRm7TqDqftXWzsyHL/exec";
 
     public static bool isReward;        //일괄수확 가능한지
 
@@ -123,6 +125,11 @@ public class GameManager : MonoBehaviour
     public static bool mainMusicOn = true;
     public static bool gameSoundOn = true;
     public static bool mainSoundOn = true;
+
+    //--------------------------------------------공지----------------------------------------
+    public static string[] Notice;
+
+
     private void Awake()
     {
         //PlayerPrefs.DeleteAll();

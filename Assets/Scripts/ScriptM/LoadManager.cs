@@ -202,25 +202,44 @@ public class LoadManager : MonoBehaviour
             LoadingNuni.SetActive(false);
         }
 
-        if (GameManager.isReward.Equals(true)&&GameManager.isLoading.Equals(true) )         //�ϰ���Ȯ �Ҽ��ִ�?
+        if (GameManager.isReward.Equals(true)&&GameManager.isLoading.Equals(true) )        
         {
             LoadingNuni.SetActive(false);
             GameManager.isReward = false;
             int MyReward = 0;
 
-            int nuni50 = 0;
+            List<string> RewardedNuni = new List<string>();         //보상받은 누니
             int nuni30 = 0;
-            for (int i = 0; i < GameManager.BuildingList.Count; i++)
+            for (int i = 0; i < GameManager.BuildingList.Count; i++)            //보상획득
             {
                 for (int j = 0; j < GameManager.BuildingArray.Length; j++)
                 {
-                    if (GameManager.BuildingList[i].Building_Image.Equals(GameManager.BuildingArray[j].Building_Image) )
+                    if (GameManager.BuildingList[i].Building_Image.Equals(GameManager.BuildingArray[j].Building_Image))
+                    {
                         MyReward += GameManager.BuildingArray[j].Reward[GameManager.BuildingList[i].Level - 1];
+                      
+                    }
+                   
+                }
+
+                for (int y = 0; y < GameManager.CharacterList.Count; y++)
+                {
+                    if (GameManager.BuildingList[i].Building_Image.Equals(GameManager.CharacterList[y].Building[0]) 
+                        && GameManager.CharacterList[y].Gold != "X"
+                        && GameManager.CharacterList[y].cardName!=RewardedNuni.Find(x=>x==GameManager.CharacterList[y].cardName))//건물 보상 받는 누니인가
+                    {
+                        MyReward += int.Parse(GameManager.CharacterList[y].Gold);
+                        Debug.Log(i + "    " + GameManager.BuildingList[i].Building_Image);
+                        Debug.Log(y + "    " + GameManager.CharacterList[y].cardName);
+                        RewardedNuni.Add(GameManager.CharacterList[y].cardName);
+                        
+                    }
+
                 }
 
             }
 
-            for (int i = 0; i < GameManager.CharacterList.Count; i++)
+            /*for (int i = 0; i < GameManager.CharacterList.Count; i++)
             {
 
                 if (GameManager.CharacterList[i].cardName== "꾸러기누니"||
@@ -237,7 +256,7 @@ public class LoadManager : MonoBehaviour
                 }
                 MyReward += nuni50 * 50 + nuni30 * 30;
 
-            }
+            }*/
             GameManager.Money += MyReward;
 
 
