@@ -485,19 +485,24 @@ public class GoogleSheetManager : MonoBehaviour
     }
     public void ChallResponse(string json)
     {
-        for (int i = 0; i < CanvasManger.currentAchieveSuccess.Length; i++)
+        Debug.Log(json);
+        if (json != "@")
         {
-            CanvasManger.currentAchieveSuccess[i] =System.Convert.ToBoolean( json.Split('@')[0].Split(',')[i]);
-            Debug.Log(CanvasManger.currentAchieveSuccess[i]);
-        }
-        for (int j   = 0; j < CanvasManger.achieveContNuniIndex.Length; j++)
-        {
-            CanvasManger.achieveContNuniIndex[j] =int.Parse( json.Split('@')[1].Split(',')[j]);
 
-            Debug.Log(CanvasManger.achieveContNuniIndex[j]);
-        }
-        GetNotice();
+            for (int i = 0; i < CanvasManger.currentAchieveSuccess.Length; i++)
+            {
+                CanvasManger.currentAchieveSuccess[i] = System.Convert.ToBoolean(json.Split('@')[0].Split(',')[i]);
+                Debug.Log(CanvasManger.currentAchieveSuccess[i]);
+            }
+            for (int j = 0; j < CanvasManger.achieveContNuniIndex.Length; j++)
+            {
+                CanvasManger.achieveContNuniIndex[j] = int.Parse(json.Split('@')[1].Split(',')[j]);
 
+                Debug.Log(CanvasManger.achieveContNuniIndex[j]);
+            }
+        }
+            GetNotice();
+        
         //StartCoroutine(Quest());
 
     }
@@ -525,10 +530,10 @@ public class GoogleSheetManager : MonoBehaviour
     public void NoticeResponse(string json)
     {
         Debug.Log("공지: "+json);
-        GameManager.Notice = json.Split(',');
-        for (int i = 0; i < GameManager.Notice.Length; i++)
+        string[] Notices = json.Split(',');
+        for (int i = 0; i < Notices.Length-1; i++)
         {
-            Debug.Log(GameManager.Notice[i]);     
+            Debug.Log(Notices[i]);     
         }
         StartCoroutine(Quest());
 
