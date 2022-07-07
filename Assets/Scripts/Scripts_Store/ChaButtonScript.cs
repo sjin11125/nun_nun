@@ -59,16 +59,17 @@ public class ChaButtonScript : MonoBehaviour
     }
     public void NuniInfoClick()
     {
-       /* GameObject NuniInfo = Instantiate(NuniInfoPannel) as GameObject;        //누니 정보 패널 Instantiate
-        NuniInfo.transform.SetParent(StartManager.Canvas.transform);        //캔버스 부모설정
-        NuniInfo.GetComponent<RectTransform>().localPosition = new Vector3(0, 0, 0);
-       */
+        /* GameObject NuniInfo = Instantiate(NuniInfoPannel) as GameObject;        //누니 정보 패널 Instantiate
+         NuniInfo.transform.SetParent(StartManager.Canvas.transform);        //캔버스 부모설정
+         NuniInfo.GetComponent<RectTransform>().localPosition = new Vector3(0, 0, 0);
+        */
+        Card nuni;
         for (int i = 0; i < GameManager.AllNuniArray.Length; i++)
         {
             if (transform.name == GameManager.AllNuniArray[i].cardImage)
             {
                 //Debug.Log("GameManager.AllNuniArray[i].cardImage: " + GameManager.AllNuniArray[i].cardImage);
-                Card nuni = GameManager.AllNuniArray[i];
+                nuni = GameManager.AllNuniArray[i];
 
                 /*Text[] InfoTexts = NuniInfo.GetComponentsInChildren<Text>();
                 Image[] InfoImage = NuniInfo.GetComponentsInChildren<Image>();
@@ -104,9 +105,11 @@ public class ChaButtonScript : MonoBehaviour
                 NuniInfo.GetComponent<RectTransform>().localScale= new Vector3(1, 1, 1);
 
                 */
-
+                NuniParseManager.SelectedNuni.SetValue(nuni);
+                
             }
         }
+        NuniParseManager.NuniInfoOpen();
         settigPanel.GetComponent<AudioController>().Sound[0].Play();
     }
     public void IsSell()            //건물 제거한다고 했을 때
