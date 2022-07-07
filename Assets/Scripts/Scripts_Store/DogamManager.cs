@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public class Notice
+{
+    public string title;
+    public string info;
+    public string reward;
+
+}
 public class DogamManager : MonoBehaviour
 {   //엑셀에 있는 모든 건물 정보 받아서 상점 패널에 넣기
     public GameObject DogamChaPrefab;
@@ -197,6 +204,9 @@ public class DogamManager : MonoBehaviour
 
             Text text =Notice.GetComponentInChildren<Text>();
             text.text =GameManager.Notice[i];
+
+
+            Notice.GetComponent<RectTransform>().localScale = new Vector3(1.55f, 2f, 0);
         }
     }
     public void FriendOpen()                //친구 목록 열 때 친구 리스트 불러오기
