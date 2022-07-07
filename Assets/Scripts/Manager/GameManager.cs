@@ -92,7 +92,7 @@ public class GameManager : MonoBehaviour
 
     public static string friend_nickname;       //현재 들어가있는 친구닉넴
 
-    public static string URL = "https://script.google.com/macros/s/AKfycbyphUXoZRG2H6ztX-Bjy-ENYTPLxRBn-uiHKm7yyt9fa2D-o4CUjw8ojjGs-1teMKeY/exec";
+    public static string URL = "https://script.google.com/macros/s/AKfycbylUrPIt0ndbpLHxP5C43BlBceQCbf0_fQWWqDTYxcl-pZbOoL_dctmt60xQr2k_tj6/exec";
 
     public static bool isReward;        //일괄수확 가능한지
 
@@ -127,7 +127,7 @@ public class GameManager : MonoBehaviour
     public static bool mainSoundOn = true;
 
     //--------------------------------------------공지----------------------------------------
-    public static string[] Notice;
+    public static Notice[] Notice;
 
 
     private void Awake()

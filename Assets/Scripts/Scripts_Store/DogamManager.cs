@@ -198,15 +198,32 @@ public class DogamManager : MonoBehaviour
         }
         for (int i = 0; i < GameManager.Notice.Length-1; i++)
         {
-            GameObject Notice=Instantiate(NoticPrefab);
+            if (GameManager.Notice[i].reward=="notice")     //공지일 경우
+            {
+                GameObject Notice = Instantiate(NoticPrefab);
+                Notice.transform.name = GameManager.Notice[i].title;
+                Notice.transform.SetParent(Notis_Content.transform);
 
-            Notice.transform.SetParent(Notis_Content.transform);
+                Text text = Notice.GetComponentInChildren<Text>();
+                text.text = GameManager.Notice[i].title;
 
-            Text text =Notice.GetComponentInChildren<Text>();
-            text.text =GameManager.Notice[i];
+                Notice.GetComponent<RectTransform>().localScale = new Vector3(1.55f, 2f, 0);
+            }
+            else                    //공지가 아니고 보상일 경우
+            {
+                GameObject Notice = Instantiate(NoticPrefab);
+
+                Notice.transform.name = GameManager.Notice[i].reward;
+                Notice.transform.SetParent(Notis_Content.transform);
+
+                Text text = Notice.GetComponentInChildren<Text>();
+                text.text = GameManager.Notice[i].title;
+
+                Notice.GetComponent<RectTransform>().localScale = new Vector3(1.55f, 2f, 0);
+            }
 
 
-            Notice.GetComponent<RectTransform>().localScale = new Vector3(1.55f, 2f, 0);
+          
         }
     }
     public void FriendOpen()                //친구 목록 열 때 친구 리스트 불러오기

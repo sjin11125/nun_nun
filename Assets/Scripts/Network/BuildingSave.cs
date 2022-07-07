@@ -183,8 +183,7 @@ public class BuildingSave : MonoBehaviour
                 Buildings = JsonUtility.FromJson<BuildingParse>(j[i].ToString());
                 Building b = new Building();
                 b.SetValueParse(Buildings);
-
-                Debug.Log("Id: " + Buildings.Id);
+                
                 /*  new Building(friendBuildings.isLock, friendBuildings.Building_name, friendBuildings.Reward, friendBuildings.Info, 
                   friendBuildings.Building_Image, friendBuildings.Cost.ToString(), friendBuildings.Level.ToString(), friendBuildings.Tree.ToString(),
                    friendBuildings.Grass.ToString(), friendBuildings.Snow.ToString(), friendBuildings.Ice.ToString(), friendBuildings.isFliped.ToString(), 
@@ -192,11 +191,9 @@ public class BuildingSave : MonoBehaviour
                 GameManager.BuildingList.Add(b);      //내 건물 리스트에 삽입
 
             }
-            Debug.Log("GameManager.BuildingList[0]"+GameManager.BuildingList[0].BuildingPosiiton_x);
             GameManager.isLoading = true;
             if (gameObject.GetComponent<LoadManager>() != null)
             {
-                Debug.Log("현재 내 오브젝트 이름은 "+gameObject.name);
                 gameObject.GetComponent<LoadManager>().BuildingLoad();
             }
             else

@@ -492,13 +492,12 @@ public class GoogleSheetManager : MonoBehaviour
             for (int i = 0; i < CanvasManger.currentAchieveSuccess.Length; i++)
             {
                 CanvasManger.currentAchieveSuccess[i] = System.Convert.ToBoolean(json.Split('@')[0].Split(',')[i]);
-                Debug.Log(CanvasManger.currentAchieveSuccess[i]);
+
             }
             for (int j = 0; j < CanvasManger.achieveContNuniIndex.Length; j++)
             {
                 CanvasManger.achieveContNuniIndex[j] = int.Parse(json.Split('@')[1].Split(',')[j]);
-
-                Debug.Log(CanvasManger.achieveContNuniIndex[j]);
+                
             }
         }
             GetNotice();
@@ -510,6 +509,8 @@ public class GoogleSheetManager : MonoBehaviour
     {
         WWWForm form = new WWWForm();
         form.AddField("order", "getNotice");
+
+        form.AddField("player_nickname", GameManager.NickName);
 
         StartCoroutine(NoticePost(form));
     }
@@ -529,9 +530,21 @@ public class GoogleSheetManager : MonoBehaviour
     }
     public void NoticeResponse(string json)
     {
+        Newtonsoft.Json.Linq.JArray j = Newtonsoft.Json.Linq.JArray.Parse(json);
         Debug.Log("공지: "+json);
-        string[] Notices = json.Split(',');
-        GameManager.Notice = Notices;
+        //Notice[] notice = new Notice[]();
+        Notice n = new Notice();
+        List<Notice> nnn = new List<Notice>();
+        for (int i = 0; i < j.Count; i++)
+        {
+            Notice nn = new Notice();
+            nn = JsonUtility.FromJson<Notice>(j[i].ToString());
+            nnn.Add(JsonUtility.FromJson<Notice>(j[i].ToString()));
+        }
+        GameManager.Notice = nnn.ToArray();
+        Debug.Log(GameManager.Notice[0].title);
+        Debug.Log(GameManager.Notice[1].title);
+        Debug.Log(GameManager.Notice[2].title);
         StartCoroutine(Quest());
 
     }
