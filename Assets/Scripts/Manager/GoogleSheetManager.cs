@@ -531,10 +531,7 @@ public class GoogleSheetManager : MonoBehaviour
     {
         Debug.Log("공지: "+json);
         string[] Notices = json.Split(',');
-        for (int i = 0; i < Notices.Length-1; i++)
-        {
-            Debug.Log(Notices[i]);     
-        }
+        GameManager.Notice = Notices;
         StartCoroutine(Quest());
 
     }

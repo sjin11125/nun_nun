@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public class Notice
+{
+    public string title;
+    public string info;
+    public string reward;
+
+}
 public class DogamManager : MonoBehaviour
 {   //엑셀에 있는 모든 건물 정보 받아서 상점 패널에 넣기
     public GameObject DogamChaPrefab;
@@ -27,7 +34,13 @@ public class DogamManager : MonoBehaviour
     public GameObject Scroll_str;
 
     public static Button[] LockButton;
-  
+
+    //-------------------------------------------공지-----------------------
+
+    public GameObject NoticPrefab;
+    public GameObject Notis_Scroll;
+    public GameObject Notis_Content;
+    /// </summary>
     // Start is called before the first frame update
     void Start()
     {
@@ -175,7 +188,27 @@ public class DogamManager : MonoBehaviour
 
     }          //건물 상점 열 때 건물 리스트 불러오기
 
+    public void NoticeOpen()                    //우편함 열기
+    {
+        Transform[] child=Notis_Content.GetComponentsInChildren<Transform>();   
+        for (int i = 1; i < child.Length; i++)
+        {
+            Destroy(child[i].gameObject);
 
+        }
+        for (int i = 0; i < GameManager.Notice.Length-1; i++)
+        {
+            GameObject Notice=Instantiate(NoticPrefab);
+
+            Notice.transform.SetParent(Notis_Content.transform);
+
+            Text text =Notice.GetComponentInChildren<Text>();
+            text.text =GameManager.Notice[i];
+
+
+            Notice.GetComponent<RectTransform>().localScale = new Vector3(1.55f, 2f, 0);
+        }
+    }
     public void FriendOpen()                //친구 목록 열 때 친구 리스트 불러오기
     {
         for (int i = 0; i < GameManager.Friends.Length; i++)
