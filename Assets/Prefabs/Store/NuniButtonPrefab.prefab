@@ -189,6 +189,7 @@ MonoBehaviour:
   ItemImages: []
   isCheck: 0
   ButtonText: {fileID: 0}
+  CancleText: {fileID: 0}
   DowngradeBuilding: {fileID: 0}
   isUpgrade: 0
   NuniInfoPannel: {fileID: 0}
@@ -595,6 +596,7 @@ GameObject:
   - component: {fileID: 6327648163769899959}
   - component: {fileID: 6327648163769899956}
   - component: {fileID: 1594807041623522499}
+  - component: {fileID: 241083964910417187}
   m_Layer: 5
   m_Name: NuniButtonPrefab
   m_TagString: Untagged
@@ -738,11 +740,39 @@ MonoBehaviour:
   ItemImages: []
   isCheck: 0
   ButtonText: {fileID: 1594807043711417091}
+  CancleText: {fileID: 0}
   DowngradeBuilding: {fileID: 0}
   isUpgrade: 0
   NuniInfoPannel: {fileID: 7673497156679783215, guid: 1b3fd218c5866c64bafe88b5e5aa9e1e, type: 3}
   WindowClose: {fileID: 0}
   NuniUpgradeButton: {fileID: 0}
+--- !u!114 &241083964910417187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6327648163769899962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8466d31efcda56840be84c219fb24792, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardName: 
+  cardImage: 
+  Cost: 0
+  Item: 0
+  isLock: 
+  Level: 
+  Star: 
+  Gauge: 
+  Info: 
+  Effect: 
+  Building: []
+  Gold: 
+  weight: 
+  Image: {fileID: 0}
+  isDialog: 0
 --- !u!1 &6928276109157135644
 GameObject:
   m_ObjectHideFlags: 0
