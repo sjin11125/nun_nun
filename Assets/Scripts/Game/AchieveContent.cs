@@ -11,11 +11,13 @@ public class AchieveContent : MonoBehaviour
     private int myContIndex;
     private int nuniIndex;//CanvasManger와 연동
     private GameObject settigPanel;
+    int shapeCount;
 
-    public void ContentStart(int saveMyIndex,int saveMynuniIndex)
+    public void ContentStart(int saveMyIndex,int saveMynuniIndex, int saveCount)
     {
         myContIndex = saveMyIndex;
         nuniIndex = saveMynuniIndex;
+        shapeCount = saveCount;
         if (!CanvasManger.currentAchieveSuccess[myContIndex])
         {
             getBtn.enabled = false;
@@ -33,7 +35,10 @@ public class AchieveContent : MonoBehaviour
 
     public void GetButton()
     {
-        getBtn.enabled = false;
+        if(shapeCount < int.Parse(int_text.text))
+        {
+            getBtn.enabled = false;
+        }
         Nuni[nuniIndex].transform.GetChild(1).gameObject.SetActive(true);//완료이미지
         GameManager.Money += Nuni[nuniIndex].GetComponent<ContentNuni>().get_money;
         GameManager.ShinMoney += Nuni[nuniIndex].GetComponent<ContentNuni>().get_shin;

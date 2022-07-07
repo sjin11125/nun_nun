@@ -9,15 +9,16 @@ public class CanvasManger : MonoBehaviour
     public Text Money;          //¿Á»≠
     public Text ShinMoney;
     public GameObject[] Achieves;
-    [SerializeField]
+
     public static int[] achieveContNuniIndex = new int[12] { 0,0,0,0,0,0,0,0,0,0,0,0};
     public static bool[] currentAchieveSuccess = new bool[12] { false, false , false , false , false , false , false , false , false , false , false , false };
+    public static int[] achieveCount = new int[12] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
     private void Start()
     {
         for (int i = 0; i < Achieves.Length; i++)
         {
-            Achieves[i].GetComponent<AchieveContent>().ContentStart(i, achieveContNuniIndex[i]);
+            Achieves[i].GetComponent<AchieveContent>().ContentStart(i, achieveContNuniIndex[i], achieveCount[i]);
         }
     }
 

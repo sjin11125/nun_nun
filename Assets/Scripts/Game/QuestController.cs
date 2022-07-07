@@ -13,7 +13,7 @@ public class QuestController : MonoBehaviour
         gridObj = GameObject.FindGameObjectWithTag("Grid");
         for (int i = 0; i < count.Length; i++)
         {
-            count[i] = 0;
+            count[i] = CanvasManger.achieveCount[i];
             transform.GetChild(i).GetChild(1).GetComponent<Text>().text= count[i].ToString();
         }
     }
