@@ -23,6 +23,7 @@ public class DogamManager : MonoBehaviour
 
 
     public GameObject Scroll;
+    public GameObject Scroll_str;
 
     public static Button[] LockButton;
   
@@ -41,7 +42,7 @@ public class DogamManager : MonoBehaviour
    
     public void StrOpen()
     {
-        Transform[] scroll_child = Scroll.GetComponentsInChildren<Transform>();
+        Transform[] scroll_child = Scroll_str.GetComponentsInChildren<Transform>();
         for (int i = 1; i < scroll_child.Length; i++)
         {
             Destroy(scroll_child[i].gameObject);
@@ -54,7 +55,7 @@ public class DogamManager : MonoBehaviour
         {
 
             DogamCha = Instantiate(DogamChaPrefab) as GameObject;
-            DogamCha.transform.SetParent(Scroll.transform);
+            DogamCha.transform.SetParent(Scroll_str.transform);
 
             Transform[] BuildingPrefabChilds = DogamCha.GetComponentsInChildren<Transform>();
             Text[] BuildingButtonText = DogamCha.GetComponentsInChildren<Text>();
