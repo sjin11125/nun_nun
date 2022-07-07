@@ -27,7 +27,13 @@ public class DogamManager : MonoBehaviour
     public GameObject Scroll_str;
 
     public static Button[] LockButton;
-  
+
+    //-------------------------------------------공지-----------------------
+
+    public GameObject NoticPrefab;
+    public GameObject Notis_Scroll;
+    public GameObject Notis_Content;
+    /// </summary>
     // Start is called before the first frame update
     void Start()
     {
@@ -175,7 +181,24 @@ public class DogamManager : MonoBehaviour
 
     }          //건물 상점 열 때 건물 리스트 불러오기
 
+    public void NoticeOpen()                    //우편함 열기
+    {
+        Transform[] child=Notis_Content.GetComponentsInChildren<Transform>();   
+        for (int i = 1; i < child.Length; i++)
+        {
+            Destroy(child[i].gameObject);
 
+        }
+        for (int i = 0; i < GameManager.Notice.Length-1; i++)
+        {
+            GameObject Notice=Instantiate(NoticPrefab);
+
+            Notice.transform.SetParent(Notis_Content.transform);
+
+            Text text =Notice.GetComponentInChildren<Text>();
+            text.text =GameManager.Notice[i];
+        }
+    }
     public void FriendOpen()                //친구 목록 열 때 친구 리스트 불러오기
     {
         for (int i = 0; i < GameManager.Friends.Length; i++)
