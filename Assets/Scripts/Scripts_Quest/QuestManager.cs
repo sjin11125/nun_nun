@@ -42,37 +42,7 @@ public class QuestManager : MonoBehaviour
 
 
     }
-    void Start()
-    {
-        if (GameManager.QParse==false)
-        {
-            GameManager.QParse = true;
 
-            Questlist = new List<QuestInfo>();                       //그럼 엑셀에서 오늘의 퀘스트 목록 얻어서 퀘스트 초기화해주고 구글 스크립트에도 업데이트
-
-            Quest = new QuestInfo[3];
-
-            csvData = Resources.Load<TextAsset>("Quest");
-            string[] data = csvData.text.Split(new char[] { '\n' });    //엔터 기준으로 쪼갬. 
-
-            for (int i = 1; i < data.Length - 1; i++)
-            {
-                string[] pro_data = data[i].Split(',');
-                QuestInfo qeustOne = new QuestInfo();
-                qeustOne.quest = pro_data[0];
-                qeustOne.count = pro_data[2];
-                qeustOne.title = pro_data[1];
-                Questlist.Add(qeustOne); //퀘스트 리스트에 넣기
-            }
-            GameManager.Quest = Questlist.ToArray();
-        }
-      
-    }
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
     public void QuestSave(string quest)
     {
         WWWForm form1 = new WWWForm();
@@ -93,7 +63,6 @@ public class QuestManager : MonoBehaviour
             WWWForm form1 = new WWWForm();                                      //진행상황 불러옴
             form1.AddField("order", "questGet");
             form1.AddField("player_nickname", GameManager.NickName);
-            form1.AddField("quest", GameManager.Quest[i].quest);
 
             StartCoroutine(Post(form1));
         }
@@ -138,7 +107,6 @@ public class QuestManager : MonoBehaviour
         {
             //GameManager.isReset = true;
             isReset = "true";
-            GameManager.Quest = Questlist.ToArray();
             QuestClick();    //초기화 했으면 구글 스크립트에서 진행상황만 불러오고 구글 스크립트에 오늘날짜 넣어
 
             return;
@@ -147,20 +115,6 @@ public class QuestManager : MonoBehaviour
         {
             isReset = "false";
             // GameManager.isReset = false;
-
-
-          
-            GameManager.Quest = Questlist.ToArray();
-
-            if (GameManager.Quest == null)
-            {
-                Debug.Log("퀘스트는 널");
-            }
-
-            for (int i = 0; i < 3; i++)                   //퀘스트 목록
-            {
-                QuestSave(GameManager.Quest[UnityEngine.Random.Range(0,14)].quest);                             // 처음엔 퀘스트 아무것도 안했으니까 0으로 두자
-            }
         }
         isStart = true;
 
@@ -184,14 +138,6 @@ public class QuestManager : MonoBehaviour
         
         GetQuestList.Add(questInfo);
         Debug.Log(GetQuestList.Count);
-        GameManager.QuestProgress=GetQuestList.ToArray();               //게임매니저에 있는 퀘스트 진행상황 배열에 넣기
-
-
-        for (int i = 0; i < GameManager.QuestProgress.Length; i++)              //게임매니저에 있는 퀘스트 진행상황 불러와서 ui에 넣음
-        {
-            QuestText[i].text = GameManager.QuestProgress[i].quest + "   (" + GameManager.QuestProgress[i].count + "/" + GameManager.Quest[i].count + ")";
-        }
-        //
     }
 
     public void QuestExit()

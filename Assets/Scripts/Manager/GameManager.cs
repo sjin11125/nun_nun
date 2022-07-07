@@ -116,12 +116,6 @@ public class GameManager : MonoBehaviour
 
     //--------------------------------------------------------------------퀘스트---------------------------------------------------
 
-   public static QuestInfo[] Quest;                 //퀘스트 목록
-    public static QuestInfo[] QuestProgress;        //퀘스트 진행상황
-    public static bool isReset;             //퀘스트 초기화 햇니?
-    public static bool QParse = false;
-    public static bool[] QuestActive;                 //블록 얼마 깻는지 확인
-    public static int QuestColor = 0;                   //뭔 블록 깨야하는지    
 
     public static bool isStrEdit = false;
 
@@ -155,8 +149,7 @@ public class GameManager : MonoBehaviour
         CharacterImageData = new Dictionary<string, Sprite>();
         CharacterList = new List<Card>();
         BuildingNumber = new Dictionary<string, int>();
-        IDs = new List<string>();
-        Quest = new QuestInfo[3];                     //퀘스트 
+        IDs = new List<string>();                   //퀘스트 
         NuniDialog = new List<NuniDialog>();
       
         for (int i = 0; i < BuildingPrefabInspector.Length; i++)        //빌딩 프리팹 정보 불러오기

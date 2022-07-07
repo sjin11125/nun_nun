@@ -611,7 +611,6 @@ MonoBehaviour:
   NuniManager: {fileID: 853950860}
   MyBuildingLoad: {fileID: 281042276}
   WarningPannel: {fileID: 1895708895}
-  retext: {fileID: 347607660}
   ifISign: 1
   loginBtn: {fileID: 900836456}
   bestScoreKey_: bsdat
@@ -3873,7 +3872,6 @@ MonoBehaviour:
   NuniManager: {fileID: 853950860}
   MyBuildingLoad: {fileID: 1572906190}
   WarningPannel: {fileID: 1895708895}
-  retext: {fileID: 347607660}
   ifISign: 0
   loginBtn: {fileID: 900836456}
   bestScoreKey_: bsdat
@@ -4964,50 +4962,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
---- !u!1 &2113949455
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2113949456}
-  - component: {fileID: 2113949457}
-  m_Layer: 0
-  m_Name: inAppCheck
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2113949456
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2113949455}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.1669884, y: 24.799187, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2113949457
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2113949455}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e19771ad0683a6046acbf6b50f67a880, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inAppStatus: {fileID: 921841231}
 --- !u!1 &2146613134
 GameObject:
   m_ObjectHideFlags: 0
