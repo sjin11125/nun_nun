@@ -58,6 +58,7 @@ public class NuniParseManager : MonoBehaviour
 
             Card nuni = GameManager.AllNuniArray[i];
             NuniButton.enabled = true;
+            Debug.Log(image.Length);
             image[1].sprite = nuni.GetChaImange();   //누니 이미지 넣기
             NuniPannel.name = nuni.cardImage;        //누니 이름 넣기
             NuniName.text = nuni.cardName;
@@ -71,7 +72,7 @@ public class NuniParseManager : MonoBehaviour
 
     public static void NuniInfoOpen()
     {
-        NuniImages[2].sprite = SelectedNuni.GetChaImange();
+        NuniImages[3].sprite = SelectedNuni.GetChaImange();
         NuniTexts[0].text = SelectedNuni.cardName;
         NuniTexts[2].text = SelectedNuni.Info;
         NuniTexts[4].text = SelectedNuni.Effect;
