@@ -76,6 +76,7 @@ public class GameManager : MonoBehaviour
     //-----------------------------------여기서부터 재화---------------------------------
     public static int Money;            //재화
     public static int ShinMoney;
+    public static int Zem;
 
     
     //---------------------------------------------------------------------------------------------
@@ -91,7 +92,7 @@ public class GameManager : MonoBehaviour
 
     public static string friend_nickname;       //현재 들어가있는 친구닉넴
 
-    public static string URL = "https://script.google.com/macros/s/AKfycbx3h-Bv04sCBr50_HjVRIhcuuoXEjKnCzUKmqktQAZkvEoDMGKJFGON5-dSNlKxKLqB/exec";
+    public static string URL = "https://script.google.com/macros/s/AKfycbxHueJ-0uFlTlviEDwHSZMw2Fcm4aVQvOUBzffkt_IFCzMyoCsZgmis62D7VA1JpGfi/exec";
 
     public static bool isReward;        //일괄수확 가능한지
 
@@ -124,6 +125,11 @@ public class GameManager : MonoBehaviour
     public static bool mainMusicOn = true;
     public static bool gameSoundOn = true;
     public static bool mainSoundOn = true;
+
+    //--------------------------------------------공지----------------------------------------
+    public static string[] Notice;
+
+
     private void Awake()
     {
         //PlayerPrefs.DeleteAll();
