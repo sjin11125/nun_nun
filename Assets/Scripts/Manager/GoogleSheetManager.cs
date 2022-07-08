@@ -170,7 +170,7 @@ public class GoogleSheetManager : MonoBehaviour
 
     }
 
-    public void Login()//자동 로그인
+    public void Login()
     {
         if (GameManager.isUpdateDone == true)
         {
