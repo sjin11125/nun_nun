@@ -40,46 +40,48 @@ public class QuestController : MonoBehaviour
         {
             if (gridObj.GetComponent<GridScript>().colors[gridObj.GetComponent<GridScript>().completeIndexArray[i]] == color)
             {
-                count[questIndex]++;
-                transform.GetChild(questIndex).GetChild(1).GetComponent<Text>().text = count[questIndex].ToString();
-                int goalCount = CanvasManger.achieveContNuniIndex[questIndex];
-                switch (goalCount)
-                {
-                    case 0:
-                        if (count[questIndex] >= 20)
-                        {
-                            CanvasManger.currentAchieveSuccess[questIndex] = true;
-                        }
-                        break;
-                    case 1:
-                        if (count[questIndex] >= 100)
-                        {
-                            CanvasManger.currentAchieveSuccess[questIndex] = true;
-                        }
-                        break;
-                    case 2:
-                        if (count[questIndex] >= 200)
-                        {
-                            CanvasManger.currentAchieveSuccess[questIndex] = true;
-                        }
-                        break;
-                    case 3:
-                        if (count[questIndex] >= 500)
-                        {
-                            CanvasManger.currentAchieveSuccess[questIndex] = true;
-                        }
-                        break;
-                    case 4:
-                        if (count[questIndex] >= 2000)
-                        {
-                            CanvasManger.currentAchieveSuccess[questIndex] = true;
-                        }
-                        break;
-                    default:
-                        break;
-                }              
+                count[questIndex]++;           
             }
         }
+        transform.GetChild(questIndex).GetChild(1).GetComponent<Text>().text = count[questIndex].ToString();
+        int goalCount = CanvasManger.achieveContNuniIndex[questIndex];
+        switch (goalCount)
+        {
+            case 0:
+                if (count[questIndex] >= 20)
+                {
+                    CanvasManger.currentAchieveSuccess[questIndex] = true;
+                }
+                break;
+            case 1:
+                if (count[questIndex] >= 100)
+                {
+                    CanvasManger.currentAchieveSuccess[questIndex] = true;
+                }
+                break;
+            case 2:
+                if (count[questIndex] >= 200)
+                {
+                    CanvasManger.currentAchieveSuccess[questIndex] = true;
+                }
+                break;
+            case 3:
+                if (count[questIndex] >= 500)
+                {
+                    CanvasManger.currentAchieveSuccess[questIndex] = true;
+                }
+                break;
+            case 4:
+                if (count[questIndex] >= 2000)
+                {
+                    CanvasManger.currentAchieveSuccess[questIndex] = true;
+                }
+                break;
+            default:
+                CanvasManger.currentAchieveSuccess[questIndex] = false;
+                break;
+        }
+        CanvasManger.achieveCount[questIndex] = count[questIndex];
     }
     public void GetShapes(string shape, int questIndex)
     {
@@ -87,45 +89,47 @@ public class QuestController : MonoBehaviour
         {
             if (gridObj.GetComponent<GridScript>().shapes[gridObj.GetComponent<GridScript>().completeIndexArray[i]] == shape)
             {
-                count[questIndex]++;
-                transform.GetChild(questIndex).GetChild(1).GetComponent<Text>().text = count[questIndex].ToString();
-                int goalCount = CanvasManger.achieveContNuniIndex[questIndex];
-                switch (goalCount)
-                {
-                    case 0:
-                        if (count[questIndex] >= 20)
-                        {
-                            CanvasManger.currentAchieveSuccess[questIndex] = true;
-                        }
-                        break;
-                    case 1:
-                        if (count[questIndex] >= 100)
-                        {
-                            CanvasManger.currentAchieveSuccess[questIndex] = true;
-                        }
-                        break;
-                    case 2:
-                        if (count[questIndex] >= 200)
-                        {
-                            CanvasManger.currentAchieveSuccess[questIndex] = true;
-                        }
-                        break;
-                    case 3:
-                        if (count[questIndex] >= 500)
-                        {
-                            CanvasManger.currentAchieveSuccess[questIndex] = true;
-                        }
-                        break;
-                    case 4:
-                        if (count[questIndex] >= 2000)
-                        {
-                            CanvasManger.currentAchieveSuccess[questIndex] = true;
-                        }
-                        break;
-                    default:
-                        break;
-                }
+                count[questIndex]++;             
             }
         }
+        transform.GetChild(questIndex).GetChild(1).GetComponent<Text>().text = count[questIndex].ToString();
+        int goalCount = CanvasManger.achieveContNuniIndex[questIndex];
+        switch (goalCount)
+        {
+            case 0:
+                if (count[questIndex] >= 20)
+                {
+                    CanvasManger.currentAchieveSuccess[questIndex] = true;
+                }
+                break;
+            case 1:
+                if (count[questIndex] >= 100)
+                {
+                    CanvasManger.currentAchieveSuccess[questIndex] = true;
+                }
+                break;
+            case 2:
+                if (count[questIndex] >= 200)
+                {
+                    CanvasManger.currentAchieveSuccess[questIndex] = true;
+                }
+                break;
+            case 3:
+                if (count[questIndex] >= 500)
+                {
+                    CanvasManger.currentAchieveSuccess[questIndex] = true;
+                }
+                break;
+            case 4:
+                if (count[questIndex] >= 2000)
+                {
+                    CanvasManger.currentAchieveSuccess[questIndex] = true;
+                }
+                break;
+            default:
+                CanvasManger.currentAchieveSuccess[questIndex] = false;
+                break;
+        }
+        CanvasManger.achieveCount[questIndex] = count[questIndex];
     }
 }
