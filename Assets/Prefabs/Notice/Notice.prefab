@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5115097759191404323}
   - component: {fileID: 5115097759191404324}
   - component: {fileID: 5115097759191404325}
+  - component: {fileID: 3828925713422169598}
   m_Layer: 5
   m_Name: Notice
   m_TagString: Untagged
@@ -121,7 +122,43 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5115097759191404324}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3828925713422169598}
+        m_TargetAssemblyTypeName: ChaButtonScript, Assembly-CSharp
+        m_MethodName: NoticeClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &3828925713422169598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5115097759191404327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8afe11d9dd10e54f830d20bf9ca765c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ChaPanel2: {fileID: 0}
+  LockPanel: {fileID: 0}
+  Check: {fileID: 0}
+  ItemImages: []
+  isCheck: 0
+  ButtonText: {fileID: 0}
+  CancleText: {fileID: 0}
+  DowngradeBuilding: {fileID: 0}
+  isUpgrade: 0
+  NuniInfoPannel: {fileID: 0}
+  WindowClose: {fileID: 0}
+  NuniUpgradeButton: {fileID: 0}
 --- !u!1 &5115097759510144377
 GameObject:
   m_ObjectHideFlags: 0

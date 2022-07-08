@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Notice
+public class Notice 
 {
     public string title;
     public string info;
@@ -38,7 +38,6 @@ public class DogamManager : MonoBehaviour
     //-------------------------------------------공지-----------------------
 
     public GameObject NoticPrefab;
-    public GameObject Notis_Scroll;
     public GameObject Notis_Content;
     /// </summary>
     // Start is called before the first frame update
@@ -196,7 +195,7 @@ public class DogamManager : MonoBehaviour
             Destroy(child[i].gameObject);
 
         }
-        for (int i = 0; i < GameManager.Notice.Length-1; i++)
+        for (int i = 0; i < GameManager.Notice.Length; i++)
         {
             if (GameManager.Notice[i].reward=="notice")     //공지일 경우
             {
@@ -212,14 +211,16 @@ public class DogamManager : MonoBehaviour
             else                    //공지가 아니고 보상일 경우
             {
                 GameObject Notice = Instantiate(NoticPrefab);
-
-                Notice.transform.name = GameManager.Notice[i].reward;
+                Notice.transform.name = GameManager.Notice[i].title;
                 Notice.transform.SetParent(Notis_Content.transform);
 
                 Text text = Notice.GetComponentInChildren<Text>();
                 text.text = GameManager.Notice[i].title;
 
                 Notice.GetComponent<RectTransform>().localScale = new Vector3(1.55f, 2f, 0);
+
+                
+               
             }
 
 
