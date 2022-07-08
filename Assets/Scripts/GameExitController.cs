@@ -40,7 +40,7 @@ public class GameExitController : MonoBehaviour
 
         form2.AddField("achieve",string.Join(",", CanvasManger.currentAchieveSuccess));
         form2.AddField("index", string.Join(",", CanvasManger.achieveContNuniIndex));
-
+        form2.AddField("count", string.Join(",", CanvasManger.achieveCount));
 
         StartCoroutine(SetPost(form2));
     }
