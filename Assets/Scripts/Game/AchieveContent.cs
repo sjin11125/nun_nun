@@ -11,15 +11,13 @@ public class AchieveContent : MonoBehaviour
     private int myContIndex;
     private int nuniIndex;//CanvasManger와 연동
     private GameObject settigPanel;
+    int shapeCount;
 
-    public void ContentStart(int saveMyIndex,int saveMynuniIndex)
+    public void ContentStart(int saveMyIndex,int saveMynuniIndex, int saveCount)
     {
         myContIndex = saveMyIndex;
         nuniIndex = saveMynuniIndex;
-        if (!CanvasManger.currentAchieveSuccess[myContIndex])
-        {
-            getBtn.enabled = false;
-        }
+        shapeCount = saveCount;
         for (int i = 0; i < Nuni.Length; i++)
         {
             if (i < nuniIndex)
@@ -28,20 +26,36 @@ public class AchieveContent : MonoBehaviour
             }
         }
         int_text.text = Nuni[nuniIndex].GetComponent<ContentNuni>().int_text.ToString();
-        settigPanel = GameObject.FindGameObjectWithTag("SettingPanel");
+
+        if (!CanvasManger.currentAchieveSuccess[myContIndex])
+        {
+            getBtn.enabled = false;
+        }
+        settigPanel = GameObject.FindGameObjectWithTag("SettingPanel"); 
     }
 
     public void GetButton()
     {
-        getBtn.enabled = false;
         Nuni[nuniIndex].transform.GetChild(1).gameObject.SetActive(true);//완료이미지
         GameManager.Money += Nuni[nuniIndex].GetComponent<ContentNuni>().get_money;
         GameManager.ShinMoney += Nuni[nuniIndex].GetComponent<ContentNuni>().get_shin;
+        GameManager.Zem += Nuni[nuniIndex].GetComponent<ContentNuni>().get_zem;
         nuniIndex++;
-        int_text.text = Nuni[nuniIndex].GetComponent<ContentNuni>().int_text.ToString();
-        // GameManager.Zem += NunnComple[index].GetComponent<ContentNuni>().get_zem;
-        //transform.parent.GetComponent<CanvasManger>().achieveContIndex[myContIndex] = nuniIndex;
-        CanvasManger.achieveContNuniIndex[myContIndex] = nuniIndex;
-        settigPanel.GetComponent<AudioController>().Sound[1].Play();
+        if (nuniIndex < Nuni.Length)
+        {
+            int_text.text = Nuni[nuniIndex].GetComponent<ContentNuni>().int_text.ToString();
+            if (shapeCount < Nuni[nuniIndex].GetComponent<ContentNuni>().int_text)
+            {
+                getBtn.enabled = false;
+                CanvasManger.currentAchieveSuccess[myContIndex] = false;
+            }
+            CanvasManger.achieveContNuniIndex[myContIndex] = nuniIndex;
+            settigPanel.GetComponent<AudioController>().Sound[1].Play();
+        }
+        else
+        {
+            getBtn.enabled = false;
+            CanvasManger.currentAchieveSuccess[myContIndex] = false;
+        }
     }
 }
