@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
 using System.Linq;
+using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class ChaButtonScript : MonoBehaviour
 {
@@ -407,19 +407,19 @@ public class ChaButtonScript : MonoBehaviour
                     Card Nuni = GameManager.AllNuniArray[i];
                     GameManager.CharacterList.Add(Nuni);
 
-                    StartCoroutine(NuniSave(Nuni));          //구글 스크립트에 업데이트
+                    StartCoroutine(NuniSave(Nuni, notice_info.title));          //구글 스크립트에 업데이트
                 }
             }
         }
-        
     }
-    IEnumerator NuniSave(Card nuni)                //누니 구글 스크립트에 저장
+    IEnumerator NuniSave(Card nuni,string title)                //누니 구글 스크립트에 저장
     {
 
         WWWForm form1 = new WWWForm();
-        form1.AddField("order", "nuniSave");
+        form1.AddField("order", "setNotice");
         form1.AddField("player_nickname", GameManager.NickName);
         form1.AddField("nuni", nuni.cardName + ":T");
+        form1.AddField("notice",title);
 
 
 
@@ -437,12 +437,27 @@ public class ChaButtonScript : MonoBehaviour
             nuni_card.SetValue(nuni);
 
             gameObject.SetActive(false);
+
+            List<Notice> NoticeList = GameManager.Notice.ToList();
+            for (int i = 0; i < GameManager.Notice.Length; i++)
+            {
+                Debug.Log(GameManager.Notice[i].title);
+                Debug.Log(gameObject.name);
+
+                if (GameManager.Notice[i].title == gameObject.name)
+                {
+                   
+                    NoticeList.RemoveAt(i);
+                    GameManager.Notice = NoticeList.ToArray();              //알림 배열에서 삭제
+                    break;
+                }
+            }
             yield return www.SendWebRequest();
             //Debug.Log(www.downloadHandler.text);
             //if (www.isDone) NuniResponse(www.downloadHandler.text);
             //else print("웹의 응답이 없습니다.");*/
         }
-      
+  
         
         Destroy(gameObject);
     }
