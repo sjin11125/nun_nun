@@ -93,6 +93,8 @@ public class LoadManager : MonoBehaviour
                 form1.AddField("loadedFriend", GameManager.NickName);
 
                 StartCoroutine(RewardStart());          //오늘 재화 받을 수 있는지
+
+                GameManager.Instance.BestScoreSave();                   //최고점수 서버 저장
             }
 
             buildingsave.BuildingLoad();
@@ -204,6 +206,8 @@ public class LoadManager : MonoBehaviour
 
         if (GameManager.isReward.Equals(true)&&GameManager.isLoading.Equals(true) )        
         {
+
+            
             LoadingNuni.SetActive(false);
             GameManager.isReward = false;
             int MyReward = 0;

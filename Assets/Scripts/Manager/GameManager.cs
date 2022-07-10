@@ -282,8 +282,8 @@ public class GameManager : MonoBehaviour
             {
             }
             else print("웹의 응답이 없습니다.");
-            print("exit");
-            Application.Quit();
+            print("최고점수저장");
+           // Application.Quit();
         }
     }
     void OnApplicationPause(bool pause)
