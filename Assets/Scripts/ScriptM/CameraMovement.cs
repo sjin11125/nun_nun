@@ -119,7 +119,7 @@ public class CameraMovement : MonoBehaviour
             {
                 isTouch = false;
             }
-        cam.orthographicSize = Mathf.Clamp(cam.orthographicSize, 2f, 5f); // 축소, 확대 배율
+        cam.orthographicSize = Mathf.Clamp(cam.orthographicSize, 5f, 5f); // 축소, 확대 배율
 
             if (isTouch==false)
             {
