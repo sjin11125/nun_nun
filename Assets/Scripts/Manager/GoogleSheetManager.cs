@@ -31,9 +31,12 @@ public class GoogleSheetManager : MonoBehaviour
     public string bestScoreKey_ = "bsdat";
     private BestScoreData bestScores_ = new BestScoreData();
 
+    public GameObject VersionCheckPrefab;
+
     public GameObject UpdatePanel;
     private void Awake()
     {
+        VersionCheckPrefab.SetActive(true);
         WWWForm form = new WWWForm();
         form.AddField("order", "isUpdate");
 
@@ -91,11 +94,13 @@ public class GoogleSheetManager : MonoBehaviour
         Debug.Log(GameManager.NewVersion);
         if (GameManager.CurVersion!=json)           //최신버전이 아니면 업데이트 패널뜨게
         {
+            VersionCheckPrefab.SetActive(false);
             GameManager.isUpdateDone = false;
             UpdatePanel.SetActive(true);
         }
         else
         {
+            VersionCheckPrefab.SetActive(false);
             GameManager.isUpdateDone = true;
         }
     }
