@@ -35,7 +35,7 @@ public class ButtonOk : MonoBehaviour
         Application.OpenURL("market://details?id=" + Application.identifier);
 #endif
 #if UNITY_IOS
-        Application.OpenURL("market://details?id=com.SoMa.NuNNuN");
+        Application.OpenURL("itms-apps://itunes.apple.com/app/id1629395506");
 #endif
 
     }
