@@ -50,12 +50,17 @@ public class AchieveContent : MonoBehaviour
                 CanvasManger.currentAchieveSuccess[myContIndex] = false;
             }
             CanvasManger.achieveContNuniIndex[myContIndex] = nuniIndex;
-            settigPanel.GetComponent<AudioController>().Sound[1].Play();
+           // settigPanel.GetComponent<AudioController>().Sound[1].Play();
         }
         else
         {
             getBtn.enabled = false;
             CanvasManger.currentAchieveSuccess[myContIndex] = false;
         }
+        for (int i = 0; i < CanvasManger.currentAchieveSuccess.Length; i++)
+        {
+            Debug.Log("CanvasManger.currentAchieveSuccess[" + i + "] : " + CanvasManger.currentAchieveSuccess[i]);
+        }
+        GameManager.isBScore = true;
     }
 }
