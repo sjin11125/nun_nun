@@ -100,7 +100,6 @@ public class Scores : MonoBehaviour
 
     public void GameRestart()
     {
-        GameManager.Instance.BestScoreSave();                   //최고점수 서버 저장
         if (ItemController.reStart)
         {
             currentScores_ = 0;
