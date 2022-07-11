@@ -80,6 +80,18 @@ public class LoadManager : MonoBehaviour
     //ĳ���� �ε�
     void Start()
     {
+        for (int i = 0; i < CanvasManger.currentAchieveSuccess.Length; i++)
+        {
+           Debug.Log("CanvasManger.currentAchieveSuccess[" + i + "] : " + CanvasManger.currentAchieveSuccess[i]);
+        }
+        for (int j = 0; j < CanvasManger.achieveContNuniIndex.Length; j++)
+        {
+           Debug.Log("CanvasManger.achieveContNuniIndex[" + j + "] : " + CanvasManger.achieveContNuniIndex[j]);
+        }
+        for (int k = 0; k < CanvasManger.achieveCount.Length; k++)
+        {
+            Debug.Log("CanvasManger.achieveCount[" + k + "] : " + CanvasManger.achieveCount[k]);
+        }
         GameManager.isLoading = false;
         isLoaded = false;
         GameManager.items = 0;          //������ �ʱ�ȭ

@@ -155,7 +155,9 @@ public class GoogleSheetManager : MonoBehaviour
 
         
         form2.AddField("money", GameManager.Money.ToString() + "@" + GameManager.ShinMoney.ToString()+ "@" + TutorialsManager.itemIndex + "@" + GameManager.BestScore.ToString() + "@" + GameManager.Zem.ToString());
-         form2.AddField("ahchieve", CanvasManger.currentAchieveSuccess.ToString()+"@"+CanvasManger.achieveContNuniIndex.ToString());
+        form2.AddField("achieve", string.Join(",", CanvasManger.currentAchieveSuccess));
+        form2.AddField("index", string.Join(",", CanvasManger.achieveContNuniIndex));
+        form2.AddField("count", string.Join(",", CanvasManger.achieveCount));
         form2.AddField("isUpdate", "true");
         StartCoroutine(SetPost(form2));
 
@@ -339,8 +341,9 @@ public class GoogleSheetManager : MonoBehaviour
 
                 string tempMoney = PlayerPrefs.GetInt("Money").ToString() + "@" + PlayerPrefs.GetInt("ShinMoney").ToString() + "@" + PlayerPrefs.GetInt("TutorialsDone").ToString() + "@" + bestScores_.score.ToString() + "@" + GameManager.Zem.ToString();
                 form.AddField("money", tempMoney);
-                form.AddField("ahchieve", CanvasManger.currentAchieveSuccess.ToString() + "@" + CanvasManger.achieveContNuniIndex.ToString() + "@" + CanvasManger.achieveCount.ToString());
-
+                form.AddField("achieve", string.Join(",", CanvasManger.currentAchieveSuccess));
+                form.AddField("index", string.Join(",", CanvasManger.achieveContNuniIndex));
+                form.AddField("count", string.Join(",", CanvasManger.achieveCount));
                 form.AddField("isUpdate", "true");
 
 
@@ -404,8 +407,9 @@ public class GoogleSheetManager : MonoBehaviour
         form.AddField("player_nickname", GameManager.NickName);
         string tempMoney = GameManager.Money.ToString() + "@" + GameManager.ShinMoney.ToString() + "@" + TutorialsManager.itemIndex.ToString() + "@" + GameManager.BestScore.ToString() + "@" + GameManager.Zem.ToString();
         form.AddField("money", tempMoney);
-        form.AddField("ahchieve", CanvasManger.currentAchieveSuccess.ToString() + "@" + CanvasManger.achieveContNuniIndex.ToString() + "@" + CanvasManger.achieveCount.ToString());
-
+        form.AddField("achieve", string.Join(",", CanvasManger.currentAchieveSuccess));
+        form.AddField("index", string.Join(",", CanvasManger.achieveContNuniIndex));
+        form.AddField("count", string.Join(",", CanvasManger.achieveCount));
         form.AddField("isUpdate", "true");
 
         GD.isUpdate = "null";
@@ -434,8 +438,9 @@ public class GoogleSheetManager : MonoBehaviour
             form.AddField("player_nickname", GameManager.NickName);
             string tempMoney = GameManager.Money.ToString() + "@" + GameManager.ShinMoney.ToString() + "@" + TutorialsManager.itemIndex.ToString() + "@" + GameManager.BestScore.ToString() + "@" + GameManager.Zem.ToString();
             form.AddField("money", tempMoney);
-            form.AddField("ahchieve", CanvasManger.currentAchieveSuccess.ToString() + "@" + CanvasManger.achieveContNuniIndex.ToString() + "@" + CanvasManger.achieveCount.ToString());
-
+            form.AddField("achieve", string.Join(",", CanvasManger.currentAchieveSuccess));
+            form.AddField("index", string.Join(",", CanvasManger.achieveContNuniIndex));
+            form.AddField("count", string.Join(",", CanvasManger.achieveCount));
             form.AddField("isUpdate", "true");
 
 
@@ -497,17 +502,17 @@ public class GoogleSheetManager : MonoBehaviour
             for (int i = 0; i < CanvasManger.currentAchieveSuccess.Length; i++)
             {
                 CanvasManger.currentAchieveSuccess[i] = System.Convert.ToBoolean(json.Split('@')[0].Split(',')[i]);
-
+                Debug.Log("CanvasManger.currentAchieveSuccess["+i+"] : "+ CanvasManger.currentAchieveSuccess[i]);
             }
             for (int j = 0; j < CanvasManger.achieveContNuniIndex.Length; j++)
             {
                 CanvasManger.achieveContNuniIndex[j] = int.Parse(json.Split('@')[1].Split(',')[j]);
-                
+                Debug.Log("CanvasManger.achieveContNuniIndex[" + j + "] : " + CanvasManger.achieveContNuniIndex[j]);
             }
-            for (int j = 0; j < CanvasManger.achieveCount.Length; j++)
+            for (int k = 0; k < CanvasManger.achieveCount.Length; k++)
             {
-                CanvasManger.achieveContNuniIndex[j] = int.Parse(json.Split('@')[2].Split(',')[j]);
-
+                CanvasManger.achieveCount[k] = int.Parse(json.Split('@')[2].Split(',')[k]);
+                Debug.Log("CanvasManger.achieveCount[" + k + "] : " + CanvasManger.achieveCount[k]);
             }
         }
             GetNotice();

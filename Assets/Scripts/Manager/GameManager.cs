@@ -144,8 +144,15 @@ public class GameManager : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);  // 아래의 함수를 사용하여 씬이 전환되더라도 선언되었던 인스턴스가 파괴되지 않는다.
     }
-
-    void Start()
+    private void Update()
+    {
+        if (isBScore)
+        {
+            isBScore = false;
+            BestScoreSave();
+        }
+    }
+        void Start()
     {
         BuildingList = new List<Building>();            //현재 가지고 있는 빌딩 리스트
         //
@@ -262,6 +269,11 @@ public class GameManager : MonoBehaviour
         WWWForm form2 = new WWWForm();
         //isMe = true;                 
         form2.AddField("order", "setMoney");
+        form2.AddField("achieve", string.Join(",", CanvasManger.currentAchieveSuccess));
+        
+        form2.AddField("index", string.Join(",", CanvasManger.achieveContNuniIndex));
+        form2.AddField("count", string.Join(",", CanvasManger.achieveCount));
+
         form2.AddField("player_nickname", NickName);   
     }
     public  void BestScoreSave()
@@ -270,7 +282,13 @@ public class GameManager : MonoBehaviour
         form2.AddField("order", "setMoney");
         form2.AddField("player_nickname", GameManager.NickName);
         form2.AddField("money", GameManager.Money.ToString() + "@" + GameManager.ShinMoney.ToString() + "@" + TutorialsManager.itemIndex + "@" + GameManager.BestScore);
+         form2.AddField("achieve", string.Join(",", CanvasManger.currentAchieveSuccess));
+        Debug.Log("최고점수: " + string.Join(",", CanvasManger.currentAchieveSuccess));
 
+        form2.AddField("index", string.Join(",", CanvasManger.achieveContNuniIndex));
+        form2.AddField("count", string.Join(",", CanvasManger.achieveCount));
+
+        form2.AddField("isUpdate", "true");
         StartCoroutine(SetPost(form2));
     }
     IEnumerator SetPost(WWWForm form)
