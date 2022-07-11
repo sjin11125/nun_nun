@@ -38,7 +38,9 @@ public class AchieveContent : MonoBehaviour
     {
         Nuni[nuniIndex].transform.GetChild(1).gameObject.SetActive(true);//완료이미지
         GameManager.Money += Nuni[nuniIndex].GetComponent<ContentNuni>().get_money;
+        CanvasManger.AchieveMoney += Nuni[nuniIndex].GetComponent<ContentNuni>().get_money;
         GameManager.ShinMoney += Nuni[nuniIndex].GetComponent<ContentNuni>().get_shin;
+        CanvasManger.AchieveShinMoney += Nuni[nuniIndex].GetComponent<ContentNuni>().get_shin;
         GameManager.Zem += Nuni[nuniIndex].GetComponent<ContentNuni>().get_zem;
         nuniIndex++;
         if (nuniIndex < Nuni.Length)
@@ -48,9 +50,9 @@ public class AchieveContent : MonoBehaviour
             {
                 getBtn.enabled = false;
                 CanvasManger.currentAchieveSuccess[myContIndex] = false;
+                settigPanel.GetComponent<AudioController>().Sound[1].Play();
             }
             CanvasManger.achieveContNuniIndex[myContIndex] = nuniIndex;
-           // settigPanel.GetComponent<AudioController>().Sound[1].Play();
         }
         else
         {

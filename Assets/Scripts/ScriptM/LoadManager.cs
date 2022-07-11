@@ -274,6 +274,7 @@ public class LoadManager : MonoBehaviour
 
             }*/
             GameManager.Money += MyReward;
+            CanvasManger.AchieveMoney += MyReward;
 
 
             WWWForm form1 = new WWWForm();
