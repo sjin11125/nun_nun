@@ -7,6 +7,7 @@ public class NuniParseManager : MonoBehaviour
 {   //GameManager에서 파싱한 누니 정보들을 받아 누니 도감 패널에 넣기
 
     public GameObject NuniPannelPrefab;           //누니 패널 프리팹
+   // public static Transform[] NuniStarPanel;               //누니 몇성인지
     public GameObject Scroll;
 
     public  GameObject NuniInfoPanel;
@@ -24,6 +25,10 @@ public class NuniParseManager : MonoBehaviour
         NuniTexts=NuniInfoPanel.GetComponentsInChildren<Text>();
         NuniImages=NuniInfoPanel.GetComponentsInChildren<Image>();
         SelectedNuni=gameObject.AddComponent<Card>();
+
+
+
+
     }
 
     // Update is called once per frame
@@ -38,7 +43,6 @@ public class NuniParseManager : MonoBehaviour
 
     public void NuniDogamOpen()             //누니 도감 오픈했을 때
     {
-
         GameManager.isMoveLock = true;
         //GM에 있는 모든 누니 정보 불러서 패널에 넣기
         Transform[] child=Scroll.GetComponentsInChildren<Transform>();
@@ -62,6 +66,10 @@ public class NuniParseManager : MonoBehaviour
             image[1].sprite = nuni.GetChaImange();   //누니 이미지 넣기
             NuniPannel.name = nuni.cardImage;        //누니 이름 넣기
             NuniName.text = nuni.cardName;
+           
+
+    
+
             NuniPannel.GetComponent<RectTransform>().localScale = new Vector3(2.8f, 2.8f, 0);
 
            
@@ -72,11 +80,31 @@ public class NuniParseManager : MonoBehaviour
 
     public static void NuniInfoOpen()
     {
+
+
         NuniImages[3].sprite = SelectedNuni.GetChaImange();
         NuniTexts[0].text = SelectedNuni.cardName;
         NuniTexts[2].text = SelectedNuni.Info;
         NuniTexts[4].text = SelectedNuni.Effect;
-
+        Debug.Log("누니는 " + SelectedNuni.Star);
+        switch (SelectedNuni.Star)
+        {
+            case "1":
+                NuniImages[5].gameObject.SetActive(true);
+                NuniImages[6].gameObject.SetActive(false);
+                NuniImages[7].gameObject.SetActive(false);
+                break;
+            case "2":
+                NuniImages[5].gameObject.SetActive(true);
+                NuniImages[6].gameObject.SetActive(true);
+                NuniImages[7].gameObject.SetActive(false);
+                break;
+            case "3":
+                NuniImages[5].gameObject.SetActive(true);
+                NuniImages[6].gameObject.SetActive(true);
+                NuniImages[7].gameObject.SetActive(true);
+                break;
+        }
         Info = true;
 
     }
