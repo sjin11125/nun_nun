@@ -452,9 +452,8 @@ public class Building : MonoBehaviour
         //currentTime =  startingTime;
         isCoin = true;      //코인 먹었음
         GameManager.Money += Reward[Level-1];
-        CanvasManger.AchieveMoney += Reward[Level - 1];
 
-       currentTime = (int)startingTime;
+        currentTime = (int)startingTime;
 
         isCoin = true;
 
@@ -511,17 +510,13 @@ public class Building : MonoBehaviour
         if (Type .Equals( BuildType.Make) )     //상점에서 사고 설치X 바로 제거
         {
             GameManager.Money += building.Cost[building.Level - 1];          //자원 되돌리기
-            CanvasManger.AchieveMoney += building.Cost[building.Level - 1];
             GameManager.ShinMoney += building.ShinCost[building.Level - 1];
-            CanvasManger.AchieveShinMoney += building.ShinCost[building.Level - 1];
             Destroy(gameObject);
         }
         else                                //설치하고 제거
         {
             GameManager.Money += building.Cost[building.Level - 1] / 10;          //자원 되돌리기
-            CanvasManger.AchieveMoney += building.Cost[building.Level - 1] / 10;
             GameManager.ShinMoney += building.ShinCost[building.Level - 1] / 3;
-            CanvasManger.AchieveShinMoney += building.ShinCost[building.Level - 1] / 3;
 
             BuildingListRemove();
             save.RemoveValue(Id);
