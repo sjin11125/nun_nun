@@ -16975,6 +16975,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 9041669971591778746, guid: f55400918496bf1409ecfc51b0b1e5ec, type: 3}
   m_PrefabInstance: {fileID: 637367889}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &637367891 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9041669971591778749, guid: f55400918496bf1409ecfc51b0b1e5ec, type: 3}
+  m_PrefabInstance: {fileID: 637367889}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &641452504
 GameObject:
   m_ObjectHideFlags: 0
@@ -27078,6 +27089,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Money: {fileID: 2090181323}
   ShinMoney: {fileID: 1575319416}
+  ZemMoney: {fileID: 637367891}
   Achieves:
   - {fileID: 5172346735424124326}
   - {fileID: 104320676}
@@ -34717,7 +34729,7 @@ MonoBehaviour:
   m_Padding:
     m_Left: 0
     m_Right: 0
-    m_Top: 0
+    m_Top: 150
     m_Bottom: 0
   m_ChildAlignment: 1
   m_StartCorner: 0
@@ -34777,7 +34789,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.000030517578, y: 0.000061035156}
-  m_SizeDelta: {x: 300, y: 0}
+  m_SizeDelta: {x: 300, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1330575483
 GameObject:
@@ -65217,7 +65229,7 @@ MonoBehaviour:
   m_Padding:
     m_Left: 0
     m_Right: 0
-    m_Top: 0
+    m_Top: 150
     m_Bottom: 0
   m_ChildAlignment: 1
   m_StartCorner: 0
@@ -66797,7 +66809,7 @@ MonoBehaviour:
   m_Padding:
     m_Left: 0
     m_Right: 0
-    m_Top: 0
+    m_Top: 150
     m_Bottom: 0
   m_ChildAlignment: 1
   m_StartCorner: 0
@@ -70105,7 +70117,7 @@ MonoBehaviour:
   m_Padding:
     m_Left: 0
     m_Right: 0
-    m_Top: 0
+    m_Top: 150
     m_Bottom: 0
   m_ChildAlignment: 1
   m_StartCorner: 0

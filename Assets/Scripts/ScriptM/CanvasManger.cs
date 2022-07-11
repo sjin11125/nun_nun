@@ -8,6 +8,7 @@ public class CanvasManger : MonoBehaviour
     //canvas에 텍스트랑 재화 연결해라
     public Text Money;          //재화
     public Text ShinMoney;
+    public Text ZemMoney;
     public GameObject[] Achieves;
 
     public static int[] achieveContNuniIndex = new int[12] { 0,0,0,0,0,0,0,0,0,0,0,0};
@@ -26,5 +27,6 @@ public class CanvasManger : MonoBehaviour
     {
         Money.text = GameManager.Money.ToString();
         ShinMoney.text = GameManager.ShinMoney.ToString();
+        ZemMoney.text = "보유 잼 : " + GameManager.Zem;
     }
 }
