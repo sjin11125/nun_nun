@@ -269,6 +269,8 @@ public class GameManager : MonoBehaviour
         WWWForm form2 = new WWWForm();
         //isMe = true;                 
         form2.AddField("order", "setMoney");
+        form2.AddField("money", GameManager.Money.ToString() + "@" + GameManager.ShinMoney.ToString() + "@" + TutorialsManager.itemIndex.ToString() + "@" + GameManager.BestScore.ToString() + "@" + GameManager.Zem.ToString());
+
         form2.AddField("achieve", string.Join(",", CanvasManger.currentAchieveSuccess));
         
         form2.AddField("index", string.Join(",", CanvasManger.achieveContNuniIndex));
