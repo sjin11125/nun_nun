@@ -87,6 +87,7 @@ public class NuniParseManager : MonoBehaviour
         NuniTexts[2].text = SelectedNuni.Info;
         NuniTexts[4].text = SelectedNuni.Effect;
         Debug.Log("´©´Ï´Â " + SelectedNuni.Star);
+
         switch (SelectedNuni.Star)
         {
             case "1":
