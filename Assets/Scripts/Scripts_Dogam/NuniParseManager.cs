@@ -4,10 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class NuniParseManager : MonoBehaviour
-{   //GameManager¿¡¼­ ÆÄ½ÌÇÑ ´©´Ï Á¤º¸µéÀ» ¹Þ¾Æ ´©´Ï µµ°¨ ÆÐ³Î¿¡ ³Ö±â
+{   //GameManagerï¿½ï¿½ï¿½ï¿½ ï¿½Ä½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³Î¿ï¿½ ï¿½Ö±ï¿½
 
-    public GameObject NuniPannelPrefab;           //´©´Ï ÆÐ³Î ÇÁ¸®ÆÕ
-   // public static Transform[] NuniStarPanel;               //´©´Ï ¸î¼ºÀÎÁö
+    public GameObject NuniPannelPrefab;           //ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public GameObject Scroll;
 
     public  GameObject NuniInfoPanel;
@@ -25,10 +24,6 @@ public class NuniParseManager : MonoBehaviour
         NuniTexts=NuniInfoPanel.GetComponentsInChildren<Text>();
         NuniImages=NuniInfoPanel.GetComponentsInChildren<Image>();
         SelectedNuni=gameObject.AddComponent<Card>();
-
-
-
-
     }
 
     // Update is called once per frame
@@ -41,10 +36,11 @@ public class NuniParseManager : MonoBehaviour
         }
     }
 
-    public void NuniDogamOpen()             //´©´Ï µµ°¨ ¿ÀÇÂÇßÀ» ¶§
+    public void NuniDogamOpen()             //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
     {
+
         GameManager.isMoveLock = true;
-        //GM¿¡ ÀÖ´Â ¸ðµç ´©´Ï Á¤º¸ ºÒ·¯¼­ ÆÐ³Î¿¡ ³Ö±â
+        //GMï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ ï¿½Ð³Î¿ï¿½ ï¿½Ö±ï¿½
         Transform[] child=Scroll.GetComponentsInChildren<Transform>();
         for (int j = 1; j < child.Length; j++)
         {
@@ -63,13 +59,9 @@ public class NuniParseManager : MonoBehaviour
             Card nuni = GameManager.AllNuniArray[i];
             NuniButton.enabled = true;
             Debug.Log(image.Length);
-            image[1].sprite = nuni.GetChaImange();   //´©´Ï ÀÌ¹ÌÁö ³Ö±â
-            NuniPannel.name = nuni.cardImage;        //´©´Ï ÀÌ¸§ ³Ö±â
+            image[1].sprite = nuni.GetChaImange();   //ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½Ö±ï¿½
+            NuniPannel.name = nuni.cardImage;        //ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ ï¿½Ö±ï¿½
             NuniName.text = nuni.cardName;
-           
-
-    
-
             NuniPannel.GetComponent<RectTransform>().localScale = new Vector3(2.8f, 2.8f, 0);
 
            
@@ -80,14 +72,12 @@ public class NuniParseManager : MonoBehaviour
 
     public static void NuniInfoOpen()
     {
-
-
         NuniImages[3].sprite = SelectedNuni.GetChaImange();
         NuniTexts[0].text = SelectedNuni.cardName;
         NuniTexts[2].text = SelectedNuni.Info;
         NuniTexts[4].text = SelectedNuni.Effect;
-        Debug.Log("´©´Ï´Â " + SelectedNuni.Star);
 
+   
         switch (SelectedNuni.Star)
         {
             case "1":
