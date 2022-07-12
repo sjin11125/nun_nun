@@ -95,7 +95,16 @@ public class StartManager : MonoBehaviour
                 ItemInfo.text = "";
             }
             else
-                ItemInfo.text = ItemInfos[StartManager.ChaIndex];
+            {
+                for (int i = 0; i < GameManager.AllNuniArray.Length; i++)
+                {
+                    if (GameManager.AllNuniArray[i].Item== StartManager.ChaIndex)
+                    {
+                        ItemInfo.text = GameManager.AllNuniArray[i].Effect;
+                    }
+                }
+                
+            }
         }
       
     }
