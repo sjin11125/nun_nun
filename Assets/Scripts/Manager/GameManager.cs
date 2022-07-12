@@ -281,7 +281,7 @@ public class GameManager : MonoBehaviour
         WWWForm form2 = new WWWForm();                      //돈 저장                
         form2.AddField("order", "setMoney");
         form2.AddField("player_nickname", GameManager.NickName);
-        form2.AddField("money", GameManager.Money.ToString() + "@" + GameManager.ShinMoney.ToString() + "@" + TutorialsManager.itemIndex + "@" + GameManager.BestScore);
+        form2.AddField("money", GameManager.Money.ToString() + "@" + GameManager.ShinMoney.ToString() + "@" + TutorialsManager.itemIndex.ToString() + "@" + GameManager.BestScore.ToString() + "@" + GameManager.Zem.ToString());
          form2.AddField("achieve", string.Join(",", CanvasManger.currentAchieveSuccess));
         Debug.Log("최고점수: " + string.Join(",", CanvasManger.currentAchieveSuccess));
 

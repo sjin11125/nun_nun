@@ -505,17 +505,14 @@ public class GoogleSheetManager : MonoBehaviour
             for (int i = 0; i < CanvasManger.currentAchieveSuccess.Length; i++)
             {
                 CanvasManger.currentAchieveSuccess[i] = System.Convert.ToBoolean(json.Split('@')[0].Split(',')[i]);
-                Debug.Log("CanvasManger.currentAchieveSuccess["+i+"] : "+ CanvasManger.currentAchieveSuccess[i]);
             }
             for (int j = 0; j < CanvasManger.achieveContNuniIndex.Length; j++)
             {
                 CanvasManger.achieveContNuniIndex[j] = int.Parse(json.Split('@')[1].Split(',')[j]);
-                Debug.Log("CanvasManger.achieveContNuniIndex[" + j + "] : " + CanvasManger.achieveContNuniIndex[j]);
             }
             for (int k = 0; k < CanvasManger.achieveCount.Length; k++)
             {
                 CanvasManger.achieveCount[k] = int.Parse(json.Split('@')[2].Split(',')[k]);
-                Debug.Log("CanvasManger.achieveCount[" + k + "] : " + CanvasManger.achieveCount[k]);
             }
         }
             GetNotice();
