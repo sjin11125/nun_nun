@@ -92,7 +92,7 @@ public class GameManager : MonoBehaviour
 
     public static string friend_nickname;       //현재 들어가있는 친구닉넴
 
-    public static string URL = "https://script.google.com/macros/s/AKfycbx8OHM55q465NxmJmVK_5Ag813i8RrczQXpPK-xge3Pxvc_rbw/exec";
+    public static string URL = "https://script.google.com/macros/s/AKfycbx6OJwSwtXWv4HkUopV0RGuUd_b0ygU8szPotoPDEFB9sm1395vXl9YuZNFbYfBkvzX/exec";
 
     public static bool isReward;        //일괄수확 가능한지
 
