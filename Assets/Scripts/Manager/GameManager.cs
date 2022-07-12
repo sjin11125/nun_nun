@@ -276,7 +276,8 @@ public class GameManager : MonoBehaviour
         form2.AddField("index", string.Join(",", CanvasManger.achieveContNuniIndex));
         form2.AddField("count", string.Join(",", CanvasManger.achieveCount));
 
-        form2.AddField("player_nickname", NickName);   
+        form2.AddField("player_nickname", NickName);
+        StartCoroutine(SetPost(form2));
     }
     public  void BestScoreSave()
     {    
