@@ -93,7 +93,9 @@ public class Scores : MonoBehaviour
     public void coinInput()
     {
         GameManager.Money += currentScores_;
+        CanvasManger.AchieveMoney += currentScores_;
         GameManager.ShinMoney += currentShinScores_;
+        CanvasManger.AchieveShinMoney += currentShinScores_;
 
         GameManager.BestScore = bestScores_.score;
     }
