@@ -325,7 +325,7 @@ public class FriendManager : MonoBehaviour
         Newtonsoft.Json.Linq.JArray j = Newtonsoft.Json.Linq.JArray.Parse(json);
         FriendInfo[] friendInfos = new FriendInfo[j.Count];
         CanvasManger.AchieveFriendCount = friendInfos.Length;
-
+        Debug.Log("내 친구는~? "+ CanvasManger.AchieveFriendCount);
 
         switch (CanvasManger.achieveContNuniIndex[16])
         {
