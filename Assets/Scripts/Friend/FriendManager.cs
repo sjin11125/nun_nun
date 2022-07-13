@@ -6,6 +6,19 @@ using UnityEngine.Networking;
 using UnityEngine.UI;
 
 [Serializable]
+public class FriendRank
+{
+    public string f_nickname;      //�÷��̾� �г���
+    //public string SheetsNum;     //�÷��̾� �ǹ� ���� ����ִ� �������� ��Ʈ id
+    public string f_score;
+    public string f_image;
+
+    public FriendRank(string nickname, string id, string info)
+    {
+        this.f_nickname = nickname;
+
+    }
+}
 public class FriendInfo
 {
     public string f_nickname;      //�÷��̾� �г���
@@ -267,6 +280,17 @@ public class FriendManager : MonoBehaviour
         }
 
         LoadingObjcet.SetActive(false);
+    }
+    public void FriendRank()         //친구 랭킹
+    {
+        LoadingObjcet.SetActive(true);          //로딩
+
+        WWWForm form = new WWWForm();
+        form.AddField("order", "friendRank");
+        form.AddField("player_nickname", GameManager.NickName);
+        StartCoroutine(FriendNumPost(form));
+
+
     }
     public void FriendNum()         //친구 수 부르기
     {
