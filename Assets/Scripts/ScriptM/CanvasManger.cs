@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class CanvasManger : MonoBehaviour
 {
-    //canvas¿¡ ÅØ½ºÆ®¶û ÀçÈ­ ¿¬°áÇØ¶ó
-    public Text Money;          //ÀçÈ­
+    //canvasì— í…ìŠ¤íŠ¸ë‘ ì¬í™” ì—°ê²°í•´ë¼
+    public Text Money;          //ì¬í™”
     public Text ShinMoney;
     public Text ZemMoney;
     public GameObject[] Achieves;
@@ -29,7 +29,7 @@ public class CanvasManger : MonoBehaviour
     {
         Money.text = GameManager.Money.ToString();
         ShinMoney.text = GameManager.ShinMoney.ToString();
-        ZemMoney.text =  GameManager.Zem.ToString();
+        ZemMoney.text = "ë³´ìœ  ì¼ : " + GameManager.Zem;
     }
 
     public void AchieveSetActive()

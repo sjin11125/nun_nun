@@ -48,7 +48,6 @@ public class AchieveContent : MonoBehaviour
             {
                 getBtn.enabled = false;
                 CanvasManger.currentAchieveSuccess[myContIndex] = false;
-                settigPanel.GetComponent<AudioController>().Sound[1].Play();
             }
             CanvasManger.achieveContNuniIndex[myContIndex] = nuniIndex;
         }
