@@ -11,9 +11,9 @@ public class CanvasManger : MonoBehaviour
     public Text ZemMoney;
     public GameObject[] Achieves;
 
-    public static int[] achieveContNuniIndex = new int[12] { 0,0,0,0,0,0,0,0,0,0,0,0};
-    public static bool[] currentAchieveSuccess = new bool[12] { false, false , false , false , false , false , false , false , false , false , false , false };
-    public static int[] achieveCount = new int[12] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+    public static int[] achieveContNuniIndex = new int[17] { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+    public static bool[] currentAchieveSuccess = new bool[17] { false, false , false , false , false , false , false , false , false , false , false , false, false, false, false, false, false };
+    public static int[] achieveCount = new int[17] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ,0,0,0,0,0};
 
     private void Start()
     {
