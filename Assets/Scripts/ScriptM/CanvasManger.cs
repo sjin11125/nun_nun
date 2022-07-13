@@ -29,7 +29,7 @@ public class CanvasManger : MonoBehaviour
     {
         Money.text = GameManager.Money.ToString();
         ShinMoney.text = GameManager.ShinMoney.ToString();
-        ZemMoney.text =  GameManager.Zem.ToString();
+        ZemMoney.text = "∫∏¿Ø ¿Î : " + GameManager.Zem;
     }
 
     public void AchieveSetActive()

@@ -80,6 +80,18 @@ public class LoadManager : MonoBehaviour
     //ĳ���� �ε�
     void Start()
     {
+        for (int i = 0; i < CanvasManger.currentAchieveSuccess.Length; i++)
+        {
+           Debug.Log("CanvasManger.currentAchieveSuccess[" + i + "] : " + CanvasManger.currentAchieveSuccess[i]);
+        }
+        for (int j = 0; j < CanvasManger.achieveContNuniIndex.Length; j++)
+        {
+           Debug.Log("CanvasManger.achieveContNuniIndex[" + j + "] : " + CanvasManger.achieveContNuniIndex[j]);
+        }
+        for (int k = 0; k < CanvasManger.achieveCount.Length; k++)
+        {
+            Debug.Log("CanvasManger.achieveCount[" + k + "] : " + CanvasManger.achieveCount[k]);
+        }
         GameManager.isLoading = false;
         isLoaded = false;
         GameManager.items = 0;          //������ �ʱ�ȭ
@@ -149,6 +161,7 @@ public class LoadManager : MonoBehaviour
             {
                 if (g_Building.Building_Image.Equals(GameManager.BuildingArray[j].Building_Image))
                 {
+                    Debug.Log("아이디는 " + g_Building.Id);
                
                     if (GameManager.BuildingArray[j].Cost.Length!=0)
                     {
@@ -156,6 +169,7 @@ public class LoadManager : MonoBehaviour
                         for (int p = 0; p < GameManager.BuildingArray[j].Reward.Length; p++)
                         {
                             g_Building.Reward[p] = GameManager.BuildingArray[j].Reward[p];
+                            Debug.Log("보상은 " + g_Building.Reward[p]);
                         }
                         
                         g_Building.Cost = GameManager.BuildingArray[j].Cost;
