@@ -16,6 +16,7 @@ public class CanvasManger : MonoBehaviour
     public static int[] achieveCount = new int[17] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0,0,0 };
     public static int AchieveMoney = 0;          
     public static int AchieveShinMoney = 0;
+    public static int AchieveFriendCount = 0;
 
     private void Start()
     {

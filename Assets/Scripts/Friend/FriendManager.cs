@@ -289,9 +289,9 @@ public class FriendManager : MonoBehaviour
         WWWForm form = new WWWForm();
         form.AddField("order", "friendRank");
         form.AddField("player_nickname", GameManager.NickName);
-        StartCoroutine(FriendNumPost(form));
+        StartCoroutine(FriendRankPost(form));
 
-
+        
     }
     public void FriendNum()         //친구 수 부르기
     {
@@ -324,17 +324,81 @@ public class FriendManager : MonoBehaviour
         }
         Newtonsoft.Json.Linq.JArray j = Newtonsoft.Json.Linq.JArray.Parse(json);
         FriendInfo[] friendInfos = new FriendInfo[j.Count];
+        CanvasManger.AchieveFriendCount = friendInfos.Length;
+
+
+        switch (CanvasManger.achieveContNuniIndex[16])
+        {
+            case 0:
+                if (CanvasManger.AchieveFriendCount >= 5)
+                {
+                    CanvasManger.currentAchieveSuccess[16] = true;
+                }
+                break;
+            case 1:
+                if (CanvasManger.AchieveFriendCount >= 10)
+                {
+                    CanvasManger.currentAchieveSuccess[16] = true;
+                }
+                break;
+            case 2:
+                if (CanvasManger.AchieveFriendCount >= 20)
+                {
+                    CanvasManger.currentAchieveSuccess[16] = true;
+                }
+                break;
+            case 3:
+                if (CanvasManger.AchieveFriendCount >= 50)
+                {
+                    CanvasManger.currentAchieveSuccess[16] = true;
+                }
+                break;
+            case 4:
+                if (CanvasManger.AchieveFriendCount >= 100)
+                {
+                    CanvasManger.currentAchieveSuccess[16] = true;
+                }
+                break;
+            default:
+                CanvasManger.currentAchieveSuccess[16] = false;
+                break;
+        }
+        LoadingObjcet.SetActive(false);
+    }
+    IEnumerator FriendRankPost(WWWForm form)
+    {
+        using (UnityWebRequest www = UnityWebRequest.Post(URL, form)) // �ݵ�� using�� ����Ѵ�
+        {
+            yield return www.SendWebRequest();
+            if (www.isDone) FriendRankResponse(www.downloadHandler.text);
+            else print("���� ������ �����ϴ�.");
+        }
+    }
+    void FriendRankResponse(string json)
+    {
+        if (string.IsNullOrEmpty(json)) return;
+
+        if (json.Equals(""))
+        {
+            LoadingObjcet.SetActive(false);
+            return;
+        }
+        Newtonsoft.Json.Linq.JArray j = Newtonsoft.Json.Linq.JArray.Parse(json);
+        FriendRank[] friendInfos = new FriendRank[j.Count];
         for (int i = 0; i < j.Count; i++)
         {
-            friendInfos[i] = JsonUtility.FromJson<FriendInfo>(j[i].ToString());
+            friendInfos[i] = JsonUtility.FromJson<FriendRank>(j[i].ToString());
             if (friendInfos[i].f_nickname.Equals(""))  //ģ���� ����
             {
                 LoadingObjcet.SetActive(false);
                 return;
             }
         }
-        GameManager.Friends = friendInfos;
-        
+        for (int i = 0; i < friendInfos.Length; i++)
+        {
+            Debug.Log(friendInfos[i].f_nickname+"     "+ friendInfos[i].f_score);
+        }
+        LoadingObjcet.SetActive(false);
         /*switch (CanvasManger.achieveContNuniIndex[16])
         {
             case 0:
