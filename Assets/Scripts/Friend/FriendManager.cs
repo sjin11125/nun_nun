@@ -281,6 +281,7 @@ public class FriendManager : MonoBehaviour
 
         LoadingObjcet.SetActive(false);
     }
+
     public void FriendRank()         //친구 랭킹
     {
         LoadingObjcet.SetActive(true);          //로딩
@@ -382,4 +383,5 @@ public class FriendManager : MonoBehaviour
     {
         
     }
+
 }

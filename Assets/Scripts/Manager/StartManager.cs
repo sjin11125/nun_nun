@@ -98,15 +98,15 @@ public class StartManager : MonoBehaviour
             {
                 for (int i = 0; i < GameManager.AllNuniArray.Length; i++)
                 {
-                    if (GameManager.AllNuniArray[i].Item== StartManager.ChaIndex)
+                    if (GameManager.AllNuniArray[i].Item == ChaIndex)
                     {
                         ItemInfo.text = GameManager.AllNuniArray[i].Effect;
                     }
                 }
-                
+
             }
         }
-      
+
     }
 
     public void CharacterOpen()
