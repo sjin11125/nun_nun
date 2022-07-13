@@ -10,7 +10,6 @@ public class AchieveContent : MonoBehaviour
     public GameObject[] Nuni;
     private int myContIndex;
     private int nuniIndex;//CanvasManger¿Í ¿¬µ¿
-    private GameObject settigPanel;
     int shapeCount;
 
     public void ContentStart(int saveMyIndex,int saveMynuniIndex, int saveCount)
@@ -31,7 +30,6 @@ public class AchieveContent : MonoBehaviour
         {
             getBtn.enabled = false;
         }
-        settigPanel = GameObject.FindGameObjectWithTag("SettingPanel"); 
     }
 
     public void GetButton()

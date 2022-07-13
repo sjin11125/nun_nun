@@ -92,7 +92,7 @@ public class GameManager : MonoBehaviour
 
     public static string friend_nickname;       //현재 들어가있는 친구닉넴
 
-    public static string URL = "https://script.google.com/macros/s/AKfycbxlwY8BC2dDjqsn9a6LknjQAkwxNvwXWQr_YYfo5TCDlINsZoViQdsmJD82pVrXUqZ-/exec";
+    public static string URL = "https://script.google.com/macros/s/AKfycbx6OJwSwtXWv4HkUopV0RGuUd_b0ygU8szPotoPDEFB9sm1395vXl9YuZNFbYfBkvzX/exec";
 
     public static bool isReward;        //일괄수확 가능한지
 
@@ -269,19 +269,22 @@ public class GameManager : MonoBehaviour
         WWWForm form2 = new WWWForm();
         //isMe = true;                 
         form2.AddField("order", "setMoney");
+        form2.AddField("money", GameManager.Money.ToString() + "@" + GameManager.ShinMoney.ToString() + "@" + TutorialsManager.itemIndex.ToString() + "@" + GameManager.BestScore.ToString() + "@" + GameManager.Zem.ToString());
+
         form2.AddField("achieve", string.Join(",", CanvasManger.currentAchieveSuccess));
         
         form2.AddField("index", string.Join(",", CanvasManger.achieveContNuniIndex));
         form2.AddField("count", string.Join(",", CanvasManger.achieveCount));
 
-        form2.AddField("player_nickname", NickName);   
+        form2.AddField("player_nickname", NickName);
+        StartCoroutine(SetPost(form2));
     }
     public  void BestScoreSave()
     {    
         WWWForm form2 = new WWWForm();                      //돈 저장                
         form2.AddField("order", "setMoney");
         form2.AddField("player_nickname", GameManager.NickName);
-        form2.AddField("money", GameManager.Money.ToString() + "@" + GameManager.ShinMoney.ToString() + "@" + TutorialsManager.itemIndex + "@" + GameManager.BestScore);
+        form2.AddField("money", GameManager.Money.ToString() + "@" + GameManager.ShinMoney.ToString() + "@" + TutorialsManager.itemIndex.ToString() + "@" + GameManager.BestScore.ToString() + "@" + GameManager.Zem.ToString());
          form2.AddField("achieve", string.Join(",", CanvasManger.currentAchieveSuccess));
         Debug.Log("최고점수: " + string.Join(",", CanvasManger.currentAchieveSuccess));
 
