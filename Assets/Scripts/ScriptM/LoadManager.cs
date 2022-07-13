@@ -80,6 +80,18 @@ public class LoadManager : MonoBehaviour
     //ĳ���� �ε�
     void Start()
     {
+        for (int i = 0; i < CanvasManger.currentAchieveSuccess.Length; i++)
+        {
+           Debug.Log("CanvasManger.currentAchieveSuccess[" + i + "] : " + CanvasManger.currentAchieveSuccess[i]);
+        }
+        for (int j = 0; j < CanvasManger.achieveContNuniIndex.Length; j++)
+        {
+           Debug.Log("CanvasManger.achieveContNuniIndex[" + j + "] : " + CanvasManger.achieveContNuniIndex[j]);
+        }
+        for (int k = 0; k < CanvasManger.achieveCount.Length; k++)
+        {
+            Debug.Log("CanvasManger.achieveCount[" + k + "] : " + CanvasManger.achieveCount[k]);
+        }
         GameManager.isLoading = false;
         isLoaded = false;
         GameManager.items = 0;          //������ �ʱ�ȭ
@@ -93,6 +105,8 @@ public class LoadManager : MonoBehaviour
                 form1.AddField("loadedFriend", GameManager.NickName);
 
                 StartCoroutine(RewardStart());          //오늘 재화 받을 수 있는지
+
+                GameManager.Instance.BestScoreSave();                   //최고점수 서버 저장
             }
 
             buildingsave.BuildingLoad();
@@ -204,6 +218,8 @@ public class LoadManager : MonoBehaviour
 
         if (GameManager.isReward.Equals(true)&&GameManager.isLoading.Equals(true) )        
         {
+
+            
             LoadingNuni.SetActive(false);
             GameManager.isReward = false;
             int MyReward = 0;
@@ -258,6 +274,7 @@ public class LoadManager : MonoBehaviour
 
             }*/
             GameManager.Money += MyReward;
+            CanvasManger.AchieveMoney += MyReward;
 
 
             WWWForm form1 = new WWWForm();

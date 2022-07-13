@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
 using System.Linq;
+using UnityEngine;
+using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class ChaButtonScript : MonoBehaviour
 {
@@ -59,18 +60,19 @@ public class ChaButtonScript : MonoBehaviour
     }
     public void NuniInfoClick()
     {
-        GameObject NuniInfo = Instantiate(NuniInfoPannel) as GameObject;        //누니 정보 패널 Instantiate
-        NuniInfo.transform.SetParent(StartManager.Canvas.transform);        //캔버스 부모설정
-        NuniInfo.GetComponent<RectTransform>().localPosition = new Vector3(0, 0, 0);
-
+        /* GameObject NuniInfo = Instantiate(NuniInfoPannel) as GameObject;        //누니 정보 패널 Instantiate
+         NuniInfo.transform.SetParent(StartManager.Canvas.transform);        //캔버스 부모설정
+         NuniInfo.GetComponent<RectTransform>().localPosition = new Vector3(0, 0, 0);
+        */
+        Card nuni;
         for (int i = 0; i < GameManager.AllNuniArray.Length; i++)
         {
             if (transform.name == GameManager.AllNuniArray[i].cardImage)
             {
-                Debug.Log("GameManager.AllNuniArray[i].cardImage: " + GameManager.AllNuniArray[i].cardImage);
-                Card nuni = GameManager.AllNuniArray[i];
+                //Debug.Log("GameManager.AllNuniArray[i].cardImage: " + GameManager.AllNuniArray[i].cardImage);
+                nuni = GameManager.AllNuniArray[i];
 
-                Text[] InfoTexts = NuniInfo.GetComponentsInChildren<Text>();
+                /*Text[] InfoTexts = NuniInfo.GetComponentsInChildren<Text>();
                 Image[] InfoImage = NuniInfo.GetComponentsInChildren<Image>();
                 Debug.Log("InfoImage: "+ InfoImage.Length);
                 Image[] stars = NuniInfo.transform.Find("Stars").GetComponentsInChildren<Image>();
@@ -94,7 +96,7 @@ public class ChaButtonScript : MonoBehaviour
                 /* for (int j = 0; j < int.Parse(GameManager.AllNuniArray[i].Star); j++)   //별 넣기
                  {
                      stars[j].color = new Color(1, 1, 1);
-                 }*/
+                 }
                 InfoImage[1].sprite = nuni.GetChaImange();
 
                 InfoTexts[0].text = nuni.cardName;      //누니 이름 넣기
@@ -103,10 +105,12 @@ public class ChaButtonScript : MonoBehaviour
 
                 NuniInfo.GetComponent<RectTransform>().localScale= new Vector3(1, 1, 1);
 
-
-
+                */
+                NuniParseManager.SelectedNuni.SetValue(nuni);
+                
             }
         }
+        NuniParseManager.NuniInfoOpen();
         settigPanel.GetComponent<AudioController>().Sound[0].Play();
     }
     public void IsSell()            //건물 제거한다고 했을 때
@@ -376,6 +380,86 @@ public class ChaButtonScript : MonoBehaviour
 
 
         settigPanel.GetComponent<AudioController>().Sound[1].Play();
+    }
+
+    public void NoticeClick()           //보상수령
+    {
+        Notice notice_info = new Notice();
+        for (int i = 0; i < GameManager.Notice.Length; i++)
+        {
+            if (gameObject.name==GameManager.Notice[i].title)       //타이틀이 같냐 
+            {
+                notice_info = GameManager.Notice[i];
+                break;
+            }
+        }
+        string[] reward_info = notice_info.reward.Split(':');
+        if (reward_info.Length!=2)
+        {
+            return;
+        }
+        if (reward_info[1]=="nuni")         //보상받는게 누니라면
+        {
+            for (int i = 0; i < GameManager.AllNuniArray.Length; i++)
+            {
+                if (GameManager.AllNuniArray[i].cardName==reward_info[0])
+                {
+                    Card Nuni = GameManager.AllNuniArray[i];
+                    GameManager.CharacterList.Add(Nuni);
+
+                    StartCoroutine(NuniSave(Nuni, notice_info.title));          //구글 스크립트에 업데이트
+                }
+            }
+        }
+    }
+    IEnumerator NuniSave(Card nuni,string title)                //누니 구글 스크립트에 저장
+    {
+
+        WWWForm form1 = new WWWForm();
+        form1.AddField("order", "setNotice");
+        form1.AddField("player_nickname", GameManager.NickName);
+        form1.AddField("nuni", nuni.cardName + ":T");
+        form1.AddField("notice",title);
+
+
+
+        yield return StartCoroutine(Post(form1, nuni));                        //구글 스크립트로 초기화했는지 물어볼때까지 대기
+
+
+    }
+    IEnumerator Post(WWWForm form,Card nuni)
+    {
+        using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // 반드시 using을 써야한다
+        {
+            GameObject nunis = GameObject.Find("nunis");
+            GameObject nuniObject = Instantiate(GameManager.CharacterPrefab[nuni.cardImage], nunis.transform);
+            Card nuni_card = nuniObject.GetComponent<Card>();
+            nuni_card.SetValue(nuni);
+
+            gameObject.SetActive(false);
+
+            List<Notice> NoticeList = GameManager.Notice.ToList();
+            for (int i = 0; i < GameManager.Notice.Length; i++)
+            {
+                Debug.Log(GameManager.Notice[i].title);
+                Debug.Log(gameObject.name);
+
+                if (GameManager.Notice[i].title == gameObject.name)
+                {
+                   
+                    NoticeList.RemoveAt(i);
+                    GameManager.Notice = NoticeList.ToArray();              //알림 배열에서 삭제
+                    break;
+                }
+            }
+            yield return www.SendWebRequest();
+            //Debug.Log(www.downloadHandler.text);
+            //if (www.isDone) NuniResponse(www.downloadHandler.text);
+            //else print("웹의 응답이 없습니다.");*/
+        }
+  
+        
+        Destroy(gameObject);
     }
 }
 

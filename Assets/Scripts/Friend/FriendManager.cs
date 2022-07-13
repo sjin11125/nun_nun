@@ -45,7 +45,6 @@ public class FriendManager : MonoBehaviour
         LoadingObjcet.SetActive(true);
         WWWForm form = new WWWForm();
         form.AddField("order", "getFriend");
-        Debug.Log("내 닉넴: "+GameManager.NickName);
         form.AddField("player_nickname", GameManager.NickName);
         form.AddField("info", "1234");
         StartCoroutine(ListPost(form));
@@ -75,7 +74,7 @@ public class FriendManager : MonoBehaviour
         {
             yield return www.SendWebRequest();
             if (www.isDone) ListResponse(www.downloadHandler.text);
-            else print("���� ������ �����ϴ�.");
+            else print("실행되지않음");
         }
     }
     IEnumerator TempListPost(WWWForm form)
@@ -268,15 +267,5 @@ public class FriendManager : MonoBehaviour
         }
 
         LoadingObjcet.SetActive(false);
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

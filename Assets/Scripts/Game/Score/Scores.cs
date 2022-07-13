@@ -75,7 +75,7 @@ public class Scores : MonoBehaviour
             bestScores_.score = currentScores_;
             SaveBestScores(true);
         }
-        GameManager.Instance.BestScoreSave();                   //최고점수 서버 저장
+       
         GameEvents.UpdateBestScore(currentScores_, bestScores_.score, currentShinScores_);
         UpdateScoreText();
     }
@@ -93,8 +93,11 @@ public class Scores : MonoBehaviour
     public void coinInput()
     {
         GameManager.Money += currentScores_;
+        CanvasManger.AchieveMoney += currentScores_;
         GameManager.ShinMoney += currentShinScores_;
-        GameManager.QuestActive = QuestController.QuestActive;
+        CanvasManger.AchieveShinMoney += currentShinScores_;
+
+        GameManager.BestScore = bestScores_.score;
     }
 
     public void GameRestart()
@@ -106,6 +109,8 @@ public class Scores : MonoBehaviour
             newBestScore_ = false;
             newBestScoreObj.SetActive(false);
             UpdateScoreText();
+            GameManager.BestScore = bestScores_.score;
         }
+
     }
 }

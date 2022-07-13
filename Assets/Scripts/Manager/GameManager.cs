@@ -76,6 +76,7 @@ public class GameManager : MonoBehaviour
     //-----------------------------------여기서부터 재화---------------------------------
     public static int Money;            //재화
     public static int ShinMoney;
+    public static int Zem;
 
     
     //---------------------------------------------------------------------------------------------
@@ -91,7 +92,7 @@ public class GameManager : MonoBehaviour
 
     public static string friend_nickname;       //현재 들어가있는 친구닉넴
 
-    public static string URL = "https://script.google.com/macros/s/AKfycbx3h-Bv04sCBr50_HjVRIhcuuoXEjKnCzUKmqktQAZkvEoDMGKJFGON5-dSNlKxKLqB/exec";
+    public static string URL = "https://script.google.com/macros/s/AKfycbxlwY8BC2dDjqsn9a6LknjQAkwxNvwXWQr_YYfo5TCDlINsZoViQdsmJD82pVrXUqZ-/exec";
 
     public static bool isReward;        //일괄수확 가능한지
 
@@ -117,12 +118,6 @@ public class GameManager : MonoBehaviour
 
     //--------------------------------------------------------------------퀘스트---------------------------------------------------
 
-   public static QuestInfo[] Quest;                 //퀘스트 목록
-    public static QuestInfo[] QuestProgress;        //퀘스트 진행상황
-    public static bool isReset;             //퀘스트 초기화 햇니?
-    public static bool QParse = false;
-    public static bool[] QuestActive;                 //블록 얼마 깻는지 확인
-    public static int QuestColor = 0;                   //뭔 블록 깨야하는지    
 
     public static bool isStrEdit = false;
 
@@ -130,6 +125,11 @@ public class GameManager : MonoBehaviour
     public static bool mainMusicOn = true;
     public static bool gameSoundOn = true;
     public static bool mainSoundOn = true;
+
+    //--------------------------------------------공지----------------------------------------
+    public static Notice[] Notice;
+
+
     private void Awake()
     {
         //PlayerPrefs.DeleteAll();
@@ -144,8 +144,15 @@ public class GameManager : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);  // 아래의 함수를 사용하여 씬이 전환되더라도 선언되었던 인스턴스가 파괴되지 않는다.
     }
-
-    void Start()
+    private void Update()
+    {
+        if (isBScore)
+        {
+            isBScore = false;
+            BestScoreSave();
+        }
+    }
+        void Start()
     {
         BuildingList = new List<Building>();            //현재 가지고 있는 빌딩 리스트
         //
@@ -156,8 +163,7 @@ public class GameManager : MonoBehaviour
         CharacterImageData = new Dictionary<string, Sprite>();
         CharacterList = new List<Card>();
         BuildingNumber = new Dictionary<string, int>();
-        IDs = new List<string>();
-        Quest = new QuestInfo[3];                     //퀘스트 
+        IDs = new List<string>();                   //퀘스트 
         NuniDialog = new List<NuniDialog>();
       
         for (int i = 0; i < BuildingPrefabInspector.Length; i++)        //빌딩 프리팹 정보 불러오기
@@ -263,6 +269,11 @@ public class GameManager : MonoBehaviour
         WWWForm form2 = new WWWForm();
         //isMe = true;                 
         form2.AddField("order", "setMoney");
+        form2.AddField("achieve", string.Join(",", CanvasManger.currentAchieveSuccess));
+        
+        form2.AddField("index", string.Join(",", CanvasManger.achieveContNuniIndex));
+        form2.AddField("count", string.Join(",", CanvasManger.achieveCount));
+
         form2.AddField("player_nickname", NickName);   
     }
     public  void BestScoreSave()
@@ -271,7 +282,13 @@ public class GameManager : MonoBehaviour
         form2.AddField("order", "setMoney");
         form2.AddField("player_nickname", GameManager.NickName);
         form2.AddField("money", GameManager.Money.ToString() + "@" + GameManager.ShinMoney.ToString() + "@" + TutorialsManager.itemIndex + "@" + GameManager.BestScore);
+         form2.AddField("achieve", string.Join(",", CanvasManger.currentAchieveSuccess));
+        Debug.Log("최고점수: " + string.Join(",", CanvasManger.currentAchieveSuccess));
 
+        form2.AddField("index", string.Join(",", CanvasManger.achieveContNuniIndex));
+        form2.AddField("count", string.Join(",", CanvasManger.achieveCount));
+
+        form2.AddField("isUpdate", "true");
         StartCoroutine(SetPost(form2));
     }
     IEnumerator SetPost(WWWForm form)
@@ -283,8 +300,8 @@ public class GameManager : MonoBehaviour
             {
             }
             else print("웹의 응답이 없습니다.");
-            print("exit");
-            Application.Quit();
+            print("최고점수저장");
+           // Application.Quit();
         }
     }
     void OnApplicationPause(bool pause)

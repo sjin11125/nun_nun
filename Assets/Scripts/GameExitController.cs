@@ -32,12 +32,16 @@ public class GameExitController : MonoBehaviour
 
     public void GameSave()
     {
-        WWWForm form2 = new WWWForm();                      //돈 저장
+        WWWForm form2 = new WWWForm();                      //돈 저장 -> 업적 저장
         //isMe = true;                 
         form2.AddField("order", "setMoney");
         form2.AddField("player_nickname", GameManager.NickName);
-        form2.AddField("money", GameManager.Money.ToString()+"@"+GameManager.ShinMoney.ToString() + "@" + TutorialsManager.itemIndex+"@"+GameManager.BestScore);
-      
+        form2.AddField("money", GameManager.Money.ToString()+"@"+GameManager.ShinMoney.ToString() + "@" + TutorialsManager.itemIndex+"@"+GameManager.BestScore + "@" + GameManager.Zem);
+
+        form2.AddField("achieve",string.Join(",", CanvasManger.currentAchieveSuccess));
+        form2.AddField("index", string.Join(",", CanvasManger.achieveContNuniIndex));
+        form2.AddField("count", string.Join(",", CanvasManger.achieveCount));
+
         StartCoroutine(SetPost(form2));
     }
     IEnumerator SetPost(WWWForm form)
@@ -52,6 +56,25 @@ public class GameExitController : MonoBehaviour
             else print("웹의 응답이 없습니다.");
             print("exit");
             */
+
+           
+            Application.Quit();
+        }
+    }
+    IEnumerator SetPost2(WWWForm form)
+    {
+        using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // 반드시 using을 써야한다
+        {
+            yield return www.SendWebRequest();
+            /*
+            if (www.isDone)
+            {
+            }
+            else print("웹의 응답이 없습니다.");
+            print("exit");
+            */
+
+        
             Application.Quit();
         }
     }

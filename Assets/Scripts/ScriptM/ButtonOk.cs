@@ -16,7 +16,6 @@ public class ButtonOk : MonoBehaviour
 
     bool isAndroid;
     bool isIos;
-    public Text android_text;
 
     void start()
     {
@@ -26,27 +25,19 @@ public class ButtonOk : MonoBehaviour
     }
     void Awake()
     {
-#if UNITY_EDITOR
-        isAndroid = true;
-        android_text.text = isAndroid.ToString();
-        
-#endif
-#if UNITY_ANDROID
-        isAndroid = true;
-        android_text.text = isAndroid.ToString();
-#endif
-#if UNITY_IOS
-        Application.OpenURL("market://details?id=com.SoMa.NuNNuN");
-#endif
     }
     public void UpdateUrl()             //마켓으로 가는 버튼
     {
-        Debug.Log("yes");
+#if UNITY_EDITOR
         Application.OpenURL("https://play.google.com/store/apps/details?id=com.SoMa.NuNNuN");
-        if (isAndroid)
-        {
-            Application.OpenURL("market://details?id=" + Application.identifier);
-        }
+#endif
+#if UNITY_ANDROID
+        Application.OpenURL("market://details?id=" + Application.identifier);
+#endif
+#if UNITY_IOS
+        Application.OpenURL("itms-apps://itunes.apple.com/app/id1629395506");
+#endif
+
     }
     public void UpdateNo()
     {

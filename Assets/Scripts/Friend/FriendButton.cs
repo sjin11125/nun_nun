@@ -26,12 +26,6 @@ public class FriendButton : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void EnterFriend()               //친구네 마을로 가기
     {
         string friendNickname = gameObject.name;

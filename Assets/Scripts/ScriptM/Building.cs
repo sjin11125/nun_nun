@@ -224,7 +224,6 @@ public class Building : MonoBehaviour
         {
             if (buildings[i] != null)
             {
-                Debug.Log("Rotation");
                 SpriteRenderer[] spriterenderer = buildings[i].GetComponentsInChildren<SpriteRenderer>();
                 Transform[] transform = buildings[i].GetComponentsInChildren<Transform>();
 
@@ -264,8 +263,7 @@ public class Building : MonoBehaviour
             isflip_bool = false;
         else
             isflip_bool = true;
-
-        Debug.Log("Start Level: " + Level);
+        
         buildings = new GameObject[2];
         currentTime = (int)startingTime;
         save = GetComponent<BuildingSave>();
@@ -316,8 +314,6 @@ public class Building : MonoBehaviour
                 //buildings[2].SetActive(false);
                 //buildings[0].GetComponent<SpriteRenderer>().sortingOrder = layer_y;
                 child = GetComponentsInChildren<Transform>();
-                Debug.Log("buildings: "+ child[1].gameObject.name);
-                Debug.Log("sorting order: "+ (int)transform.position.y);
                 //child[1].GetComponent<SpriteRenderer>().sortingOrder = (int)transform.position.y;
                
                     buildings[0].GetComponent<SortingGroup>().sortingOrder = -(int)transform.position.y ;
@@ -330,8 +326,6 @@ public class Building : MonoBehaviour
                     buildings[0].GetComponent<SortingGroup>().sortingOrder = ((int)transform.position.y - (int)transform.position.x);
 
                 }*/
-                Debug.Log(" buildings[0]:  " + buildings[0].transform.parent.gameObject.name);
-                Debug.Log(" buildings[0] layer:  " + buildings[0].GetComponent<SortingGroup>().sortingOrder);
                 // SpriteRenderer[] buildingsSprite= gameObject.GetComponentsInChildren<SpriteRenderer>();
                 //buildingsSprite[1].sortingOrder = layer_y;
 
@@ -458,8 +452,9 @@ public class Building : MonoBehaviour
         //currentTime =  startingTime;
         isCoin = true;      //코인 먹었음
         GameManager.Money += Reward[Level-1];
+        CanvasManger.AchieveMoney += Reward[Level - 1];
 
-        currentTime = (int)startingTime;
+       currentTime = (int)startingTime;
 
         isCoin = true;
 
@@ -516,13 +511,17 @@ public class Building : MonoBehaviour
         if (Type .Equals( BuildType.Make) )     //상점에서 사고 설치X 바로 제거
         {
             GameManager.Money += building.Cost[building.Level - 1];          //자원 되돌리기
+            CanvasManger.AchieveMoney += building.Cost[building.Level - 1];
             GameManager.ShinMoney += building.ShinCost[building.Level - 1];
+            CanvasManger.AchieveShinMoney += building.ShinCost[building.Level - 1];
             Destroy(gameObject);
         }
         else                                //설치하고 제거
         {
             GameManager.Money += building.Cost[building.Level - 1] / 10;          //자원 되돌리기
+            CanvasManger.AchieveMoney += building.Cost[building.Level - 1] / 10;
             GameManager.ShinMoney += building.ShinCost[building.Level - 1] / 3;
+            CanvasManger.AchieveShinMoney += building.ShinCost[building.Level - 1] / 3;
 
             BuildingListRemove();
             save.RemoveValue(Id);
@@ -540,8 +539,6 @@ public class Building : MonoBehaviour
         Placed = true;      // 배치 했니? 네
         GridBuildingSystem.current.TakeArea(areaTemp);      //타일 맵 설정
         transform.position = vec;
-        Debug.Log("areaTemp: " + Id);
-        Debug.Log("areaTemp: " + areaTemp.position);
         //Debug.Log("index: "+ (-((int)transform.position.y - (int)transform.position.x)));
        /* buildings[0].GetComponent<SortingGroup>().sortingOrder = -((int)transform.position.y- (int)transform.position.x);
         if (Level .Equals( 2)
@@ -551,12 +548,10 @@ public class Building : MonoBehaviour
     }
     public void Place(BuildType buildtype)         //건물 배치
     {
-        Debug.Log("Place()");
 
         Vector3 vec = transform.position;
         Vector3Int positionInt = GridBuildingSystem.current.gridLayout.LocalToCell(vec);
         BoundsInt areaTemp = area;
-        Debug.Log( "areaTemp: "+areaTemp.position);
         //areaTemp.position = positionInt;
         //Debug.Log(areaTemp.position);
         Placed = true;      // 배치 했니? 네
