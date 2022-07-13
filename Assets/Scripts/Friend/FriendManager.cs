@@ -195,7 +195,7 @@ public class FriendManager : MonoBehaviour
 
     }
 
-    public void FriendsList()
+    public void FriendsList()           //친구목록 부르기
     {
         Transform[] child = Content.GetComponentsInChildren<Transform>();           //�ϴ� �ʱ�ȭ
         for (int k = 1; k < child.Length; k++)
@@ -267,6 +267,86 @@ public class FriendManager : MonoBehaviour
         }
 
         LoadingObjcet.SetActive(false);
+    }
+    public void FriendNum()         //친구 수 부르기
+    {
+        LoadingObjcet.SetActive(true);          //로딩
+
+        WWWForm form = new WWWForm();                   
+        form.AddField("order", "getFriend");
+        form.AddField("player_nickname", GameManager.NickName);
+        StartCoroutine(FriendNumPost(form));
+
+
+    }
+    IEnumerator FriendNumPost(WWWForm form)
+    {
+        using (UnityWebRequest www = UnityWebRequest.Post(URL, form)) // �ݵ�� using�� ����Ѵ�
+        {
+            yield return www.SendWebRequest();
+            if (www.isDone) FriendNumResponse(www.downloadHandler.text);
+            else print("���� ������ �����ϴ�.");
+        }
+    }
+    void FriendNumResponse(string json)
+    {
+        if (string.IsNullOrEmpty(json)) return;
+
+        if (json.Equals(""))
+        {
+            LoadingObjcet.SetActive(false);
+            return;
+        }
+        Newtonsoft.Json.Linq.JArray j = Newtonsoft.Json.Linq.JArray.Parse(json);
+        FriendInfo[] friendInfos = new FriendInfo[j.Count];
+        for (int i = 0; i < j.Count; i++)
+        {
+            friendInfos[i] = JsonUtility.FromJson<FriendInfo>(j[i].ToString());
+            if (friendInfos[i].f_nickname.Equals(""))  //ģ���� ����
+            {
+                LoadingObjcet.SetActive(false);
+                return;
+            }
+        }
+        GameManager.Friends = friendInfos;
+        
+        /*switch (CanvasManger.achieveContNuniIndex[16])
+        {
+            case 0:
+                if (GameManager.Friends.Length >= 5)
+                {
+                    CanvasManger.currentAchieveSuccess[16] = true;
+                }
+                break;
+            case 1:
+                if (GameManager.Friends.Length >= 10)
+                {
+                    CanvasManger.currentAchieveSuccess[16] = true;
+                }
+                break;
+            case 2:
+                if (GameManager.Friends.Length >= 20)
+                {
+                    CanvasManger.currentAchieveSuccess[16] = true;
+                }
+                break;
+            case 3:
+                if (GameManager.Friends.Length >= 50)
+                {
+                    CanvasManger.currentAchieveSuccess[16] = true;
+                }
+                break;
+            case 4:
+                if (GameManager.Friends.Length >= 100)
+                {
+                    CanvasManger.currentAchieveSuccess[16] = true;
+                }
+                break;
+            default:
+                CanvasManger.currentAchieveSuccess[16] = false;
+                break;
+        }
+        LoadingObjcet.SetActive(false);*/
     }
     // Start is called before the first frame update
     void Start()
