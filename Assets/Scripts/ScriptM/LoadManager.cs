@@ -161,7 +161,6 @@ public class LoadManager : MonoBehaviour
             {
                 if (g_Building.Building_Image.Equals(GameManager.BuildingArray[j].Building_Image))
                 {
-                    Debug.Log("아이디는 " + g_Building.Id);
                
                     if (GameManager.BuildingArray[j].Cost.Length!=0)
                     {
@@ -169,7 +168,6 @@ public class LoadManager : MonoBehaviour
                         for (int p = 0; p < GameManager.BuildingArray[j].Reward.Length; p++)
                         {
                             g_Building.Reward[p] = GameManager.BuildingArray[j].Reward[p];
-                            Debug.Log("보상은 " + g_Building.Reward[p]);
                         }
                         
                         g_Building.Cost = GameManager.BuildingArray[j].Cost;
