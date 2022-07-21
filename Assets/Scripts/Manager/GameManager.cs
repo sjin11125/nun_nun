@@ -8,7 +8,7 @@ using UnityEngine.Networking;
 public class GameManager : MonoBehaviour
 {
    public static string NewVersion = "";                   //최신버전
-    public static string CurVersion = "1.4.5";                    //현재버전
+    public static string CurVersion = "1.4.6";                    //현재버전
     public static bool isUpdateDone = false;                    //업데이트를 완료했냐
 
 
@@ -92,7 +92,7 @@ public class GameManager : MonoBehaviour
 
     public static string friend_nickname;       //현재 들어가있는 친구닉넴
 
-    public static string URL = "https://script.google.com/macros/s/AKfycbxlwY8BC2dDjqsn9a6LknjQAkwxNvwXWQr_YYfo5TCDlINsZoViQdsmJD82pVrXUqZ-/exec";
+    public static string URL = "https://script.google.com/macros/s/AKfycbwC_9D__0U1q6M_RLplLM5ajAHmkiz4dpktXlg-tDpIubcDS5WJy4ixj-HoTGbzOkvi/exec";
 
     public static bool isReward;        //일괄수확 가능한지
 
@@ -269,10 +269,17 @@ public class GameManager : MonoBehaviour
         WWWForm form2 = new WWWForm();
         //isMe = true;                 
         form2.AddField("order", "setMoney");
+        form2.AddField("version", GameManager.CurVersion);
+
         form2.AddField("achieve", string.Join(",", CanvasManger.currentAchieveSuccess));
-        
         form2.AddField("index", string.Join(",", CanvasManger.achieveContNuniIndex));
         form2.AddField("count", string.Join(",", CanvasManger.achieveCount));
+
+        form2.AddField("shopbuy", string.Join(",", ShopBuyScript.Achieve12));
+        form2.AddField("achieveMoney", string.Join(",", CanvasManger.AchieveMoney));
+        form2.AddField("achieveShinMoney", string.Join(",", CanvasManger.AchieveShinMoney));
+        form2.AddField("achieveNuniName", string.Join(",", CardUI.AchieveNuniName));
+        form2.AddField("achieveFriendCount", string.Join(",", CanvasManger.AchieveFriendCount));
 
         form2.AddField("player_nickname", NickName);   
     }
@@ -281,13 +288,18 @@ public class GameManager : MonoBehaviour
         WWWForm form2 = new WWWForm();                      //돈 저장                
         form2.AddField("order", "setMoney");
         form2.AddField("player_nickname", GameManager.NickName);
-        form2.AddField("money", GameManager.Money.ToString() + "@" + GameManager.ShinMoney.ToString() + "@" + TutorialsManager.itemIndex + "@" + GameManager.BestScore);
-         form2.AddField("achieve", string.Join(",", CanvasManger.currentAchieveSuccess));
-        Debug.Log("최고점수: " + string.Join(",", CanvasManger.currentAchieveSuccess));
+        form2.AddField("version", GameManager.CurVersion);
 
+        form2.AddField("money", GameManager.Money.ToString() + "@" + GameManager.ShinMoney.ToString() + "@" + TutorialsManager.itemIndex + "@" + GameManager.BestScore+"@" + GameManager.Zem.ToString());
+        form2.AddField("achieve", string.Join(",", CanvasManger.currentAchieveSuccess));
         form2.AddField("index", string.Join(",", CanvasManger.achieveContNuniIndex));
         form2.AddField("count", string.Join(",", CanvasManger.achieveCount));
 
+        form2.AddField("shopbuy", string.Join(",", ShopBuyScript.Achieve12));
+        form2.AddField("achieveMoney", string.Join(",", CanvasManger.AchieveMoney));
+        form2.AddField("achieveShinMoney", string.Join(",", CanvasManger.AchieveShinMoney));
+        form2.AddField("achieveNuniName", string.Join(",", CardUI.AchieveNuniName.ToArray()));
+        form2.AddField("achieveFriendCount", string.Join(",", CanvasManger.AchieveFriendCount));
         form2.AddField("isUpdate", "true");
         StartCoroutine(SetPost(form2));
     }

@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,21 @@ using UnityEngine.Networking;
 using UnityEngine.UI;
 
 [Serializable]
+public class FriendRank
+{
+    public string f_nickname;      //�÷��̾� �г���
+    //public string SheetsNum;     //�÷��̾� �ǹ� ���� ����ִ� �������� ��Ʈ id
+    public string f_score;
+    public string f_image;
+
+    public FriendRank(string nickname, string score, string image)
+    {
+        this.f_nickname = nickname;
+        f_score = score;
+        f_image = image;
+
+    }
+}
 public class FriendInfo
 {
     public string f_nickname;      //�÷��̾� �г���
@@ -24,16 +40,20 @@ public class FriendInfo
 }
 public class FriendManager : MonoBehaviour
 {
+    public GameObject RankContent;
     public GameObject Content;
     //FriendInfo[] ;
      string URL = GameManager.URL;
     public FriendInfo Fr;
 
     public GameObject FriendPrefab;
+    public GameObject FriendRankPrefab;
+
 
     public GameObject LoadingObjcet;
 
     FriendInfo[] AllFriends;       //친구 전체 목록(닉네임)
+    FriendRank[] friendRank;
     public void FriendWindowOpen()
     {
         Content.SetActive(true);
@@ -195,7 +215,7 @@ public class FriendManager : MonoBehaviour
 
     }
 
-    public void FriendsList()
+    public void FriendsList()           //친구목록 부르기
     {
         Transform[] child = Content.GetComponentsInChildren<Transform>();           //�ϴ� �ʱ�ȭ
         for (int k = 1; k < child.Length; k++)
@@ -268,4 +288,186 @@ public class FriendManager : MonoBehaviour
 
         LoadingObjcet.SetActive(false);
     }
+
+    public void FriendRank()         //친구 랭킹
+    {
+        LoadingObjcet.SetActive(true);          //로딩
+
+        WWWForm form = new WWWForm();
+        form.AddField("order", "friendRank");
+        form.AddField("player_nickname", GameManager.NickName);
+        StartCoroutine(FriendRankPost(form));
+
+        
+    }
+    IEnumerator FriendRankPost(WWWForm form)
+    {
+        using (UnityWebRequest www = UnityWebRequest.Post(URL, form)) // �ݵ�� using�� ����Ѵ�
+        {
+            yield return www.SendWebRequest();
+            if (www.isDone) FriendRankResponse(www.downloadHandler.text);
+            else print("���� ������ �����ϴ�.");
+        }
+    }
+    void FriendRankResponse(string json)
+    {
+        if (string.IsNullOrEmpty(json)) return;
+
+        if (json.Equals(""))
+        {
+            LoadingObjcet.SetActive(false);
+            return;
+        }
+        Newtonsoft.Json.Linq.JArray j = Newtonsoft.Json.Linq.JArray.Parse(json);
+        friendRank = new FriendRank[j.Count];
+        for (int i = 0; i < j.Count; i++)
+        {
+            friendRank[i] = JsonUtility.FromJson<FriendRank>(j[i].ToString());
+            if (friendRank[i].f_nickname.Equals(""))  //ģ���� ����
+            {
+                LoadingObjcet.SetActive(false);
+                return;
+            }
+        }
+        LoadingObjcet.SetActive(false);
+        RankSetting();
+    }
+
+    public void RankSetting()               //랭킹 정렬
+    {
+        Transform[] child = RankContent.GetComponentsInChildren<Transform>();           //�ϴ� �ʱ�ȭ
+
+        for (int k = 1; k < child.Length; k++)
+        {
+            Destroy(child[k].gameObject);
+        }
+
+        List<FriendRank> FRank = friendRank.ToList();
+        FriendRank Me = new FriendRank(GameManager.NickName,GameManager.BestScore.ToString(),GameManager.ProfileImage.name);
+        FRank.Add(Me);
+        friendRank = FRank.ToArray();
+
+        Array.Sort(friendRank,delegate(FriendRank friendRank1, FriendRank friendRank2)
+        {
+            return int.Parse(friendRank2.f_score).CompareTo(int.Parse(friendRank1.f_score));
+            
+        });//점수로 정렬(내림차순)
+
+       /* for (int i = 0; i < friendRank.Length; i++)
+        {
+
+            Debug.Log(friendRank[i].f_nickname+"    "+ friendRank[i].f_score);
+        }*/
+
+        for (int i = 0; i < friendRank.Length; i++)
+        {
+            GameObject friendRankprefab = Instantiate(FriendRankPrefab, RankContent.transform) as GameObject;  //ģ�� ������ ����
+            Transform friendPrefabChilds = friendRankprefab.GetComponent<Transform>();
+            friendPrefabChilds.name = friendRank[i].f_nickname;
+            Text[] friendButtonText = friendRankprefab.GetComponentsInChildren<Text>();
+            Image[] friendButtonImage = friendRankprefab.GetComponentsInChildren<Image>();
+            friendButtonText[0].text = friendRank[i].f_nickname;
+            friendButtonText[1].text = friendRank[i].f_score;
+            friendButtonText[2].text = (i+1).ToString();
+
+            if (friendRank[i].f_nickname==GameManager.NickName)         //내 순위라면
+            {
+                friendButtonImage[0].color = new Color(0.3220897f, 0.6467938f, 0.8867924f);     //배경 색깔 다르게
+            }
+
+            for (int j = 0; j < GameManager.AllNuniArray.Length; j++)               //프로필 이미지 넣기
+            {
+                if (friendRank[i].f_image==GameManager.AllNuniArray[j].cardImage)
+                {
+                    friendButtonImage[1].sprite = GameManager.AllNuniArray[j].GetChaImange();
+                }
+            }
+
+        }
+
+    }
+
+    public void FriendNum()         //친구 수 부르기
+    {
+        LoadingObjcet.SetActive(true);          //로딩
+
+        WWWForm form = new WWWForm();                   
+        form.AddField("order", "getFriend");
+        form.AddField("player_nickname", GameManager.NickName);
+        StartCoroutine(FriendNumPost(form));
+
+
+    }
+    IEnumerator FriendNumPost(WWWForm form)
+    {
+        using (UnityWebRequest www = UnityWebRequest.Post(URL, form)) // �ݵ�� using�� ����Ѵ�
+        {
+            yield return www.SendWebRequest();
+            if (www.isDone) FriendNumResponse(www.downloadHandler.text);
+            else print("���� ������ �����ϴ�.");
+        }
+    }
+    void FriendNumResponse(string json)
+    {
+        if (string.IsNullOrEmpty(json)) return;
+
+        if (json.Equals(""))
+        {
+            LoadingObjcet.SetActive(false);
+            return;
+        }
+        Newtonsoft.Json.Linq.JArray j = Newtonsoft.Json.Linq.JArray.Parse(json);
+        FriendInfo[] friendInfos = new FriendInfo[j.Count];
+        CanvasManger.AchieveFriendCount = friendInfos.Length;           //친구 수 저장
+
+        switch (CanvasManger.achieveContNuniIndex[16])
+        {
+            case 0:
+                if (CanvasManger.AchieveFriendCount >= 5)
+                {
+                    CanvasManger.currentAchieveSuccess[16] = true;
+                }
+                break;
+            case 1:
+                if (CanvasManger.AchieveFriendCount >= 10)
+                {
+                    CanvasManger.currentAchieveSuccess[16] = true;
+                }
+                break;
+            case 2:
+                if (CanvasManger.AchieveFriendCount >= 20)
+                {
+                    CanvasManger.currentAchieveSuccess[16] = true;
+                }
+                break;
+            case 3:
+                if (CanvasManger.AchieveFriendCount >= 50)
+                {
+                    CanvasManger.currentAchieveSuccess[16] = true;
+                }
+                break;
+            case 4:
+                if (CanvasManger.AchieveFriendCount >= 100)
+                {
+                    CanvasManger.currentAchieveSuccess[16] = true;
+                }
+                break;
+            default:
+                CanvasManger.currentAchieveSuccess[16] = false;
+                break;
+        }
+        LoadingObjcet.SetActive(false);
+    }
+   
+    // Start is called before the first frame update
+    void Start()
+    {
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
 }

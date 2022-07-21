@@ -167,6 +167,10 @@ public class DogamManager : MonoBehaviour
                 BuildingButtonText[3].text = BuildingInformation[j].ShinCost[0].ToString();          //발광석 가격 넣기   
                 BuildingButtonText[4].text = BuildingInformation[j].Cost[0].ToString();          //발광석 가격 넣기   
 
+                 BuildingButtonText[6].text = BuildingInformation[j].Reward[0].ToString();          //발광석 가격 넣기   
+                BuildingButtonText[8].text =  BuildingInformation[j].Reward[1].ToString();          //발광석 가격 넣기   
+
+
             }
             else                            //잠겼으면 잠금 이미지 넣기
             {

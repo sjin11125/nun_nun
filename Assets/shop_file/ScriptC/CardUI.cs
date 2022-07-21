@@ -8,7 +8,7 @@ public class CardUI : MonoBehaviour
 {
     public Image chr; // 이미지생성
     public Text cardName; // 카드이름도 텍스트로
-    public static List<string> AchieveNuniName;
+    public static List<string> AchieveNuniName=new List<string>();
 
     // 카드의 정보를 초기화
     public Card CardUISet(Card card)  //변경
