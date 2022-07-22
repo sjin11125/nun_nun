@@ -38,6 +38,7 @@ public class BuildingSave : MonoBehaviour
         form.AddField("level", update_building.Level);
         form.AddField("isFlied", update_building.isFliped.ToString());
         form.AddField("id", update_building.Id.ToString());
+
         StartCoroutine(SavePost(form));
     }
     
