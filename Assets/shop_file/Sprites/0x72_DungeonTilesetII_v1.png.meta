@@ -1371,7 +1371,7 @@ TextureImporter:
       213: 7969618028786464017
     second: 0x72_DungeonTilesetII_v1_455
   externalObjects: {}
-  serializedVersion: 10
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -1391,6 +1391,8 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -1400,8 +1402,8 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -1422,9 +1424,14 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 1
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -1476,6 +1483,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -5888,6 +5907,216 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      0x72_DungeonTilesetII_v1_11: 1130333517336008782
+      0x72_DungeonTilesetII_v1_131: -4967264174477839138
+      0x72_DungeonTilesetII_v1_122: 3713774743787136997
+      0x72_DungeonTilesetII_v1_13: -1188874068023068918
+      0x72_DungeonTilesetII_v1_105: 8457576822550818133
+      0x72_DungeonTilesetII_v1_144: 4146169923412525753
+      0x72_DungeonTilesetII_v1_3: 9109661327836038920
+      0x72_DungeonTilesetII_v1_106: 2408664947952666910
+      0x72_DungeonTilesetII_v1_46: -1539841210788684980
+      0x72_DungeonTilesetII_v1_171: -2419047804161641735
+      0x72_DungeonTilesetII_v1_68: -649957326741930522
+      0x72_DungeonTilesetII_v1_80: -5757888613941686315
+      0x72_DungeonTilesetII_v1_60: -2745399917599114103
+      0x72_DungeonTilesetII_v1_107: -8928054812243383536
+      0x72_DungeonTilesetII_v1_118: -6049036721336244090
+      0x72_DungeonTilesetII_v1_120: -965708088508797142
+      0x72_DungeonTilesetII_v1_145: -462866876141314124
+      0x72_DungeonTilesetII_v1_51: -857697958378808698
+      0x72_DungeonTilesetII_v1_82: 8194795220949212214
+      0x72_DungeonTilesetII_v1_116: -3151230457220570479
+      0x72_DungeonTilesetII_v1_45: 6006804162825160506
+      0x72_DungeonTilesetII_v1_40: 6449533635978860413
+      0x72_DungeonTilesetII_v1_83: 5964357402616503070
+      0x72_DungeonTilesetII_v1_84: 8639067551592609115
+      0x72_DungeonTilesetII_v1_17: 4224135670407309686
+      0x72_DungeonTilesetII_v1_102: -6289196720923904657
+      0x72_DungeonTilesetII_v1_189: 7088464692593114064
+      0x72_DungeonTilesetII_v1_150: -6903954249024068669
+      0x72_DungeonTilesetII_v1_69: 6109000646928272544
+      0x72_DungeonTilesetII_v1_67: -3205506569706480878
+      0x72_DungeonTilesetII_v1_54: 7376764390827566022
+      0x72_DungeonTilesetII_v1_19: -8300715486247725617
+      0x72_DungeonTilesetII_v1_103: -2735928927867050773
+      0x72_DungeonTilesetII_v1_14: -8893279720773914975
+      0x72_DungeonTilesetII_v1_75: 8238095063158818304
+      0x72_DungeonTilesetII_v1_85: 183080476417551770
+      0x72_DungeonTilesetII_v1_110: 1631859525873710058
+      0x72_DungeonTilesetII_v1_123: 4793315246218092670
+      0x72_DungeonTilesetII_v1_202: -3479091682170250605
+      0x72_DungeonTilesetII_v1_161: 4583671782397725261
+      0x72_DungeonTilesetII_v1_141: 5976237169991111048
+      0x72_DungeonTilesetII_v1_1: -8471706869535827167
+      0x72_DungeonTilesetII_v1_140: 6806221745014573546
+      0x72_DungeonTilesetII_v1_15: 6509370623775744254
+      0x72_DungeonTilesetII_v1_74: 4555075636790823961
+      0x72_DungeonTilesetII_v1_47: -935850963540784184
+      0x72_DungeonTilesetII_v1_175: -1427587468573964574
+      0x72_DungeonTilesetII_v1_132: -8377246197187409065
+      0x72_DungeonTilesetII_v1_88: 3845465974689500575
+      0x72_DungeonTilesetII_v1_66: -6278414381071359296
+      0x72_DungeonTilesetII_v1_38: 6175188285110439695
+      0x72_DungeonTilesetII_v1_98: 1030964791315805442
+      0x72_DungeonTilesetII_v1_49: 7656327686979895898
+      0x72_DungeonTilesetII_v1_117: 7784524115751184504
+      0x72_DungeonTilesetII_v1_55: 1879470929672822199
+      0x72_DungeonTilesetII_v1_138: -108641490371759929
+      0x72_DungeonTilesetII_v1_7: -6528650764475386905
+      0x72_DungeonTilesetII_v1_136: 1482644663798104591
+      0x72_DungeonTilesetII_v1_21: 114183169521231049
+      0x72_DungeonTilesetII_v1_79: -3261897454887270053
+      0x72_DungeonTilesetII_v1_149: -5620223297794656231
+      0x72_DungeonTilesetII_v1_186: -6674309948267379551
+      0x72_DungeonTilesetII_v1_16: -5831453681867110689
+      0x72_DungeonTilesetII_v1_153: -2162589791188413289
+      0x72_DungeonTilesetII_v1_208: 5927385133761802665
+      0x72_DungeonTilesetII_v1_31: 1468418971463126965
+      0x72_DungeonTilesetII_v1_111: 6003934166961728179
+      0x72_DungeonTilesetII_v1_180: -4873999951860193131
+      0x72_DungeonTilesetII_v1_20: -478857564098714653
+      0x72_DungeonTilesetII_v1_53: -2154746346906523798
+      0x72_DungeonTilesetII_v1_72: -6393250002193014985
+      0x72_DungeonTilesetII_v1_22: 2492738819468474698
+      0x72_DungeonTilesetII_v1_114: 2818212534494528482
+      0x72_DungeonTilesetII_v1_33: -8495738024861643786
+      0x72_DungeonTilesetII_v1_142: -9127814163120131078
+      0x72_DungeonTilesetII_v1_154: -1431301596251746914
+      0x72_DungeonTilesetII_v1_176: 8024853896110888148
+      0x72_DungeonTilesetII_v1_0: -60310107850860921
+      0x72_DungeonTilesetII_v1_184: -7010248174509294165
+      0x72_DungeonTilesetII_v1_76: -6597323221054869771
+      0x72_DungeonTilesetII_v1_23: 925159806990737688
+      0x72_DungeonTilesetII_v1_182: -5126877438024323518
+      0x72_DungeonTilesetII_v1_18: -3819888179923425599
+      0x72_DungeonTilesetII_v1_89: -6801824982860108899
+      0x72_DungeonTilesetII_v1_2: 4199029881292752353
+      0x72_DungeonTilesetII_v1_48: 3676341487199091010
+      0x72_DungeonTilesetII_v1_61: -1435631563351228233
+      0x72_DungeonTilesetII_v1_206: -1475739929339569069
+      0x72_DungeonTilesetII_v1_194: -6232916072308701977
+      0x72_DungeonTilesetII_v1_58: -581729619546057858
+      0x72_DungeonTilesetII_v1_199: 1945659028543982964
+      0x72_DungeonTilesetII_v1_64: -1966772525236741642
+      0x72_DungeonTilesetII_v1_86: -4611377912344378612
+      0x72_DungeonTilesetII_v1_96: -257575875768864350
+      0x72_DungeonTilesetII_v1_119: 2495886566714305514
+      0x72_DungeonTilesetII_v1_112: -8788638966081451052
+      0x72_DungeonTilesetII_v1_167: -3738499346643026499
+      0x72_DungeonTilesetII_v1_95: -2697956687798769846
+      0x72_DungeonTilesetII_v1_77: 110442975091748689
+      0x72_DungeonTilesetII_v1_200: 2499546775348910075
+      0x72_DungeonTilesetII_v1_179: -8953267924647070211
+      0x72_DungeonTilesetII_v1_193: 3313291903633433482
+      0x72_DungeonTilesetII_v1_181: 7349241071152403639
+      0x72_DungeonTilesetII_v1_73: 8583815824475140540
+      0x72_DungeonTilesetII_v1_6: 3540799383368255361
+      0x72_DungeonTilesetII_v1_30: -4942856273077246651
+      0x72_DungeonTilesetII_v1_158: 2196895831744716329
+      0x72_DungeonTilesetII_v1_205: 8903921144690381777
+      0x72_DungeonTilesetII_v1_101: 2804844961303808563
+      0x72_DungeonTilesetII_v1_100: 3731671385509100359
+      0x72_DungeonTilesetII_v1_70: -7716268503551364969
+      0x72_DungeonTilesetII_v1_9: 7117958500204128004
+      0x72_DungeonTilesetII_v1_8: 3117573628940892458
+      0x72_DungeonTilesetII_v1_28: -6766977017672285224
+      0x72_DungeonTilesetII_v1_113: 3744076048886862625
+      0x72_DungeonTilesetII_v1_203: -2976098132365808940
+      0x72_DungeonTilesetII_v1_97: -6209297569482884292
+      0x72_DungeonTilesetII_v1_196: -689190519259510440
+      0x72_DungeonTilesetII_v1_71: 5616782281108057006
+      0x72_DungeonTilesetII_v1_109: -7702117259623345370
+      0x72_DungeonTilesetII_v1_178: 4143195287792463757
+      0x72_DungeonTilesetII_v1_157: 7845443283589397662
+      0x72_DungeonTilesetII_v1_183: -3377613324193042168
+      0x72_DungeonTilesetII_v1_26: -5623530026070191392
+      0x72_DungeonTilesetII_v1_32: -8453047280015731244
+      0x72_DungeonTilesetII_v1_191: 7229121075275002403
+      0x72_DungeonTilesetII_v1_62: 7692086163007846642
+      0x72_DungeonTilesetII_v1_162: 1660597210074905167
+      0x72_DungeonTilesetII_v1_170: 7218587290351297529
+      0x72_DungeonTilesetII_v1_35: 8653553846689012114
+      0x72_DungeonTilesetII_v1_147: -9138954674906576935
+      0x72_DungeonTilesetII_v1_204: -2393091842410444728
+      0x72_DungeonTilesetII_v1_121: -1583985098474848626
+      0x72_DungeonTilesetII_v1_50: -6946246121487834634
+      0x72_DungeonTilesetII_v1_159: -6190411752141477238
+      0x72_DungeonTilesetII_v1_92: 8708310375060277757
+      0x72_DungeonTilesetII_v1_148: 3172711610519217186
+      0x72_DungeonTilesetII_v1_164: 2398989716593842900
+      0x72_DungeonTilesetII_v1_12: -2054084652317206853
+      0x72_DungeonTilesetII_v1_195: -460549093843913425
+      0x72_DungeonTilesetII_v1_126: 3782620065255153310
+      0x72_DungeonTilesetII_v1_143: -4977576331284832304
+      0x72_DungeonTilesetII_v1_90: 2115339087519311156
+      0x72_DungeonTilesetII_v1_135: -4932583047173242757
+      0x72_DungeonTilesetII_v1_163: -196038046772959495
+      0x72_DungeonTilesetII_v1_201: -5611544764118635261
+      0x72_DungeonTilesetII_v1_78: 6197572104773411521
+      0x72_DungeonTilesetII_v1_4: 6496895138000599717
+      0x72_DungeonTilesetII_v1_160: -8212011961669631842
+      0x72_DungeonTilesetII_v1_190: 5364383848315035548
+      0x72_DungeonTilesetII_v1_104: -7834270148153546994
+      0x72_DungeonTilesetII_v1_137: 2932906921998149318
+      0x72_DungeonTilesetII_v1_151: 4749457526518855190
+      0x72_DungeonTilesetII_v1_52: -3272445630958478215
+      0x72_DungeonTilesetII_v1_187: 8431018134109423517
+      0x72_DungeonTilesetII_v1_29: -2409370297687744311
+      0x72_DungeonTilesetII_v1_93: 4392384806402884042
+      0x72_DungeonTilesetII_v1_39: -3473025168750369867
+      0x72_DungeonTilesetII_v1_156: 8427358229076776401
+      0x72_DungeonTilesetII_v1_130: 5769414847730377329
+      0x72_DungeonTilesetII_v1_36: 3482522594143044770
+      0x72_DungeonTilesetII_v1_169: 612108073210580563
+      0x72_DungeonTilesetII_v1_99: 8869114295844519938
+      0x72_DungeonTilesetII_v1_34: 1957015385256170263
+      0x72_DungeonTilesetII_v1_174: 6939676277693442149
+      0x72_DungeonTilesetII_v1_133: 1412284914997357177
+      0x72_DungeonTilesetII_v1_152: 7741034092806717138
+      0x72_DungeonTilesetII_v1_81: 550616892245785750
+      0x72_DungeonTilesetII_v1_134: -1175249385412939860
+      0x72_DungeonTilesetII_v1_43: 1999087506623356040
+      0x72_DungeonTilesetII_v1_59: -5373799183927130793
+      0x72_DungeonTilesetII_v1_177: 5128834613715628845
+      0x72_DungeonTilesetII_v1_56: 7811423111452760379
+      0x72_DungeonTilesetII_v1_63: 1515712235842336199
+      0x72_DungeonTilesetII_v1_166: 524853780947493561
+      0x72_DungeonTilesetII_v1_185: 4854784636585696412
+      0x72_DungeonTilesetII_v1_94: 2851666750745294880
+      0x72_DungeonTilesetII_v1_91: 1874864586244999974
+      0x72_DungeonTilesetII_v1_197: -5793341956966061372
+      0x72_DungeonTilesetII_v1_37: -119524821841420316
+      0x72_DungeonTilesetII_v1_125: -3224071719098455298
+      0x72_DungeonTilesetII_v1_146: 2572678636913202412
+      0x72_DungeonTilesetII_v1_173: -4153777517944550443
+      0x72_DungeonTilesetII_v1_44: 8996430347947317050
+      0x72_DungeonTilesetII_v1_165: 7534808418254128689
+      0x72_DungeonTilesetII_v1_127: -1694296771302136542
+      0x72_DungeonTilesetII_v1_5: -1219833853479567404
+      0x72_DungeonTilesetII_v1_27: -3128063519445486028
+      0x72_DungeonTilesetII_v1_87: 2512420330757558515
+      0x72_DungeonTilesetII_v1_155: -3829845020865072114
+      0x72_DungeonTilesetII_v1_129: 1630787008028979071
+      0x72_DungeonTilesetII_v1_198: -4684099275612529145
+      0x72_DungeonTilesetII_v1_24: -4620617101786299768
+      0x72_DungeonTilesetII_v1_25: -6166390495721704858
+      0x72_DungeonTilesetII_v1_207: -2901507640340054285
+      0x72_DungeonTilesetII_v1_172: -4401677121428193871
+      0x72_DungeonTilesetII_v1_168: 1498201808917496599
+      0x72_DungeonTilesetII_v1_42: -7523167936227185359
+      0x72_DungeonTilesetII_v1_128: 7262154322258466475
+      0x72_DungeonTilesetII_v1_65: -9075922294675175153
+      0x72_DungeonTilesetII_v1_10: 8049875310291013952
+      0x72_DungeonTilesetII_v1_192: 7445541819068948944
+      0x72_DungeonTilesetII_v1_188: 8944132590852533092
+      0x72_DungeonTilesetII_v1_139: 536557640356495815
+      0x72_DungeonTilesetII_v1_57: -6040479969823422232
+      0x72_DungeonTilesetII_v1_108: -7358675278815027134
+      0x72_DungeonTilesetII_v1_41: 733197817812159991
+      0x72_DungeonTilesetII_v1_115: -7272780056060323572
+      0x72_DungeonTilesetII_v1_124: -4093924793314078224
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
