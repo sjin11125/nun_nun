@@ -80,7 +80,8 @@ public class GoogleSheetManager : MonoBehaviour
 
     public void RestartTuto()
     {
-
+        GameObject tutobutton = new GameObject();
+        tutobutton.AddComponent<TutorialButton>();
     }
 
     IEnumerator VersionPost(WWWForm form)
