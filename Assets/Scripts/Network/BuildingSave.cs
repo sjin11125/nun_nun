@@ -114,8 +114,10 @@ public class BuildingSave : MonoBehaviour
                 
             }    //친구 건물 불러옴
             else print("웹의 응답이 없습니다.");
-            }
+            
+        }
         
+
     }
     IEnumerator SavePost(WWWForm form)
     {

@@ -36,7 +36,10 @@ public class TutorialButton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(TutorialsManager.itemIndex);
+        if (TutorialsManager.itemIndex > 4)
+        {
+            Camera.main.GetComponent<Transform>().position = new Vector3(0, 0, -10);
+        }
         if (TutorialsManager.itemIndex==14)
         {
             isEnd = true;
@@ -50,6 +53,8 @@ public class TutorialButton : MonoBehaviour
     IEnumerator WaitTutoEnd()
     { 
      yield return new WaitForSeconds(1f);
+        isTutoButton = false;
+        GameManager.CharacterList.Clear();
         SceneManager.LoadScene("Login");
         Destroy(gameObject);
     }
