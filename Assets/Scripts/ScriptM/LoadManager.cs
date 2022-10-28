@@ -84,10 +84,6 @@ public class LoadManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-        else
-        {
-            return;
-        }
         for (int i = 0; i < CanvasManger.currentAchieveSuccess.Length; i++)
         {
            Debug.Log("CanvasManger.currentAchieveSuccess[" + i + "] : " + CanvasManger.currentAchieveSuccess[i]);
