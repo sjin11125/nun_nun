@@ -27,7 +27,7 @@ public class GoogleSheetManager : MonoBehaviour
     public GameObject WarningPannel;
     public bool ifISign;
 
-    public GameObject loginBtn;
+    public Button loginBtn;
     public string bestScoreKey_ = "bsdat";
     private BestScoreData bestScores_ = new BestScoreData();
 
@@ -77,6 +77,12 @@ public class GoogleSheetManager : MonoBehaviour
 
         StartCoroutine(VersionPost(form)); //최신 버전 불러오기*/
     }
+
+    public void RestartTuto()
+    {
+
+    }
+
     IEnumerator VersionPost(WWWForm form)
     {
         using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // 반드시 using을 써야한다
@@ -172,9 +178,7 @@ public class GoogleSheetManager : MonoBehaviour
         StartCoroutine(SetPost(form2));
 
         //PlayerPrefs.SetInt("TutorialsDone", TutorialsManager.itemIndex);
-        loginBtn.SetActive(false);
-
-
+        //loginBtn.interactable = false;
     }
 
     private IEnumerator ReadDataFile()
@@ -201,7 +205,8 @@ public class GoogleSheetManager : MonoBehaviour
             }
             else
             {
-                loginBtn.SetActive(false);
+                //if 로그인되면, 안되면 구별
+                loginBtn.interactable = false;
             }
 
             WWWForm form = new WWWForm();
@@ -213,6 +218,7 @@ public class GoogleSheetManager : MonoBehaviour
             PlayerPrefs.SetString("Id", id);//아이디비번 저장
             PlayerPrefs.SetString("Pass", pass);
 
+            //loginBtn.interactable = false;
             StartCoroutine(Post(form));
         }
     }
@@ -270,8 +276,9 @@ public class GoogleSheetManager : MonoBehaviour
             if (www.isDone)
             {
                 Response(www.downloadHandler.text);
+                //loginBtn.interactable = false;
             }
-            else print("웹의 응답이 없습니다.");
+            else print("웹의 응답이 없습니다.");              
         }
     }
     IEnumerator SetPost(WWWForm form)
@@ -291,7 +298,6 @@ public class GoogleSheetManager : MonoBehaviour
        
     }
 
-
     void Response(string json)
     {
         Debug.Log(json);
@@ -308,7 +314,7 @@ public class GoogleSheetManager : MonoBehaviour
 
         if (GD.result.Equals("ERROR"))
         {
-            t.text = GD.msg;
+            t.text = GD.msg;           
             return;
         }
         else if (GD.result.Equals("NickNameERROR"))
