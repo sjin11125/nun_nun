@@ -44,8 +44,10 @@ public class RandomSelect : MonoBehaviour
         Nuni.isLock = "T";          //누니 잠금 품
         GameManager.CharacterList.Add(Nuni);     //나온 결과를 리스트에 반영
                                                  //전체 누니 배열을 수정
-
-
+        if (TutorialButton.isTutoButton)
+        {
+            return;
+        }
         StartCoroutine(NuniSave(Nuni));          //구글 스크립트에 업데이트
         ShopBuyScript.isfirst = false;
     }

@@ -80,6 +80,14 @@ public class LoadManager : MonoBehaviour
     //ĳ���� �ε�
     void Start()
     {
+        if (TutorialButton.isTutoButton)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            return;
+        }
         for (int i = 0; i < CanvasManger.currentAchieveSuccess.Length; i++)
         {
            Debug.Log("CanvasManger.currentAchieveSuccess[" + i + "] : " + CanvasManger.currentAchieveSuccess[i]);
