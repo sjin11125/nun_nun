@@ -57,17 +57,21 @@ public class FriendManager : MonoBehaviour
     public void FriendWindowOpen()
     {
         Content.SetActive(true);
-        GetFriendLsit();
+
+            GetFriendLsit();
+        
     }
     public void GetFriendLsit()         //ģ�� ���� �ҷ�����
     {
-
-        LoadingObjcet.SetActive(true);
-        WWWForm form = new WWWForm();
-        form.AddField("order", "getFriend");
-        form.AddField("player_nickname", GameManager.NickName);
-        form.AddField("info", "1234");
-        StartCoroutine(ListPost(form));
+        if (!TutorialButton.isTutoButton)
+        {
+            LoadingObjcet.SetActive(true);
+            WWWForm form = new WWWForm();
+            form.AddField("order", "getFriend");
+            form.AddField("player_nickname", GameManager.NickName);
+            form.AddField("info", "1234");
+            StartCoroutine(ListPost(form));
+        }
     }
     public void GetRecFriendLsit()         //��õģ�� ���� �ҷ�����
     {

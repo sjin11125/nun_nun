@@ -55,6 +55,7 @@ public class LoadingSceneController : MonoBehaviour
         gameObject.SetActive(true);
         SceneManager.sceneLoaded += OnSceneLoaded;
         loadSceneName = sceneName;
+       
         StartCoroutine(LoadSceneProcess());
 
     }
@@ -67,10 +68,15 @@ public class LoadingSceneController : MonoBehaviour
         yield return StartCoroutine(Fade(true));
         AsyncOperation op = SceneManager.LoadSceneAsync(loadSceneName);
         op.allowSceneActivation = false;
+ 
         if (loadSceneName=="Main")
         {
-            BuildingSave buildingsave = this.GetComponent<BuildingSave>();
-            buildingsave.BuildingLoad();
+            if (!TutorialButton.isTutoButton)
+            {
+
+                BuildingSave buildingsave = this.GetComponent<BuildingSave>();
+                buildingsave.BuildingLoad();
+            }
         }
        
         float timer = 0f;

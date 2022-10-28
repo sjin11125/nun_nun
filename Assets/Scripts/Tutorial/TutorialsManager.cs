@@ -48,7 +48,7 @@ public class TutorialsManager : MonoBehaviour
         if (items.Length .Equals( itemIndex))
         {
             RandomSelect.isTuto = 1;
-            PlayerPrefs.SetInt("TutorialsDone", itemIndex);
+           // PlayerPrefs.SetInt("TutorialsDone", itemIndex);
         }
         else
         {
@@ -77,7 +77,7 @@ public class TutorialsManager : MonoBehaviour
                     }
                 }
             }
-            PlayerPrefs.SetInt("TutorialsDone", itemIndex);
+           // PlayerPrefs.SetInt("TutorialsDone", itemIndex);
             itemIndex++;
         }
     }
