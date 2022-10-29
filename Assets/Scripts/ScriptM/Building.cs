@@ -644,7 +644,11 @@ public class Building : MonoBehaviour
 
         GameManager.CurrentBuilding = null;
         //
-        save.AddValue();
+        if (!TutorialButton.isTutoButton)
+        {
+
+            save.AddValue();
+        }
         //GameManager.isUpdate = true;
     }
     #endregion
