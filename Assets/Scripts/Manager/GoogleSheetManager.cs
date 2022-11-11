@@ -485,7 +485,19 @@ public class GoogleSheetManager : MonoBehaviour
 
             StartCoroutine(BestScorePost(form));
         }
-        else { 
+        else if (GD.isUpdate == "1.4.5")
+        {
+             
+        GameManager.BestScore = int.Parse(json.Split('@')[3]);          //점수설정
+        //GameManager.Zem = int.Parse(json.Split('@')[4]);          //잼설정
+            WWWForm form = new WWWForm();
+            form.AddField("order", "getChallenge");
+            form.AddField("player_nickname", GameManager.NickName);
+
+            StartCoroutine(ChallPost(form));
+        }  else if (GD.isUpdate == "1.4.6")
+        {
+             
         GameManager.BestScore = int.Parse(json.Split('@')[3]);          //점수설정
         GameManager.Zem = int.Parse(json.Split('@')[4]);          //잼설정
             WWWForm form = new WWWForm();

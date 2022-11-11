@@ -8,6 +8,7 @@ public class TutorialButton : MonoBehaviour
     public static bool isTutoButton;
     static TutorialButton _Instance;
     bool isEnd = false;
+    bool isIndex = false;
     private void Awake()
     {
         if (_Instance == null)
@@ -29,14 +30,14 @@ public class TutorialButton : MonoBehaviour
 
 
         GameManager.Money = 2000;
-        GameManager.ProfileImage= GameManager.AllNuniArray[0].Image;
+        GameManager.ProfileImage = GameManager.AllNuniArray[0].Image;
         SceneManager.LoadScene("Main");
+        
+        
     }
-
-    // Update is called once per frame
-    void Update()
+        // Update is called once per frame
+        void Update()
     {
-        Debug.Log(TutorialsManager.itemIndex);
         if (TutorialsManager.itemIndex==14)
         {
             isEnd = true;
@@ -50,8 +51,14 @@ public class TutorialButton : MonoBehaviour
     IEnumerator WaitTutoEnd()
     { 
      yield return new WaitForSeconds(1f);
-        SceneManager.LoadScene("Login");
-        Destroy(gameObject);
+        if (Input.GetMouseButtonUp(0))
+        {
+            isTutoButton = false;
+            GameManager.CharacterList.Clear();
+            SceneManager.LoadScene("Login");
+            Destroy(gameObject);
+        }
+ 
     }
   
 }

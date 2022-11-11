@@ -38,6 +38,7 @@ public class BuildingSave : MonoBehaviour
         form.AddField("level", update_building.Level);
         form.AddField("isFlied", update_building.isFliped.ToString());
         form.AddField("id", update_building.Id.ToString());
+
         StartCoroutine(SavePost(form));
     }
     
@@ -86,6 +87,7 @@ public class BuildingSave : MonoBehaviour
         isMe = true;                    //내 건물 불러온다!!!!!!!!!!!!!!!!
         form1.AddField("order", "getFriendBuilding");
         form1.AddField("loadedFriend", GameManager.NickName);
+        Debug.Log("내 닉넴 "+ GameManager.NickName);
         StartCoroutine(Post(form1));
     } 
     public void FriendBuildindLoad()
@@ -104,7 +106,8 @@ public class BuildingSave : MonoBehaviour
         Debug.Log("불러오라");
         using (UnityWebRequest www = UnityWebRequest.Post(URL, form)) // 반드시 using을 써야한다
             {
-                yield return www.SendWebRequest();
+            
+            yield return www.SendWebRequest();
             //Debug.Log(www.downloadHandler.text);
             if (www.isDone)
             {
@@ -113,8 +116,10 @@ public class BuildingSave : MonoBehaviour
                 
             }    //친구 건물 불러옴
             else print("웹의 응답이 없습니다.");
-            }
+            
+        }
         
+
     }
     IEnumerator SavePost(WWWForm form)
     {

@@ -464,6 +464,10 @@ public class FriendManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (TutorialsManager.itemIndex > 3)
+        {
+            Camera.main.GetComponent<Transform>().position = new Vector3(0, 0, -10);
+        }
     }
 
     // Update is called once per frame

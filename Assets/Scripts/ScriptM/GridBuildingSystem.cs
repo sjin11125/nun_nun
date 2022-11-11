@@ -327,7 +327,7 @@ public class GridBuildingSystem : MonoBehaviour
         }
 
 
-            if (second >= 1.3f&& isEditing.Equals(false))
+            if (second >= 1.3f&& isEditing.Equals(false)&&!TutorialButton.isTutoButton)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
