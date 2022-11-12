@@ -56450,7 +56450,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 36.43, y: 0}
+  m_AnchoredPosition: {x: 36.429993, y: 0}
   m_SizeDelta: {x: 72.87, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1749097955
@@ -81462,7 +81462,19 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6783805192809504614}
+        m_TargetAssemblyTypeName: TransferMap, Assembly-CSharp
+        m_MethodName: LoadLoginScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Login
+          m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &6783805192809504603
 MonoBehaviour:
@@ -81506,6 +81518,7 @@ GameObject:
   - component: {fileID: 6783805192809504600}
   - component: {fileID: 6783805192809504603}
   - component: {fileID: 6783805192809504602}
+  - component: {fileID: 6783805192809504614}
   m_Layer: 5
   m_Name: exit_btn
   m_TagString: Untagged
@@ -81533,6 +81546,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &6783805192809504614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6783805192809504612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 468e6af50c75c09489464035525f247b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transferMapName: Login
+  builinSave: {fileID: 0}
 --- !u!222 &6786115543963831793
 CanvasRenderer:
   m_ObjectHideFlags: 0

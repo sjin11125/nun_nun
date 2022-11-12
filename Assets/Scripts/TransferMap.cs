@@ -22,4 +22,8 @@ public class TransferMap : MonoBehaviour
         LoadingSceneController.Instance.LoadScene(transferMapName);
         //builinSave.BuildingLoad();
     }
+    public void LoadLoginScene(string sceneaanme)
+    {
+        SceneManager.LoadScene(sceneaanme);
+    }
 }

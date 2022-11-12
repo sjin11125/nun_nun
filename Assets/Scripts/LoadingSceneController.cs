@@ -8,6 +8,11 @@ public class LoadingSceneController : MonoBehaviour
 {
 
     private static LoadingSceneController instance;
+
+    public  void LoadLoginScene(string sceneaanme)
+    {
+        SceneManager.LoadScene(sceneaanme);
+    }
     public static LoadingSceneController Instance
     {
         get
@@ -94,7 +99,9 @@ public class LoadingSceneController : MonoBehaviour
                     yield break;
                 }
             }
+
         }
+   
     }
     public void BuildingLoading()
     {
