@@ -27,7 +27,6 @@ public class GoogleSheetManager : MonoBehaviour
     public GameObject WarningPannel;
     public bool ifISign;
 
-    public Button loginBtn;
     public string bestScoreKey_ = "bsdat";
     private BestScoreData bestScores_ = new BestScoreData();
 
@@ -203,11 +202,6 @@ public class GoogleSheetManager : MonoBehaviour
                 t.text = "아이디 또는 비밀번호가 비어있습니다";
 
                 return;
-            }
-            else
-            {
-                //if 로그인되면, 안되면 구별
-                loginBtn.interactable = false;
             }
 
             WWWForm form = new WWWForm();
