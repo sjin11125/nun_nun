@@ -19,16 +19,10 @@ public class FirebaseLogin : MonoBehaviour
     }
     private void Start()
     {
-        try
-        {
+       
             Firebase.Auth.FirebaseAuth auth = Firebase.Auth.FirebaseAuth.DefaultInstance;
-            LoginLink(LoginState.GOOGLE_ACCOUNT);
-        }
-        catch (System.Exception e)
-        {
-            Debug.Log(e.Message);
-            throw;
-        }
+            
+
     
     }
     public void Inint()
@@ -56,7 +50,17 @@ public class FirebaseLogin : MonoBehaviour
         });
 
     }
-
+    public void Test()
+    {
+        try { 
+        LoginLink(LoginState.GOOGLE_ACCOUNT);
+        }
+        catch (System.Exception e)
+        {
+            Debug.Log("¿À·ù´Â "+e.Message);
+            throw;
+        }
+    }
     public void LoginLink(LoginState _t)
     {
         switch (_t)
