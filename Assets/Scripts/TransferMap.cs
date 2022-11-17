@@ -24,6 +24,10 @@ public class TransferMap : MonoBehaviour
     }
     public void LoadLoginScene(string sceneaanme)
     {
+        GameManager.BuildingList = null;
+       // GameManager.CharacterList = null;
+        TutorialSkipButton.isGameTutoSkip = false;
+        TutorialSkipButton.isTutoStop = false;
         SceneManager.LoadScene(sceneaanme);
     }
 }

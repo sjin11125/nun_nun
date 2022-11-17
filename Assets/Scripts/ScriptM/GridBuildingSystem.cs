@@ -161,7 +161,7 @@ public class GridBuildingSystem : MonoBehaviour
                                     temp.Place(temp.Type);
 
 
-                                    Grid.GetComponent<SpriteRenderer>().sortingOrder = -48;             //메인 타일 안보이게
+                                    //Grid.GetComponent<SpriteRenderer>().sortingOrder = -48;             //메인 타일 안보이게
                                     StartButton.enabled = true;
                                     temp = null;
                                     isEditing = false;

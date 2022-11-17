@@ -74,11 +74,11 @@ public class LoadingSceneController : MonoBehaviour
         op.allowSceneActivation = false;
         if (loadSceneName == "Main")
         {
-            if (!TutorialButton.isTutoButton)
+           /* if (!TutorialButton.isTutoButton)
             {
                 BuildingSave buildingsave = this.GetComponent<BuildingSave>();
                 buildingsave.BuildingLoad();
-            }
+            }*/
         }
        
         float timer = 0f;

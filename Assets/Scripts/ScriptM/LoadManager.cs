@@ -104,16 +104,16 @@ public class LoadManager : MonoBehaviour
         {
             if (TutorialsManager.itemIndex > 13)
             {
-                WWWForm form1 = new WWWForm();
+               /* WWWForm form1 = new WWWForm();
                 form1.AddField("order", "getFriendBuilding");
                 form1.AddField("loadedFriend", GameManager.NickName);
 
                 StartCoroutine(RewardStart());          //오늘 재화 받을 수 있는지
 
-                GameManager.Instance.BestScoreSave();                   //최고점수 서버 저장
+                GameManager.Instance.BestScoreSave();                   //최고점수 서버 저장*/
             }
 
-            buildingsave.BuildingLoad();
+            BuildingLoad();
 
           
 
@@ -198,7 +198,7 @@ public class LoadManager : MonoBehaviour
             g.name = g_Building.Id;          //�̸� �缳��
 
             g_Building.Type = BuildType.Load;
-            g_Building.Place_Initial(g_Building.Type);
+            g_Building.Place_Initial(LoadBuilding);
             GameManager.IDs.Add(g_Building.Id);
             // g_Building.Rotation();
 
@@ -208,7 +208,7 @@ public class LoadManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!GameManager.isLoading)
+       /* if (!GameManager.isLoading)
         {
             LoadingNuni.SetActive(true);
 
@@ -217,7 +217,7 @@ public class LoadManager : MonoBehaviour
         {
             LoadingNuni.SetActive(false);
         }
-
+        */
         if (GameManager.isReward.Equals(true)&&GameManager.isLoading.Equals(true) )        
         {
 
@@ -312,7 +312,7 @@ public class LoadManager : MonoBehaviour
                 g.name = LoadBuilding.Id;            //�̸� �缳��
 
                 g_Building.Type = BuildType.Load;
-                g_Building.Place_Initial(g_Building.Type);
+                g_Building.Place_Initial(g_Building);
                 
                 // g_Building.Rotation();
 

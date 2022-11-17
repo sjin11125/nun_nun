@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameTutorialsManager : MonoBehaviour
 {
@@ -10,9 +11,17 @@ public class GameTutorialsManager : MonoBehaviour
 
     void Start()
     {
+        if (SceneManager.GetActiveScene().name=="Game")
+        {
+            if (TutorialSkipButton.isGameTutoSkip)
+            {
+                gameObject.SetActive(false);
+                return;
+            }
+        }
         if (!isItem)
         {
-            if(RandomSelect.isTuto == 0)
+            if(RandomSelect.isTuto == 0&&!TutorialSkipButton.isGameTutoSkip)
             {
                 ItemHooverOnClick();
             }

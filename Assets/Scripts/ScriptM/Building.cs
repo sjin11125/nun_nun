@@ -178,6 +178,8 @@ public class Building : MonoBehaviour
         Building BuildingCopy = new Building();
         BuildingCopy.isLock = isLock;
         BuildingCopy.Building_name = this.Building_name;
+        BuildingCopy.BuildingPosiiton_x = transform.position.x.ToString();
+        BuildingCopy.BuildingPosiiton_y = transform.position.y.ToString();
         BuildingCopy.Building_Image = this.Building_Image;
         //Debug.Log(BuildingCopy.Building_Image.name);
         BuildingCopy.BuildingPosition = this.BuildingPosition;
@@ -212,6 +214,10 @@ public class Building : MonoBehaviour
     }
     public void Rotation()          //건물 회전
     {
+        if (gameObject.transform.tag=="bunsu")
+        {
+            return;
+        }
         bool isflip_bool;
 
         if (isFliped .Equals( "F"))
@@ -375,10 +381,15 @@ public class Building : MonoBehaviour
 
         // 아이콘을 누르면 재화 + 
         // current Time이 일정시간 밑으로 떨어졌을 때 수확 아이콘 생성
+        if (gameObject.transform.tag=="bunsu")
+        {
+            return;
 
-
+        }
+    
         if (Placed .Equals( true))       // 건물 배치가 확정
         {
+            
             Button_Pannel.gameObject.SetActive(false);     // 배치하는 버튼 사라지게
             Rotation_Pannel.gameObject.SetActive(false);        //회전 버튼 사라지게
             UpgradePannel.gameObject.SetActive(false);
@@ -393,7 +404,7 @@ public class Building : MonoBehaviour
         }
         else                            //확정 아닐 때
         {
-
+          
             Button_Pannel.gameObject.SetActive(true);               //확정 패널 뜨게
             Rotation_Pannel.gameObject.SetActive(true);               //회전 패널 뜨게
             if (Building_Image != "bunsu_level(Clone)")
@@ -530,9 +541,11 @@ public class Building : MonoBehaviour
         GameManager.isUpdate = true;
 
     }
-    public void Place_Initial(BuildType buildtype)
+    public void Place_Initial(Building buildtype)
     {
-        Vector3 vec = new Vector3(float.Parse(BuildingPosiiton_x), float.Parse(BuildingPosiiton_y), 0);
+        Debug.Log(buildtype.BuildingPosiiton_x +"  "+ buildtype.BuildingPosiiton_x);
+
+        Vector3 vec = new Vector3(float.Parse(buildtype.BuildingPosiiton_x), float.Parse(buildtype.BuildingPosiiton_y), 0);
         area.position = GridBuildingSystem.current.gridLayout.WorldToCell(vec);
         BoundsInt areaTemp = area;
         //areaTemp.position = positionInt;
@@ -605,11 +618,11 @@ public class Building : MonoBehaviour
 
             buildtype = BuildType.Empty;
 
-            save.UpdateValue(this);
+           // save.UpdateValue(this);
         }
         else
         {
-            save.UpdateValue(this);
+            //save.UpdateValue(this);
         }
 
         gameObject.transform.parent = Parent.transform;
@@ -647,7 +660,7 @@ public class Building : MonoBehaviour
         if (!TutorialButton.isTutoButton)
         {
 
-            save.AddValue();
+            //save.AddValue();
         }
         //GameManager.isUpdate = true;
     }

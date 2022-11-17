@@ -54,8 +54,6 @@ public class TutorialButton : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             isTutoButton = false;
-            GameManager.CharacterList.Clear();
-            SceneManager.LoadScene("Login");
             Destroy(gameObject);
         }
  

@@ -48,7 +48,7 @@ public class RandomSelect : MonoBehaviour
         {
             return;
         }
-        StartCoroutine(NuniSave(Nuni));          //구글 스크립트에 업데이트
+        //StartCoroutine(NuniSave(Nuni));          //구글 스크립트에 업데이트
         ShopBuyScript.isfirst = false;
     }
     IEnumerator NuniSave(Card nuni)                //누니 구글 스크립트에 저장

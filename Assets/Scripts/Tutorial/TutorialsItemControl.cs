@@ -31,8 +31,16 @@ public class TutorialsItemControl : MonoBehaviour
             if (itemType == ItemType.touch)
             {
                 // 입력을 하면 계속 진행
-                if (Input.GetMouseButtonDown(0) && goNext)
+                if (Input.GetMouseButtonUp(0) && goNext)
                 {
+                    if (TutorialSkipButton.isTutoStop)
+                    {
+                        return;
+                    }
+                    if (TutorialSkipButton.isGameTutoSkip)
+                    {
+                        return;
+                    }
                     Run();                  
                 }
             }
@@ -41,6 +49,7 @@ public class TutorialsItemControl : MonoBehaviour
 
     virtual protected void Run()
     {
+       
         if (gameObjectToShow == null)
             return;
 
@@ -67,6 +76,7 @@ public class TutorialsItemControl : MonoBehaviour
                 parentTutorialsManager.ActiveNextItem();
             }
         }
+ 
     }
 
     void ShowGameObject()
