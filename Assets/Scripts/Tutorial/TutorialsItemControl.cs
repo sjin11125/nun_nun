@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class TutorialsItemControl : MonoBehaviour
@@ -17,7 +18,7 @@ public class TutorialsItemControl : MonoBehaviour
     bool isReadyToInput = false;
     public bool goNext;
     public bool isGame;
-
+    public Button skip;
     private void OnEnable()
     {
         Invoke("ShowGameObject", timeToInput);
