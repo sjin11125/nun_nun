@@ -81,7 +81,6 @@ public class GoogleSheetManager : MonoBehaviour
     {
         GameObject tutobutton = new GameObject();
         tutobutton.AddComponent<TutorialButton>();
-        GameManager.ShinMoney = 100;
     }
 
     IEnumerator VersionPost(WWWForm form)

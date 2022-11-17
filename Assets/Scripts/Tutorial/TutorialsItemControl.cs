@@ -31,6 +31,7 @@ public class TutorialsItemControl : MonoBehaviour
         {
             if (itemType == ItemType.touch)
             {
+              
                 // 입력을 하면 계속 진행
                 if (Input.GetMouseButtonUp(0) && goNext)
                 {
