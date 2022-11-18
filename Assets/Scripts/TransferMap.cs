@@ -24,7 +24,7 @@ public class TransferMap : MonoBehaviour
     }
     public void LoadLoginScene(string sceneaanme)
     {
-        GameManager.BuildingList = null;
+        GameManager.BuildingList.Clear();
        // GameManager.CharacterList = null;
         TutorialSkipButton.isGameTutoSkip = false;
         TutorialSkipButton.isTutoStop = false;

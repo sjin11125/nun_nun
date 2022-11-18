@@ -18,6 +18,11 @@ public class GameTutorialsManager : MonoBehaviour
                 gameObject.SetActive(false);
                 return;
             }
+            else
+            {
+               // gameObject.SetActive(false);
+               // return;
+            }
         }
         if (!isItem)
         {
@@ -25,10 +30,10 @@ public class GameTutorialsManager : MonoBehaviour
             {
                 ItemHooverOnClick();
             }
-            else
+           /* else
             {
                 this.gameObject.SetActive(false);
-            }
+            }*/
         }
     }
 

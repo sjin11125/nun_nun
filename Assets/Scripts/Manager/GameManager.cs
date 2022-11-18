@@ -320,7 +320,7 @@ public class GameManager : MonoBehaviour
     {
         if (pause)//비활성화
         {
-            GameSave();
+           // GameSave();
         }
     }
 }

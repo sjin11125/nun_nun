@@ -668,7 +668,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemType: 0
-  timeToInput: 2
+  timeToInput: 1
   gameObjectToShow: {fileID: 1885934235}
   goNext: 1
   isGame: 1
@@ -6731,7 +6731,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1612842873}
+    m_TransformParent: {fileID: 1710600195}
     m_Modifications:
     - target: {fileID: 4659118123173140104, guid: df790d3a60b564b4f86f62c8fc038b03, type: 3}
       propertyPath: TutorialManager
@@ -6747,23 +6747,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4659118123173140105, guid: df790d3a60b564b4f86f62c8fc038b03, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4659118123173140105, guid: df790d3a60b564b4f86f62c8fc038b03, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4659118123173140105, guid: df790d3a60b564b4f86f62c8fc038b03, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4659118123173140105, guid: df790d3a60b564b4f86f62c8fc038b03, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4659118123173140105, guid: df790d3a60b564b4f86f62c8fc038b03, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4659118123173140105, guid: df790d3a60b564b4f86f62c8fc038b03, type: 3}
       propertyPath: m_SizeDelta.x
@@ -6771,19 +6771,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4659118123173140105, guid: df790d3a60b564b4f86f62c8fc038b03, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 92.45
+      value: 92.44995
       objectReference: {fileID: 0}
     - target: {fileID: 4659118123173140105, guid: df790d3a60b564b4f86f62c8fc038b03, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.99999994
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4659118123173140105, guid: df790d3a60b564b4f86f62c8fc038b03, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.99999994
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4659118123173140105, guid: df790d3a60b564b4f86f62c8fc038b03, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.99999994
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4659118123173140105, guid: df790d3a60b564b4f86f62c8fc038b03, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6815,11 +6815,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4659118123173140105, guid: df790d3a60b564b4f86f62c8fc038b03, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 65.997375
+      value: 161.18
       objectReference: {fileID: 0}
     - target: {fileID: 4659118123173140105, guid: df790d3a60b564b4f86f62c8fc038b03, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -179.00336
+      value: -46.224976
       objectReference: {fileID: 0}
     - target: {fileID: 4659118123173140105, guid: df790d3a60b564b4f86f62c8fc038b03, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -19938,7 +19938,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemType: 0
-  timeToInput: 2
+  timeToInput: 1
   gameObjectToShow: {fileID: 1537258411}
   goNext: 1
   isGame: 1
@@ -20787,7 +20787,6 @@ RectTransform:
   - {fileID: 148797427}
   - {fileID: 1159479198}
   - {fileID: 1769970869}
-  - {fileID: 465759738}
   m_Father: {fileID: 1710600195}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -22091,6 +22090,7 @@ RectTransform:
   m_Children:
   - {fileID: 999357358}
   - {fileID: 1612842873}
+  - {fileID: 465759738}
   m_Father: {fileID: 15811276}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -22158,7 +22158,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 200
   m_TargetDisplay: 0
 --- !u!1 &1712187952
 GameObject:
@@ -26629,7 +26629,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemType: 0
-  timeToInput: 2
+  timeToInput: 1
   gameObjectToShow: {fileID: 1341139499}
   goNext: 1
   isGame: 1
@@ -35732,7 +35732,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemType: 0
-  timeToInput: 2
+  timeToInput: 1
   gameObjectToShow: {fileID: 8797584635989760664}
   goNext: 1
   isGame: 1
