@@ -21,74 +21,54 @@ public class BuildingSave : MonoBehaviour
         
     }
 
-    
-    
-    public void UpdateValue(Building update_building)
-    {
-        Debug.Log("UpdateValue");
-        WWWForm form = new WWWForm();
-        form.AddField("order", "updateValue");
-        Debug.Log("building_image"+update_building.Building_Image);
-        form.AddField("building_image", update_building.Building_Image);
-        form.AddField("player_nickname", GameManager.NickName);
-        form.AddField("buildingPosiiton_x", update_building.BuildingPosition.x.ToString());
-        form.AddField("buildingPosiiton_y", update_building.BuildingPosition.y.ToString());
-        form.AddField("isLock", update_building.isLock);
-        form.AddField("building_name", update_building.Building_name);
-        form.AddField("level", update_building.Level);
-        form.AddField("isFlied", update_building.isFliped.ToString());
-        form.AddField("id", update_building.Id.ToString());
-
-        StartCoroutine(SavePost(form));
-    }
-    
-    public void AddValue()
+    public void BuildingReq(BuildingDef buildingDef,Building tempBuilding=null)
     {
         WWWForm form = new WWWForm();
-        Building buildings = GetComponent<Building>();
-        Debug.Log("건물저장");
-        form.AddField("order", "addValue");
-        form.AddField("player_nickname", GameManager.NickName);
-        form.AddField("building_image", buildings.Building_Image);
-        form.AddField("buildingPosiiton_x", buildings.BuildingPosition.x.ToString());
-        form.AddField("buildingPosiiton_y", buildings.BuildingPosition.y.ToString());
-        form.AddField("isLock", buildings.isLock);
-        form.AddField("building_name", buildings.Building_name);
-        form.AddField("level", buildings.Level);
-        form.AddField("isFlied",buildings.isFliped.ToString());
-        form.AddField("id", buildings.Id.ToString());
-        StartCoroutine(SavePost(form));
-    }
-    public void RemoveValue(string id)
-    {
-        WWWForm form1 = new WWWForm();
-        form1.AddField("order", "removeValue");
-        form1.AddField("player_nickname", GameManager.NickName);
-        Debug.Log("ID: "+id);
-        form1.AddField("id", id);
-        StartCoroutine(Post(form1));
 
-        return;
-    } public void RemoveValue_str(string id)
-    {
-        WWWForm form1 = new WWWForm();
-        form1.AddField("order", "removeValueStr");
-        form1.AddField("player_nickname", GameManager.NickName);
-        Debug.Log("ID: "+id);
-        form1.AddField("id", id);
-        StartCoroutine(Post(form1));
+        switch (buildingDef)
+        {
+            case BuildingDef.updateValue:
+            case BuildingDef.addValue:
 
-        return;
+                form.AddField("order", buildingDef.ToString());
+                form.AddField("building_image", tempBuilding.Building_Image);
+                form.AddField("player_nickname", GameManager.NickName);
+                form.AddField("buildingPosiiton_x", tempBuilding.BuildingPosition.x.ToString());
+                form.AddField("buildingPosiiton_y", tempBuilding.BuildingPosition.y.ToString());
+                form.AddField("isLock", tempBuilding.isLock);
+                form.AddField("building_name", tempBuilding.Building_name);
+                form.AddField("level", tempBuilding.Level);
+                form.AddField("isFlied", tempBuilding.isFliped.ToString());
+                form.AddField("id", tempBuilding.Id.ToString());
+
+                StartCoroutine(Post(form, buildingDef));        //SavePost
+                break;
+
+            case BuildingDef.removeValue:
+
+                form.AddField("order", buildingDef.ToString());
+                form.AddField("player_nickname", GameManager.NickName);
+
+                form.AddField("id", tempBuilding.Id);
+                StartCoroutine(Post(form, buildingDef));
+                break;
+
+            case BuildingDef.getFriendBuilding:
+                break;
+
+            case BuildingDef.getMyBuilding:
+                isMe = true;                    //내 건물 불러온다!!!!!!!!!!!!!!!!
+                form.AddField("order", "getFriendBuilding");
+                form.AddField("loadedFriend", GameManager.NickName);
+                StartCoroutine(Post(form, buildingDef));
+                break;
+
+            default:
+                break;
+        }
     }
-    public void BuildingLoad()              //로그인 했을 때 건물 불러와
-    {
-        WWWForm form1 = new WWWForm();
-        Debug.Log("건물로딩");
-        isMe = true;                    //내 건물 불러온다!!!!!!!!!!!!!!!!
-        form1.AddField("order", "getFriendBuilding");
-        form1.AddField("loadedFriend", GameManager.NickName);
-        StartCoroutine(Post(form1));
-    } 
+    
+  
     public void FriendBuildindLoad()
     {
         string FriendNickname=gameObject.transform.parent.name;
@@ -97,10 +77,10 @@ public class BuildingSave : MonoBehaviour
         isMe = false;                   //친구 건물 불러올거지롱 메롱
         form1.AddField("order", "getFriendBuilding");
         form1.AddField("loadedFriend", FriendNickname);
-        StartCoroutine(Post(form1));
+        StartCoroutine(Post(form1, BuildingDef.getFriendBuilding));
     }
    
-    IEnumerator Post(WWWForm form)
+    IEnumerator Post(WWWForm form,BuildingDef buildingDef)
     {
         Debug.Log("불러오라");
         using (UnityWebRequest www = UnityWebRequest.Post(URL, form)) // 반드시 using을 써야한다
@@ -109,27 +89,27 @@ public class BuildingSave : MonoBehaviour
             //Debug.Log(www.downloadHandler.text);
             if (www.isDone)
             {
-                
-                Response(www.downloadHandler.text);
-                
-            }    //친구 건물 불러옴
+                switch (buildingDef)
+                {
+                    case BuildingDef.updateValue:
+                    case BuildingDef.addValue:
+                    case BuildingDef.removeValue:
+                        break;
+
+                    case BuildingDef.getFriendBuilding:
+                    case BuildingDef.getMyBuilding:
+                        Response(www.downloadHandler.text, buildingDef);
+                        break;
+
+                    default:
+                        break;
+                }
+            } 
             else print("웹의 응답이 없습니다.");
             }
         
     }
-    IEnumerator SavePost(WWWForm form)
-    {
-        using (UnityWebRequest www = UnityWebRequest.Post(URL, form)) // 반드시 using을 써야한다
-        {
-            yield return www.SendWebRequest();
-            //Debug.Log(www.downloadHandler.text);
-           // if (www.isDone) Response(www.downloadHandler.text);         //친구 건물 불러옴
-                                                                        //else print("웹의 응답이 없습니다.");*/
-        }
-
-    }
-    
-    void Response(string json)                          //건물 값 불러오기
+    void Response(string json, BuildingDef buildingDef)                          //건물 값 불러오기
     {
         if (string.IsNullOrEmpty(json))
         {
@@ -137,71 +117,70 @@ public class BuildingSave : MonoBehaviour
             return;
         }
         Debug.Log("josn:      "+json);
-       
-        if (isMe .Equals( false) )               //친구 건물 불러오는거라면
+
+        Newtonsoft.Json.Linq.JArray j = Newtonsoft.Json.Linq.JArray.Parse(json);
+
+        switch (buildingDef)
         {
-            if (json .Equals( "Null"))
-            {
+            case BuildingDef.getFriendBuilding:
+
+                if (json.Equals("Null"))  //건물이 없다면
+                {
+                    SceneManager.LoadScene("FriendMain");
+                    return;
+                }
+
+                GameManager.FriendBuildingList = new List<Building>();
+  
+
+                BuildingParse friendBuildings = new BuildingParse();
+
+                foreach (var item in j)
+                {
+                    Debug.Log(item);
+                    friendBuildings = JsonUtility.FromJson<BuildingParse>(item.ToString());
+                    Building b = new Building();
+                    b.SetValueParse(friendBuildings);
+
+                    GameManager.FriendBuildingList.Add(b);      //친구의 건물 리스트에 삽입
+                }
+
+                Debug.Log(GameManager.FriendBuildingList.Count);
+                GameManager.isLoading = true;
                 SceneManager.LoadScene("FriendMain");
-                return;
-            }
-            GameManager.FriendBuildingList = new List<Building>();
-            Newtonsoft.Json.Linq.JArray j = Newtonsoft.Json.Linq.JArray.Parse(json);
-            //Debug.Log("j.Count: "+j.Count);
-            BuildingParse friendBuildings = new BuildingParse();
-            for (int i = 0; i < j.Count; i++)
-            {
-                Debug.Log(i);
-                friendBuildings = JsonUtility.FromJson<BuildingParse>(j[i].ToString());
-                Building b = new Building();
-                b.SetValueParse(friendBuildings);
+                break;
 
-                Debug.Log("X: " + friendBuildings.BuildingPosiiton_x);
-                /*  new Building(friendBuildings.isLock, friendBuildings.Building_name, friendBuildings.Reward, friendBuildings.Info, 
-                  friendBuildings.Building_Image, friendBuildings.Cost.ToString(), friendBuildings.Level.ToString(), friendBuildings.Tree.ToString(),
-                   friendBuildings.Grass.ToString(), friendBuildings.Snow.ToString(), friendBuildings.Ice.ToString(), friendBuildings.isFliped.ToString(), 
-                  friendBuildings.buildingPosiiton_x, friendBuildings.buildingPosiiton_y);*/
-                GameManager.FriendBuildingList.Add(b);      //친구의 건물 리스트에 삽입
+            case BuildingDef.getMyBuilding:
+                if (json.Equals("Null"))
+                {
+                    SceneManager.LoadScene("Main");
+                    return;
+                }
+                GameManager.BuildingList = new List<Building>();
 
-            }
-            Debug.Log(GameManager.FriendBuildingList.Count);
-            GameManager.isLoading = true;
-            SceneManager.LoadScene("FriendMain");
+                BuildingParse Buildings = new BuildingParse();
+                foreach (var item in j)
+                {
+                    Buildings = JsonUtility.FromJson<BuildingParse>(item.ToString());
+                    Building b = new Building();
+                    b.SetValueParse(Buildings);
+
+                    GameManager.BuildingList.Add(b);      //내 건물 리스트에 삽입
+
+                }
+                GameManager.isLoading = true;
+                if (gameObject.GetComponent<LoadManager>() != null)
+                {
+                    gameObject.GetComponent<LoadManager>().BuildingLoad();
+                }
+                else
+                    SceneManager.LoadScene("Main");
+                break;
+
+            default:
+                break;
         }
-        else                                    //로그인했을 때 내 건물 불러오는거라면
-        {
-            if (json .Equals( "Null"))
-            {
-                SceneManager.LoadScene("Main");
-                return;
-            }
-            GameManager.BuildingList = new List<Building>();
-            Newtonsoft.Json.Linq.JArray j = Newtonsoft.Json.Linq.JArray.Parse(json);
-            //Debug.Log("j.Count: "+j.Count);
-            BuildingParse Buildings = new BuildingParse();
-            for (int i = 0; i < j.Count; i++)
-            {
-                Buildings = JsonUtility.FromJson<BuildingParse>(j[i].ToString());
-                Building b = new Building();
-                b.SetValueParse(Buildings);
-                
-                /*  new Building(friendBuildings.isLock, friendBuildings.Building_name, friendBuildings.Reward, friendBuildings.Info, 
-                  friendBuildings.Building_Image, friendBuildings.Cost.ToString(), friendBuildings.Level.ToString(), friendBuildings.Tree.ToString(),
-                   friendBuildings.Grass.ToString(), friendBuildings.Snow.ToString(), friendBuildings.Ice.ToString(), friendBuildings.isFliped.ToString(), 
-                  friendBuildings.buildingPosiiton_x, friendBuildings.buildingPosiiton_y);*/
-                GameManager.BuildingList.Add(b);      //내 건물 리스트에 삽입
-
-            }
-            GameManager.isLoading = true;
-            if (gameObject.GetComponent<LoadManager>() != null)
-            {
-                gameObject.GetComponent<LoadManager>().BuildingLoad();
-            }
-            else
-                SceneManager.LoadScene("Main");
-            
-            
-        }
+  
     }
 }
 

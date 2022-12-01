@@ -37,12 +37,12 @@ public class NuniManager : MonoBehaviour                    //게임 시작하고 구글
         {
             yield return www.SendWebRequest();
             //Debug.Log(www.downloadHandler.text);
-            if (www.isDone) Response_Nuni(www.downloadHandler.text);
+            if (www.isDone) ResponseNuni(www.downloadHandler.text);
             else print("웹의 응답이 없습니다.");
         }
 
     }
-    void Response_Nuni(string json)                          
+    void ResponseNuni(string json)                          
     {
        
         if (json .Equals( "null"))

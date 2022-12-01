@@ -30,8 +30,8 @@ public class BuildingParse
 }
 public class Building : MonoBehaviour
 {
-    
-        //*
+    #region BuildingProperties
+    //*
     public bool Placed = false;    //*
     public BoundsInt area;
 
@@ -84,6 +84,8 @@ public class Building : MonoBehaviour
     public BuildingSave save;
 
     bool isUp;
+
+    #endregion
     public Building()
     {
     }
@@ -236,16 +238,11 @@ public class Building : MonoBehaviour
                 {
                     transform[k].localPosition = new Vector3(-transform[k].localPosition.x, transform[k].localPosition.y, 0);
                 }
+
                 if (isFliped .Equals( "T"))
-                {
                     isFliped = "F";
-                }
                 else
                     isFliped = "T";
-            }
-            else
-            {
-                Debug.Log("Rotation_No");
             }
         }
         RefreshBuildingList();          //건물 리스트 새로고침
@@ -310,25 +307,11 @@ public class Building : MonoBehaviour
         {
             case 1:
                 buildings[0].SetActive(true);
-                //buildings[1].SetActive(false);
-                //buildings[2].SetActive(false);
-                //buildings[0].GetComponent<SpriteRenderer>().sortingOrder = layer_y;
+
                 child = GetComponentsInChildren<Transform>();
-                //child[1].GetComponent<SpriteRenderer>().sortingOrder = (int)transform.position.y;
                
-                    buildings[0].GetComponent<SortingGroup>().sortingOrder = -(int)transform.position.y ;
-               
-                //buildings[0].GetComponent<SortingGroup>().sortingOrder = -((int)transform.position.y + (int)transform.position.x);
-                /*if((int)transform.position.x<0)
-                    buildings[0].GetComponent<SortingGroup>().sortingOrder = -((int)transform.position.y + (int)transform.position.x);
-                else
-                {
-                    buildings[0].GetComponent<SortingGroup>().sortingOrder = ((int)transform.position.y - (int)transform.position.x);
-
-                }*/
-                // SpriteRenderer[] buildingsSprite= gameObject.GetComponentsInChildren<SpriteRenderer>();
-                //buildingsSprite[1].sortingOrder = layer_y;
-
+                buildings[0].GetComponent<SortingGroup>().sortingOrder = -(int)transform.position.y ;
+         
                 break;
             case 2:
                 buildings[0].SetActive(true);
@@ -524,7 +507,7 @@ public class Building : MonoBehaviour
             CanvasManger.AchieveShinMoney += building.ShinCost[building.Level - 1] / 3;
 
             BuildingListRemove();
-            save.RemoveValue(Id);
+            save.BuildingReq(BuildingDef.removeValue, this);
             Destroy(gameObject);
         }
         GameManager.isUpdate = true;
@@ -605,11 +588,13 @@ public class Building : MonoBehaviour
 
             buildtype = BuildType.Empty;
 
-            save.UpdateValue(this);
+           // save.UpdateValue(this);
+            save.BuildingReq(BuildingDef.updateValue,this);
         }
         else
         {
-            save.UpdateValue(this);
+           // save.UpdateValue(this);
+            save.BuildingReq(BuildingDef.updateValue, this);
         }
 
         gameObject.transform.parent = Parent.transform;
@@ -645,7 +630,7 @@ public class Building : MonoBehaviour
         GameManager.CurrentBuilding = null;
         //
 
-        save.AddValue();
+        save.BuildingReq(BuildingDef.addValue, this);
         //GameManager.isUpdate = true;
     }
     #endregion
@@ -734,12 +719,4 @@ public class Building : MonoBehaviour
 
 
 }
-public enum BuildType
-{
-    Empty,
-    Load,
-    Move,
-    Rotation,
-    Make,
-    Upgrade
-}
+

@@ -265,7 +265,7 @@ public class InventoryButton : MonoBehaviour
                     building_childs.BuildingPosiiton_x = "0";
                     building_childs.BuildingPosiiton_y = "0";
 
-                    building_childs.save.UpdateValue(building_childs);
+                    building_childs.save.BuildingReq(BuildingDef.updateValue, building_childs);
                     Destroy(building_child[i].gameObject);
                 }
                 

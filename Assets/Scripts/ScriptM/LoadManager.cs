@@ -109,9 +109,9 @@ public class LoadManager : MonoBehaviour
                 GameManager.Instance.BestScoreSave();                   //최고점수 서버 저장
             }
 
-            buildingsave.BuildingLoad();
+            buildingsave.BuildingReq(BuildingDef.getMyBuilding);
 
-          
+
 
             if (TutorialsManager.itemIndex>3)
             {

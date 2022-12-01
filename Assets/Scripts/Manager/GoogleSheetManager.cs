@@ -11,6 +11,7 @@ using System.Linq;
 public class GoogleData
 {
     public string order, result, msg, value,nickname,state, profile_image,isUpdate;
+    public ErrorMessage errorMessage;
 }
 
 
@@ -304,8 +305,87 @@ public class GoogleSheetManager : MonoBehaviour
         }
         GD = JsonUtility.FromJson<GoogleData>(json);
         //System.Text.Encoding.UTF8.GetString(GD, 3, GD.Length - 3);
+        switch (GD.errorMessage)
+        {
+            case ErrorMessage.ERROR:
+                t.text = GD.msg;
+                break;
+
+            case ErrorMessage.NickNameERROR:
+                t.text = "닉네임이 중복됩니다.";
+                break;
+
+            case ErrorMessage.OK:
+                
+                if (GD.msg.Equals("회원가입 완료"))
+                {
+                    t.text = "회원가입 완료!" + nickname + "(" + id + ")님 환영합니다!! " +
+                        "\n잠시만 기다려 주세요.";
+                }
+                else
+                {
+                    nickname = GD.nickname;
+                    GameManager.StateMessage = GD.state;
+                    t.text = "로그인 완료!" + nickname + "(" + id + ")님 환영합니다!! " +
+                        "\n잠시만 기다려 주세요 ";
+                }
+
+                GameManager.NickName = nickname;
+                GameManager.Id = id;
+
+                for (int i = 0; i < GameManager.AllNuniArray.Length; i++)
+                {
+                    if (GameManager.AllNuniArray[i].Image.name != GD.profile_image)
+                        continue;
+                    GameManager.ProfileImage = GameManager.AllNuniArray[i].Image;
+                }
+
+                if (GD.isUpdate == "null")            //업데이트를 안한 상태인가
+                {
+                    Debug.Log("업뎃안함");
+                    WWWForm form = new WWWForm();
+                    form.AddField("order", "setMoney");
+                    form.AddField("player_nickname", GameManager.NickName);
+                    form.AddField("version", GameManager.CurVersion);
 
 
+                    string tempMoney = PlayerPrefs.GetInt("Money").ToString() + "@" + PlayerPrefs.GetInt("ShinMoney").ToString() + "@" + PlayerPrefs.GetInt("TutorialsDone").ToString() + "@" + bestScores_.score.ToString() + "@" + GameManager.Zem.ToString();
+                    form.AddField("money", tempMoney);
+                    form.AddField("achieve", string.Join(",", CanvasManger.currentAchieveSuccess));
+                    form.AddField("index", string.Join(",", CanvasManger.achieveContNuniIndex));
+                    form.AddField("count", string.Join(",", CanvasManger.achieveCount));
+
+                    form.AddField("shopbuy", string.Join(",", ShopBuyScript.Achieve12));
+                    form.AddField("achieveMoney", string.Join(",", CanvasManger.AchieveMoney));
+                    form.AddField("achieveShinMoney", string.Join(",", CanvasManger.AchieveShinMoney));
+                    form.AddField("achieveNuniName", string.Join(",", CardUI.AchieveNuniName));
+                    form.AddField("achieveFriendCount", string.Join(",", CanvasManger.AchieveFriendCount));
+                    form.AddField("isUpdate", "true");
+
+
+                    StartCoroutine(SetPost(form));
+                }
+                else if (GD.isUpdate == "true")  //최고기록 저장을 아직 안했는가
+                {
+                    WWWForm form1 = new WWWForm();                          //자원을 먼저 부르고 저장한 다음 최고점수 저장
+                    form1.AddField("order", "getMoney");
+                    form1.AddField("player_nickname", GameManager.NickName);
+                    StartCoroutine(MoneyPost(form1));
+
+                }
+                else
+                {
+                    WWWForm form1 = new WWWForm();                          //자원 부르기
+                    form1.AddField("order", "getMoney");
+                    form1.AddField("player_nickname", GameManager.NickName);
+                    StartCoroutine(MoneyPost(form1));
+                }
+                break;
+
+            default:
+                break;
+        }
+        /*
         if (GD.result.Equals("ERROR"))
         {
             t.text = GD.msg;
@@ -380,7 +460,7 @@ public class GoogleSheetManager : MonoBehaviour
                 StartCoroutine(MoneyPost(form1));
             }
             return;
-        }
+        }*/
         if (GD.order.Equals("getValue"))
         {
             NicknameInput.text = GD.value;
@@ -513,7 +593,7 @@ public class GoogleSheetManager : MonoBehaviour
         yield return StartCoroutine(NuniManager.NuniStart()); //누니 설정할 때까지 대기 
         //yield return StartCoroutine(GetChallenge()); //업적 저장할 때까지 대기
 
-        MyBuildingLoad.BuildingLoad();
+        MyBuildingLoad.BuildingReq(BuildingDef.getMyBuilding);
     }
 
     void GetChallenge()

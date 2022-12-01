@@ -70,7 +70,7 @@ public class LoadingSceneController : MonoBehaviour
         if (loadSceneName=="Main")
         {
             BuildingSave buildingsave = this.GetComponent<BuildingSave>();
-            buildingsave.BuildingLoad();
+            buildingsave.BuildingReq(BuildingDef.getMyBuilding);
         }
        
         float timer = 0f;

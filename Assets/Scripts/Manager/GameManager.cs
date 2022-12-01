@@ -232,7 +232,7 @@ public class GameManager : MonoBehaviour
 
     public static string IDGenerator()
     {
-        string alpha= "qwertyuipoasdfjkl123456789";
+        string alpha= "qwertyuipoasdfjkl123456789!@#$%^&*()";
         string id="";
 
         bool isCount = false;

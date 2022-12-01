@@ -191,13 +191,10 @@ public class GridBuildingSystem : MonoBehaviour
                         {
 
                             if (hit_building.isFliped .Equals("T"))
-                            {
                                 hit_building.isFliped = "F";
-                            }
                             else
-                            {
                                 hit_building.isFliped = "T";
-                            }
+                            
                             hit_building.Rotation();
 
                             settigPanel.GetComponent<AudioController>().Sound[0].Play();
