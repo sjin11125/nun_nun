@@ -43,10 +43,9 @@ public enum BuildType
     Upgrade
 }
 
-public enum LoginResult
+public enum ErrorMessage
 {
     ERROR,
     NickNameERROR,
-    SignUpOK,
-    LoginOK
+    OK
 }
