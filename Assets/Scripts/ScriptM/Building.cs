@@ -6,6 +6,9 @@ using UnityEngine.UI;
 using System;
 using System.IO;
 using UnityEngine.Rendering;
+using UniRx;
+using UniRx.Triggers;
+using UnityEngine.EventSystems;
 //using UnityEngine.EventSystems;
 
 [Serializable]
@@ -28,7 +31,7 @@ public class BuildingParse
     //-----------------------------------------------------------
 
 }
-public class Building : MonoBehaviour
+public class Building : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
 {
     #region BuildingProperties
     //*
@@ -82,9 +85,10 @@ public class Building : MonoBehaviour
     public BuildType Type;
 
     public BuildingSave save;
-
+    
     bool isUp;
 
+    public Button BuildingBtn;
     #endregion
     public Building()
     {
@@ -251,7 +255,7 @@ public class Building : MonoBehaviour
     void Start()
     {
         bool isflip_bool;
-
+        
         if (isFliped .Equals( "F"))
             isflip_bool = false;
         else
@@ -266,22 +270,20 @@ public class Building : MonoBehaviour
             Building_Image = gameObject.name;       //이름 설정
         }
 
-        //Placed = false;
-
-       // child = GetComponentsInChildren<Transform>();
-
-        // Debug.Log(child[6].name);
-        //Coin_Button= child[6];
-        //Button_Pannel = child[2];
-
         Coin_Button.gameObject.SetActive(false);
 
-        //Text countdownText = GetComponent<Text>();
+        var longClickStream = BuildingBtn.OnPointerDownAsObservable().
+                              SelectMany(_ => BuildingBtn.UpdateAsObservable()).
+                              TakeUntil(BuildingBtn.OnPointerUpAsObservable()).RepeatSafe().
+                              Subscribe(_ =>
+                              {
 
-        //layer_y = 10;
-        //child[1].GetComponent<SpriteRenderer>().sortingOrder = layer_y;
+                               Debug.Log("클릭중");
 
-
+                               }).AddTo(this);
+        //var longClickUpStream= BuildingBtn.onClick.AsObservable().Where(_ => Input.GetMouseButtonDown(0));
+        
+       // longClickUpStream.Subscribe(_ => longClickStream.Dispose());
         //-------------레벨 별 건물--------------------
         GameObject Level1building, Level2building, Level3building;
         if (Level <= 3)
@@ -698,8 +700,14 @@ public class Building : MonoBehaviour
         return isUp;
     }
 
- 
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        Debug.Log("클릭중");
+    }
 
-
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        Debug.Log("클릭끝");
+    }
 }
 
