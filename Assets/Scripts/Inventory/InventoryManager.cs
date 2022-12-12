@@ -36,23 +36,25 @@ public class InventoryManager : MonoBehaviour
     public void Inventory_Building_Open()            //건물 인벤 버튼 눌렀을 때
     {
         Inventory_Exit();           //원래 있던 목록 다 지우기
-        for (int i = 1; i < GameManager.BuildingList.Count; i++)
+        foreach (var item in GameManager.MyBuildings)
         {
+
+        
             bool isStr = false;
             for (int j = 0; j < GameManager.StrArray.Length; j++)
             {
-                if (GameManager.BuildingList[i].Building_Image .Equals( GameManager.StrArray[j].Building_Image) )      //설치물인가
+                if (item.Value.Building_Image .Equals( GameManager.StrArray[j].Building_Image) )      //설치물인가
                 {
                     isStr = true;
                 }
             }
-            if (GameManager.BuildingList[i].Id != "ii1y1"&&isStr.Equals(false) )         //분수가 아니고 설치물이 아니라면
+            if (item.Value.Id != "ii1y1"&&isStr.Equals(false) )         //분수가 아니고 설치물이 아니라면
             {
                 
               
                 GameObject inven = Instantiate(inventory_prefab, Content) as GameObject;         //인벤 버튼 프리팹 생성
 
-                inven.gameObject.name = GameManager.BuildingList[i].Id;
+                inven.gameObject.name = item.Value.Id;
                 inven.gameObject.tag = "Inven_Building";            //인벤 버튼 태그 설정
 
 
@@ -61,9 +63,9 @@ public class InventoryManager : MonoBehaviour
 
 
                 Image PrefabImage;// = GameManager.GetDogamChaImage(GameManager.BuildingList[i].Building_Image);
-                ButtonImage.sprite = GameManager.GetDogamChaImage(GameManager.BuildingList[i].Building_Image);
+                ButtonImage.sprite = GameManager.GetDogamChaImage(item.Value.Building_Image);
 
-                if (GameManager.BuildingList[i].isLock .Equals( "T"))
+                if (item.Value.isLock .Equals( "T"))
                 {
                     Button Button = inven.GetComponent<Button>();
                     //Button.enabled= false;              //이미 설치되어 있으면 버튼 클릭 못하고 X 뜸
@@ -75,22 +77,23 @@ public class InventoryManager : MonoBehaviour
     public void Inventory_Structure_Open()            //설치물 인벤 버튼 눌렀을 때
     {
         Inventory_Exit();           //원래 있던 목록 다 지우기
-        for (int i = 1; i < GameManager.BuildingList.Count; i++)
+        foreach (var item in GameManager.MyBuildings)
         {
+
             bool isStr = false;
             for (int j = 0; j < GameManager.StrArray.Length; j++)
             {
-                if (GameManager.BuildingList[i].Building_Image .Equals( GameManager.StrArray[j].Building_Image))       //설치물인가
+                if (item.Value.Building_Image .Equals( GameManager.StrArray[j].Building_Image))       //설치물인가
                 {
                     isStr = true;
                 }
             }
-            if (GameManager.BuildingList[i].Id != "ii1y1"&&isStr.Equals(true))          //분수가 아니고 설치물이라면
+            if (item.Value.Id != "ii1y1"&&isStr.Equals(true))          //분수가 아니고 설치물이라면
             {
 
                 GameObject inven = Instantiate(inventory_prefab, Content) as GameObject;         //인벤 버튼 프리팹 생성
      
-                inven.gameObject.name = GameManager.BuildingList[i].Id;
+                inven.gameObject.name = item.Value.Id;
                 inven.gameObject.tag = "Inven_Building";            //인벤 버튼 태그 설정
 
 
@@ -98,9 +101,9 @@ public class InventoryManager : MonoBehaviour
                 Image ButtonImage = inven.GetComponent<Image>();
 
 
-                ButtonImage.sprite = GameManager.GetDogamChaImage(GameManager.BuildingList[i].Building_Image);
+                ButtonImage.sprite = GameManager.GetDogamChaImage(item.Value.Building_Image);
 
-                if (GameManager.BuildingList[i].isLock .Equals( "T"))
+                if (item.Value.isLock .Equals( "T"))
                 {
                     Button Button = inven.GetComponent<Button>();
                     //Button.enabled= false;              //이미 설치되어 있으면 버튼 클릭 못하고 X 뜸

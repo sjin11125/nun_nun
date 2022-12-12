@@ -202,13 +202,9 @@ public class Building : MonoBehaviour
     }
     public void RefreshBuildingList()               //빌딩 리스트 새로고침
     {
-        for (int i = 0; i < GameManager.BuildingList.Count; i++)
-        {
-            if (GameManager.BuildingList[i].Id.Equals(Id))
-            {
-                GameManager.BuildingList[i] = this.DeepCopy();
-            }
-        }
+
+        GameManager.MyBuildings[Id] = this.DeepCopy();
+
         GridBuildingSystem.isSave = true;
 
     }
@@ -600,29 +596,17 @@ public class Building : MonoBehaviour
         gameObject.transform.parent = Parent.transform;
         GridBuildingSystem.current.temp_gameObject = null;
     }
-    public void BuildingListRemove()
+    public void BuildingListRemove()            //현재 가지고 있는 빌딩 제거
     {
-        for (int i = GameManager.BuildingList.Count - 1; i >=0; i--)
-        {
-            if (GameManager.BuildingList[i].Building_name .Equals( Building_name))
-            {
-                Debug.Log("Remove: "+GameManager.BuildingList[i].Building_name);
-                GameManager.BuildingList.RemoveAt(i);
-                for (int p = 0; p < GameManager.BuildingList.Count; p++)
-                {
-                    Debug.Log("Current: " + GameManager.BuildingList[p].Building_name);
-                }
-                return;
-            }
-            
-        }
 
+        Debug.Log("Remove: " + GameManager.MyBuildings[Id].Building_name);
+        GameManager.MyBuildings.Remove(Id);
         GridBuildingSystem.isSave = true;
-        
+        return;
     }
     public void BuildingListAdd()
     {
-        GameManager.BuildingList.Add(this.DeepCopy());      //현재 가지고 있는 빌딩 리스트에 추가
+        GameManager.MyBuildings.Add(Id,this.DeepCopy());      //현재 가지고 있는 빌딩 리스트에 추가
 
         //GameManager.BuildingArray = GameManager.BuildingList.ToArray();
         Debug.Log("GameManager.BuildingArray: "+ GameManager.BuildingArray.Length);
@@ -687,8 +671,7 @@ public class Building : MonoBehaviour
             
 
 
-                for (int i = 0; i < GameManager.BuildingList.Count; i++)
-                {
+              
                     for (int j = 0; j < GameManager.BuildingArray.Length; j++)
                     {
                         if (Building_Image == GameManager.BuildingArray[j].Building_Image)
@@ -703,7 +686,7 @@ public class Building : MonoBehaviour
 
                         }
                     }
-                }
+                
                 return true;
             }
             else

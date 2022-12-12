@@ -156,7 +156,6 @@ public class BuildingSave : MonoBehaviour
                     SceneManager.LoadScene("Main");
                     return;
                 }
-                GameManager.BuildingList = new List<Building>();
 
                 BuildingParse Buildings = new BuildingParse();
                 foreach (var item in j)
@@ -165,7 +164,7 @@ public class BuildingSave : MonoBehaviour
                     Building b = new Building();
                     b.SetValueParse(Buildings);
 
-                    GameManager.BuildingList.Add(b);      //내 건물 리스트에 삽입
+                    GameManager.MyBuildings.Add(b.Id,b);      //내 건물 리스트에 삽입
 
                 }
                 GameManager.isLoading = true;

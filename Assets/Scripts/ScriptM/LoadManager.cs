@@ -143,12 +143,14 @@ public class LoadManager : MonoBehaviour
 
     public void BuildingLoad()
     {
-        for (int i = 0; i < GameManager.BuildingList.Count; i++)
+        foreach (var item in GameManager.MyBuildings)
         {
-            if (GameManager.BuildingList[i].isLock.Equals("F"))          //��ġ�ȵǾ��ִ�?
+
+        
+            if (item.Value.isLock.Equals("F"))          //��ġ�ȵǾ��ִ�?
                 continue;
 
-            Building LoadBuilding = GameManager.BuildingList[i];           // ���� ������ �մ� ���� ����Ʈ�� ���� ������Ʈ
+            Building LoadBuilding = item.Value;           // ���� ������ �մ� ���� ����Ʈ�� ���� ������Ʈ
             string BuildingName = LoadBuilding.Building_Image;        //���� ������ �ִ� ���� ����Ʈ���� ���� �̸� �θ���
 
             GameObject BuildingPrefab = GameManager.BuildingPrefabData[BuildingName];           // �ش� �ǹ� ������
@@ -223,14 +225,16 @@ public class LoadManager : MonoBehaviour
             int MyReward = 0;
 
             List<string> RewardedNuni = new List<string>();         //보상받은 누니
-            int nuni30 = 0;
-            for (int i = 0; i < GameManager.BuildingList.Count; i++)            //보상획득
+
+            foreach (var item in GameManager.MyBuildings)
             {
+
+            
                 for (int j = 0; j < GameManager.BuildingArray.Length; j++)
                 {
-                    if (GameManager.BuildingList[i].Building_Image.Equals(GameManager.BuildingArray[j].Building_Image))
+                    if (item.Value.Building_Image.Equals(GameManager.BuildingArray[j].Building_Image))
                     {
-                        MyReward += GameManager.BuildingArray[j].Reward[GameManager.BuildingList[i].Level - 1];
+                        MyReward += GameManager.BuildingArray[j].Reward[item.Value.Level - 1];
                       
                     }
                    
@@ -238,12 +242,12 @@ public class LoadManager : MonoBehaviour
 
                 for (int y = 0; y < GameManager.CharacterList.Count; y++)
                 {
-                    if (GameManager.BuildingList[i].Building_Image.Equals(GameManager.CharacterList[y].Building[0]) 
+                    if (item.Value.Building_Image.Equals(GameManager.CharacterList[y].Building[0]) 
                         && GameManager.CharacterList[y].Gold != "X"
                         && GameManager.CharacterList[y].cardName!=RewardedNuni.Find(x=>x==GameManager.CharacterList[y].cardName))//건물 보상 받는 누니인가
                     {
                         MyReward += int.Parse(GameManager.CharacterList[y].Gold);
-                        Debug.Log(i + "    " + GameManager.BuildingList[i].Building_Image);
+                        Debug.Log( "    " + item.Value.Building_Image);
                         Debug.Log(y + "    " + GameManager.CharacterList[y].cardName);
                         RewardedNuni.Add(GameManager.CharacterList[y].cardName);
                         
