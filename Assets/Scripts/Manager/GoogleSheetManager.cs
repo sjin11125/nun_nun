@@ -197,20 +197,14 @@ public class GoogleSheetManager : MonoBehaviour
     {
         if (GameManager.isUpdateDone == true)
         {
+            WarningPannel.SetActive(true);
+            Text t = WarningPannel.GetComponentInChildren<Text>();
+            t.text = "로딩중";
             if (!SetIDPass())
             {
-                WarningPannel.SetActive(true);
-                Text t = WarningPannel.GetComponentInChildren<Text>();
                 t.text = "아이디 또는 비밀번호가 비어있습니다";
-                
-
                 return;
             }
-            else
-            {
-                LogInBtn.SetActive(false);
-            }
-
             WWWForm form = new WWWForm();
             form.AddField("order", "login");
             form.AddField("id", IDInput.text);
