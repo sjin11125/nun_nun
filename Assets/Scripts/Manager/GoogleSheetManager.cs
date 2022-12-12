@@ -583,7 +583,7 @@ public class GoogleSheetManager : MonoBehaviour
         
         
     }
-    IEnumerator Quest()
+    IEnumerator Load()
     {
         // gameObject.GetComponent<BuildingSave>().BuildingLoad();         //내 건물 불러와
         //yield return StartCoroutine( QuestManager.QuestStart()); //퀘스트 설정할 때까지 대기
@@ -732,16 +732,13 @@ public class GoogleSheetManager : MonoBehaviour
         Newtonsoft.Json.Linq.JArray j = Newtonsoft.Json.Linq.JArray.Parse(json);
         Debug.Log("공지: "+json);
         //Notice[] notice = new Notice[]();
-        Notice n = new Notice();
         List<Notice> nnn = new List<Notice>();
         for (int i = 0; i < j.Count; i++)
         {
-            Notice nn = new Notice();
-            nn = JsonUtility.FromJson<Notice>(j[i].ToString());
             nnn.Add(JsonUtility.FromJson<Notice>(j[i].ToString()));
         }
         GameManager.Notice = nnn.ToArray();
-        StartCoroutine(Quest());
+        StartCoroutine(Load());
 
     }
 }
