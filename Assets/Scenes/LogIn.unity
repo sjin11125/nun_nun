@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44402248, g: 0.49316555, b: 0.5722324, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -765,6 +765,7 @@ MonoBehaviour:
     state: 
     profile_image: 
     isUpdate: 
+    LoginResult: 
   IDInput: {fileID: 402700002}
   PassInput: {fileID: 539740431}
   NicknameInput: {fileID: 2070751357}
@@ -773,7 +774,8 @@ MonoBehaviour:
   MyBuildingLoad: {fileID: 281042276}
   WarningPannel: {fileID: 1895708895}
   ifISign: 1
-  loginBtn: {fileID: 900836456}
+  LogInBtn: {fileID: 0}
+  SignInBtn: {fileID: 1171930901}
   bestScoreKey_: bsdat
   VersionCheckPrefab: {fileID: 0}
   UpdatePanel: {fileID: 0}
@@ -4215,6 +4217,7 @@ MonoBehaviour:
     state: 
     profile_image: 
     isUpdate: 
+    LoginResult: 
   IDInput: {fileID: 1672243902}
   PassInput: {fileID: 867282685}
   NicknameInput: {fileID: 0}
@@ -4223,7 +4226,8 @@ MonoBehaviour:
   MyBuildingLoad: {fileID: 1572906190}
   WarningPannel: {fileID: 1895708895}
   ifISign: 0
-  loginBtn: {fileID: 900836456}
+  LogInBtn: {fileID: 900836456}
+  SignInBtn: {fileID: 1171930901}
   bestScoreKey_: bsdat
   VersionCheckPrefab: {fileID: 876128991}
   UpdatePanel: {fileID: 414311816}
