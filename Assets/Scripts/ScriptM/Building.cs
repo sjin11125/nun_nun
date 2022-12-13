@@ -291,9 +291,9 @@ public class Building : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
                                   //StartCoroutine(BuildingEditTimer(1.3f));
                                   if (timerStream == null)
                                   {     //코루틴을 넣자
-                                      Observable.FromCoroutine(BuildingEditTimer).Subscribe(_=>
+                                     /* Observable.FromCoroutine(BuildingEditTimer).Subscribe(_=>
                                       { 
-                                      }).AddTo(this);
+                                      }).AddTo(this);*/
                                       timerStream = Observable.Timer(TimeSpan.FromSeconds(1.3f)).Subscribe(_ =>
                                        {
                                           // longClickStream.Dispose();          //타이머 구독해지
