@@ -89,6 +89,10 @@ public class Building : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
     bool isUp;
 
     public Button BuildingBtn;
+
+    float second = 0;
+    IDisposable longClickStream;
+    IDisposable timerStream=null;
     #endregion
     public Building()
     {
@@ -271,20 +275,47 @@ public class Building : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
         }
 
         Coin_Button.gameObject.SetActive(false);
+        double time = 0;
 
-        var longClickStream = BuildingBtn.OnPointerDownAsObservable().
+       /* IDisposable timer = Observable.Timer(TimeSpan.FromSeconds(1.3f)).Subscribe(_ =>
+        {
+            longClickStream.Dispose();          //타이머 구독해지
+            GameManager.isEdit = true;
+
+            Debug.Log("냐하");
+        }).AddTo(this);*/
+        longClickStream = BuildingBtn.OnPointerDownAsObservable().    //건물 버튼을 눌렀고
                               SelectMany(_ => BuildingBtn.UpdateAsObservable()).
-                              TakeUntil(BuildingBtn.OnPointerUpAsObservable()).RepeatSafe().
+                              TakeUntil(BuildingBtn.OnPointerUpAsObservable()).RepeatSafe().    //건물 버튼에서 뗄때까지 반복
                               Subscribe(_ =>
                               {
+                                  //StartCoroutine(BuildingEditTimer(1.3f));
+                                  if (timerStream == null)
+                                  {
+                                      timerStream = Observable.Timer(TimeSpan.FromSeconds(1.3f)).Subscribe(_ =>
+                                       {
+                                           longClickStream.Dispose();          //타이머 구독해지
+                                      GameManager.isEdit = true;
 
-                               Debug.Log("클릭중");
+                                           Debug.Log("냐하");
+
+                                       }).AddTo(this);
+                                  }
+                                  //1.3초
+                                  Debug.Log("클릭중");
 
                                }).AddTo(this);
-        //var longClickUpStream= BuildingBtn.onClick.AsObservable().Where(_ => Input.GetMouseButtonDown(0));
         
+        var longClickUpStream = BuildingBtn.OnPointerDownAsObservable().Subscribe(_=>
+            {
+                timerStream.Dispose();
+                longClickStream.Dispose();
+                timerStream = null;
+
+        }).AddTo(this);
+
        // longClickUpStream.Subscribe(_ => longClickStream.Dispose());
-        //-------------레벨 별 건물--------------------
+       //-------------레벨 별 건물--------------------
         GameObject Level1building, Level2building, Level3building;
         if (Level <= 3)
         {
@@ -337,7 +368,23 @@ public class Building : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
             Rotation();
         }
     }
+    IEnumerator BuildingEditTimer(float time)
+    {
+        while (true)
+        {
 
+            yield return new WaitForSeconds(0.1f);
+            second += 0.1f;
+
+            if (second >= time)
+            {
+                GameManager.isEdit = true;
+                longClickStream.Dispose();          //타이머 구독해지
+                Debug.Log("냐하");
+                break;
+            }
+        }
+    }
     void Update()
     {
         // layer_y = 1;             //레이어 설정

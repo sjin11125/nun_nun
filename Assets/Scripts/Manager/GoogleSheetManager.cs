@@ -96,8 +96,8 @@ public class GoogleSheetManager : MonoBehaviour
             {
                 SignInBtn.gameObject.SetActive(false);
                 WarningTxt.text = "로딩중";
-                Register(SignInBtn.gameObject);
-            });
+                Register();
+            }).AddTo(SignInBtn.gameObject);
     }
     IEnumerator VersionPost(WWWForm form)
     {
