@@ -286,15 +286,17 @@ public class Building : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
         }).AddTo(this);*/
         longClickStream = BuildingBtn.OnPointerDownAsObservable().    //건물 버튼을 눌렀고
                               SelectMany(_ => BuildingBtn.UpdateAsObservable()).
-                              TakeUntil(BuildingBtn.OnPointerUpAsObservable()).RepeatSafe().    //건물 버튼에서 뗄때까지 반복
                               Subscribe(_ =>
                               {
                                   //StartCoroutine(BuildingEditTimer(1.3f));
                                   if (timerStream == null)
-                                  {
+                                  {     //코루틴을 넣자
+                                      Observable.FromCoroutine(BuildingEditTimer).Subscribe(_=>
+                                      { 
+                                      }).AddTo(this);
                                       timerStream = Observable.Timer(TimeSpan.FromSeconds(1.3f)).Subscribe(_ =>
                                        {
-                                           longClickStream.Dispose();          //타이머 구독해지
+                                          // longClickStream.Dispose();          //타이머 구독해지
                                       GameManager.isEdit = true;
 
                                            Debug.Log("냐하");
@@ -302,14 +304,13 @@ public class Building : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
                                        }).AddTo(this);
                                   }
                                   //1.3초
-                                  Debug.Log("클릭중");
 
                                }).AddTo(this);
         
         var longClickUpStream = BuildingBtn.OnPointerDownAsObservable().Subscribe(_=>
             {
                 timerStream.Dispose();
-                longClickStream.Dispose();
+                //longClickStream.Dispose();
                 timerStream = null;
 
         }).AddTo(this);
@@ -368,7 +369,7 @@ public class Building : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
             Rotation();
         }
     }
-    IEnumerator BuildingEditTimer(float time)
+    IEnumerator BuildingEditTimer()
     {
         while (true)
         {
@@ -376,7 +377,7 @@ public class Building : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
             yield return new WaitForSeconds(0.1f);
             second += 0.1f;
 
-            if (second >= time)
+            if (second >= 1.2f)
             {
                 GameManager.isEdit = true;
                 longClickStream.Dispose();          //타이머 구독해지
