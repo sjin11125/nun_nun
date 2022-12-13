@@ -279,7 +279,6 @@ GameObject:
   - component: {fileID: 4337750507591132674}
   - component: {fileID: 375238227081988929}
   - component: {fileID: 2132867818646730808}
-  - component: {fileID: 7403400103471826128}
   m_Layer: 0
   m_Name: building_level
   m_TagString: Building
@@ -416,54 +415,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 4bf24cd4af9009f4f8a8685b7efe4109, type: 3}
   Type: 0
   save: {fileID: 0}
---- !u!114 &7403400103471826128
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2132867818646730806}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76c7e2938f49a974fa1a45be694520b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Placed: 0
-  area:
-    m_Position: {x: -4, y: -3, z: 0}
-    m_Size: {x: 2, y: 2, z: 1}
-  Coin_Button: {fileID: 2132867819104901470}
-  currentTime: 57.25126
-  startingTime: 60
-  Button_Pannel: {fileID: 2132867819840144644}
-  Rotation_Pannel: {fileID: 1521779684985540404}
-  Remove_Pannel: {fileID: 8683623568285823557}
-  isCoin: 0
-  isCountCoin: 0
-  CountCoin: 0
-  BuildingPosition: {x: -0.525, y: -1.6500001}
-  isLock: 
-  Building_name: 
-  Reward: 000000000000000000000000
-  Info: 
-  Building_Image: 
-  Cost: 
-  ShinCost: 
-  Level: 1
-  isFliped: 0
-  BuildingPosiiton_x: 
-  BuildingPosiiton_y: 
-  Id: 
-  str: 
-  layer_y: 0
-  UpgradePannel: {fileID: 2007915850501089444}
-  UpgradePannel2: {fileID: 4467152901347740531}
-  RemovePannel: {fileID: 9054187419399805824}
-  buildings: []
-  buildings_image:
-  - {fileID: 21300000, guid: 4bf24cd4af9009f4f8a8685b7efe4109, type: 3}
-  Type: 0
-  save: {fileID: 0}
+  BuildingBtn: {fileID: 7817272268433885467}
 --- !u!1 &2132867819104901471
 GameObject:
   m_ObjectHideFlags: 0
@@ -1560,7 +1512,7 @@ PrefabInstance:
     - target: {fileID: 6611396525617844970, guid: f44607720b74f04448f17f7256c3b80b, type: 3}
       propertyPath: m_TargetGraphic
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 5353083141753620363}
     - target: {fileID: 6755535324461756542, guid: f44607720b74f04448f17f7256c3b80b, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -1580,6 +1532,28 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3137264079035381828, guid: f44607720b74f04448f17f7256c3b80b, type: 3}
   m_PrefabInstance: {fileID: 4016333085321174001}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5353083141753620363 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9076188558761188474, guid: f44607720b74f04448f17f7256c3b80b, type: 3}
+  m_PrefabInstance: {fileID: 4016333085321174001}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7817272268433885467 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6611396525617844970, guid: f44607720b74f04448f17f7256c3b80b, type: 3}
+  m_PrefabInstance: {fileID: 4016333085321174001}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4316805207648628431
 PrefabInstance:
   m_ObjectHideFlags: 0
