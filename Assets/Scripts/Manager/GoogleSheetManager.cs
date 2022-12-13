@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using System.Linq;
+using UniRx;
 
 [System.Serializable]
 public class GoogleData
@@ -28,8 +29,9 @@ public class GoogleSheetManager : MonoBehaviour
     public GameObject WarningPannel;
     public bool ifISign;
 
-    public GameObject LogInBtn;
-    public GameObject SignInBtn;
+    public Button LogInBtn;
+    public Button SignInBtn;
+    Text WarningTxt;
     public string bestScoreKey_ = "bsdat";
     private BestScoreData bestScores_ = new BestScoreData();
 
@@ -74,10 +76,28 @@ public class GoogleSheetManager : MonoBehaviour
    
     void Start()
     {
-       /* WWWForm form = new WWWForm();
-        form.AddField("order", "isUpdate");
+        /* WWWForm form = new WWWForm();
+         form.AddField("order", "isUpdate");
 
-        StartCoroutine(VersionPost(form)); //최신 버전 불러오기*/
+         StartCoroutine(VersionPost(form)); //최신 버전 불러오기*/
+        WarningPannel.SetActive(true);
+        WarningTxt = WarningPannel.GetComponentInChildren<Text>();
+       
+        LogInBtn.onClick.AsObservable().Subscribe(_
+            =>
+            {
+                LogInBtn.gameObject.SetActive(false);
+                WarningTxt.text = "로딩중";
+                Login();
+            }).AddTo(LogInBtn.gameObject);
+
+        SignInBtn.onClick.AsObservable().Subscribe(_
+            =>
+            {
+                SignInBtn.gameObject.SetActive(false);
+                WarningTxt.text = "로딩중";
+                Register(SignInBtn.gameObject);
+            });
     }
     IEnumerator VersionPost(WWWForm form)
     {
@@ -127,15 +147,12 @@ public class GoogleSheetManager : MonoBehaviour
 
     public void Register()//회원가입
     {
-        WarningPannel.SetActive(true);
-        SignInBtn.SetActive(false);
-        Text t = WarningPannel.GetComponentInChildren<Text>();
-        t.text = "로딩중";
+       
 
         if (!SetSignPass())
         {
-            SignInBtn.SetActive(true);
-            t.text = "아이디 또는 비밀번호 또는 닉네임이 비어있습니다";
+            SignInBtn.gameObject.SetActive(true);
+            WarningTxt.text = "아이디 또는 비밀번호 또는 닉네임이 비어있습니다";
             return;
         }
 
@@ -178,7 +195,6 @@ public class GoogleSheetManager : MonoBehaviour
         StartCoroutine(SetPost(form2));
 
         //PlayerPrefs.SetInt("TutorialsDone", TutorialsManager.itemIndex);
-        LogInBtn.SetActive(false);
 
 
     }
@@ -309,12 +325,12 @@ public class GoogleSheetManager : MonoBehaviour
         {
             case nameof(LoginResult.ERROR):
                 t.text = "아이디 혹은 비밀번호가 유효하지 않습니다.";
-                LogInBtn.SetActive(true);
+                LogInBtn.gameObject.SetActive(true);
                 break;
 
             case nameof(LoginResult.NickNameERROR):
                 t.text = GD.msg;
-                SignInBtn.SetActive(true);
+                SignInBtn.gameObject.SetActive(true);
                 break;
 
             case nameof(LoginResult.SignUpOK):
