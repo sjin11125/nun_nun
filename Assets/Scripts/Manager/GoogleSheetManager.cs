@@ -80,7 +80,6 @@ public class GoogleSheetManager : MonoBehaviour
          form.AddField("order", "isUpdate");
 
          StartCoroutine(VersionPost(form)); //최신 버전 불러오기*/
-        WarningPannel.SetActive(true);
         WarningTxt = WarningPannel.GetComponentInChildren<Text>();
        
         LogInBtn.onClick.AsObservable().Subscribe(_

@@ -7,6 +7,7 @@ using System;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UniRx;
+using UniRx.Triggers;
 [Serializable]
 public class GridBuildingSystem : MonoBehaviour
 {
@@ -18,18 +19,8 @@ public class GridBuildingSystem : MonoBehaviour
 
     public GridLayout gridLayout;
     #region 타일맵 Properties
-    public Tilemap MainTilemap
-    {
-        get { return MainTilemaps; }
-        set { MainTilemaps = value; }
-    }
-    public static Tilemap MainTilemaps;
-    public Tilemap TempTilemap
-    {
-        get { return TempTilemaps; }
-        set { TempTilemaps = value; }
-    }
-    public static Tilemap TempTilemaps;
+    public Tilemap MainTilemap;
+    public Tilemap TempTilemap;
 
     #endregion
     private static Dictionary<TileType, TileBase> tileBases = new Dictionary<TileType, TileBase>();
@@ -49,7 +40,7 @@ public class GridBuildingSystem : MonoBehaviour
     public GameObject Dialog;           //대화창
     //추가 1110
     public GameObject temp_gameObject;
-    bool isEditing=false;
+    public static ReactiveProperty<bool> isEditing=new ReactiveProperty<bool>();             //건설모드
         //------------------------세이브 관련 변수들--------------------------------------
     public static bool isSave = false;          //건물 건설이나 삭제했을 때 건물들 저장하는 변수
     public BuildingSave BSave;
@@ -96,13 +87,39 @@ public class GridBuildingSystem : MonoBehaviour
 
         Grid = GameObject.Find("back_down");
         Canvas= GameObject.Find("Canvas");
-        // if (SceneManager.GetActiveScene().name.Equals("Main")
-        // StartButton = GameObject.Find("Start").GetComponent<Button>();
-        OnEditMode.Subscribe(temp=>
+
+        OnEditMode.Subscribe(temp=>                     //건설모드 구독
         {
-            EditMode(temp);
+                isEditing.Value = true;
+            this.temp = temp;
+                EditMode(temp);
         }).AddTo(this);
 
+        isEditing.Subscribe(isEdit => {                 //건설모드 On 일때 빈 곳을 클릭한 경우
+            if (isEdit)
+            {
+                this.UpdateAsObservable().Where(_ => Input.GetMouseButtonUp(0)).Subscribe(_ =>
+                {
+                    if (!EventSystem.current.IsPointerOverGameObject())      //UI를 클릭했냐
+                    {
+                        Vector2 touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);     //마우스 월드 좌표
+                    Vector3Int cellPos = gridLayout.LocalToCell(touchPos);
+
+                    if (prevPos != cellPos)
+                    {
+                       
+
+                            temp.transform.localPosition = gridLayout.CellToLocalInterpolated(cellPos
+                            + new Vector3(.5f, .5f, 0f)); //Vector3
+                            prevPos = cellPos;
+
+                            FollowBuilding(temp); // 마우스가 위의 좌표 따라감. 
+                        }
+                    }
+                }
+           ).AddTo(this);
+            }
+        }).AddTo(this);
     }
     public void GridLayerSetting()
     {
@@ -116,11 +133,11 @@ public class GridBuildingSystem : MonoBehaviour
     {
         MainTilemap.GetComponent<TilemapRenderer>().sortingOrder = -45;             //메인 타일 보이게
         GameManager.CurrentBuilding_Script = temp;
-        //UI_Manager.StartOpen();     //ui 중앙으로 이동
+
         tempBuilding.Type = BuildType.Move;
         tempBuilding.Placed = false;        //배치가 안 된 상태로 변환
 
-        temp.area.position = gridLayout.WorldToCell(tempBuilding.gameObject.transform.position);
+        tempBuilding.area.position = gridLayout.WorldToCell(tempBuilding.gameObject.transform.position);
         BoundsInt buildingArea = tempBuilding.area;
 
         TileBase[] baseArray = GetTilesBlock(buildingArea, MainTilemap);
@@ -143,7 +160,7 @@ public class GridBuildingSystem : MonoBehaviour
         if (GameManager.isEdit.Equals(true))
         {
             GameManager.isEdit = false;
-            isEditing = true;
+            isEditing.Value = true;
             InitializeWithBuilding();
             temp.Type = BuildType.Move;
         }
@@ -202,7 +219,7 @@ public class GridBuildingSystem : MonoBehaviour
                                     Grid.GetComponent<SpriteRenderer>().sortingOrder = -48;             //메인 타일 안보이게
                                     StartButton.enabled = true;
                                     temp = null;
-                                    isEditing = false;
+                                    isEditing.Value = false;
                                     GameManager.CurrentBuilding_Script = null;
                                     if (GameManager.CurrentBuilding_Button != null)       //인벤이 눌렀나
                                     {
@@ -214,7 +231,7 @@ public class GridBuildingSystem : MonoBehaviour
                                 MainTilemap.GetComponent<TilemapRenderer>().sortingOrder = -50;       //메인 타일 안보이게
                                 StartButton.enabled = true;
                                 temp = null;
-                                isEditing = false;
+                                isEditing.Value = false;
                                 GameManager.CurrentBuilding_Script = null;
 
                                 settigPanel.GetComponent<AudioController>().Sound[1].Play();
@@ -336,7 +353,7 @@ public class GridBuildingSystem : MonoBehaviour
                                 temp.transform.localPosition = gridLayout.CellToLocalInterpolated(cellPos
                                     + new Vector3(.5f, .5f, 0f)); //Vector3
                                 prevPos = cellPos;
-                                FollowBuilding(false); // 마우스가 위의 좌표 따라감. 
+                                FollowBuilding(temp); // 마우스가 위의 좌표 따라감. 
                             }
                         }
 
@@ -490,11 +507,11 @@ public class GridBuildingSystem : MonoBehaviour
 
         temp.Type = BuildType.Make;
 
-        temp.Rotation_Pannel.gameObject.SetActive(false);
+        //temp.Rotation_Pannel.gameObject.SetActive(false);
         temp.UpgradePannel.SetActive(false);//업그레이드 패널 삭제
         temp.Placed = false;            //건물은 현재 배치가 안 된 상태
         //temp.Building_name = temp_gameObject.name;
-        FollowBuilding(false);           //건물이 마우스 따라가게 하는 함수
+        FollowBuilding(temp);           //건물이 마우스 따라가게 하는 함수
 
    }
     public void InitializeWithBuilding_InvenButton() //인벤버튼 눌렀을 때 building 을 prefab으로 해서 생성
@@ -523,11 +540,11 @@ public class GridBuildingSystem : MonoBehaviour
 
         temp.Type = BuildType.Make;
 
-        temp.Rotation_Pannel.gameObject.SetActive(false);
+        //temp.Rotation_Pannel.gameObject.SetActive(false);
         temp.UpgradePannel.SetActive(false);//업그레이드 패널 삭제
         temp.Placed = false;            //건물은 현재 배치가 안 된 상태
         //temp.Building_name = temp_gameObject.name;
-        FollowBuilding(false);           //건물이 마우스 따라가게 하는 함수
+        FollowBuilding(temp);           //건물이 마우스 따라가게 하는 함수
 
     }
     public void ClickWithBuilding(Building click_building)
@@ -552,13 +569,14 @@ public class GridBuildingSystem : MonoBehaviour
     }
     
 
-    private void FollowBuilding(bool isTransfer)                    //건물이 마우스 따라가게
-   {
-       ClearArea();
+    private void FollowBuilding(Building tempBuilding)                    //건물이 마우스 따라가게
+    {
+       
+        ClearArea();
 
 
-       temp.area.position = gridLayout.WorldToCell(temp.gameObject.transform.position);
-       BoundsInt buildingArea = temp.area;
+        tempBuilding.area.position = gridLayout.WorldToCell(tempBuilding.gameObject.transform.position);
+       BoundsInt buildingArea = tempBuilding.area;
 
        TileBase[] baseArray = GetTilesBlock(buildingArea, MainTilemap);
         int size = baseArray.Length;

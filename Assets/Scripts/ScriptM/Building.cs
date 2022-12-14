@@ -44,9 +44,7 @@ public class Building : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
     public float currentTime = 0;      //*
     public float startingTime = 60f;   //*
 
-    public Transform Button_Pannel;    //*
-    public Transform Rotation_Pannel;
-    public Transform Remove_Pannel;
+    public List< Button> BuildEditBtn;    // 건축모드 버튼들
 
     public bool isCoin = false;        //*
     public bool isCountCoin = false;   //*
@@ -287,34 +285,43 @@ public class Building : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
 
             Debug.Log("냐하");
         }).AddTo(this);*/
-        longClickStream = BuildingBtn.OnPointerDownAsObservable().    //건물 버튼을 눌렀고
+        longClickStream = BuildingBtn.OnPointerDownAsObservable().    //건물 버튼을 꾹 누르는 상태에서
                               Subscribe(_ =>
                               {
-                                   timerStream = Observable.FromCoroutine(BuildingEditTimer).Subscribe(_=>
-                                      {
-                                          //GameManager.isEdit = true;
-                                          Debug.Log("건설모드 ON");
-                                          GridBuildingSystem.OnEditMode.OnNext(this);       //이 건물의 정보를 넘겨줌
-                                         }).AddTo(this);
+                               
+                                      GridBuildingSystem.isEditing.Subscribe(isEdit => {
+                                      if(!isEdit)                       //현재 건설모드가 아니라면
+                                          {
+                                              timerStream = Observable.FromCoroutine(BuildingEditTimer).Subscribe(_ =>      //일정 시간 지난 후 건설모드 On
+                                              {
+                                                  //GameManager.isEdit = true;
+                                                  Debug.Log("건설모드 ON");
+                                                  GridBuildingSystem.OnEditMode.OnNext(this);       //이 건물의 정보를 넘겨줌
+                                                  if (BuildEditBtn.Count!=0)
+                                                  {
+                                                      foreach (var item in BuildEditBtn)        //건축모드 버튼들 다 활성화
+                                                      {
+                                                          item.gameObject.SetActive(true);
+                                                      }
+                                                  }
+                                              }).AddTo(this);
+                                          }
+                                      }).AddTo(this);
+                                     
                                       // longClickStream.Dispose();          //타이머 구독해지
-                                  
-                                  //1.3초
 
+                                      //1.3초
+                                  
                                }).AddTo(this);
-        
-        var longClickUpStream = BuildingBtn.OnPointerDownAsObservable().Subscribe(_=>
+       
+        var longClickUpStream = BuildingBtn.OnPointerUpAsObservable().Subscribe(_=>
             {
+                second = 0;
                 timerStream.Dispose();
                 //longClickStream.Dispose();
 
         }).AddTo(this);
-        timerSubject.Subscribe(_=>
-        {
-          timerStream=  Observable.FromCoroutine(BuildingEditTimer).Subscribe(_ =>
-            {
-                Debug.Log("냐하");
-            }).AddTo(this);
-        });
+
 
        // longClickUpStream.Subscribe(_ => longClickStream.Dispose());
        //-------------레벨 별 건물--------------------
@@ -380,6 +387,7 @@ public class Building : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
             Debug.Log(second);
             if (second >= 1.2f)
             {
+                second = 0;
                 Debug.Log("냐하");
                 break;
             }
@@ -406,11 +414,11 @@ public class Building : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
 
 
         if (Placed .Equals( true))       // 건물 배치가 확정
-        {
+        {/*
             Button_Pannel.gameObject.SetActive(false);     // 배치하는 버튼 사라지게
             Rotation_Pannel.gameObject.SetActive(false);        //회전 버튼 사라지게
             UpgradePannel.gameObject.SetActive(false);
-            Remove_Pannel.gameObject.SetActive(false);
+            Remove_Pannel.gameObject.SetActive(false);*/
             /*if (Building_Image != "bunsu_level(Clone)")
             {
                ( if (isCoin .Equals( false)      //코인 아직 안먹었으면
@@ -422,8 +430,8 @@ public class Building : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
         else                            //확정 아닐 때
         {
 
-            Button_Pannel.gameObject.SetActive(true);               //확정 패널 뜨게
-            Rotation_Pannel.gameObject.SetActive(true);               //회전 패널 뜨게
+           /* Button_Pannel.gameObject.SetActive(true);               //확정 패널 뜨게
+            Rotation_Pannel.gameObject.SetActive(true);               //회전 패널 뜨게*/
             if (Building_Image != "bunsu_level(Clone)")
             {
                 
@@ -435,7 +443,7 @@ public class Building : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
             }
             if (Building_Image != "village_level(Clone)")
             {
-                Remove_Pannel.gameObject.SetActive(true);
+                //Remove_Pannel.gameObject.SetActive(true);
             }
         }
        
@@ -567,12 +575,7 @@ public class Building : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
         Placed = true;      // 배치 했니? 네
         GridBuildingSystem.current.TakeArea(areaTemp);      //타일 맵 설정
         transform.position = vec;
-        //Debug.Log("index: "+ (-((int)transform.position.y - (int)transform.position.x)));
-       /* buildings[0].GetComponent<SortingGroup>().sortingOrder = -((int)transform.position.y- (int)transform.position.x);
-        if (Level .Equals( 2)
-        {
-            buildings[1].GetComponentInChildren<SortingGroup>().sortingOrder = -((int)transform.position.y-(int)transform.position.x);
-        }*/
+
     }
     public void Place(BuildType buildtype)         //건물 배치
     {
@@ -747,14 +750,5 @@ public class Building : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
         return isUp;
     }
 
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        Debug.Log("클릭중");
-    }
-
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        Debug.Log("클릭끝");
-    }
 }
 
