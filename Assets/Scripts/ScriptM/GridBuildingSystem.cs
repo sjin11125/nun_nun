@@ -6,6 +6,7 @@ using UnityEngine.Tilemaps;
 using System;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UniRx;
 [Serializable]
 public class GridBuildingSystem : MonoBehaviour
 {
@@ -16,10 +17,21 @@ public class GridBuildingSystem : MonoBehaviour
     public static GridBuildingSystem current;
 
     public GridLayout gridLayout;
-    public Tilemap MainTilemap;
-    public Tilemap TempTilemap;
+    #region 타일맵 Properties
+    public Tilemap MainTilemap
+    {
+        get { return MainTilemaps; }
+        set { MainTilemaps = value; }
+    }
+    public static Tilemap MainTilemaps;
+    public Tilemap TempTilemap
+    {
+        get { return TempTilemaps; }
+        set { TempTilemaps = value; }
+    }
+    public static Tilemap TempTilemaps;
 
- 
+    #endregion
     private static Dictionary<TileType, TileBase> tileBases = new Dictionary<TileType, TileBase>();
 
     private Building temp; //building type으로 temp 생성
@@ -52,6 +64,8 @@ public class GridBuildingSystem : MonoBehaviour
     #region unity Methods  
     public GameObject Effect;
     bool upgrade = false;
+
+    public static Subject<Building> OnEditMode = new Subject<Building>();
     private void Awake()
     {
         if (current==null)
@@ -84,6 +98,10 @@ public class GridBuildingSystem : MonoBehaviour
         Canvas= GameObject.Find("Canvas");
         // if (SceneManager.GetActiveScene().name.Equals("Main")
         // StartButton = GameObject.Find("Start").GetComponent<Button>();
+        OnEditMode.Subscribe(temp=>
+        {
+            EditMode(temp);
+        }).AddTo(this);
 
     }
     public void GridLayerSetting()
@@ -94,7 +112,27 @@ public class GridBuildingSystem : MonoBehaviour
     {
         MainTilemap.GetComponent<TilemapRenderer>().sortingOrder = -50;             //메인 타일 안보이게
     }
-   
+   public  void EditMode(Building tempBuilding)
+    {
+        MainTilemap.GetComponent<TilemapRenderer>().sortingOrder = -45;             //메인 타일 보이게
+        GameManager.CurrentBuilding_Script = temp;
+        //UI_Manager.StartOpen();     //ui 중앙으로 이동
+        tempBuilding.Type = BuildType.Move;
+        tempBuilding.Placed = false;        //배치가 안 된 상태로 변환
+
+        temp.area.position = gridLayout.WorldToCell(tempBuilding.gameObject.transform.position);
+        BoundsInt buildingArea = tempBuilding.area;
+
+        TileBase[] baseArray = GetTilesBlock(buildingArea, MainTilemap);
+        int size = baseArray.Length;
+        for (int i = 0; i < size; i++)
+        {
+            baseArray[i] = tileBases[TileType.Empty];
+        }
+        TempTilemap.SetTilesBlock(buildingArea, baseArray);
+        SetTilesBlock(buildingArea, TileType.White, MainTilemap);
+
+    }
     private void Update()
     {
         if (ChaButtonScript.isEdit.Equals(true))
@@ -332,24 +370,7 @@ public class GridBuildingSystem : MonoBehaviour
             {
                 if (hit.transform.CompareTag("Building"))               //건물이라면
                 {
-                    MainTilemap.GetComponent<TilemapRenderer>().sortingOrder = -45;             //메인 타일 보이게
-                    temp = hit.transform.GetComponent<Building>();
-                    GameManager.CurrentBuilding_Script = temp;
-                    //UI_Manager.StartOpen();     //ui 중앙으로 이동
-                    temp.Type = BuildType.Move;
-                    temp.Placed = false;        //배치가 안 된 상태로 변환
-
-                    temp.area.position = gridLayout.WorldToCell(temp.gameObject.transform.position);
-                    BoundsInt buildingArea = temp.area;
-
-                    TileBase[] baseArray = GetTilesBlock(buildingArea, MainTilemap);
-                    int size = baseArray.Length;
-                    for (int i = 0; i < size; i++)
-                    {
-                        baseArray[i] = tileBases[TileType.Empty];
-                    }
-                    TempTilemap.SetTilesBlock(buildingArea, baseArray);
-                    SetTilesBlock(buildingArea, TileType.White, MainTilemap);
+                   
 
                 }
                 else if(hit.transform.CompareTag("Nuni"))           //누니라면

@@ -93,6 +93,9 @@ public class Building : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
     float second = 0;
     IDisposable longClickStream;
     IDisposable timerStream=null;
+
+    Subject<bool> timerSubject = new Subject<bool>();
+
     #endregion
     public Building()
     {
@@ -285,24 +288,16 @@ public class Building : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
             Debug.Log("냐하");
         }).AddTo(this);*/
         longClickStream = BuildingBtn.OnPointerDownAsObservable().    //건물 버튼을 눌렀고
-                              SelectMany(_ => BuildingBtn.UpdateAsObservable()).
                               Subscribe(_ =>
                               {
-                                  //StartCoroutine(BuildingEditTimer(1.3f));
-                                  if (timerStream == null)
-                                  {     //코루틴을 넣자
-                                     /* Observable.FromCoroutine(BuildingEditTimer).Subscribe(_=>
-                                      { 
-                                      }).AddTo(this);*/
-                                      timerStream = Observable.Timer(TimeSpan.FromSeconds(1.3f)).Subscribe(_ =>
-                                       {
-                                          // longClickStream.Dispose();          //타이머 구독해지
-                                      GameManager.isEdit = true;
-
-                                           Debug.Log("냐하");
-
-                                       }).AddTo(this);
-                                  }
+                                   timerStream = Observable.FromCoroutine(BuildingEditTimer).Subscribe(_=>
+                                      {
+                                          //GameManager.isEdit = true;
+                                          Debug.Log("건설모드 ON");
+                                          GridBuildingSystem.OnEditMode.OnNext(this);       //이 건물의 정보를 넘겨줌
+                                         }).AddTo(this);
+                                      // longClickStream.Dispose();          //타이머 구독해지
+                                  
                                   //1.3초
 
                                }).AddTo(this);
@@ -311,9 +306,15 @@ public class Building : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
             {
                 timerStream.Dispose();
                 //longClickStream.Dispose();
-                timerStream = null;
 
         }).AddTo(this);
+        timerSubject.Subscribe(_=>
+        {
+          timerStream=  Observable.FromCoroutine(BuildingEditTimer).Subscribe(_ =>
+            {
+                Debug.Log("냐하");
+            }).AddTo(this);
+        });
 
        // longClickUpStream.Subscribe(_ => longClickStream.Dispose());
        //-------------레벨 별 건물--------------------
@@ -376,11 +377,9 @@ public class Building : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
 
             yield return new WaitForSeconds(0.1f);
             second += 0.1f;
-
+            Debug.Log(second);
             if (second >= 1.2f)
             {
-                GameManager.isEdit = true;
-                longClickStream.Dispose();          //타이머 구독해지
                 Debug.Log("냐하");
                 break;
             }
