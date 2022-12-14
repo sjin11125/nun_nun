@@ -31,7 +31,7 @@ public class BuildingParse
     //-----------------------------------------------------------
 
 }
-public class Building : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
+public class Building : MonoBehaviour
 {
     #region BuildingProperties
     //*
