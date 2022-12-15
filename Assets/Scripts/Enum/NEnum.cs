@@ -40,7 +40,8 @@ public enum BuildType
     Move,
     Rotation,
     Make,
-    Upgrade
+    Upgrade,
+    Remove
 }
 
 public enum LoginResult

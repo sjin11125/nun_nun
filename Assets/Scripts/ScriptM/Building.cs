@@ -44,7 +44,7 @@ public class Building : MonoBehaviour
     public float currentTime = 0;      //*
     public float startingTime = 60f;   //*
 
-    public List< Button> BuildEditBtn;    // 건축모드 버튼들
+    public List<UIEdit> BuildEditBtn;    // 건축모드 UI들
 
     public bool isCoin = false;        //*
     public bool isCountCoin = false;   //*
@@ -278,13 +278,7 @@ public class Building : MonoBehaviour
         Coin_Button.gameObject.SetActive(false);
         double time = 0;
 
-       /* IDisposable timer = Observable.Timer(TimeSpan.FromSeconds(1.3f)).Subscribe(_ =>
-        {
-            longClickStream.Dispose();          //타이머 구독해지
-            GameManager.isEdit = true;
 
-            Debug.Log("냐하");
-        }).AddTo(this);*/
         longClickStream = BuildingBtn.OnPointerDownAsObservable().    //건물 버튼을 꾹 누르는 상태에서
                               Subscribe(_ =>
                               {
@@ -301,7 +295,7 @@ public class Building : MonoBehaviour
                                                   {
                                                       foreach (var item in BuildEditBtn)        //건축모드 버튼들 다 활성화
                                                       {
-                                                          item.gameObject.SetActive(true);
+                                                          item.btn.gameObject.SetActive(true);
                                                       }
                                                   }
                                               }).AddTo(this);
@@ -314,7 +308,7 @@ public class Building : MonoBehaviour
                                   
                                }).AddTo(this);
        
-        var longClickUpStream = BuildingBtn.OnPointerUpAsObservable().Subscribe(_=>
+        var longClickUpStream = BuildingBtn.OnPointerUpAsObservable().Subscribe(_=>     //마우스 업 스트림
             {
                 second = 0;
                 timerStream.Dispose();
@@ -322,7 +316,20 @@ public class Building : MonoBehaviour
 
         }).AddTo(this);
 
+        foreach (var item in BuildEditBtn)                          //건축모드 버튼들 구독
+        {
+            item.btn.OnClickAsObservable().Subscribe(_=>
+            {
+                switch (item.buildType)
+                {
+                    case BuildType.Move:
+                        break;
 
+                    default:
+                        break;
+                }
+            }).AddTo(this);
+        }
        // longClickUpStream.Subscribe(_ => longClickStream.Dispose());
        //-------------레벨 별 건물--------------------
         GameObject Level1building, Level2building, Level3building;

@@ -51,7 +51,6 @@ public class GridBuildingSystem : MonoBehaviour
     public GameObject VisitorBooksWindow;           //방명록창
 
     private GameObject settigPanel;
-    Touch tempTouchs;
     #region unity Methods  
     public GameObject Effect;
     bool upgrade = false;
@@ -100,9 +99,9 @@ public class GridBuildingSystem : MonoBehaviour
             {
                 this.UpdateAsObservable().Where(_ => Input.GetMouseButtonUp(0)).Subscribe(_ =>
                 {
-                    if (!EventSystem.current.IsPointerOverGameObject())      //UI를 클릭했냐
+                    if (!EventSystem.current.IsPointerOverGameObject())      //UI를 클릭한게 아니라면
                     {
-                        Vector2 touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);     //마우스 월드 좌표
+                        Vector2 touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);     //마우스 월드 좌표 받아옴
                     Vector3Int cellPos = gridLayout.LocalToCell(touchPos);
 
                     if (prevPos != cellPos)
