@@ -98,6 +98,7 @@ public class Building : MonoBehaviour
     public Building()
     {
     }
+    #region 생성자
     public Building(string islock, string buildingname, string info, string image, string cost,string cost2,string cost3, string Reward, string Reward2, string Reward3, string isStr)           //파싱할 때 쓰는 생성자
     {//잠금 유무     // 이름     //설명     //이미지    //가격1       //가격2      //가격3        //생성재화1         //생성재화2        //생성재화3
 
@@ -209,6 +210,7 @@ public class Building : MonoBehaviour
         BuildingCopy.isFliped = isFliped;
         return BuildingCopy;
     }
+    #endregion
     public void RefreshBuildingList()               //빌딩 리스트 새로고침
     {
 
@@ -289,7 +291,7 @@ public class Building : MonoBehaviour
                                               timerStream = Observable.FromCoroutine(BuildingEditTimer).Subscribe(_ =>      //일정 시간 지난 후 건설모드 On
                                               {
                                                   //GameManager.isEdit = true;
-                                                  Debug.Log("건설모드 ON");
+                                                  //Debug.Log("건설모드 ON");
                                                   GridBuildingSystem.OnEditMode.OnNext(this);       //이 건물의 정보를 넘겨줌
                                                   if (BuildEditBtn.Count!=0)
                                                   {
@@ -320,9 +322,22 @@ public class Building : MonoBehaviour
         {
             item.btn.OnClickAsObservable().Subscribe(_=>
             {
-                switch (item.buildType)
+                switch (item.buildUIType)
                 {
-                    case BuildType.Move:
+                    case BuildUIType.Make:          //확정 버튼을 눌렀는지
+                        if (CanBePlaced())      //배치될 수 있는지 체크
+                        {
+                            Place(Type);
+                            GridBuildingSystem.OnEditModeOff.OnNext(this);
+                            this.Type = BuildType.Empty;
+                            Placed = true;
+                        }
+                        break;
+                    case BuildUIType.Remove:          //제거 버튼을 눌렀는지
+                        break;
+                    case BuildUIType.Rotation:          //회전 버튼을 눌렀는지
+                        break;
+                    case BuildUIType.Upgrade:          //업그레이드 버튼을 눌렀는지
                         break;
 
                     default:

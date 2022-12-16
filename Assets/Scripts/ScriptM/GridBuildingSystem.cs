@@ -56,6 +56,7 @@ public class GridBuildingSystem : MonoBehaviour
     bool upgrade = false;
 
     public static Subject<Building> OnEditMode = new Subject<Building>();
+    public static Subject<Building> OnEditModeOff = new Subject<Building>();
     private void Awake()
     {
         if (current==null)
@@ -92,6 +93,12 @@ public class GridBuildingSystem : MonoBehaviour
                 isEditing.Value = true;
             this.temp = temp;
                 EditMode(temp);
+        }).AddTo(this); 
+        OnEditModeOff.Subscribe(temp=>                     //건설모드 구독
+        {
+                isEditing.Value = true;
+            this.temp = temp;
+                EditModeOff(temp);
         }).AddTo(this);
 
         isEditing.Subscribe(isEdit => {                 //건설모드 On 일때 빈 곳을 클릭한 경우
@@ -128,7 +135,7 @@ public class GridBuildingSystem : MonoBehaviour
     {
         MainTilemap.GetComponent<TilemapRenderer>().sortingOrder = -50;             //메인 타일 안보이게
     }
-   public  void EditMode(Building tempBuilding)
+   public  void EditMode(Building tempBuilding)                         //건축 모드 
     {
         MainTilemap.GetComponent<TilemapRenderer>().sortingOrder = -45;             //메인 타일 보이게
         GameManager.CurrentBuilding_Script = temp;
@@ -139,7 +146,7 @@ public class GridBuildingSystem : MonoBehaviour
         tempBuilding.area.position = gridLayout.WorldToCell(tempBuilding.gameObject.transform.position);
         BoundsInt buildingArea = tempBuilding.area;
 
-        TileBase[] baseArray = GetTilesBlock(buildingArea, MainTilemap);
+        TileBase[] baseArray = GetTilesBlock(buildingArea, MainTilemap);                //해당 건물이 있던 타일 불러오기
         int size = baseArray.Length;
         for (int i = 0; i < size; i++)
         {
@@ -147,6 +154,18 @@ public class GridBuildingSystem : MonoBehaviour
         }
         TempTilemap.SetTilesBlock(buildingArea, baseArray);
         SetTilesBlock(buildingArea, TileType.White, MainTilemap);
+
+    }
+   public  void EditModeOff(Building tempBuilding)                         //건축 모드 Off
+    {
+        MainTilemap.GetComponent<TilemapRenderer>().sortingOrder = -50;             //메인 타일 보이게
+        GameManager.CurrentBuilding_Script = null;
+
+
+        tempBuilding.area.position = gridLayout.WorldToCell(tempBuilding.gameObject.transform.position);
+        BoundsInt buildingArea = tempBuilding.area;
+
+        TakeArea(buildingArea);
 
     }
     private void Update()

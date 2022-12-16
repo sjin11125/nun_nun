@@ -8,7 +8,7 @@ using UniRx;
 [SerializeField]
 public class UIEdit
 {
-    public BuildType buildType;
+    public BuildUIType buildUIType;
     public Button btn;
     public GameObject prefab;
 

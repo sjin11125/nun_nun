@@ -43,6 +43,14 @@ public enum BuildType
     Upgrade,
     Remove
 }
+public enum BuildUIType
+{
+  
+    Rotation,
+    Make,
+    Upgrade,
+    Remove
+}
 
 public enum LoginResult
 {
