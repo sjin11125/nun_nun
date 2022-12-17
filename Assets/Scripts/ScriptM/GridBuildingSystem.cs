@@ -94,9 +94,24 @@ public class GridBuildingSystem : MonoBehaviour
             this.temp = temp;
                 EditMode(temp);
         }).AddTo(this); 
-        OnEditModeOff.Subscribe(temp=>                     //건설모드 구독
+
+        OnEditModeOff.Subscribe(temp =>                        //건설모드끄기 구독                  
         {
                 isEditing.Value = true;
+            this.temp = temp;
+                EditModeOff(temp);
+        }).AddTo(this);
+
+        OnEditMode.Subscribe(temp=>                     //상점모드 구독
+        {
+                isEditing.Value = false;
+            this.temp = temp;
+                EditMode(temp);
+        }).AddTo(this); 
+
+        OnEditModeOff.Subscribe(temp =>                        //상점모드끄기 구독                  
+        {
+                isEditing.Value = false;
             this.temp = temp;
                 EditModeOff(temp);
         }).AddTo(this);
@@ -104,17 +119,14 @@ public class GridBuildingSystem : MonoBehaviour
         isEditing.Subscribe(isEdit => {                 //건설모드 On 일때 빈 곳을 클릭한 경우
             if (isEdit)
             {
-                this.UpdateAsObservable().Where(_ => Input.GetMouseButtonUp(0)).Subscribe(_ =>
+                this.UpdateAsObservable().Where(_ => Input.GetMouseButtonDown(0)).Subscribe(_ =>
                 {
-                    if (!EventSystem.current.IsPointerOverGameObject())      //UI를 클릭한게 아니라면
+                    if (!IsPointerOverGameObject())         //UI 위에 있는지 체크
                     {
                         Vector2 touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);     //마우스 월드 좌표 받아옴
-                    Vector3Int cellPos = gridLayout.LocalToCell(touchPos);
-
-                    if (prevPos != cellPos)
-                    {
-                       
-
+                        Vector3Int cellPos = gridLayout.LocalToCell(touchPos);
+                        if (prevPos != cellPos)
+                        {
                             temp.transform.localPosition = gridLayout.CellToLocalInterpolated(cellPos
                             + new Vector3(.5f, .5f, 0f)); //Vector3
                             prevPos = cellPos;
@@ -122,10 +134,18 @@ public class GridBuildingSystem : MonoBehaviour
                             FollowBuilding(temp); // 마우스가 위의 좌표 따라감. 
                         }
                     }
-                }
-           ).AddTo(this);
+
+                }).AddTo(this);
             }
         }).AddTo(this);
+    }
+    public bool IsPointerOverGameObject()           //UI가 터치되었는지
+    {
+        PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+        eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+        return results.Count > 0;
     }
     public void GridLayerSetting()
     {
@@ -140,7 +160,7 @@ public class GridBuildingSystem : MonoBehaviour
         MainTilemap.GetComponent<TilemapRenderer>().sortingOrder = -45;             //메인 타일 보이게
         GameManager.CurrentBuilding_Script = temp;
 
-        tempBuilding.Type = BuildType.Move;
+        tempBuilding.Type = BuildType.Move;             //이동 상태로 변환
         tempBuilding.Placed = false;        //배치가 안 된 상태로 변환
 
         tempBuilding.area.position = gridLayout.WorldToCell(tempBuilding.gameObject.transform.position);
@@ -170,6 +190,7 @@ public class GridBuildingSystem : MonoBehaviour
     }
     private void Update()
     {
+        //Debug.Log("현재 UI를 위에 잇나? " + EventSystem.current.IsPointerOverGameObject(-1));
         if (ChaButtonScript.isEdit.Equals(true))
         {
             ChaButtonScript.isEdit = false;
@@ -204,10 +225,10 @@ public class GridBuildingSystem : MonoBehaviour
         }
 
 
-        if (EventSystem.current.IsPointerOverGameObject(0))      //UI를 클릭했냐
+        /*if (EventSystem.current.IsPointerOverGameObject(0))      //UI를 클릭했냐
         {
             return;
-        }
+        }*/
         if (!CameraMovement.isTouch && Input.GetMouseButtonUp(0) && SceneManager.GetActiveScene().name .Equals( "Main"))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
 
-[SerializeField]
+[Serializable]
 public class UIEdit
 {
     public BuildUIType buildUIType;

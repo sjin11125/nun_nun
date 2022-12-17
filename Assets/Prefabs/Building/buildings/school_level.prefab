@@ -497,10 +497,18 @@ MonoBehaviour:
   currentTime: 0
   startingTime: 60
   BuildEditBtn:
-  - {fileID: 5654096892812041062}
-  - {fileID: 2067418953198866396}
-  - {fileID: 1152526360569995005}
-  - {fileID: 3351508814658021168}
+  - buildUIType: 0
+    btn: {fileID: 5654096892812041062}
+    prefab: {fileID: 0}
+  - buildUIType: 1
+    btn: {fileID: 2067418953198866396}
+    prefab: {fileID: 0}
+  - buildUIType: 2
+    btn: {fileID: 3351508814658021168}
+    prefab: {fileID: 0}
+  - buildUIType: 3
+    btn: {fileID: 1152526360569995005}
+    prefab: {fileID: 0}
   isCoin: 0
   isCountCoin: 0
   CountCoin: 0

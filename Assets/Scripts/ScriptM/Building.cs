@@ -44,6 +44,7 @@ public class Building : MonoBehaviour
     public float currentTime = 0;      //*
     public float startingTime = 60f;   //*
 
+    [SerializeField]
     public List<UIEdit> BuildEditBtn;    // 건축모드 UI들
 
     public bool isCoin = false;        //*
@@ -280,13 +281,19 @@ public class Building : MonoBehaviour
         Coin_Button.gameObject.SetActive(false);
         double time = 0;
 
+        if (Placed)
+        {
+            foreach (var item in BuildEditBtn)        //건축모드 버튼들 다 비활성화
+            {
+                item.btn.gameObject.SetActive(false);
+            }
+        }
 
         longClickStream = BuildingBtn.OnPointerDownAsObservable().    //건물 버튼을 꾹 누르는 상태에서
                               Subscribe(_ =>
                               {
                                
-                                      GridBuildingSystem.isEditing.Subscribe(isEdit => {
-                                      if(!isEdit)                       //현재 건설모드가 아니라면
+                                      if(!GridBuildingSystem.isEditing.Value)                       //현재 건설모드가 아니라면
                                           {
                                               timerStream = Observable.FromCoroutine(BuildingEditTimer).Subscribe(_ =>      //일정 시간 지난 후 건설모드 On
                                               {
@@ -302,7 +309,6 @@ public class Building : MonoBehaviour
                                                   }
                                               }).AddTo(this);
                                           }
-                                      }).AddTo(this);
                                      
                                       // longClickStream.Dispose();          //타이머 구독해지
 
@@ -322,18 +328,53 @@ public class Building : MonoBehaviour
         {
             item.btn.OnClickAsObservable().Subscribe(_=>
             {
+
                 switch (item.buildUIType)
                 {
                     case BuildUIType.Make:          //확정 버튼을 눌렀는지
                         if (CanBePlaced())      //배치될 수 있는지 체크
                         {
-                            Place(Type);
-                            GridBuildingSystem.OnEditModeOff.OnNext(this);
-                            this.Type = BuildType.Empty;
-                            Placed = true;
+                            if (Type == BuildType.Move)           //건축모드일때(옮기기)
+                            {
+                                Place(Type);
+
+                                GridBuildingSystem.OnEditModeOff.OnNext(this);
+
+                                //this.Type = BuildType.Empty;
+
+                                //Placed = true;
+
+                                foreach (var item in BuildEditBtn)        //건축모드 버튼들 다 비활성화
+                                {
+                                    item.btn.gameObject.SetActive(false);
+                                }
+                                //RefreshBuildingList();
+
+
+                                // save.UpdateValue(this);
+                               // save.BuildingReq(BuildingDef.updateValue, this);
+                            }
+                            if (Type == BuildType.Make)           //상점모드일때(사기)
+                            {
+                                Place(Type);
+                                GridBuildingSystem.OnEditModeOff.OnNext(this);
+                                foreach (var item in BuildEditBtn)        //건축모드 버튼들 다 비활성화
+                                {
+                                    item.btn.gameObject.SetActive(false);
+                                }
+                            }
+                           
                         }
                         break;
                     case BuildUIType.Remove:          //제거 버튼을 눌렀는지
+                        if (Type==BuildType.Move)           //건축모드일때(팔기)
+                        {
+
+                        }
+                        if (Type==BuildType.Make)           //상점모드일때
+                        {
+
+                        }
                         break;
                     case BuildUIType.Rotation:          //회전 버튼을 눌렀는지
                         break;
