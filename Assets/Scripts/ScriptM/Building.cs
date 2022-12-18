@@ -373,15 +373,9 @@ public class Building : MonoBehaviour
                             }
                             break;
                         case BuildUIType.Remove:          //제거 버튼을 눌렀는지
-                            if (Type == BuildType.Move)           //건축모드일때(팔기)
-                            {
                               UISellPanel uiSellPanel=Instantiate(UIPanels[0],GridBuildingSystem.Canvas.transform).GetComponent<UISellPanel>();
                                 uiSellPanel.building = this;
-                            }
-                            if (Type == BuildType.Make)           //상점모드일때
-                            {
-
-                            }
+                          
                             break;
                         case BuildUIType.Rotation:          //회전 버튼을 눌렀는지
                         break;
@@ -447,6 +441,10 @@ public class Building : MonoBehaviour
         {
             Rotation();
         }
+    }
+    public void ReturnMoney()
+    {
+
     }
     IEnumerator BuildingEditTimer()
     {

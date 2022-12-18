@@ -59,7 +59,7 @@ public class UISellPanel : UIBase
             CanvasManger.AchieveMoney += building.Cost[building.Level - 1];
             GameManager.ShinMoney += building.ShinCost[building.Level - 1];
             CanvasManger.AchieveShinMoney += building.ShinCost[building.Level - 1];
-            Destroy(gameObject);
+            Destroy(building.transform.gameObject);
         }
         else                                //설치하고 제거
         {
