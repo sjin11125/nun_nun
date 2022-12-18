@@ -72,10 +72,10 @@ public class GridBuildingSystem : MonoBehaviour
     }
     private void Start()
     {
-        
+
         string tilePath = @"Tiles\";
 
-        if (GameManager.isStart .Equals( true)  )      //tileBases에 아무것도 없으면
+        if (GameManager.isStart.Equals(true))      //tileBases에 아무것도 없으면
         {
             tileBases.Add(TileType.Empty, null);
             tileBases.Add(TileType.White, Resources.Load<TileBase>(tilePath + "white"));
@@ -86,60 +86,45 @@ public class GridBuildingSystem : MonoBehaviour
         }
 
         Grid = GameObject.Find("back_down");
-        Canvas= GameObject.Find("Canvas");
+        Canvas = GameObject.Find("Canvas");
 
-        OnEditMode.Subscribe(temp=>                     //건설모드 구독
+        OnEditMode.Subscribe(temp =>                     //건설모드 구독
         {
-                isEditing.Value = true;
+            isEditing.Value = true;
             this.temp = temp;
-                EditMode(temp);
-        }).AddTo(this); 
+            EditMode(temp);
+        }).AddTo(this);
 
         OnEditModeOff.Subscribe(temp =>                        //건설모드끄기 구독                  
         {
-                isEditing.Value = true;
+            isEditing.Value = false;
             this.temp = temp;
-                EditModeOff(temp);
+            EditModeOff(temp);
         }).AddTo(this);
 
-        OnEditMode.Subscribe(temp=>                     //상점모드 구독
-        {
-                isEditing.Value = false;
-            this.temp = temp;
-                EditMode(temp);
-        }).AddTo(this); 
-
-        OnEditModeOff.Subscribe(temp =>                        //상점모드끄기 구독                  
-        {
-                isEditing.Value = false;
-            this.temp = temp;
-                EditModeOff(temp);
-        }).AddTo(this);
-
-        isEditing.Subscribe(isEdit => {                 //건설모드 On 일때 빈 곳을 클릭한 경우
-            if (isEdit)
-            {
-                this.UpdateAsObservable().Where(_ => Input.GetMouseButtonDown(0)).Subscribe(_ =>
-                {
-                    if (!IsPointerOverGameObject())         //UI 위에 있는지 체크
-                    {
-                        Vector2 touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);     //마우스 월드 좌표 받아옴
-                        Vector3Int cellPos = gridLayout.LocalToCell(touchPos);
-                        if (prevPos != cellPos)
+        this.UpdateAsObservable().Where(_ => Input.GetMouseButtonDown(0)).Subscribe(_ =>
+               {
+                   if (isEditing.Value)
+                   {
+                       if (!IsPointerOverGameObject())         //UI 위에 있는지 체크
                         {
-                            temp.transform.localPosition = gridLayout.CellToLocalInterpolated(cellPos
-                            + new Vector3(.5f, .5f, 0f)); //Vector3
-                            prevPos = cellPos;
+                           Vector2 touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);     //마우스 월드 좌표 받아옴
+                            Vector3Int cellPos = gridLayout.LocalToCell(touchPos);
+                           if (prevPos != cellPos)
+                           {
+                               temp.transform.localPosition = gridLayout.CellToLocalInterpolated(cellPos
+                               + new Vector3(.5f, .5f, 0f)); //Vector3
+                                prevPos = cellPos;
 
-                            FollowBuilding(temp); // 마우스가 위의 좌표 따라감. 
-                        }
-                    }
+                               FollowBuilding(temp); // 마우스가 위의 좌표 따라감. 
+                            }
+                       }
+                   }
 
-                }).AddTo(this);
-            }
-        }).AddTo(this);
+               }).AddTo(this);
+
     }
-    public bool IsPointerOverGameObject()           //UI가 터치되었는지
+    public static bool IsPointerOverGameObject()           //UI가 터치되었는지
     {
         PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
         eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);

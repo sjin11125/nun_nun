@@ -78,25 +78,13 @@ public class CameraMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.touchCount > 0)
-        {
-            if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
-            {
-                isTouch = true; 
-                return; //UI 터치가 감지됐을 경우 return
-
-            }
-            //여기서부터 화면 터치 코드
-        }
-        if (EventSystem.current.IsPointerOverGameObject())      //UI를 클릭했냐
-        {
+       
+       if (GridBuildingSystem.IsPointerOverGameObject())      //UI를 클릭했냐
             isTouch = true;
-            return;
-        }
-
+     
         //업데이트에 줌을 적어보자     if (GameManager.isMoveLock==false)
-        {
-        if(Input.touchCount == 2)
+
+        if (Input.touchCount == 2)
         {
             Touch firstTouch = Input.GetTouch(0);
             Touch secondTouch = Input.GetTouch(1);
@@ -115,31 +103,32 @@ public class CameraMovement : MonoBehaviour
                 cam.orthographicSize -= zoomModifier;
 
         }
-            if (Input.GetMouseButtonUp(0))
-            {
-                isTouch = false;
-            }
-        cam.orthographicSize = Mathf.Clamp(cam.orthographicSize, 2f, 8f); // 축소, 확대 배율
-
-            if (isTouch==false)
-            {
-
-                PanCamera();
-            }
+        if (Input.GetMouseButtonUp(0))
+        {
+            isTouch = false;
         }
+            cam.orthographicSize = Mathf.Clamp(cam.orthographicSize, 2f, 8f); // 축소, 확대 배율
+
+        if (isTouch == false||GridBuildingSystem.isEditing.Value)       // UI를 클릭안했거나 건축모드일 때 이동가능
+        {
+
+            PanCamera();
+        }
+        Debug.Log("isTouch: "+isTouch);
 
 
         //touch code
 
 
 
-       // zoom(Input.GetAxis("Mouse ScrollWheel"));
+        // zoom(Input.GetAxis("Mouse ScrollWheel"));
     }
     private void PanCamera() //이게 이동
     {
 
         if (Input.GetMouseButtonDown(0))
         {
+            Debug.Log("이동");
             dragOrigin = cam.ScreenToWorldPoint(Input.mousePosition);
         }
         if (Input.GetMouseButton(0))
