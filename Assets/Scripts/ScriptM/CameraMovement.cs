@@ -114,8 +114,6 @@ public class CameraMovement : MonoBehaviour
 
             PanCamera();
         }
-        Debug.Log("isTouch: "+isTouch);
-
 
         //touch code
 
@@ -128,15 +126,17 @@ public class CameraMovement : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("이동");
             dragOrigin = cam.ScreenToWorldPoint(Input.mousePosition);
         }
         if (Input.GetMouseButton(0))
         {
             Vector3 difference = dragOrigin - cam.ScreenToWorldPoint(Input.mousePosition);
+
             //print("origin" + dragOrigin + "newPoisition" + cam.ScreenToWorldPoint(Input.mousePosition) + "=difference" + difference);
 
-            cam.transform.position = ClampCamera(cam.transform.position + difference);
+            cam.transform.position =new Vector3 ( ClampCamera(cam.transform.position + difference).x,
+                ClampCamera(cam.transform.position + difference).y,
+                -10f);
 
 
 

@@ -33,9 +33,11 @@ public class GridBuildingSystem : MonoBehaviour
     GameObject Grid;
     public Button StartButton;
 
- 
+
     public GameObject buildings;
-    GameObject Canvas;
+    
+ 
+   
 
     public GameObject Dialog;           //대화창
     //추가 1110
@@ -55,6 +57,7 @@ public class GridBuildingSystem : MonoBehaviour
     public GameObject Effect;
     bool upgrade = false;
 
+    public static GameObject Canvas;
     public static Subject<Building> OnEditMode = new Subject<Building>();
     public static Subject<Building> OnEditModeOff = new Subject<Building>();
     private void Awake()
@@ -86,7 +89,7 @@ public class GridBuildingSystem : MonoBehaviour
         }
 
         Grid = GameObject.Find("back_down");
-        Canvas = GameObject.Find("Canvas");
+        Canvas= GameObject.Find("Canvas");
 
         OnEditMode.Subscribe(temp =>                     //건설모드 구독
         {
@@ -323,7 +326,7 @@ public class GridBuildingSystem : MonoBehaviour
                             }
                         }
 
-                        GameObject dialo_window = Instantiate(Dialog, Canvas.transform);
+                        GameObject dialo_window = Instantiate(Dialog);
                         //child[2]
                         dialo_window.transform.SetAsFirstSibling();
                         dialo_window.GetComponent<NuniDialogParsing>().nuni = nuni_card;

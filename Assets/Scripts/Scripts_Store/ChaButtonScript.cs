@@ -115,7 +115,7 @@ public class ChaButtonScript : MonoBehaviour
     }
     public void IsSell()            //건물 제거한다고 했을 때
     {
-        DowngradeBuilding.Remove(DowngradeBuilding);
+        //DowngradeBuilding.Remove(DowngradeBuilding);
     }
     public void IsUpgrade()         //건물 업그레이드 한다고 했을 때
     {

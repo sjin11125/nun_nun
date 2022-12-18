@@ -46,6 +46,8 @@ public class Building : MonoBehaviour
 
     [SerializeField]
     public List<UIEdit> BuildEditBtn;    // 건축모드 UI들
+    [SerializeField]
+    public List<GameObject> UIPanels;    //  UI Panel들
 
     public bool isCoin = false;        //*
     public bool isCountCoin = false;   //*
@@ -324,21 +326,25 @@ public class Building : MonoBehaviour
 
         }).AddTo(this);
 
-        foreach (var item in BuildEditBtn)                          //건축모드 버튼들 구독
+        if (BuildEditBtn.Count != 0)
         {
-            item.btn.OnClickAsObservable().Subscribe(_=>
-            {
 
-                switch (item.buildUIType)
+
+            foreach (var item in BuildEditBtn)                          //건축모드 버튼들 구독
+            {
+                item.btn.OnClickAsObservable().Subscribe(_ =>
                 {
-                    case BuildUIType.Make:          //확정 버튼을 눌렀는지
+
+                    switch (item.buildUIType)
+                    {
+                        case BuildUIType.Make:          //확정 버튼을 눌렀는지
                         if (CanBePlaced())      //배치될 수 있는지 체크
                         {
-                            if (Type == BuildType.Move)           //건축모드일때(옮기기)
+                                if (Type == BuildType.Move)           //건축모드일때(옮기기)
                             {
-                                Place(Type);
+                                    Place(Type);
 
-                                GridBuildingSystem.OnEditModeOff.OnNext(this);
+                                    GridBuildingSystem.OnEditModeOff.OnNext(this);
 
                                 //this.Type = BuildType.Empty;
 
@@ -346,45 +352,47 @@ public class Building : MonoBehaviour
 
                                 foreach (var item in BuildEditBtn)        //건축모드 버튼들 다 비활성화
                                 {
-                                    item.btn.gameObject.SetActive(false);
-                                }
+                                        item.btn.gameObject.SetActive(false);
+                                    }
                                 //RefreshBuildingList();
 
 
                                 // save.UpdateValue(this);
-                               // save.BuildingReq(BuildingDef.updateValue, this);
+                                // save.BuildingReq(BuildingDef.updateValue, this);
                             }
-                            if (Type == BuildType.Make)           //상점모드일때(사기)
+                                if (Type == BuildType.Make)           //상점모드일때(사기)
                             {
-                                Place(Type);
-                                GridBuildingSystem.OnEditModeOff.OnNext(this);
-                                foreach (var item in BuildEditBtn)        //건축모드 버튼들 다 비활성화
+                                    Place(Type);
+                                    GridBuildingSystem.OnEditModeOff.OnNext(this);
+                                    foreach (var item in BuildEditBtn)        //건축모드 버튼들 다 비활성화
                                 {
-                                    item.btn.gameObject.SetActive(false);
+                                        item.btn.gameObject.SetActive(false);
+                                    }
                                 }
+
                             }
-                           
-                        }
-                        break;
-                    case BuildUIType.Remove:          //제거 버튼을 눌렀는지
-                        if (Type==BuildType.Move)           //건축모드일때(팔기)
-                        {
+                            break;
+                        case BuildUIType.Remove:          //제거 버튼을 눌렀는지
+                            if (Type == BuildType.Move)           //건축모드일때(팔기)
+                            {
+                              UISellPanel uiSellPanel=Instantiate(UIPanels[0],GridBuildingSystem.Canvas.transform).GetComponent<UISellPanel>();
+                                uiSellPanel.building = this;
+                            }
+                            if (Type == BuildType.Make)           //상점모드일때
+                            {
 
-                        }
-                        if (Type==BuildType.Make)           //상점모드일때
-                        {
-
-                        }
+                            }
+                            break;
+                        case BuildUIType.Rotation:          //회전 버튼을 눌렀는지
                         break;
-                    case BuildUIType.Rotation:          //회전 버튼을 눌렀는지
-                        break;
-                    case BuildUIType.Upgrade:          //업그레이드 버튼을 눌렀는지
+                        case BuildUIType.Upgrade:          //업그레이드 버튼을 눌렀는지
                         break;
 
-                    default:
-                        break;
-                }
-            }).AddTo(this);
+                        default:
+                            break;
+                    }
+                }).AddTo(this);
+            }
         }
        // longClickUpStream.Subscribe(_ => longClickStream.Dispose());
        //-------------레벨 별 건물--------------------
@@ -455,64 +463,6 @@ public class Building : MonoBehaviour
                 break;
             }
         }
-    }
-    void Update()
-    {
-        // layer_y = 1;             //레이어 설정
-
-
-
-        // text.text = currentTime.ToString("0.0");
-        //TimeText.transform.position = Camera.main.WorldToScreenPoint(transform.position + new Vector3(0.30f, 1.4f, 0)); //Timer위치
-
-        //이제 추가해야할 것은 건물을 눌렀을때 시간이 뜨도록 하기 (이거는 나중에)
-        //건물이 생성되면 시간도 생성되어야 함 (이것도 나중에)
-
-
-        // 시간이 흐르는 것이 계속 저장되도록 하기
-
-
-        // 아이콘을 누르면 재화 + 
-        // current Time이 일정시간 밑으로 떨어졌을 때 수확 아이콘 생성
-
-
-        if (Placed .Equals( true))       // 건물 배치가 확정
-        {/*
-            Button_Pannel.gameObject.SetActive(false);     // 배치하는 버튼 사라지게
-            Rotation_Pannel.gameObject.SetActive(false);        //회전 버튼 사라지게
-            UpgradePannel.gameObject.SetActive(false);
-            Remove_Pannel.gameObject.SetActive(false);*/
-            /*if (Building_Image != "bunsu_level(Clone)")
-            {
-               ( if (isCoin .Equals( false)      //코인 아직 안먹었으면
-                {
-                    Coin();     //재화 생성되게
-                }*
-            }*/
-        }
-        else                            //확정 아닐 때
-        {
-
-           /* Button_Pannel.gameObject.SetActive(true);               //확정 패널 뜨게
-            Rotation_Pannel.gameObject.SetActive(true);               //회전 패널 뜨게*/
-            if (Building_Image != "bunsu_level(Clone)")
-            {
-                
-                if (Type != BuildType.Make)
-                {
-                    UpgradePannel.gameObject.SetActive(true);
-
-                }
-            }
-            if (Building_Image != "village_level(Clone)")
-            {
-                //Remove_Pannel.gameObject.SetActive(true);
-            }
-        }
-       
-
-
-
     }
     public void Coin() //재화부분
     {
@@ -595,40 +545,7 @@ public class Building : MonoBehaviour
         RemovePannel.GetComponent<ChaButtonScript>().DowngradeBuilding = this;
 
     }
-    public void Remove(Building building)
-    {
-
-        Vector3Int positionInt = GridBuildingSystem.current.gridLayout.LocalToCell(transform.position);
-        BoundsInt areaTemp = area;
-        areaTemp.position = positionInt;
-        GridBuildingSystem.current.RemoveArea(areaTemp);
-
-     
-       
-
-        
-        if (Type .Equals( BuildType.Make) )     //상점에서 사고 설치X 바로 제거
-        {
-            GameManager.Money += building.Cost[building.Level - 1];          //자원 되돌리기
-            CanvasManger.AchieveMoney += building.Cost[building.Level - 1];
-            GameManager.ShinMoney += building.ShinCost[building.Level - 1];
-            CanvasManger.AchieveShinMoney += building.ShinCost[building.Level - 1];
-            Destroy(gameObject);
-        }
-        else                                //설치하고 제거
-        {
-            GameManager.Money += building.Cost[building.Level - 1] / 10;          //자원 되돌리기
-            CanvasManger.AchieveMoney += building.Cost[building.Level - 1] / 10;
-            GameManager.ShinMoney += building.ShinCost[building.Level - 1] / 3;
-            CanvasManger.AchieveShinMoney += building.ShinCost[building.Level - 1] / 3;
-
-            BuildingListRemove();
-            save.BuildingReq(BuildingDef.removeValue, this);
-            Destroy(gameObject);
-        }
-        GameManager.isUpdate = true;
-
-    }
+    
     public void Place_Initial(BuildType buildtype)
     {
         Vector3 vec = new Vector3(float.Parse(BuildingPosiiton_x), float.Parse(BuildingPosiiton_y), 0);
