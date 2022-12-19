@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UniRx;
 public class UIBase :MonoBehaviour
 {
-    public Text UIPanelName;
-    public Text UIPanelText;
+    //public Text UIPanelName;
+    //public Text UIPanelText;
     public Button UICloseBtn;
     public Button UIYesBtn;
     public Button UINoBtn;

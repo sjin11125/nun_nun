@@ -10,8 +10,8 @@ public class UISellPanel : UIBase
     {
         base.Start();
 
-        UIPanelName.text = "건물 제거";
-        UIPanelText.text = "건물을 제거하시겠습니까?";
+       // UIPanelName.text = "건물 제거";
+       // UIPanelText.text = "건물을 제거하시겠습니까?";
 
         if (UIYesBtn!=null)
         {

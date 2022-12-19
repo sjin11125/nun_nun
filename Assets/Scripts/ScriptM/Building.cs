@@ -90,6 +90,7 @@ public class Building : MonoBehaviour
     bool isUp;
 
     public Button BuildingBtn;
+    public Image BuildingImage;
 
     float second = 0;
     IDisposable longClickStream;
@@ -380,7 +381,9 @@ public class Building : MonoBehaviour
                         case BuildUIType.Rotation:          //회전 버튼을 눌렀는지
                         break;
                         case BuildUIType.Upgrade:          //업그레이드 버튼을 눌렀는지
-                        break;
+                            UIUpgradePanel uiUpgradePanel = Instantiate(UIPanels[1], GridBuildingSystem.Canvas.transform).GetComponent<UIUpgradePanel>();
+                            uiUpgradePanel.building = this;
+                            break;
 
                         default:
                             break;
