@@ -29,7 +29,6 @@ public class GridBuildingSystem : MonoBehaviour
     private Vector3 prevPos;
     public BoundsInt prevArea;
     public BoundsInt prevArea2;
-    public GameObject UpgradePannel;
     GameObject Grid;
     public Button StartButton;
 
@@ -179,7 +178,7 @@ public class GridBuildingSystem : MonoBehaviour
     private void Update()
     {
         //Debug.Log("현재 UI를 위에 잇나? " + EventSystem.current.IsPointerOverGameObject(-1));
-        if (ChaButtonScript.isEdit.Equals(true))
+       /* if (ChaButtonScript.isEdit.Equals(true))
         {
             ChaButtonScript.isEdit = false;
             InitializeWithBuilding();
@@ -196,7 +195,7 @@ public class GridBuildingSystem : MonoBehaviour
             GameManager.isInvenEdit = false;
             InitializeWithBuilding_InvenButton();
             temp.Type = BuildType.Move;
-        }
+        }*/
         if (isGrid .Equals( true))
         {
             second += Time.deltaTime;
@@ -283,13 +282,6 @@ public class GridBuildingSystem : MonoBehaviour
                         }
                         if (hit.transform.CompareTag("Upgrade"))         //업그레이드
                         {
-                            GameManager.isMoveLock = true;
-                            //hit_building.Type = BuildType.Upgrade;
-                            upgrade= hit_building.Upgrade();
-                            if (upgrade==false&& hit_building.Level<2)
-                            {
-                                Effect.SetActive(true);
-                            }
                             settigPanel.GetComponent<AudioController>().Sound[1].Play();
                         }
                         if (hit.transform.CompareTag("Remove"))          //제거
@@ -364,7 +356,7 @@ public class GridBuildingSystem : MonoBehaviour
             }
             else   // 빈 공간을 클릭했을 때
             {
-                if (temp != null)
+              /*  if (temp != null)
                 {
                     if (!temp.Placed)           //건물이 놓여지지 않았다.(마우스가 클릭하는 데로 건물 따라감)
                     {
@@ -385,7 +377,7 @@ public class GridBuildingSystem : MonoBehaviour
                         }
 
                     }
-                }
+                }*/
             }
         }
         else if (!CameraMovement.isTouch && Input.GetMouseButton(0) && SceneManager.GetActiveScene().name .Equals( "FriendMain"))         //친구 씬에서 방명록킬때
@@ -507,7 +499,7 @@ public class GridBuildingSystem : MonoBehaviour
     }
     #region Building Placement
 
-    public void InitializeWithBuilding() //생성버튼 눌렀을 때 building 을 prefab으로 해서 생성
+   /* public void InitializeWithBuilding() //생성버튼 눌렀을 때 building 을 prefab으로 해서 생성
    {
         temp_gameObject = Instantiate(GameManager.CurrentBuilding, Vector3.zero, Quaternion.identity,buildings.transform) as GameObject;
         
@@ -535,7 +527,6 @@ public class GridBuildingSystem : MonoBehaviour
         temp.Type = BuildType.Make;
 
         //temp.Rotation_Pannel.gameObject.SetActive(false);
-        temp.UpgradePannel.SetActive(false);//업그레이드 패널 삭제
         temp.Placed = false;            //건물은 현재 배치가 안 된 상태
         //temp.Building_name = temp_gameObject.name;
         FollowBuilding(temp);           //건물이 마우스 따라가게 하는 함수
@@ -573,7 +564,7 @@ public class GridBuildingSystem : MonoBehaviour
         //temp.Building_name = temp_gameObject.name;
         FollowBuilding(temp);           //건물이 마우스 따라가게 하는 함수
 
-    }
+    }*/
     public void ClickWithBuilding(Building click_building)
     {
         temp = click_building;

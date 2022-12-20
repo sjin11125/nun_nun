@@ -33,6 +33,8 @@ public class BuildingParse
 }
 public class Building : MonoBehaviour
 {
+    public Button BuildingBtn;
+    public Image BuildingImage;
     #region BuildingProperties
     //*
     public bool Placed = false;    //*
@@ -73,8 +75,6 @@ public class Building : MonoBehaviour
     public int layer_y;   // 건물 레이어
     Transform[] child;
     
-    public GameObject UpgradePannel;
-    public GameObject UpgradePannel2;
     public GameObject RemovePannel;
 
     GameObject Parent;
@@ -89,8 +89,7 @@ public class Building : MonoBehaviour
     
     bool isUp;
 
-    public Button BuildingBtn;
-    public Image BuildingImage;
+    
 
     float second = 0;
     IDisposable longClickStream;
@@ -225,56 +224,62 @@ public class Building : MonoBehaviour
     }
     public void Rotation()          //건물 회전
     {
-        bool isflip_bool;
-
-        if (isFliped .Equals( "F"))
-            isflip_bool = false;
-        else
-            isflip_bool = true;
-
-
-        for (int i = 0; i < buildings.Length; i++)
+        Debug.Log("회전");
+        if (isFliped == "F")        //회전 안했는가
         {
-            if (buildings[i] != null)
-            {
-                SpriteRenderer[] spriterenderer = buildings[i].GetComponentsInChildren<SpriteRenderer>();
-                Transform[] transform = buildings[i].GetComponentsInChildren<Transform>();
+            BuildingBtn.transform.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
 
-               
-                for (int j = 0; j < spriterenderer.Length; j++)
-                {
-                    spriterenderer[j].flipX = isflip_bool;
-                }
-                for (int k = 0; k < transform.Length; k++)
-                {
-                    transform[k].localPosition = new Vector3(-transform[k].localPosition.x, transform[k].localPosition.y, 0);
-                }
-
-                if (isFliped .Equals( "T"))
-                    isFliped = "F";
-                else
-                    isFliped = "T";
-            }
+            isFliped = "T";
         }
-        RefreshBuildingList();          //건물 리스트 새로고침
+        else                      //회전 햇는가
+        {
+            BuildingBtn.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+
+            isFliped = "F";
+        }
     }
 
     void Awake()
     {
         Parent = GameObject.Find("buildings");
+        if (BuildingBtn != null)
+        {
+            Debug.Log("빌딩 버튼 있음 awake "+Id);
+        }
+        else
+        {
+
+            Debug.Log("빌딩 버튼 없음 awake " + Id);
+        }
+    }
+    private void Update()
+    {
+        if (BuildingBtn!=null)
+        {
+            Debug.Log("빌딩버튼 대입");
+        }
+    }
+    private void Reset()
+    {
+        if (BuildingBtn != null)
+        {
+            Debug.Log("빌딩 버튼 있음");
+        }
+        else
+        {
+
+            Debug.Log("빌딩 버튼 없음");
+        }
+
     }
     void Start()
     {
-        bool isflip_bool;
         
-        if (isFliped .Equals( "F"))
-            isflip_bool = false;
-        else
-            isflip_bool = true;
         
-        buildings = new GameObject[2];
         currentTime = (int)startingTime;
         save = GetComponent<BuildingSave>();
+
+       // BuildingImage = BuildingBtn.gameObject.GetComponent<Image>();      //버튼 이미지 받아옴
         //TimeText = GameObject.Find("Canvas/TimeText"); //게임오브젝트 = 캔버스에 있는 TimeText로 설정
         if (Type .Equals( BuildType.Make))
         {
@@ -308,6 +313,10 @@ public class Building : MonoBehaviour
                                                       foreach (var item in BuildEditBtn)        //건축모드 버튼들 다 활성화
                                                       {
                                                           item.btn.gameObject.SetActive(true);
+
+                                                          if (item.buildUIType==BuildUIType.Upgrade
+                                                          &&Level==2)        //최대 레벨인 경우 업그레이드 버튼 활성화 X                                                     
+                                                          item.btn.interactable = false;
                                                       }
                                                   }
                                               }).AddTo(this);
@@ -347,19 +356,11 @@ public class Building : MonoBehaviour
 
                                     GridBuildingSystem.OnEditModeOff.OnNext(this);
 
-                                //this.Type = BuildType.Empty;
-
-                                //Placed = true;
 
                                 foreach (var item in BuildEditBtn)        //건축모드 버튼들 다 비활성화
                                 {
                                         item.btn.gameObject.SetActive(false);
                                     }
-                                //RefreshBuildingList();
-
-
-                                // save.UpdateValue(this);
-                                // save.BuildingReq(BuildingDef.updateValue, this);
                             }
                                 if (Type == BuildType.Make)           //상점모드일때(사기)
                             {
@@ -376,10 +377,13 @@ public class Building : MonoBehaviour
                         case BuildUIType.Remove:          //제거 버튼을 눌렀는지
                               UISellPanel uiSellPanel=Instantiate(UIPanels[0],GridBuildingSystem.Canvas.transform).GetComponent<UISellPanel>();
                                 uiSellPanel.building = this;
-                          
                             break;
+
                         case BuildUIType.Rotation:          //회전 버튼을 눌렀는지
-                        break;
+                            Rotation();
+                            RefreshBuildingList();          //건물 리스트 새로고침
+                            break;
+
                         case BuildUIType.Upgrade:          //업그레이드 버튼을 눌렀는지
                             UIUpgradePanel uiUpgradePanel = Instantiate(UIPanels[1], GridBuildingSystem.Canvas.transform).GetComponent<UIUpgradePanel>();
                             uiUpgradePanel.building = this;
@@ -391,63 +395,29 @@ public class Building : MonoBehaviour
                 }).AddTo(this);
             }
         }
-       // longClickUpStream.Subscribe(_ => longClickStream.Dispose());
-       //-------------레벨 별 건물--------------------
-        GameObject Level1building, Level2building, Level3building;
-        if (Level <= 3)
-        {
-            //GameObject UPPannel = Instantiate(UpgradePannel);
-            Level1building = gameObject.transform.Find("building").gameObject;
-            if (gameObject.transform.Find("building2").gameObject!=null)
-            {
-
-            }
-            Level2building = gameObject.transform.Find("building2").gameObject;
-            //Level3building = gameObject.transform.Find("building3").gameObject;
-            buildings[0] = Level1building;
-            buildings[1] = Level2building;
-           // buildings[2] = Level3building;
-        }
 
         switch (Level)
         {
             case 1:
-                buildings[0].SetActive(true);
-
-                child = GetComponentsInChildren<Transform>();
-               
-                buildings[0].GetComponent<SortingGroup>().sortingOrder = -(int)transform.position.y ;
-         
                 break;
             case 2:
-                buildings[0].SetActive(true);
-                //buildings[1].SetActive(true);
-                //buildings[2].SetActive(false);
-                buildings[0].GetComponent<SpriteRenderer>().sprite = buildings_image[Level-2];
-                buildings[0].GetComponent<SortingGroup>().sortingOrder = -(int)transform.position.y;
-               
-                    buildings[1].GetComponentInChildren<SortingGroup>().sortingOrder = (-buildings[0].GetComponent<SortingGroup>().sortingOrder)+1;
-                Debug.Log(" buildings[0]:  " + buildings[0].transform.parent.gameObject.name);
-                Debug.Log(" buildings[0] layer:  " + buildings[0].GetComponent<SortingGroup>().sortingOrder);
-
+                BuildingImage.sprite = GameManager.GetDogamChaImage(Building_Image+Level.ToString());
                 break;
-            case 3:
-                buildings[0].SetActive(false);
-                buildings[1].SetActive(true);
-               // buildings[2].SetActive(true);
-                //buildings[2].GetComponent<SpriteRenderer>().sortingOrder = layer_y;
+            case 3:                     //레벨3은 아직 보류
                 break;
             default:
                 break;
         }
-        if (isflip_bool .Equals( true))
+        if (BuildingBtn!=null)
         {
-            Rotation();
+            Debug.Log("빌딩 버튼 있음");
         }
-    }
-    public void ReturnMoney()
-    {
+        else
+        {
 
+            Debug.Log("빌딩 버튼 없음");
+        }
+            Rotation();
     }
     IEnumerator BuildingEditTimer()
     {
@@ -465,11 +435,10 @@ public class Building : MonoBehaviour
             }
         }
     }
+    #region 기획보류
     public void Coin() //재화부분
     {
 
-        //float currentTime_1 = currentTime;
-        //currentTime_1 -= 1 * Time.deltaTime;
         currentTime -= 1 * Time.deltaTime;
         //currentTime = (int)currentTime_1;
 
@@ -517,7 +486,7 @@ public class Building : MonoBehaviour
         Coin_Button.gameObject.SetActive(false);
     }
 
-
+    #endregion
 
 
 
@@ -568,7 +537,6 @@ public class Building : MonoBehaviour
         //Debug.Log(areaTemp.position);
         Placed = true;      // 배치 했니? 네
         Debug.Log(buildings.Length);
-        buildings[0].GetComponent<SortingGroup>().sortingOrder = -(int)transform.position.y;
         /*if (Level.Equals(2)
         {
             buildings[1].GetComponentInChildren<SortingGroup>().sortingOrder = -(int)transform.position.y;
@@ -651,85 +619,6 @@ public class Building : MonoBehaviour
         //GameManager.isUpdate = true;
     }
     #endregion
-    // Update is called once per frame
-  
     
-    public bool Upgrade()
-    { //GameObject Level1building, Level2building, Level3building;
-        Debug.Log("내 빌딩 이미지: " +Building_Image);
-        if (Level < 2)
-        {
-            if (Building_Image == "building_level(Clone)" ||
-                   Building_Image == "village_level(Clone)" ||
-                   Building_Image == "flower_level(Clone)")
-            {
-                Debug.Log("해당 건물마자");
-                for (int i = 0; i < GameManager.CharacterList.Count; i++)
-                {
-                    if (GameManager.CharacterList[i].cardName == "수리공누니")
-                    {
-                        Debug.Log("해당 누니이써");
-                        isUp = true;
-
-                    }
-                }
-            }
-            //GameObject UPPannel = Instantiate(UpgradePannel);
-            if (Building_Image == "syrup_level(Clone)" ||
-             Building_Image == "fashion_level(Clone)" ||
-             Building_Image == "school_level(Clone)")
-            {
-                Debug.Log("해당 건물마자22");
-                for (int i = 0; i < GameManager.CharacterList.Count; i++)
-                {
-                    if (GameManager.CharacterList[i].cardName == "페인트누니")
-                    {
-                        Debug.Log("해당 누니이써222");
-                        isUp = true;
-
-                    }
-                }
-            }
-            if (isUp == true)
-            {
-
-
-                UpgradePannel2.GetComponent<ChaButtonScript>().Upgrade(buildings, Level, this);
-                UpgradePannel2.gameObject.SetActive(true);
-
-
-                Text[] upgradeText = UpgradePannel2.GetComponentsInChildren<Text>();
-                Debug.Log("업그레이드 아이디: " + Id);
-
-            
-
-
-              
-                    for (int j = 0; j < GameManager.BuildingArray.Length; j++)
-                    {
-                        if (Building_Image == GameManager.BuildingArray[j].Building_Image)
-                        {
-
-                            upgradeText[3].text = GameManager.BuildingArray[j].Reward[Level - 1].ToString();     //업글 전 획득 재화
-                            Debug.Log("업글전: " + GameManager.BuildingArray[j].Reward[Level - 1]);
-                            upgradeText[4].text = GameManager.BuildingArray[j].Reward[Level].ToString();                       //업글 후 획득 재화
-                            Debug.Log("업글전: " + GameManager.BuildingArray[j].Reward[Level - 1]);
-                            upgradeText[6].text = "얼음: " + GameManager.BuildingArray[j].Cost[Level].ToString() + ",   빛나는 얼음: " + GameManager.BuildingArray[j].ShinCost[Level].ToString() + " 이 소모됩니다.";
-                            return true;
-
-                        }
-                    }
-                
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-
-        }
-        return isUp;
-    }
-
 }
 

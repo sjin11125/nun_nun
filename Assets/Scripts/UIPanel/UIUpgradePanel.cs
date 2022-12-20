@@ -109,19 +109,7 @@ public class UIUpgradePanel : UIBase
             }
             if (isUp == true)               //해당 누니 있을 때 업그레이드 O
             {
-                if (GameManager.ShinMoney>=ShinMoneyCost &&           //재화 체크
-                    GameManager.Money>=MoneyCost)
-                {
-                    GameManager.ShinMoney -= ShinMoneyCost;
-                    GameManager.Money -= MoneyCost;
-
-                    building.Level += 1;
-                    building.BuildingImage.sprite = GameManager.GetDogamChaImage(building.Building_Image+building.Level.ToString());//건물이미지 바꿈
-                }
-                else                                             //재화가 없음
-                {
-                    NoMoneyPanel.SetActive(true);
-                }
+                MoneyCheck();
             }
             else               //해당 누니 없을 때 업그레이드 X
             {
@@ -131,5 +119,23 @@ public class UIUpgradePanel : UIBase
 
         }
         return;
+    }
+
+    void MoneyCheck()
+    {
+
+        if (GameManager.ShinMoney >= ShinMoneyCost &&           //재화 체크
+            GameManager.Money >= MoneyCost)
+        {
+            GameManager.ShinMoney -= ShinMoneyCost;
+            GameManager.Money -= MoneyCost;
+
+            building.Level += 1;
+            building.BuildingImage.sprite = GameManager.GetDogamChaImage(building.Building_Image + building.Level.ToString());//건물이미지 바꿈
+        }
+        else                                             //재화가 없음
+        {
+            NoMoneyPanel.SetActive(true);
+        }
     }
 }
