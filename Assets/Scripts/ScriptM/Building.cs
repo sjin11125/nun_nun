@@ -417,7 +417,11 @@ public class Building : MonoBehaviour
 
             Debug.Log("빌딩 버튼 없음");
         }
-            Rotation();
+        if (isFliped == "F")        //회전 안했는가
+            BuildingBtn.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+        else                      //회전 햇는가
+            BuildingBtn.transform.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
+
     }
     IEnumerator BuildingEditTimer()
     {
