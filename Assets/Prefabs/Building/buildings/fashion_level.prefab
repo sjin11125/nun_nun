@@ -489,6 +489,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7e4fb413bcc80044a8d1f69d6b2cb55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BuildingBtn: {fileID: 0}
+  BuildingImage: {fileID: 0}
   Placed: 0
   area:
     m_Position: {x: -4, y: -3, z: 0}
@@ -509,7 +511,9 @@ MonoBehaviour:
   - buildUIType: 3
     btn: {fileID: 2589409968334479341}
     prefab: {fileID: 0}
-  UIPanels: []
+  UIPanels:
+  - {fileID: 8670738209561198717, guid: efb072454993492408b8e047d75d4ff7, type: 3}
+  - {fileID: 5544224975788530128, guid: a6518bce09e224449be850da3a762f64, type: 3}
   isCoin: 0
   isCountCoin: 0
   CountCoin: 0
@@ -528,15 +532,12 @@ MonoBehaviour:
   Id: 
   str: 
   layer_y: 0
-  UpgradePannel: {fileID: 3322355556386377119}
-  UpgradePannel2: {fileID: 3990997439624646519}
   RemovePannel: {fileID: 4020384840086827669}
   buildings: []
   buildings_image:
   - {fileID: 21300000, guid: d0e83c1d357d7594ea956ffcefc63e96, type: 3}
   Type: 0
   save: {fileID: 0}
-  BuildingBtn: {fileID: 0}
 --- !u!61 &4337750507591132674
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -489,6 +489,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7e4fb413bcc80044a8d1f69d6b2cb55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BuildingBtn: {fileID: 0}
+  BuildingImage: {fileID: 0}
   Placed: 0
   area:
     m_Position: {x: -4, y: -3, z: 0}
@@ -509,6 +511,9 @@ MonoBehaviour:
   - buildUIType: 3
     btn: {fileID: 4255861198895613798}
     prefab: {fileID: 0}
+  UIPanels:
+  - {fileID: 8670738209561198717, guid: efb072454993492408b8e047d75d4ff7, type: 3}
+  - {fileID: 5544224975788530128, guid: a6518bce09e224449be850da3a762f64, type: 3}
   isCoin: 0
   isCountCoin: 0
   CountCoin: 0
@@ -527,15 +532,12 @@ MonoBehaviour:
   Id: 
   str: 
   layer_y: 0
-  UpgradePannel: {fileID: 3322355556386377119}
-  UpgradePannel2: {fileID: 3990997439624646519}
   RemovePannel: {fileID: 2969420867272263586}
   buildings: []
   buildings_image:
   - {fileID: 21300000, guid: 6a18cdde7f039ed499bc35fc23f7b26c, type: 3}
   Type: 0
   save: {fileID: 0}
-  BuildingBtn: {fileID: 0}
 --- !u!61 &4337750507591132674
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1023,6 +1025,42 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &2969420867272263586
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 5066180194701751631, guid: c656a89adc34b8941baef5c035c13985, type: 3}
+  m_PrefabInstance: {fileID: 8033067688122413805}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2969420867272263587}
+  m_Layer: 0
+  m_Name: 'SellPanel (Missing Prefab with guid: c656a89adc34b8941baef5c035c13985)'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2969420867272263587
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 5066180194701751630, guid: c656a89adc34b8941baef5c035c13985, type: 3}
+  m_PrefabInstance: {fileID: 8033067688122413805}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2969420867272263586}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2132867819163425409}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &3322355556386377119
 GameObject:
   m_ObjectHideFlags: 0
@@ -1121,6 +1159,42 @@ CircleCollider2D:
   m_Offset: {x: 0.070239544, y: -0.15363759}
   serializedVersion: 2
   m_Radius: 0.18523932
+--- !u!1 &3990997439624646519
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 5066180194701751631, guid: 4a775106deafbe64daa4fb580ae6c8b1, type: 3}
+  m_PrefabInstance: {fileID: 8155015127574460984}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3990997439624646518}
+  m_Layer: 0
+  m_Name: 'UpgradePanel (Missing Prefab with guid: 4a775106deafbe64daa4fb580ae6c8b1)'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3990997439624646518
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 5066180194701751630, guid: 4a775106deafbe64daa4fb580ae6c8b1, type: 3}
+  m_PrefabInstance: {fileID: 8155015127574460984}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3990997439624646519}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2132867819163425409}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5163852921644843660
 GameObject:
   m_ObjectHideFlags: 0
@@ -1949,16 +2023,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c656a89adc34b8941baef5c035c13985, type: 3}
---- !u!1 &2969420867272263586 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5066180194701751631, guid: c656a89adc34b8941baef5c035c13985, type: 3}
-  m_PrefabInstance: {fileID: 8033067688122413805}
-  m_PrefabAsset: {fileID: 0}
---- !u!224 &2969420867272263587 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 5066180194701751630, guid: c656a89adc34b8941baef5c035c13985, type: 3}
-  m_PrefabInstance: {fileID: 8033067688122413805}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8155015127574460984
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2060,13 +2124,3 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a775106deafbe64daa4fb580ae6c8b1, type: 3}
---- !u!224 &3990997439624646518 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 5066180194701751630, guid: 4a775106deafbe64daa4fb580ae6c8b1, type: 3}
-  m_PrefabInstance: {fileID: 8155015127574460984}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &3990997439624646519 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5066180194701751631, guid: 4a775106deafbe64daa4fb580ae6c8b1, type: 3}
-  m_PrefabInstance: {fileID: 8155015127574460984}
-  m_PrefabAsset: {fileID: 0}
