@@ -268,31 +268,6 @@ public class GridBuildingSystem : MonoBehaviour
                             }
                             // button.buttonok();
                         }
-                        if (hit.transform.CompareTag("Rotation"))        //건물 회전 버튼
-                        {
-
-                            if (hit_building.isFliped .Equals("T"))
-                                hit_building.isFliped = "F";
-                            else
-                                hit_building.isFliped = "T";
-                            
-                            hit_building.Rotation();
-
-                            settigPanel.GetComponent<AudioController>().Sound[0].Play();
-                        }
-                        if (hit.transform.CompareTag("Upgrade"))         //업그레이드
-                        {
-                            settigPanel.GetComponent<AudioController>().Sound[1].Play();
-                        }
-                        if (hit.transform.CompareTag("Remove"))          //제거
-                        {
-                            hit_building.Sell_Pannel();
-                            //temp.Remove(temp);
-                            //UI_Manager.Start();
-                            MainTilemap.GetComponent<TilemapRenderer>().sortingOrder = -50;         //메인 타일 안보이게
-
-                            settigPanel.GetComponent<AudioController>().Sound[1].Play();
-                        }
                     }
 
                 }

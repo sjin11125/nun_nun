@@ -43,6 +43,25 @@ public enum BuildType
     Upgrade,
     Remove
 }
+public enum BuildingName
+{
+    House,
+    Fashion,
+    School,
+    Flower,
+    Syrup,
+    Village,
+    NuniTree
+}
+public enum StrName
+{
+    Fence,
+    Flower1,
+    Flower2,
+    StreetLamp1,
+    StreetLamp2,
+    Tree1
+}
 public enum BuildUIType
 {
   

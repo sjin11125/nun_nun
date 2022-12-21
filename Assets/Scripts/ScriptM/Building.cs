@@ -35,6 +35,7 @@ public class Building : MonoBehaviour
 {
     public Button BuildingBtn;
     public Image BuildingImage;
+    public BuildingName BuildingName;
     #region BuildingProperties
     //*
     public bool Placed = false;    //*
@@ -58,7 +59,7 @@ public class Building : MonoBehaviour
     public Vector2 BuildingPosition;                //건물 위치
     //-------------------------파싱정보------------------------------
     public string isLock;               //잠금 유무
-    public string Building_name;            //건물 이름
+    public string Building_name;            //건물 이름s
     public int[] Reward =new int[3] { 0, 0, 0 };               //획득자원
     public string Info;                 //건물 설명
     public string Building_Image;          //빌딩 이미지 이름 *
@@ -73,9 +74,7 @@ public class Building : MonoBehaviour
     //-----------------------------------------------------------
 
     public int layer_y;   // 건물 레이어
-    Transform[] child;
     
-    public GameObject RemovePannel;
 
     GameObject Parent;
 
@@ -509,15 +508,6 @@ public class Building : MonoBehaviour
             return true;
         }
         return false;
-    }
-    public void Sell_Pannel()
-    {
-
-        RemovePannel.gameObject.SetActive(true);
-        RemovePannel.transform.parent = GameObject.Find("O").transform;
-        RemovePannel.GetComponent<RectTransform>().localPosition = new Vector3(1, 1, 0);
-        RemovePannel.GetComponent<ChaButtonScript>().DowngradeBuilding = this;
-
     }
     
     public void Place_Initial(BuildType buildtype)
