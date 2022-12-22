@@ -55,7 +55,7 @@ public class VisitorBookManager : MonoBehaviour
                 VisitorBookList();              //방명록 있나 확인
             }
         }
-        CloseBtn.OnClickAsObservable().Subscribe(_=>
+        CloseBtn.OnClickAsObservable().Subscribe(_=>            //닫기 버튼 구독
         {
             Destroy(LoadingNuni);
             Destroy(this.gameObject);

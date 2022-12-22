@@ -178,25 +178,6 @@ public class GridBuildingSystem : MonoBehaviour
     }
     private void Update()
     {
-        //Debug.Log("현재 UI를 위에 잇나? " + EventSystem.current.IsPointerOverGameObject(-1));
-       /* if (ChaButtonScript.isEdit.Equals(true))
-        {
-            ChaButtonScript.isEdit = false;
-            InitializeWithBuilding();
-        }
-        if (GameManager.isEdit.Equals(true))
-        {
-            GameManager.isEdit = false;
-            isEditing.Value = true;
-            InitializeWithBuilding();
-            temp.Type = BuildType.Move;
-        }
-        if (GameManager.isInvenEdit.Equals(true))
-        {
-            GameManager.isInvenEdit = false;
-            InitializeWithBuilding_InvenButton();
-            temp.Type = BuildType.Move;
-        }*/
         if (isGrid .Equals( true))
         {
             second += Time.deltaTime;
@@ -226,52 +207,8 @@ public class GridBuildingSystem : MonoBehaviour
             {
                 Transform Building = hit.transform.parent;
               
-                if (temp != null)
-                {
-                    if (temp.Placed.Equals(false))             //건물이 배치가 안 된 상태인가?
-                    {
-                        Building hit_building = temp.GetComponent<Building>();
-                        if (hit.transform.CompareTag("Button"))      //건물 배치 확인 버튼
-                        {
-                            if (temp.CanBePlaced())         //건물이 배치 될 수 있는가? 네
-                            {
-                                //temp.level += 1;        //레벨 +1
-                                temp.Place(temp.Type);
-                                if (GameManager.CurrentBuilding_Button != null)       //인벤이 눌렀나
-                                {
-                                    //temp.level += 1;        //레벨 +1
-                                    temp.Place(temp.Type);
-
-
-                                    Grid.GetComponent<SpriteRenderer>().sortingOrder = -48;             //메인 타일 안보이게
-                                    StartButton.enabled = true;
-                                    temp = null;
-                                    isEditing.Value = false;
-                                    GameManager.CurrentBuilding_Script = null;
-                                    if (GameManager.CurrentBuilding_Button != null)       //인벤이 눌렀나
-                                    {
-                                        GameManager.CurrentBuilding_Button.this_building.isLock = "T";
-                                        GameManager.CurrentBuilding_Button = null;
-                                    }
-
-                                }
-                                MainTilemap.GetComponent<TilemapRenderer>().sortingOrder = -50;       //메인 타일 안보이게
-                                StartButton.enabled = true;
-                                temp = null;
-                                isEditing.Value = false;
-                                GameManager.CurrentBuilding_Script = null;
-
-                                settigPanel.GetComponent<AudioController>().Sound[1].Play();
-                            }
-                            if (GameObject.FindWithTag("TutoBuy")!=null)
-                            {
-                                GameObject.FindWithTag("TutoBuy").GetComponent<TutorialsItemControl>().goNext = true;
-                            }
-                            // button.buttonok();
-                        }
-                    }
-
-                }
+              
+                
                
                 if (hit.transform.CompareTag("Nuni"))        //누니 클릭
                 {
@@ -310,83 +247,11 @@ public class GridBuildingSystem : MonoBehaviour
                     }
                     
                 }
-              /*  else if (hit.transform.CompareTag("bunsu"))              //생명의 분수 클릭
-                {
-                    settigPanel.GetComponent<AudioController>().Sound[1].Play();
-                    SceneManager.LoadScene("Shop");
-                }*/
             }
         }
-        if (!CameraMovement.isTouch && Input.GetMouseButton(0) && SceneManager.GetActiveScene().name .Equals( "Main"))                    //그냥 클릭했을 때
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
 
           
-        }
-        else if (!CameraMovement.isTouch && Input.GetMouseButton(0) && SceneManager.GetActiveScene().name .Equals( "FriendMain"))         //친구 씬에서 방명록킬때
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
-
-
-
-            if (hit.transform != null)          // 오브젝트를 클릭 했을 때
-            {
-                if (hit.transform.CompareTag("VisitorBook"))
-                {
-                    VisitorBooksWindow.SetActive(true);
-                }
-
-            }
-        }
-
-
-            if (second >= 1.3f&& isEditing.Equals(false))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
-            if (hit.transform != null)
-            {
-                if (hit.transform.CompareTag("Building"))               //건물이라면
-                {
-                   
-
-                }
-                else if(hit.transform.CompareTag("Nuni"))           //누니라면
-                {
-
-                }
-            }
-            
-            // BuildEdit(hit);
-            isGrid = false;
-        }
-        if (Input.GetMouseButtonDown(0)&&SceneManager.GetActiveScene().name.Equals("Main")) //마우스를 누르고 있을 때             지금 내 닉넴과 마을
-        {
-
-
-
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
-
-            if (hit.collider != null)
-            {
-                if (hit.collider.CompareTag("Building") && !hit.collider.CompareTag("Nuni"))
-                {
-
-                    isGrid = true;
-
-                    //StartCoroutine(WaitSecond(hit));
-                }
-            }
-
-        }
-        if (Input.GetMouseButtonUp(0))
-        {
-            second = 0;
-            isGrid = false;
-        }
+        
         //다 필요없고 ok버튼을 눌렀을 때
 
  
@@ -443,72 +308,7 @@ public class GridBuildingSystem : MonoBehaviour
     }
     #region Building Placement
 
-   /* public void InitializeWithBuilding() //생성버튼 눌렀을 때 building 을 prefab으로 해서 생성
-   {
-        temp_gameObject = Instantiate(GameManager.CurrentBuilding, Vector3.zero, Quaternion.identity,buildings.transform) as GameObject;
-        
-          temp = temp_gameObject.GetComponent<Building>(); // 이때 building 프리펩의 속성 불러오기
-        
-        for (int i = 0; i < GameManager.BuildingArray.Length; i++)
-        {
-            if (GameManager.BuildingArray[i].Building_Image.Equals(temp.Building_Image))
-            {
-                GameManager.BuildingArray[i].Level = 1;
-                temp.SetValue(GameManager.BuildingArray[i]);
-                break;
-            }
-        }
-        for (int i = 0; i < GameManager.StrArray.Length; i++)
-        {
-            if (GameManager.StrArray[i].Building_Image .Equals( temp.Building_Image))
-            {
-                GameManager.StrArray[i].Level = 1;
-                temp.SetValue(GameManager.StrArray[i]);
-                break;
-            }
-        }
-
-        temp.Type = BuildType.Make;
-
-        //temp.Rotation_Pannel.gameObject.SetActive(false);
-        temp.Placed = false;            //건물은 현재 배치가 안 된 상태
-        //temp.Building_name = temp_gameObject.name;
-        FollowBuilding(temp);           //건물이 마우스 따라가게 하는 함수
-
-   }
-    public void InitializeWithBuilding_InvenButton() //인벤버튼 눌렀을 때 building 을 prefab으로 해서 생성
-    {
-        temp_gameObject = Instantiate(GameManager.CurrentBuilding, Vector3.zero, Quaternion.identity, buildings.transform) as GameObject;
-
-        temp = temp_gameObject.GetComponent<Building>(); // 이때 building 프리펩의 속성 불러오기
-        temp.SetValue(GameManager.CurrentBuilding_Script);
-        for (int i = 0; i < GameManager.BuildingArray.Length; i++)
-        {
-            if (GameManager.BuildingArray[i].Building_Image .Equals( temp.Building_Image))
-            {
-                temp.Cost = GameManager.BuildingArray[i].Cost;
-                break;
-            }
-        }
-        for (int i = 0; i < GameManager.StrArray.Length; i++)
-        {
-            if (GameManager.StrArray[i].Building_Image .Equals( temp.Building_Image))
-            {
-                GameManager.StrArray[i].Level = 1;
-                temp.SetValue(GameManager.StrArray[i]);
-                break;
-            }
-        }
-
-        temp.Type = BuildType.Make;
-
-        //temp.Rotation_Pannel.gameObject.SetActive(false);
-        temp.UpgradePannel.SetActive(false);//업그레이드 패널 삭제
-        temp.Placed = false;            //건물은 현재 배치가 안 된 상태
-        //temp.Building_name = temp_gameObject.name;
-        FollowBuilding(temp);           //건물이 마우스 따라가게 하는 함수
-
-    }*/
+   
     public void ClickWithBuilding(Building click_building)
     {
         temp = click_building;
@@ -593,26 +393,6 @@ public class GridBuildingSystem : MonoBehaviour
     }
     #endregion
 
-
-    //추가
-    private void FollowMouse()
-   {
-       transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-       transform.position = new Vector3(transform.position.x, transform.position.y, 0);
-   }
-
- 
-
-        //button management 공간 1101 추가
-
-
-    public void buttoncancel()
-    {
-
-        // temp2.ClearArea();
-        Destroy(temp.gameObject);
-
-    }
 
 
 
