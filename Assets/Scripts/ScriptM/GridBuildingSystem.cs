@@ -89,6 +89,7 @@ public class GridBuildingSystem : MonoBehaviour
 
         Grid = GameObject.Find("back_down");
         Canvas= GameObject.Find("Canvas");
+       
 
         OnEditMode.Subscribe(temp =>                     //건설모드 구독
         {
@@ -309,11 +310,11 @@ public class GridBuildingSystem : MonoBehaviour
                     }
                     
                 }
-                else if (hit.transform.CompareTag("bunsu"))              //생명의 분수 클릭
+              /*  else if (hit.transform.CompareTag("bunsu"))              //생명의 분수 클릭
                 {
                     settigPanel.GetComponent<AudioController>().Sound[1].Play();
                     SceneManager.LoadScene("Shop");
-                }
+                }*/
             }
         }
         if (!CameraMovement.isTouch && Input.GetMouseButton(0) && SceneManager.GetActiveScene().name .Equals( "Main"))                    //그냥 클릭했을 때
@@ -321,39 +322,7 @@ public class GridBuildingSystem : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
 
-            if (hit.transform != null)          // 오브젝트를 클릭 했을 때
-            {
-                if (hit.transform.CompareTag("VisitorBook"))
-                {
-                    VisitorBooksWindow.SetActive(true);
-                }
-
-            }
-            else   // 빈 공간을 클릭했을 때
-            {
-              /*  if (temp != null)
-                {
-                    if (!temp.Placed)           //건물이 놓여지지 않았다.(마우스가 클릭하는 데로 건물 따라감)
-                    {
-                        if (temp.Type != BuildType.Upgrade)
-                        {
-
-
-                            Vector2 touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                            Vector3Int cellPos = gridLayout.LocalToCell(touchPos);
-      
-                            if (prevPos != cellPos)
-                            {
-                                temp.transform.localPosition = gridLayout.CellToLocalInterpolated(cellPos
-                                    + new Vector3(.5f, .5f, 0f)); //Vector3
-                                prevPos = cellPos;
-                                FollowBuilding(temp); // 마우스가 위의 좌표 따라감. 
-                            }
-                        }
-
-                    }
-                }*/
-            }
+          
         }
         else if (!CameraMovement.isTouch && Input.GetMouseButton(0) && SceneManager.GetActiveScene().name .Equals( "FriendMain"))         //친구 씬에서 방명록킬때
         {
@@ -649,10 +618,4 @@ public class GridBuildingSystem : MonoBehaviour
 
 }
 
-public enum TileType
-{
-    Empty,
-    White,
-    Green,
-    Red
-}
+

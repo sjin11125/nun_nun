@@ -19,7 +19,8 @@ public class LoadManager : MonoBehaviour
     public GameObject RewardPannel;     //�ϰ����� �ǳ�
     public BuildingSave buildingsave;
 
-    public GameObject LoadingNuni;
+    GameObject LoadingPanel;
+
     //public GameObject 
     Component CopyComponent(Component original, GameObject destination)
     {
@@ -92,7 +93,8 @@ public class LoadManager : MonoBehaviour
         {
             Debug.Log("CanvasManger.achieveCount[" + k + "] : " + CanvasManger.achieveCount[k]);
         }
-        GameManager.isLoading = false;
+        LoadingPanel= Instantiate(GameManager.Instance.TopCanvas);
+
         isLoaded = false;
         GameManager.items = 0;          //������ �ʱ�ȭ
 
@@ -139,6 +141,8 @@ public class LoadManager : MonoBehaviour
             }
 
         }
+
+        
     }
 
     public void BuildingLoad()
@@ -201,26 +205,18 @@ public class LoadManager : MonoBehaviour
             // g_Building.Rotation();
 
         }
+        Destroy(LoadingPanel);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!GameManager.isLoading)
-        {
-            LoadingNuni.SetActive(true);
-
-        }
-        else
-        {
-            LoadingNuni.SetActive(false);
-        }
-
+       
         if (GameManager.isReward.Equals(true)&&GameManager.isLoading.Equals(true) )        
         {
 
             
-            LoadingNuni.SetActive(false);
+          // LoadingNuniPanel.SetActive(false);
             GameManager.isReward = false;
             int MyReward = 0;
 
@@ -318,7 +314,6 @@ public class LoadManager : MonoBehaviour
 
             }
 
-            GameManager.isLoading = true;
         }
 
     }

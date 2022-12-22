@@ -35,7 +35,7 @@ public class Building : MonoBehaviour
 {
     public Button BuildingBtn;
     public Image BuildingImage;
-    public BuildingName BuildingName;
+    public BuildingName BuildingNameEnum;
     #region BuildingProperties
     //*
     public bool Placed = false;    //*
@@ -51,6 +51,7 @@ public class Building : MonoBehaviour
     public List<UIEdit> BuildEditBtn;    // 건축모드 UI들
     [SerializeField]
     public List<GameObject> UIPanels;    //  UI Panel들
+    public GameObject VisitorBookUIPanel;       //방명록 UI Panel
 
     public bool isCoin = false;        //*
     public bool isCountCoin = false;   //*
@@ -238,39 +239,6 @@ public class Building : MonoBehaviour
         }
     }
 
-    void Awake()
-    {
-        Parent = GameObject.Find("buildings");
-        if (BuildingBtn != null)
-        {
-            Debug.Log("빌딩 버튼 있음 awake "+Id);
-        }
-        else
-        {
-
-            Debug.Log("빌딩 버튼 없음 awake " + Id);
-        }
-    }
-    private void Update()
-    {
-        if (BuildingBtn!=null)
-        {
-            Debug.Log("빌딩버튼 대입");
-        }
-    }
-    private void Reset()
-    {
-        if (BuildingBtn != null)
-        {
-            Debug.Log("빌딩 버튼 있음");
-        }
-        else
-        {
-
-            Debug.Log("빌딩 버튼 없음");
-        }
-
-    }
     void Start()
     {
         
@@ -286,7 +254,6 @@ public class Building : MonoBehaviour
         }
 
         Coin_Button.gameObject.SetActive(false);
-        double time = 0;
 
         if (Placed)
         {
@@ -296,7 +263,7 @@ public class Building : MonoBehaviour
             }
         }
 
-        longClickStream = BuildingBtn.OnPointerDownAsObservable().    //건물 버튼을 꾹 누르는 상태에서
+        longClickStream = BuildingBtn.OnPointerDownAsObservable().    //건물 버튼을 꾹 누르는 상태에서 마우스 다운 스트림
                               Subscribe(_ =>
                               {
                                
@@ -331,6 +298,22 @@ public class Building : MonoBehaviour
             {
                 second = 0;
                 timerStream.Dispose();
+                if (!GridBuildingSystem.isEditing.Value)        //건축모드가 아니라면
+                {
+                    switch (BuildingNameEnum)
+                    {
+                        case BuildingName.NuniTree:         //생명의나무을 클릭했을 때
+                            SceneManager.LoadScene("Shop");
+                            break;
+
+                        case BuildingName.Village:      //마을회관을 클릭했을 때
+                           Instantiate(VisitorBookUIPanel, GridBuildingSystem.Canvas.transform);
+
+                            break;
+                        default:
+                            break;
+                    }
+                }
                 //longClickStream.Dispose();
 
         }).AddTo(this);
@@ -347,26 +330,26 @@ public class Building : MonoBehaviour
                     switch (item.buildUIType)
                     {
                         case BuildUIType.Make:          //확정 버튼을 눌렀는지
-                        if (CanBePlaced())      //배치될 수 있는지 체크
-                        {
-                                if (Type == BuildType.Move)           //건축모드일때(옮기기)
+                            if (CanBePlaced())      //배치될 수 있는지 체크
                             {
+                                if (Type == BuildType.Move)           //건축모드일때(옮기기)
+                                {
                                     Place(Type);
 
                                     GridBuildingSystem.OnEditModeOff.OnNext(this);
 
 
-                                foreach (var item in BuildEditBtn)        //건축모드 버튼들 다 비활성화
-                                {
+                                    foreach (var item in BuildEditBtn)        //건축모드 버튼들 다 비활성화
+                                    {
                                         item.btn.gameObject.SetActive(false);
                                     }
-                            }
+                                }
                                 if (Type == BuildType.Make)           //상점모드일때(사기)
-                            {
+                                {
                                     Place(Type);
                                     GridBuildingSystem.OnEditModeOff.OnNext(this);
                                     foreach (var item in BuildEditBtn)        //건축모드 버튼들 다 비활성화
-                                {
+                                    {
                                         item.btn.gameObject.SetActive(false);
                                     }
                                 }
@@ -379,7 +362,7 @@ public class Building : MonoBehaviour
                             break;
 
                         case BuildUIType.Rotation:          //회전 버튼을 눌렀는지
-                            Rotation();
+                            Rotation();                     //회전해주기
                             RefreshBuildingList();          //건물 리스트 새로고침
                             break;
 
@@ -407,15 +390,7 @@ public class Building : MonoBehaviour
             default:
                 break;
         }
-        if (BuildingBtn!=null)
-        {
-            Debug.Log("빌딩 버튼 있음");
-        }
-        else
-        {
-
-            Debug.Log("빌딩 버튼 없음");
-        }
+      
         if (isFliped == "F")        //회전 안했는가
             BuildingBtn.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
         else                      //회전 햇는가

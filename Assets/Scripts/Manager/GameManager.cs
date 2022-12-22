@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
 
 
     public static bool isStart = false;
-    static GameManager _Instance;
+    public static GameManager _Instance;
     public static bool parse = false;
     public Sprite[] DogamChaImageInspector;     //인스펙터에서 받아 온 건물 이미지
 
@@ -128,7 +128,8 @@ public class GameManager : MonoBehaviour
     //--------------------------------------------공지----------------------------------------
     public static Notice[] Notice;
 
-
+    //--------------------------------------------캔버스----------------------------------------
+    public GameObject TopCanvas;
     private void Awake()
     {
         //PlayerPrefs.DeleteAll();

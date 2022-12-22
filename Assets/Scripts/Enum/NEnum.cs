@@ -79,3 +79,10 @@ public enum LoginResult
     SignUpOK,
     LoginOK
 }
+public enum TileType
+{
+    Empty,
+    White,
+    Green,
+    Red
+}

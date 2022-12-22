@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-
+using UniRx;
 
 public class VisitorBook
 {
@@ -32,11 +32,11 @@ public class VisitorBookManager : MonoBehaviour
 
     public InputField VBInput;
     public GameObject LoadingNuni;      //로딩 누니 프리팹
-
-
+    public Button CloseBtn;
 
     public void Start()
     {
+        LoadingNuni = Instantiate(GameManager.Instance.TopCanvas);
         if (SceneManager.GetActiveScene().name.Equals("FriendMain"))    //친구 씬이냐
         {
             VBInput.gameObject.SetActive(true);
@@ -55,11 +55,18 @@ public class VisitorBookManager : MonoBehaviour
                 VisitorBookList();              //방명록 있나 확인
             }
         }
+        CloseBtn.OnClickAsObservable().Subscribe(_=>
+        {
+            Destroy(LoadingNuni);
+            Destroy(this.gameObject);
+        });
+
     }
     // Start is called before the first frame update
     public void VisitorBookList()  //내 방명록 불러옴
     {
-        LoadingNuni.SetActive(true);            //로딩 누니 활성화
+        
+        //LoadingNuni.SetActive(true);            //로딩 누니 활성화
         WWWForm form = new WWWForm();
         form.AddField("order", "getMessage");
         form.AddField("player_nickname", GameManager.NickName);
@@ -69,7 +76,7 @@ public class VisitorBookManager : MonoBehaviour
 
     public void FriendVisitorBookList()         //친구 방명록 불러옴 
     {
-        LoadingNuni.SetActive(true);            //로딩 누니 활성화
+        Destroy(LoadingNuni);
         WWWForm form = new WWWForm();
         form.AddField("order", "getMessage");
         form.AddField("player_nickname", GameManager.friend_nickname);
@@ -131,7 +138,7 @@ public class VisitorBookManager : MonoBehaviour
         }
         if (json.Equals("null"))                          //방명록에 아무것도 없다
         {
-            LoadingNuni.SetActive(false);
+            Destroy(LoadingNuni);
             return;
         }
 
@@ -167,6 +174,6 @@ public class VisitorBookManager : MonoBehaviour
             }
         }
         Debug.Log("The End");
-        LoadingNuni.SetActive(false);
+        Destroy(LoadingNuni);
     }
 }
