@@ -178,14 +178,7 @@ public class GridBuildingSystem : MonoBehaviour
     }
     private void Update()
     {
-        if (isGrid .Equals( true))
-        {
-            second += Time.deltaTime;
-        }
-        else
-        {
-            second = 0;
-        }
+        
         if (Input.touchCount > 0)
         {
             if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
@@ -251,8 +244,6 @@ public class GridBuildingSystem : MonoBehaviour
         }
 
           
-        
-        //다 필요없고 ok버튼을 눌렀을 때
 
  
 

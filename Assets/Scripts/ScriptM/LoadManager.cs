@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using System.Reflection;
 using UnityEngine.Networking;
 using System;
+using UniRx;
 
 public class LoadManager : MonoBehaviour
 {
@@ -20,7 +21,11 @@ public class LoadManager : MonoBehaviour
     public BuildingSave buildingsave;
 
     GameObject LoadingPanel;
-
+    public  Dictionary<string, Building> MyBuildings = new Dictionary<string, Building>();          //내가 가지고 있는 빌딩들(id, Building)
+    public static Subject<Building> ReBuildingSubject = new Subject<Building>();
+    public static Subject<Building> AddBuildingSubject = new Subject<Building>();
+    public static Subject<Building> RemoveBuildingSubject = new Subject<Building>();
+    
     //public GameObject 
     Component CopyComponent(Component original, GameObject destination)
     {
@@ -98,6 +103,21 @@ public class LoadManager : MonoBehaviour
         isLoaded = false;
         GameManager.items = 0;          //������ �ʱ�ȭ
 
+        ReBuildingSubject.Subscribe(building=>                  //건물 리스트 새로고침
+        {
+            MyBuildings[building.Id] = building.DeepCopy();
+        }).AddTo(this); 
+
+        RemoveBuildingSubject.Subscribe(building=>                  //건물 리스트 빼기
+        {
+            MyBuildings.Remove(building.Id); 
+        }).AddTo(this);  
+
+        AddBuildingSubject.Subscribe(building=>                  //건물 리스트 더하기
+        {
+            MyBuildings.Add(building.Id, building);
+        }).AddTo(this);
+
         if (SceneManager.GetActiveScene().name.Equals("Main"))
         {
             if (TutorialsManager.itemIndex > 13)
@@ -147,7 +167,7 @@ public class LoadManager : MonoBehaviour
 
     public void BuildingLoad()
     {
-        foreach (var item in GameManager.MyBuildings)
+        foreach (var item in MyBuildings)
         {
 
         
@@ -222,7 +242,7 @@ public class LoadManager : MonoBehaviour
 
             List<string> RewardedNuni = new List<string>();         //보상받은 누니
 
-            foreach (var item in GameManager.MyBuildings)
+            foreach (var item in MyBuildings)
             {
 
             

@@ -25,7 +25,7 @@ public class InventoryButton : MonoBehaviour
             buildings = GameObject.Find("buildings");
 
            
-                    this_building = GameManager.MyBuildings[this.gameObject.name];
+                    //this_building = LoadManager.MyBuildings[this.gameObject.name];
                     gridBuildingSystem = buildings.GetComponentInChildren<GridBuildingSystem>();
                 
             
@@ -151,7 +151,7 @@ public class InventoryButton : MonoBehaviour
     public void Click()         //건축물 버튼 클릭했을 때
     {
        
-                this_building = GameManager.MyBuildings[this.gameObject.name];
+                //this_building = LoadManager.MyBuildings[this.gameObject.name];
 
 
       /*  for (int i = 0; i < GameManager.StrList.Count; i++)

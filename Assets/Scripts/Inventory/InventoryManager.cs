@@ -36,7 +36,7 @@ public class InventoryManager : MonoBehaviour
     public void Inventory_Building_Open()            //건물 인벤 버튼 눌렀을 때
     {
         Inventory_Exit();           //원래 있던 목록 다 지우기
-        foreach (var item in GameManager.MyBuildings)
+        /*foreach (var item in LoadManager.MyBuildings)
         {
 
         
@@ -72,12 +72,12 @@ public class InventoryManager : MonoBehaviour
 
                 }
             }
-        }
+        }*/
     }
     public void Inventory_Structure_Open()            //설치물 인벤 버튼 눌렀을 때
     {
         Inventory_Exit();           //원래 있던 목록 다 지우기
-        foreach (var item in GameManager.MyBuildings)
+        /*foreach (var item in LoadManager.MyBuildings)
         {
 
             bool isStr = false;
@@ -110,7 +110,7 @@ public class InventoryManager : MonoBehaviour
 
                 }
             }
-        }
+        }*/
     }
     public void Inventory_Nuni_Open()            //누니 인벤 버튼 눌렀을 때
     {

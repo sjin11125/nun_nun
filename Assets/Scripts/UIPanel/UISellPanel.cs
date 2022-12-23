@@ -68,9 +68,7 @@ public class UISellPanel : UIBase
             GameManager.ShinMoney += building.ShinCost[building.Level - 1] / 3;
             CanvasManger.AchieveShinMoney += building.ShinCost[building.Level - 1] / 3;
 
-            Debug.Log("건물 제거 전" + GameManager.MyBuildings.Count);
-            GameManager.MyBuildings.Remove(building.Id);            //현재 가지고 있는 건물 목록에서 제거
-            Debug.Log("건물 제거 후"+ GameManager.MyBuildings.Count);
+            LoadManager.RemoveBuildingSubject.OnNext(building);           //현재 가지고 있는 건물 목록에서 제거
             building.save.BuildingReq(BuildingDef.removeValue, building);
             Destroy(building.transform.gameObject);
         }

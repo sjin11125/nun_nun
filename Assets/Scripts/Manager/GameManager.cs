@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     public static Sprite[] DogamChaImage;       //
     public static Dictionary<string, Sprite> DogamChaImageData;     //건물 이미지 딕셔너리
 
-    public static Dictionary<string,Building> MyBuildings;          //내가 가지고 있는 빌딩들(id, Building)
+
     public static List<Building> FriendBuildingList;          //친구가 가지고 있는 빌딩들
     public static Building[] BuildingArray;         //모든 빌딩들 정보
     public static Building[] StrArray;         //모든 구조물들 정보
@@ -154,7 +154,7 @@ public class GameManager : MonoBehaviour
     }
         void Start()
     {
-        MyBuildings = new Dictionary<string, Building>();        //현재 가지고 있는 빌딩 리스트
+        
         //
         DogamChaImageData = new Dictionary<string, Sprite>();       //전체 캐릭터 리스트(가지고 있지 않은것도 포함)
         BuildingPrefabData = new Dictionary<string, GameObject>();      //전체 빌딩 프리팹 리스트 (가지고 있지 않은 것도 포함)

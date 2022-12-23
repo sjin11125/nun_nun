@@ -155,8 +155,7 @@ public class ChaButtonScript : MonoBehaviour
         GameManager.ShinMoney -= building.ShinCost[building.Level-1];
 
         building.Type = BuildType.Empty;
-        building.RefreshBuildingList();     //빌딩 리스트 새로고침
-
+        LoadManager.ReBuildingSubject.OnNext(building);//건물 리스트 새로고침
         Destroy(gameObject.transform.gameObject);
 
     }

@@ -665,6 +665,7 @@ public class GridScript : MonoBehaviour
 
     public void GameRestart()
     {
+        
         if (ItemController.reStart)
         {
             for (int i = 0; i < _gridSquares.Count; i++)

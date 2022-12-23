@@ -164,7 +164,7 @@ public class BuildingSave : MonoBehaviour
                     Building b = new Building();
                     b.SetValueParse(Buildings);
 
-                    GameManager.MyBuildings.Add(b.Id,b);      //내 건물 리스트에 삽입
+                    LoadManager.AddBuildingSubject.OnNext(b); //내 건물 리스트에 삽입
 
                 }
                 GameManager.isLoading = true;

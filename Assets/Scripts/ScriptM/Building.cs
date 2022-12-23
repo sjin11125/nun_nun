@@ -214,14 +214,7 @@ public class Building : MonoBehaviour
         return BuildingCopy;
     }
     #endregion
-    public void RefreshBuildingList()               //빌딩 리스트 새로고침
-    {
-
-        GameManager.MyBuildings[Id] = this.DeepCopy();
-
-        GridBuildingSystem.isSave = true;
-
-    }
+ 
     public void Rotation()          //건물 회전
     {
         Debug.Log("회전");
@@ -362,8 +355,8 @@ public class Building : MonoBehaviour
                             break;
 
                         case BuildUIType.Rotation:          //회전 버튼을 눌렀는지
-                            Rotation();                     //회전해주기
-                            RefreshBuildingList();          //건물 리스트 새로고침
+                            Rotation();                     //회전해주기    
+                            LoadManager.ReBuildingSubject.OnNext(this);//건물 리스트 새로고침
                             break;
 
                         case BuildUIType.Upgrade:          //업그레이드 버튼을 눌렀는지
@@ -550,7 +543,7 @@ public class Building : MonoBehaviour
             Id = GameManager.CurrentBuilding_Script.Id;
             Building_name = GameManager.CurrentBuilding_Script.Building_name;
             isLock = "T";
-            RefreshBuildingList();
+            LoadManager.ReBuildingSubject.OnNext(this);//건물 리스트 새로고침
 
             buildtype = BuildType.Empty;
 
@@ -569,14 +562,13 @@ public class Building : MonoBehaviour
     public void BuildingListRemove()            //현재 가지고 있는 빌딩 제거
     {
 
-        Debug.Log("Remove: " + GameManager.MyBuildings[Id].Building_name);
-        GameManager.MyBuildings.Remove(Id);
+        LoadManager.RemoveBuildingSubject.OnNext(this);
         GridBuildingSystem.isSave = true;
         return;
     }
     public void BuildingListAdd()
     {
-        GameManager.MyBuildings.Add(Id,this.DeepCopy());      //현재 가지고 있는 빌딩 리스트에 추가
+        LoadManager.AddBuildingSubject.OnNext(this);     //현재 가지고 있는 빌딩 리스트에 추가
 
         //GameManager.BuildingArray = GameManager.BuildingList.ToArray();
         Debug.Log("GameManager.BuildingArray: "+ GameManager.BuildingArray.Length);
