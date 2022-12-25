@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UniRx;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -10,10 +11,23 @@ public class InventoryManager : MonoBehaviour
     public GameObject inventory_nuni_prefab;     //인벤토리 버튼 프리팹
     public Transform Content;
 
+    public Button InvenBuildingBtn;
+    public Button InvenNuniBtn;
+
     public GridBuildingSystem gridBuildingSystem;
     void Start()
     {
-        
+        if (LoadManager.Instance == null)
+            return;
+       
+        InvenBuildingBtn.OnClickAsObservable().Subscribe(_ =>
+        {
+            Inventory_Exit();
+        }).AddTo(this);
+        InvenNuniBtn.OnClickAsObservable().Subscribe(_ =>
+        {
+            Inventory_Exit();
+        }).AddTo(this);
     }
 
     // Update is called once per frame
@@ -36,7 +50,7 @@ public class InventoryManager : MonoBehaviour
     public void Inventory_Building_Open()            //건물 인벤 버튼 눌렀을 때
     {
         Inventory_Exit();           //원래 있던 목록 다 지우기
-        /*foreach (var item in LoadManager.MyBuildings)
+        foreach (var item in LoadManager.Instance.MyBuildings)
         {
 
         
@@ -72,12 +86,12 @@ public class InventoryManager : MonoBehaviour
 
                 }
             }
-        }*/
+        }
     }
     public void Inventory_Structure_Open()            //설치물 인벤 버튼 눌렀을 때
     {
         Inventory_Exit();           //원래 있던 목록 다 지우기
-        /*foreach (var item in LoadManager.MyBuildings)
+        foreach (var item in LoadManager.Instance.MyBuildings)
         {
 
             bool isStr = false;
@@ -110,7 +124,7 @@ public class InventoryManager : MonoBehaviour
 
                 }
             }
-        }*/
+        }
     }
     public void Inventory_Nuni_Open()            //누니 인벤 버튼 눌렀을 때
     {

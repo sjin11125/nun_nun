@@ -25,7 +25,26 @@ public class LoadManager : MonoBehaviour
     public static Subject<Building> ReBuildingSubject = new Subject<Building>();
     public static Subject<Building> AddBuildingSubject = new Subject<Building>();
     public static Subject<Building> RemoveBuildingSubject = new Subject<Building>();
-    
+
+    public static LoadManager _Instance;
+    public static LoadManager Instance
+    {
+        get
+        {
+            if (_Instance == null)
+            {
+                return null;
+            }
+            return _Instance;
+        }
+    }
+    public void Awake()
+    {
+        if (_Instance == null)
+        {
+            _Instance = this;
+        }
+    }
     //public GameObject 
     Component CopyComponent(Component original, GameObject destination)
     {
