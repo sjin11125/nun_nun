@@ -186,11 +186,14 @@ public class Building : MonoBehaviour
         isFliped = parse.isFliped;
         BuildingPosiiton_x = parse.BuildingPosiiton_x;
         BuildingPosiiton_y = parse.BuildingPosiiton_y;
+        BuildingPosition = new Vector2(float.Parse(parse.BuildingPosiiton_x),float.Parse( parse.BuildingPosiiton_y));
         Id = parse.Id;
     }
     public Building DeepCopy()
     {
         Building BuildingCopy = new Building();
+        BuildingCopy.BuildingPosiiton_x = BuildingPosiiton_x;
+        BuildingCopy.BuildingPosiiton_y = BuildingPosiiton_y;
         BuildingCopy.isLock = isLock;
         BuildingCopy.Building_name = this.Building_name;
         BuildingCopy.Building_Image = this.Building_Image;
@@ -266,6 +269,8 @@ public class Building : MonoBehaviour
                                               {
                                                   //GameManager.isEdit = true;
                                                   //Debug.Log("건설모드 ON");
+                                                  Type = BuildType.Move;
+                                                  Placed = false;
                                                   GridBuildingSystem.OnEditMode.OnNext(this);       //이 건물의 정보를 넘겨줌
                                                   if (BuildEditBtn.Count!=0)
                                                   {
@@ -485,6 +490,7 @@ public class Building : MonoBehaviour
         BoundsInt areaTemp = area;
         //areaTemp.position = positionInt;
         Placed = true;      // 배치 했니? 네
+        BuildingPosition = vec;          //위치 저장
         GridBuildingSystem.current.TakeArea(areaTemp);      //타일 맵 설정
         transform.position = vec;
 
@@ -494,70 +500,71 @@ public class Building : MonoBehaviour
 
         Vector3 vec = transform.position;
         Vector3Int positionInt = GridBuildingSystem.current.gridLayout.LocalToCell(vec);
-        BoundsInt areaTemp = area;
-        //areaTemp.position = positionInt;
-        //Debug.Log(areaTemp.position);
+        BoundsInt areaTemp = area; 
+
         Placed = true;      // 배치 했니? 네
         Debug.Log(buildings.Length);
-        /*if (Level.Equals(2)
-        {
-            buildings[1].GetComponentInChildren<SortingGroup>().sortingOrder = -(int)transform.position.y;
-        }*/
+
         GridBuildingSystem.current.TakeArea(areaTemp);      //타일 맵 설정
 
-        //currentTime = startingTime;
-        //원래 업데이트 부분
+
         BuildingPosition = transform.position;          //위치 저장
         layer_y = (int)-transform.position.y;      //레이어 설정
         isLock = "T";           //배치했다
 
-       /* for (int i = 0; i < buildings.Length; i++)
-        {
-            if (buildings[i] != null)
-            {
-                buildings[i].GetComponent<SpriteRenderer>().sortingOrder = layer_y;
-            }
-        }*/
 
-        if (buildtype .Equals( BuildType.Make)  )                     //새로 만드는 건가?
+        switch (buildtype)
         {
-            
-            Building_name = gameObject.name;
-            Debug.Log("BuildingPosiiton_x: " + BuildingPosiiton_x);
-            GameManager.BuildingNumber[Building_Image]++; //해당 건물의 갯수 추가
-            Id = GameManager.IDGenerator();
-            gameObject.name = Id;      //이름 재설정
-            BuildingListAdd();      //현재 가지고 있는 건물 리스트에 추가
-            buildtype = BuildType.Empty;
-            Debug.Log("새로만듬");
-            
-        }
-        else if (buildtype .Equals( BuildType.Load)  )                  //로드할때
-        {
-            buildtype = BuildType.Empty;
-        }
-        else if (buildtype .Equals( BuildType.Move)   )            //이동할 때
-        {
-            Debug.Log("Move");
-            gameObject.name = GameManager.CurrentBuilding_Script.Id;
-            Id = GameManager.CurrentBuilding_Script.Id;
-            Building_name = GameManager.CurrentBuilding_Script.Building_name;
-            isLock = "T";
-            LoadManager.ReBuildingSubject.OnNext(this);//건물 리스트 새로고침
+            case BuildType.Empty:
+                break;
 
-            buildtype = BuildType.Empty;
+            case BuildType.Load:
+                buildtype = BuildType.Empty;
+                break;
 
-           // save.UpdateValue(this);
-            save.BuildingReq(BuildingDef.updateValue,this);
-        }
-        else
-        {
-           // save.UpdateValue(this);
-            save.BuildingReq(BuildingDef.updateValue, this);
-        }
+            case BuildType.Move:
+                Debug.Log("Move");
+                gameObject.name = GameManager.CurrentBuilding_Script.Id;
+                Id = GameManager.CurrentBuilding_Script.Id;
+                Building_name = GameManager.CurrentBuilding_Script.Building_name;
+                isLock = "T";
+                LoadManager.ReBuildingSubject.OnNext(this);//건물 리스트 새로고침
 
-        gameObject.transform.parent = Parent.transform;
-        GridBuildingSystem.current.temp_gameObject = null;
+                buildtype = BuildType.Empty;
+
+                // save.UpdateValue(this);
+                save.BuildingReq(BuildingDef.updateValue, this);
+                break;
+
+            case BuildType.Rotation:
+                break;
+
+            case BuildType.Make:
+                Building_name = gameObject.name;
+                Debug.Log("BuildingPosiiton_x: " + BuildingPosiiton_x);
+                GameManager.BuildingNumber[Building_Image]++; //해당 건물의 갯수 추가
+                Id = GameManager.IDGenerator();
+                gameObject.name = Id;      //이름 재설정
+                BuildingListAdd();      //현재 가지고 있는 건물 리스트에 추가
+                buildtype = BuildType.Empty;
+                Debug.Log("새로만듬");
+                break;
+
+            case BuildType.Upgrade:
+                break;
+
+            case BuildType.Remove:
+                break;
+
+            default:
+                // save.UpdateValue(this);
+                save.BuildingReq(BuildingDef.updateValue, this);
+                break;
+        }
+  
+
+       // gameObject.transform.parent = Parent.transform;
+       // GridBuildingSystem.current.temp_gameObject = null;
     }
     public void BuildingListRemove()            //현재 가지고 있는 빌딩 제거
     {

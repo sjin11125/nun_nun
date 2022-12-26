@@ -72,7 +72,6 @@ public class UISellPanel : UIBase
             building.save.BuildingReq(BuildingDef.removeValue, building);
             Destroy(building.transform.gameObject);
         }
-        GameManager.isUpdate = true;
 
     }
 }

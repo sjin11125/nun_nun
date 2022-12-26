@@ -148,21 +148,45 @@ public class GridBuildingSystem : MonoBehaviour
         MainTilemap.GetComponent<TilemapRenderer>().sortingOrder = -45;             //메인 타일 보이게
         GameManager.CurrentBuilding_Script = temp;
 
-        tempBuilding.Type = BuildType.Move;             //이동 상태로 변환
-        tempBuilding.Placed = false;        //배치가 안 된 상태로 변환
 
-        tempBuilding.area.position = gridLayout.WorldToCell(tempBuilding.gameObject.transform.position);
+        tempBuilding.area.position = gridLayout.WorldToCell((Vector3)tempBuilding.BuildingPosition);
         BoundsInt buildingArea = tempBuilding.area;
 
-        TileBase[] baseArray = GetTilesBlock(buildingArea, MainTilemap);                //해당 건물이 있던 타일 불러오기
-        int size = baseArray.Length;
-        for (int i = 0; i < size; i++)
+        switch (tempBuilding.Type)
         {
-            baseArray[i] = tileBases[TileType.Empty];
-        }
-        TempTilemap.SetTilesBlock(buildingArea, baseArray);
-        SetTilesBlock(buildingArea, TileType.White, MainTilemap);
+            case BuildType.Empty:
+                break;
+            case BuildType.Load:
+                if (tempBuilding.isLock=="T")               //배치된 상태라면
+                {
+                    
+                    GridBuildingSystem.current.RemoveArea(buildingArea);      //타일 초기화
+                }
+                break;
+            case BuildType.Move:
+                TileBase[] baseArray = GetTilesBlock(buildingArea, MainTilemap);                //해당 건물이 있던 타일 불러오기
+                int size = baseArray.Length;
+                for (int i = 0; i < size; i++)
+                {
+                    baseArray[i] = tileBases[TileType.Empty];
+                }
+                TempTilemap.SetTilesBlock(buildingArea, baseArray);
+                SetTilesBlock(buildingArea, TileType.White, MainTilemap);
 
+                break;
+            case BuildType.Rotation:
+                break;
+            case BuildType.Make:
+                break;
+            case BuildType.Upgrade:
+                break;
+            case BuildType.Remove:
+                break;
+            default:
+                break;
+        }
+
+     
     }
    public  void EditModeOff(Building tempBuilding)                         //건축 모드 Off
     {

@@ -340,14 +340,9 @@ public class ChaButtonScript : MonoBehaviour
                 GameManager.ShinMoney -= shinPay;
 
                 UIManager.isSetMoney = 1;
-                //BuildingInformation.isLock = "F";      //안잠김으로 바꿈
-                // BuildingInformation.SetCharImage(GameManager.GetDogamChaImage(BuildingInformation.GetCharacter("ImageName")));        //이미지 다시 바꿈
-
-                //GameManager.BuildingArray[DogamManager.ChaIndex] = BuildingInformation;           //건물 설명
-
+   
                 Transform[] trans = transform.parent.parent.parent.GetComponentsInChildren<Transform>();
-                //GridBuildingSystem[] grid = trans.GetComponentsInChildren<GridBuildingSystem>();
-
+    
 
                 //게임매니저에 잇는 건물 프리팹 배열에서 같은 이름을 가진 프리팹을 찾아 Instantiate하고 상점 창 닫기
            

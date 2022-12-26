@@ -9,7 +9,12 @@ public class InventoryButton : MonoBehaviour
     // Start is called before the first frame update
     public Image X_Image;     //건물 회수 버튼
 
-  public  Building this_building;         //이 버튼에 해당하는 건물
+    Building this_building;         //이 버튼에 해당하는 건물
+    public Building temp_building
+    {
+        get { return this_building; }
+        set { this_building = value.DeepCopy(); }
+    }
     public Card this_nuni;         //이 버튼에 해당하는 건물
     GridBuildingSystem gridBuildingSystem;
 
@@ -18,6 +23,15 @@ public class InventoryButton : MonoBehaviour
 
     private GameObject settigPanel;
 
+    public void SetButtonImage(Sprite image)
+    {
+        this.GetComponent<Image>().sprite = image;
+    }
+    public Building SetBuildingInfo(Building building)
+    {
+        this_building=building.DeepCopy();
+        return this_building;
+    }
     void Start()
     {
         if (gameObject.tag.Equals("Inven_Building"))
@@ -57,11 +71,7 @@ public class InventoryButton : MonoBehaviour
         settigPanel = GameObject.FindGameObjectWithTag("SettingPanel");
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+  
     public void nuni_Click()
     {
         if (this_nuni.isLock.Equals("T") )     //누니가 배치된 상태
@@ -150,18 +160,7 @@ public class InventoryButton : MonoBehaviour
 
     public void Click()         //건축물 버튼 클릭했을 때
     {
-       
-                //this_building = LoadManager.MyBuildings[this.gameObject.name];
-
-
-      /*  for (int i = 0; i < GameManager.StrList.Count; i++)
-        {
-            if (this.gameObject.name .Equals( GameManager.StrList[i].Id)
-            {
-                this_building = GameManager.StrList[i];
-                
-            }
-        }*/
+    
 
         if (gridBuildingSystem.temp_gameObject!=null)
         {

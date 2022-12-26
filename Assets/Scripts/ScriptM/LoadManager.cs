@@ -22,6 +22,8 @@ public class LoadManager : MonoBehaviour
 
     GameObject LoadingPanel;
     public  Dictionary<string, Building> MyBuildings = new Dictionary<string, Building>();          //내가 가지고 있는 빌딩들(id, Building)
+      public  Dictionary<string, GameObject> MyBuildingsPrefab = new Dictionary<string, GameObject>();          //내가 가지고 있는 빌딩들(id, Building)
+    
     public static Subject<Building> ReBuildingSubject = new Subject<Building>();
     public static Subject<Building> AddBuildingSubject = new Subject<Building>();
     public static Subject<Building> RemoveBuildingSubject = new Subject<Building>();
@@ -196,47 +198,8 @@ public class LoadManager : MonoBehaviour
             Building LoadBuilding = item.Value;           // ���� ������ �մ� ���� ����Ʈ�� ���� ������Ʈ
             string BuildingName = LoadBuilding.Building_Image;        //���� ������ �ִ� ���� ����Ʈ���� ���� �̸� �θ���
 
-            GameObject BuildingPrefab = GameManager.BuildingPrefabData[BuildingName];           // �ش� �ǹ� ������
-            GameObject g = Instantiate(BuildingPrefab, new Vector3(LoadBuilding.BuildingPosition.x, LoadBuilding.BuildingPosition.y, 0), Quaternion.identity, buildings.transform) as GameObject;
+            Building g_Building = InstatiateBuilding(LoadBuilding);         //건물 Instatiate
 
-            Building g_Building = g.GetComponent<Building>();
-            g_Building.SetValue(LoadBuilding);      //���� ������ �������� ���� ��ũ��Ʈ value ���� ������ �ִ� ��ũ��Ʈ value�� ����
-
-            for (int j = 0; j < GameManager.BuildingArray.Length; j++)
-            {
-                if (g_Building.Building_Image.Equals(GameManager.BuildingArray[j].Building_Image))
-                {
-               
-                    if (GameManager.BuildingArray[j].Cost.Length!=0)
-                    {
-                        //g_Building.Reward = GameManager.BuildingArray[j].Reward;
-                        for (int p = 0; p < GameManager.BuildingArray[j].Reward.Length; p++)
-                        {
-                            g_Building.Reward[p] = GameManager.BuildingArray[j].Reward[p];
-                        }
-                        
-                        g_Building.Cost = GameManager.BuildingArray[j].Cost;
-                        g_Building.ShinCost = GameManager.BuildingArray[j].ShinCost;
-                    }
-                  
-                }
-
-            }
-            for (int j = 0; j < GameManager.StrArray.Length; j++)
-            {
-                if (g_Building.Building_Image.Equals(GameManager.StrArray[j].Building_Image) )
-                {
-                    if (GameManager.StrArray[j].Reward[0]!=0)
-                    {
-                        g_Building.Reward = GameManager.StrArray[j].Reward;
-                        g_Building.Cost = GameManager.StrArray[j].Cost;
-                        g_Building.ShinCost = GameManager.StrArray[j].ShinCost;
-                    }
-                
-                }
-
-            }
-            g.name = g_Building.Id;          //�̸� �缳��
 
             g_Building.Type = BuildType.Load;
             g_Building.Place_Initial(g_Building.Type);
@@ -246,8 +209,61 @@ public class LoadManager : MonoBehaviour
         }
         Destroy(LoadingPanel);
     }
+    public Building InstatiateBuilding(Building building)
+    {
+        GameObject BuildingPrefab = GameManager.BuildingPrefabData[building.Building_Image];           // �ش� �ǹ� ������
+        GameObject g = Instantiate(BuildingPrefab, new Vector3(building.BuildingPosition.x, building.BuildingPosition.y, 0), Quaternion.identity, buildings.transform) as GameObject;
+       
+        MyBuildingsPrefab.Add(building.Id,g);                   //내 건물 프리팹 딕셔너리에 추가
+        
+        Building g_Building = g.GetComponent<Building>();
+        g_Building.SetValue(building);      //���� ������ �������� ���� ��ũ��Ʈ value ���� ������ �ִ� ��ũ��Ʈ value�� ����
 
-    // Update is called once per frame
+        for (int j = 0; j < GameManager.BuildingArray.Length; j++)
+        {
+            if (g_Building.Building_Image.Equals(GameManager.BuildingArray[j].Building_Image))
+            {
+
+                if (GameManager.BuildingArray[j].Cost.Length != 0)
+                {
+                    //g_Building.Reward = GameManager.BuildingArray[j].Reward;
+                    for (int p = 0; p < GameManager.BuildingArray[j].Reward.Length; p++)
+                    {
+                        g_Building.Reward[p] = GameManager.BuildingArray[j].Reward[p];
+                    }
+
+                    g_Building.Cost = GameManager.BuildingArray[j].Cost;
+                    g_Building.ShinCost = GameManager.BuildingArray[j].ShinCost;
+                }
+
+            }
+
+        }
+
+        for (int j = 0; j < GameManager.StrArray.Length; j++)
+        {
+            if (g_Building.Building_Image.Equals(GameManager.StrArray[j].Building_Image))
+            {
+                if (GameManager.StrArray[j].Reward[0] != 0)
+                {
+                    g_Building.Reward = GameManager.StrArray[j].Reward;
+                    g_Building.Cost = GameManager.StrArray[j].Cost;
+                    g_Building.ShinCost = GameManager.StrArray[j].ShinCost;
+                }
+
+            }
+
+        }
+        g.name = g_Building.Id;          //�̸� �缳��
+
+        return g_Building;
+    }
+    public void RemoveBuilding(string Id)
+    {
+        Destroy(MyBuildingsPrefab[Id]);
+        MyBuildingsPrefab.Remove(Id);
+
+    }
     void Update()
     {
        
