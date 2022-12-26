@@ -40,7 +40,7 @@ public class Building : MonoBehaviour
     //*
     public bool Placed = false;    //*
     public BoundsInt area;
-
+    
 
     public Transform Coin_Button;      //*
 
@@ -104,7 +104,7 @@ public class Building : MonoBehaviour
     #region 생성자
     public Building(string islock, string buildingname, string info, string image, string cost,string cost2,string cost3, string Reward, string Reward2, string Reward3, string isStr)           //파싱할 때 쓰는 생성자
     {//잠금 유무     // 이름     //설명     //이미지    //가격1       //가격2      //가격3        //생성재화1         //생성재화2        //생성재화3
-
+        
         isLock = islock;
         Building_name = buildingname;
 

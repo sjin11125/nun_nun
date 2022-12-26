@@ -203,6 +203,9 @@ public class LoadManager : MonoBehaviour
 
             g_Building.Type = BuildType.Load;
             g_Building.Place_Initial(g_Building.Type);
+
+            MyBuildings[g_Building.Id].SetValue(g_Building);
+            MyBuildings[g_Building.Id].area = g_Building.area;
             GameManager.IDs.Add(g_Building.Id);
             // g_Building.Rotation();
 
@@ -218,6 +221,7 @@ public class LoadManager : MonoBehaviour
         
         Building g_Building = g.GetComponent<Building>();
         g_Building.SetValue(building);      //���� ������ �������� ���� ��ũ��Ʈ value ���� ������ �ִ� ��ũ��Ʈ value�� ����
+        
 
         for (int j = 0; j < GameManager.BuildingArray.Length; j++)
         {
@@ -261,6 +265,7 @@ public class LoadManager : MonoBehaviour
     public void RemoveBuilding(string Id)
     {
         Destroy(MyBuildingsPrefab[Id]);
+      
         MyBuildingsPrefab.Remove(Id);
 
     }

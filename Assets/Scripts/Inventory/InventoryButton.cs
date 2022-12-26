@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
+using UniRx;
 
 public class InventoryButton : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class InventoryButton : MonoBehaviour
     public GameObject nunis;
 
     private GameObject settigPanel;
+    public Button button;
 
     public void SetButtonImage(Sprite image)
     {
@@ -32,8 +34,54 @@ public class InventoryButton : MonoBehaviour
         this_building=building.DeepCopy();
         return this_building;
     }
+
+    public void SetNoImage(bool isLock)
+    {
+        if (isLock)
+            X_Image.gameObject.SetActive(false);
+        else
+            X_Image.gameObject.SetActive(true);
+    }
     void Start()
     {
+        if (this_building.isLock.Equals("F"))
+        {
+            X_Image.gameObject.SetActive(true);
+        }
+        else
+        {
+            X_Image.gameObject.SetActive(false);
+        }
+
+        /*button.OnClickAsObservable().Subscribe(_=>{
+
+           /if (temp_building.isLock == "T")         //해당 건물이 설치되었으면
+            {
+                temp_building.Type = BuildType.Load;
+                GridBuildingSystem.OnEditMode.OnNext(temp_building);  //건설모드 ON (타일 초기화)
+                LoadManager.Instance.RemoveBuilding(temp_building.Id); //해당 프리팹 삭제
+
+                temp_building.isLock = "F";                            //배치안된 상태로 바꾸기
+                temp_building.BuildingPosiiton_x = "0";
+                temp_building.BuildingPosiiton_y = "0";
+
+                LoadManager.Instance.MyBuildings[temp_building.Id].SetValue(temp_building);     //정보 업데이트 해주기
+                Debug.Log(LoadManager.Instance.MyBuildings[temp_building.Id].isLock);
+            }
+            else                               //해당 건물이 설치안되어있으면
+            {
+
+                Building ActiveBuilding = LoadManager.Instance.InstatiateBuilding(temp_building);
+                ActiveBuilding.Type = BuildType.Move;
+
+                GridBuildingSystem.OnEditMode.OnNext(ActiveBuilding);  //건설모드 ON
+                temp_building.isLock = "T";                //배치된 상태로 바꾸기
+            }
+
+            LoadManager.Instance.buildingsave.BuildingReq(BuildingDef.updateValue, temp_building);     //서버로 전송
+           
+        }).AddTo(this);*/
+
         if (gameObject.tag.Equals("Inven_Building"))
         {
             buildings = GameObject.Find("buildings");
@@ -43,14 +91,7 @@ public class InventoryButton : MonoBehaviour
                     gridBuildingSystem = buildings.GetComponentInChildren<GridBuildingSystem>();
                 
             
-            if (this_building.isLock .Equals( "F"))
-            {
-                X_Image.gameObject.SetActive(true);
-            }
-            else
-            {
-                X_Image.gameObject.SetActive(false);
-            }
+            
 
         }
         else if(gameObject.tag .Equals( "Inven_Nuni"))
