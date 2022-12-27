@@ -80,8 +80,10 @@ public class InventoryManager : MonoBehaviour
 
                 Button.OnClickAsObservable().Subscribe(_ =>                     //인벤토리 건물 클릭 구독
                 {
+                    inventoryBtn.SetBuildingInfo(LoadManager.Instance.MyBuildings[inventoryBtn.temp_building.Id]);
                     if (inventoryBtn.temp_building.isLock=="T")         //해당 건물이 설치되었으면
                     {
+                        
                         inventoryBtn.temp_building.Type = BuildType.Load;
                         GridBuildingSystem.OnEditMode.OnNext(inventoryBtn.temp_building);  //건설모드 ON (타일 초기화)
                         LoadManager.Instance.RemoveBuilding(inventoryBtn.temp_building.Id); //해당 프리팹 삭제
@@ -92,7 +94,7 @@ public class InventoryManager : MonoBehaviour
 
                         inventoryBtn.temp_building.BuildingPosition.x = 0;                            //위치 초기화
                         inventoryBtn.temp_building.BuildingPosition.y= 0;
-
+                        inventoryBtn.temp_building.Placed = false;
                         LoadManager.Instance.buildingsave.BuildingReq(BuildingDef.updateValue, inventoryBtn.temp_building);     //서버로 전송
                     }
                     else                               //해당 건물이 설치안되어있으면
@@ -112,6 +114,7 @@ public class InventoryManager : MonoBehaviour
                                 ActiveButton.temp_building.Type = BuildType.Load;
                                 ActiveButton.SetNoImage(false);                  //X표시 생기게
                                 GridBuildingSystem.OnEditMode.OnNext(ActiveButton.temp_building);  //건설모드 ON (타일 초기화)
+                                if (LoadManager.Instance.MyBuildingsPrefab.ContainsKey(ActiveButton.temp_building.Id))
                                 LoadManager.Instance.RemoveBuilding(ActiveButton.temp_building.Id); //해당 프리팹 삭제
                             }
                         }
