@@ -159,7 +159,7 @@ public class GridBuildingSystem : MonoBehaviour
             case BuildType.Load:
                
                     
-                    GridBuildingSystem.current.RemoveArea(buildingArea);      //타일 초기화
+                    RemoveArea(buildingArea);      //타일 초기화
                 
                 break;
             case BuildType.Move:
@@ -193,10 +193,13 @@ public class GridBuildingSystem : MonoBehaviour
         GameManager.CurrentBuilding_Script = null;
 
 
-        tempBuilding.area.position = gridLayout.WorldToCell(tempBuilding.gameObject.transform.position);
+        //tempBuilding.area.position = gridLayout.WorldToCell(tempBuilding.gameObject.transform.position);
         BoundsInt buildingArea = tempBuilding.area;
 
-        TakeArea(buildingArea);
+        if (tempBuilding.Type == BuildType.Make)
+            TakeArea(buildingArea);
+        else if (tempBuilding.Type == BuildType.Load)
+            RemoveArea(buildingArea) ;
 
     }
     private void Update()

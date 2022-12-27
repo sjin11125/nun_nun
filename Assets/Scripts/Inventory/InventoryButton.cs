@@ -42,6 +42,13 @@ public class InventoryButton : MonoBehaviour
         else
             X_Image.gameObject.SetActive(true);
     }
+    public void SetSelectedImage(bool isSelected)
+    {
+        if (isSelected)
+            this.GetComponent<Image>().color = new Color(0.5f,0.5f,0.5f);
+        else
+            this.GetComponent<Image>().color = new Color(1f, 1f, 1f);
+    }
     void Start()
     {
         if (this_building.isLock.Equals("F"))

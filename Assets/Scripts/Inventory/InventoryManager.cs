@@ -13,6 +13,7 @@ public class InventoryManager : MonoBehaviour
 
     public Button InvenBuildingBtn;
     public Button InvenNuniBtn;
+    public Button InvenCloseBtn;
 
     public GridBuildingSystem gridBuildingSystem;
     GameObject ActiveBuildingPrefab;
@@ -33,7 +34,31 @@ public class InventoryManager : MonoBehaviour
             {
                 Inventory_Nuni_Open();
             }).AddTo(this);
-        
+
+        InvenCloseBtn.OnClickAsObservable().Subscribe(_ =>
+        {
+            // Inventory_Nuni_Open();
+            if (ActiveButton != null)            //이전에 배치안한 건물이 있었다면
+            {
+                ActiveButton.SetBuildingInfo(LoadManager.Instance.MyBuildings[ActiveButton.temp_building.Id]);
+                ActiveButton.temp_building.area = LoadManager.Instance.MyBuildings[ActiveButton.temp_building.Id].area;
+                //  Debug.LogError(ActiveButton.temp_building);
+                if (ActiveButton.temp_building.isLock == "F")
+                {
+
+
+                    Destroy(ActiveBuildingPrefab);
+                    ActiveButton.temp_building.Type = BuildType.Load;
+                    ActiveButton.SetNoImage(false);                  //X표시 생기게
+                    GridBuildingSystem.OnEditModeOff.OnNext(ActiveButton.temp_building);  //건설모드 ON (타일 초기화)
+                    if (LoadManager.Instance.MyBuildingsPrefab.ContainsKey(ActiveButton.temp_building.Id))
+                        LoadManager.Instance.RemoveBuilding(ActiveButton.temp_building.Id); //해당 프리팹 삭제
+                }
+            }
+            Inventory_Exit();
+        }).AddTo(this);
+
+
     }
 
     public void Inventory_Exit()
@@ -81,6 +106,7 @@ public class InventoryManager : MonoBehaviour
                 Button.OnClickAsObservable().Subscribe(_ =>                     //인벤토리 건물 클릭 구독
                 {
                     inventoryBtn.SetBuildingInfo(LoadManager.Instance.MyBuildings[inventoryBtn.temp_building.Id]);
+                    inventoryBtn.SetSelectedImage(true);
                     if (inventoryBtn.temp_building.isLock=="T")         //해당 건물이 설치되었으면
                     {
                         
@@ -113,6 +139,7 @@ public class InventoryManager : MonoBehaviour
                                 Destroy(ActiveBuildingPrefab);
                                 ActiveButton.temp_building.Type = BuildType.Load;
                                 ActiveButton.SetNoImage(false);                  //X표시 생기게
+                                ActiveButton.SetSelectedImage(false);
                                 GridBuildingSystem.OnEditMode.OnNext(ActiveButton.temp_building);  //건설모드 ON (타일 초기화)
                                 if (LoadManager.Instance.MyBuildingsPrefab.ContainsKey(ActiveButton.temp_building.Id))
                                 LoadManager.Instance.RemoveBuilding(ActiveButton.temp_building.Id); //해당 프리팹 삭제
