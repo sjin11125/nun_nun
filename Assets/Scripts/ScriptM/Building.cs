@@ -157,6 +157,8 @@ public class Building : MonoBehaviour
         Building_Image = getBuilding.Building_Image;
         BuildingPosition = getBuilding.BuildingPosition;
         Placed = getBuilding.Placed;
+        Type = getBuilding.Type;
+        BuildingNameEnum = getBuilding.BuildingNameEnum;
         //area = getBuilding.area;
         currentTime = getBuilding.currentTime;
         startingTime = getBuilding.startingTime;
@@ -197,6 +199,7 @@ public class Building : MonoBehaviour
         BuildingCopy.isLock = isLock;
         BuildingCopy.Building_name = this.Building_name;
         BuildingCopy.Building_Image = this.Building_Image;
+        BuildingCopy.BuildingNameEnum = this.BuildingNameEnum;
         //Debug.Log(BuildingCopy.Building_Image.name);
         BuildingCopy.BuildingPosition = this.BuildingPosition;
         BuildingCopy.Placed = this.Placed;
@@ -234,7 +237,13 @@ public class Building : MonoBehaviour
             isFliped = "F";
         }
     }
-
+    private void Update()
+    {
+        if (Type==BuildType.Make)
+        {
+            Debug.Log(transform.position);
+        }
+    }
     void Start()
     {
         
@@ -246,7 +255,7 @@ public class Building : MonoBehaviour
         //TimeText = GameObject.Find("Canvas/TimeText"); //게임오브젝트 = 캔버스에 있는 TimeText로 설정
         if (Type .Equals( BuildType.Make))
         {
-            Building_Image = gameObject.name;       //이름 설정
+            gameObject.name= Building_Image  ;       //이름 설정
         }
 
         Coin_Button.gameObject.SetActive(false);
@@ -554,9 +563,8 @@ public class Building : MonoBehaviour
                 break;
 
             case BuildType.Make:
-                Building_name = gameObject.name;
                 Debug.Log("BuildingPosiiton_x: " + BuildingPosiiton_x);
-                GameManager.BuildingNumber[Building_Image]++; //해당 건물의 갯수 추가
+                //GameManager.BuildingNumber[Building_Image]++; //해당 건물의 갯수 추가
                 Id = GameManager.IDGenerator();
                 gameObject.name = Id;      //이름 재설정
                 BuildingListAdd();      //현재 가지고 있는 건물 리스트에 추가

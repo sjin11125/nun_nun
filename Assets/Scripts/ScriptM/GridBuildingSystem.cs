@@ -93,9 +93,10 @@ public class GridBuildingSystem : MonoBehaviour
 
         OnEditMode.Subscribe(temp =>                     //건설모드 구독
         {
-            isEditing.Value = true;
+            
             this.temp = temp;
             EditMode(temp);
+            isEditing.Value = true;
         }).AddTo(this);
 
         OnEditModeOff.Subscribe(temp =>                        //건설모드끄기 구독                  
@@ -115,15 +116,28 @@ public class GridBuildingSystem : MonoBehaviour
                             Vector3Int cellPos = gridLayout.LocalToCell(touchPos);
                            if (prevPos != cellPos)
                            {
-                               temp.transform.localPosition = gridLayout.CellToLocalInterpolated(cellPos
-                               + new Vector3(.5f, .5f, 0f)); //Vector3
+                               try
+                               {
+
+                               
+                               temp.gameObject.transform.SetPositionAndRotation(gridLayout.CellToLocalInterpolated(cellPos
+                               + new Vector3(.5f, .5f, 0f)),Quaternion.identity);
+                               //temp.transform.localPosition = gridLayout.CellToLocalInterpolated(cellPos
+                               //+ new Vector3(.5f, .5f, 0f)); //Vector3
                                 prevPos = cellPos;
 
                                FollowBuilding(temp); // 마우스가 위의 좌표 따라감. 
-                            }
+                               }
+                               catch (Exception e)
+                               {
+                                   Debug.LogError(e.Message);
+                                   throw;
+                               }
+                           }
+                           Debug.Log(temp.gameObject.transform.position);
                        }
                    }
-
+                   
                }).AddTo(this);
 
     }
@@ -381,9 +395,11 @@ public class GridBuildingSystem : MonoBehaviour
        TempTilemap.SetTilesBlock(buildingArea, tileArray);
        prevArea = buildingArea;
 
-        LoadManager.Instance.MyBuildings[tempBuilding.Id].area = tempBuilding.area;
-        LoadManager.Instance.MyBuildings[tempBuilding.Id].BuildingPosition = tempBuilding.BuildingPosition;
-        Debug.Log(LoadManager.Instance.MyBuildings[tempBuilding.Id].area.position);
+        if (tempBuilding.Type != BuildType.Make)
+        {
+            LoadManager.Instance.MyBuildings[tempBuilding.Id].area = tempBuilding.area;
+            LoadManager.Instance.MyBuildings[tempBuilding.Id].BuildingPosition = tempBuilding.BuildingPosition;
+        }
    }
 
    public bool CanTakeArea(BoundsInt area)
