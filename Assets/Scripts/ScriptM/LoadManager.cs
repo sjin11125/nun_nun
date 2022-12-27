@@ -190,25 +190,30 @@ public class LoadManager : MonoBehaviour
     {
         foreach (var item in MyBuildings)
         {
-
-        
             if (item.Value.isLock.Equals("F"))          //��ġ�ȵǾ��ִ�?
                 continue;
 
-            Building LoadBuilding = item.Value;           // ���� ������ �մ� ���� ����Ʈ�� ���� ������Ʈ
-            string BuildingName = LoadBuilding.Building_Image;        //���� ������ �ִ� ���� ����Ʈ���� ���� �̸� �θ���
+            //string BuildingName = LoadBuilding.Building_Image;        //���� ������ �ִ� ���� ����Ʈ���� ���� �̸� �θ���
+            try
+            {
 
-            Building g_Building = InstatiateBuilding(LoadBuilding);         //건물 Instatiate
+            Building g_Building = InstatiateBuilding(item.Value);         //건물 Instatiate
 
-
+                
             g_Building.Type = BuildType.Load;
             g_Building.Place_Initial(g_Building.Type);
 
-            MyBuildings[g_Building.Id].SetValue(g_Building);
+            MyBuildings[g_Building.Id].SetValue(g_Building); 
             MyBuildings[g_Building.Id].area = g_Building.area;
             GameManager.IDs.Add(g_Building.Id);
-            // g_Building.Rotation();
+                // g_Building.Rotation();
 
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e.Message);
+                throw;
+            }
         }
         Destroy(LoadingPanel);
     }

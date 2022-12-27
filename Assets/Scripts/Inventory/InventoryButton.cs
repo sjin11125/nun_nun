@@ -29,9 +29,9 @@ public class InventoryButton : MonoBehaviour
     {
         this.GetComponent<Image>().sprite = image;
     }
-    public Building SetBuildingInfo(Building building)
+    public Building SetBuildingInfo( Building building)
     {
-        this_building=building.DeepCopy();
+        this_building=building;
         return this_building;
     }
 

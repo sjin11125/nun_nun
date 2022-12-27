@@ -69,6 +69,9 @@ public class InventoryManager : MonoBehaviour
                 InventoryButton inventoryBtn = inven.GetComponent<InventoryButton>();
 
                 inventoryBtn.SetButtonImage(GameManager.GetDogamChaImage(item.Value.Building_Image));   //버튼 이미지 설정
+
+                Building building = item.Value;
+                inventoryBtn.SetBuildingInfo(building);                           //해당 건물 정보 등록
                 inventoryBtn.temp_building=item.Value;
 
                 Button Button = inven.GetComponent<Button>();
@@ -87,8 +90,8 @@ public class InventoryManager : MonoBehaviour
 
                         inventoryBtn.SetNoImage(false);
 
-                        inventoryBtn.temp_building.BuildingPosiiton_x = "0";                            //위치 초기화
-                        inventoryBtn.temp_building.BuildingPosiiton_y = "0";
+                        inventoryBtn.temp_building.BuildingPosition.x = 0;                            //위치 초기화
+                        inventoryBtn.temp_building.BuildingPosition.y= 0;
 
                         LoadManager.Instance.buildingsave.BuildingReq(BuildingDef.updateValue, inventoryBtn.temp_building);     //서버로 전송
                     }
@@ -96,16 +99,25 @@ public class InventoryManager : MonoBehaviour
                     {
                         Building ActiveBuilding=new Building();
 
-                        if (ActiveButton!=null&& ActiveButton.temp_building.isLock=="F")
+                        if (ActiveButton!=null)            //이전에 배치안한 건물이 있었다면
                         {
-                            Destroy(ActiveBuildingPrefab);
-                            ActiveButton.temp_building.Type = BuildType.Load;
-                            GridBuildingSystem.OnEditMode.OnNext(ActiveButton.temp_building);  //건설모드 ON (타일 초기화)
-                            LoadManager.Instance.RemoveBuilding(ActiveButton.temp_building.Id); //해당 프리팹 삭제
+                            ActiveButton.SetBuildingInfo(LoadManager.Instance.MyBuildings[ActiveButton.temp_building.Id]);
+                          //  Debug.LogError(ActiveButton.temp_building);
+                            if (ActiveButton.temp_building.isLock == "F")
+                            {
+
+
+                                Destroy(ActiveBuildingPrefab);
+                                ActiveButton.temp_building.Type = BuildType.Load;
+                                ActiveButton.SetNoImage(false);                  //X표시 생기게
+                                GridBuildingSystem.OnEditMode.OnNext(ActiveButton.temp_building);  //건설모드 ON (타일 초기화)
+                                LoadManager.Instance.RemoveBuilding(ActiveButton.temp_building.Id); //해당 프리팹 삭제
+                            }
                         }
                         try
                         {
                             ActiveBuilding = LoadManager.Instance.InstatiateBuilding(inventoryBtn.temp_building);
+                            
                             ActiveBuildingPrefab = ActiveBuilding.gameObject;
 
                             ActiveButton = inventoryBtn;
@@ -116,6 +128,11 @@ public class InventoryManager : MonoBehaviour
 
                             GridBuildingSystem.OnEditMode.OnNext(ActiveBuilding);  //건설모드 ON
                             inventoryBtn.SetNoImage(true);
+
+                           /* ActiveButton.temp_building.BuildEditBtn[1].btn.OnClickAsObservable().Subscribe(_=>
+                            {
+                                ActiveButton.temp_building.isLock = "T";
+                            }).AddTo(this);*/
                         }
                         catch (System.Exception e)
                         {
