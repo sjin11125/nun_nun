@@ -102,7 +102,8 @@ public class InventoryManager : MonoBehaviour
                         if (ActiveButton!=null)            //이전에 배치안한 건물이 있었다면
                         {
                             ActiveButton.SetBuildingInfo(LoadManager.Instance.MyBuildings[ActiveButton.temp_building.Id]);
-                          //  Debug.LogError(ActiveButton.temp_building);
+                            ActiveButton.temp_building.area = LoadManager.Instance.MyBuildings[ActiveButton.temp_building.Id].area;
+                            //  Debug.LogError(ActiveButton.temp_building);
                             if (ActiveButton.temp_building.isLock == "F")
                             {
 
@@ -121,7 +122,7 @@ public class InventoryManager : MonoBehaviour
                             ActiveBuildingPrefab = ActiveBuilding.gameObject;
 
                             ActiveButton = inventoryBtn;
-                            ActiveButton.temp_building = inventoryBtn.temp_building;
+                            ActiveButton.temp_building.area = LoadManager.Instance.MyBuildings[ActiveButton.temp_building.Id].area;
 
                             Debug.Log(ActiveBuildingPrefab);
                             ActiveBuilding.Type = BuildType.Move;

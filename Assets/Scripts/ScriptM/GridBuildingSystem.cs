@@ -149,7 +149,7 @@ public class GridBuildingSystem : MonoBehaviour
         GameManager.CurrentBuilding_Script = temp;
 
 
-        tempBuilding.area.position = gridLayout.WorldToCell((Vector3)tempBuilding.BuildingPosition);
+       // tempBuilding.area.position = gridLayout.WorldToCell((Vector3)tempBuilding.BuildingPosition);
         BoundsInt buildingArea = tempBuilding.area;
 
         switch (tempBuilding.Type)
@@ -157,11 +157,10 @@ public class GridBuildingSystem : MonoBehaviour
             case BuildType.Empty:
                 break;
             case BuildType.Load:
-                if (tempBuilding.isLock=="T")               //배치된 상태라면
-                {
+               
                     
                     GridBuildingSystem.current.RemoveArea(buildingArea);      //타일 초기화
-                }
+                
                 break;
             case BuildType.Move:
                 TileBase[] baseArray = GetTilesBlock(buildingArea, MainTilemap);                //해당 건물이 있던 타일 불러오기
@@ -379,7 +378,9 @@ public class GridBuildingSystem : MonoBehaviour
        TempTilemap.SetTilesBlock(buildingArea, tileArray);
        prevArea = buildingArea;
 
-
+        LoadManager.Instance.MyBuildings[tempBuilding.Id].area = tempBuilding.area;
+        LoadManager.Instance.MyBuildings[tempBuilding.Id].BuildingPosition = tempBuilding.BuildingPosition;
+        Debug.Log(LoadManager.Instance.MyBuildings[tempBuilding.Id].area.position);
    }
 
    public bool CanTakeArea(BoundsInt area)
