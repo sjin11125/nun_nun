@@ -16,7 +16,7 @@ public class InventoryButton : MonoBehaviour
         get { return this_building; }
         set { this_building = value.DeepCopy(); }
     }
-    public Card this_nuni;         //이 버튼에 해당하는 건물
+    public Card this_nuni;         //이 버튼에 해당하는 누니
     GridBuildingSystem gridBuildingSystem;
 
     public GameObject buildings;

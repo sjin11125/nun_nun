@@ -354,6 +354,10 @@ public class ChaButtonScript : MonoBehaviour
 
                 Transform[] Window = parent.GetComponentsInChildren<Transform>();  //StoreWindow
                                                                                    //parent.gameObject.SetActive(false);
+                building.Id = GameManager.IDGenerator();
+                building.Type = BuildType.Make;
+                LoadManager.Instance.InstantiateBuilding(building);
+
 
                 GameManager.CurrentBuilding = buildingprefab;
                 Building b = buildingprefab.GetComponent<Building>();
@@ -362,7 +366,7 @@ public class ChaButtonScript : MonoBehaviour
                 c = b.GetComponent<Building>().DeepCopy();
                 b.Level = 1;
                 c.SetValue(b);
-                parent.gameObject.SetActive(false);
+                parent.parent.gameObject.SetActive(false);
                 isEdit = true;
                 
             }
@@ -374,6 +378,7 @@ public class ChaButtonScript : MonoBehaviour
 
 
         settigPanel.GetComponent<AudioController>().Sound[1].Play();
+       // LoadManager.Instance.InstantiateBuilding(building);
     }
 
     public void NoticeClick()           //보상수령

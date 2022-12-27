@@ -197,7 +197,7 @@ public class LoadManager : MonoBehaviour
             try
             {
 
-            Building g_Building = InstatiateBuilding(item.Value);         //건물 Instatiate
+            Building g_Building = InstantiateBuilding(item.Value);         //건물 Instatiate
 
                 
             g_Building.Type = BuildType.Load;
@@ -217,7 +217,7 @@ public class LoadManager : MonoBehaviour
         }
         Destroy(LoadingPanel);
     }
-    public Building InstatiateBuilding(Building building)
+    public Building InstantiateBuilding(Building building)
     {
         GameObject BuildingPrefab = GameManager.BuildingPrefabData[building.Building_Image];           // �ش� �ǹ� ������
         GameObject g = Instantiate(BuildingPrefab, new Vector3(building.BuildingPosition.x, building.BuildingPosition.y, 0), Quaternion.identity, buildings.transform) as GameObject;

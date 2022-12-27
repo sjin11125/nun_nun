@@ -309,6 +309,20 @@ public class Building : MonoBehaviour
 
                             break;
                         default:
+                            Type = BuildType.Move;
+                            Placed = false;
+                            GridBuildingSystem.OnEditMode.OnNext(this);       //이 건물의 정보를 넘겨줌
+                            if (BuildEditBtn.Count != 0)
+                            {
+                                foreach (var item in BuildEditBtn)        //건축모드 버튼들 다 활성화
+                                {
+                                    item.btn.gameObject.SetActive(true);
+
+                                    if (item.buildUIType == BuildUIType.Upgrade
+                                    && Level == 2)        //최대 레벨인 경우 업그레이드 버튼 활성화 X                                                     
+                                        item.btn.interactable = false;
+                                }
+                            }
                             break;
                     }
                 }
