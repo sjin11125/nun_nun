@@ -119,11 +119,12 @@ public class GridBuildingSystem : MonoBehaviour
                                try
                                {
 
-                               
-                               temp.gameObject.transform.SetPositionAndRotation(gridLayout.CellToLocalInterpolated(cellPos
-                               + new Vector3(.5f, .5f, 0f)),Quaternion.identity);
-                               //temp.transform.localPosition = gridLayout.CellToLocalInterpolated(cellPos
-                               //+ new Vector3(.5f, .5f, 0f)); //Vector3
+
+                                   temp.transform.localPosition =gridLayout.CellToLocalInterpolated(cellPos
+                               + new Vector3(.5f, .5f, 0f));
+                                   temp.BuildingPosition = new Vector2(temp.transform.localPosition.x, temp.transform.localPosition.y);
+                                //temp.transform.localPosition = gridLayout.CellToLocalInterpolated(cellPos
+                                //+ new Vector3(.5f, .5f, 0f)); //Vector3
                                 prevPos = cellPos;
 
                                FollowBuilding(temp); // 마우스가 위의 좌표 따라감. 
@@ -133,6 +134,8 @@ public class GridBuildingSystem : MonoBehaviour
                                    Debug.LogError(e.Message);
                                    throw;
                                }
+                               temp.OnMovePosition.OnNext(gridLayout.CellToLocalInterpolated(cellPos
+                               + new Vector3(.5f, .5f, 0f)));
                            }
                            Debug.Log(temp.gameObject.transform.position);
                        }
@@ -160,7 +163,7 @@ public class GridBuildingSystem : MonoBehaviour
    public  void EditMode(Building tempBuilding)                         //건축 모드 
     {
         MainTilemap.GetComponent<TilemapRenderer>().sortingOrder = -45;             //메인 타일 보이게
-        GameManager.CurrentBuilding_Script = temp;
+       // GameManager.CurrentBuilding_Script = temp;
 
 
        // tempBuilding.area.position = gridLayout.WorldToCell((Vector3)tempBuilding.BuildingPosition);
@@ -176,6 +179,7 @@ public class GridBuildingSystem : MonoBehaviour
                     RemoveArea(buildingArea);      //타일 초기화
                 
                 break;
+            case BuildType.Make:
             case BuildType.Move:
                 TileBase[] baseArray = GetTilesBlock(buildingArea, MainTilemap);                //해당 건물이 있던 타일 불러오기
                 int size = baseArray.Length;
@@ -189,8 +193,7 @@ public class GridBuildingSystem : MonoBehaviour
                 break;
             case BuildType.Rotation:
                 break;
-            case BuildType.Make:
-                break;
+            
             case BuildType.Upgrade:
                 break;
             case BuildType.Remove:
@@ -204,7 +207,7 @@ public class GridBuildingSystem : MonoBehaviour
    public  void EditModeOff(Building tempBuilding)                         //건축 모드 Off
     {
         MainTilemap.GetComponent<TilemapRenderer>().sortingOrder = -50;             //메인 타일 보이게
-        GameManager.CurrentBuilding_Script = null;
+        //GameManager.CurrentBuilding_Script = null;
 
 
         //tempBuilding.area.position = gridLayout.WorldToCell(tempBuilding.gameObject.transform.position);
@@ -394,7 +397,6 @@ public class GridBuildingSystem : MonoBehaviour
        }
        TempTilemap.SetTilesBlock(buildingArea, tileArray);
        prevArea = buildingArea;
-
         if (tempBuilding.Type != BuildType.Make)
         {
             LoadManager.Instance.MyBuildings[tempBuilding.Id].area = tempBuilding.area;

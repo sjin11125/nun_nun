@@ -460,7 +460,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2132867818646730806}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.1, y: 0.275, z: 0}
+  m_LocalPosition: {x: 3.1499999, y: -0.82500005, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -487,12 +487,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7e4fb413bcc80044a8d1f69d6b2cb55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BuildingBtn: {fileID: 0}
+  BuildingBtn: {fileID: 871807253979521888}
   BuildingImage: {fileID: 0}
   BuildingNameEnum: 4
   Placed: 0
   area:
-    m_Position: {x: -4, y: -3, z: 0}
+    m_Position: {x: 1, y: -5, z: 0}
     m_Size: {x: 3, y: 3, z: 1}
   Coin_Button: {fileID: 2132867819104901470}
   currentTime: 0
@@ -519,10 +519,10 @@ MonoBehaviour:
   CountCoin: 0
   BuildingPosition: {x: 0, y: 0}
   isLock: T
-  Building_name: flower_level(Clone)0
+  Building_name: syrup_level(Clone)
   Reward: 000000000000000000000000
   Info: 
-  Building_Image: 
+  Building_Image: syrup_level(Clone)
   Cost: 000000000000000000000000
   ShinCost: 000000000000000000000000
   Level: 1
@@ -535,7 +535,7 @@ MonoBehaviour:
   buildings: []
   buildings_image:
   - {fileID: 21300000, guid: 6a18cdde7f039ed499bc35fc23f7b26c, type: 3}
-  Type: 0
+  Type: 4
   save: {fileID: 0}
 --- !u!61 &4337750507591132674
 BoxCollider2D:
@@ -1844,6 +1844,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f44607720b74f04448f17f7256c3b80b, type: 3}
+--- !u!114 &871807253979521888 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6611396525617844970, guid: f44607720b74f04448f17f7256c3b80b, type: 3}
+  m_PrefabInstance: {fileID: 6330141365635838346}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &8957909274852706766 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3137264079035381828, guid: f44607720b74f04448f17f7256c3b80b, type: 3}

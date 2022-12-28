@@ -362,15 +362,15 @@ public class ChaButtonScript : MonoBehaviour
                 LoadManager.Instance.InstantiateBuilding(building);
                 GridBuildingSystem.OnEditMode.OnNext(building);
 
-                GameManager.CurrentBuilding = buildingprefab;
+               /* GameManager.CurrentBuilding = buildingprefab;
                 Building b = buildingprefab.GetComponent<Building>();
                 Building c = GameManager.CurrentBuilding.GetComponent<Building>();
                 c.Building_Image = buildingname;
                 c = b.GetComponent<Building>().DeepCopy();
                 b.Level = 1;
-                c.SetValue(b);
+                c.SetValue(b);*/
                 parent.parent.gameObject.SetActive(false);
-                isEdit = true;
+                //isEdit = true;
                 
             }
 

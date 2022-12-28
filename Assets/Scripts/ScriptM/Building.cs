@@ -95,8 +95,16 @@ public class Building : MonoBehaviour
     IDisposable longClickStream;
     IDisposable timerStream=null;
 
-    Subject<bool> timerSubject = new Subject<bool>();
+    public Subject<Vector3> OnMovePosition = new Subject<Vector3>();
 
+    new public Transform transform
+    {
+        get
+        {
+            Debug.Log("====== Fetching transform");
+            return base.transform;
+        }
+    }
     #endregion
     public Building()
     {
@@ -239,15 +247,16 @@ public class Building : MonoBehaviour
     }
     private void Update()
     {
-        if (Type==BuildType.Make)
-        {
-            Debug.Log(transform.position);
-        }
+        
     }
     void Start()
     {
-        
-        
+        OnMovePosition.Subscribe(_=>
+        {
+            transform.position = _;
+        }).AddTo(this);
+
+
         currentTime = (int)startingTime;
         save = GetComponent<BuildingSave>();
 
@@ -547,9 +556,6 @@ public class Building : MonoBehaviour
 
             case BuildType.Move:
                 Debug.Log("Move");
-                gameObject.name = GameManager.CurrentBuilding_Script.Id;
-                Id = GameManager.CurrentBuilding_Script.Id;
-                Building_name = GameManager.CurrentBuilding_Script.Building_name;
                 isLock = "T";
                 LoadManager.ReBuildingSubject.OnNext(this);//건물 리스트 새로고침
 

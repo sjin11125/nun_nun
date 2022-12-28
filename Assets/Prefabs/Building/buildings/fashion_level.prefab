@@ -460,7 +460,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2132867818646730806}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.1, y: 0.275, z: 0}
+  m_LocalPosition: {x: -2.1, y: -3.025, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -487,12 +487,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7e4fb413bcc80044a8d1f69d6b2cb55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BuildingBtn: {fileID: 0}
+  BuildingBtn: {fileID: 8041397814689200281}
   BuildingImage: {fileID: 0}
   BuildingNameEnum: 1
   Placed: 0
   area:
-    m_Position: {x: -4, y: -3, z: 0}
+    m_Position: {x: -8, y: -4, z: 0}
     m_Size: {x: 3, y: 3, z: 1}
   Coin_Button: {fileID: 2132867819104901470}
   currentTime: 0
@@ -517,12 +517,12 @@ MonoBehaviour:
   isCoin: 0
   isCountCoin: 0
   CountCoin: 0
-  BuildingPosition: {x: 0, y: 0}
+  BuildingPosition: {x: -2.1, y: -3.025}
   isLock: T
-  Building_name: flower_level(Clone)0
+  Building_name: fashion_level(Clone)
   Reward: 8c000000b4000000dc000000
   Info: 
-  Building_Image: 
+  Building_Image: fashion_level(Clone)
   Cost: 000000000000000000000000
   ShinCost: 000000000000000000000000
   Level: 1
@@ -535,7 +535,7 @@ MonoBehaviour:
   buildings: []
   buildings_image:
   - {fileID: 21300000, guid: d0e83c1d357d7594ea956ffcefc63e96, type: 3}
-  Type: 0
+  Type: 4
   save: {fileID: 0}
 --- !u!61 &4337750507591132674
 BoxCollider2D:
@@ -1528,6 +1528,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ButtonPannels
       objectReference: {fileID: 0}
+    - target: {fileID: 4080423609266255545, guid: 69e5be42cac8d5a43897686516441a7f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4401196712445076417, guid: 69e5be42cac8d5a43897686516441a7f, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -1685,6 +1689,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Image
       objectReference: {fileID: 0}
+    - target: {fileID: 8218081209425397045, guid: 150305a66a28fa048970f1e51dd7e4be, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 150305a66a28fa048970f1e51dd7e4be, type: 3}
 --- !u!1001 &3771956731221043827
@@ -1825,3 +1833,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3137264079035381828, guid: f44607720b74f04448f17f7256c3b80b, type: 3}
   m_PrefabInstance: {fileID: 3771956731221043827}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8041397814689200281 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6611396525617844970, guid: f44607720b74f04448f17f7256c3b80b, type: 3}
+  m_PrefabInstance: {fileID: 3771956731221043827}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
