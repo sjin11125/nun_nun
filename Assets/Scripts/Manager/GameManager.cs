@@ -31,7 +31,6 @@ public class GameManager : MonoBehaviour
 
     public static GameObject CurrentBuilding;       //현재 수정중인 건물
 
-    public static Building CurrentBuilding_Script;
 
 
     public static InventoryButton CurrentBuilding_Button=null;            //현재 수정중인 인벤 버튼

@@ -108,6 +108,9 @@ public class GridBuildingSystem : MonoBehaviour
 
         this.UpdateAsObservable().Where(_ => Input.GetMouseButtonDown(0)).Subscribe(_ =>
                {
+                   try
+                   {
+
                    if (isEditing.Value)
                    {
                        if (!IsPointerOverGameObject())         //UI 위에 있는지 체크
@@ -140,7 +143,13 @@ public class GridBuildingSystem : MonoBehaviour
                            Debug.Log(temp.gameObject.transform.position);
                        }
                    }
-                   
+
+                   }
+                   catch (Exception e )
+                   {
+                       Debug.LogError(e.Message);
+                       throw;
+                   }
                }).AddTo(this);
 
     }

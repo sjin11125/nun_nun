@@ -275,7 +275,6 @@ public class InventoryButton : MonoBehaviour
             GameManager.isEdit = false;
            
             //GameManager.CurrentBuilding = null;
-            GameManager.CurrentBuilding_Script = GameManager.CurrentBuilding.GetComponent<Building>();
             this_building.isLock = "F";         //배치 안된 상태로 바꾸기
             X_Image.gameObject.SetActive(true);
            
@@ -359,7 +358,6 @@ public class InventoryButton : MonoBehaviour
                     break;
                 }
             }
-            GameManager.CurrentBuilding_Script = this_building;
 
             //GameManager.CurrentBuilding.name = this_building.Building_Image;
             gridBuildingSystem.GridLayerSetting();          //메인 타일 보이게
