@@ -354,11 +354,23 @@ public class ChaButtonScript : MonoBehaviour
 
                 Transform[] Window = parent.GetComponentsInChildren<Transform>();  //StoreWindow
 
+                try
+                {
+
+                }
+                catch (System.Exception)
+                {
+
+                    throw;
+                }
                 //parent.gameObject.SetActive(false);
                 building = buildingprefab.GetComponent<Building>();
                 building.Placed = false;    
                 building.Type = BuildType.Make;
                 building.area = buildingprefab.GetComponent<Building>().area;
+                
+                //Instantiate(building,GameObject.Find("buildings").transform);
+                
                 LoadManager.Instance.InstantiateBuilding(building);
                 GridBuildingSystem.OnEditMode.OnNext(building);
 

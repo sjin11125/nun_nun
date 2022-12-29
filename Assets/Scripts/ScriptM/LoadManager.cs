@@ -222,6 +222,7 @@ public class LoadManager : MonoBehaviour
         
         GameObject BuildingPrefab = GameManager.BuildingPrefabData[building.Building_Image];           // �ش� �ǹ� ������
         GameObject g = Instantiate(BuildingPrefab, new Vector3(building.BuildingPosition.x, building.BuildingPosition.y, 0), Quaternion.identity, buildings.transform) as GameObject;
+        
         if (building.Type != BuildType.Make)
         {
 

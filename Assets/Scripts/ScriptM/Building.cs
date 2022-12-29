@@ -97,6 +97,7 @@ public class Building : MonoBehaviour
 
     public Subject<Vector3> OnMovePosition = new Subject<Vector3>();
 
+    public Vector3 pos;
     new public Transform transform
     {
         get
@@ -228,7 +229,10 @@ public class Building : MonoBehaviour
         return BuildingCopy;
     }
     #endregion
- 
+    private void Update()
+    {
+        Debug.Log(gameObject.transform.position+ "        "+transform.gameObject.name );
+    }
     public void Rotation()          //건물 회전
     {
         Debug.Log("회전");
@@ -245,10 +249,7 @@ public class Building : MonoBehaviour
             isFliped = "F";
         }
     }
-    private void Update()
-    {
-        
-    }
+ 
     void Start()
     {
         OnMovePosition.Subscribe(_=>
@@ -313,7 +314,10 @@ public class Building : MonoBehaviour
         var longClickUpStream = BuildingBtn.OnPointerUpAsObservable().Subscribe(_=>     //마우스 업 스트림
             {
                 second = 0;
+
+                if (timerStream!=null)
                 timerStream.Dispose();
+
                 if (!GridBuildingSystem.isEditing.Value)        //건축모드가 아니라면
                 {
                     switch (BuildingNameEnum)
