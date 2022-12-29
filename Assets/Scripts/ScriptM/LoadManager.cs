@@ -219,10 +219,19 @@ public class LoadManager : MonoBehaviour
     }
     public Building InstantiateBuilding(Building building)
     {
-        
+        try
+        {
+
+        GameObject g;
         GameObject BuildingPrefab = GameManager.BuildingPrefabData[building.Building_Image];           // �ش� �ǹ� ������
-        GameObject g = Instantiate(BuildingPrefab, new Vector3(building.BuildingPosition.x, building.BuildingPosition.y, 0), Quaternion.identity, buildings.transform) as GameObject;
-        
+        if (building.Type != BuildType.Make)
+        {
+            g= Instantiate(BuildingPrefab, new Vector3(building.BuildingPosition.x, building.BuildingPosition.y, 0), Quaternion.identity, buildings.transform) as GameObject;
+        }
+        else
+        {
+          g=  Instantiate(BuildingPrefab, new Vector3(0, 0, 0), Quaternion.identity, buildings.transform) as GameObject;
+        }
         if (building.Type != BuildType.Make)
         {
 
@@ -272,7 +281,15 @@ public class LoadManager : MonoBehaviour
 
             return g_Building;
         }
+
+        }
+        catch (Exception e)
+        {
+            Debug.LogError(e.Message);
+            throw;
+        }
         return null;
+
     }
     public void RemoveBuilding(string Id)
     {

@@ -137,6 +137,7 @@ public class GridBuildingSystem : MonoBehaviour
 
                                       // temp.pos = temp.transform.localPosition;
                                FollowBuilding(temp); // 마우스가 위의 좌표 따라감. 
+                                       temp.OnMovePosition.OnNext(temp.gameObject.transform.position);
                                }
                                catch (Exception e)
                                {

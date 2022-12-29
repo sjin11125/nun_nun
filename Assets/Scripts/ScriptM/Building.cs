@@ -254,7 +254,16 @@ public class Building : MonoBehaviour
     {
         OnMovePosition.Subscribe(_=>
         {
-            transform.position = _;
+            try
+            {
+                transform.position = _;
+                Debug.Log("ㅅ바ㅣㅣㅏㅡ리ㅏㄴㅇㄹ" + transform.position);
+            }
+            catch(Exception e)
+            {
+                Debug.LogError(e.Message);
+            }
+
         }).AddTo(this);
 
 
