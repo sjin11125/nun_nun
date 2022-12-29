@@ -364,23 +364,25 @@ public class ChaButtonScript : MonoBehaviour
                     throw;
                 }
                 //parent.gameObject.SetActive(false);
+
                 building = buildingprefab.GetComponent<Building>();
                 building.Placed = false;    
                 building.Type = BuildType.Make;
                 building.area = buildingprefab.GetComponent<Building>().area;
-                
-                //Instantiate(building,GameObject.Find("buildings").transform);
-                
+
+
+
+                /* GameManager.CurrentBuilding = buildingprefab;
+                 Building b = buildingprefab.GetComponent<Building>();
+                 Building c = GameManager.CurrentBuilding.GetComponent<Building>();
+                 c.Building_Image = buildingname;
+                 c = b.GetComponent<Building>().DeepCopy();
+                 b.Level = 1;
+                 c.SetValue(b);
+                */
                 LoadManager.Instance.InstantiateBuilding(building);
                 GridBuildingSystem.OnEditMode.OnNext(building);
 
-               /* GameManager.CurrentBuilding = buildingprefab;
-                Building b = buildingprefab.GetComponent<Building>();
-                Building c = GameManager.CurrentBuilding.GetComponent<Building>();
-                c.Building_Image = buildingname;
-                c = b.GetComponent<Building>().DeepCopy();
-                b.Level = 1;
-                c.SetValue(b);*/
                 parent.parent.gameObject.SetActive(false);
                 //isEdit = true;
                 

@@ -28,6 +28,7 @@ public class LoadManager : MonoBehaviour
     public static Subject<Building> AddBuildingSubject = new Subject<Building>();
     public static Subject<Building> RemoveBuildingSubject = new Subject<Building>();
 
+    public static GameObject Currnetbuildings;
     public static LoadManager _Instance;
     public static LoadManager Instance
     {
@@ -222,23 +223,22 @@ public class LoadManager : MonoBehaviour
         try
         {
 
-        GameObject g;
         GameObject BuildingPrefab = GameManager.BuildingPrefabData[building.Building_Image];           // �ش� �ǹ� ������
         if (building.Type != BuildType.Make)
         {
-            g= Instantiate(BuildingPrefab, new Vector3(building.BuildingPosition.x, building.BuildingPosition.y, 0), Quaternion.identity, buildings.transform) as GameObject;
+                Currnetbuildings = Instantiate(BuildingPrefab, new Vector3(building.BuildingPosition.x, building.BuildingPosition.y, 0), Quaternion.identity, buildings.transform) as GameObject;
         }
         else
         {
-          g=  Instantiate(BuildingPrefab, new Vector3(0, 0, 0), Quaternion.identity, buildings.transform) as GameObject;
+          Currnetbuildings=  Instantiate(BuildingPrefab, new Vector3(0, 0, 0), Quaternion.identity, buildings.transform) as GameObject;
         }
         if (building.Type != BuildType.Make)
         {
 
 
-            MyBuildingsPrefab.Add(building.Id, g);                   //내 건물 프리팹 딕셔너리에 추가
+            MyBuildingsPrefab.Add(building.Id, Currnetbuildings);                   //내 건물 프리팹 딕셔너리에 추가
 
-            Building g_Building = g.GetComponent<Building>();
+            Building g_Building = Currnetbuildings.GetComponent<Building>();
             g_Building.SetValue(building);      //���� ������ �������� ���� ��ũ��Ʈ value ���� ������ �ִ� ��ũ��Ʈ value�� ����
 
 
@@ -277,7 +277,7 @@ public class LoadManager : MonoBehaviour
                 }
 
             }
-            g.name = g_Building.Id;          //�̸� �缳��
+                Currnetbuildings.name = g_Building.Id;          //�̸� �缳��
 
             return g_Building;
         }

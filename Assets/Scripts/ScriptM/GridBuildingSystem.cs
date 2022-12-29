@@ -33,7 +33,7 @@ public class GridBuildingSystem : MonoBehaviour
     public Button StartButton;
 
 
-    public GameObject buildings;
+
     
  
    
@@ -54,7 +54,7 @@ public class GridBuildingSystem : MonoBehaviour
     private GameObject settigPanel;
     #region unity Methods  
     public GameObject Effect;
-    bool upgrade = false;
+    GameObject CurrentBuilding;
 
     public static GameObject Canvas;
     public static Subject<Building> OnEditMode = new Subject<Building>();
@@ -124,28 +124,27 @@ public class GridBuildingSystem : MonoBehaviour
                                try
                                {
 
-                                       temp.gameObject.transform.position = new Vector3(gridLayout.CellToLocalInterpolated(cellPos
+                                       Vector3 pos = new Vector3(gridLayout.CellToLocalInterpolated(cellPos
                                + new Vector3(.5f, .5f, 0f)).x, gridLayout.CellToLocalInterpolated(cellPos
                                + new Vector3(.5f, .5f, 0f)).y, gridLayout.CellToLocalInterpolated(cellPos
                                + new Vector3(.5f, .5f, 0f)).z
                                );
-                                       
-                                   temp.BuildingPosition = new Vector2(temp.transform.localPosition.x, temp.transform.localPosition.y);
+                                      
+                                     
+                                  // temp.BuildingPosition = new Vector2(temp.transform.localPosition.x, temp.transform.localPosition.y);
                                 //temp.transform.localPosition = gridLayout.CellToLocalInterpolated(cellPos
-                                //+ new Vector3(.5f, .5f, 0f)); //Vector3
+                              //  + new Vector3(.5f, .5f, 0f)); //Vector3
                                 prevPos = cellPos;
 
                                       // temp.pos = temp.transform.localPosition;
-                               FollowBuilding(temp); // 마우스가 위의 좌표 따라감. 
-                                       temp.OnMovePosition.OnNext(temp.gameObject.transform.position);
+                               FollowBuilding(pos); // 마우스가 위의 좌표 따라감. 
+                                       
                                }
                                catch (Exception e)
                                {
                                    Debug.LogError(e.Message);
                                    throw;
                                }
-                               temp.OnMovePosition.OnNext(gridLayout.CellToLocalInterpolated(cellPos
-                               + new Vector3(.5f, .5f, 0f)));
                            }
                            //Debug.Log(temp.gameObject.transform.position);
                        }
@@ -229,9 +228,7 @@ public class GridBuildingSystem : MonoBehaviour
         //tempBuilding.area.position = gridLayout.WorldToCell(tempBuilding.gameObject.transform.position);
         BoundsInt buildingArea = tempBuilding.area;
 
-        if (tempBuilding.Type == BuildType.Make)
-            TakeArea(buildingArea);
-        else if (tempBuilding.Type == BuildType.Load)
+         if (tempBuilding.Type == BuildType.Load)
             RemoveArea(buildingArea) ;
 
     }
@@ -381,17 +378,23 @@ public class GridBuildingSystem : MonoBehaviour
     }
     
 
-    private void FollowBuilding(Building tempBuilding)                    //건물이 마우스 따라가게
+    private void FollowBuilding(Vector3 pos)                    //건물이 마우스 따라가게
     {
         try
         {
-
-        
-        ClearArea();
+            temp.area.position = GridBuildingSystem.current.gridLayout.WorldToCell(pos);
 
 
-        tempBuilding.area.position = gridLayout.WorldToCell(tempBuilding.gameObject.transform.position);
-       BoundsInt buildingArea = tempBuilding.area;
+            //temp.SetPosition(pos);
+            ClearArea();
+
+            
+                temp.gameObject.transform.position = pos;
+            if(temp.Type==BuildType.Make)
+            {
+              LoadManager.Currnetbuildings.transform.position = temp.gameObject.transform.position;
+            }
+       BoundsInt buildingArea = temp.area;
 
        TileBase[] baseArray = GetTilesBlock(buildingArea, MainTilemap);
         int size = baseArray.Length;
@@ -416,10 +419,10 @@ public class GridBuildingSystem : MonoBehaviour
        }
        TempTilemap.SetTilesBlock(buildingArea, tileArray);
        prevArea = buildingArea;
-        if (tempBuilding.Type != BuildType.Make)
+            if (temp.Type != BuildType.Make)
         {
-            LoadManager.Instance.MyBuildings[tempBuilding.Id].area = tempBuilding.area;
-            LoadManager.Instance.MyBuildings[tempBuilding.Id].BuildingPosition = tempBuilding.BuildingPosition;
+            LoadManager.Instance.MyBuildings[temp.Id].area = temp.area;
+            LoadManager.Instance.MyBuildings[temp.Id].BuildingPosition = temp.BuildingPosition;
         }
         }
         catch (Exception ed)

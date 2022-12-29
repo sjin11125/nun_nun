@@ -249,7 +249,33 @@ public class Building : MonoBehaviour
             isFliped = "F";
         }
     }
- 
+    float time = 0;
+    public void SetPosition(Vector3 pos)
+    {
+        transform.position = pos;
+        Debug.Log("이동한 위치는 "+ transform.position);
+        time = 0;
+        if (Type==BuildType.Make)
+        {
+            while (time!=3)
+            {
+                StartCoroutine(Wait());
+
+                
+               
+            }
+            Debug.Log("기다린 후 이동한 위치는 " + transform.position);
+            //  StartCoroutine(Wait());
+
+        }
+        Debug.Log("걸린 시간은 " + time);
+    }
+
+    IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(1f);
+        time += 1f;
+    }
     void Start()
     {
         OnMovePosition.Subscribe(_=>
