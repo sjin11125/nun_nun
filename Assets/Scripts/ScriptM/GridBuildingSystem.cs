@@ -194,7 +194,7 @@ public class GridBuildingSystem : MonoBehaviour
                     RemoveArea(buildingArea);      //타일 초기화
                 
                 break;
-            case BuildType.Make:
+            
             case BuildType.Move:
                 TileBase[] baseArray = GetTilesBlock(buildingArea, MainTilemap);                //해당 건물이 있던 타일 불러오기
                 int size = baseArray.Length;
@@ -448,9 +448,19 @@ public class GridBuildingSystem : MonoBehaviour
 
    public void TakeArea(BoundsInt area)
    {
+        try
+        {
+
        SetTilesBlock(area, TileType.Empty, TempTilemap);        //TmpTilemap 비우기
        SetTilesBlock(area, TileType.Red, MainTilemap);
-   }
+
+        }
+        catch (Exception e)
+        {
+            Debug.LogError(e.Message);
+            throw;
+        }
+    }
     public void RemoveArea(BoundsInt area)
     {
         SetTilesBlock(area, TileType.Empty, TempTilemap);        //TmpTilemap 비우기

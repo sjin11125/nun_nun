@@ -576,7 +576,7 @@ public class Building : MonoBehaviour
         Placed = true;      // 배치 했니? 네
         Debug.Log(buildings.Length);
 
-        GridBuildingSystem.current.TakeArea(areaTemp);      //타일 맵 설정
+       
 
 
         BuildingPosition = transform.position;          //위치 저장
@@ -594,11 +594,12 @@ public class Building : MonoBehaviour
                 break;
 
             case BuildType.Move:
+                GridBuildingSystem.current.TakeArea(areaTemp);      //타일 맵 설정
                 Debug.Log("Move");
                 isLock = "T";
                 LoadManager.ReBuildingSubject.OnNext(this);//건물 리스트 새로고침
 
-                buildtype = BuildType.Empty;
+                Type = BuildType.Empty;
 
                 // save.UpdateValue(this);
                 save.BuildingReq(BuildingDef.updateValue, this);
@@ -608,12 +609,13 @@ public class Building : MonoBehaviour
                 break;
 
             case BuildType.Make:
+                GridBuildingSystem.current.ClearArea();
                 Debug.Log("BuildingPosiiton_x: " + BuildingPosiiton_x);
                 //GameManager.BuildingNumber[Building_Image]++; //해당 건물의 갯수 추가
-                Id = GameManager.IDGenerator();
+                Id = GameManager.IDGenerator();         //건물 id 생성
                 gameObject.name = Id;      //이름 재설정
                 BuildingListAdd();      //현재 가지고 있는 건물 리스트에 추가
-                buildtype = BuildType.Empty;
+                Type = BuildType.Empty;
                 Debug.Log("새로만듬");
                 break;
 
