@@ -229,10 +229,7 @@ public class Building : MonoBehaviour
         return BuildingCopy;
     }
     #endregion
-    private void Update()
-    {
-        Debug.Log(gameObject.transform.position+ "        "+transform.gameObject.name );
-    }
+
     public void Rotation()          //건물 회전
     {
         Debug.Log("회전");
