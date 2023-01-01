@@ -67,11 +67,6 @@ public class ButtonOk : MonoBehaviour
          Destroy(temp.gameObject);
 
      }
-    
-    public void Coin_ButtonOK()
-    {
-        Debug.Log("cococoin");
-        temp.Coin_OK();
-    }
+
 
 }

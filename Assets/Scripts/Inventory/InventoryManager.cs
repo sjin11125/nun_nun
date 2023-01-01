@@ -12,6 +12,7 @@ public class InventoryManager : MonoBehaviour
     public Transform Content;
 
     public Button InvenBuildingBtn;
+    public Button InvenStrBtn;
     public Button InvenNuniBtn;
     public Button InvenCloseBtn;
 
@@ -26,7 +27,12 @@ public class InventoryManager : MonoBehaviour
      
             InvenBuildingBtn.OnClickAsObservable().Subscribe(_ =>
             {
-                Inventory_Building_Open();
+                Inventory_Building_Open(false);
+            }).AddTo(this);
+     
+            InvenStrBtn.OnClickAsObservable().Subscribe(_ =>
+            {
+                Inventory_Building_Open(true);
             }).AddTo(this);
         
        
@@ -69,13 +75,25 @@ public class InventoryManager : MonoBehaviour
             Destroy(Content_Child[i].gameObject);
         }
     }
-    public void Inventory_Building_Open()            //건물 인벤 버튼 눌렀을 때
+    public void Inventory_Building_Open(bool isStr)            //건물 인벤 버튼 눌렀을 때
     {
         Inventory_Exit();           //원래 있던 목록 다 지우기
         foreach (var item in LoadManager.Instance.MyBuildings)
         {
-
-            
+            if (isStr)          //설치물 인벤인가
+            {
+                if (!item.Value.isStr)          //해당 건물이 설치물이 아니라면 그냥 넘기기
+                {
+                    continue;
+                }
+            }
+            else                        //건물 인벤인가
+            {
+                if (item.Value.isStr)          //해당 건물이 설치물이 아니라면 그냥 넘기기
+                {
+                    continue;
+                }
+            }
 
                 if (item.Value.Id != "ii1y1" )         //분수가 아니고 설치물이 아니라면
                 {

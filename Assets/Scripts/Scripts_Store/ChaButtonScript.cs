@@ -117,7 +117,7 @@ public class ChaButtonScript : MonoBehaviour
     {
         //DowngradeBuilding.Remove(DowngradeBuilding);
     }
-    public void IsUpgrade()         //건물 업그레이드 한다고 했을 때
+    /*public void IsUpgrade()         //건물 업그레이드 한다고 했을 때
     {
        
         GameManager.isMoveLock = false;
@@ -158,7 +158,7 @@ public class ChaButtonScript : MonoBehaviour
         LoadManager.ReBuildingSubject.OnNext(building);//건물 리스트 새로고침
         Destroy(gameObject.transform.gameObject);
 
-    }
+    }*/
     // Update is called once per frame
     void Update()
     {
@@ -352,17 +352,6 @@ public class ChaButtonScript : MonoBehaviour
 
                 Transform parent = transform.parent.transform.parent.transform.parent.transform.parent.transform.parent;
 
-                Transform[] Window = parent.GetComponentsInChildren<Transform>();  //StoreWindow
-
-                try
-                {
-
-                }
-                catch (System.Exception)
-                {
-
-                    throw;
-                }
                 //parent.gameObject.SetActive(false);
 
                 building = buildingprefab.GetComponent<Building>();

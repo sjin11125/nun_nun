@@ -153,7 +153,7 @@ public class LoadManager : MonoBehaviour
                 GameManager.Instance.BestScoreSave();                   //최고점수 서버 저장
             }
 
-            buildingsave.BuildingReq(BuildingDef.getMyBuilding);
+            LoadManager.Instance.buildingsave.BuildingReq(BuildingDef.getMyBuilding);
 
 
 
@@ -239,8 +239,10 @@ public class LoadManager : MonoBehaviour
             MyBuildingsPrefab.Add(building.Id, Currnetbuildings);                   //내 건물 프리팹 딕셔너리에 추가
 
             Building g_Building = Currnetbuildings.GetComponent<Building>();
-            g_Building.SetValue(building);      //���� ������ �������� ���� ��ũ��Ʈ value ���� ������ �ִ� ��ũ��Ʈ value�� ����
-
+                if (g_Building.isStr)       //건축물이라면
+                    building.isStr = true;
+                g_Building.SetValue(building);      //���� ������ �������� ���� ��ũ��Ʈ value ���� ������ �ִ� ��ũ��Ʈ value�� ����
+                
 
             for (int j = 0; j < GameManager.BuildingArray.Length; j++)
             {

@@ -212,23 +212,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a11ed494d8df73549b2ad882df51f11e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GD:
-    order: 
-    result: 
-    msg: 
-    row_size: 
-    length: 
-    BuildingPosition_x: 
-    BuildingPosition_y: 
-    isLock: 
-    Building_name: 
-    Reward: 
-    Info: 
-    Building_Image: 
-    Cost: 
-    ShinCost: 
-    Level: 
-    isFlied: 
   isMe: 0
 --- !u!114 &-4658160287490729801
 MonoBehaviour:
@@ -242,16 +225,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7e4fb413bcc80044a8d1f69d6b2cb55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BuildingBtn: {fileID: 0}
-  BuildingImage: {fileID: 0}
+  BuildingBtn: {fileID: 1169831194810043268}
+  BuildingImage: {fileID: 3893762316990809364}
   BuildingNameEnum: 0
   Placed: 0
   area:
     m_Position: {x: 0, y: 0, z: 0}
     m_Size: {x: 1, y: 1, z: 1}
-  Coin_Button: {fileID: 2132867819104901470, guid: 76385d16ace105b4a959d0e5c52ad629, type: 3}
-  currentTime: 0
-  startingTime: 60
   BuildEditBtn:
   - buildUIType: 0
     btn: {fileID: 795846871020230865}
@@ -264,9 +244,7 @@ MonoBehaviour:
     prefab: {fileID: 0}
   UIPanels: []
   VisitorBookUIPanel: {fileID: 0}
-  isCoin: 0
-  isCountCoin: 0
-  CountCoin: 0
+  isStr: 1
   BuildingPosition: {x: 0, y: 0}
   isLock: T
   Building_name: flower_level(Clone)
@@ -282,10 +260,6 @@ MonoBehaviour:
   Id: 
   str: 
   layer_y: 0
-  buildings:
-  - {fileID: 2132867819981942807}
-  - {fileID: 6943732884510202777}
-  buildings_image: []
   Type: 0
   save: {fileID: 0}
   pos: {x: 0, y: 0, z: 0}
@@ -1231,6 +1205,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f44607720b74f04448f17f7256c3b80b, type: 3}
+--- !u!114 &1169831194810043268 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6611396525617844970, guid: f44607720b74f04448f17f7256c3b80b, type: 3}
+  m_PrefabInstance: {fileID: 5475380278789069166}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3893762316990809364 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9076188558761188474, guid: f44607720b74f04448f17f7256c3b80b, type: 3}
+  m_PrefabInstance: {fileID: 5475380278789069166}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &6950664272344637738 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3137264079035381828, guid: f44607720b74f04448f17f7256c3b80b, type: 3}

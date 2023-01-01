@@ -69,8 +69,7 @@ public class LoadingSceneController : MonoBehaviour
         op.allowSceneActivation = false;
         if (loadSceneName=="Main")
         {
-            BuildingSave buildingsave = this.GetComponent<BuildingSave>();
-            buildingsave.BuildingReq(BuildingDef.getMyBuilding);
+            LoadManager.Instance.buildingsave.BuildingReq(BuildingDef.getMyBuilding);
         }
        
         float timer = 0f;

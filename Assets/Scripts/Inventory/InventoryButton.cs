@@ -206,7 +206,7 @@ public class InventoryButton : MonoBehaviour
     }
 
 
-    public void Click()         //건축물 버튼 클릭했을 때
+   /* public void Click()         //건축물 버튼 클릭했을 때
     {
     
 
@@ -367,6 +367,6 @@ public class InventoryButton : MonoBehaviour
 
         }
         settigPanel.GetComponent<AudioController>().Sound[0].Play();
-    }
+    }*/
     
 }

@@ -11,15 +11,21 @@ public class BuildingSave : MonoBehaviour
 {               //건물들 저장하는 스크립트
                 //저장하면 구글 스프레드 시트로 전송
 
-    Buildingsave[] BTosave;
      string URL = GameManager.URL;
-    public Buildingsave GD;
+    public static BuildingSave _Instance;
+    public static BuildingSave Instance
+    {
+        get {
+            if (_Instance == null) 
+            return null;
+            return _Instance;
+        }
+    }
+  
+
     public bool isMe;       //내 자신의 건물을 불러오는가?
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+
 
     public void BuildingReq(BuildingDef buildingDef,Building tempBuilding=null)
     {

@@ -33,56 +33,62 @@ public class BuildingParse
 }
 public class Building : MonoBehaviour
 {
+    [Header("건물 이미지 버튼")]
     public Button BuildingBtn;
     public Image BuildingImage;
+
+    [Header("건물 종류")]
     public BuildingName BuildingNameEnum;
+
     #region BuildingProperties
     //*
     public bool Placed = false;    //*
+
+    [Header("건물 위치")]
     public BoundsInt area;
-    
 
-    public Transform Coin_Button;      //*
 
-    public float currentTime = 0;      //*
-    public float startingTime = 60f;   //*
-
+    [Header("건축모드 UI")]
     [SerializeField]
     public List<UIEdit> BuildEditBtn;    // 건축모드 UI들
+
+    [Header("UI패널")]
     [SerializeField]
     public List<GameObject> UIPanels;    //  UI Panel들
     public GameObject VisitorBookUIPanel;       //방명록 UI Panel
 
-    public bool isCoin = false;        //*
-    public bool isCountCoin = false;   //*
-    public int CountCoin = 0;      //*
+    [Header("설치물")]
+    public bool isStr;
+
 
     public Vector2 BuildingPosition;                //건물 위치
+
+    [Header("파싱 정보")]
     //-------------------------파싱정보------------------------------
+    [Header("건물 배치 유무")]
     public string isLock;               //잠금 유무
     public string Building_name;            //건물 이름s
+    [Header("건물 획득 자원")]
     public int[] Reward =new int[3] { 0, 0, 0 };               //획득자원
+    [Header("건물 설명")]
     public string Info;                 //건물 설명
     public string Building_Image;          //빌딩 이미지 이름 *
+    [Header("건물 비용")]
     public int[] Cost = new int[3] { 0, 0, 0 };        //건물비용
     public int[] ShinCost = new int[3] { 0, 0, 0 };
+    [Header("건물 레벨")]
     public int Level = 1;       //건물 레벨
     public string isFliped = "F";
     public string BuildingPosiiton_x;
     public string BuildingPosiiton_y;
     public string Id;
     public string str;      //설치물인지
-    //-----------------------------------------------------------
+                            //-----------------------------------------------------------
 
+    [Header("건물 레이어")]
     public int layer_y;   // 건물 레이어
-    
 
-    GameObject Parent;
-
-    public GameObject[] buildings;     // 레벨별 건물
-    public Sprite[] buildings_image;    //레벨별 건물 이미지(2,3레벨)
-
-    
+    [Header("건물 상태")]
     public BuildType Type;
 
     public BuildingSave save;
@@ -168,12 +174,8 @@ public class Building : MonoBehaviour
         Placed = getBuilding.Placed;
         Type = getBuilding.Type;
         BuildingNameEnum = getBuilding.BuildingNameEnum;
+        isStr = getBuilding.isStr;
         //area = getBuilding.area;
-        currentTime = getBuilding.currentTime;
-        startingTime = getBuilding.startingTime;
-        isCoin = getBuilding.isCoin;
-        isCountCoin = getBuilding.isCountCoin;
-        CountCoin = getBuilding.CountCoin;
         Cost = getBuilding.Cost;
         ShinCost = getBuilding.ShinCost;
         layer_y = getBuilding.layer_y;
@@ -213,12 +215,8 @@ public class Building : MonoBehaviour
         BuildingCopy.BuildingPosition = this.BuildingPosition;
         BuildingCopy.Placed = this.Placed;
         BuildingCopy.area = this.area;
-        BuildingCopy.currentTime = this.currentTime;
-        BuildingCopy.startingTime = this.startingTime;
-        BuildingCopy.isCoin = this.isCoin;
-        BuildingCopy.isCountCoin = this.isCountCoin;
-        BuildingCopy.CountCoin = this.CountCoin;
-        
+        BuildingCopy.isStr = this.isStr;
+
         BuildingCopy.layer_y = this.layer_y;
         BuildingCopy.Level = this.Level;
 
@@ -290,7 +288,6 @@ public class Building : MonoBehaviour
         }).AddTo(this);
 
 
-        currentTime = (int)startingTime;
         save = GetComponent<BuildingSave>();
 
        // BuildingImage = BuildingBtn.gameObject.GetComponent<Image>();      //버튼 이미지 받아옴
@@ -300,7 +297,6 @@ public class Building : MonoBehaviour
             gameObject.name= Building_Image  ;       //이름 설정
         }
 
-        Coin_Button.gameObject.SetActive(false);
 
         if (Placed)
         {
@@ -479,58 +475,6 @@ public class Building : MonoBehaviour
             }
         }
     }
-    #region 기획보류
-    public void Coin() //재화부분
-    {
-
-        currentTime -= 1 * Time.deltaTime;
-        //currentTime = (int)currentTime_1;
-
-        if ((int)currentTime <= 0)
-        {
-            currentTime = 0;
-        }
-
-        if (((int)currentTime % 5 ).Equals( 0) && (int)currentTime != startingTime && isCountCoin .Equals( false) )     //생성되고 5초 마다 재화생성 (건물마다 다르다!)
-        {
-            isCountCoin = true;
-            //CountCoin += 1;
-
-            Coin_Button.gameObject.SetActive(true);
-        }
-        else if ((int)currentTime % 5 != 0)
-        {
-            isCountCoin = false;
-        }
-
-        // 재화를 누르면 current Time 초기화 or 0이 되면 이미지 MAX coin으로 변환 후 수확하면 currentTime = startingTime
-
-
-
-
-    }
-
-    public void Coin_OK()       //재화 버튼 누르는 함수
-    {
-        //currentTime =  startingTime;
-        isCoin = true;      //코인 먹었음
-        GameManager.Money += Reward[Level-1];
-        CanvasManger.AchieveMoney += Reward[Level - 1];
-
-       currentTime = (int)startingTime;
-
-        isCoin = true;
-
-        if (currentTime .Equals( 0))
-        {
-            //수정필요
-            currentTime = (int)startingTime;
-            //Max 이미지로 바뀜
-        }
-        Coin_Button.gameObject.SetActive(false);
-    }
-
-    #endregion
 
 
 
@@ -571,7 +515,6 @@ public class Building : MonoBehaviour
         BoundsInt areaTemp = area; 
 
         Placed = true;      // 배치 했니? 네
-        Debug.Log(buildings.Length);
 
        
 
@@ -599,7 +542,7 @@ public class Building : MonoBehaviour
                 Type = BuildType.Empty;
 
                 // save.UpdateValue(this);
-                save.BuildingReq(BuildingDef.updateValue, this);
+                LoadManager.Instance.buildingsave.BuildingReq(BuildingDef.updateValue, this);
                 break;
 
             case BuildType.Rotation:
@@ -624,7 +567,7 @@ public class Building : MonoBehaviour
 
             default:
                 // save.UpdateValue(this);
-                save.BuildingReq(BuildingDef.updateValue, this);
+                LoadManager.Instance.buildingsave.BuildingReq(BuildingDef.updateValue, this);
                 break;
         }
   
@@ -649,7 +592,7 @@ public class Building : MonoBehaviour
         GameManager.CurrentBuilding = null;
         //
 
-        save.BuildingReq(BuildingDef.addValue, this);
+        LoadManager.Instance.buildingsave.BuildingReq(BuildingDef.addValue, this);
         //GameManager.isUpdate = true;
     }
     #endregion
