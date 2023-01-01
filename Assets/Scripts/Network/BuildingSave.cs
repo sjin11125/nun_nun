@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
@@ -8,8 +8,8 @@ using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
 public class BuildingSave : MonoBehaviour
-{               //°Ç¹°µé ÀúÀåÇÏ´Â ½ºÅ©¸³Æ®
-                //ÀúÀåÇÏ¸é ±¸±Û ½ºÇÁ·¹µå ½ÃÆ®·Î Àü¼Û
+{               //ê±´ë¬¼ë“¤ ì €ì¥í•˜ëŠ” ìŠ¤í¬ë¦½íŠ¸
+                //ì €ì¥í•˜ë©´ êµ¬ê¸€ ìŠ¤í”„ë ˆë“œ ì‹œíŠ¸ë¡œ ì „ì†¡
 
      string URL = GameManager.URL;
     public static BuildingSave _Instance;
@@ -23,11 +23,11 @@ public class BuildingSave : MonoBehaviour
     }
   
 
-    public bool isMe;       //³» ÀÚ½ÅÀÇ °Ç¹°À» ºÒ·¯¿À´Â°¡?
+    public bool isMe;       //ë‚´ ìì‹ ì˜ ê±´ë¬¼ì„ ë¶ˆëŸ¬ì˜¤ëŠ”ê°€?
     // Start is called before the first frame update
 
 
-    public void BuildingReq(BuildingDef buildingDef,Building tempBuilding=null)
+    public void BuildingReq(BuildingDef buildingDef,Building tempBuilding=null,Action callback=null)
     {
         WWWForm form = new WWWForm();
 
@@ -63,10 +63,10 @@ public class BuildingSave : MonoBehaviour
                 break;
 
             case BuildingDef.getMyBuilding:
-                isMe = true;                    //³» °Ç¹° ºÒ·¯¿Â´Ù!!!!!!!!!!!!!!!!
+                isMe = true;                    //ë‚´ ê±´ë¬¼ ë¶ˆëŸ¬ì˜¨ë‹¤!!!!!!!!!!!!!!!!
                 form.AddField("order", "getFriendBuilding");
                 form.AddField("loadedFriend", GameManager.NickName);
-                StartCoroutine(Post(form, buildingDef));
+                StartCoroutine(Post(form, buildingDef,callback));
                 break;
 
             default:
@@ -80,16 +80,16 @@ public class BuildingSave : MonoBehaviour
         string FriendNickname=gameObject.transform.parent.name;
         GameManager.friend_nickname = FriendNickname;           
         WWWForm form1 = new WWWForm();
-        isMe = false;                   //Ä£±¸ °Ç¹° ºÒ·¯¿Ã°ÅÁö·Õ ¸Ş·Õ
+        isMe = false;                   //ì¹œêµ¬ ê±´ë¬¼ ë¶ˆëŸ¬ì˜¬ê±°ì§€ë¡± ë©”ë¡±
         form1.AddField("order", "getFriendBuilding");
         form1.AddField("loadedFriend", FriendNickname);
         StartCoroutine(Post(form1, BuildingDef.getFriendBuilding));
     }
    
-    IEnumerator Post(WWWForm form,BuildingDef buildingDef)
+    IEnumerator Post(WWWForm form,BuildingDef buildingDef,Action callback=null)
     {
-        Debug.Log("ºÒ·¯¿À¶ó");
-        using (UnityWebRequest www = UnityWebRequest.Post(URL, form)) // ¹İµå½Ã usingÀ» ½á¾ßÇÑ´Ù
+        Debug.Log("ë¶ˆëŸ¬ì˜¤ë¼");
+        using (UnityWebRequest www = UnityWebRequest.Post(URL, form)) // ë°˜ë“œì‹œ usingì„ ì¨ì•¼í•œë‹¤
             {
                 yield return www.SendWebRequest();
             //Debug.Log(www.downloadHandler.text);
@@ -105,17 +105,18 @@ public class BuildingSave : MonoBehaviour
                     case BuildingDef.getFriendBuilding:
                     case BuildingDef.getMyBuilding:
                         Response(www.downloadHandler.text, buildingDef);
+                        callback();
                         break;
 
                     default:
                         break;
                 }
             } 
-            else print("À¥ÀÇ ÀÀ´äÀÌ ¾ø½À´Ï´Ù.");
+            else print("ì›¹ì˜ ì‘ë‹µì´ ì—†ìŠµë‹ˆë‹¤.");
             }
         
     }
-    void Response(string json, BuildingDef buildingDef)                          //°Ç¹° °ª ºÒ·¯¿À±â
+    void Response(string json, BuildingDef buildingDef)                          //ê±´ë¬¼ ê°’ ë¶ˆëŸ¬ì˜¤ê¸°
     {
         if (string.IsNullOrEmpty(json))
         {
@@ -130,7 +131,7 @@ public class BuildingSave : MonoBehaviour
         {
             case BuildingDef.getFriendBuilding:
 
-                if (json.Equals("Null"))  //°Ç¹°ÀÌ ¾ø´Ù¸é
+                if (json.Equals("Null"))  //ê±´ë¬¼ì´ ì—†ë‹¤ë©´
                 {
                     SceneManager.LoadScene("FriendMain");
                     return;
@@ -148,7 +149,7 @@ public class BuildingSave : MonoBehaviour
                     Building b = new Building();
                     b.SetValueParse(friendBuildings);
 
-                    GameManager.FriendBuildingList.Add(b);      //Ä£±¸ÀÇ °Ç¹° ¸®½ºÆ®¿¡ »ğÀÔ
+                    GameManager.FriendBuildingList.Add(b);      //ì¹œêµ¬ì˜ ê±´ë¬¼ ë¦¬ìŠ¤íŠ¸ì— ì‚½ì…
                 }
 
                 Debug.Log(GameManager.FriendBuildingList.Count);
@@ -170,7 +171,7 @@ public class BuildingSave : MonoBehaviour
                     Building b = new Building();
                     b.SetValueParse(Buildings);
 
-                    LoadManager.AddBuildingSubject.OnNext(b); //³» °Ç¹° ¸®½ºÆ®¿¡ »ğÀÔ
+                    LoadManager.AddBuildingSubject.OnNext(b); //ë‚´ ê±´ë¬¼ ë¦¬ìŠ¤íŠ¸ì— ì‚½ì…
 
                 }
                 GameManager.isLoading = true;
@@ -194,18 +195,18 @@ public class Buildingsave
 {
     public string order, result, msg, row_size,length;
 
-    public string BuildingPosition_x;                //°Ç¹° À§Ä¡(xÁÂÇ¥)
-    public string BuildingPosition_y;                //°Ç¹° À§Ä¡(yÁÂÇ¥)
-    //-------------------------ÆÄ½ÌÁ¤º¸------------------------------
-    public string isLock;               //Àá±İ À¯¹«
-    public string Building_name;            //°Ç¹° ÀÌ¸§
-    public string Reward;               //È¹µæÀÚ¿ø
-    public string Info;                 //°Ç¹° ¼³¸í
-    public string Building_Image;          //ºôµù ÀÌ¹ÌÁö ÀÌ¸§ *
-    public string Cost;        //°Ç¹°ºñ¿ë
+    public string BuildingPosition_x;                //ê±´ë¬¼ ìœ„ì¹˜(xì¢Œí‘œ)
+    public string BuildingPosition_y;                //ê±´ë¬¼ ìœ„ì¹˜(yì¢Œí‘œ)
+    //-------------------------íŒŒì‹±ì •ë³´------------------------------
+    public string isLock;               //ì ê¸ˆ ìœ ë¬´
+    public string Building_name;            //ê±´ë¬¼ ì´ë¦„
+    public string Reward;               //íšë“ìì›
+    public string Info;                 //ê±´ë¬¼ ì„¤ëª…
+    public string Building_Image;          //ë¹Œë”© ì´ë¯¸ì§€ ì´ë¦„ *
+    public string Cost;        //ê±´ë¬¼ë¹„ìš©
     public string ShinCost;  
-    public string Level;       //°Ç¹° ·¹º§
-    public string isFlied;        //µÚÁı¾îÁ³´ÂÁö
+    public string Level;       //ê±´ë¬¼ ë ˆë²¨
+    public string isFlied;        //ë’¤ì§‘ì–´ì¡ŒëŠ”ì§€
                                //-----------------------------------------------------------
                                //public string[] Friends;
 }

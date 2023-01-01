@@ -30,6 +30,8 @@ public class LoadManager : MonoBehaviour
 
     public static GameObject Currnetbuildings;
     public static LoadManager _Instance;
+
+
     public static LoadManager Instance
     {
         get
@@ -89,7 +91,7 @@ public class LoadManager : MonoBehaviour
         }
 
     }
-
+    
     void Reward_response(string json)
     {
         
@@ -98,6 +100,8 @@ public class LoadManager : MonoBehaviour
         if (time != DateTime.Now.ToString("yyyy.MM.dd"))     //���ó�¥�� �ƴϳ� �ϰ���Ȯ ����
         {
             GameManager.isReward = true;
+            
+            GetReward();
         }
         else
         {
@@ -148,16 +152,19 @@ public class LoadManager : MonoBehaviour
                 form1.AddField("order", "getFriendBuilding");
                 form1.AddField("loadedFriend", GameManager.NickName);
 
-                StartCoroutine(RewardStart());          //오늘 재화 받을 수 있는지
+               
 
                 GameManager.Instance.BestScoreSave();                   //최고점수 서버 저장
             }
+            Action action ;
+            LoadManager.Instance.buildingsave.BuildingReq(BuildingDef.getMyBuilding,null,action=()=> {
+                StartCoroutine(RewardStart());
+                }
+            );          //오늘 재화 받을 수 있는지}) ;
 
-            LoadManager.Instance.buildingsave.BuildingReq(BuildingDef.getMyBuilding);
 
 
-
-            if (TutorialsManager.itemIndex>3)
+                if (TutorialsManager.itemIndex>3)
             {
                 Camera.main.GetComponent<Transform>().position = new Vector3(0, 0, -10);
             }
@@ -300,10 +307,85 @@ public class LoadManager : MonoBehaviour
         MyBuildingsPrefab.Remove(Id);
 
     }
+    
+    public void GetReward()
+    {
+        GameManager.isReward = false;
+        int MyReward = 0;
+
+        List<string> RewardedNuni = new List<string>();         //보상받은 누니
+
+        foreach (var item in MyBuildings)
+        {
+
+
+            for (int j = 0; j < GameManager.BuildingArray.Length; j++)
+            {
+                if (item.Value.Building_Image.Equals(GameManager.BuildingArray[j].Building_Image))
+                {
+                    MyReward += GameManager.BuildingArray[j].Reward[item.Value.Level - 1];
+
+                }
+
+            }
+
+            for (int y = 0; y < GameManager.CharacterList.Count; y++)
+            {
+                if (item.Value.Building_Image.Equals(GameManager.CharacterList[y].Building[0])
+                    && GameManager.CharacterList[y].Gold != "X"
+                    && GameManager.CharacterList[y].cardName != RewardedNuni.Find(x => x == GameManager.CharacterList[y].cardName))//건물 보상 받는 누니인가
+                {
+                    MyReward += int.Parse(GameManager.CharacterList[y].Gold);
+                    Debug.Log("    " + item.Value.Building_Image);
+                    Debug.Log(y + "    " + GameManager.CharacterList[y].cardName);
+                    RewardedNuni.Add(GameManager.CharacterList[y].cardName);
+
+                }
+
+            }
+
+        }
+
+        /*for (int i = 0; i < GameManager.CharacterList.Count; i++)
+        {
+
+            if (GameManager.CharacterList[i].cardName== "꾸러기누니"||
+                GameManager.CharacterList[i].cardName == "꽃단누니" ||
+                GameManager.CharacterList[i].cardName == "어린이누니" ||
+                GameManager.CharacterList[i].cardName == "학생누니" )
+            {
+                nuni50++;
+            }
+            if (GameManager.CharacterList[i].cardName == "셰프누니" ||
+                GameManager.CharacterList[i].cardName == "패션누니" )
+            {
+                nuni30++;
+            }
+            MyReward += nuni50 * 50 + nuni30 * 30;
+
+        }*/
+        GameManager.Money += MyReward;
+        CanvasManger.AchieveMoney += MyReward;
+
+
+        WWWForm form1 = new WWWForm();
+        form1.AddField("order", "questSave");
+        form1.AddField("player_nickname", GameManager.NickName);
+        form1.AddField("time", DateTime.Now.ToString("yyyy.MM.dd"));
+
+        StartCoroutine(TimePost(form1));//���� ��Ʈ�� ���ó�¥ ������Ʈ ���ֱ�
+
+        if (TutorialsManager.itemIndex > 13)//Ʃ�丮���� ��������
+        {
+            RewardPannel.SetActive(true);
+            Text[] rewardText = RewardPannel.GetComponentsInChildren<Text>();
+            rewardText[1].text = MyReward.ToString();
+        }
+    }
     void Update()
     {
        
-        if (GameManager.isReward.Equals(true)&&GameManager.isLoading.Equals(true) )        
+       /* if (GameManager.isReward.Equals(true)&&GameManager.isLoading.Equals(true) )        
         {
 
             
@@ -344,24 +426,6 @@ public class LoadManager : MonoBehaviour
 
             }
 
-            /*for (int i = 0; i < GameManager.CharacterList.Count; i++)
-            {
-
-                if (GameManager.CharacterList[i].cardName== "꾸러기누니"||
-                    GameManager.CharacterList[i].cardName == "꽃단누니" ||
-                    GameManager.CharacterList[i].cardName == "어린이누니" ||
-                    GameManager.CharacterList[i].cardName == "학생누니" )
-                {
-                    nuni50++;
-                }
-                if (GameManager.CharacterList[i].cardName == "셰프누니" ||
-                    GameManager.CharacterList[i].cardName == "패션누니" )
-                {
-                    nuni30++;
-                }
-                MyReward += nuni50 * 50 + nuni30 * 30;
-
-            }*/
             GameManager.Money += MyReward;
             CanvasManger.AchieveMoney += MyReward;
 
@@ -379,7 +443,7 @@ public class LoadManager : MonoBehaviour
                 Text[] rewardText = RewardPannel.GetComponentsInChildren<Text>();
                 rewardText[1].text = MyReward.ToString();
             }          
-        }
+        }*/
       if (SceneManager.GetActiveScene().name.Equals("FriendMain") && isLoaded.Equals(false) )                            //ģ�� ���� ��
             {
             isLoaded = true;
