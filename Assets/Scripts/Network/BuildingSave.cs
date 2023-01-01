@@ -103,6 +103,9 @@ public class BuildingSave : MonoBehaviour
                         break;
 
                     case BuildingDef.getFriendBuilding:
+                        Response(www.downloadHandler.text, buildingDef);
+                        break;
+
                     case BuildingDef.getMyBuilding:
                         Response(www.downloadHandler.text, buildingDef);
                         callback();

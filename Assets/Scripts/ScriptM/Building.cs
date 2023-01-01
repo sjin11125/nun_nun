@@ -149,22 +149,6 @@ public class Building : MonoBehaviour
         Level = 1;
 
     }
-  /*  public Building(string islock, string buildingname,string reward,string info,string image,string cost, string shinCost, string level,string isfliped,string building_x,string building_y)           //파싱할 때 쓰는 생성자
-    {
-        isLock = islock;
-        Building_name = buildingname;
-        Reward = reward;
-        Info = info;
-        Building_Image = image;
-        Cost =int.Parse(cost);
-        ShinCost = int.Parse(shinCost);
-        Level =int.Parse(level);
-        isFliped = isfliped;
-        BuildingPosiiton_x = building_x;
-        BuildingPosiiton_y= building_y;
-
-
-    }*/
     public void SetValue(Building getBuilding)
     {
         isLock = getBuilding.isLock;
@@ -273,25 +257,8 @@ public class Building : MonoBehaviour
     }
     void Start()
     {
-        OnMovePosition.Subscribe(_=>
-        {
-            try
-            {
-                transform.position = _;
-                Debug.Log("ㅅ바ㅣㅣㅏㅡ리ㅏㄴㅇㄹ" + transform.position);
-            }
-            catch(Exception e)
-            {
-                Debug.LogError(e.Message);
-            }
-
-        }).AddTo(this);
-
-
         save = GetComponent<BuildingSave>();
 
-       // BuildingImage = BuildingBtn.gameObject.GetComponent<Image>();      //버튼 이미지 받아옴
-        //TimeText = GameObject.Find("Canvas/TimeText"); //게임오브젝트 = 캔버스에 있는 TimeText로 설정
         if (Type .Equals( BuildType.Make))
         {
             gameObject.name= Building_Image  ;       //이름 설정
@@ -376,7 +343,6 @@ public class Building : MonoBehaviour
                             break;
                     }
                 }
-                //longClickStream.Dispose();
 
         }).AddTo(this);
 
@@ -541,7 +507,6 @@ public class Building : MonoBehaviour
 
                 Type = BuildType.Empty;
 
-                // save.UpdateValue(this);
                 LoadManager.Instance.buildingsave.BuildingReq(BuildingDef.updateValue, this);
                 break;
 
@@ -572,8 +537,6 @@ public class Building : MonoBehaviour
         }
   
 
-       // gameObject.transform.parent = Parent.transform;
-       // GridBuildingSystem.current.temp_gameObject = null;
     }
     public void BuildingListRemove()            //현재 가지고 있는 빌딩 제거
     {

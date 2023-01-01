@@ -60,10 +60,6 @@ public class ChaButtonScript : MonoBehaviour
     }
     public void NuniInfoClick()
     {
-        /* GameObject NuniInfo = Instantiate(NuniInfoPannel) as GameObject;        //누니 정보 패널 Instantiate
-         NuniInfo.transform.SetParent(StartManager.Canvas.transform);        //캔버스 부모설정
-         NuniInfo.GetComponent<RectTransform>().localPosition = new Vector3(0, 0, 0);
-        */
         Card nuni;
         for (int i = 0; i < GameManager.AllNuniArray.Length; i++)
         {
@@ -72,40 +68,6 @@ public class ChaButtonScript : MonoBehaviour
                 //Debug.Log("GameManager.AllNuniArray[i].cardImage: " + GameManager.AllNuniArray[i].cardImage);
                 nuni = GameManager.AllNuniArray[i];
 
-                /*Text[] InfoTexts = NuniInfo.GetComponentsInChildren<Text>();
-                Image[] InfoImage = NuniInfo.GetComponentsInChildren<Image>();
-                Debug.Log("InfoImage: "+ InfoImage.Length);
-                Image[] stars = NuniInfo.transform.Find("Stars").GetComponentsInChildren<Image>();
-
-               /* if (nuni.Star == "1")
-                {
-                    InfoImage[1].color = new Color(244 / 255f, 255 / 255f, 162 / 255f);
-
-                    
-                }
-                else if (nuni.Star == "3")
-                {
-                    InfoImage[1].color = new Color(255 / 255f, 168 / 255f, 255 / 255f);
-                    
-                }
-                else
-                {
-                   // InfoImage[1].color = new Color(210 / 255f, 150 / 255f, 255 / 255f);
-
-                }*/
-                /* for (int j = 0; j < int.Parse(GameManager.AllNuniArray[i].Star); j++)   //별 넣기
-                 {
-                     stars[j].color = new Color(1, 1, 1);
-                 }
-                InfoImage[1].sprite = nuni.GetChaImange();
-
-                InfoTexts[0].text = nuni.cardName;      //누니 이름 넣기
-                InfoTexts[1].text = nuni.Info;                  //누니 설명
-                InfoTexts[2].text = nuni.Effect; //누니 보유 효과
-
-                NuniInfo.GetComponent<RectTransform>().localScale= new Vector3(1, 1, 1);
-
-                */
                 NuniParseManager.SelectedNuni.SetValue(nuni);
                 
             }
@@ -113,53 +75,7 @@ public class ChaButtonScript : MonoBehaviour
         NuniParseManager.NuniInfoOpen();
         settigPanel.GetComponent<AudioController>().Sound[0].Play();
     }
-    public void IsSell()            //건물 제거한다고 했을 때
-    {
-        //DowngradeBuilding.Remove(DowngradeBuilding);
-    }
-    /*public void IsUpgrade()         //건물 업그레이드 한다고 했을 때
-    {
-       
-        GameManager.isMoveLock = false;
-        Building building = buildings[0].transform.parent.GetComponent<Building>();
-        string building_name = buildings[0].transform.parent.name;
-
-        if (GameManager.Money < building.Cost[building.Level ])
-        {
-            CancleText.gameObject.SetActive(true);
-            return;
-        }
-        if (GameManager.ShinMoney < building.ShinCost[building.Level])
-        {
-            CancleText.gameObject.SetActive(true);
-            return;
-        }
-      if (Level == 1)
-        {
-
-           // buildings[1].SetActive(true);
-            building.Level += 1;
-
-            buildings[0].GetComponent<SpriteRenderer>().sprite = building.buildings_image[building.Level - 2];
-            SpriteRenderer spriteRenderer = buildings[1].GetComponentInChildren<SpriteRenderer>();
-            spriteRenderer.sortingOrder = buildings[0].GetComponentInChildren<SpriteRenderer>().sortingOrder + 1;
-        }
-        else
-        {
-            //buildings[2].SetActive(true);
-            buildings[0].GetComponent<SpriteRenderer>().sprite = building.buildings_image[building.Level -2];
-            building.Level += 1;
-        }
-       
-        GameManager.Money -= building.Cost[building.Level-1];
-        GameManager.ShinMoney -= building.ShinCost[building.Level-1];
-
-        building.Type = BuildType.Empty;
-        LoadManager.ReBuildingSubject.OnNext(building);//건물 리스트 새로고침
-        Destroy(gameObject.transform.gameObject);
-
-    }*/
-    // Update is called once per frame
+   
     void Update()
     {
         if (gameObject.tag == "Lock")         //잠겼을때
@@ -360,15 +276,6 @@ public class ChaButtonScript : MonoBehaviour
                 building.area = buildingprefab.GetComponent<Building>().area;
 
 
-
-                /* GameManager.CurrentBuilding = buildingprefab;
-                 Building b = buildingprefab.GetComponent<Building>();
-                 Building c = GameManager.CurrentBuilding.GetComponent<Building>();
-                 c.Building_Image = buildingname;
-                 c = b.GetComponent<Building>().DeepCopy();
-                 b.Level = 1;
-                 c.SetValue(b);
-                */
                 LoadManager.Instance.InstantiateBuilding(building);
                 GridBuildingSystem.OnEditMode.OnNext(building);
 

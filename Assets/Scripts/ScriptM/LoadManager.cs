@@ -248,6 +248,7 @@ public class LoadManager : MonoBehaviour
             Building g_Building = Currnetbuildings.GetComponent<Building>();
                 if (g_Building.isStr)       //건축물이라면
                     building.isStr = true;
+
                 g_Building.SetValue(building);      //���� ������ �������� ���� ��ũ��Ʈ value ���� ������ �ִ� ��ũ��Ʈ value�� ����
                 
 
@@ -385,65 +386,7 @@ public class LoadManager : MonoBehaviour
     void Update()
     {
        
-       /* if (GameManager.isReward.Equals(true)&&GameManager.isLoading.Equals(true) )        
-        {
-
-            
-          // LoadingNuniPanel.SetActive(false);
-            GameManager.isReward = false;
-            int MyReward = 0;
-
-            List<string> RewardedNuni = new List<string>();         //보상받은 누니
-
-            foreach (var item in MyBuildings)
-            {
-
-            
-                for (int j = 0; j < GameManager.BuildingArray.Length; j++)
-                {
-                    if (item.Value.Building_Image.Equals(GameManager.BuildingArray[j].Building_Image))
-                    {
-                        MyReward += GameManager.BuildingArray[j].Reward[item.Value.Level - 1];
-                      
-                    }
-                   
-                }
-
-                for (int y = 0; y < GameManager.CharacterList.Count; y++)
-                {
-                    if (item.Value.Building_Image.Equals(GameManager.CharacterList[y].Building[0]) 
-                        && GameManager.CharacterList[y].Gold != "X"
-                        && GameManager.CharacterList[y].cardName!=RewardedNuni.Find(x=>x==GameManager.CharacterList[y].cardName))//건물 보상 받는 누니인가
-                    {
-                        MyReward += int.Parse(GameManager.CharacterList[y].Gold);
-                        Debug.Log( "    " + item.Value.Building_Image);
-                        Debug.Log(y + "    " + GameManager.CharacterList[y].cardName);
-                        RewardedNuni.Add(GameManager.CharacterList[y].cardName);
-                        
-                    }
-
-                }
-
-            }
-
-            GameManager.Money += MyReward;
-            CanvasManger.AchieveMoney += MyReward;
-
-
-            WWWForm form1 = new WWWForm();
-            form1.AddField("order", "questSave");
-            form1.AddField("player_nickname", GameManager.NickName);
-            form1.AddField("time", DateTime.Now.ToString("yyyy.MM.dd"));
-
-            StartCoroutine(TimePost(form1));//���� ��Ʈ�� ���ó�¥ ������Ʈ ���ֱ�
-
-            if (TutorialsManager.itemIndex > 13)//Ʃ�丮���� ��������
-            {
-                RewardPannel.SetActive(true);
-                Text[] rewardText = RewardPannel.GetComponentsInChildren<Text>();
-                rewardText[1].text = MyReward.ToString();
-            }          
-        }*/
+       
       if (SceneManager.GetActiveScene().name.Equals("FriendMain") && isLoaded.Equals(false) )                            //ģ�� ���� ��
             {
             isLoaded = true;
