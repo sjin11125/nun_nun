@@ -443,7 +443,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2132867819163425409}
   - component: {fileID: 2132867818646730808}
-  - component: {fileID: 4337750507591132674}
   - component: {fileID: -2284381711254009516}
   m_Layer: 0
   m_Name: syrup_level
@@ -488,15 +487,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BuildingBtn: {fileID: 871807253979521888}
-  BuildingImage: {fileID: 0}
+  BuildingImage: {fileID: 3038864736639135216}
   BuildingNameEnum: 4
   Placed: 0
   area:
     m_Position: {x: 1, y: -5, z: 0}
     m_Size: {x: 3, y: 3, z: 1}
-  Coin_Button: {fileID: 2132867819104901470}
-  currentTime: 0
-  startingTime: 60
   BuildEditBtn:
   - buildUIType: 0
     btn: {fileID: 8828779865247662845}
@@ -514,9 +510,7 @@ MonoBehaviour:
   - {fileID: 8670738209561198717, guid: efb072454993492408b8e047d75d4ff7, type: 3}
   - {fileID: 5544224975788530128, guid: a6518bce09e224449be850da3a762f64, type: 3}
   VisitorBookUIPanel: {fileID: 0}
-  isCoin: 0
-  isCountCoin: 0
-  CountCoin: 0
+  isStr: 0
   BuildingPosition: {x: 0, y: 0}
   isLock: T
   Building_name: syrup_level(Clone)
@@ -532,39 +526,9 @@ MonoBehaviour:
   Id: 
   str: 
   layer_y: 0
-  buildings: []
-  buildings_image:
-  - {fileID: 21300000, guid: 6a18cdde7f039ed499bc35fc23f7b26c, type: 3}
   Type: 4
   save: {fileID: 0}
-  IsMove: 0
   pos: {x: 0, y: 0, z: 0}
---- !u!61 &4337750507591132674
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2132867818646730806}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.0032292604, y: 1.2128023}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.7365301, y: 1.7034785}
-  m_EdgeRadius: 0
 --- !u!114 &-2284381711254009516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -577,23 +541,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a11ed494d8df73549b2ad882df51f11e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GD:
-    order: 
-    result: 
-    msg: 
-    row_size: 
-    length: 
-    BuildingPosition_x: 
-    BuildingPosition_y: 
-    isLock: 
-    Building_name: 
-    Reward: 
-    Info: 
-    Building_Image: 
-    Cost: 
-    ShinCost: 
-    Level: 
-    isFlied: 
   isMe: 0
 --- !u!1 &2132867819104901471
 GameObject:
@@ -1840,6 +1787,22 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9076188558761188474, guid: f44607720b74f04448f17f7256c3b80b, type: 3}
+      propertyPath: m_RaycastPadding.w
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9076188558761188474, guid: f44607720b74f04448f17f7256c3b80b, type: 3}
+      propertyPath: m_RaycastPadding.x
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 9076188558761188474, guid: f44607720b74f04448f17f7256c3b80b, type: 3}
+      propertyPath: m_RaycastPadding.y
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 9076188558761188474, guid: f44607720b74f04448f17f7256c3b80b, type: 3}
+      propertyPath: m_RaycastPadding.z
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 9161496761162219387, guid: f44607720b74f04448f17f7256c3b80b, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 1
@@ -1855,6 +1818,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3038864736639135216 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9076188558761188474, guid: f44607720b74f04448f17f7256c3b80b, type: 3}
+  m_PrefabInstance: {fileID: 6330141365635838346}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!224 &8957909274852706766 stripped

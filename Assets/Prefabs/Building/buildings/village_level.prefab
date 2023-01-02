@@ -458,7 +458,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2132867819163425409}
   - component: {fileID: 2132867818646730808}
-  - component: {fileID: 4337750507591132674}
   - component: {fileID: -2284381711254009516}
   m_Layer: 0
   m_Name: village_level
@@ -510,9 +509,6 @@ MonoBehaviour:
   area:
     m_Position: {x: -4, y: -3, z: 0}
     m_Size: {x: 3, y: 3, z: 1}
-  Coin_Button: {fileID: 2132867819104901470}
-  currentTime: 0
-  startingTime: 60
   BuildEditBtn:
   - buildUIType: 0
     btn: {fileID: 6097808267773420366}
@@ -530,9 +526,7 @@ MonoBehaviour:
   - {fileID: 8670738209561198717, guid: efb072454993492408b8e047d75d4ff7, type: 3}
   - {fileID: 5544224975788530128, guid: a6518bce09e224449be850da3a762f64, type: 3}
   VisitorBookUIPanel: {fileID: 2713182999061460018, guid: ec8be013d48043b44ba732b48a58be87, type: 3}
-  isCoin: 0
-  isCountCoin: 0
-  CountCoin: 0
+  isStr: 0
   BuildingPosition: {x: 0, y: 0}
   isLock: T
   Building_name: village_level(Clone)
@@ -548,39 +542,9 @@ MonoBehaviour:
   Id: 
   str: 
   layer_y: 0
-  buildings: []
-  buildings_image:
-  - {fileID: 21300000, guid: f4501d934964e934cbeb17ae62d7f498, type: 3}
   Type: 0
   save: {fileID: 0}
-  IsMove: 0
   pos: {x: 0, y: 0, z: 0}
---- !u!61 &4337750507591132674
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2132867818646730806}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.024974883, y: 1.1018832}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.7929384, y: 1.6113741}
-  m_EdgeRadius: 0
 --- !u!114 &-2284381711254009516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -593,23 +557,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a11ed494d8df73549b2ad882df51f11e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GD:
-    order: 
-    result: 
-    msg: 
-    row_size: 
-    length: 
-    BuildingPosition_x: 
-    BuildingPosition_y: 
-    isLock: 
-    Building_name: 
-    Reward: 
-    Info: 
-    Building_Image: 
-    Cost: 
-    ShinCost: 
-    Level: 
-    isFlied: 
   isMe: 0
 --- !u!1 &2132867819104901471
 GameObject:
@@ -2072,6 +2019,22 @@ PrefabInstance:
     - target: {fileID: 9076188558761188474, guid: f44607720b74f04448f17f7256c3b80b, type: 3}
       propertyPath: m_Color.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9076188558761188474, guid: f44607720b74f04448f17f7256c3b80b, type: 3}
+      propertyPath: m_RaycastPadding.w
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 9076188558761188474, guid: f44607720b74f04448f17f7256c3b80b, type: 3}
+      propertyPath: m_RaycastPadding.x
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 9076188558761188474, guid: f44607720b74f04448f17f7256c3b80b, type: 3}
+      propertyPath: m_RaycastPadding.y
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 9076188558761188474, guid: f44607720b74f04448f17f7256c3b80b, type: 3}
+      propertyPath: m_RaycastPadding.z
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 9161496761162219387, guid: f44607720b74f04448f17f7256c3b80b, type: 3}
       propertyPath: m_PresetInfoIsWorld

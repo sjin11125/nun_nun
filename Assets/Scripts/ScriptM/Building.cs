@@ -273,6 +273,27 @@ public class Building : MonoBehaviour
             }
         }
 
+        switch (Level)                      //건물 레벨에 따라 레벨별 이미지 넣기
+        {
+            case 1:
+                break;
+            case 2:
+                BuildingImage.sprite = GameManager.GetDogamChaImage(Building_Image + Level.ToString());
+                break;
+            case 3:                     //레벨3은 아직 보류
+                break;
+            default:
+                break;
+        }
+
+        if (isFliped == "F")        //회전 안했는가
+            BuildingBtn.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+        else                      //회전 햇는가
+            BuildingBtn.transform.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
+
+        if (SceneManager.GetActiveScene().name != "Main")           //친구 마을 씬이라면 밑에 실행 ㄴㄴ
+            return;
+
         longClickStream = BuildingBtn.OnPointerDownAsObservable().    //건물 버튼을 꾹 누르는 상태에서 마우스 다운 스트림
                               Subscribe(_ =>
                               {
@@ -406,23 +427,7 @@ public class Building : MonoBehaviour
             }
         }
 
-        switch (Level)
-        {
-            case 1:
-                break;
-            case 2:
-                BuildingImage.sprite = GameManager.GetDogamChaImage(Building_Image+Level.ToString());
-                break;
-            case 3:                     //레벨3은 아직 보류
-                break;
-            default:
-                break;
-        }
-      
-        if (isFliped == "F")        //회전 안했는가
-            BuildingBtn.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
-        else                      //회전 햇는가
-            BuildingBtn.transform.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
+
 
     }
     IEnumerator BuildingEditTimer()

@@ -144,7 +144,7 @@ public class LoadManager : MonoBehaviour
             MyBuildings.Add(building.Id, building);
         }).AddTo(this);
 
-        if (SceneManager.GetActiveScene().name.Equals("Main"))
+        if (SceneManager.GetActiveScene().name.Equals("Main"))          //메인씬이면
         {
             if (TutorialsManager.itemIndex > 13)
             {
@@ -191,7 +191,33 @@ public class LoadManager : MonoBehaviour
 
         }
 
-        
+        if (SceneManager.GetActiveScene().name.Equals("FriendMain") )                            //친구 마을 씬이냐
+        {
+            for (int i = 0; i < GameManager.FriendBuildingList.Count; i++)
+            {
+                Building LoadBuilding = GameManager.FriendBuildingList[i];           // ���� ������ �մ� ���� ����Ʈ�� ���� ������Ʈ
+                string BuildingName = LoadBuilding.Building_Image;        //���� ������ �ִ� ���� ����Ʈ���� ���� �̸� �θ���
+
+
+                GameObject BuildingPrefab = GameManager.BuildingPrefabData[BuildingName];
+                GameObject g = Instantiate(BuildingPrefab, new Vector3(LoadBuilding.BuildingPosition.x, LoadBuilding.BuildingPosition.y, 0), Quaternion.identity, buildings.transform) as GameObject;
+
+                Building g_Building = g.GetComponent<Building>();
+                g_Building.SetValue(LoadBuilding);
+                //g.transform.position=new Vector3(LoadBuilding.BuildingPosition.x,LoadBuilding.BuildingPosition.y, 0);
+
+                g.name = LoadBuilding.Id;            //�̸� �缳��
+
+                g_Building.Type = BuildType.Load;
+                g_Building.Place_Initial(g_Building.Type);
+
+                // g_Building.Rotation();
+
+            }
+            Destroy(LoadingPanel);
+        }
+
+
     }
 
     public void BuildingLoad()
@@ -387,32 +413,6 @@ public class LoadManager : MonoBehaviour
     {
        
        
-      if (SceneManager.GetActiveScene().name.Equals("FriendMain") && isLoaded.Equals(false) )                            //ģ�� ���� ��
-            {
-            isLoaded = true;
-            for (int i = 0; i < GameManager.FriendBuildingList.Count; i++)
-            {
-                Building LoadBuilding = GameManager.FriendBuildingList[i];           // ���� ������ �մ� ���� ����Ʈ�� ���� ������Ʈ
-                string BuildingName = LoadBuilding.Building_Image;        //���� ������ �ִ� ���� ����Ʈ���� ���� �̸� �θ���
-        
-
-                GameObject BuildingPrefab = GameManager.BuildingPrefabData[BuildingName];
-                GameObject g = Instantiate(BuildingPrefab, new Vector3(LoadBuilding.BuildingPosition.x, LoadBuilding.BuildingPosition.y, 0), Quaternion.identity, buildings.transform) as GameObject;
-
-                Building g_Building = g.GetComponent<Building>();
-                g_Building.SetValue(LoadBuilding);
-                //g.transform.position=new Vector3(LoadBuilding.BuildingPosition.x,LoadBuilding.BuildingPosition.y, 0);
-
-                g.name = LoadBuilding.Id;            //�̸� �缳��
-
-                g_Building.Type = BuildType.Load;
-                g_Building.Place_Initial(g_Building.Type);
-                
-                // g_Building.Rotation();
-
-            }
-
-        }
-
+      
     }
 }
