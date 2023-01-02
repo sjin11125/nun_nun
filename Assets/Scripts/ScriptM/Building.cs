@@ -240,8 +240,6 @@ public class Building : MonoBehaviour
             {
                 StartCoroutine(Wait());
 
-                
-               
             }
             Debug.Log("기다린 후 이동한 위치는 " + transform.position);
             //  StartCoroutine(Wait());
@@ -416,8 +414,8 @@ public class Building : MonoBehaviour
                             break;
 
                         case BuildUIType.Upgrade:          //업그레이드 버튼을 눌렀는지
-                            UIUpgradePanel uiUpgradePanel = Instantiate(UIPanels[1], GridBuildingSystem.Canvas.transform).GetComponent<UIUpgradePanel>();
-                            uiUpgradePanel.building = this;
+                            UIUpgradePanel uiUpgradePanel = new UIUpgradePanel(UIPanels[1],this);
+                            
                             break;
 
                         default:

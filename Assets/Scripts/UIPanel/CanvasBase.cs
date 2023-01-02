@@ -8,41 +8,43 @@ public class CanvasBase : MonoBehaviour
     public GameObject MiddleCanvas;
     public GameObject BottomCanvas;
 
-
+    [SerializeField]
+    public List<GameObject> UICanvas;
     public  GameObject CanvasCheck()
     {
-        GameObject ReturnCanvas=new GameObject();
         if (BottomCanvas == null)
         {
-            ReturnCanvas= Instantiate(BottomCanvas)as GameObject;
-            return ReturnCanvas;
+            BottomCanvas = Instantiate(UICanvas[0]) as GameObject;
+            return BottomCanvas;
         }
         else 
         {
-            if (!BottomCanvas.activeSelf)           //Bottom Canvas가 활성화가 안되어있나
+            if (BottomCanvas.activeSelf)           //Bottom Canvas가 활성화가 안되어있나
                 return BottomCanvas;
 
-             if(MiddleCanvas==null)
-                ReturnCanvas = Instantiate(MiddleCanvas) as GameObject;
+            if (MiddleCanvas == null)
+            {
+                MiddleCanvas = Instantiate(UICanvas[1]) as GameObject;
+                return MiddleCanvas;
+            }
             else
             {
-                if (!MiddleCanvas.activeSelf)
-                {
-                    ReturnCanvas = MiddleCanvas;
-                    return ReturnCanvas; 
-                }
+                if (MiddleCanvas.activeSelf)
+                    return MiddleCanvas;
+                
 
-                if (TopCanvas=null)
+                if (TopCanvas = null)
                 {
-                    ReturnCanvas=Instantiate(TopCanvas) as GameObject;
-                    return ReturnCanvas;
+                    TopCanvas = Instantiate(UICanvas[2]) as GameObject;
+                    return TopCanvas;
                 }
                 else
-                   if (!TopCanvas.activeSelf)
+                   if (TopCanvas.activeSelf)
                     return TopCanvas;
             }
         }
-        return ReturnCanvas;
+
+        return null;
     }
 
 }

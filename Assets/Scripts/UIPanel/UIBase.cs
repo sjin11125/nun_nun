@@ -15,15 +15,32 @@ public class UIBase :MonoBehaviour
 
     public GameObject UIPrefab;
 
-    public Canvas canvas;
+    public CanvasBase canvas;
 
     public BuildUIType buildUItype;
 
-    public virtual void  Start()
-    {
-        canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+   protected GameObject parent;
 
-        transform.SetParent(canvas.transform);
+    public virtual void  Awake()
+    {
+        canvas = GameObject.Find("Canvas").GetComponent<CanvasBase>();
+
+    }
+
+    public GameObject InstantiatePrefab()
+    {
+        if (UIPrefab != null)
+        {
+             parent = canvas.CanvasCheck();
+          GameObject ReturnObj=  Instantiate(UIPrefab, parent.transform) as GameObject;
+
+            return ReturnObj;
+        }
+        else
+        {
+            return null;
+        }
+           
     }
 
 }

@@ -16,11 +16,54 @@ public class UIUpgradePanel : UIBase
 
     int MoneyCost = 0;
     int ShinMoneyCost = 0;
+    public UIUpgradePanel(GameObject UIPrefab, Building building)
+    {
+        /*  base.Awake();
+          this.UIPrefab = UIPrefab;
+          this.building = building;*/
+
+        UIUpgradePanel r = UIPrefab.GetComponent<UIUpgradePanel>();
+        r.Awake();
+        r.UIPrefab = UIPrefab;
+        r.building = building;
+
+        r.InstantiatePrefab();
+
+
+    }
+  
 
     private void Start()
     {
-        base.Start();
+        if (UIYesBtn != null)
+        {
 
+            UIYesBtn.onClick.AsObservable().Subscribe(_ =>
+            {
+                Upgrade(building);
+
+            }).AddTo(this);
+
+        }
+        if (UINoBtn != null)
+        {
+
+            UINoBtn.onClick.AsObservable().Subscribe(_ =>
+            {
+                parent.SetActive(false);
+                Destroy(this.gameObject);
+
+            }).AddTo(this);
+        }
+        if (UICloseBtn != null)
+        {
+
+            UICloseBtn.onClick.AsObservable().Subscribe(_ =>
+            {
+                canvas.gameObject.SetActive(false);
+                Destroy(this.gameObject);
+            }).AddTo(this);
+        }
         for (int j = 0; j < GameManager.BuildingArray.Length; j++)
         {
             if (building.Building_Image == GameManager.BuildingArray[j].Building_Image)
@@ -41,33 +84,7 @@ public class UIUpgradePanel : UIBase
             }
         }
 
-        if (UIYesBtn != null)
-        {
-
-            UIYesBtn.onClick.AsObservable().Subscribe(_ =>
-            {
-                Upgrade(building);
-
-            }).AddTo(this);
-
-        }
-        if (UINoBtn != null)
-        {
-
-            UINoBtn.onClick.AsObservable().Subscribe(_ =>
-            {
-                Destroy(this.gameObject);
-
-            }).AddTo(this);
-        }
-        if (UICloseBtn != null)
-        {
-
-            UICloseBtn.onClick.AsObservable().Subscribe(_ =>
-            {
-                Destroy(this.gameObject);
-            }).AddTo(this);
-        }
+       
     }
 
     public void Upgrade(Building building)

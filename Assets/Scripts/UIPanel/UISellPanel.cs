@@ -6,9 +6,13 @@ using UniRx;
 public class UISellPanel : UIBase
 {
     public Building building;
-    public override void Start()
+
+    private void Awake()
     {
-        base.Start();
+        base.Awake();
+    }
+    public void Start()
+    {
 
        // UIPanelName.text = "건물 제거";
        // UIPanelText.text = "건물을 제거하시겠습니까?";
@@ -36,6 +40,7 @@ public class UISellPanel : UIBase
 
             UICloseBtn.onClick.AsObservable().Subscribe(_ =>
             {
+                canvas.gameObject.SetActive(false);
                 Destroy(this.gameObject);
             }).AddTo(this);
         }
