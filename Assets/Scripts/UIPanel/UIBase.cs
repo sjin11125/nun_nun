@@ -11,6 +11,8 @@ public class UIBase :MonoBehaviour
     public Button UIYesBtn;
     public Button UINoBtn;
 
+    public Button UIBackCloseBtn;           //배경 누르면 닫기
+
     public GameObject UIPrefab;
 
     public Canvas canvas;
