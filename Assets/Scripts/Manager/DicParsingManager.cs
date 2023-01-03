@@ -23,7 +23,7 @@ public class DicParsingManager : MonoBehaviour
         List<Card> CharacterList = new List<Card>();
         if (index .Equals( 1))
         {
-            csvData = Resources.Load<TextAsset>("Character");    //csv파일 가져옴
+            csvData = Resources.Load<TextAsset>("GameData/Character");    //csv파일 가져옴
 
         }
         string[] data = csvData.text.Split(new char[] { '\n' });    //엔터 기준으로 쪼갬.
@@ -75,7 +75,7 @@ public class DicParsingManager : MonoBehaviour
         List<Building> DictionaryStrList = new List<Building>(); //도감 캐릭터 리스트 생성.
         if (index.Equals(0))
         {
-            csvData = Resources.Load<TextAsset>("Dogam");    //csv파일 가져옴
+            csvData = Resources.Load<TextAsset>("GameData/Dogam");    //csv파일 가져옴
         }
 
         string[] data = csvData.text.Split(new char[] { '\n' });    //엔터 기준으로 쪼갬.

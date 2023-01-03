@@ -16,8 +16,28 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7390193762401510284, guid: da51a8f3e96963d4ba809e36b3b41a14, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7390193762401510284, guid: da51a8f3e96963d4ba809e36b3b41a14, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7390193762401510284, guid: da51a8f3e96963d4ba809e36b3b41a14, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7390193762401510284, guid: da51a8f3e96963d4ba809e36b3b41a14, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7390193762401510284, guid: da51a8f3e96963d4ba809e36b3b41a14, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: IsSell
+      objectReference: {fileID: 0}
+    - target: {fileID: 7390193762401510284, guid: da51a8f3e96963d4ba809e36b3b41a14, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ChaButtonScript, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7390193762427733590, guid: da51a8f3e96963d4ba809e36b3b41a14, type: 3}
       propertyPath: m_Pivot.x
@@ -107,23 +127,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: SellPanel Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 7390193762513063590, guid: da51a8f3e96963d4ba809e36b3b41a14, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7390193762635613091, guid: da51a8f3e96963d4ba809e36b3b41a14, type: 3}
       propertyPath: m_Text
       value: "\uAC74\uBB3C\uC744 \uC81C\uAC70\uD558\uC2DC\uACA0\uC2B5\uB2C8\uAE4C?"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: da51a8f3e96963d4ba809e36b3b41a14, type: 3}
---- !u!114 &4474913909677577537 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2360323921054798699, guid: da51a8f3e96963d4ba809e36b3b41a14, type: 3}
-  m_PrefabInstance: {fileID: 2223538396966241834}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8670738209561198717 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7390193762427733591, guid: da51a8f3e96963d4ba809e36b3b41a14, type: 3}
@@ -141,14 +154,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0490f26393aa13a448c5f8150f882eee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UIPanelName: {fileID: 4474913909677577537}
-  UIPanelText: {fileID: 8670738209885996425}
   UICloseBtn: {fileID: 0}
   UIYesBtn: {fileID: 8670738209583572390}
   UINoBtn: {fileID: 8670738209748764812}
+  UIBackCloseBtn: {fileID: 0}
   UIPrefab: {fileID: 8670738209561198717}
   canvas: {fileID: 0}
-  buildUItype: 3
   building: {fileID: 0}
 --- !u!114 &8670738209583572390 stripped
 MonoBehaviour:
@@ -170,16 +181,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &8670738209885996425 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7390193762635613091, guid: da51a8f3e96963d4ba809e36b3b41a14, type: 3}
-  m_PrefabInstance: {fileID: 2223538396966241834}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

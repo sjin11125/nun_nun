@@ -31,7 +31,7 @@ public class NuniDialogParsing : MonoBehaviour
     {
         List<Card> CharacterList = new List<Card>();
 
-        csvData = Resources.Load<TextAsset>("Cha_Dialogue");    //csv파일 가져옴
+        csvData = Resources.Load<TextAsset>("GameData/Cha_Dialogue");    //csv파일 가져옴
 
 
 
