@@ -404,8 +404,7 @@ public class Building : MonoBehaviour
                             }
                             break;
                         case BuildUIType.Remove:          //제거 버튼을 눌렀는지
-                              UISellPanel uiSellPanel=Instantiate(UIPanels[0],GridBuildingSystem.Canvas.transform).GetComponent<UISellPanel>();
-                                uiSellPanel.building = this;
+                            UISellPanel uiSellPanel = new UISellPanel(UIPanels[0],this);
                             break;
 
                         case BuildUIType.Rotation:          //회전 버튼을 눌렀는지

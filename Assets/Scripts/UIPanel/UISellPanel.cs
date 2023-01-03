@@ -7,9 +7,14 @@ public class UISellPanel : UIBase
 {
     public Building building;
 
-    private void Awake()
+   public UISellPanel(GameObject UIPrefab, Building building)
     {
-        base.Awake();
+        UISellPanel r = UIPrefab.GetComponent<UISellPanel>();
+        r.Awake();
+        r.UIPrefab = UIPrefab;
+        r.building = building;
+
+        r.InstantiatePrefab();
     }
     public void Start()
     {
@@ -31,6 +36,7 @@ public class UISellPanel : UIBase
 
             UINoBtn.onClick.AsObservable().Subscribe(_ =>
             {
+                this.gameObject.transform.parent.gameObject.SetActive(false);
                 Destroy(this.gameObject);
 
             }).AddTo(this);
@@ -40,7 +46,7 @@ public class UISellPanel : UIBase
 
             UICloseBtn.onClick.AsObservable().Subscribe(_ =>
             {
-                canvas.gameObject.SetActive(false);
+                this.gameObject.transform.parent.gameObject.SetActive(false);
                 Destroy(this.gameObject);
             }).AddTo(this);
         }
