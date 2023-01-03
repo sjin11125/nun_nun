@@ -17,7 +17,6 @@ public class UIBase :MonoBehaviour
 
     public CanvasBase canvas;
 
-    public BuildUIType buildUItype;
 
    protected GameObject parent;
 

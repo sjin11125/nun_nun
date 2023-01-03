@@ -49,32 +49,6 @@ public class ChaButtonScript : MonoBehaviour
         Grid = GameObject.Find("back_down");
         settigPanel = GameObject.FindGameObjectWithTag("SettingPanel");
     }
-    public void Islockfalse()                                               //아니오 눌렀을 때
-    {
-        GameManager.isMoveLock = false;
-        Building building = buildings[0].transform.parent.GetComponent<Building>();
-        string building_name = buildings[0].transform.parent.name;
-        building.Type = BuildType.Empty;
-
-        Destroy(gameObject.transform.parent.gameObject);
-    }
-    public void NuniInfoClick()
-    {
-        Card nuni;
-        for (int i = 0; i < GameManager.AllNuniArray.Length; i++)
-        {
-            if (transform.name == GameManager.AllNuniArray[i].cardImage)
-            {
-                //Debug.Log("GameManager.AllNuniArray[i].cardImage: " + GameManager.AllNuniArray[i].cardImage);
-                nuni = GameManager.AllNuniArray[i];
-
-                NuniParseManager.SelectedNuni.SetValue(nuni);
-                
-            }
-        }
-        NuniParseManager.NuniInfoOpen();
-        settigPanel.GetComponent<AudioController>().Sound[0].Play();
-    }
    
     void Update()
     {

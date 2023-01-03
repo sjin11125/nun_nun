@@ -17,10 +17,14 @@ public class CanvasBase : MonoBehaviour
             BottomCanvas = Instantiate(UICanvas[0]) as GameObject;
             return BottomCanvas;
         }
-        else 
+        else
         {
-            if (BottomCanvas.activeSelf)           //Bottom Canvas가 활성화가 안되어있나
+            if (!BottomCanvas.activeSelf)           //Bottom Canvas가 활성화가 안되어있나
+            {
+                BottomCanvas.SetActive(true);
                 return BottomCanvas;
+            }
+
 
             if (MiddleCanvas == null)
             {
@@ -29,18 +33,24 @@ public class CanvasBase : MonoBehaviour
             }
             else
             {
-                if (MiddleCanvas.activeSelf)
+                if (!MiddleCanvas.activeSelf)
+                {
+                    MiddleCanvas.SetActive(true);
                     return MiddleCanvas;
-                
 
+                }
                 if (TopCanvas = null)
                 {
                     TopCanvas = Instantiate(UICanvas[2]) as GameObject;
                     return TopCanvas;
                 }
                 else
-                   if (TopCanvas.activeSelf)
+                   if (!TopCanvas.activeSelf)
+                {
+                    TopCanvas.SetActive(true);
                     return TopCanvas;
+                }
+
             }
         }
 

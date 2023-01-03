@@ -358,6 +358,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3594496775184476414, guid: da51a8f3e96963d4ba809e36b3b41a14, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7390193762401510284, guid: da51a8f3e96963d4ba809e36b3b41a14, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7390193762401510284, guid: da51a8f3e96963d4ba809e36b3b41a14, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7390193762401510284, guid: da51a8f3e96963d4ba809e36b3b41a14, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7390193762401510284, guid: da51a8f3e96963d4ba809e36b3b41a14, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: IsSell
+      objectReference: {fileID: 0}
+    - target: {fileID: 7390193762401510284, guid: da51a8f3e96963d4ba809e36b3b41a14, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ChaButtonScript, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 7390193762427733590, guid: da51a8f3e96963d4ba809e36b3b41a14, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -446,6 +470,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UpgradePanel
       objectReference: {fileID: 0}
+    - target: {fileID: 7390193762513063590, guid: da51a8f3e96963d4ba809e36b3b41a14, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7390193762635613091, guid: da51a8f3e96963d4ba809e36b3b41a14, type: 3}
       propertyPath: m_Text
       value: "\uC5C5\uADF8\uB808\uC774\uB4DC \uD558\uC2DC\uACA0\uC2B5\uB2C8\uAE4C?"
@@ -475,7 +503,6 @@ MonoBehaviour:
   UIBackCloseBtn: {fileID: 0}
   UIPrefab: {fileID: 0}
   canvas: {fileID: 0}
-  buildUItype: 2
   UpgradeTextCost: {fileID: 470100510958519835}
   UpgradeTextBefore: {fileID: 1531906180546237824}
   UpgradeTextAfter: {fileID: 7324224201118153479}

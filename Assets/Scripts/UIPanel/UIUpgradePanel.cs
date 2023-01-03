@@ -50,7 +50,7 @@ public class UIUpgradePanel : UIBase
 
             UINoBtn.onClick.AsObservable().Subscribe(_ =>
             {
-                parent.SetActive(false);
+                this.gameObject.transform.parent.gameObject.SetActive(false);
                 Destroy(this.gameObject);
 
             }).AddTo(this);
@@ -60,7 +60,7 @@ public class UIUpgradePanel : UIBase
 
             UICloseBtn.onClick.AsObservable().Subscribe(_ =>
             {
-                canvas.gameObject.SetActive(false);
+                this.gameObject.transform.parent.gameObject.SetActive(false);
                 Destroy(this.gameObject);
             }).AddTo(this);
         }
@@ -97,16 +97,16 @@ public class UIUpgradePanel : UIBase
                    building.Building_Image == "flower_level(Clone)")
             {
                 Debug.Log("해당 건물마자");
-                for (int i = 0; i < GameManager.CharacterList.Count; i++)
+                foreach (var item in GameManager.CharacterList)
                 {
-                    if (GameManager.CharacterList[i].cardName == "수리공누니")
+                    if (item.cardName=="수리공누니")
                     {
                         Debug.Log("해당 누니이써");
                         isUp = true;
                         break;
-
                     }
                 }
+           
             }
             //GameObject UPPannel = Instantiate(UpgradePannel);
             if (building.Building_Image == "syrup_level(Clone)" ||
@@ -114,11 +114,11 @@ public class UIUpgradePanel : UIBase
              building.Building_Image == "school_level(Clone)")
             {
                 Debug.Log("해당 건물마자22");
-                for (int i = 0; i < GameManager.CharacterList.Count; i++)
+               foreach (var item in GameManager.CharacterList)
                 {
-                    if (GameManager.CharacterList[i].cardName == "페인트누니")
+                    if (item.cardName=="페인트누니")
                     {
-                        Debug.Log("해당 누니이써222");
+                        Debug.Log("해당 누니이써");
                         isUp = true;
                         break;
                     }
@@ -130,8 +130,7 @@ public class UIUpgradePanel : UIBase
             }
             else               //해당 누니 없을 때 업그레이드 X
             {
-
-                NoEffectPanel.SetActive(true);          //해당 누니가 없으면 패널뜨게
+                UIYesNoPanel UiMoneyCheckPanel = new UIYesNoPanel(NoEffectPanel);
             }
 
         }
@@ -152,7 +151,8 @@ public class UIUpgradePanel : UIBase
         }
         else                                             //재화가 없음
         {
-            NoMoneyPanel.SetActive(true);
+            UIYesNoPanel UiMoneyCheckPanel = new UIYesNoPanel(NoMoneyPanel);
+
         }
     }
 }
