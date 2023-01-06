@@ -7,6 +7,10 @@ using Firebase.Auth;
 using Google;
 using UnityEngine;
 using UnityEngine.UI;
+using Firebase.Firestore;
+using Firebase.Extensions;
+using Firebase.Functions;
+
 public class FirebaseLogin : MonoBehaviour
 {	// Auth 용 instance
     public Text infoText;
@@ -15,18 +19,33 @@ public class FirebaseLogin : MonoBehaviour
     private FirebaseAuth auth;
     private GoogleSignInConfiguration configuration;
 
+    FirebaseFirestore db = FirebaseFirestore.DefaultInstance;
+    FirebaseFunctions functions = Firebase.Functions.FirebaseFunctions.DefaultInstance;
+        
     private void Awake()
     {
         Debug.Log("Awake");
-        AddToInformation("싸발");
         configuration = new GoogleSignInConfiguration { WebClientId = webClientId, RequestEmail = true, RequestIdToken = true };
-        AddToInformation("꺼져");
         Debug.Log("Configuration");
         CheckFirebaseDependencies();
+
     }
     private void Start()
     {
         Debug.Log("Start");
+    }
+    private Task<string> addMessage(string text)
+    {
+        // Create the arguments to the callable function.
+        var data = new Dictionary<string, object>();
+        data["text"] = text;
+        data["push"] = true;
+
+        // Call the function and extract the operation from the result.
+        var function = functions.GetHttpsCallable("addMessage");
+        return function.CallAsync(data).ContinueWith((task) => {
+            return (string)task.Result.Data;
+        });
     }
     private void CheckFirebaseDependencies()
     {
@@ -37,14 +56,14 @@ public class FirebaseLogin : MonoBehaviour
             {
                 if (task.Result == DependencyStatus.Available)
                     auth = FirebaseAuth.DefaultInstance;
-                else
-                    AddToInformation("Could not resolve all Firebase dependencies: " + task.Result.ToString());
+                //else
+                   // AddToInformation("Could not resolve all Firebase dependencies: " + task.Result.ToString());
             }
             else
             {
-                AddToInformation("Dependency check was not completed. Error : " + task.Exception.Message);
+                //AddToInformation("Dependency check was not completed. Error : " + task.Exception.Message);
             }
-            AddToInformation("왜안돼");
+            //AddToInformation("왜안돼");
             Debug.Log("Done " + task.Result.ToString());
         });
        
@@ -59,7 +78,7 @@ public class FirebaseLogin : MonoBehaviour
         GoogleSignIn.Configuration = configuration;
         GoogleSignIn.Configuration.UseGameSignIn = false;
         GoogleSignIn.Configuration.RequestIdToken = true;
-        AddToInformation("Calling SignIn");
+        //("Calling SignIn");
 
         GoogleSignIn.DefaultInstance.SignIn().ContinueWith(OnAuthenticationFinished);
         Debug.Log("OnSignIn End ");
@@ -67,13 +86,13 @@ public class FirebaseLogin : MonoBehaviour
 
     private void OnSignOut()
     {
-        AddToInformation("Calling SignOut");
+        //AddToInformation("Calling SignOut");
         GoogleSignIn.DefaultInstance.SignOut();
     }
 
     public void OnDisconnect()
     {
-        AddToInformation("Calling Disconnect");
+        //AddToInformation("Calling Disconnect");
         GoogleSignIn.DefaultInstance.Disconnect();
     }
 
@@ -87,24 +106,24 @@ public class FirebaseLogin : MonoBehaviour
                 if (enumerator.MoveNext())
                 {
                     GoogleSignIn.SignInException error = (GoogleSignIn.SignInException)enumerator.Current;
-                    AddToInformation("Got Error: " + error.Status + " " + error.Message);
+                    //AddToInformation("Got Error: " + error.Status + " " + error.Message);
                 }
                 else
                 {
-                    AddToInformation("Got Unexpected Exception?!?" + task.Exception);
+                    //AddToInformation("Got Unexpected Exception?!?" + task.Exception);
                 }
             }
         }
         else if (task.IsCanceled)
         {
-            AddToInformation("Canceled");
+            //AddToInformation("Canceled");
         }
-        else
+        else            //로그인 성공
         {
-            AddToInformation("Welcome: " + task.Result.DisplayName + "!");
-            AddToInformation("Email = " + task.Result.Email);
-            AddToInformation("Google ID Token = " + task.Result.IdToken);
-            AddToInformation("Email = " + task.Result.Email);
+            Debug.Log("Welcome: " + task.Result.DisplayName + "!");
+            Debug.Log("Email = " + task.Result.Email);
+            Debug.Log("Google ID Token = " + task.Result.IdToken);
+            Debug.Log("Email = " + task.Result.Email);
             SignInWithGoogleOnFirebase(task.Result.IdToken);
         }
     }
@@ -119,21 +138,28 @@ public class FirebaseLogin : MonoBehaviour
             if (ex != null)
             {
                 if (ex.InnerExceptions[0] is FirebaseException inner && (inner.ErrorCode != 0))
-                    AddToInformation("\nError code = " + inner.ErrorCode + " Message = " + inner.Message);
+                    Debug.Log("\nError code = " + inner.ErrorCode + " Message = " + inner.Message);
             }
             else
             {
-                AddToInformation("Sign In Successful.");
+                Debug.Log("Sign In Successful.");
+
             }
         });
     }
-
+    public void OnGetPlayerInfo()           //플레이어 정보 가져오기
+    {
+        var function = functions.GetHttpsCallable("addMessage");
+        return function.CallAsync(data).ContinueWith((task) => {
+            return (string)task.Result.Data;
+        });
+    }
     public void OnSignInSilently()
     {
         GoogleSignIn.Configuration = configuration;
         GoogleSignIn.Configuration.UseGameSignIn = false;
         GoogleSignIn.Configuration.RequestIdToken = true;
-        AddToInformation("Calling SignIn Silently");
+        Debug.Log("Calling SignIn Silently");
 
         GoogleSignIn.DefaultInstance.SignInSilently().ContinueWith(OnAuthenticationFinished);
     }
@@ -144,7 +170,7 @@ public class FirebaseLogin : MonoBehaviour
         GoogleSignIn.Configuration.UseGameSignIn = true;
         GoogleSignIn.Configuration.RequestIdToken = false;
 
-        AddToInformation("Calling Games SignIn");
+        Debug.Log("Calling Games SignIn");
 
         GoogleSignIn.DefaultInstance.SignIn().ContinueWith(OnAuthenticationFinished);
     }
