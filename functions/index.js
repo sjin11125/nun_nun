@@ -19,7 +19,8 @@ exports.addMessage = functions.https.onRequest(async (req, res) => {
   });
   // Listens for new messages added to /messages/:documentId/original and creates an
 // uppercase version of the message to /messages/:documentId/uppercase
-exports.makeUppercase = functions.firestore.document('/messages/{documentId}')
+
+exports.aaaaaa = functions.firestore.document('/messages/{documentId}')
 .onCreate((snap, context) => {
   // Grab the current value of what was written to Firestore.
   const original = snap.data().original;
@@ -34,3 +35,5 @@ exports.makeUppercase = functions.firestore.document('/messages/{documentId}')
   // Setting an 'uppercase' field in Firestore document returns a Promise.
   return snap.ref.set({uppercase}, {merge: true});
 });
+
+//exports.Login=functions.firestore.document()

@@ -32,6 +32,18 @@ public enum AccountDef
     isUpdate
 
 
+}public enum FirebaseDef
+{
+    Register,
+    Login,
+    Logout,
+    Setmoney,
+    Getmoney,
+    GetNotice,
+    GetChallenge,
+    IsUpdate
+
+
 }
 public enum BuildType
 {

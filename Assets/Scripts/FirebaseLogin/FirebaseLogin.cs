@@ -143,13 +143,16 @@ public class FirebaseLogin : MonoBehaviour
             else
             {
                 Debug.Log("Sign In Successful.");
-
+                OnGetPlayerInfo();
             }
         });
     }
-    public void OnGetPlayerInfo()           //플레이어 정보 가져오기
+    public Task<string> OnGetPlayerInfo()           //플레이어 정보 가져오기
     {
-        var function = functions.GetHttpsCallable("addMessage");
+        var data = new Dictionary<string, object>();
+        data["user"] = GameManager.NickName;
+
+        var function = functions.GetHttpsCallable(FirebaseDef.Login.ToString());
         return function.CallAsync(data).ContinueWith((task) => {
             return (string)task.Result.Data;
         });
