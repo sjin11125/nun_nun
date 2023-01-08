@@ -19,11 +19,17 @@ public class FirebaseLogin : MonoBehaviour
     private FirebaseAuth auth;
     private GoogleSignInConfiguration configuration;
 
-    FirebaseFirestore db = FirebaseFirestore.DefaultInstance;
-    FirebaseFunctions functions = Firebase.Functions.FirebaseFunctions.DefaultInstance;
-        
+    FirebaseFirestore db;
+    FirebaseFunctions functions;
+
+    public FirebaseLogin()
+    {
+       
+    }
+
     private void Awake()
     {
+        
         Debug.Log("Awake");
         configuration = new GoogleSignInConfiguration { WebClientId = webClientId, RequestEmail = true, RequestIdToken = true };
         Debug.Log("Configuration");
@@ -32,14 +38,40 @@ public class FirebaseLogin : MonoBehaviour
     }
     private void Start()
     {
+        
         Debug.Log("Start");
+    }
+
+    public void AddMessageToDB()
+    {
+        addMessage("¾Æ½Î").ContinueWith((task) => {
+        if (task.IsFaulted)
+        {
+                foreach (var inner in task.Exception.InnerExceptions)
+                {
+                    if (inner is FunctionsException)
+                    {
+                        var e = (FunctionsException)inner;
+                        // Function error code, will be INTERNAL if the failure
+                        // was not handled properly in the function call.
+                        var code = e.ErrorCode;
+                        var message = e.Message;
+
+                        Debug.LogError(code);
+                        Debug.LogError(message);
+                    }
+                }
+           
+        }
+         else
+            Debug.Log(task.Result);
+        });
     }
     private Task<string> addMessage(string text)
     {
+        functions = FirebaseFunctions.GetInstance(FirebaseApp.DefaultInstance);
         // Create the arguments to the callable function.
-        var data = new Dictionary<string, object>();
-        data["text"] = text;
-        data["push"] = true;
+        var data = text;
 
         // Call the function and extract the operation from the result.
         var function = functions.GetHttpsCallable("addMessage");

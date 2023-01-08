@@ -2563,7 +2563,7 @@ GameObject:
   - component: {fileID: 786625927}
   - component: {fileID: 786625926}
   m_Layer: 5
-  m_Name: WriteButton
+  m_Name: ReadButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3917,7 +3917,7 @@ GameObject:
   - component: {fileID: 1265040480}
   - component: {fileID: 1265040479}
   m_Layer: 5
-  m_Name: ReadButton
+  m_Name: WriteButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3990,7 +3990,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 789053618}
         m_TargetAssemblyTypeName: FirebaseLogin, Assembly-CSharp
-        m_MethodName: SignOutFromGoogle
+        m_MethodName: AddMessageToDB
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
