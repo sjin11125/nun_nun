@@ -11,6 +11,19 @@ using Firebase.Firestore;
 using Firebase.Extensions;
 using Firebase.Functions;
 
+[System.Serializable]
+public class TestClass
+{
+    public TestClass(string _name, int _min, int _max)
+    {
+        name = _name;
+        min = _min;
+        max = _max;
+    }
+    public string name;
+    public int max;
+    public int min;
+}
 public class FirebaseLogin : MonoBehaviour
 {	// Auth 용 instance
     public Text infoText;
@@ -45,6 +58,8 @@ public class FirebaseLogin : MonoBehaviour
     public void AddMessageToDB()
     {
         addMessage("아싸").ContinueWith((task) => {
+            Debug.Log(task);
+            Debug.Log(task.IsFaulted);
         if (task.IsFaulted)
         {
                 foreach (var inner in task.Exception.InnerExceptions)
@@ -60,20 +75,20 @@ public class FirebaseLogin : MonoBehaviour
                         Debug.LogError(code);
                         Debug.LogError(message);
                     }
+                    Debug.LogError("예외: "+inner.Message);
                 }
            
         }
          else
-            Debug.Log(task.Result);
+            Debug.Log("통신성공: "+task.Result);
         });
     }
     private Task<string> addMessage(string text)
     {
         functions = FirebaseFunctions.GetInstance(FirebaseApp.DefaultInstance);
         // Create the arguments to the callable function.
-        var data = text;
-
-        // Call the function and extract the operation from the result.
+        Buildingsave test = new Buildingsave("7.349999", "6.875","T", "bunsu_level(Clone)0", "bunsu_level(Clone)","1","F");
+        var data = JsonUtility.ToJson(test);
         var function = functions.GetHttpsCallable("addMessage");
         return function.CallAsync(data).ContinueWith((task) => {
             return (string)task.Result.Data;

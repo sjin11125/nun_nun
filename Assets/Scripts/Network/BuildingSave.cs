@@ -210,6 +210,15 @@ public class Buildingsave
     public string ShinCost;  
     public string Level;       //건물 레벨
     public string isFlied;        //뒤집어졌는지
-                               //-----------------------------------------------------------
-                               //public string[] Friends;
+
+    public Buildingsave(string buildingPosition_x, string buildingPosition_y, string isLock, string building_name, string building_Image, string level, string isFlied)
+    {
+        BuildingPosition_x = buildingPosition_x;
+        BuildingPosition_y = buildingPosition_y;
+        this.isLock = isLock;
+        Building_name = building_name;
+        Building_Image = building_Image;
+        Level = level;
+        this.isFlied = isFlied;
+    }
 }
