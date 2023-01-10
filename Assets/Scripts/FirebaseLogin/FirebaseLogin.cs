@@ -118,7 +118,18 @@ public class FirebaseLogin : MonoBehaviour
 
     public void SignInWithGoogle() { OnSignIn(); }
     public void SignOutFromGoogle() { OnSignOut(); }
-
+    public void WirteButton()
+    {
+        Write();
+    }
+    public Task<string> Write()
+    {
+        functions = FirebaseFunctions.GetInstance(FirebaseApp.DefaultInstance);
+        var function = functions.GetHttpsCallable("addBuilding");
+        return function.CallAsync().ContinueWith((task) => {
+            return (string)task.Result.Data;
+        });
+    }
     private void OnSignIn()
     {
         Debug.Log("OnSignIn Start ");
@@ -145,7 +156,6 @@ public class FirebaseLogin : MonoBehaviour
 
     internal void OnAuthenticationFinished(Task<GoogleSignInUser> task)
     {
-        Debug.Log("task: "+task);
         if (task.IsFaulted)
         {
             using (IEnumerator<Exception> enumerator = task.Exception.InnerExceptions.GetEnumerator())
@@ -189,6 +199,7 @@ public class FirebaseLogin : MonoBehaviour
             }
             else
             {
+                Debug.Log("IDToken: "+task.Result.UserId);
                 Debug.Log("Sign In Successful.");
                 OnGetPlayerInfo();
             }

@@ -3,6 +3,7 @@ const functions = require('firebase-functions');
 var bodyParser = require('body-parser')
 // The Firebase Admin SDK to access Firestore.
 const admin = require('firebase-admin');
+const { firestore } = require('firebase-admin/firestore');
 admin.initializeApp();
 
 // Take the text parameter passed to this HTTP endpoint and insert it into 
@@ -39,3 +40,42 @@ exports.makeUppercase = functions.firestore.document('/messages/{documentId}')
       // Setting an 'uppercase' field in Firestore document returns a Promise.
       return snap.ref.set({uppercase}, {merge: true});
     });
+
+exports.findUser=functions.https.onCall(async (req, res) => {
+  const db=admin.firestore();
+  const user = db.collection('user').doc('2YDwe89Wf6aKOvc0EtQYzHKMW2r1');
+  const doc = await user.get();
+  if (!doc.exists) {
+    console.log('No such document!');
+    const data={
+      BestScore:"0",
+      Money:"2000",
+      ShinMoney:"0",
+      Tuto:"0",
+      Version:"1.3.6"
+    };
+
+    const res =await user.set(data);
+    
+  
+    console.log('New document!');
+  } else {
+    console.log('Document data:', doc.data());
+  }
+});
+
+exports.addBuilding=functions.https.onCall(async(req,res)=>{
+  const buildingData=JSON.parse(req);
+    //const buildingData=JSON.parse(req);
+    const db=admin.firestore();
+    const resbuilding =await db.collection('user').doc('2YDwe89Wf6aKOvc0EtQYzHKMW2r1').
+    collection('building').doc('buildingid').set({
+      BuildingPosition_X:"",
+      BuildingPosition_y:"",
+      Building_Image:"",
+      Level:"",
+      isFliped:"",
+      isLock:"",
+    });
+    
+});
