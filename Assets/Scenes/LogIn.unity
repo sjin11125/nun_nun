@@ -4925,6 +4925,7 @@ GameObject:
   - component: {fileID: 1322213883}
   - component: {fileID: 1322213885}
   - component: {fileID: 1322213884}
+  - component: {fileID: 1322213886}
   m_Layer: 5
   m_Name: Pang
   m_TagString: Untagged
@@ -4990,6 +4991,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1322213882}
   m_CullTransparentMesh: 1
+--- !u!111 &1322213886
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1322213882}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: c7fb6224af30cdf47b61969b707d146f, type: 2}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &1335396484
 GameObject:
   m_ObjectHideFlags: 0
@@ -4999,6 +5015,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1335396485}
+  - component: {fileID: 1335396486}
   m_Layer: 5
   m_Name: Nunis
   m_TagString: Untagged
@@ -5036,6 +5053,26 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!95 &1335396486
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1335396484}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5495e54ec7360534d8e9f405e8a480a3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1428937787
 GameObject:
   m_ObjectHideFlags: 0
