@@ -114,7 +114,7 @@ public class LoadManager : MonoBehaviour
     void Start()
     {
        
-        LoadingPanel= Instantiate(GameManager.Instance.TopCanvas);
+        //LoadingPanel= Instantiate(GameManager.Instance.TopCanvas);
 
         isLoaded = false;
         GameManager.items = 0;          //������ �ʱ�ȭ
@@ -135,35 +135,38 @@ public class LoadManager : MonoBehaviour
         }).AddTo(this);
         if (SceneManager.GetActiveScene().name.Equals("Main"))          //메인씬이면
         {
-            if (int.Parse(GameManager.Instance.PlayerUserInfo.Tuto) > 13)
-            {
-                /*WWWForm form1 = new WWWForm();
-                form1.AddField("order", "getFriendBuilding");
-                form1.AddField("loadedFriend", GameManager.NickName);*/
+           
+                if (int.Parse(GameManager.Instance.PlayerUserInfo.Tuto) > 13)
+                {
+                    /*WWWForm form1 = new WWWForm();
+                    form1.AddField("order", "getFriendBuilding");
+                    form1.AddField("loadedFriend", GameManager.NickName);*/
 
-                LoadingPanel.SetActive(true);       //로딩 패널 뜨게
-                FirebaseLogin.Instance.GetBuilding(GameManager.Instance.PlayerUserInfo.Uid).ContinueWith((task)=>{
-                    Debug.Log("task.Result: " + task.Result);
-                    if (!task.IsFaulted)
+                    LoadingPanel.SetActive(true);       //로딩 패널 뜨게
+                    FirebaseLogin.Instance.GetBuilding(GameManager.Instance.PlayerUserInfo.Uid).ContinueWith((task) =>
                     {
-                        if(task.Result!=null)//건물 넣기
+                        Debug.Log("task.Result: " + task.Result);
+                        if (!task.IsFaulted)
                         {
-                            Debug.Log("task.Result: "+task.Result);
+                            if (task.Result != null)//건물 넣기
+                            {
+                                Debug.Log("task.Result: " + task.Result);
+                            }
+                            else
+                            {
+                                Debug.Log("task is null");
+                            }
+                            LoadingPanel.SetActive(false);      //로딩 패널 안뜨게
                         }
-                        else
-                        {
-                            Debug.Log("task is null");
-                        }
-                        LoadingPanel.SetActive(false);      //로딩 패널 안뜨게
-                    }
-                });
-                GameManager.Instance.BestScoreSave();                   //최고점수 서버 저장
-            }
-            Action action ;
+                    });
+                    GameManager.Instance.BestScoreSave();                   //최고점수 서버 저장
+                }
+            
+           /* Action action ;
             LoadManager.Instance.buildingsave.BuildingReq(BuildingDef.getMyBuilding,null,action=()=> {
                 StartCoroutine(RewardStart());
                 }
-            );          //오늘 재화 받을 수 있는지}) ;
+            );          //오늘 재화 받을 수 있는지}) ;*/
 
 
 

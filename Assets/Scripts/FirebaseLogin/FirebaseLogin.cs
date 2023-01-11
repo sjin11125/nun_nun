@@ -126,7 +126,7 @@ public class FirebaseLogin : MonoBehaviour
     {
         Write();
     }
-    public void GetUserInfo(string idToken)
+    public bool GetUserInfo(string idToken)
     {
         functions = FirebaseFunctions.GetInstance(FirebaseApp.DefaultInstance);
         var function = functions.GetHttpsCallable("findUser");
@@ -153,29 +153,20 @@ public class FirebaseLogin : MonoBehaviour
                     }
                     Debug.LogError("예외: " + inner.Message);
                 }
+                return false;
             }
             else
             {
                 GameManager.Instance.PlayerUserInfo = JsonUtility.FromJson<UserInfo>((string)task.Result.Data);     //유저 정보 세팅
                 GameManager.Instance.PlayerUserInfo.Uid = idToken;
 
-                try
-                {
-
-                    // SceneManager.LoadScene("Main");     //씬 이동
-                    GameManager.Instance.LoadScene("Main");
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError(e.Message);
-                    throw;
-                }
-                
+                return true;
             }
         
           
             // return (string)task.Result.Data;
         });
+        return false;
     }
     public Task<string> Write()
     {
@@ -272,7 +263,8 @@ public class FirebaseLogin : MonoBehaviour
                 Debug.Log("IDToken: "+task.Result.UserId);
                 Debug.Log("Sign In Successful.");
 
-                GetUserInfo(task.Result.UserId);
+                if(GetUserInfo(task.Result.UserId))
+                GameManager.Instance.LoadScene("Main");
             }
         });
     }
