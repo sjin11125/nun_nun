@@ -6,6 +6,12 @@ const admin = require('firebase-admin');
 const { firestore } = require('firebase-admin/firestore');
 admin.initializeApp();
 
+
+var message={
+  name:"",
+  message:""
+};
+
 // Take the text parameter passed to this HTTP endpoint and insert it into 
 // Firestore under the path /messages/:documentId/original
 exports.addMessage = functions.https.onCall(async (req, res) => {
@@ -66,7 +72,8 @@ exports.findUser=functions.https.onCall(async (req, res) => {
   
     console.log('New document!');
   } else {
-    console.log('Document data:', doc.data());
+    console.log('Document data:', JSON.stringify(doc.data()));
+    return JSON.stringify(doc.data());
   }
 });
 
@@ -74,14 +81,69 @@ exports.addBuilding=functions.https.onCall(async(req,res)=>{
   const buildingData=JSON.parse(req);
     //const buildingData=JSON.parse(req);
     const db=admin.firestore();
-    const resbuilding =await db.collection('user').doc('2YDwe89Wf6aKOvc0EtQYzHKMW2r1').
-    collection('building').doc('buildingid').set({
-      BuildingPosition_X:"",
-      BuildingPosition_y:"",
-      Building_Image:"",
-      Level:"",
-      isFliped:"",
-      isLock:"",
+    const resbuilding =await db.collection('user').doc(buildingData.Uid).
+    collection('building').doc(buildingData.Id).set({
+      BuildingPosition_X:buildingData.BuildingPosition_X,
+      BuildingPosition_y:buildingData.BuildingPosition_y,
+      Building_Image:buildingData.Building_Image,
+      Level:buildingData.Level,
+      isFliped:buildingData.isFliped,
+      isLock:buildingData.isLock,
     });
     
+});
+
+exports.getBuilding=functions.https.onCall(async(req,res)=>{
+
+  const idToken=JSON.parse(req);
+    //const buildingData=JSON.parse(req);
+    const db=admin.firestore();
+
+  const buildingRef = db.collection('agKhkdSkQeM7MuvgwXHDWuYlnax1');      //Uid 고치기
+  const snapshot = await buildingRef.get();
+  const buildingData=[];
+  snapshot.forEach(doc => {
+    buildingData.push(doc);
+    console.log(doc.id, '=>', doc.data());
+  });
+  console.log("buildingData: "+JSON.stringify( buildingData));
+  console.log('End');
+
+});
+
+exports.setUser=functions.https.onCall(async (req, res) => {
+  const db=admin.firestore();
+  console.log("req: "+req);
+  const userData=JSON.parse(req);
+  
+  console.log("req to json: "+JSON.stringify(userData));
+  const user = db.collection('user').doc(userData.Uid);
+  const doc = await user.get();
+
+
+  const data={
+    BestScore:userData.BestScore,
+    Message:userData.Message,
+    Image:userData.Image,
+    Money:userData.Money,
+    ShinMoney:userData.ShinMoney,
+    Tuto:userData.Tuto,
+    Version:userData.Version
+  };
+
+  if (!doc.exists) {        //문서가 존재하지 않으면
+    console.log('No such document!');
+    
+    const res =await user.set(data);
+    message.name="setUser";
+    message.message="Success";
+    return JSON.stringify(message);
+  
+  } else {                  //문서가 존재한다면
+
+    const res =await user.set(data);
+    message.name="setUser";
+    message.message="Success";
+    return JSON.stringify(message);
+  }
 });

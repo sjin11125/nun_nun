@@ -29,7 +29,7 @@ public class BuildingParse
     public string Id;
     public string str;      //설치물인지
     //-----------------------------------------------------------
-
+    
 }
 public class Building : MonoBehaviour
 {

@@ -6,8 +6,8 @@ public class TutorialsManager : MonoBehaviour
 {
     [SerializeField] [Header("Tutorials items")] TutorialsItemControl[] items;
     public static int itemIndex;
-    GameObject bunsu;
-
+    public GameObject bunsu;
+    
     void Start()
     {
         if (items==null)
@@ -27,7 +27,6 @@ public class TutorialsManager : MonoBehaviour
     {
         if (itemIndex < 4)
         {
-            bunsu = GameObject.FindWithTag("bunsu"); //ii1y1
             if (bunsu != null)
             {
                 bunsu.gameObject.SetActive(false);
@@ -35,7 +34,6 @@ public class TutorialsManager : MonoBehaviour
         }
         else
         {
-            bunsu = GameObject.FindWithTag("bunsu"); //ii1y1
             if (bunsu != null)
             {
                 bunsu.gameObject.SetActive(true);

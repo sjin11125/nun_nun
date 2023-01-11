@@ -25,3 +25,14 @@ public class UserInfo               //유저정보
     public string Tuto;
     public string Version;
 }
+[System.Serializable]
+public class SendMessage
+{
+    public SendMessage(string _name, string _message)
+    {
+        name = _name;
+        message = _message;
+    }
+    public string name;
+    public string message;
+}

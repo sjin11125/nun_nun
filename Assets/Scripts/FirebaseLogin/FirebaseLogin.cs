@@ -10,18 +10,10 @@ using UnityEngine.UI;
 using Firebase.Firestore;
 using Firebase.Extensions;
 using Firebase.Functions;
+using UnityEngine.SceneManagement;
 
-[System.Serializable]
-public class TestClass
-{
-    public TestClass(string _name, string _message)
-    {
-        name = _name;
-        message = _message;
-    }
-    public string name;
-    public string message;
-}
+
+
 public class FirebaseLogin : MonoBehaviour
 {	// Auth 용 instance
     public Text infoText;
@@ -33,27 +25,41 @@ public class FirebaseLogin : MonoBehaviour
     FirebaseFirestore db;
     FirebaseFunctions functions;
 
-    public FirebaseLogin()
+    public static FirebaseLogin _Instance;
+    public static FirebaseLogin Instance
     {
-       
+        get
+        {
+            if (_Instance == null)
+            {
+                return null;
+            }
+            return _Instance;
+        }
     }
 
     private void Awake()
     {
-        
-        Debug.Log("Awake");
+        //PlayerPrefs.DeleteAll();
+        if (_Instance == null)
+        {
+            _Instance = this;
+        }
+        else if (_Instance != this) 
+        {
+            Destroy(gameObject);
+        }
+
+        DontDestroyOnLoad(gameObject);  // 아래의 함수를 사용하여 씬이 전환되더라도 선언되었던 인스턴스가 파괴되지 않는다.
+       
         configuration = new GoogleSignInConfiguration { WebClientId = webClientId, RequestEmail = true, RequestIdToken = true };
-        Debug.Log("Configuration");
+
         CheckFirebaseDependencies();
 
     }
-    private void Start()
-    {
-        
-        Debug.Log("Start");
-    }
 
-    public void AddMessageToDB()
+
+   /* public void GetBuilding()
     {
         addMessage("아싸").ContinueWith((task) => {
             Debug.Log(task);
@@ -80,15 +86,15 @@ public class FirebaseLogin : MonoBehaviour
          else
             Debug.Log("통신성공: "+task.Result);
         });
-    }
-    private Task<string> addMessage(string text)
+    }*/
+    public Task<string> GetBuilding(string uid)
     {
         functions = FirebaseFunctions.GetInstance(FirebaseApp.DefaultInstance);
         // Create the arguments to the callable function.
-        Buildingsave test = new Buildingsave("7.349999", "6.875","T", "bunsu_level(Clone)0", "bunsu_level(Clone)","1","F");
-        var data = JsonUtility.ToJson(test);
-        var function = functions.GetHttpsCallable("addMessage");
-        return function.CallAsync(data).ContinueWith((task) => {
+        //Buildingsave test = new Buildingsave("7.349999", "6.875","T", "bunsu_level(Clone)0", "bunsu_level(Clone)","1","F");
+       // var data = JsonUtility.ToJson(test);
+        var function = functions.GetHttpsCallable("getBuilding");
+        return function.CallAsync(uid).ContinueWith((task) => {
             return (string)task.Result.Data;
         });
     }
@@ -125,20 +131,48 @@ public class FirebaseLogin : MonoBehaviour
         functions = FirebaseFunctions.GetInstance(FirebaseApp.DefaultInstance);
         var function = functions.GetHttpsCallable("findUser");
 
-        TestClass IdToken = new TestClass("Send IdToken",idToken);
+        SendMessage IdToken = new SendMessage("Send IdToken",idToken);
+
         function.CallAsync(JsonUtility.ToJson(IdToken)).ContinueWith((task) => {
-            Debug.Log("res: "+ (string)task.Result.Data);
-            try
+
+
+            if (task.IsFaulted)
             {
-                GameManager.Instance.PlayerUserInfo = JsonUtility.FromJson<UserInfo>((string)task.Result.Data);
+                foreach (var inner in task.Exception.InnerExceptions)
+                {
+                    if (inner is FunctionsException)
+                    {
+                        var e = (FunctionsException)inner;
+                        // Function error code, will be INTERNAL if the failure
+                        // was not handled properly in the function call.
+                        var code = e.ErrorCode;
+                        var message = e.Message;
+
+                        Debug.LogError(code);
+                        Debug.LogError(message);
+                    }
+                    Debug.LogError("예외: " + inner.Message);
+                }
+            }
+            else
+            {
+                GameManager.Instance.PlayerUserInfo = JsonUtility.FromJson<UserInfo>((string)task.Result.Data);     //유저 정보 세팅
                 GameManager.Instance.PlayerUserInfo.Uid = idToken;
-                Debug.Log("GameManager.Instance.PlayerUserInfo: " + GameManager.Instance.PlayerUserInfo.Money);
+
+                try
+                {
+
+                    // SceneManager.LoadScene("Main");     //씬 이동
+                    GameManager.Instance.LoadScene("Main");
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError(e.Message);
+                    throw;
+                }
+                
             }
-            catch (Exception e)
-            {
-                Debug.LogError(e.Message);
-                throw;
-            }
+        
           
             // return (string)task.Result.Data;
         });
@@ -242,16 +276,7 @@ public class FirebaseLogin : MonoBehaviour
             }
         });
     }
-    public Task<string> OnGetPlayerInfo()           //플레이어 정보 가져오기
-    {
-        var data = new Dictionary<string, object>();
-        data["user"] = GameManager.NickName;
-
-        var function = functions.GetHttpsCallable(FirebaseDef.Login.ToString());
-        return function.CallAsync(data).ContinueWith((task) => {
-            return (string)task.Result.Data;
-        });
-    }
+   
     public void OnSignInSilently()
     {
         GoogleSignIn.Configuration = configuration;

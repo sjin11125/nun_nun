@@ -152,6 +152,10 @@ public class GameManager : MonoBehaviour
             BestScoreSave();
         }
     }
+    public void LoadScene(string SceneName)
+    {
+        SceneManager.LoadScene(SceneName);
+    }
         void Start()
     {
         
@@ -257,6 +261,10 @@ public class GameManager : MonoBehaviour
             }
         } while (isCount .Equals( true));
         return id;
+    }
+    public void GetBuildingInfo()
+    {
+
     }
 
     public void GameSave()

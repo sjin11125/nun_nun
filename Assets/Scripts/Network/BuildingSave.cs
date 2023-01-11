@@ -196,7 +196,9 @@ public class BuildingSave : MonoBehaviour
 [Serializable]
 public class Buildingsave
 {
-    public string order, result, msg, row_size,length;
+    public string order, result, msg;
+
+    public string Uid;              //플레이어 UID
 
     public string BuildingPosition_x;                //건물 위치(x좌표)
     public string BuildingPosition_y;                //건물 위치(y좌표)
@@ -210,6 +212,7 @@ public class Buildingsave
     public string ShinCost;  
     public string Level;       //건물 레벨
     public string isFlied;        //뒤집어졌는지
+    public string Id;
 
     public Buildingsave(string buildingPosition_x, string buildingPosition_y, string isLock, string building_name, string building_Image, string level, string isFlied)
     {
