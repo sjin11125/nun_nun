@@ -76,10 +76,11 @@ public class GameManager : MonoBehaviour
     public static int ShinMoney;
     public static int Zem;
 
-    
+
     //---------------------------------------------------------------------------------------------
     //--------------------------------여기서부터 플레이어 정보-------------------------------------
 
+    public UserInfo PlayerUserInfo;         //플레이어 유저 정보
     public static string Id;            //플레이어 아이디
     public static string NickName;      //플레이어 닉네임
     public static string StateMessage;      //플레이어 상태메세지

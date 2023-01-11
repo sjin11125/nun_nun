@@ -14,15 +14,13 @@ using Firebase.Functions;
 [System.Serializable]
 public class TestClass
 {
-    public TestClass(string _name, int _min, int _max)
+    public TestClass(string _name, string _message)
     {
         name = _name;
-        min = _min;
-        max = _max;
+        message = _message;
     }
     public string name;
-    public int max;
-    public int min;
+    public string message;
 }
 public class FirebaseLogin : MonoBehaviour
 {	// Auth ¿ë instance
@@ -122,6 +120,29 @@ public class FirebaseLogin : MonoBehaviour
     {
         Write();
     }
+    public void GetUserInfo(string idToken)
+    {
+        functions = FirebaseFunctions.GetInstance(FirebaseApp.DefaultInstance);
+        var function = functions.GetHttpsCallable("findUser");
+
+        TestClass IdToken = new TestClass("Send IdToken",idToken);
+        function.CallAsync(JsonUtility.ToJson(IdToken)).ContinueWith((task) => {
+            Debug.Log("res: "+ (string)task.Result.Data);
+            try
+            {
+                GameManager.Instance.PlayerUserInfo = JsonUtility.FromJson<UserInfo>((string)task.Result.Data);
+                GameManager.Instance.PlayerUserInfo.Uid = idToken;
+                Debug.Log("GameManager.Instance.PlayerUserInfo: " + GameManager.Instance.PlayerUserInfo.Money);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e.Message);
+                throw;
+            }
+          
+            // return (string)task.Result.Data;
+        });
+    }
     public Task<string> Write()
     {
         functions = FirebaseFunctions.GetInstance(FirebaseApp.DefaultInstance);
@@ -139,6 +160,7 @@ public class FirebaseLogin : MonoBehaviour
         //("Calling SignIn");
 
         GoogleSignIn.DefaultInstance.SignIn().ContinueWith(OnAuthenticationFinished);
+        
         Debug.Log("OnSignIn End ");
     }
 
@@ -182,9 +204,23 @@ public class FirebaseLogin : MonoBehaviour
             Debug.Log("Google ID Token = " + task.Result.IdToken);
             Debug.Log("Email = " + task.Result.Email);
             SignInWithGoogleOnFirebase(task.Result.IdToken);
+            
         }
     }
-
+    void SetUserInfo(Task<string> task)
+    {
+        Debug.Log((string)task.Result);
+        try
+        {
+            Debug.Log("(string)task.Result: "+ (string)task.Result);
+            GameManager.Instance.PlayerUserInfo = JsonUtility.FromJson<UserInfo>((string)task.Result);
+        }
+        catch (Exception e)
+        {
+            Debug.Log(e.Message);
+            throw;
+        }
+    }
     private void SignInWithGoogleOnFirebase(string idToken)
     {
         Credential credential = GoogleAuthProvider.GetCredential(idToken, null);
@@ -201,7 +237,8 @@ public class FirebaseLogin : MonoBehaviour
             {
                 Debug.Log("IDToken: "+task.Result.UserId);
                 Debug.Log("Sign In Successful.");
-                OnGetPlayerInfo();
+
+                GetUserInfo(task.Result.UserId);
             }
         });
     }

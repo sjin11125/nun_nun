@@ -43,12 +43,18 @@ exports.makeUppercase = functions.firestore.document('/messages/{documentId}')
 
 exports.findUser=functions.https.onCall(async (req, res) => {
   const db=admin.firestore();
-  const user = db.collection('user').doc('2YDwe89Wf6aKOvc0EtQYzHKMW2r1');
+  console.log("req: "+req);
+  const idToken=JSON.parse(req);
+  
+  console.log("req to json: "+idToken.message);
+  const user = db.collection('user').doc(idToken.message);
   const doc = await user.get();
   if (!doc.exists) {
     console.log('No such document!');
     const data={
       BestScore:"0",
+      Message:"",
+      Image:"",
       Money:"2000",
       ShinMoney:"0",
       Tuto:"0",
@@ -56,7 +62,7 @@ exports.findUser=functions.https.onCall(async (req, res) => {
     };
 
     const res =await user.set(data);
-    
+    return JSON.stringify(data);
   
     console.log('New document!');
   } else {
