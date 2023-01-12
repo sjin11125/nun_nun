@@ -8,15 +8,14 @@ public class UiLoadingPanel : UIBase
     // Start is called before the first frame update
     public UiLoadingPanel(GameObject UIPrefab)
     {
-        UIYesNoPanel r = UIPrefab.GetComponent<UIYesNoPanel>();
-        r.Start();
+        UiLoadingPanel r = UIPrefab.GetComponent<UiLoadingPanel>();
+        r.Awake();
         r.UIPrefab = UIPrefab;
 
-        r.InstantiatePrefab();
+        this.UIPrefab = r.InstantiatePrefab() as GameObject;
     }
-   public override void Start()
+   public  void Start()
     {
-        base.Start();
         if (UINoBtn != null)
         {
 
@@ -38,5 +37,9 @@ public class UiLoadingPanel : UIBase
         }
     }
 
- 
+    public void DestroyGameObject()
+    {
+        UIPrefab.transform.parent.gameObject.SetActive(false);
+        Destroy(UIPrefab);
+    }
 }

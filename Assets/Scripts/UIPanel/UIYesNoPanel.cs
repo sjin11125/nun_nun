@@ -9,22 +9,20 @@ public class UIYesNoPanel : UIBase
     public UIYesNoPanel(GameObject UIPrefab)
     {
         UIYesNoPanel r = UIPrefab.GetComponent<UIYesNoPanel>();
-        r.Start();
-        
+        r.Awake();
         r.UIPrefab = UIPrefab;
 
-        r.InstantiatePrefab();
+        this.UIPrefab= r.InstantiatePrefab() as GameObject;
     }
-    public override void Start()
+    void Start()
     {
-        base.Start();
+        
         if (UINoBtn != null)
         {
 
             UINoBtn.onClick.AsObservable().Subscribe(_ =>
             {
-                this.gameObject.transform.parent.gameObject.SetActive(false);
-                Destroy(this.gameObject);
+                DestroyGameObject(); 
 
             }).AddTo(this);
         }
@@ -33,10 +31,13 @@ public class UIYesNoPanel : UIBase
 
             UICloseBtn.onClick.AsObservable().Subscribe(_ =>
             {
-                this.gameObject.transform.parent.gameObject.SetActive(false);
-                Destroy(this.gameObject);
+                DestroyGameObject();
             }).AddTo(this);
         }
     }
-
+    public void DestroyGameObject()
+    {
+        UIPrefab.transform.parent.gameObject.SetActive(false);
+        Destroy(UIPrefab);
+    }
 }

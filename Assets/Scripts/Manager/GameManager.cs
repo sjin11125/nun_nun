@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour
 
 
     //----------------------------------------------------여기서부터 누니--------------------------------------------------
+    [Header("누니")]
     public Sprite[] CharacterImageInspector;            // 인스펙터에서 받아 온 모든 누니들의 이미지
     public static Dictionary<string, Sprite> CharacterImageData;
 
@@ -81,7 +82,8 @@ public class GameManager : MonoBehaviour
 
     //---------------------------------------------------------------------------------------------
     //--------------------------------여기서부터 플레이어 정보-------------------------------------
-
+    [Header("유저정보")]
+    [SerializeField]
     public UserInfo PlayerUserInfo;         //플레이어 유저 정보
     public static string Id;            //플레이어 아이디
     public static string NickName;      //플레이어 닉네임
@@ -99,6 +101,7 @@ public class GameManager : MonoBehaviour
 
     //----------------------------------------------------------------------------------------------
     //------------------------------여기서부터 게임 정보----------------------------------------------
+    [Header("게임정보")]
     public static int BestScore;                //불러온 최고점수
     public static bool isBScore;                    //스코어 업데이트
 
@@ -118,7 +121,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
 
     //--------------------------------------------------------------------퀘스트---------------------------------------------------
-
+    [Header("퀘스트")]
 
     public static bool isStrEdit = false;
 
@@ -128,9 +131,11 @@ public class GameManager : MonoBehaviour
     public static bool mainSoundOn = true;
 
     //--------------------------------------------공지----------------------------------------
+    [Header("공지")]
     public static Notice[] Notice;
 
     //--------------------------------------------캔버스----------------------------------------
+    [Header("캔버스")]
     public GameObject TopCanvas;
     private void Awake()
     {

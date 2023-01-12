@@ -20,24 +20,19 @@ public class UIBase :MonoBehaviour
 
    protected GameObject parent;
 
-    public virtual void Awake()
-    {
-        
-
-    }
-    public virtual void Start()
+    public virtual void  Awake()
     {
         canvas = CanvasBase._Instance;
-        Debug.Log("canvas: " + canvas);
+
     }
+
     public GameObject InstantiatePrefab()
     {
         if (UIPrefab != null)
         {
              parent = canvas.CanvasCheck();
-          GameObject ReturnObj=  Instantiate(UIPrefab, parent.transform) as GameObject;
 
-            return ReturnObj;
+            return Instantiate(UIPrefab, parent.transform) ;
         }
         else
         {

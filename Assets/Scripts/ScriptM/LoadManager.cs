@@ -141,9 +141,7 @@ public class LoadManager : MonoBehaviour
                 /*WWWForm form1 = new WWWForm();
                 form1.AddField("order", "getFriendBuilding");
                 form1.AddField("loadedFriend", GameManager.NickName);*/
-                UIYesNoPanel UILoadingPanel = new UIYesNoPanel(LoadingPanel);
-                LoadingPanel = UILoadingPanel.UIPrefab;
-                LoadingPanel.SetActive(true);       //로딩 패널 뜨게
+                UiLoadingPanel UILoadingPanel = new UiLoadingPanel(LoadingPanel);
 
                     FirebaseLogin.Instance.GetBuilding(GameManager.Instance.PlayerUserInfo.Uid).ContinueWith((task) =>
                     {
@@ -158,10 +156,11 @@ public class LoadManager : MonoBehaviour
                             {
                                 Debug.Log("task is null");
                             }
-                            LoadingPanel.SetActive(false);      //로딩 패널 안뜨게
+                           
                         }
                     });
-                    GameManager.Instance.BestScoreSave();                   //최고점수 서버 저장
+                UILoadingPanel.DestroyGameObject();
+                //GameManager.Instance.BestScoreSave();                   //최고점수 서버 저장
                 }
             
            /* Action action ;

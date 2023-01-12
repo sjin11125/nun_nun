@@ -94,7 +94,8 @@ public class FirebaseLogin : MonoBehaviour
         //Buildingsave test = new Buildingsave("7.349999", "6.875","T", "bunsu_level(Clone)0", "bunsu_level(Clone)","1","F");
        // var data = JsonUtility.ToJson(test);
         var function = functions.GetHttpsCallable("getBuilding");
-        return function.CallAsync(uid).ContinueWith((task) => {
+        return function.CallAsync(JsonUtility.ToJson( uid)).ContinueWithOnMainThread((task) => {
+            Debug.Log("task.Result: " + task.Result);
             return (string)task.Result.Data;
         });
     }

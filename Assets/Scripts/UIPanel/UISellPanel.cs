@@ -10,15 +10,15 @@ public class UISellPanel : UIBase
    public UISellPanel(GameObject UIPrefab, Building building)
     {
         UISellPanel r = UIPrefab.GetComponent<UISellPanel>();
-        r.Start();
+        r.Awake();
         r.UIPrefab = UIPrefab;
         r.building = building;
 
         r.InstantiatePrefab();
     }
-    public override void Start()
+    public void Start()
     {
-        base.Start();
+
        // UIPanelName.text = "건물 제거";
        // UIPanelText.text = "건물을 제거하시겠습니까?";
 
