@@ -221,6 +221,14 @@ public class Building : MonoBehaviour
         BuildingCopy.isFliped = isFliped;
         return BuildingCopy;
     }
+    public Buildingsave BuildingToJson()
+    {
+        Buildingsave BuildingCopy = new Buildingsave(this.BuildingPosition_x,this.BuildingPosition_y,isLock,Building_name,Building_Image,Level.ToString(),isFliped,Id);
+        BuildingCopy.BuildingPosition_x = this.BuildingPosition_x;
+
+
+        return BuildingCopy;
+    }
     #endregion
 
     public void Rotation()          //건물 회전
@@ -392,6 +400,7 @@ public class Building : MonoBehaviour
                             {
                                 if (Type == BuildType.Move)           //건축모드일때(옮기기)
                                 {
+                                    
                                     Place(Type);
 
                                     GridBuildingSystem.OnEditModeOff.OnNext(this);
@@ -534,6 +543,9 @@ public class Building : MonoBehaviour
                 gameObject.name = Id;      //이름 재설정
                 BuildingListAdd();      //현재 가지고 있는 건물 리스트에 추가
                 Type = BuildType.Empty;
+
+                FirebaseLogin.Instance.AddBuilding(this.BuildingToJson());
+
                 Debug.Log("새로만듬");
                 break;
 
@@ -568,7 +580,7 @@ public class Building : MonoBehaviour
         GameManager.CurrentBuilding = null;
         //
 
-        LoadManager.Instance.buildingsave.BuildingReq(BuildingDef.addValue, this);
+       // LoadManager.Instance.buildingsave.BuildingReq(BuildingDef.addValue, this);
         //GameManager.isUpdate = true;
     }
     #endregion

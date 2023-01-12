@@ -98,7 +98,7 @@ public class FirebaseLogin : MonoBehaviour
             return (string)task.Result.Data;
         });
     }  
-    public Task<string>AddBuilding()
+    public Task<string>AddBuilding(Buildingsave building)
     {
         functions = FirebaseFunctions.GetInstance(FirebaseApp.DefaultInstance);
         // Create the arguments to the callable function.
