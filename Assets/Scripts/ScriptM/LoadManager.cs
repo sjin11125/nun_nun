@@ -135,33 +135,78 @@ public class LoadManager : MonoBehaviour
         Debug.Log("튜토는 " + GameManager.Instance.PlayerUserInfo.Tuto);
         if (SceneManager.GetActiveScene().name.Equals("Main"))          //메인씬이면
         {
-            
-                if (int.Parse(GameManager.Instance.PlayerUserInfo.Tuto) > 13)
-                {
+
+            if (int.Parse(GameManager.Instance.PlayerUserInfo.Tuto) > 13)
+            {
                 /*WWWForm form1 = new WWWForm();
                 form1.AddField("order", "getFriendBuilding");
                 form1.AddField("loadedFriend", GameManager.NickName);*/
                 UiLoadingPanel UILoadingPanel = new UiLoadingPanel(LoadingPanel);
 
-                    FirebaseLogin.Instance.GetBuilding(GameManager.Instance.PlayerUserInfo.Uid).ContinueWith((task) =>
+               /* FirebaseLogin.Instance.AddBuilding().ContinueWith((task) =>      //건물 추가
+                {
+                Debug.Log("task.Result: " + task.Result);
+                    if (!task.IsFaulted)
                     {
-                        Debug.Log("task.Result: " + task.Result);
-                        if (!task.IsFaulted)
+                        if (task.Result != null)//건물 넣기
                         {
-                            if (task.Result != null)//건물 넣기
-                            {
-                                Debug.Log("task.Result: " + task.Result);
-                            }
-                            else
-                            {
-                                Debug.Log("task is null");
-                            }
                            
                         }
-                    });
-                UILoadingPanel.DestroyGameObject();
+                        else
+                        {
+                            Debug.Log("task is null");
+                        }
+
+                    }
+                });*/
+                FirebaseLogin.Instance.GetBuilding(GameManager.Instance.PlayerUserInfo.Uid).ContinueWith((task) =>      //건물 불러오기
+                {
+                    Debug.Log("task.Result: " + task.Result);
+                    if (!task.IsFaulted)
+                    {
+                        if (task.Result != null)//건물 넣기
+                        {
+                            Debug.Log("task.Result: " + task.Result);
+                            
+                            try
+                            {
+
+                                /*Building[] Result = JsonHelper.FromJson<Building>(task.Result);
+                                
+                                for (int i = 0; i < Result.Length; i++)
+                                {
+                                    //Debug.Log("item: " + JsonUtility.ToJson(Result[i]));
+
+                                    MyBuildings.Add(Result[i].Id, Result[i]);
+                                }*/
+                                Newtonsoft.Json.Linq.JArray Result = Newtonsoft.Json.Linq.JArray.Parse(task.Result);
+                                
+                                foreach (var item in Result)
+                                 {
+                                    Debug.Log("item: " + item.ToString());
+                                    Buildingsave itemBuilding = JsonUtility.FromJson<Buildingsave>(item.ToString());
+                                     //Debug.Log("item: " + JsonUtility.ToJson(item));
+                                     Building tempBuilding=new Building(itemBuilding);
+                                     MyBuildings.Add(tempBuilding.Id, tempBuilding);
+                                 }
+                                BuildingLoad();
+                            }
+                            catch (Exception e)
+                            {
+                                Debug.LogError(e.Message);
+                                throw;
+                            }
+
+                        }
+                        else
+                        {
+                            Debug.Log("task is null");
+                        }
+                    }
+                });
+                
                 //GameManager.Instance.BestScoreSave();                   //최고점수 서버 저장
-                }
+            }
             
            /* Action action ;
             LoadManager.Instance.buildingsave.BuildingReq(BuildingDef.getMyBuilding,null,action=()=> {

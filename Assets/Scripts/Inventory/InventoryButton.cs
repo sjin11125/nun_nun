@@ -69,8 +69,8 @@ public class InventoryButton : MonoBehaviour
                 LoadManager.Instance.RemoveBuilding(temp_building.Id); //해당 프리팹 삭제
 
                 temp_building.isLock = "F";                            //배치안된 상태로 바꾸기
-                temp_building.BuildingPosiiton_x = "0";
-                temp_building.BuildingPosiiton_y = "0";
+                temp_building.BuildingPosition_x = "0";
+                temp_building.BuildingPosition_y = "0";
 
                 LoadManager.Instance.MyBuildings[temp_building.Id].SetValue(temp_building);     //정보 업데이트 해주기
                 Debug.Log(LoadManager.Instance.MyBuildings[temp_building.Id].isLock);
@@ -298,8 +298,8 @@ public class InventoryButton : MonoBehaviour
                 {
                     Building building_childs = building_child[i].gameObject.GetComponent<Building>();
                     building_childs.isLock = "F";
-                    building_childs.BuildingPosiiton_x = "0";
-                    building_childs.BuildingPosiiton_y = "0";
+                    building_childs.BuildingPosition_x = "0";
+                    building_childs.BuildingPosition_y = "0";
 
                     building_childs.save.BuildingReq(BuildingDef.updateValue, building_childs);
                     Destroy(building_child[i].gameObject);

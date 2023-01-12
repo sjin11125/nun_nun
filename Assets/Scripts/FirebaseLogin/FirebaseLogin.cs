@@ -95,6 +95,20 @@ public class FirebaseLogin : MonoBehaviour
        // var data = JsonUtility.ToJson(test);
         var function = functions.GetHttpsCallable("getBuilding");
         return function.CallAsync(JsonUtility.ToJson( uid)).ContinueWithOnMainThread((task) => {
+            return (string)task.Result.Data;
+        });
+    }  
+    public Task<string>AddBuilding()
+    {
+        functions = FirebaseFunctions.GetInstance(FirebaseApp.DefaultInstance);
+        // Create the arguments to the callable function.
+        Buildingsave test = new Buildingsave("7.349999", "6.875","T", "bunsu_level(Clone)0", "bunsu_level(Clone)","1","F","sd25hr");
+        test.Uid = GameManager.Instance.PlayerUserInfo.Uid;
+        var data = JsonUtility.ToJson(test);
+
+        var function = functions.GetHttpsCallable("addBuilding");
+
+        return function.CallAsync(data).ContinueWithOnMainThread((task) => {
             Debug.Log("task.Result: " + task.Result);
             return (string)task.Result.Data;
         });

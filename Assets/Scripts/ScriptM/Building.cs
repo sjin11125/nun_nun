@@ -24,8 +24,8 @@ public class BuildingParse
     public int[] ShinCost = new int[3] { 0, 0, 0 };          //건물 비용
     public int Level = 1;       //건물 레벨
     public string isFliped = "F";
-    public string BuildingPosiiton_x;
-    public string BuildingPosiiton_y;
+    public string BuildingPosition_x;
+    public string BuildingPosition_y;
     public string Id;
     public string str;      //설치물인지
     //-----------------------------------------------------------
@@ -71,7 +71,6 @@ public class Building : MonoBehaviour
     [Header("건물 획득 자원")]
     public int[] Reward =new int[3] { 0, 0, 0 };               //획득자원
     [Header("건물 설명")]
-    public string Info;                 //건물 설명
     public string Building_Image;          //빌딩 이미지 이름 *
     [Header("건물 비용")]
     public int[] Cost = new int[3] { 0, 0, 0 };        //건물비용
@@ -79,8 +78,8 @@ public class Building : MonoBehaviour
     [Header("건물 레벨")]
     public int Level = 1;       //건물 레벨
     public string isFliped = "F";
-    public string BuildingPosiiton_x;
-    public string BuildingPosiiton_y;
+    public string BuildingPosition_x;
+    public string BuildingPosition_y;
     public string Id;
     public string str;      //설치물인지
                             //-----------------------------------------------------------
@@ -127,7 +126,7 @@ public class Building : MonoBehaviour
         this.Reward[1] = int.Parse(Reward2);
         this.Reward[2] = int.Parse(Reward3);
 
-        Info = info;                //건물 설명
+        //Info = info;                //건물 설명
 
         Building_Image = image;     //건물 이미지
 
@@ -165,8 +164,8 @@ public class Building : MonoBehaviour
         layer_y = getBuilding.layer_y;
         Level = getBuilding.Level;
         isFliped = getBuilding.isFliped;
-       BuildingPosiiton_x = getBuilding.BuildingPosiiton_x;
-        BuildingPosiiton_y = getBuilding.BuildingPosiiton_y;
+       BuildingPosition_x = getBuilding.BuildingPosition_x;
+        BuildingPosition_y = getBuilding.BuildingPosition_y;
         Reward = getBuilding.Reward;
         Id = getBuilding.Id;
     }
@@ -175,22 +174,34 @@ public class Building : MonoBehaviour
         isLock = parse.isLock;               //잠금 유무
         Building_name = parse.Building_name;            //건물 이름
         Reward = parse.Reward;               //획득자원
-        Info = parse.Info;                 //건물 설명
+        //Info = parse.Info;                 //건물 설명
         Building_Image = parse.Building_Image;          //빌딩 이미지 이름 *
         Cost = parse.Cost;        //건물비용
         ShinCost = parse.ShinCost;
         Level = parse.Level;       //건물 레벨
         isFliped = parse.isFliped;
-        BuildingPosiiton_x = parse.BuildingPosiiton_x;
-        BuildingPosiiton_y = parse.BuildingPosiiton_y;
-        BuildingPosition = new Vector2(float.Parse(parse.BuildingPosiiton_x),float.Parse( parse.BuildingPosiiton_y));
+        BuildingPosition_x = parse.BuildingPosition_x;
+        BuildingPosition_y = parse.BuildingPosition_y;
+        BuildingPosition = new Vector2(float.Parse(parse.BuildingPosition_x),float.Parse( parse.BuildingPosition_y));
+        Id = parse.Id;
+    }
+    public  Building(Buildingsave parse)
+    {
+        isLock = parse.isLock;               //잠금 유무
+        Building_name = parse.Building_name;            //건물 이름
+        //Info = parse.Info;                 //건물 설명
+        Building_Image = parse.Building_Image;          //빌딩 이미지 이름 *
+        isFliped = parse.isFliped;
+        BuildingPosition_x = parse.BuildingPosition_x;
+        BuildingPosition_y = parse.BuildingPosition_y;
+        BuildingPosition = new Vector2(float.Parse(parse.BuildingPosition_x), float.Parse(parse.BuildingPosition_y));
         Id = parse.Id;
     }
     public Building DeepCopy()
     {
         Building BuildingCopy = new Building();
-        BuildingCopy.BuildingPosiiton_x = BuildingPosiiton_x;
-        BuildingCopy.BuildingPosiiton_y = BuildingPosiiton_y;
+        BuildingCopy.BuildingPosition_x = BuildingPosition_x;
+        BuildingCopy.BuildingPosition_y = BuildingPosition_y;
         BuildingCopy.isLock = isLock;
         BuildingCopy.Building_name = this.Building_name;
         BuildingCopy.Building_Image = this.Building_Image;
@@ -465,7 +476,7 @@ public class Building : MonoBehaviour
     
     public void Place_Initial(BuildType buildtype)
     {
-        Vector3 vec = new Vector3(float.Parse(BuildingPosiiton_x), float.Parse(BuildingPosiiton_y), 0);
+        Vector3 vec = new Vector3(float.Parse(BuildingPosition_x), float.Parse(BuildingPosition_y), 0);
         area.position = GridBuildingSystem.current.gridLayout.WorldToCell(vec);
         BoundsInt areaTemp = area;
         //areaTemp.position = positionInt;
@@ -517,7 +528,7 @@ public class Building : MonoBehaviour
 
             case BuildType.Make:
                 GridBuildingSystem.current.ClearArea();
-                Debug.Log("BuildingPosiiton_x: " + BuildingPosiiton_x);
+                Debug.Log("BuildingPosition_x: " + BuildingPosition_x);
                 //GameManager.BuildingNumber[Building_Image]++; //해당 건물의 갯수 추가
                 Id = GameManager.IDGenerator();         //건물 id 생성
                 gameObject.name = Id;      //이름 재설정

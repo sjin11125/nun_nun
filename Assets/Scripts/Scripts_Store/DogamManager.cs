@@ -161,7 +161,7 @@ public class DogamManager : MonoBehaviour
                 image[1].sprite = GameManager.GetDogamChaImage(ChaName);   //건물 이름 값 받아와서 이미지 찾기
 
                 BuildingButtonText[0].text = BuildingInformation[j].Building_name;      //빌딩 이름 넣기
-                BuildingButtonText[1].text= BuildingInformation[j].Info;                //빌딩 설명 넣기
+                //BuildingButtonText[1].text= BuildingInformation[j].Info;                //빌딩 설명 넣기
                 BuildingButtonText[2].text ="구매";               //빌딩 가격 넣기
 
                 BuildingButtonText[3].text = BuildingInformation[j].ShinCost[0].ToString();          //발광석 가격 넣기   

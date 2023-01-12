@@ -4,6 +4,7 @@ var bodyParser = require('body-parser')
 // The Firebase Admin SDK to access Firestore.
 const admin = require('firebase-admin');
 const { firestore } = require('firebase-admin/firestore');
+const { json } = require('body-parser');
 admin.initializeApp();
 
 
@@ -64,7 +65,8 @@ exports.findUser=functions.https.onCall(async (req, res) => {
       Money:"2000",
       ShinMoney:"0",
       Tuto:"0",
-      Version:"1.3.6"
+      Version:"1.3.6",
+      Id:""
     };
 
     const res =await user.set(data);
@@ -80,10 +82,11 @@ exports.findUser=functions.https.onCall(async (req, res) => {
 exports.addBuilding=functions.https.onCall(async(req,res)=>{
   const buildingData=JSON.parse(req);
     //const buildingData=JSON.parse(req);
+    console.log("res: "+JSON.stringify(buildingData));
     const db=admin.firestore();
     const resbuilding =await db.collection('user').doc(buildingData.Uid).
     collection('building').doc(buildingData.Id).set({
-      BuildingPosition_X:buildingData.BuildingPosition_X,
+      BuildingPosition_x:buildingData.BuildingPosition_x,
       BuildingPosition_y:buildingData.BuildingPosition_y,
       Building_Image:buildingData.Building_Image,
       Level:buildingData.Level,
@@ -99,16 +102,20 @@ exports.getBuilding=functions.https.onCall(async(req,res)=>{
     //const buildingData=JSON.parse(req);
     const db=admin.firestore();
 
-  const buildingRef = db.collection('agKhkdSkQeM7MuvgwXHDWuYlnax1');      //Uid 고치기
-  const snapshot = await buildingRef.get();
+    const buildingRef = db.collection('user').doc('agKhkdSkQeM7MuvgwXHDWuYlnax1').collection('building');      //Uid 고치기
+    const snapshot = await buildingRef.get();
+
+  console.log('snapshot: ');
+  console.log('snapshot: '+ snapshot);
+  console.log('snapshot: '+JSON.stringify( snapshot));
+  
   const buildingData=[];
   snapshot.forEach(doc => {
-    buildingData.push(doc);
-    console.log(doc.id, '=>', doc.data());
+    buildingData.push(doc.data());
+    
   });
   console.log("buildingData: "+JSON.stringify( buildingData));
-  console.log('End');
-
+return JSON.stringify( buildingData);
 });
 
 exports.setUser=functions.https.onCall(async (req, res) => {

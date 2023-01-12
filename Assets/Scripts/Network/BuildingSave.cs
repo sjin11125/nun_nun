@@ -39,8 +39,8 @@ public class BuildingSave : MonoBehaviour
                 form.AddField("order", buildingDef.ToString());
                 form.AddField("building_image", tempBuilding.Building_Image);
                 form.AddField("player_nickname", GameManager.NickName);
-                form.AddField("buildingPosiiton_x", tempBuilding.BuildingPosition.x.ToString());
-                form.AddField("buildingPosiiton_y", tempBuilding.BuildingPosition.y.ToString());
+                form.AddField("BuildingPosition_x", tempBuilding.BuildingPosition.x.ToString());
+                form.AddField("BuildingPosition_y", tempBuilding.BuildingPosition.y.ToString());
                 form.AddField("isLock", tempBuilding.isLock);
                 form.AddField("building_name", tempBuilding.Building_name);
                 form.AddField("level", tempBuilding.Level);
@@ -193,7 +193,7 @@ public class BuildingSave : MonoBehaviour
     }
 }
 
-[Serializable]
+[System.Serializable]
 public class Buildingsave
 {
     public string order, result, msg;
@@ -211,10 +211,10 @@ public class Buildingsave
     public string Cost;        //건물비용
     public string ShinCost;  
     public string Level;       //건물 레벨
-    public string isFlied;        //뒤집어졌는지
+    public string isFliped;        //뒤집어졌는지
     public string Id;
 
-    public Buildingsave(string buildingPosition_x, string buildingPosition_y, string isLock, string building_name, string building_Image, string level, string isFlied)
+    public Buildingsave(string buildingPosition_x, string buildingPosition_y, string isLock, string building_name, string building_Image, string level, string isFlied, string id)
     {
         BuildingPosition_x = buildingPosition_x;
         BuildingPosition_y = buildingPosition_y;
@@ -222,6 +222,7 @@ public class Buildingsave
         Building_name = building_name;
         Building_Image = building_Image;
         Level = level;
-        this.isFlied = isFlied;
+        this.isFliped = isFlied;
+        Id = id;
     }
 }
