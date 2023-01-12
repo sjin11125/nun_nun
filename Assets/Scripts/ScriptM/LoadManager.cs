@@ -21,6 +21,7 @@ public class LoadManager : MonoBehaviour
     public BuildingSave buildingsave;
 
    public GameObject LoadingPanel;
+    UiLoadingPanel UILoadingPanel;
     public  Dictionary<string, Building> MyBuildings = new Dictionary<string, Building>();          //내가 가지고 있는 빌딩들(id, Building)
       public  Dictionary<string, GameObject> MyBuildingsPrefab = new Dictionary<string, GameObject>();          //내가 가지고 있는 빌딩들(id, Building)
     
@@ -141,7 +142,7 @@ public class LoadManager : MonoBehaviour
                 /*WWWForm form1 = new WWWForm();
                 form1.AddField("order", "getFriendBuilding");
                 form1.AddField("loadedFriend", GameManager.NickName);*/
-                UiLoadingPanel UILoadingPanel = new UiLoadingPanel(LoadingPanel);
+                 this.UILoadingPanel = new UiLoadingPanel(LoadingPanel);
 
                /* FirebaseLogin.Instance.AddBuilding().ContinueWith((task) =>      //건물 추가
                 {
@@ -187,9 +188,9 @@ public class LoadManager : MonoBehaviour
                                     Buildingsave itemBuilding = JsonUtility.FromJson<Buildingsave>(item.ToString());
                                      //Debug.Log("item: " + JsonUtility.ToJson(item));
                                      Building tempBuilding=new Building(itemBuilding);
-                                     MyBuildings.Add(tempBuilding.Id, tempBuilding);
+                                    MyBuildings.Add(tempBuilding.Id, tempBuilding);
                                  }
-                                BuildingLoad();
+                                UnityMainThreadDispatcher.Instance().Enqueue(BuildingLoad); //BuildingLoad();
                             }
                             catch (Exception e)
                             {
@@ -301,7 +302,7 @@ public class LoadManager : MonoBehaviour
                 throw;
             }
         }
-        Destroy(LoadingPanel);
+        UILoadingPanel.DestroyGameObject();
     }
     public Building InstantiateBuilding(Building building)
     {
