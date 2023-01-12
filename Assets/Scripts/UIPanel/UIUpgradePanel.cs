@@ -23,7 +23,7 @@ public class UIUpgradePanel : UIBase
           this.building = building;*/
 
         UIUpgradePanel r = UIPrefab.GetComponent<UIUpgradePanel>();
-        r.Awake();
+        r.Start();
         r.UIPrefab = UIPrefab;
         r.building = building;
 
@@ -31,10 +31,11 @@ public class UIUpgradePanel : UIBase
 
 
     }
-  
 
-    private void Start()
+
+    public override void Start()
     {
+        base.Start();
         if (UIYesBtn != null)
         {
 

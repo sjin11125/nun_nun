@@ -20,7 +20,7 @@ public class LoadManager : MonoBehaviour
     public GameObject RewardPannel;     //�ϰ����� �ǳ�
     public BuildingSave buildingsave;
 
-    GameObject LoadingPanel;
+   public GameObject LoadingPanel;
     public  Dictionary<string, Building> MyBuildings = new Dictionary<string, Building>();          //내가 가지고 있는 빌딩들(id, Building)
       public  Dictionary<string, GameObject> MyBuildingsPrefab = new Dictionary<string, GameObject>();          //내가 가지고 있는 빌딩들(id, Building)
     
@@ -114,7 +114,6 @@ public class LoadManager : MonoBehaviour
     void Start()
     {
        
-        //LoadingPanel= Instantiate(GameManager.Instance.TopCanvas);
 
         isLoaded = false;
         GameManager.items = 0;          //������ �ʱ�ȭ
@@ -133,16 +132,19 @@ public class LoadManager : MonoBehaviour
         {
             MyBuildings.Add(building.Id, building);
         }).AddTo(this);
+        Debug.Log("튜토는 " + GameManager.Instance.PlayerUserInfo.Tuto);
         if (SceneManager.GetActiveScene().name.Equals("Main"))          //메인씬이면
         {
-           
+            
                 if (int.Parse(GameManager.Instance.PlayerUserInfo.Tuto) > 13)
                 {
-                    /*WWWForm form1 = new WWWForm();
-                    form1.AddField("order", "getFriendBuilding");
-                    form1.AddField("loadedFriend", GameManager.NickName);*/
+                /*WWWForm form1 = new WWWForm();
+                form1.AddField("order", "getFriendBuilding");
+                form1.AddField("loadedFriend", GameManager.NickName);*/
+                UIYesNoPanel UILoadingPanel = new UIYesNoPanel(LoadingPanel);
+                LoadingPanel = UILoadingPanel.UIPrefab;
+                LoadingPanel.SetActive(true);       //로딩 패널 뜨게
 
-                    LoadingPanel.SetActive(true);       //로딩 패널 뜨게
                     FirebaseLogin.Instance.GetBuilding(GameManager.Instance.PlayerUserInfo.Uid).ContinueWith((task) =>
                     {
                         Debug.Log("task.Result: " + task.Result);
@@ -170,7 +172,7 @@ public class LoadManager : MonoBehaviour
 
 
 
-                if (TutorialsManager.itemIndex>3)
+                if (int.Parse(GameManager.Instance.PlayerUserInfo.Tuto) > 3)
             {
                 Camera.main.GetComponent<Transform>().position = new Vector3(0, 0, -10);
             }

@@ -126,15 +126,15 @@ public class FirebaseLogin : MonoBehaviour
     {
         Write();
     }
-    public bool GetUserInfo(string idToken)
+    public void GetUserInfo(string idToken)
     {
         functions = FirebaseFunctions.GetInstance(FirebaseApp.DefaultInstance);
         var function = functions.GetHttpsCallable("findUser");
 
         SendMessage IdToken = new SendMessage("Send IdToken",idToken);
 
-        function.CallAsync(JsonUtility.ToJson(IdToken)).ContinueWith((task) => {
-
+        function.CallAsync(JsonUtility.ToJson(IdToken)).ContinueWithOnMainThread((task) => {
+            Debug.Log("res: "+ task.Result.Data);
 
             if (task.IsFaulted)
             {
@@ -153,20 +153,30 @@ public class FirebaseLogin : MonoBehaviour
                     }
                     Debug.LogError("예외: " + inner.Message);
                 }
-                return false;
+                //return false;
             }
             else
             {
+                try
+                {
+
+             
                 GameManager.Instance.PlayerUserInfo = JsonUtility.FromJson<UserInfo>((string)task.Result.Data);     //유저 정보 세팅
                 GameManager.Instance.PlayerUserInfo.Uid = idToken;
-
-                return true;
+                    SceneManager.LoadScene("Main");
+                //return true;   
+                }
+                catch (Exception e )
+                {
+                    Debug.LogError(e.Message);
+                    throw;
+                }
             }
         
           
             // return (string)task.Result.Data;
         });
-        return false;
+       // return false;
     }
     public Task<string> Write()
     {
@@ -263,8 +273,8 @@ public class FirebaseLogin : MonoBehaviour
                 Debug.Log("IDToken: "+task.Result.UserId);
                 Debug.Log("Sign In Successful.");
 
-                if(GetUserInfo(task.Result.UserId))
-                GameManager.Instance.LoadScene("Main");
+                //if (GetUserInfo(task.Result.UserId))
+                //    GameManager.Instance.StateList.Add("Login");
             }
         });
     }

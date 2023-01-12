@@ -20,12 +20,16 @@ public class UIBase :MonoBehaviour
 
    protected GameObject parent;
 
-    public virtual void  Awake()
+    public virtual void Awake()
     {
-        canvas = GameObject.Find("Canvas").GetComponent<CanvasBase>();
+        
 
     }
-
+    public virtual void Start()
+    {
+        canvas = CanvasBase._Instance;
+        Debug.Log("canvas: " + canvas);
+    }
     public GameObject InstantiatePrefab()
     {
         if (UIPrefab != null)

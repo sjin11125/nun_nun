@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Networking;
+using UniRx;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class GameManager : MonoBehaviour
     public static string CurVersion = "1.4.6";                    //현재버전
     public static bool isUpdateDone = false;                    //업데이트를 완료했냐
 
+    public Queue<string> Queue;
 
     public static bool isStart = false;
     public static GameManager _Instance;
@@ -143,6 +145,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
         DontDestroyOnLoad(gameObject);  // 아래의 함수를 사용하여 씬이 전환되더라도 선언되었던 인스턴스가 파괴되지 않는다.
+
     }
     private void Update()
     {
@@ -156,9 +159,9 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(SceneName);
     }
-        void Start()
+    void Start()
     {
-        
+
         //
         DogamChaImageData = new Dictionary<string, Sprite>();       //전체 캐릭터 리스트(가지고 있지 않은것도 포함)
         BuildingPrefabData = new Dictionary<string, GameObject>();      //전체 빌딩 프리팹 리스트 (가지고 있지 않은 것도 포함)
@@ -169,18 +172,19 @@ public class GameManager : MonoBehaviour
         BuildingNumber = new Dictionary<string, int>();
         IDs = new List<string>();                   //퀘스트 
         NuniDialog = new List<NuniDialog>();
-      
+
+
         for (int i = 0; i < BuildingPrefabInspector.Length; i++)        //빌딩 프리팹 정보 불러오기
         {
-            BuildingPrefabData.Add(BuildingPrefabInspector[i].name+ "(Clone)", BuildingPrefabInspector[i]);
-  
-           
-        }      
-      
+            BuildingPrefabData.Add(BuildingPrefabInspector[i].name + "(Clone)", BuildingPrefabInspector[i]);
+
+
+        }
+
         //일단 시작하면 전체 빌딩 프리팹 리스트에서 이름 받아서 임시로 0으로 초기화
         for (int i = 0; i < BuildingPrefabInspector.Length; i++)
         {
-            BuildingNumber.Add(BuildingPrefabInspector[i].name + "(Clone)",0);
+            BuildingNumber.Add(BuildingPrefabInspector[i].name + "(Clone)", 0);
         }
 
         for (int i = 0; i < DogamChaImageInspector.Length; i++)     // 빌딩 이미지 불러오기
@@ -208,7 +212,7 @@ public class GameManager : MonoBehaviour
         AllNuniArray = DPManager.Parse_character(1);            //누니 정보 파싱
         BuildingArray = DPManager.Parse(0);    //도감 정보 파싱
 
-       
+
     }
 
     public static GameManager Instance
@@ -262,10 +266,8 @@ public class GameManager : MonoBehaviour
         } while (isCount .Equals( true));
         return id;
     }
-    public void GetBuildingInfo()
-    {
 
-    }
+    
 
     public void GameSave()
     {

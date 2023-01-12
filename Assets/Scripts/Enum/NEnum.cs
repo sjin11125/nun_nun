@@ -98,3 +98,11 @@ public enum TileType
     Green,
     Red
 }
+public enum SceneName
+{
+    Login,
+    Main,
+    Store,
+    FriendMain,
+    Game
+}

@@ -1,21 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using UniRx;
+using UnityEngine;
 
-public class UIYesNoPanel : UIBase
+public class UiLoadingPanel : UIBase
 {
     // Start is called before the first frame update
-    public UIYesNoPanel(GameObject UIPrefab)
+    public UiLoadingPanel(GameObject UIPrefab)
     {
         UIYesNoPanel r = UIPrefab.GetComponent<UIYesNoPanel>();
         r.Start();
-        
         r.UIPrefab = UIPrefab;
 
         r.InstantiatePrefab();
     }
-    public override void Start()
+   public override void Start()
     {
         base.Start();
         if (UINoBtn != null)
@@ -39,4 +38,5 @@ public class UIYesNoPanel : UIBase
         }
     }
 
+ 
 }

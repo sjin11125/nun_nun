@@ -11,7 +11,7 @@ public class GameExitController : MonoBehaviour
 
     public void Awake()
     {
-        if (TutorialsManager.itemIndex < 14)
+        if (int.Parse(GameManager.Instance.PlayerUserInfo.Tuto) < 14)
         {
             TutoManager.SetActive(true);
             if (TutorialsManager.itemIndex > 9)//게임갔다오고난 후
