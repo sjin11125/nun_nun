@@ -101,7 +101,7 @@ public class Scores : MonoBehaviour
 
         int ShinMoney = int.Parse(GameManager.Instance.PlayerUserInfo.ShinMoney);
         ShinMoney += currentShinScores_;
-        GameManager.Instance.PlayerUserInfo.Money = ShinMoney.ToString();
+        GameManager.Instance.PlayerUserInfo.ShinMoney = ShinMoney.ToString();
          
         CanvasManger.AchieveShinMoney += currentShinScores_;
 

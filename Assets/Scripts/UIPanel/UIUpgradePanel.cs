@@ -146,7 +146,7 @@ public class UIUpgradePanel : UIBase
         {
             int ShinMoney = int.Parse(GameManager.Instance.PlayerUserInfo.ShinMoney);
             ShinMoney -= ShinMoneyCost;
-            GameManager.Instance.PlayerUserInfo.Money = ShinMoney.ToString();
+            GameManager.Instance.PlayerUserInfo.ShinMoney = ShinMoney.ToString();
 
             int Money = int.Parse(GameManager.Instance.PlayerUserInfo.Money);
             Money -= MoneyCost;

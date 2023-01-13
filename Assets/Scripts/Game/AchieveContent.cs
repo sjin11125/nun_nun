@@ -44,7 +44,7 @@ public class AchieveContent : MonoBehaviour
 
         int ShinMoney = int.Parse(GameManager.Instance.PlayerUserInfo.ShinMoney);
         ShinMoney += Nuni[nuniIndex].GetComponent<ContentNuni>().get_shin;
-        GameManager.Instance.PlayerUserInfo.Money = ShinMoney.ToString();
+        GameManager.Instance.PlayerUserInfo.ShinMoney = ShinMoney.ToString();
 
         CanvasManger.AchieveShinMoney += Nuni[nuniIndex].GetComponent<ContentNuni>().get_shin;
         GameManager.Zem += Nuni[nuniIndex].GetComponent<ContentNuni>().get_zem;

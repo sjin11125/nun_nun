@@ -9,7 +9,6 @@ using UniRx;
 
 public class LoadManager : MonoBehaviour
 {
-    // Start is called before the first frame update
     public static bool isLoad = false;
 
     public GameObject buildings;
@@ -32,7 +31,14 @@ public class LoadManager : MonoBehaviour
     public static GameObject Currnetbuildings;
     public static LoadManager _Instance;
 
+    public Text MoneyText;
+    public Text ShinMoneyText;
 
+    private void FixedUpdate()
+    {
+        MoneyText.text = GameManager.Instance.PlayerUserInfo.Money;
+        ShinMoneyText.text = GameManager.Instance.PlayerUserInfo.ShinMoney;
+    }
     public static LoadManager Instance
     {
         get

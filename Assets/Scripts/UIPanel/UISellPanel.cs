@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
+using System;
 
 public class UISellPanel : UIBase
 {
@@ -16,6 +17,7 @@ public class UISellPanel : UIBase
 
         r.InstantiatePrefab();
     }
+
     public void Start()
     {
 
@@ -24,12 +26,11 @@ public class UISellPanel : UIBase
 
         if (UIYesBtn!=null)
         {
-
+            
             UIYesBtn.onClick.AsObservable().Subscribe(_ =>
             {
                 Remove(building);
-                this.gameObject.transform.parent.gameObject.SetActive(false);
-                Destroy(this.gameObject);
+             
             }).AddTo(this);
 
         }
@@ -76,9 +77,10 @@ public class UISellPanel : UIBase
 
             int ShinMoney = int.Parse(GameManager.Instance.PlayerUserInfo.ShinMoney);
             ShinMoney += building.ShinCost[building.Level - 1];
-            GameManager.Instance.PlayerUserInfo.Money = ShinMoney.ToString();
+            GameManager.Instance.PlayerUserInfo.ShinMoney = ShinMoney.ToString();
 
             CanvasManger.AchieveShinMoney += building.ShinCost[building.Level - 1];
+            Debug.Log("Money: "+ GameManager.Instance.PlayerUserInfo.Money+"  ShinMoney: "+ GameManager.Instance.PlayerUserInfo.ShinMoney);
             Destroy(building.transform.gameObject);
         }
         else                                //설치하고 제거
@@ -86,12 +88,16 @@ public class UISellPanel : UIBase
             int Money = int.Parse(GameManager.Instance.PlayerUserInfo.Money);
             Money += building.Cost[building.Level - 1] / 10;
             GameManager.Instance.PlayerUserInfo.Money = Money.ToString();  //자원 되돌리기
+            
 
             CanvasManger.AchieveMoney += building.Cost[building.Level - 1] / 10;
 
             int ShinMoney = int.Parse(GameManager.Instance.PlayerUserInfo.ShinMoney);
             ShinMoney += building.ShinCost[building.Level - 1] / 3;
-            GameManager.Instance.PlayerUserInfo.Money = ShinMoney.ToString();
+            GameManager.Instance.PlayerUserInfo.ShinMoney = ShinMoney.ToString();
+
+            Debug.Log("Money: " + building.Cost[building.Level - 1] / 10 + "   ShinMoney:" + building.ShinCost[building.Level - 1] / 3);
+            Debug.Log("Money: " + GameManager.Instance.PlayerUserInfo.Money + "   ShinMoney:" + GameManager.Instance.PlayerUserInfo.ShinMoney);
 
             CanvasManger.AchieveShinMoney += building.ShinCost[building.Level - 1] / 3;
 
@@ -101,6 +107,7 @@ public class UISellPanel : UIBase
 
             Destroy(building.transform.gameObject);
         }
-
+        this.gameObject.transform.parent.gameObject.SetActive(false);
+        Destroy(this.gameObject);
     }
 }

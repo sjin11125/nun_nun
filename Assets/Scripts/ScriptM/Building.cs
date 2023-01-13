@@ -539,7 +539,7 @@ public class Building : MonoBehaviour
 
             case BuildType.Make:
                 GridBuildingSystem.current.ClearArea();
-                Debug.Log("BuildingPosition_x: " + BuildingPosition_x);
+
                 //GameManager.BuildingNumber[Building_Image]++; //해당 건물의 갯수 추가
                 Id = GameManager.IDGenerator();         //건물 id 생성
                 gameObject.name = Id;      //이름 재설정

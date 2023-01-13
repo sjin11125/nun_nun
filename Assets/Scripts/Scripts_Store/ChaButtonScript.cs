@@ -224,6 +224,7 @@ public class ChaButtonScript : MonoBehaviour
             {
 
                 Grid.GetComponent<SpriteRenderer>().sortingOrder = -50;
+                Debug.Log("Before Money: " + GameManager.Instance.PlayerUserInfo.Money + "   ShinMoney:" + GameManager.Instance.PlayerUserInfo.ShinMoney);
 
                 int Money =int.Parse( GameManager.Instance.PlayerUserInfo.Money);
                 Money -= pay;       //자원빼기
@@ -231,10 +232,16 @@ public class ChaButtonScript : MonoBehaviour
 
                 int ShinMoney = int.Parse(GameManager.Instance.PlayerUserInfo.ShinMoney);
                 ShinMoney -= shinPay;
-                GameManager.Instance.PlayerUserInfo.Money = ShinMoney.ToString();
+                GameManager.Instance.PlayerUserInfo.ShinMoney = ShinMoney.ToString();
 
                 UIManager.isSetMoney = 1;
-   
+
+                Debug.Log("pay: " + pay + "   shinPay:" + shinPay);
+                Debug.Log("Money: " + Money.ToString() + "   ShinMoney:" + ShinMoney.ToString());
+
+                Debug.Log("Money: " + GameManager.Instance.PlayerUserInfo.Money + "   ShinMoney:" + GameManager.Instance.PlayerUserInfo.ShinMoney);
+
+
                 Transform[] trans = transform.parent.parent.parent.GetComponentsInChildren<Transform>();
     
 
