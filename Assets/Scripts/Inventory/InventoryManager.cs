@@ -200,21 +200,21 @@ public class InventoryManager : MonoBehaviour
     {
         Inventory_Exit();
 
-        for (int i = 0; i < GameManager.CharacterList.Count; i++)
+        for (int i = 0; i < GameManager.Instance.CharacterList.Count; i++)
         {
 
             GameObject inven = Instantiate(inventory_nuni_prefab, Content) as GameObject;         //인벤 버튼 프리팹 생성
 
-            //inven.name = GameManager.CharacterList[i].cardImage;
+            //inven.name = GameManager.Instance.CharacterList[i].cardImage;
             inven.tag = "Inven_Nuni";            //인벤 버튼 태그 설정
 
             Image ButtonImage = inven.GetComponent<Image>();
 
 
           
-            ButtonImage.sprite = GameManager.GetCharacterImage(GameManager.CharacterList[i].cardImage);
+            ButtonImage.sprite = GameManager.GetCharacterImage(GameManager.Instance.CharacterList[i].cardImage);
 
-            inven.GetComponent<InventoryButton>().this_nuni = GameManager.CharacterList[i];
+            inven.GetComponent<InventoryButton>().this_nuni = GameManager.Instance.CharacterList[i];
        
 
 

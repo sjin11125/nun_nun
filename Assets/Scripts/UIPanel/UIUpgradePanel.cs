@@ -97,7 +97,7 @@ public class UIUpgradePanel : UIBase
                    building.Building_Image == "flower_level(Clone)")
             {
                 Debug.Log("해당 건물마자");
-                foreach (var item in GameManager.CharacterList)
+                foreach (var item in GameManager.Instance.CharacterList)
                 {
                     if (item.cardName=="수리공누니")
                     {
@@ -114,7 +114,7 @@ public class UIUpgradePanel : UIBase
              building.Building_Image == "school_level(Clone)")
             {
                 Debug.Log("해당 건물마자22");
-               foreach (var item in GameManager.CharacterList)
+               foreach (var item in GameManager.Instance.CharacterList)
                 {
                     if (item.cardName=="페인트누니")
                     {

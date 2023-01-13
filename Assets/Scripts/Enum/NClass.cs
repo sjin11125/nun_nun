@@ -6,6 +6,14 @@ using UnityEngine.UI;
 using UniRx;
 
 [Serializable]
+public class Cardsave
+{
+    public string Uid;
+
+    public string cardName;
+    public string isLock;
+}
+[Serializable]
 public class UIEdit
 {
     public BuildUIType buildUIType;

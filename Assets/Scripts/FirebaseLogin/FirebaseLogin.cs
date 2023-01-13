@@ -194,6 +194,31 @@ public class FirebaseLogin : MonoBehaviour
 
         });
     }
+    public void SetNuni(Cardsave nuni)
+    {
+        functions = FirebaseFunctions.GetInstance(FirebaseApp.DefaultInstance);
+        var function = functions.GetHttpsCallable("setNuni");
+
+        function.CallAsync(JsonUtility.ToJson(nuni)).ContinueWithOnMainThread((task) => {
+            Debug.Log("res: "+ task.Result.Data);
+
+        });
+    }
+
+    public Task<string> GetNuni(string uid)
+    {
+        functions = FirebaseFunctions.GetInstance(FirebaseApp.DefaultInstance);
+        // Create the arguments to the callable function.
+       // Cardsave test = new Buildingsave("7.349999", "6.875","T", "bunsu_level(Clone)0", "bunsu_level(Clone)","1","F");
+        // var data = JsonUtility.ToJson(test);
+        SendMessage IdToken = new SendMessage("Send IdToken", uid);
+
+        var function = functions.GetHttpsCallable("getNuni");
+        return function.CallAsync(JsonUtility.ToJson(IdToken)).ContinueWithOnMainThread((task) => {
+            return (string)task.Result.Data;
+        });
+    }
+
     public Task<string> Write()
     {
         functions = FirebaseFunctions.GetInstance(FirebaseApp.DefaultInstance);

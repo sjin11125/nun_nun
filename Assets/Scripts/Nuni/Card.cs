@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 [System.Serializable]
 public class Card : MonoBehaviour
 {
@@ -23,9 +24,10 @@ public class Card : MonoBehaviour
     public Sprite Image;
 
     public bool isDialog;               //대사 말하고 있나
-    public Card()
+    public Card(Cardsave cardSave)
     {
-
+        cardName = cardSave.cardName;
+        isLock = cardSave.isLock;
     }
     public Card(Card c)
     {

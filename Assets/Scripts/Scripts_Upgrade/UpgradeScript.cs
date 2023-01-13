@@ -29,16 +29,16 @@ public class UpgradeScript : MonoBehaviour
     void Start()
     { Star3Nuni = new List<Card>();
         isSelect = false;
-        for (int j = 0; j < GameManager.CharacterList.Count; j++)
+        for (int j = 0; j < GameManager.Instance.CharacterList.Count; j++)
         {
-            if (int.Parse(GameManager.CharacterList[j].Star) == 3)
+            if (int.Parse(GameManager.Instance.CharacterList[j].Star) == 3)
             { //3성이고 현재 얻은 누니인가
 
 
 
-                if (GameManager.CharacterList[j].isLock == "F")
+                if (GameManager.Instance.CharacterList[j].isLock == "F")
                 {
-                    Star3Nuni.Add(GameManager.CharacterList[j]);
+                    Star3Nuni.Add(GameManager.Instance.CharacterList[j]);
                  
                 }
             }

@@ -42,14 +42,19 @@ public class RandomSelect : MonoBehaviour
         // 생성 된 카드에 결과 리스트의 정보를 넣어줍니다.
         Card Nuni = cardUI.CardUISet(RandomCard());
         Nuni.isLock = "T";          //누니 잠금 품
-        GameManager.CharacterList.Add(Nuni);     //나온 결과를 리스트에 반영
-                                                 //전체 누니 배열을 수정
+        GameManager.Instance.CharacterList.Add(Nuni);     //나온 결과를 리스트에 반영
+                                                          //전체 누니 배열을 수정
+        Cardsave cardsave = new Cardsave();
+        cardsave.isLock = Nuni.isLock;
+        cardsave.cardName = Nuni.cardName;
 
+        cardsave.Uid = GameManager.Instance.PlayerUserInfo.Uid;
 
-        StartCoroutine(NuniSave(Nuni));          //구글 스크립트에 업데이트
+        FirebaseLogin.Instance.SetNuni(cardsave);//파이어베이스에 업데이트
+
         ShopBuyScript.isfirst = false;
     }
-    IEnumerator NuniSave(Card nuni)                //누니 구글 스크립트에 저장
+   /* IEnumerator NuniSave(Card nuni)                //누니 구글 스크립트에 저장
     {
         
         WWWForm form1 = new WWWForm();
@@ -62,7 +67,7 @@ public class RandomSelect : MonoBehaviour
         yield return StartCoroutine(Post(form1));                        //구글 스크립트로 초기화했는지 물어볼때까지 대기
 
 
-    }
+    }*/
     IEnumerator Post(WWWForm form)
     {
         using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // 반드시 using을 써야한다

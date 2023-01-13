@@ -37,12 +37,12 @@ public class NuniManager : MonoBehaviour                    //게임 시작하고 구글
         {
             yield return www.SendWebRequest();
             //Debug.Log(www.downloadHandler.text);
-            if (www.isDone) ResponseNuni(www.downloadHandler.text);
-            else print("웹의 응답이 없습니다.");
+           /* if (www.isDone) ResponseNuni(www.downloadHandler.text);
+            else print("웹의 응답이 없습니다.");*/
         }
 
     }
-    void ResponseNuni(string json)                          
+    /*void ResponseNuni(string json)                          
     {
        
         if (json .Equals( "null"))
@@ -74,7 +74,7 @@ public class NuniManager : MonoBehaviour                    //게임 시작하고 구글
                     }
                     else
                         nuni.isLock = "F";
-                    GameManager.CharacterList.Add(nuni);
+                    GameManager.Instance.CharacterList.Add(nuni);
                     break;
                   
                 }
@@ -84,6 +84,6 @@ public class NuniManager : MonoBehaviour                    //게임 시작하고 구글
         }
  
         SceneManager.LoadScene("Main");
-    }
+    }*/
 
 }

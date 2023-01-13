@@ -94,8 +94,8 @@ exports.addBuilding=functions.https.onCall(async(req,res)=>{
       isLock:buildingData.isLock,
       Id:buildingData.Id,
     });
-    
 });
+
 exports.deleteBuilding=functions.https.onCall(async(req,res)=>{
 
     const buildingData=JSON.parse(req);
@@ -161,4 +161,37 @@ exports.setUser=functions.https.onCall(async (req, res) => {
     message.message="Success";
     return JSON.stringify(message);
   }
+});
+
+//=====누니 관련=========
+exports.setNuni=functions.https.onCall(async(req,res)=>{
+  const nuniData=JSON.parse(req);
+    //const buildingData=JSON.parse(req);
+    console.log("res: "+JSON.stringify(nuniData));
+    const db=admin.firestore();
+    const resbuilding =await db.collection('user').doc(nuniData.Uid).
+    collection('nuni').doc(nuniData.cardName).set({
+      isLock:nuniData.isLock,
+      cardName:nuniData.cardName
+    });
+});
+
+exports.getNuni=functions.https.onCall(async(req,res)=>{
+
+  const idToken=JSON.parse(req);
+  console.log("idToken: "+JSON.stringify( idToken));
+    //const buildingData=JSON.parse(req);
+    const db=admin.firestore();
+
+    const nunigRef = db.collection('user').doc(idToken.message).collection('nuni');      //Uid 고치기
+    const snapshot = await nunigRef.get();
+
+  
+  const nuniData=[];
+  snapshot.forEach(doc => {
+    nuniData.push(doc.data());
+    
+  });
+  console.log("nuniData: "+JSON.stringify( nuniData));
+return JSON.stringify( nuniData);
 });

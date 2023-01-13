@@ -121,7 +121,7 @@ public class StartManager : MonoBehaviour
 
         for (int j = 0; j < itemList.Count; j++)         //시작하기 전 캐릭터 나타내기
         {
-            Card[] NuniArray = GameManager.CharacterList.ToArray();
+            Card[] NuniArray = GameManager.Instance.CharacterList.ToArray();
             for (int i = 0; i < NuniArray.Length; i++)
             {
                 if (NuniArray[i].Item .Equals( j))

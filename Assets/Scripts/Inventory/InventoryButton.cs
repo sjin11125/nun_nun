@@ -149,14 +149,15 @@ public class InventoryButton : MonoBehaviour
         }
         else                                    //누니가 배치 안된 상태
         {
+            
             this_nuni.isLock = "T";         //배치 된 상태로 바꾸기
 
             X_Image.gameObject.SetActive(false);
-            for (int i = 0; i < GameManager.CharacterList.Count; i++)           //Instatntiate 해주기
+            for (int i = 0; i < GameManager.Instance.CharacterList.Count; i++)           //Instatntiate 해주기
             {
-                if (this_nuni.cardName.Equals( GameManager.CharacterList[i].cardName))
+                if (this_nuni.cardName.Equals( GameManager.Instance.CharacterList[i].cardName))
                 {
-                    GameManager.CharacterList[i].isLock = "T";
+                    GameManager.Instance.CharacterList[i].isLock = "T";
                     GameObject nuni = Instantiate(GameManager.CharacterPrefab[this_nuni.cardImage], nunis.transform) as GameObject;
                    
                     for (int j = 0; j < GameManager.AllNuniArray.Length; j++)

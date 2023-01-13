@@ -64,19 +64,19 @@ public class NuniUpgradeButton : MonoBehaviour
         {
             if (int.Parse(UpgradeManager.SelectedNuni.Gauge)>=10)
             {
-                for (int i = 0; i < GameManager.CharacterList.Count; i++)
+                for (int i = 0; i < GameManager.Instance.CharacterList.Count; i++)
                 {
-                    if (GameManager.CharacterList[i].cardImage== UpgradeManager.SelectedNuni.cardImage)
+                    if (GameManager.Instance.CharacterList[i].cardImage== UpgradeManager.SelectedNuni.cardImage)
                     {
                         
-                           int level = int.Parse(GameManager.CharacterList[i].Level);      //레벨 +1
+                           int level = int.Parse(GameManager.Instance.CharacterList[i].Level);      //레벨 +1
                         level += 1;
-                        GameManager.CharacterList[i].Level = level.ToString();
+                        GameManager.Instance.CharacterList[i].Level = level.ToString();
 
-                        int gauge = int.Parse(GameManager.CharacterList[i].Gauge);      //게이지 초기화
+                        int gauge = int.Parse(GameManager.Instance.CharacterList[i].Gauge);      //게이지 초기화
                         gauge = 0;
-                        GameManager.CharacterList[i].Gauge = gauge.ToString();
-                        nuni = GameManager.CharacterList[i];
+                        GameManager.Instance.CharacterList[i].Gauge = gauge.ToString();
+                        nuni = GameManager.Instance.CharacterList[i];
                         Transform[] UpgradeManagerchild = UpgradeManager.GaugePannel.GetComponentsInChildren<Transform>();
 
                         for (int j = 2; j <= UpgradeManagerchild.Length; j++)
@@ -84,7 +84,7 @@ public class NuniUpgradeButton : MonoBehaviour
                             Destroy(UpgradeManagerchild[j - 1].gameObject);
                         }
 
-                        UpgradeManager.NuniLevel.text = "현재 레벨: " + GameManager.CharacterList[i].Level; //레벨 반영
+                        UpgradeManager.NuniLevel.text = "현재 레벨: " + GameManager.Instance.CharacterList[i].Level; //레벨 반영
                         return;
                     }
                 }

@@ -29,6 +29,7 @@ public class UISellPanel : UIBase
             
             UIYesBtn.onClick.AsObservable().Subscribe(_ =>
             {
+                GridBuildingSystem.OnEditModeOff.OnNext(building);
                 Remove(building);
              
             }).AddTo(this);
@@ -62,7 +63,7 @@ public class UISellPanel : UIBase
         BoundsInt areaTemp = building.area;
         areaTemp.position = positionInt;
         GridBuildingSystem.current.RemoveArea(areaTemp);
-
+        GridBuildingSystem.current.temp = null;
 
 
 

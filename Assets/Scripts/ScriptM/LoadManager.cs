@@ -211,8 +211,44 @@ public class LoadManager : MonoBehaviour
                         }
                     }
                 });
-                
-                //GameManager.Instance.BestScoreSave();                   //최고점수 서버 저장
+                FirebaseLogin.Instance.GetNuni(GameManager.Instance.PlayerUserInfo.Uid).ContinueWith((task) =>      //누니 불러오기
+                {
+                    Debug.Log("task.Result: " + task.Result);
+                    if (!task.IsFaulted)
+                    {
+                        if (task.Result != null)//누니 넣기
+                        {
+                            Debug.Log("task.Result: " + task.Result);
+
+                            try
+                            {
+
+                                Newtonsoft.Json.Linq.JArray Result = Newtonsoft.Json.Linq.JArray.Parse(task.Result);
+
+                                foreach (var item in Result)
+                                {
+                                    Debug.Log("item: " + item.ToString());
+                                    Cardsave itemNuni = JsonUtility.FromJson<Cardsave>(item.ToString());
+                                    //Debug.Log("item: " + JsonUtility.ToJson(item));
+                                    Card tempNuni = new Card(itemNuni);
+                                  GameManager.Instance.CharacterList.Add(tempNuni);
+                                }
+                                UnityMainThreadDispatcher.Instance().Enqueue(NuniLoad); //BuildingLoad();
+                            }
+                            catch (Exception e)
+                            {
+                                Debug.LogError(e.Message);
+                                throw;
+                            }
+
+                        }
+                        else
+                        {
+                            Debug.Log("task is null");
+                        }
+                    }
+                }); //누니 정보 가져오기
+
             }
             
            /* Action action ;
@@ -235,11 +271,11 @@ public class LoadManager : MonoBehaviour
         }
 
 
-        if (SceneManager.GetActiveScene().name.Equals("Main") && GameManager.CharacterList!=null )       //���ξ����� �ε��ϱ�(����)
+        if (SceneManager.GetActiveScene().name.Equals("Main") && GameManager.Instance.CharacterList!=null )       //���ξ����� �ε��ϱ�(����)
         {
-            for (int i = 0; i < GameManager.CharacterList.Count; i++)
+            for (int i = 0; i < GameManager.Instance.CharacterList.Count; i++)
             {
-                Card c = GameManager.CharacterList[i];
+                Card c = GameManager.Instance.CharacterList[i];
                 if (c.isLock.Equals("T"))
                 {
                     GameObject nuni = Instantiate(GameManager.CharacterPrefab[c.cardImage], nunis.transform);
@@ -278,7 +314,18 @@ public class LoadManager : MonoBehaviour
 
 
     }
-
+    public void NuniLoad()
+    {
+        foreach (var item in GameManager.Instance.CharacterList)
+        {
+            if (item.isLock.Equals("T"))
+            {
+                GameObject nuni = Instantiate(GameManager.CharacterPrefab[item.cardImage], nunis.transform);
+                Card nuni_card = nuni.GetComponent<Card>();
+                nuni_card.SetValue(item);
+            }
+        }
+    }
     public void BuildingLoad()
     {
         foreach (var item in MyBuildings)
@@ -415,16 +462,16 @@ public class LoadManager : MonoBehaviour
 
             }
 
-            for (int y = 0; y < GameManager.CharacterList.Count; y++)
+            for (int y = 0; y < GameManager.Instance.CharacterList.Count; y++)
             {
-                if (item.Value.Building_Image.Equals(GameManager.CharacterList[y].Building[0])
-                    && GameManager.CharacterList[y].Gold != "X"
-                    && GameManager.CharacterList[y].cardName != RewardedNuni.Find(x => x == GameManager.CharacterList[y].cardName))//건물 보상 받는 누니인가
+                if (item.Value.Building_Image.Equals(GameManager.Instance.CharacterList[y].Building[0])
+                    && GameManager.Instance.CharacterList[y].Gold != "X"
+                    && GameManager.Instance.CharacterList[y].cardName != RewardedNuni.Find(x => x == GameManager.Instance.CharacterList[y].cardName))//건물 보상 받는 누니인가
                 {
-                    MyReward += int.Parse(GameManager.CharacterList[y].Gold);
+                    MyReward += int.Parse(GameManager.Instance.CharacterList[y].Gold);
                     Debug.Log("    " + item.Value.Building_Image);
-                    Debug.Log(y + "    " + GameManager.CharacterList[y].cardName);
-                    RewardedNuni.Add(GameManager.CharacterList[y].cardName);
+                    Debug.Log(y + "    " + GameManager.Instance.CharacterList[y].cardName);
+                    RewardedNuni.Add(GameManager.Instance.CharacterList[y].cardName);
 
                 }
 
@@ -432,18 +479,18 @@ public class LoadManager : MonoBehaviour
 
         }
 
-        /*for (int i = 0; i < GameManager.CharacterList.Count; i++)
+        /*for (int i = 0; i < GameManager.Instance.CharacterList.Count; i++)
         {
 
-            if (GameManager.CharacterList[i].cardName== "꾸러기누니"||
-                GameManager.CharacterList[i].cardName == "꽃단누니" ||
-                GameManager.CharacterList[i].cardName == "어린이누니" ||
-                GameManager.CharacterList[i].cardName == "학생누니" )
+            if (GameManager.Instance.CharacterList[i].cardName== "꾸러기누니"||
+                GameManager.Instance.CharacterList[i].cardName == "꽃단누니" ||
+                GameManager.Instance.CharacterList[i].cardName == "어린이누니" ||
+                GameManager.Instance.CharacterList[i].cardName == "학생누니" )
             {
                 nuni50++;
             }
-            if (GameManager.CharacterList[i].cardName == "셰프누니" ||
-                GameManager.CharacterList[i].cardName == "패션누니" )
+            if (GameManager.Instance.CharacterList[i].cardName == "셰프누니" ||
+                GameManager.Instance.CharacterList[i].cardName == "패션누니" )
             {
                 nuni30++;
             }

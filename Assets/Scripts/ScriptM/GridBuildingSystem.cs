@@ -115,8 +115,13 @@ public class GridBuildingSystem : MonoBehaviour
 
                    if (isEditing.Value)
                    {
+
                        if (!IsPointerOverGameObject())         //UI 위에 있는지 체크
                         {
+                               if (temp==null)
+                               {
+                                   return;
+                               }
                            Vector2 touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);     //마우스 월드 좌표 받아옴
                             Vector3Int cellPos = gridLayout.LocalToCell(touchPos);
                            if (prevPos != cellPos)

@@ -61,10 +61,10 @@ public class GameManager : MonoBehaviour
 
     public static Card[] AllNuniArray;              //엑셀에서 받아 온 모든 누니 정보 배열
 
-    public static List<Card> CharacterList;      //현재가지고 있는 누니 리스트
+    public List<Card> CharacterList;      //현재가지고 있는 누니 리스트
     //public static Card[] CharacterArray;               //현재 가지고 있는 캐릭터 배열
     
-
+    
     public static bool[] Items=new bool[10];     //현재 가지고 잇는 아이템 유무
     public static int items=0;
     public static bool isStore = false;

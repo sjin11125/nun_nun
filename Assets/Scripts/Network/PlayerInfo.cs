@@ -23,16 +23,23 @@ public class PlayerInfo : MonoBehaviour                 //플레이어 프로필 스크립
     // Start is called before the first frame update
     void Start()
     {
+        for (int i = 0; i < GameManager.AllNuniArray.Length; i++)
+        {
+            if (GameManager.AllNuniArray[i].Image.name != GameManager.Instance.PlayerUserInfo.Image)
+                continue;
+            GameManager.ProfileImage = GameManager.AllNuniArray[i].Image;
+        }
+
         if (gameObject.tag .Equals( "Profile"))
         {
-            Profile[0].text = GameManager.NickName;
-            Profile[1].text = GameManager.StateMessage;
+            Profile[0].text = GameManager.Instance.PlayerUserInfo.Uid;
+            Profile[1].text = GameManager.Instance.PlayerUserInfo.Message;
             for (int i = 0; i < GameManager.AllNuniArray.Length; i++)
             {
                 bool isNuni=false;
-                for (int j   = 0; j < GameManager.CharacterList.Count; j++)
+                for (int j   = 0; j < GameManager.Instance.CharacterList.Count; j++)
                 {
-                    if (GameManager.CharacterList[j].cardImage.Equals( GameManager.AllNuniArray[i].cardImage))
+                    if (GameManager.Instance.CharacterList[j].cardImage.Equals( GameManager.AllNuniArray[i].cardImage))
                     {
                         isNuni = true;
                     }
@@ -85,15 +92,17 @@ public class PlayerInfo : MonoBehaviour                 //플레이어 프로필 스크립
     }
     public void EditInfo()                  //한줄소개 수정
     {
-        GameManager.StateMessage = InfoInput.text;
+        GameManager.Instance.PlayerUserInfo.Message = InfoInput.text;
 
-        WWWForm form1 = new WWWForm();
+        /*WWWForm form1 = new WWWForm();
         form1.AddField("order", "setProfileInfo");
         form1.AddField("player_nickname", GameManager.NickName);
         form1.AddField("profile_info", InfoInput.text);
 
 
-        StartCoroutine(ImagePost(form1));
+        StartCoroutine(ImagePost(form1));*/
+
+        FirebaseLogin.Instance.SetUserInfo(GameManager.Instance.PlayerUserInfo);
     }
     // Update is called once per frame
     void Update()
@@ -102,17 +111,17 @@ public class PlayerInfo : MonoBehaviour                 //플레이어 프로필 스크립
         {
             gameObject.GetComponent<Image>().sprite = GameManager.ProfileImage;
         
-            Profile[0].text = GameManager.NickName;
-            Profile[1].text = GameManager.StateMessage;
+            Profile[0].text = GameManager.Instance.PlayerUserInfo.Uid;
+            Profile[1].text = GameManager.Instance.PlayerUserInfo.Message;
         }
         if (gameObject.tag .Equals( "Profile_Image"))
         {
             gameObject.GetComponent<Image>().sprite = GameManager.ProfileImage;
-            /*  for (int i = 0; i < GameManager.CharacterList.Count; i++)
+            /*  for (int i = 0; i < GameManager.Instance.CharacterList.Count; i++)
               {
-                  if (GameManager.ProfileImage.name.Equals( GameManager.CharacterList[i].Image.name)
+                  if (GameManager.ProfileImage.name.Equals( GameManager.Instance.CharacterList[i].Image.name)
                   {
-                      profile_image.sprite = GameManager.CharacterList[i].Image;
+                      profile_image.sprite = GameManager.Instance.CharacterList[i].Image;
                   }
               }*/
         }
