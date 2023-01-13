@@ -80,7 +80,9 @@ public class UISellPanel : UIBase
             CanvasManger.AchieveShinMoney += building.ShinCost[building.Level - 1] / 3;
 
             LoadManager.RemoveBuildingSubject.OnNext(building);           //현재 가지고 있는 건물 목록에서 제거
-            LoadManager.Instance.buildingsave.BuildingReq(BuildingDef.removeValue, building);
+            //LoadManager.Instance.buildingsave.BuildingReq(BuildingDef.removeValue, building);
+            FirebaseLogin.Instance.RemoveBuilding(building.BuildingToJson());
+
             Destroy(building.transform.gameObject);
         }
 

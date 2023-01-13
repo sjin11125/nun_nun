@@ -216,7 +216,7 @@ public class ChaButtonScript : MonoBehaviour
             int pay = building.Cost[0];
             int shinPay = building.ShinCost[0];
 
-            if (GameManager.Money < pay || GameManager.ShinMoney < shinPay)      //돈이나 자원이 모자르면 거절 메세지 띄움
+            if (int.Parse( GameManager.Instance.PlayerUserInfo.Money)< pay || int.Parse(GameManager.Instance.PlayerUserInfo.ShinMoney) < shinPay)      //돈이나 자원이 모자르면 거절 메세지 띄움
             {
                 UIManager.isSetMoney = -1;
             }

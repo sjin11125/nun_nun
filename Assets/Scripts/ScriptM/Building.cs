@@ -224,8 +224,7 @@ public class Building : MonoBehaviour
     public Buildingsave BuildingToJson()
     {
         Buildingsave BuildingCopy = new Buildingsave(this.BuildingPosition_x,this.BuildingPosition_y,isLock,Building_name,Building_Image,Level.ToString(),isFliped,Id);
-        BuildingCopy.BuildingPosition_x = this.BuildingPosition_x;
-
+       
 
         return BuildingCopy;
     }
@@ -529,7 +528,10 @@ public class Building : MonoBehaviour
 
                 Type = BuildType.Empty;
 
-                LoadManager.Instance.buildingsave.BuildingReq(BuildingDef.updateValue, this);
+                BuildingPosition_x = gameObject.transform.position.x.ToString();
+                BuildingPosition_y = gameObject.transform.position.y.ToString();
+                Debug.Log("아이디는 "+Id);
+                FirebaseLogin.Instance.AddBuilding(this.BuildingToJson());
                 break;
 
             case BuildType.Rotation:
@@ -543,7 +545,8 @@ public class Building : MonoBehaviour
                 gameObject.name = Id;      //이름 재설정
                 BuildingListAdd();      //현재 가지고 있는 건물 리스트에 추가
                 Type = BuildType.Empty;
-
+                BuildingPosition_x =gameObject.transform.position.x.ToString();
+                BuildingPosition_y =gameObject.transform.position.y.ToString();
                 FirebaseLogin.Instance.AddBuilding(this.BuildingToJson());
 
                 Debug.Log("새로만듬");

@@ -92,22 +92,30 @@ exports.addBuilding=functions.https.onCall(async(req,res)=>{
       Level:buildingData.Level,
       isFliped:buildingData.isFliped,
       isLock:buildingData.isLock,
+      Id:buildingData.Id,
     });
     
+});
+exports.deleteBuilding=functions.https.onCall(async(req,res)=>{
+
+    const buildingData=JSON.parse(req);
+    const db=admin.firestore();
+
+    const buildingRef = db.collection('user').doc(buildingData.Uid).collection('building').doc(buildingData.Id).delete();      //Uid 고치기
+
+//return JSON.stringify( buildingData);
 });
 
 exports.getBuilding=functions.https.onCall(async(req,res)=>{
 
   const idToken=JSON.parse(req);
+  console.log("idToken: "+JSON.stringify( idToken));
     //const buildingData=JSON.parse(req);
     const db=admin.firestore();
 
-    const buildingRef = db.collection('user').doc('agKhkdSkQeM7MuvgwXHDWuYlnax1').collection('building');      //Uid 고치기
+    const buildingRef = db.collection('user').doc(idToken.message).collection('building');      //Uid 고치기
     const snapshot = await buildingRef.get();
 
-  console.log('snapshot: ');
-  console.log('snapshot: '+ snapshot);
-  console.log('snapshot: '+JSON.stringify( snapshot));
   
   const buildingData=[];
   snapshot.forEach(doc => {

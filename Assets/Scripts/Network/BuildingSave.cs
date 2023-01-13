@@ -205,8 +205,8 @@ public class Buildingsave
     //-------------------------파싱정보------------------------------
     public string isLock;               //잠금 유무
     public string Building_name;            //건물 이름
-    public string Reward;               //획득자원
-    public string Info;                 //건물 설명
+    //public string Reward;               //획득자원
+    //public string Info;                 //건물 설명
     public string Building_Image;          //빌딩 이미지 이름 *
     public string Cost;        //건물비용
     public string ShinCost;  
