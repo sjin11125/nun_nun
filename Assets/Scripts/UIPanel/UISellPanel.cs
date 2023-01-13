@@ -28,6 +28,8 @@ public class UISellPanel : UIBase
             UIYesBtn.onClick.AsObservable().Subscribe(_ =>
             {
                 Remove(building);
+                this.gameObject.transform.parent.gameObject.SetActive(false);
+                Destroy(this.gameObject);
             }).AddTo(this);
 
         }
