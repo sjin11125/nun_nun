@@ -168,31 +168,9 @@ public class FirebaseLogin : MonoBehaviour
         function.CallAsync(JsonUtility.ToJson(IdToken)).ContinueWithOnMainThread((task) => {
             Debug.Log("res: "+ task.Result.Data);
 
-            if (task.IsFaulted)
+            if (!task.IsFaulted)
             {
-                foreach (var inner in task.Exception.InnerExceptions)
-                {
-                    if (inner is FunctionsException)
-                    {
-                        var e = (FunctionsException)inner;
-                        // Function error code, will be INTERNAL if the failure
-                        // was not handled properly in the function call.
-                        var code = e.ErrorCode;
-                        var message = e.Message;
-
-                        Debug.LogError(code);
-                        Debug.LogError(message);
-                    }
-                    Debug.LogError("예외: " + inner.Message);
-                }
-                //return false;
-            }
-            else
-            {
-                try
-                {
-
-             
+                try { 
                 GameManager.Instance.PlayerUserInfo = JsonUtility.FromJson<UserInfo>((string)task.Result.Data);     //유저 정보 세팅
                 GameManager.Instance.PlayerUserInfo.Uid = idToken;
                     SceneManager.LoadScene("Main");
@@ -204,11 +182,17 @@ public class FirebaseLogin : MonoBehaviour
                     throw;
                 }
             }
-        
-          
-            // return (string)task.Result.Data;
         });
-       // return false;
+    }
+    public void SetUserInfo(UserInfo userInfo)
+    {
+        functions = FirebaseFunctions.GetInstance(FirebaseApp.DefaultInstance);
+        var function = functions.GetHttpsCallable("setUser");
+
+        function.CallAsync(JsonUtility.ToJson(userInfo)).ContinueWithOnMainThread((task) => {
+            Debug.Log("res: "+ task.Result.Data);
+
+        });
     }
     public Task<string> Write()
     {

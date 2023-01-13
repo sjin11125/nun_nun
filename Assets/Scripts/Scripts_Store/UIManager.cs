@@ -12,7 +12,7 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        MoneyText.text = GameManager.Money.ToString();
+        MoneyText.text = GameManager.Instance.PlayerUserInfo.Money;
     }
 
     // Update is called once per frame
@@ -20,7 +20,7 @@ public class UIManager : MonoBehaviour
     {
         if (isSetMoney == 1)            //결제
         {
-            MoneyText.text = GameManager.Money.ToString();
+            MoneyText.text = GameManager.Instance.PlayerUserInfo.Money;
             isSetMoney = 0;
 
 

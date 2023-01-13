@@ -81,7 +81,8 @@ public class GoogleSheetManager : MonoBehaviour
 
          StartCoroutine(VersionPost(form)); //최신 버전 불러오기*/
         WarningTxt = WarningPannel.GetComponentInChildren<Text>();
-       
+       //구글 로그인 
+       //게스트 로그인 넣기
         LogInBtn.onClick.AsObservable().Subscribe(_
             =>
             {

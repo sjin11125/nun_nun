@@ -14,10 +14,10 @@ public class AnimationEvent : MonoBehaviour
 
     public void NuniActive()
     {
-        if (GameManager.Money>=2000)
+        if (int.Parse( GameManager.Instance.PlayerUserInfo.Money)>=2000)
         {
             rand.GetComponent<RandomSelect>().ResultSelect();
-            GameManager.Money -= 2000;       //2000¿ø »©±â
+            int.Parse(GameManager.Instance.PlayerUserInfo.Money) -= 2000;       //2000¿ø »©±â
         }
         GameObject.FindGameObjectWithTag("ShopBtn").transform.GetChild(0).gameObject.SetActive(true);
         GameObject.FindGameObjectWithTag("ShopBtn").transform.GetChild(1).gameObject.SetActive(true);

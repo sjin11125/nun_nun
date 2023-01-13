@@ -35,9 +35,17 @@ public class AchieveContent : MonoBehaviour
     public void GetButton()
     {
         Nuni[nuniIndex].transform.GetChild(1).gameObject.SetActive(true);//완료이미지
-        GameManager.Money += Nuni[nuniIndex].GetComponent<ContentNuni>().get_money;
+
+        int Money = int.Parse(GameManager.Instance.PlayerUserInfo.Money);
+        Money+= Nuni[nuniIndex].GetComponent<ContentNuni>().get_money;
+        GameManager.Instance.PlayerUserInfo.Money = Money.ToString();
+
         CanvasManger.AchieveMoney += Nuni[nuniIndex].GetComponent<ContentNuni>().get_money;
-        GameManager.ShinMoney += Nuni[nuniIndex].GetComponent<ContentNuni>().get_shin;
+
+        int ShinMoney = int.Parse(GameManager.Instance.PlayerUserInfo.ShinMoney);
+        ShinMoney += Nuni[nuniIndex].GetComponent<ContentNuni>().get_shin;
+        GameManager.Instance.PlayerUserInfo.Money = ShinMoney.ToString();
+
         CanvasManger.AchieveShinMoney += Nuni[nuniIndex].GetComponent<ContentNuni>().get_shin;
         GameManager.Zem += Nuni[nuniIndex].GetComponent<ContentNuni>().get_zem;
         nuniIndex++;
@@ -60,6 +68,6 @@ public class AchieveContent : MonoBehaviour
         {
             Debug.Log("CanvasManger.currentAchieveSuccess[" + i + "] : " + CanvasManger.currentAchieveSuccess[i]);
         }
-        GameManager.isBScore = true;
+        GameManager.Instance.GameSave();
     }
 }

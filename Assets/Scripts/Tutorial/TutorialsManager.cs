@@ -68,10 +68,18 @@ public class TutorialsManager : MonoBehaviour
                 }
                 if (itemIndex.Equals(10))
                 {
-                    if (GameManager.Money < 100 || GameManager.ShinMoney < 1)
+                
+                    if (int.Parse(GameManager.Instance.PlayerUserInfo.Money) < 100 
+                        || int.Parse(GameManager.Instance.PlayerUserInfo.ShinMoney) < 1)
                     {
-                        GameManager.Money += 100;
-                        GameManager.ShinMoney += 1;
+                        int Money = int.Parse(GameManager.Instance.PlayerUserInfo.Money);
+                        Money+= 100;
+                        GameManager.Instance.PlayerUserInfo.Money = Money.ToString();
+
+                        int ShinMoney = int.Parse(GameManager.Instance.PlayerUserInfo.ShinMoney);
+                        ShinMoney +=1;
+                        GameManager.Instance.PlayerUserInfo.Money = ShinMoney.ToString();
+
                     }
                 }
             }

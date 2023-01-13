@@ -139,12 +139,18 @@ public class UIUpgradePanel : UIBase
 
     void MoneyCheck()
     {
+        
 
-        if (GameManager.ShinMoney >= ShinMoneyCost &&           //재화 체크
-            GameManager.Money >= MoneyCost)
+        if (int.Parse(GameManager.Instance.PlayerUserInfo.ShinMoney) >= ShinMoneyCost &&           //재화 체크
+            int.Parse(GameManager.Instance.PlayerUserInfo.Money) >= MoneyCost)
         {
-            GameManager.ShinMoney -= ShinMoneyCost;
-            GameManager.Money -= MoneyCost;
+            int ShinMoney = int.Parse(GameManager.Instance.PlayerUserInfo.ShinMoney);
+            ShinMoney -= ShinMoneyCost;
+            GameManager.Instance.PlayerUserInfo.Money = ShinMoney.ToString();
+
+            int Money = int.Parse(GameManager.Instance.PlayerUserInfo.Money);
+            Money -= MoneyCost;
+            GameManager.Instance.PlayerUserInfo.Money = Money.ToString();
 
             building.Level += 1;
             building.BuildingImage.sprite = GameManager.GetDogamChaImage(building.Building_Image + building.Level.ToString());//건물이미지 바꿈

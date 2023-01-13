@@ -12,7 +12,7 @@ public class ShopBuyScript : MonoBehaviour
 
     public void NuniBuy()
     {
-        if (GameManager.Money < 2000)
+        if (int.Parse(GameManager.Instance.PlayerUserInfo.Money) < 2000)
         {
             CancelText.gameObject.SetActive(true);
             return;

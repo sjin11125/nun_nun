@@ -68,17 +68,31 @@ public class UISellPanel : UIBase
 
         if (building.Type.Equals(BuildType.Make))     //상점에서 사고 설치X 바로 제거
         {
-            GameManager.Money += building.Cost[building.Level - 1];          //자원 되돌리기
+            int Money = int.Parse(GameManager.Instance.PlayerUserInfo.Money);
+            Money += building.Cost[building.Level - 1];
+            GameManager.Instance.PlayerUserInfo.Money = Money.ToString();  //자원 되돌리기
+
             CanvasManger.AchieveMoney += building.Cost[building.Level - 1];
-            GameManager.ShinMoney += building.ShinCost[building.Level - 1];
+
+            int ShinMoney = int.Parse(GameManager.Instance.PlayerUserInfo.ShinMoney);
+            ShinMoney += building.ShinCost[building.Level - 1];
+            GameManager.Instance.PlayerUserInfo.Money = ShinMoney.ToString();
+
             CanvasManger.AchieveShinMoney += building.ShinCost[building.Level - 1];
             Destroy(building.transform.gameObject);
         }
         else                                //설치하고 제거
         {
-            GameManager.Money += building.Cost[building.Level - 1] / 10;          //자원 되돌리기
+            int Money = int.Parse(GameManager.Instance.PlayerUserInfo.Money);
+            Money += building.Cost[building.Level - 1] / 10;
+            GameManager.Instance.PlayerUserInfo.Money = Money.ToString();  //자원 되돌리기
+
             CanvasManger.AchieveMoney += building.Cost[building.Level - 1] / 10;
-            GameManager.ShinMoney += building.ShinCost[building.Level - 1] / 3;
+
+            int ShinMoney = int.Parse(GameManager.Instance.PlayerUserInfo.ShinMoney);
+            ShinMoney += building.ShinCost[building.Level - 1] / 3;
+            GameManager.Instance.PlayerUserInfo.Money = ShinMoney.ToString();
+
             CanvasManger.AchieveShinMoney += building.ShinCost[building.Level - 1] / 3;
 
             LoadManager.RemoveBuildingSubject.OnNext(building);           //현재 가지고 있는 건물 목록에서 제거

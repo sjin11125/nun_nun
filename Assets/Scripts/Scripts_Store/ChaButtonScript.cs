@@ -224,10 +224,14 @@ public class ChaButtonScript : MonoBehaviour
             {
 
                 Grid.GetComponent<SpriteRenderer>().sortingOrder = -50;
-                
 
-                GameManager.Money -= pay;       //자원빼기
-                GameManager.ShinMoney -= shinPay;
+                int Money =int.Parse( GameManager.Instance.PlayerUserInfo.Money);
+                Money -= pay;       //자원빼기
+                GameManager.Instance.PlayerUserInfo.Money = Money.ToString();
+
+                int ShinMoney = int.Parse(GameManager.Instance.PlayerUserInfo.ShinMoney);
+                ShinMoney -= shinPay;
+                GameManager.Instance.PlayerUserInfo.Money = ShinMoney.ToString();
 
                 UIManager.isSetMoney = 1;
    

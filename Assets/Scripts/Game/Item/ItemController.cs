@@ -153,6 +153,6 @@ public class ItemController : MonoBehaviour
             mainItemBool[i] = false;
         }
         reStart = true;
-        GameManager.isBScore = true;
+       GameManager.Instance.GameSave();
     }
 }
