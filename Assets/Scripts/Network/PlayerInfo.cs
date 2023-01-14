@@ -37,13 +37,12 @@ public class PlayerInfo : MonoBehaviour                 //플레이어 프로필 스크립
             for (int i = 0; i < GameManager.AllNuniArray.Length; i++)
             {
                 bool isNuni=false;
-                for (int j   = 0; j < GameManager.Instance.CharacterList.Count; j++)
+                foreach (var item in GameManager.Instance.CharacterList)
                 {
-                    if (GameManager.Instance.CharacterList[j].cardImage.Equals( GameManager.AllNuniArray[i].cardImage))
+                    if (item.Value.cardImage.Equals(GameManager.AllNuniArray[i].cardImage))
                     {
                         isNuni = true;
                     }
-                    
                 }
                 if (isNuni)
                 {

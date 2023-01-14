@@ -23,6 +23,7 @@ public class LoadManager : MonoBehaviour
     UiLoadingPanel UILoadingPanel;
     public  Dictionary<string, Building> MyBuildings = new Dictionary<string, Building>();          //내가 가지고 있는 빌딩들(id, Building)
       public  Dictionary<string, GameObject> MyBuildingsPrefab = new Dictionary<string, GameObject>();          //내가 가지고 있는 빌딩들(id, Building)
+      public  Dictionary<string, GameObject> MyNuniPrefab = new Dictionary<string, GameObject>();          //내가 가지고 있는 빌딩들(id, Building)
     
     public static Subject<Building> ReBuildingSubject = new Subject<Building>();
     public static Subject<Building> AddBuildingSubject = new Subject<Building>();
@@ -230,7 +231,7 @@ public class LoadManager : MonoBehaviour
                                     Cardsave itemNuni = JsonUtility.FromJson<Cardsave>(item.ToString());
                                     //Debug.Log("item: " + JsonUtility.ToJson(item));
                                     Card tempNuni = new Card(itemNuni);
-                                  GameManager.Instance.CharacterList.Add(tempNuni);
+                                  GameManager.Instance.CharacterList.Add(tempNuni.Id,tempNuni);
                                 }
                                 UnityMainThreadDispatcher.Instance().Enqueue(NuniLoad); //BuildingLoad();
                             }
@@ -270,7 +271,7 @@ public class LoadManager : MonoBehaviour
         }
 
 
-        if (SceneManager.GetActiveScene().name.Equals("Main") && GameManager.Instance.CharacterList!=null )       //���ξ����� �ε��ϱ�(����)
+        /*if (SceneManager.GetActiveScene().name.Equals("Main") && GameManager.Instance.CharacterList!=null )       //���ξ����� �ε��ϱ�(����)
         {
             for (int i = 0; i < GameManager.Instance.CharacterList.Count; i++)
             {
@@ -283,7 +284,7 @@ public class LoadManager : MonoBehaviour
                 }
             }
 
-        }
+        }*/
 
         if (SceneManager.GetActiveScene().name.Equals("FriendMain") )                            //친구 마을 씬이냐
         {
@@ -317,13 +318,17 @@ public class LoadManager : MonoBehaviour
     {
         foreach (var item in GameManager.Instance.CharacterList)
         {
-            if (item.isLock.Equals("T"))
+            if (item.Value.isLock.Equals("T"))
             {
-                Debug.Log(item.cardImage) ;
-                GameObject nuni = Instantiate(GameManager.CharacterPrefab[item.cardImage], nunis.transform);
-                nuni.name = item.Id;
+                Debug.Log(item.Value.cardImage) ;
+                GameObject nuni = Instantiate(GameManager.CharacterPrefab[item.Value.cardImage], nunis.transform);
+
+                nuni.name = item.Value.Id;
                 Card nuni_card = nuni.GetComponent<Card>();
-                nuni_card.SetValue(item);
+                nuni_card.SetValue(item.Value);
+
+
+                MyNuniPrefab.Add(item.Value.Id, nuni);         //현재 가지고 있는 누니 오브젝트 딕셔너리에 추가
             }
         }
     }
@@ -441,6 +446,13 @@ public class LoadManager : MonoBehaviour
         MyBuildingsPrefab.Remove(Id);
 
     }
+    public void RemoveNuni(string Id)
+    {
+        Destroy(MyNuniPrefab[Id]);
+
+        MyNuniPrefab.Remove(Id);
+
+    }
     
     public void GetReward()
     {
@@ -462,19 +474,20 @@ public class LoadManager : MonoBehaviour
                 }
 
             }
-
-            for (int y = 0; y < GameManager.Instance.CharacterList.Count; y++)
+            foreach (var nuni in GameManager.Instance.CharacterList)
             {
-                if (item.Value.Building_Image.Equals(GameManager.Instance.CharacterList[y].Building[0])
-                    && GameManager.Instance.CharacterList[y].Gold != "X"
-                    && GameManager.Instance.CharacterList[y].cardName != RewardedNuni.Find(x => x == GameManager.Instance.CharacterList[y].cardName))//건물 보상 받는 누니인가
+                if (item.Value.Building_Image.Equals(nuni.Value.Building[0])
+                    && nuni.Value.Gold != "X"
+                    && nuni.Value.cardName != RewardedNuni.Find(x => x == nuni.Value.cardName))//건물 보상 받는 누니인가
                 {
-                    MyReward += int.Parse(GameManager.Instance.CharacterList[y].Gold);
-                    Debug.Log("    " + item.Value.Building_Image);
-                    Debug.Log(y + "    " + GameManager.Instance.CharacterList[y].cardName);
-                    RewardedNuni.Add(GameManager.Instance.CharacterList[y].cardName);
+                    MyReward += int.Parse(nuni.Value.Gold);
+                    RewardedNuni.Add(nuni.Value.cardName);
 
                 }
+            }
+            for (int y = 0; y < GameManager.Instance.CharacterList.Count; y++)
+            {
+                
 
             }
 

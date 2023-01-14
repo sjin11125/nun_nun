@@ -10,6 +10,7 @@ public class InventoryManager : MonoBehaviour
     public GameObject inventory_prefab;     //인벤토리 활성화된 버튼 프리팹
     public GameObject inventory_nuni_prefab;     //인벤토리 버튼 프리팹
     public Transform Content;
+    public GameObject NuniParent;                //누니 오브젝트 부모
 
     public Button InvenBuildingBtn;
     public Button InvenStrBtn;
@@ -23,8 +24,9 @@ public class InventoryManager : MonoBehaviour
     {
         if (LoadManager.Instance == null)
             return;
+        NuniParent = GameObject.Find("nunis");
 
-     
+
             InvenBuildingBtn.OnClickAsObservable().Subscribe(_ =>
             {
                 Inventory_Building_Open(false);
@@ -105,8 +107,9 @@ public class InventoryManager : MonoBehaviour
                     InventoryButton inventoryBtn = inven.GetComponent<InventoryButton>();
 
                     inventoryBtn.SetButtonImage(GameManager.GetDogamChaImage(item.Value.Building_Image));   //버튼 이미지 설정
+                inventoryBtn.SetBuildingInfo(LoadManager.Instance.MyBuildings[item.Value.Id]);
 
-                    Building building = item.Value;
+                Building building = item.Value;
                     inventoryBtn.SetBuildingInfo(building);                           //해당 건물 정보 등록
                     inventoryBtn.temp_building = item.Value;
 
@@ -131,8 +134,9 @@ public class InventoryManager : MonoBehaviour
                             inventoryBtn.temp_building.BuildingPosition.x = 0;                            //위치 초기화
                         inventoryBtn.temp_building.BuildingPosition.y = 0;
                             inventoryBtn.temp_building.Placed = false;
-                            LoadManager.Instance.buildingsave.BuildingReq(BuildingDef.updateValue, inventoryBtn.temp_building);     //서버로 전송
-                    }
+                            // LoadManager.Instance.buildingsave.BuildingReq(BuildingDef.updateValue, inventoryBtn.temp_building);     //서버로 전송
+                            FirebaseLogin.Instance.AddBuilding(inventoryBtn.temp_building.BuildingToJson());            //서버로 전송
+                        }
                         else                               //해당 건물이 설치안되어있으면
                     {
                             Building ActiveBuilding = new Building();
@@ -206,30 +210,40 @@ public class InventoryManager : MonoBehaviour
 
             //inven.name = GameManager.Instance.CharacterList[i].cardImage;
             inven.tag = "Inven_Nuni";            //인벤 버튼 태그 설정
-            inven.name = item.Id;
+            inven.name = item.Value.Id;
             Image ButtonImage = inven.GetComponent<Image>();
 
 
 
-            ButtonImage.sprite = GameManager.GetCharacterImage(item.cardImage);
+            ButtonImage.sprite = GameManager.GetCharacterImage(item.Value.cardImage);
 
             InventoryButton inventoryBtn = inven.GetComponent<InventoryButton>();
-            inventoryBtn.this_nuni = item;
+            inventoryBtn.this_nuni = item.Value;
 
             Button Button = inven.GetComponent<Button>();
             Button.OnClickAsObservable().Subscribe(_=> {
                 if (inventoryBtn.this_nuni.isLock=="T")         //해당 누니가 있으면
                 {
+                    LoadManager.Instance.RemoveNuni(inventoryBtn.this_nuni.Id);//해당 누니 오브젝트 없앰
+
                     inventoryBtn.this_nuni.isLock = "F";
+                    GameManager.Instance.CharacterList[inventoryBtn.this_nuni.Id].isLock = "F";
 
                     Cardsave nuni = new Cardsave(GameManager.Instance.PlayerUserInfo.Uid, inventoryBtn.this_nuni.cardImage, inventoryBtn.this_nuni.isLock, inventoryBtn.this_nuni.Id);
-
+                   
 
                     FirebaseLogin.Instance.SetNuni(nuni);//서버로 전송
                     inventoryBtn.SetNoImage(false); //버튼에 x표시 함
                 }
                 else                                            //해당 누니가 없으면
                 {
+                    GameObject nunObject = Instantiate(GameManager.CharacterPrefab[inventoryBtn.this_nuni.cardImage], NuniParent.transform);//해당 누니 오브젝트 생성
+                    LoadManager.Instance.MyNuniPrefab.Add(inventoryBtn.this_nuni.Id, nunObject);
+                    inventoryBtn.this_nuni.isLock = "T";
+                    GameManager.Instance.CharacterList[inventoryBtn.this_nuni.Id].isLock = "T";
+
+                    Cardsave nuni = new Cardsave(GameManager.Instance.PlayerUserInfo.Uid, inventoryBtn.this_nuni.cardImage, inventoryBtn.this_nuni.isLock, inventoryBtn.this_nuni.Id);
+                    FirebaseLogin.Instance.SetNuni(nuni);//서버로 전송
                     inventoryBtn.SetNoImage(true); //버튼에 x표시 없앰
                 }
             });

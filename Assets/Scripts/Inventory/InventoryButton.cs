@@ -51,10 +51,10 @@ public class InventoryButton : MonoBehaviour
     }
     void Start()
     {
-        if (this_building!=null)
+        if (temp_building != null)
         {
 
-            if (this_building.isLock.Equals("F"))
+            if (temp_building.isLock.Equals("F"))
             {
                 X_Image.gameObject.SetActive(true);
             }
@@ -167,28 +167,27 @@ public class InventoryButton : MonoBehaviour
             this_nuni.isLock = "T";         //배치 된 상태로 바꾸기
 
             X_Image.gameObject.SetActive(false);
-            for (int i = 0; i < GameManager.Instance.CharacterList.Count; i++)           //Instatntiate 해주기
+            foreach (var item in GameManager.Instance.CharacterList)
             {
-                if (this_nuni.cardName.Equals( GameManager.Instance.CharacterList[i].cardName))
+                if (this_nuni.cardName.Equals(item.Value.cardName))
                 {
-                    GameManager.Instance.CharacterList[i].isLock = "T";
+                    item.Value.isLock = "T";
                     GameObject nuni = Instantiate(GameManager.CharacterPrefab[this_nuni.cardImage], nunis.transform) as GameObject;
-                   
+
                     for (int j = 0; j < GameManager.AllNuniArray.Length; j++)
                     {
                         if (GameManager.AllNuniArray[j].cardImage != this_nuni.cardImage)
                             continue;
 
-                      Card Value=  nuni.GetComponent<Card>();
+                        Card Value = nuni.GetComponent<Card>();
                         Value.SetValue(GameManager.AllNuniArray[j]);
                     }
-                    
+
                     nuni.GetComponent<Card>().isLock = "T";
                     StartCoroutine(NuniSave(this_nuni));          //구글 스크립트에 업데이트
                     return;
                 }
 
-                
             }
 
         }

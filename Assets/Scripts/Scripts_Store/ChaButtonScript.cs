@@ -302,7 +302,8 @@ public class ChaButtonScript : MonoBehaviour
                 if (GameManager.AllNuniArray[i].cardName==reward_info[0])
                 {
                     Card Nuni = GameManager.AllNuniArray[i];
-                    GameManager.Instance.CharacterList.Add(Nuni);
+                    Nuni.Id = GameManager.Instance.IDGenerator();
+                    GameManager.Instance.CharacterList.Add(Nuni.Id ,Nuni);
 
                     StartCoroutine(NuniSave(Nuni, notice_info.title));          //구글 스크립트에 업데이트
                 }

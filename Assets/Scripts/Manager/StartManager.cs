@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
  using UnityEngine.SceneManagement;
-public class StartManager : MonoBehaviour
+public class StartManager : MonoBehaviour       //엑셀 게임 데이터 넣는 스크립트
 {
     public GameObject CharacterPrefab;
     public static Card[] NuNiInformation;
@@ -121,15 +121,12 @@ public class StartManager : MonoBehaviour
 
         for (int j = 0; j < itemList.Count; j++)         //시작하기 전 캐릭터 나타내기
         {
-            Card[] NuniArray = GameManager.Instance.CharacterList.ToArray();
-            for (int i = 0; i < NuniArray.Length; i++)
+            //Card[] NuniArray = GameManager.Instance.CharacterList.ToArray();
+            foreach (var item in GameManager.Instance.CharacterList)
             {
-                if (NuniArray[i].Item .Equals( j))
+                if (item.Value.Item.Equals(j))
                 {
-
                     itemList[j] = true;
-
-                 
                 }
             }
            

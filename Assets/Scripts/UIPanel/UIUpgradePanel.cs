@@ -99,7 +99,7 @@ public class UIUpgradePanel : UIBase
                 Debug.Log("해당 건물마자");
                 foreach (var item in GameManager.Instance.CharacterList)
                 {
-                    if (item.cardName=="수리공누니")
+                    if (item.Value.cardName=="수리공누니")
                     {
                         Debug.Log("해당 누니이써");
                         isUp = true;
@@ -116,7 +116,7 @@ public class UIUpgradePanel : UIBase
                 Debug.Log("해당 건물마자22");
                foreach (var item in GameManager.Instance.CharacterList)
                 {
-                    if (item.cardName=="페인트누니")
+                    if (item.Value.cardName=="페인트누니")
                     {
                         Debug.Log("해당 누니이써");
                         isUp = true;

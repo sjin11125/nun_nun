@@ -43,7 +43,7 @@ public class RandomSelect : MonoBehaviour
         Card Nuni = cardUI.CardUISet(RandomCard());
         Nuni.isLock = "T";          //누니 잠금 품
         Nuni.Id = GameManager.Instance.IDGenerator();
-        GameManager.Instance.CharacterList.Add(Nuni);     //나온 결과를 리스트에 반영
+        GameManager.Instance.CharacterList.Add(Nuni.Id, Nuni);     //나온 결과를 리스트에 반영
                                                           //전체 누니 배열을 수정
         Cardsave cardsave = new Cardsave(GameManager.Instance.PlayerUserInfo.Uid, Nuni.cardImage, Nuni.isLock, Nuni.Id);
 

@@ -58,7 +58,7 @@ public class NuniUpgradeButton : MonoBehaviour
         }
     }
     //업그레이드 버튼 클릭
-    public void NuniUpgrade()
+    /*public void NuniUpgrade()
     {
         if (UpgradeManager.isSelect==true)      //누니가 선택된 상태에서
         {
@@ -91,7 +91,7 @@ public class NuniUpgradeButton : MonoBehaviour
             }
             
         }
-    }
+    }*/
     // Update is called once per frame
     void Update()
     {
