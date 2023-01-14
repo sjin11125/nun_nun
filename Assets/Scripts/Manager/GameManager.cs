@@ -243,7 +243,7 @@ public class GameManager : MonoBehaviour
         return CharacterImageData[ImageName.Trim()];
     }
 
-    public static string IDGenerator()
+    public string IDGenerator()
     {
         string alpha= "qwertyuipoasdfjkl123456789!@#$%^&*()";
         string id="";

@@ -51,15 +51,29 @@ public class InventoryButton : MonoBehaviour
     }
     void Start()
     {
-        if (this_building.isLock.Equals("F"))
+        if (this_building!=null)
         {
-            X_Image.gameObject.SetActive(true);
-        }
-        else
-        {
-            X_Image.gameObject.SetActive(false);
-        }
 
+            if (this_building.isLock.Equals("F"))
+            {
+                X_Image.gameObject.SetActive(true);
+            }
+            else
+            {
+                X_Image.gameObject.SetActive(false);
+            }
+        }
+        if (this_nuni!=null)
+        {
+            if (this_nuni.isLock.Equals("F"))
+            {
+                X_Image.gameObject.SetActive(true);
+            }
+            else
+            {
+                X_Image.gameObject.SetActive(false);
+            }
+        }
         /*button.OnClickAsObservable().Subscribe(_=>{
 
            /if (temp_building.isLock == "T")         //해당 건물이 설치되었으면

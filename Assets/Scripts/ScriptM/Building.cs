@@ -541,7 +541,7 @@ public class Building : MonoBehaviour
                 GridBuildingSystem.current.ClearArea();
 
                 //GameManager.BuildingNumber[Building_Image]++; //해당 건물의 갯수 추가
-                Id = GameManager.IDGenerator();         //건물 id 생성
+                Id = GameManager.Instance.IDGenerator();         //건물 id 생성
                 gameObject.name = Id;      //이름 재설정
                 BuildingListAdd();      //현재 가지고 있는 건물 리스트에 추가
                 Type = BuildType.Empty;

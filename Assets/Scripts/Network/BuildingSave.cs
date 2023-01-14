@@ -193,36 +193,3 @@ public class BuildingSave : MonoBehaviour
     }
 }
 
-[System.Serializable]
-public class Buildingsave
-{
-    public string order, result, msg;
-
-    public string Uid;              //플레이어 UID
-
-    public string BuildingPosition_x;                //건물 위치(x좌표)
-    public string BuildingPosition_y;                //건물 위치(y좌표)
-    //-------------------------파싱정보------------------------------
-    public string isLock;               //잠금 유무
-    public string Building_name;            //건물 이름
-    //public string Reward;               //획득자원
-    //public string Info;                 //건물 설명
-    public string Building_Image;          //빌딩 이미지 이름 *
-    public string Cost;        //건물비용
-    public string ShinCost;  
-    public string Level;       //건물 레벨
-    public string isFliped;        //뒤집어졌는지
-    public string Id;
-
-    public Buildingsave(string buildingPosition_x, string buildingPosition_y, string isLock, string building_name, string building_Image, string level, string isFlied, string id)
-    {
-        BuildingPosition_x = buildingPosition_x;
-        BuildingPosition_y = buildingPosition_y;
-        this.isLock = isLock;
-        Building_name = building_name;
-        Building_Image = building_Image;
-        Level = level;
-        this.isFliped = isFlied;
-        Id = id;
-    }
-}

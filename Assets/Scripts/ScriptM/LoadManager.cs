@@ -213,12 +213,11 @@ public class LoadManager : MonoBehaviour
                 });
                 FirebaseLogin.Instance.GetNuni(GameManager.Instance.PlayerUserInfo.Uid).ContinueWith((task) =>      //누니 불러오기
                 {
-                    Debug.Log("task.Result: " + task.Result);
                     if (!task.IsFaulted)
                     {
                         if (task.Result != null)//누니 넣기
                         {
-                            Debug.Log("task.Result: " + task.Result);
+                            Debug.Log("누니 받아온 결과: " + task.Result);
 
                             try
                             {
@@ -320,7 +319,9 @@ public class LoadManager : MonoBehaviour
         {
             if (item.isLock.Equals("T"))
             {
+                Debug.Log(item.cardImage) ;
                 GameObject nuni = Instantiate(GameManager.CharacterPrefab[item.cardImage], nunis.transform);
+                nuni.name = item.Id;
                 Card nuni_card = nuni.GetComponent<Card>();
                 nuni_card.SetValue(item);
             }

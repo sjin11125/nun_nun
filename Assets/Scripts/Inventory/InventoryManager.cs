@@ -200,24 +200,39 @@ public class InventoryManager : MonoBehaviour
     {
         Inventory_Exit();
 
-        for (int i = 0; i < GameManager.Instance.CharacterList.Count; i++)
+        foreach (var item in GameManager.Instance.CharacterList)
         {
-
             GameObject inven = Instantiate(inventory_nuni_prefab, Content) as GameObject;         //인벤 버튼 프리팹 생성
 
             //inven.name = GameManager.Instance.CharacterList[i].cardImage;
             inven.tag = "Inven_Nuni";            //인벤 버튼 태그 설정
-
+            inven.name = item.Id;
             Image ButtonImage = inven.GetComponent<Image>();
 
 
-          
-            ButtonImage.sprite = GameManager.GetCharacterImage(GameManager.Instance.CharacterList[i].cardImage);
 
-            inven.GetComponent<InventoryButton>().this_nuni = GameManager.Instance.CharacterList[i];
-       
+            ButtonImage.sprite = GameManager.GetCharacterImage(item.cardImage);
+
+            InventoryButton inventoryBtn = inven.GetComponent<InventoryButton>();
+            inventoryBtn.this_nuni = item;
+
+            Button Button = inven.GetComponent<Button>();
+            Button.OnClickAsObservable().Subscribe(_=> {
+                if (inventoryBtn.this_nuni.isLock=="T")         //해당 누니가 있으면
+                {
+                    inventoryBtn.this_nuni.isLock = "F";
+
+                    Cardsave nuni = new Cardsave(GameManager.Instance.PlayerUserInfo.Uid, inventoryBtn.this_nuni.cardImage, inventoryBtn.this_nuni.isLock, inventoryBtn.this_nuni.Id);
 
 
+                    FirebaseLogin.Instance.SetNuni(nuni);//서버로 전송
+                    inventoryBtn.SetNoImage(false); //버튼에 x표시 함
+                }
+                else                                            //해당 누니가 없으면
+                {
+                    inventoryBtn.SetNoImage(true); //버튼에 x표시 없앰
+                }
+            });
         }
     }
 }

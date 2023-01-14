@@ -16,6 +16,7 @@ public class Card : MonoBehaviour
     public string Gauge;        //게이지
     public string Info;     //누니설명
     public string Effect;   //보유효과
+    public string Id;           //고유 Id
 
     public string[] Building;     //보유시 영향을 주는 건물
     public string Gold;   //보유효과
@@ -26,8 +27,9 @@ public class Card : MonoBehaviour
     public bool isDialog;               //대사 말하고 있나
     public Card(Cardsave cardSave)
     {
-        cardName = cardSave.cardName;
+        cardImage = cardSave.cardImage;
         isLock = cardSave.isLock;
+        Id = cardSave.Id;
     }
     public Card(Card c)
     {

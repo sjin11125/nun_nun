@@ -170,9 +170,10 @@ exports.setNuni=functions.https.onCall(async(req,res)=>{
     console.log("res: "+JSON.stringify(nuniData));
     const db=admin.firestore();
     const resbuilding =await db.collection('user').doc(nuniData.Uid).
-    collection('nuni').doc(nuniData.cardName).set({
+    collection('nuni').doc(nuniData.Id).set({
       isLock:nuniData.isLock,
-      cardName:nuniData.cardName
+      cardImage:nuniData.cardImage,
+      Id:nuniData.Id,
     });
 });
 

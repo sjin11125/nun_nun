@@ -42,48 +42,6 @@ public class NuniManager : MonoBehaviour                    //게임 시작하고 구글
         }
 
     }
-    /*void ResponseNuni(string json)                          
-    {
-       
-        if (json .Equals( "null"))
-        {
-            return;
-        }
-        if (string.IsNullOrEmpty(json))
-        {
-            return;
-        }
-        
-        string[] Nunis = json.Split(',');//게임매니저에 있는 모든 누니배열에서 해당 누니 찾아서 가지고 있는 누니 배열에 넣기
 
-        
-        for (int j = 0; j < Nunis.Length; j++)
-        {
-            
-            string[] Nunis_nuni = Nunis[j].Split(':');
-            for (int i = 0; i < GameManager.AllNuniArray.Length; i++)
-            {
-                if (GameManager.AllNuniArray[i].cardName .Equals( Nunis_nuni[0]))
-                {
-                    Card nuni = new Card();
-                    nuni.SetValue( GameManager.AllNuniArray[i]);
-                    if (Nunis_nuni[1] .Equals( "T"))
-                    {
-                        nuni.isLock = "T";
-
-                    }
-                    else
-                        nuni.isLock = "F";
-                    GameManager.Instance.CharacterList.Add(nuni);
-                    break;
-                  
-                }
-            }
-           
-
-        }
- 
-        SceneManager.LoadScene("Main");
-    }*/
 
 }
