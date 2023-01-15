@@ -3410,16 +3410,19 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 449823183}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 152527c8ffee37d4ca367b9971bf5030, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RankContent: {fileID: 1813456447}
+  UICloseBtn: {fileID: 0}
+  UIYesBtn: {fileID: 0}
+  UINoBtn: {fileID: 0}
+  UIBackCloseBtn: {fileID: 0}
+  UIPrefab: {fileID: 0}
+  canvas: {fileID: 0}
   Content: {fileID: 1324560442}
-  FriendPrefab: {fileID: 2015713149072679585, guid: 16a4f98088a6e3349a2e1aabf45aed69, type: 3}
-  FriendRankPrefab: {fileID: 6313625040792332860, guid: c0fa21f7f8b7f204db57d9273a248a15, type: 3}
-  LoadingObjcet: {fileID: 1955350832576165714}
+  FriendBtns: []
 --- !u!4 &449823185
 Transform:
   m_ObjectHideFlags: 0
@@ -4077,11 +4080,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 544140294}
   m_CullTransparentMesh: 1
---- !u!1 &592966411 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3269537422846708527, guid: 1a869d8cf2182a744bbfcf6a4df0f5cd, type: 3}
-  m_PrefabInstance: {fileID: 3269537423436560420}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &614905062
 GameObject:
   m_ObjectHideFlags: 0
@@ -12506,11 +12504,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8183758130757011012, guid: a9b4838d0b9b1c5479ffa29ccd1a084a, type: 3}
   m_PrefabInstance: {fileID: 8183758132457143862}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1813456447 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2987803912740979384, guid: 03f0f8d29fe679841a2d24d29d060bda, type: 3}
-  m_PrefabInstance: {fileID: 2987803914149422215}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1816330361
 GameObject:
   m_ObjectHideFlags: 0
@@ -14927,30 +14920,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1757191154}
-        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-        m_MethodName: Play
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 2115593068}
-        m_TargetAssemblyTypeName: FriendManager, Assembly-CSharp
-        m_MethodName: GetFriendLsit
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
       - m_Target: {fileID: 1066400365}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
@@ -14962,30 +14931,6 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 317902625}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 884970885}
-        m_TargetAssemblyTypeName: ObjectEnable, Assembly-CSharp
-        m_MethodName: ButtonEnableFalse
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &2115593066
 MonoBehaviour:
@@ -15037,11 +14982,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 152527c8ffee37d4ca367b9971bf5030, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RankContent: {fileID: 0}
+  UICloseBtn: {fileID: 0}
+  UIYesBtn: {fileID: 0}
+  UINoBtn: {fileID: 0}
+  UIBackCloseBtn: {fileID: 0}
+  UIPrefab: {fileID: 0}
+  canvas: {fileID: 0}
   Content: {fileID: 1324560442}
-  FriendPrefab: {fileID: 2015713149072679585, guid: 16a4f98088a6e3349a2e1aabf45aed69, type: 3}
-  FriendRankPrefab: {fileID: 0}
-  LoadingObjcet: {fileID: 592966411}
+  FriendBtns: []
 --- !u!1 &2122658453
 GameObject:
   m_ObjectHideFlags: 0

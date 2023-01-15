@@ -107,6 +107,16 @@ public class InventoryManager : MonoBehaviour
                     InventoryButton inventoryBtn = inven.GetComponent<InventoryButton>();
 
                     inventoryBtn.SetButtonImage(GameManager.GetDogamChaImage(item.Value.Building_Image));   //버튼 이미지 설정
+                if (LoadManager.Instance.MyBuildings[item.Value.Id].isLock=="T")
+                {
+
+                    inventoryBtn.SetNoImage(true);                  //X표시 안생기게
+                }
+                else
+                {
+                    inventoryBtn.SetNoImage(false);                  //X표시 생기게
+                }
+
                 inventoryBtn.SetBuildingInfo(LoadManager.Instance.MyBuildings[item.Value.Id]);
 
                 Building building = item.Value;

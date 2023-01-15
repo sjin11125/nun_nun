@@ -30,9 +30,15 @@ public enum AccountDef
     getNotice,
     getChallenge,
     isUpdate
-
-
-}public enum FirebaseDef
+}
+public enum FriendDef
+{
+    GetFriend,
+    RequestFriend,
+    SearchFriend,
+    RecommendFriend
+}
+public enum FirebaseDef
 {
     Register,
     Login,

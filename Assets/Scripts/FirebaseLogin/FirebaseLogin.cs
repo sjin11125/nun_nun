@@ -218,7 +218,19 @@ public class FirebaseLogin : MonoBehaviour
             return (string)task.Result.Data;
         });
     }
+    public Task<string> GetFriend(string uid)
+    {
+        functions = FirebaseFunctions.GetInstance(FirebaseApp.DefaultInstance);
+        // Create the arguments to the callable function.
+       // Cardsave test = new Buildingsave("7.349999", "6.875","T", "bunsu_level(Clone)0", "bunsu_level(Clone)","1","F");
+        // var data = JsonUtility.ToJson(test);
+        SendMessage IdToken = new SendMessage("Send IdToken", uid);
 
+        var function = functions.GetHttpsCallable("getFriend");
+        return function.CallAsync(JsonUtility.ToJson(IdToken)).ContinueWithOnMainThread((task) => {
+            return (string)task.Result.Data;
+        });
+    }
     public Task<string> Write()
     {
         functions = FirebaseFunctions.GetInstance(FirebaseApp.DefaultInstance);

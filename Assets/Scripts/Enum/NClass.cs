@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,7 +32,7 @@ public class UIEdit
 
 }
 [System.Serializable]
-public class UserInfo               //À¯ÀúÁ¤º¸
+public class UserInfo               //ìœ ì €ì •ë³´
 {
     public string Uid;
     public string Money;
@@ -59,20 +59,20 @@ public class Buildingsave
 {
     public string order, result, msg;
 
-    public string Uid;              //ÇÃ·¹ÀÌ¾î UID
+    public string Uid;              //í”Œë ˆì´ì–´ UID
 
-    public string BuildingPosition_x;                //°Ç¹° À§Ä¡(xÁÂÇ¥)
-    public string BuildingPosition_y;                //°Ç¹° À§Ä¡(yÁÂÇ¥)
-    //-------------------------ÆÄ½ÌÁ¤º¸------------------------------
-    public string isLock;               //Àá±İ À¯¹«
-    public string Building_name;            //°Ç¹° ÀÌ¸§
-    //public string Reward;               //È¹µæÀÚ¿ø
-    //public string Info;                 //°Ç¹° ¼³¸í
-    public string Building_Image;          //ºôµù ÀÌ¹ÌÁö ÀÌ¸§ *
-    public string Cost;        //°Ç¹°ºñ¿ë
+    public string BuildingPosition_x;                //ê±´ë¬¼ ìœ„ì¹˜(xì¢Œí‘œ)
+    public string BuildingPosition_y;                //ê±´ë¬¼ ìœ„ì¹˜(yì¢Œí‘œ)
+    //-------------------------íŒŒì‹±ì •ë³´------------------------------
+    public string isLock;               //ì ê¸ˆ ìœ ë¬´
+    public string Building_name;            //ê±´ë¬¼ ì´ë¦„
+    //public string Reward;               //íšë“ìì›
+    //public string Info;                 //ê±´ë¬¼ ì„¤ëª…
+    public string Building_Image;          //ë¹Œë”© ì´ë¯¸ì§€ ì´ë¦„ *
+    public string Cost;        //ê±´ë¬¼ë¹„ìš©
     public string ShinCost;
-    public string Level;       //°Ç¹° ·¹º§
-    public string isFliped;        //µÚÁı¾îÁ³´ÂÁö
+    public string Level;       //ê±´ë¬¼ ë ˆë²¨
+    public string isFliped;        //ë’¤ì§‘ì–´ì¡ŒëŠ”ì§€
     public string Id;
 
     public Buildingsave(string buildingPosition_x, string buildingPosition_y, string isLock, string building_name, string building_Image, string level, string isFlied, string id)
@@ -86,4 +86,51 @@ public class Buildingsave
         this.isFliped = isFlied;
         Id = id;
     }
+}
+[Serializable]
+public class FriendBtn
+{
+    //public string BtnName;
+    public FriendDef FriendUIDef;
+    public Button Btn;
+    public GameObject Prefab;
+}
+[Serializable]
+public class FriendRank
+{
+    public string f_nickname;      //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Ğ³ï¿½ï¿½ï¿½
+    //public string SheetsNum;     //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Ç¹ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ® id
+    public string f_score;
+    public string f_image;
+
+    public FriendRank(string nickname, string score, string image)
+    {
+        this.f_nickname = nickname;
+        f_score = score;
+        f_image = image;
+
+    }
+}
+[Serializable]
+public class FriendInfo
+{
+    public string FriendName;      //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Ğ³ï¿½ï¿½ï¿½
+    //public string SheetsNum;     //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Ç¹ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ® id
+    public string FriendMessage;          //ï¿½ï¿½ï¿½Â¸Ş¼ï¿½ï¿½ï¿½
+    public string FriendImage;
+
+    public FriendInfo(string nickname, string message)
+    {
+        this.FriendName = nickname;
+        this.FriendMessage = message;
+
+    }
+}
+[Serializable]
+public class FriendAddInfo
+{
+    public string Uid;
+
+    public string FriendName;
+
 }

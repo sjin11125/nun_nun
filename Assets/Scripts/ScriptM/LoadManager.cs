@@ -21,9 +21,12 @@ public class LoadManager : MonoBehaviour
 
    public GameObject LoadingPanel;
     UiLoadingPanel UILoadingPanel;
+
     public  Dictionary<string, Building> MyBuildings = new Dictionary<string, Building>();          //내가 가지고 있는 빌딩들(id, Building)
-      public  Dictionary<string, GameObject> MyBuildingsPrefab = new Dictionary<string, GameObject>();          //내가 가지고 있는 빌딩들(id, Building)
-      public  Dictionary<string, GameObject> MyNuniPrefab = new Dictionary<string, GameObject>();          //내가 가지고 있는 빌딩들(id, Building)
+    public  Dictionary<string, FriendInfo> MyFriends = new Dictionary<string, FriendInfo>();          //내가 가지고 있는 빌딩들(id, Building)
+
+      public  Dictionary<string, GameObject> MyBuildingsPrefab = new Dictionary<string, GameObject>();          //내가 가지고 있는 빌딩들 오브젝트(id, Building)
+      public  Dictionary<string, GameObject> MyNuniPrefab = new Dictionary<string, GameObject>();          //내가 가지고 있는 누니들 오브젝트(id, Building)
     
     public static Subject<Building> ReBuildingSubject = new Subject<Building>();
     public static Subject<Building> AddBuildingSubject = new Subject<Building>();

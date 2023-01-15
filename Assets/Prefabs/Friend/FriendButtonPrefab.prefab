@@ -28,6 +28,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2015713149072679598}
   m_RootOrder: 0
@@ -90,8 +91,7 @@ GameObject:
   - component: {fileID: 2015713149072679598}
   - component: {fileID: 2015713149072679597}
   - component: {fileID: 2015713149072679596}
-  - component: {fileID: 2015713149072679599}
-  - component: {fileID: 6487706400819840472}
+  - component: {fileID: 4941775904427442786}
   m_Layer: 5
   m_Name: FriendButtonPrefab
   m_TagString: Untagged
@@ -109,6 +109,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 0.51972}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2015713148250380761}
   - {fileID: 6487706401585907163}
@@ -161,74 +162,23 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2015713149072679599
+--- !u!114 &4941775904427442786
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2015713149072679585}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 7a6efab205625c0478d261b49d7f64f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 0
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 2015713149072679596}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!114 &6487706400819840472
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2015713149072679585}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8afe11d9dd10e54f830d20bf9ca765c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ChaPanel2: {fileID: 0}
-  LockPanel: {fileID: 3490812451173609109, guid: 7a4214655631d0243a1a9ff15d01123d, type: 3}
-  Check: {fileID: 0}
-  ItemImages: []
-  isCheck: 0
-  ButtonText: {fileID: 6487706401812660760}
-  CancleText: {fileID: 0}
-  DowngradeBuilding: {fileID: 0}
-  isUpgrade: 0
-  NuniInfoPannel: {fileID: 0}
-  WindowClose: {fileID: 0}
-  NuniUpgradeButton: {fileID: 0}
+  GoBtn: {fileID: 6487706400364740746}
+  RemoveBtn: {fileID: 1278222869459199247}
+  FriendName: {fileID: 2015713148250380742}
+  FriendMessage: {fileID: 6487706402110244212}
+  FriendImage: {fileID: 6487706401585907162}
 --- !u!1 &6450300530662507946
 GameObject:
   m_ObjectHideFlags: 0
@@ -244,7 +194,7 @@ GameObject:
   - component: {fileID: 7083521467107775264}
   - component: {fileID: 7503533076213928705}
   m_Layer: 5
-  m_Name: RemoveButton
+  m_Name: RemoveBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -260,6 +210,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3806294314554683434}
   m_Father: {fileID: 2015713149072679598}
@@ -422,7 +373,7 @@ GameObject:
   - component: {fileID: 6487706400364740751}
   - component: {fileID: 2060809844859104068}
   m_Layer: 5
-  m_Name: GoButton
+  m_Name: GoBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -438,6 +389,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6487706401812660761}
   m_Father: {fileID: 2015713149072679598}
@@ -578,23 +530,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a11ed494d8df73549b2ad882df51f11e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GD:
-    order: 
-    result: 
-    msg: 
-    row_size: 
-    length: 
-    BuildingPosition_x: 
-    BuildingPosition_y: 
-    isLock: 
-    Building_name: 
-    Reward: 
-    Info: 
-    Building_Image: 
-    Cost: 
-    ShinCost: 
-    Level: 
-    isFlied: 
   isMe: 0
 --- !u!1 &6487706401585907160
 GameObject:
@@ -624,6 +559,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2015713149072679598}
   m_RootOrder: 1
@@ -699,6 +635,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6487706400364740747}
   m_RootOrder: 0
@@ -762,7 +699,7 @@ GameObject:
   - component: {fileID: 6487706402110244215}
   - component: {fileID: 6487706402110244212}
   m_Layer: 5
-  m_Name: FriendInfo
+  m_Name: FriendMessage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -778,6 +715,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2015713149072679598}
   m_RootOrder: 2
@@ -857,6 +795,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4111892468741905414}
   m_RootOrder: 0

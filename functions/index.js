@@ -184,7 +184,7 @@ exports.getNuni=functions.https.onCall(async(req,res)=>{
     //const buildingData=JSON.parse(req);
     const db=admin.firestore();
 
-    const nunigRef = db.collection('user').doc(idToken.message).collection('nuni');      //Uid 고치기
+    const nunigRef = db.collection('user').doc(idToken.message).collection('nuni');      
     const snapshot = await nunigRef.get();
 
   
@@ -195,4 +195,67 @@ exports.getNuni=functions.https.onCall(async(req,res)=>{
   });
   console.log("nuniData: "+JSON.stringify( nuniData));
 return JSON.stringify( nuniData);
+});
+
+//=====친구 관련========
+
+exports.getFriend=functions.https.onCall(async(req,res)=>{
+  const idToken=JSON.parse(req);
+  console.log("idToken: "+JSON.stringify( idToken));
+    //const buildingData=JSON.parse(req);
+    const db=admin.firestore();
+
+    const friendgRef = db.collection('user').doc(idToken.message).collection('friend');      
+    const snapshot = await friendgRef.get();
+
+    var friendImage=await db.collection('user').doc('vicky').get();
+  
+    console.log("친구 이미지: "+JSON.stringify( friendImage));
+  const friendData=[];
+  snapshot.forEach(doc => {
+
+    const friend={
+      FriendName:doc.id,
+      FriendImage:"",
+      FriendMessage:""
+    }
+    console.log("친구 닉네임: "+JSON.stringify( doc.id));
+    friendData.push(friend);
+  }
+  );
+  if(friendData.length==0)
+  {console.log("FriendData: "+friendData.length);
+    return null;}
+  console.log("FriendData: "+JSON.stringify( friendData));
+return JSON.stringify( friendData);
+});
+
+exports.addFriend=functions.https.onCall(async(req,res)=>{
+
+  const friendInfo=JSON.parse(req);
+  const db=admin.firestore();
+
+  const resfriend =await db.collection('user').doc(friendInfo.Uid).
+    collection('friend').doc(friendInfo.FriendName).set({
+      FriendName:friendInfo.FriendName,
+    });
+
+});
+
+exports.searchFriend=functions.https.onCall(async(req,res)=>{
+const searchFriend=JSON.parse(req);
+const db=admin.firestore();
+
+  const resfriend =await db.collection('user').doc(friendInfo.Uid).
+    collection('friend').doc(friendInfo.FriendName);
+    const doc=await resfriend.get();
+    if(doc.exists)
+    {
+      console.log(doc.data());
+      const res={
+        FriendName:friendInfo.FriendName,
+        FriendImage:doc.data().Image,
+        FriendMessage:doc.data().Message
+      }
+    }
 });

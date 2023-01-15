@@ -18,7 +18,7 @@ public class FriendButton : MonoBehaviour
     public GameObject FriendPrefab;
     public GameObject LoadingObejct;
     // Start is called before the first frame update
-    void Start()
+    /*void Start()
     {
         if (gameObject.tag.Equals("FriendSearch"))
         {
@@ -264,6 +264,6 @@ public class FriendButton : MonoBehaviour
         LoadingObejct.SetActive(false);
     }
 
-
+    */
 
 }

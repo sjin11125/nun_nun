@@ -5,56 +5,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using UniRx;
 
-[Serializable]
-public class FriendRank
+
+public class FriendManager : UIBase
 {
-    public string f_nickname;      //�÷��̾� �г���
-    //public string SheetsNum;     //�÷��̾� �ǹ� ���� ����ִ� �������� ��Ʈ id
-    public string f_score;
-    public string f_image;
-
-    public FriendRank(string nickname, string score, string image)
-    {
-        this.f_nickname = nickname;
-        f_score = score;
-        f_image = image;
-
-    }
-}
-public class FriendInfo
-{
-    public string f_nickname;      //�÷��̾� �г���
-    //public string SheetsNum;     //�÷��̾� �ǹ� ���� ����ִ� �������� ��Ʈ id
-    public string f_info;          //���¸޼���
-    public string f_id;
-    public string f_image;
-
-    public FriendInfo(string nickname,string id,string info)
-    {
-        this.f_nickname = nickname;
-        this.f_id = id;   
-        this.f_info = info;   
-        
-    }
-}
-public class FriendManager : MonoBehaviour
-{
-    public GameObject RankContent;
+   // public GameObject RankContent;
     public GameObject Content;
     //FriendInfo[] ;
-     string URL = GameManager.URL;
-    public FriendInfo Fr;
+     //string URL = GameManager.URL;
+    //public FriendInfo Fr;
 
-    public GameObject FriendPrefab;
-    public GameObject FriendRankPrefab;
+    //public GameObject FriendPrefab;
+    //public GameObject FriendRankPrefab;
 
 
-    public GameObject LoadingObjcet;
+    //public GameObject LoadingObjcet;
 
-    FriendInfo[] AllFriends;       //친구 전체 목록(닉네임)
-    FriendRank[] friendRank;
-    public void FriendWindowOpen()
+    //FriendInfo[] AllFriends;       //친구 전체 목록(닉네임)
+    //FriendRank[] friendRank;
+
+    [SerializeField]
+    public List< FriendBtn> FriendBtns;
+   /* public void FriendWindowOpen()
     {
         Content.SetActive(true);
         GetFriendLsit();
@@ -152,11 +125,7 @@ public class FriendManager : MonoBehaviour
         }
         GameManager.Friends = friendInfos;
 
-        Transform[] child = Content.GetComponentsInChildren<Transform>();           //�ϴ� �ʱ�ȭ
-        for (int k = 1; k < child.Length; k++)
-        {
-            Destroy(child[k].gameObject);
-        }
+       
         for (int i = 0; i < GameManager.Friends.Length; i++)
         {
             string[] friend = GameManager.Friends[i].f_nickname.Split(':');
@@ -357,7 +326,7 @@ public class FriendManager : MonoBehaviour
         {
 
             Debug.Log(friendRank[i].f_nickname+"    "+ friendRank[i].f_score);
-        }*/
+        }
 
         for (int i = 0; i < friendRank.Length; i++)
         {
@@ -457,17 +426,85 @@ public class FriendManager : MonoBehaviour
                 break;
         }
         LoadingObjcet.SetActive(false);
-    }
-   
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
+    }*/
 
-    // Update is called once per frame
-    void Update()
+    // Start is called before the first frame update
+    public override void Start()
     {
-        
+        base.Start();
+
+        foreach (var FriendBtns in FriendBtns)
+        {
+            FriendBtns.Btn.OnClickAsObservable().Subscribe(_=> {
+                Friend_Exit();      //목록 초기화
+
+                switch (FriendBtns.FriendUIDef)
+                {
+                    case FriendDef.GetFriend:                   //친구 목록 가져오기
+
+                        FirebaseLogin.Instance.GetFriend(GameManager.Instance.PlayerUserInfo.Uid).ContinueWith((task)=>{
+                            if (!task.IsFaulted)
+                            {
+                                if (task.Result != null)//누니 넣기
+                                {
+                                    Debug.Log("친구 목록 받아온 결과: " + task.Result);
+
+                                    try
+                                    {
+
+                                        Newtonsoft.Json.Linq.JArray Result = Newtonsoft.Json.Linq.JArray.Parse(task.Result);
+
+                                        foreach (var item in Result)
+                                        {
+                                            Debug.Log("item: " + item.ToString());
+                                            FriendInfo itemFriend = JsonUtility.FromJson<FriendInfo>(item.ToString());
+                                            //Debug.Log("item: " + JsonUtility.ToJson(item))
+
+                                            UnityMainThreadDispatcher.Instance().Enqueue(() => {
+                                                
+
+                                                GameObject FriendUI = Instantiate(FriendBtns.Prefab, Content.transform);       //친구 UI 띄우기
+                                                FriendUI.GetComponent<FriendInfoUI>().SetFriendInfo(itemFriend);                //친구 버튼 세팅
+
+                                            });
+                                            //LoadManager.Instance.MyFriends.Add(itemFriend.f_nickname, itemFriend);      //친구 딕셔너리에 추가
+                                        }
+                                       
+                                    }
+                                    catch (Exception e)
+                                    {
+                                        Debug.LogError(e.Message);
+                                        throw;
+                                    }
+
+                                }
+                                else
+                                {
+                                    Debug.Log("task is null");
+                                }
+                            }
+                        });
+                        break;
+                    case FriendDef.RequestFriend:
+                        break;
+                    case FriendDef.SearchFriend:
+
+                        break;
+                    case FriendDef.RecommendFriend:
+                        break;
+                    default:
+                        break;
+                }
+            });
+        }
+    }
+    public void Friend_Exit()           //목록 초기화
+    {
+        Transform[] child = Content.GetComponentsInChildren<Transform>();           //�ϴ� �ʱ�ȭ
+        for (int k = 1; k < child.Length; k++)
+        {
+            Destroy(child[k].gameObject);
+        }
     }
 
 }

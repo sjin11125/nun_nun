@@ -25,7 +25,28 @@ public class UIBase :MonoBehaviour
         canvas = CanvasBase._Instance;
 
     }
+    public virtual void Start()
+    {
+        if (UINoBtn != null)
+        {
 
+            UINoBtn.onClick.AsObservable().Subscribe(_ =>
+            {
+                this.gameObject.transform.parent.gameObject.SetActive(false);
+                Destroy(this.gameObject);
+
+            }).AddTo(this);
+        }
+        if (UICloseBtn != null)
+        {
+
+            UICloseBtn.onClick.AsObservable().Subscribe(_ =>
+            {
+                this.gameObject.transform.parent.gameObject.SetActive(false);
+                Destroy(this.gameObject);
+            }).AddTo(this);
+        }
+    }
     public GameObject InstantiatePrefab()
     {
         if (UIPrefab != null)
