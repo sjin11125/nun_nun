@@ -203,29 +203,65 @@ exports.getFriend=functions.https.onCall(async(req,res)=>{
   const idToken=JSON.parse(req);
   console.log("idToken: "+JSON.stringify( idToken));
     //const buildingData=JSON.parse(req);
+    const friendData=[];
+
     const db=admin.firestore();
 
     const friendgRef = db.collection('user').doc(idToken.message).collection('friend');      
     const snapshot = await friendgRef.get();
 
-    var friendImage=await db.collection('user').doc('vicky').get();
+    /*await Promise.all(snapshot.forEach( async (doc)=>{
+      const friend={
+        FriendName:doc.id,
+        FriendImage:"",
+        FriendMessage:""
+      }
+      const getValue = await doc.get();
+      
+      console.log("친구 정보: "+JSON.stringify( getValue.Image));
+      console.log("친구 정보: "+JSON.stringify( getValue.Message));
+      friend.FriendImage=getValue.Image;
+      friend.FriendMessage=getValue.Message;
+          friendData.push(friend);
+      
+      }))*/
   
-    console.log("친구 이미지: "+JSON.stringify( friendImage));
-  const friendData=[];
-  snapshot.forEach(doc => {
+    //console.log("친구 이미지: "+JSON.stringify( friendImage));
 
-    const friend={
-      FriendName:doc.id,
-      FriendImage:"",
-      FriendMessage:""
+    for(var i in snapshot.docs)
+    {
+      const doc=snapshot.docs[i];
+      var friendImage=await db.collection('user').doc(doc.id).get();
+     
+        const friend={
+          FriendName:doc.id,
+          FriendImage:"",
+          FriendMessage:""
+        }
+        friend.FriendImage=friendImage.data().Image;
+        friend.FriendMessage=friendImage.data().Message;
+        console.log("친구 정보: "+JSON.stringify(friendImage.data()));
+        friendData.push(friend);
+  
+     
+   
     }
-    console.log("친구 닉네임: "+JSON.stringify( doc.id));
-    friendData.push(friend);
-  }
-  );
+ /* snapshot.forEach(doc => {
+   
+    var friendImage= db.collection('user').doc('vicky').get().then((field)=>{
+      friend.FriendImage=field.data().Image;
+      friend.FriendMessage=field.data().Message;
+      console.log("친구 정보: "+JSON.stringify( field));
+      friendData.push(friend);
+
+    });
+ 
+  });*/
   if(friendData.length==0)
-  {console.log("FriendData: "+friendData.length);
-    return null;}
+  {
+    console.log("FriendData: "+friendData.length);
+    return null;
+  }
   console.log("FriendData: "+JSON.stringify( friendData));
 return JSON.stringify( friendData);
 });

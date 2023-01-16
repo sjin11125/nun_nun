@@ -164,7 +164,7 @@ public class FirebaseLogin : MonoBehaviour
         var function = functions.GetHttpsCallable("findUser");
 
         SendMessage IdToken = new SendMessage("Send IdToken",idToken);
-
+        Debug.Log("Getuser");
         function.CallAsync(JsonUtility.ToJson(IdToken)).ContinueWithOnMainThread((task) => {
             Debug.Log("res: "+ task.Result.Data);
 
@@ -181,6 +181,10 @@ public class FirebaseLogin : MonoBehaviour
                     Debug.LogError(e.Message);
                     throw;
                 }
+            }
+            else
+            {
+                Debug.LogError(task.Result);
             }
         });
     }
@@ -326,7 +330,7 @@ public class FirebaseLogin : MonoBehaviour
                 Debug.Log("IDToken: "+task.Result.UserId);
                 Debug.Log("Sign In Successful.");
 
-                //if (GetUserInfo(task.Result.UserId))
+                GetUserInfo(task.Result.UserId);
                 //    GameManager.Instance.StateList.Add("Login");
             }
         });
