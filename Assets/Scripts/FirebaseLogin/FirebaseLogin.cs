@@ -235,6 +235,31 @@ public class FirebaseLogin : MonoBehaviour
             return (string)task.Result.Data;
         });
     }
+    public Task<string> PlusFriend(string uid)
+    {
+        functions = FirebaseFunctions.GetInstance(FirebaseApp.DefaultInstance);
+
+       // SendMessage IdToken = new SendMessage("Send IdToken", uid);
+        FriendAddInfo AddInfo = new FriendAddInfo(GameManager.Instance.PlayerUserInfo.Uid,uid);
+
+        var function = functions.GetHttpsCallable("addFriend");
+        return function.CallAsync(JsonUtility.ToJson(AddInfo)).ContinueWithOnMainThread((task) => {
+            return (string)task.Result.Data;
+        });
+    }
+    public Task<string> GetSearchFriend(string friendName)
+    {
+        functions = FirebaseFunctions.GetInstance(FirebaseApp.DefaultInstance);
+        // Create the arguments to the callable function.
+        // Cardsave test = new Buildingsave("7.349999", "6.875","T", "bunsu_level(Clone)0", "bunsu_level(Clone)","1","F");
+        // var data = JsonUtility.ToJson(test);
+        SendMessage IdToken = new SendMessage("Send IdToken", friendName);
+
+        var function = functions.GetHttpsCallable("searchFriend");
+        return function.CallAsync(JsonUtility.ToJson(IdToken)).ContinueWithOnMainThread((task) => {
+            return (string)task.Result.Data;
+        });
+    }
     public Task<string> Write()
     {
         functions = FirebaseFunctions.GetInstance(FirebaseApp.DefaultInstance);
@@ -330,7 +355,7 @@ public class FirebaseLogin : MonoBehaviour
                 Debug.Log("IDToken: "+task.Result.UserId);
                 Debug.Log("Sign In Successful.");
 
-                GetUserInfo(task.Result.UserId);
+                //GetUserInfo(task.Result.UserId);
                 //    GameManager.Instance.StateList.Add("Login");
             }
         });

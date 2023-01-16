@@ -133,4 +133,9 @@ public class FriendAddInfo
 
     public string FriendName;
 
+    public FriendAddInfo(string uid, string friendName)
+    {
+        Uid = uid;
+        FriendName = friendName;
+    }
 }

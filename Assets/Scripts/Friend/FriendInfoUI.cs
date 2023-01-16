@@ -19,15 +19,25 @@ public class FriendInfoUI : MonoBehaviour
     public void SetFriendInfo(FriendInfo friendInfo)
     {
         FriendName.text = friendInfo.FriendName;
-        //FriendImage.sprite=GameManager.Instance.ima
-        //이미지 넣기
-
+        //FriendImage.sprite=GameManager.Instance.ima            //이미지 넣기
+        FriendMessage.text = friendInfo.FriendMessage;
     }
     public void Start()
     {
-        GoBtn.OnClickAsObservable().Subscribe(_=> { 
 
-        });
+        if (GoBtn!=null)
+        {
+            GoBtn.OnClickAsObservable().Subscribe(_ => {             //친구마을 놀러가기
+
+            });
+        }
+
+        if (RemoveBtn!=null)
+        {
+            RemoveBtn.OnClickAsObservable().Subscribe(_=> {
+            
+            });
+        }
     }
     
 }

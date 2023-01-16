@@ -266,32 +266,55 @@ exports.getFriend=functions.https.onCall(async(req,res)=>{
 return JSON.stringify( friendData);
 });
 
-exports.addFriend=functions.https.onCall(async(req,res)=>{
+exports.addFriend=functions.https.onCall(async(req,res)=>{ 
 
   const friendInfo=JSON.parse(req);
   const db=admin.firestore();
 
-  const resfriend =await db.collection('user').doc(friendInfo.Uid).
-    collection('friend').doc(friendInfo.FriendName).set({
-      FriendName:friendInfo.FriendName,
-    });
+  //먼저 내 친구인지 확인
+  const myfriend =db.collection('user').doc(friendInfo.Uid).
+  collection('friend').doc(friendInfo.FriendName);
 
+  const mydoc=await myfriend.get();
+
+  if(!mydoc.exists)       //내 친구 목록에서 찾지 못했다면 친구 요청
+ {
+  const resfriend =db.collection('user').doc(friendInfo.FriendName).
+    collection('friendRequest').doc(friendInfo.Uid);
+
+    const doc=await resfriend.get();
+
+    
+      resfriend.set({
+        FriendName:friendInfo.FriendName
+      });
+      return "success";
+   
+  }
+  else{       //이미 추가된 친구라면 Null 리턴
+    return "fail";
+  }
 });
 
-exports.searchFriend=functions.https.onCall(async(req,res)=>{
-const searchFriend=JSON.parse(req);
+exports.searchFriend=functions.https.onCall(async(req,res)=>{         //유저 검색
+const friendInfo=JSON.parse(req);
 const db=admin.firestore();
+console.log("friendInfo: "+JSON.stringify( friendInfo));
+  const resfriend = db.collection('user').doc(friendInfo.message);
 
-  const resfriend =await db.collection('user').doc(friendInfo.Uid).
-    collection('friend').doc(friendInfo.FriendName);
     const doc=await resfriend.get();
     if(doc.exists)
     {
       console.log(doc.data());
       const res={
-        FriendName:friendInfo.FriendName,
+        FriendName:doc.id,
         FriendImage:doc.data().Image,
         FriendMessage:doc.data().Message
       }
+      return JSON.stringify(res);
     }
+    else
+      return null;
+
+    
 });
