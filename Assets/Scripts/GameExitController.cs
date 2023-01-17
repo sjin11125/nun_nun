@@ -30,7 +30,7 @@ public class GameExitController : MonoBehaviour
         }
     }
 
-    public void GameSave()
+   /* public void GameSave()
     {
         WWWForm form2 = new WWWForm();                      //돈 저장 -> 업적 저장
         //isMe = true;                 
@@ -51,7 +51,7 @@ public class GameExitController : MonoBehaviour
 
         StartCoroutine(SetPost(form2));
     }
-    IEnumerator SetPost(WWWForm form)
+   /* IEnumerator SetPost(WWWForm form)
     {
         using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // 반드시 using을 써야한다
         {
@@ -62,7 +62,7 @@ public class GameExitController : MonoBehaviour
             }
             else print("웹의 응답이 없습니다.");
             print("exit");
-            */
+            
 
            
             Application.Quit();
@@ -79,17 +79,13 @@ public class GameExitController : MonoBehaviour
             }
             else print("웹의 응답이 없습니다.");
             print("exit");
-            */
+            
 
         
             Application.Quit();
         }
-    }
-    public void GameExit()
-    {
-        GameSave();
-        
-    }
+    }*/
+
 
     private void Update()
     {

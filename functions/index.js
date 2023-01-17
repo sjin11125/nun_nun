@@ -312,13 +312,17 @@ exports.addFriend=functions.https.onCall(async(req,res)=>{
   const myfriend =db.collection('user').doc(friendInfo.Uid).
   collection('friend').doc(friendInfo.FriendName);
   
-const doc=await myfriend.get();
+  
+//const doc=await myfriend.get();
 
-  console.log("doc: "+doc);
+  console.log("doc: "+friendInfo);
   myfriend.set(
     {FriendName:friendInfo.FriendName}
     );
- 
+
+    const removeReqfriend =db.collection('user').doc(friendInfo.Uid).   //요청 친구 목록에서 지우기
+    collection('friendRequest').doc(friendInfo.FriendName).delete();
+    
 });
 exports.searchFriend=functions.https.onCall(async(req,res)=>{         //유저 검색
 const friendInfo=JSON.parse(req);
@@ -342,3 +346,26 @@ console.log("friendInfo: "+JSON.stringify( friendInfo));
 
     
 });
+
+exports.deleteFriend=functions.https.onCall(async(req,res)=>{         //친구 지우기
+  const friendInfo=JSON.parse(req);
+  const db=admin.firestore();
+  console.log("friendInfo: "+JSON.stringify( friendInfo));
+    const resfriend = db.collection('user').doc(friendInfo.message);
+  
+      const doc=await resfriend.get();
+      if(doc.exists)
+      {
+        console.log(doc.data());
+        const res={
+          FriendName:doc.id,
+          FriendImage:doc.data().Image,
+          FriendMessage:doc.data().Message
+        }
+        return JSON.stringify(res);
+      }
+      else
+        return null;
+  
+      
+  });

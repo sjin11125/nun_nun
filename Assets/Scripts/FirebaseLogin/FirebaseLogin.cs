@@ -173,8 +173,8 @@ public class FirebaseLogin : MonoBehaviour
                 try { 
                 GameManager.Instance.PlayerUserInfo = JsonUtility.FromJson<UserInfo>((string)task.Result.Data);     //유저 정보 세팅
                 GameManager.Instance.PlayerUserInfo.Uid = idToken;
-                    SceneManager.LoadScene("Main");
-                //return true;   
+                    LoadingSceneController.Instance.LoadScene("Main");
+                    //return true;   
                 }
                 catch (Exception e )
                 {

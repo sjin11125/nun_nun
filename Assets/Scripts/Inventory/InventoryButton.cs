@@ -152,7 +152,7 @@ public class InventoryButton : MonoBehaviour
                         nuni_childs.isLock = "F";
                         Destroy(nuni_child[i].gameObject);
                         Debug.Log(nuni_child[i].gameObject.name);
-                        StartCoroutine(NuniSave(this_nuni));          //구글 스크립트에 업데이트
+                       // StartCoroutine(NuniSave(this_nuni));          //구글 스크립트에 업데이트
                     }
                    
                     return;
@@ -184,7 +184,7 @@ public class InventoryButton : MonoBehaviour
                     }
 
                     nuni.GetComponent<Card>().isLock = "T";
-                    StartCoroutine(NuniSave(this_nuni));          //구글 스크립트에 업데이트
+                    //StartCoroutine(NuniSave(this_nuni));          //구글 스크립트에 업데이트
                     return;
                 }
 
@@ -193,7 +193,7 @@ public class InventoryButton : MonoBehaviour
         }
         settigPanel.GetComponent<AudioController>().Sound[0].Play();
     }
-    IEnumerator NuniSave(Card nuni)                //누니 구글 스크립트에 저장
+    /*IEnumerator NuniSave(Card nuni)                //누니 구글 스크립트에 저장
     {
 
         WWWForm form1 = new WWWForm();
@@ -214,10 +214,10 @@ public class InventoryButton : MonoBehaviour
             yield return www.SendWebRequest();
             //Debug.Log(www.downloadHandler.text);
            // if (www.isDone) NuniResponse(www.downloadHandler.text);
-            //else print("웹의 응답이 없습니다.");*/
+            //else print("웹의 응답이 없습니다.");
         }
 
-    }
+    }*/
 
 
    /* public void Click()         //건축물 버튼 클릭했을 때

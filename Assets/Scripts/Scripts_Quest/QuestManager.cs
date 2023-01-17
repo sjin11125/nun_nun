@@ -28,20 +28,7 @@ public class QuestManager : MonoBehaviour
 
     string isReset;           //일퀘 초기화 변수
     // Start is called before the first frame update
-    public IEnumerator QuestStart()                //시작할 때 구글 스크립트에서 일퀘 초기화 됐는지 확인하고 퀘스트 목록 불러옴
-    {
-        //일퀘 초기화 했는지 확인 안했으면 초기화하고 했으면 그냥 진행상황 불러옴
-        WWWForm form1 = new WWWForm();
-        form1.AddField("order", "questTime");
-        form1.AddField("player_nickname", GameManager.NickName);
 
-
-
-
-       yield return StartCoroutine(TimePost(form1));                        //구글 스크립트로 초기화했는지 물어볼때까지 대기
-
-
-    }
 
     public void QuestSave(string quest)
     {
@@ -52,8 +39,7 @@ public class QuestManager : MonoBehaviour
         form1.AddField("isReset", isReset);
         form1.AddField("time", DateTime.Now.ToString("yyyy.MM.dd"));
 
-        StartCoroutine(Post(form1));
-
+      
 
     }
     public void QuestClick()            //퀘스트 버튼 클릭했을 때 퀘스트 진행 상황 불러와
@@ -64,34 +50,11 @@ public class QuestManager : MonoBehaviour
             form1.AddField("order", "questGet");
             form1.AddField("player_nickname", GameManager.NickName);
 
-            StartCoroutine(Post(form1));
         }
        
     }
 
-    IEnumerator Post(WWWForm form)
-    {
-        using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // 반드시 using을 써야한다
-        {
-            yield return www.SendWebRequest();
-            //Debug.Log(www.downloadHandler.text);
-            if (www.isDone) Response(www.downloadHandler.text);  
-                                                                        //else print("웹의 응답이 없습니다.");*/
-        }
-
-    }
-    IEnumerator TimePost(WWWForm form)
-    {
-        Debug.Log("TimePost");
-        using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // 반드시 using을 써야한다
-        {
-            yield return www.SendWebRequest();
-            //Debug.Log(www.downloadHandler.text);
-            if (www.isDone) Response_Time(www.downloadHandler.text);
-            else print("웹의 응답이 없습니다.");
-        }
-
-    }
+   
     void Response_Time(string json)                          //퀘스트 초기화 확인
     {
         Debug.Log(json);

@@ -18,7 +18,6 @@ public class GoogleData
 
 public class GoogleSheetManager : MonoBehaviour
 {
-    string URL = GameManager.URL;
     public GoogleData GD;
     public InputField IDInput, PassInput, NicknameInput;
     string id, pass, nickname, statemessage;
@@ -48,7 +47,7 @@ public class GoogleSheetManager : MonoBehaviour
         GameManager.isUpdateDone = true;
         if (BinaryDataStream.Exist(bestScoreKey_))
         {
-            StartCoroutine(ReadDataFile());
+            //StartCoroutine(ReadDataFile());
         }
         else
         {
@@ -83,7 +82,7 @@ public class GoogleSheetManager : MonoBehaviour
         WarningTxt = WarningPannel.GetComponentInChildren<Text>();
        //구글 로그인 
        //게스트 로그인 넣기
-        LogInBtn.onClick.AsObservable().Subscribe(_
+      /*  LogInBtn.onClick.AsObservable().Subscribe(_
             =>
             {
                 LogInBtn.gameObject.SetActive(false);
@@ -97,9 +96,9 @@ public class GoogleSheetManager : MonoBehaviour
                 SignInBtn.gameObject.SetActive(false);
                 WarningTxt.text = "로딩중";
                 Register();
-            }).AddTo(SignInBtn.gameObject);
+            }).AddTo(SignInBtn.gameObject);*/
     }
-    IEnumerator VersionPost(WWWForm form)
+    /*IEnumerator VersionPost(WWWForm form)
     {
         using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // 반드시 using을 써야한다
         {
@@ -110,7 +109,7 @@ public class GoogleSheetManager : MonoBehaviour
             //SceneManager.LoadScene("Main");
         }
     }
-
+    */
     void VersionResponse(string json)
     {
         GameManager.NewVersion = json;                  //최신버전 확인
@@ -145,7 +144,7 @@ public class GoogleSheetManager : MonoBehaviour
         else return true;
     }
 
-    public void Register()//회원가입
+  /*  public void Register()//회원가입
     {
        
 
@@ -164,7 +163,7 @@ public class GoogleSheetManager : MonoBehaviour
         form.AddField("version", GameManager.CurVersion);
 
 
-        StartCoroutine(SignPost(form));
+       // StartCoroutine(SignPost(form));
 
         PlayerPrefs.SetString("Id", id);//아이디비번 저장
         PlayerPrefs.SetString("Pass", pass);
@@ -209,7 +208,7 @@ public class GoogleSheetManager : MonoBehaviour
 
     }
 
-    public void Login()
+   /* public void Login()
     {
         if (GameManager.isUpdateDone == true)
         {
@@ -242,7 +241,6 @@ public class GoogleSheetManager : MonoBehaviour
         StartCoroutine(Post(form));
     }
 
-
     public void SetValue()
     {
         WWWForm form = new WWWForm();
@@ -260,10 +258,10 @@ public class GoogleSheetManager : MonoBehaviour
 
         StartCoroutine(Post(form));
     }
+   */
 
 
-
-    IEnumerator SignPost(WWWForm form)
+  /*  IEnumerator SignPost(WWWForm form)
     {
         using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // 반드시 using을 써야한다
         {
@@ -307,7 +305,7 @@ public class GoogleSheetManager : MonoBehaviour
         }
        
     }
-
+  */
 
     void Response(string json)
     {
@@ -436,7 +434,7 @@ public class GoogleSheetManager : MonoBehaviour
     public void LoginProccess()
     {
         GameManager.NickName = nickname;
-        GameManager.Id = id;
+       // GameManager.Id = id;
 
         for (int i = 0; i < GameManager.AllNuniArray.Length; i++)
         {
@@ -468,14 +466,14 @@ public class GoogleSheetManager : MonoBehaviour
             form.AddField("isUpdate", "true");
 
 
-            StartCoroutine(SetPost(form));
+           // StartCoroutine(SetPost(form));
         }
         else if (GD.isUpdate == "true")  //최고기록 저장을 아직 안했는가
         {
             WWWForm form1 = new WWWForm();                          //자원을 먼저 부르고 저장한 다음 최고점수 저장
             form1.AddField("order", "getMoney");
             form1.AddField("player_nickname", GameManager.NickName);
-            StartCoroutine(MoneyPost(form1));
+           // StartCoroutine(MoneyPost(form1));
 
         }
         else
@@ -483,10 +481,10 @@ public class GoogleSheetManager : MonoBehaviour
             WWWForm form1 = new WWWForm();                          //자원 부르기
             form1.AddField("order", "getMoney");
             form1.AddField("player_nickname", GameManager.NickName);
-            StartCoroutine(MoneyPost(form1));
+           // StartCoroutine(MoneyPost(form1));
         }
     }
-    IEnumerator MoneyPost(WWWForm form)
+  /*  IEnumerator MoneyPost(WWWForm form)
     {
        
         using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // 반드시 using을 써야한다
@@ -513,7 +511,7 @@ public class GoogleSheetManager : MonoBehaviour
             }
             else print("웹의 응답이 없습니다.");
         }
-    }
+    }*/
     public void BestScoreResponse(string json)
     {
         Debug.Log("최고기록 업뎃안함");                                  //서버에 최고기록 저장
@@ -536,7 +534,7 @@ public class GoogleSheetManager : MonoBehaviour
         form.AddField("isUpdate", "true");
 
         GD.isUpdate = "null";
-        StartCoroutine(SetPost(form));
+     //   StartCoroutine(SetPost(form));
 
 
     }
@@ -575,7 +573,7 @@ public class GoogleSheetManager : MonoBehaviour
             form.AddField("isUpdate", "true");
 
 
-            StartCoroutine(BestScorePost(form));
+           // StartCoroutine(BestScorePost(form));
         }
         else if (GD.isUpdate == "1.4.5")
         {
@@ -586,7 +584,7 @@ public class GoogleSheetManager : MonoBehaviour
             form.AddField("order", "getChallenge");
             form.AddField("player_nickname", GameManager.NickName);
 
-            StartCoroutine(ChallPost(form));
+          //  StartCoroutine(ChallPost(form));
         }  else if (GD.isUpdate == "1.4.6")
         {
              
@@ -596,34 +594,22 @@ public class GoogleSheetManager : MonoBehaviour
             form.AddField("order", "getChallenge");
             form.AddField("player_nickname", GameManager.NickName);
 
-            StartCoroutine(ChallPost(form));
+         //   StartCoroutine(ChallPost(form));
         }
         
         
         
     }
-    IEnumerator Load()
-    {
-        // gameObject.GetComponent<BuildingSave>().BuildingLoad();         //내 건물 불러와
-        //yield return StartCoroutine( QuestManager.QuestStart()); //퀘스트 설정할 때까지 대기
-        //yield return StartCoroutine(IsUpdate());
-
-
-        yield return StartCoroutine(NuniManager.NuniStart()); //누니 설정할 때까지 대기 
-        //yield return StartCoroutine(GetChallenge()); //업적 저장할 때까지 대기
-
-        MyBuildingLoad.BuildingReq(BuildingDef.getMyBuilding);
-    }
-
+  
     void GetChallenge()
     {
         WWWForm form = new WWWForm();
         form.AddField("order", "getChallenge");
         form.AddField("player_nickname", GameManager.NickName);
 
-       StartCoroutine(ChallPost(form));
+      // StartCoroutine(ChallPost(form));
     }
-    IEnumerator ChallPost(WWWForm form)
+  /*  IEnumerator ChallPost(WWWForm form)
     {
 
         using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // 반드시 using을 써야한다
@@ -636,7 +622,7 @@ public class GoogleSheetManager : MonoBehaviour
             }
             else print("웹의 응답이 없습니다.");
         }
-    }
+    }*/
     public void ChallResponse(string json)
     {
         Debug.Log(json);
@@ -730,9 +716,9 @@ public class GoogleSheetManager : MonoBehaviour
 
         form.AddField("player_nickname", GameManager.NickName);
 
-        StartCoroutine(NoticePost(form));
+       // StartCoroutine(NoticePost(form));
     }
-    IEnumerator NoticePost(WWWForm form)
+   /* IEnumerator NoticePost(WWWForm form)
     {
 
         using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // 반드시 using을 써야한다
@@ -745,19 +731,6 @@ public class GoogleSheetManager : MonoBehaviour
             }
             else print("웹의 응답이 없습니다.");
         }
-    }
-    public void NoticeResponse(string json)
-    {
-        Newtonsoft.Json.Linq.JArray j = Newtonsoft.Json.Linq.JArray.Parse(json);
-        Debug.Log("공지: "+json);
-        //Notice[] notice = new Notice[]();
-        List<Notice> nnn = new List<Notice>();
-        for (int i = 0; i < j.Count; i++)
-        {
-            nnn.Add(JsonUtility.FromJson<Notice>(j[i].ToString()));
-        }
-        GameManager.Notice = nnn.ToArray();
-        StartCoroutine(Load());
+    }*/
 
-    }
 }

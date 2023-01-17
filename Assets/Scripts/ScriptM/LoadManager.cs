@@ -77,32 +77,7 @@ public class LoadManager : MonoBehaviour
         return copy;
     }
 
-    public IEnumerator RewardStart()
-    {
-        WWWForm form = new WWWForm();
-        form.AddField("order", "questTime");
-        form.AddField("player_nickname", GameManager.NickName);
-        yield return StartCoroutine(RewardPost(form));
-    }
-
-    IEnumerator RewardPost(WWWForm form)
-    {
-        using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // �ݵ�� using�� ����Ѵ�
-        {
-            yield return www.SendWebRequest();
-            if (www.isDone) Reward_response(www.downloadHandler.text);
-            else print("���� ������ �����ϴ�.");
-        }
-
-    }
-    IEnumerator TimePost(WWWForm form)
-    {
-        using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // �ݵ�� using�� ����Ѵ�
-        {
-            yield return www.SendWebRequest();
-        }
-
-    }
+   
     
     void Reward_response(string json)
     {
@@ -149,28 +124,12 @@ public class LoadManager : MonoBehaviour
 
             if (int.Parse(GameManager.Instance.PlayerUserInfo.Tuto) > 13)
             {
-                /*WWWForm form1 = new WWWForm();
-                form1.AddField("order", "getFriendBuilding");
-                form1.AddField("loadedFriend", GameManager.NickName);*/
-                 this.UILoadingPanel = new UiLoadingPanel(LoadingPanel);
+               
 
-               /* FirebaseLogin.Instance.AddBuilding().ContinueWith((task) =>      //건물 추가
-                {
-                Debug.Log("task.Result: " + task.Result);
-                    if (!task.IsFaulted)
-                    {
-                        if (task.Result != null)//건물 넣기
-                        {
-                           
-                        }
-                        else
-                        {
-                            Debug.Log("task is null");
-                        }
+                // this.UILoadingPanel = new UiLoadingPanel(LoadingPanel);
 
-                    }
-                });*/
-                FirebaseLogin.Instance.GetBuilding(GameManager.Instance.PlayerUserInfo.Uid).ContinueWith((task) =>      //건물 불러오기
+             
+              /*  FirebaseLogin.Instance.GetBuilding(GameManager.Instance.PlayerUserInfo.Uid).ContinueWith((task) =>      //건물 불러오기
                 {
                     Debug.Log("task.Result: " + task.Result);
                     if (!task.IsFaulted)
@@ -182,14 +141,7 @@ public class LoadManager : MonoBehaviour
                             try
                             {
 
-                                /*Building[] Result = JsonHelper.FromJson<Building>(task.Result);
                                 
-                                for (int i = 0; i < Result.Length; i++)
-                                {
-                                    //Debug.Log("item: " + JsonUtility.ToJson(Result[i]));
-
-                                    MyBuildings.Add(Result[i].Id, Result[i]);
-                                }*/
                                 Newtonsoft.Json.Linq.JArray Result = Newtonsoft.Json.Linq.JArray.Parse(task.Result);
                                 
                                 foreach (var item in Result)
@@ -214,7 +166,8 @@ public class LoadManager : MonoBehaviour
                             Debug.Log("task is null");
                         }
                     }
-                });
+                });*/
+
                 FirebaseLogin.Instance.GetNuni(GameManager.Instance.PlayerUserInfo.Uid).ContinueWith((task) =>      //누니 불러오기
                 {
                     if (!task.IsFaulted)
@@ -234,7 +187,8 @@ public class LoadManager : MonoBehaviour
                                     Cardsave itemNuni = JsonUtility.FromJson<Cardsave>(item.ToString());
                                     //Debug.Log("item: " + JsonUtility.ToJson(item));
                                     Card tempNuni = new Card(itemNuni);
-                                  GameManager.Instance.CharacterList.Add(tempNuni.Id,tempNuni);
+                                    if (!GameManager.Instance.CharacterList.ContainsKey(tempNuni.Id))
+                                        GameManager.Instance.CharacterList.Add(tempNuni.Id, tempNuni);
                                 }
                                 UnityMainThreadDispatcher.Instance().Enqueue(NuniLoad); //BuildingLoad();
                             }
@@ -312,7 +266,8 @@ public class LoadManager : MonoBehaviour
                 // g_Building.Rotation();
 
             }
-            Destroy(LoadingPanel);
+
+          //  Destroy(LoadingPanel);
         }
 
 
@@ -364,7 +319,8 @@ public class LoadManager : MonoBehaviour
                 throw;
             }
         }
-        UILoadingPanel.DestroyGameObject();
+        Debug.Log("건물 로드 끝");
+      //  UILoadingPanel.DestroyGameObject();
     }
     public Building InstantiateBuilding(Building building)
     {
@@ -523,8 +479,7 @@ public class LoadManager : MonoBehaviour
         form1.AddField("player_nickname", GameManager.NickName);
         form1.AddField("time", DateTime.Now.ToString("yyyy.MM.dd"));
 
-        StartCoroutine(TimePost(form1));//���� ��Ʈ�� ���ó�¥ ������Ʈ ���ֱ�
-
+       
         if (TutorialsManager.itemIndex > 13)//Ʃ�丮���� ��������
         {
             RewardPannel.SetActive(true);

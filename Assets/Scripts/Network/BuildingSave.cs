@@ -11,7 +11,7 @@ public class BuildingSave : MonoBehaviour
 {               //건물들 저장하는 스크립트
                 //저장하면 구글 스프레드 시트로 전송
 
-     string URL = GameManager.URL;
+    // string URL = GameManager.URL;
     public static BuildingSave _Instance;
     public static BuildingSave Instance
     {
@@ -47,7 +47,7 @@ public class BuildingSave : MonoBehaviour
                 form.AddField("isFlied", tempBuilding.isFliped.ToString());
                 form.AddField("id", tempBuilding.Id.ToString());
 
-                StartCoroutine(Post(form, buildingDef));        //SavePost
+                //StartCoroutine(Post(form, buildingDef));        //SavePost
                 break;
 
             case BuildingDef.removeValue:
@@ -56,7 +56,7 @@ public class BuildingSave : MonoBehaviour
                 form.AddField("player_nickname", GameManager.NickName);
 
                 form.AddField("id", tempBuilding.Id);
-                StartCoroutine(Post(form, buildingDef));
+                //StartCoroutine(Post(form, buildingDef));
                 break;
 
             case BuildingDef.getFriendBuilding:
@@ -66,7 +66,7 @@ public class BuildingSave : MonoBehaviour
                 isMe = true;                    //내 건물 불러온다!!!!!!!!!!!!!!!!
                 form.AddField("order", "getFriendBuilding");
                 form.AddField("loadedFriend", GameManager.NickName);
-                StartCoroutine(Post(form, buildingDef,callback));
+                //StartCoroutine(Post(form, buildingDef,callback));
                 break;
 
             default:
@@ -83,10 +83,10 @@ public class BuildingSave : MonoBehaviour
         isMe = false;                   //친구 건물 불러올거지롱 메롱
         form1.AddField("order", "getFriendBuilding");
         form1.AddField("loadedFriend", FriendNickname);
-        StartCoroutine(Post(form1, BuildingDef.getFriendBuilding));
+       // StartCoroutine(Post(form1, BuildingDef.getFriendBuilding));
     }
    
-    IEnumerator Post(WWWForm form,BuildingDef buildingDef,Action callback=null)
+   /* IEnumerator Post(WWWForm form,BuildingDef buildingDef,Action callback=null)
     {
         Debug.Log("불러오라");
         using (UnityWebRequest www = UnityWebRequest.Post(URL, form)) // 반드시 using을 써야한다
@@ -118,7 +118,7 @@ public class BuildingSave : MonoBehaviour
             else print("웹의 응답이 없습니다.");
             }
         
-    }
+    }*/
     void Response(string json, BuildingDef buildingDef)                          //건물 값 불러오기
     {
         if (string.IsNullOrEmpty(json))

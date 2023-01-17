@@ -31,14 +31,6 @@ public class GameManager : MonoBehaviour
 
     public static Dictionary<string, GameObject> BuildingPrefabData;    //모든 빌딩 프리팹 딕셔너리
 
-    public static GameObject CurrentBuilding;       //현재 수정중인 건물
-
-
-
-    public static InventoryButton CurrentBuilding_Button=null;            //현재 수정중인 인벤 버튼
-
-
-    public static Dictionary<string, int> BuildingNumber;            //건물이 종류별로 몇개 있는지(건물번호)
 
     public static bool isEdit = false;
     public static bool isInvenEdit = false;
@@ -85,7 +77,7 @@ public class GameManager : MonoBehaviour
     [Header("유저정보")]
     [SerializeField]
     public UserInfo PlayerUserInfo;         //플레이어 유저 정보
-    public static string Id;            //플레이어 아이디
+
     public static string NickName;      //플레이어 닉네임
     public static string StateMessage;      //플레이어 상태메세지
     public static string SheetsNum;     //플레이어 건물 정보 들어있는 스프레드 시트 id
@@ -95,7 +87,6 @@ public class GameManager : MonoBehaviour
 
     public static string friend_nickname;       //현재 들어가있는 친구닉넴
 
-    public static string URL = "https://script.google.com/macros/s/AKfycbxpRJTJi1suC1ohbcih0nQk5hc8whE-thXvHe0lywt2vvg6QDK1E3APTBxnCrE2vAMJ/exec";
 
     public static bool isReward;        //일괄수확 가능한지
 
@@ -152,14 +143,7 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);  // 아래의 함수를 사용하여 씬이 전환되더라도 선언되었던 인스턴스가 파괴되지 않는다.
 
     }
-    private void Update()
-    {
-        if (isBScore)
-        {
-            isBScore = false;
-            BestScoreSave();
-        }
-    }
+
     public void LoadScene(string SceneName)
     {
         SceneManager.LoadScene(SceneName);
@@ -174,7 +158,6 @@ public class GameManager : MonoBehaviour
         CharacterPrefab = new Dictionary<string, GameObject>();
         CharacterImageData = new Dictionary<string, Sprite>();
         CharacterList = new Dictionary<string, Card>();
-        BuildingNumber = new Dictionary<string, int>();
         IDs = new List<string>();                   //퀘스트 
         NuniDialog = new List<NuniDialog>();
 
@@ -186,11 +169,6 @@ public class GameManager : MonoBehaviour
 
         }
 
-        //일단 시작하면 전체 빌딩 프리팹 리스트에서 이름 받아서 임시로 0으로 초기화
-        for (int i = 0; i < BuildingPrefabInspector.Length; i++)
-        {
-            BuildingNumber.Add(BuildingPrefabInspector[i].name + "(Clone)", 0);
-        }
 
         for (int i = 0; i < DogamChaImageInspector.Length; i++)     // 빌딩 이미지 불러오기
         {
@@ -299,39 +277,8 @@ public class GameManager : MonoBehaviour
          form2.AddField("player_nickname", NickName);  */
         FirebaseLogin.Instance.SetUserInfo(GameManager.Instance.PlayerUserInfo);
     }
-    public  void BestScoreSave()
-    {    
-        WWWForm form2 = new WWWForm();                      //돈 저장                
-        form2.AddField("order", "setMoney");
-        form2.AddField("player_nickname", GameManager.NickName);
-        form2.AddField("version", GameManager.CurVersion);
-
-        form2.AddField("money", GameManager.Money.ToString() + "@" + GameManager.ShinMoney.ToString() + "@" + TutorialsManager.itemIndex + "@" + GameManager.BestScore+"@" + GameManager.Zem.ToString());
-        form2.AddField("achieve", string.Join(",", CanvasManger.currentAchieveSuccess));
-        form2.AddField("index", string.Join(",", CanvasManger.achieveContNuniIndex));
-        form2.AddField("count", string.Join(",", CanvasManger.achieveCount));
-
-        form2.AddField("shopbuy", string.Join(",", ShopBuyScript.Achieve12));
-        form2.AddField("achieveMoney", string.Join(",", CanvasManger.AchieveMoney));
-        form2.AddField("achieveShinMoney", string.Join(",", CanvasManger.AchieveShinMoney));
-        form2.AddField("achieveNuniName", string.Join(",", CardUI.AchieveNuniName.ToArray()));
-        form2.AddField("achieveFriendCount", string.Join(",", CanvasManger.AchieveFriendCount));
-        form2.AddField("isUpdate", "true");
-        StartCoroutine(SetPost(form2));
-    }
-    IEnumerator SetPost(WWWForm form)
-    {
-        using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // 반드시 using을 써야한다
-        {
-            yield return www.SendWebRequest();
-            if (www.isDone)
-            {
-            }
-            else print("웹의 응답이 없습니다.");
-            print("최고점수저장");
-           // Application.Quit();
-        }
-    }
+ 
+   
     void OnApplicationPause(bool pause)
     {
         if (pause)//비활성화

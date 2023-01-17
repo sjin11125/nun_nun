@@ -66,7 +66,7 @@ public class RandomSelect : MonoBehaviour
         yield return StartCoroutine(Post(form1));                        //구글 스크립트로 초기화했는지 물어볼때까지 대기
 
 
-    }*/
+    }
     IEnumerator Post(WWWForm form)
     {
         using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // 반드시 using을 써야한다
@@ -74,10 +74,10 @@ public class RandomSelect : MonoBehaviour
             yield return www.SendWebRequest();
             //Debug.Log(www.downloadHandler.text);
             if (www.isDone) NuniResponse(www.downloadHandler.text);
-            //else print("웹의 응답이 없습니다.");*/
+            //else print("웹의 응답이 없습니다.");
         }
 
-    }
+    }*/
     void NuniResponse(string json)                          //누니 불러오기
     {
         //List<QuestInfo> Questlist = new List<QuestInfo>();

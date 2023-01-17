@@ -56,39 +56,9 @@ public class PlayerInfo : MonoBehaviour                 //플레이어 프로필 스크립
        
     }
 
-    public void ImageEnroll()       //프로필 이미지 등록
-    {
-        if (gameObject.GetComponent<Image>().sprite != null)
-        {
-            GameManager.ProfileImage = gameObject.transform.parent.GetComponent<Image>().sprite;
-            WWWForm form1 = new WWWForm();
-            form1.AddField("order", "setProfileImage");
-            form1.AddField("player_nickname", GameManager.NickName);
-            form1.AddField("profile_image", GameManager.ProfileImage.name);
+  
 
 
-            StartCoroutine(ImagePost(form1));                        //구글 스크립트로 초기화했는지 물어볼때까지 대기
-
-        }
-
-        //구글 스크립트에 업데이트
-
-        //사운드 재생
-        GameObject settigPanel = GameObject.FindGameObjectWithTag("SettingPanel");
-        settigPanel.GetComponent<AudioController>().Sound[0].Play();
-    }
-
-    IEnumerator ImagePost(WWWForm form)
-    {
-
-        using (UnityWebRequest www = UnityWebRequest.Post(GameManager.URL, form)) // 반드시 using을 써야한다
-        {
-            yield return www.SendWebRequest();
-     
-            
-        }
-
-    }
     public void EditInfo()                  //한줄소개 수정
     {
         GameManager.Instance.PlayerUserInfo.Message = InfoInput.text;

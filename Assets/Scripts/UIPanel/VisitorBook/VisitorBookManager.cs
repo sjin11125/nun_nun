@@ -25,7 +25,6 @@ public class VisitorBookManager : MonoBehaviour
     public GameObject VBWindow;
     public GameObject Content;
     //FriendInfo[] ;
-    string URL = GameManager.URL;
     public VisitorBook VB;
 
     public GameObject VBPrefab;             //방명록 목록 프리팹
@@ -37,96 +36,11 @@ public class VisitorBookManager : MonoBehaviour
     public void Start()
     {
         LoadingNuni = Instantiate(GameManager.Instance.TopCanvas);
-        if (SceneManager.GetActiveScene().name.Equals("FriendMain"))    //친구 씬이냐
-        {
-            VBInput.gameObject.SetActive(true);
-            if (gameObject.tag.Equals("VisitorBook"))
-            {
-                FriendVisitorBookList();              //친구 방명록 있나 확인
-            }
-            
-        }
-        else                                                        //내 씬이냐
-        {
-          
-            VBInput.gameObject.SetActive(false);
-            if (gameObject.tag .Equals( "VisitorBook"))
-            {
-                VisitorBookList();              //방명록 있나 확인
-            }
-        }
-        CloseBtn.OnClickAsObservable().Subscribe(_=>            //닫기 버튼 구독
-        {
-            Destroy(LoadingNuni);
-            Destroy(this.gameObject);
-        });
+
 
     }
-    // Start is called before the first frame update
-    public void VisitorBookList()  //내 방명록 불러옴
-    {
-        
-        //LoadingNuni.SetActive(true);            //로딩 누니 활성화
-        WWWForm form = new WWWForm();
-        form.AddField("order", "getMessage");
-        form.AddField("player_nickname", GameManager.NickName);
-        //form.AddField("message", VBInput.text);
-        StartCoroutine(GetPost(form));
-    }
-
-    public void FriendVisitorBookList()         //친구 방명록 불러옴 
-    {
-        Destroy(LoadingNuni);
-        WWWForm form = new WWWForm();
-        form.AddField("order", "getMessage");
-        form.AddField("player_nickname", GameManager.friend_nickname);
-        //form.AddField("message", VBInput.text);
-        StartCoroutine(GetPost(form));
-    }
-
-    public void VisitorBookWrite()          //방명록 쓰기        (보내기 버튼에 넣기)
-    {
+ 
    
-        WWWForm form = new WWWForm();
-        form.AddField("order", "enrollMessage");
-        form.AddField("player_nickname", GameManager.NickName);
-        form.AddField("friend_nickname", GameManager.friend_nickname);
-        form.AddField("message", VBInput.text);
-        StartCoroutine(Post(form));
-    }
-
-    IEnumerator Post(WWWForm form)
-    {
-        using (UnityWebRequest www = UnityWebRequest.Post(URL, form)) // 반드시 using을 써야한다
-        {
-            yield return www.SendWebRequest();
-
-
-        }
-        GameObject VB = Instantiate(VBPrefab, Content.transform) as GameObject;
-
-        Text[] VBtext = VB.GetComponentsInChildren<Text>();
-
-        VBtext[0].text = GameManager.NickName;
-        VBtext[1].text = VBInput.text;
-        VBtext[2].text = DateTime.Now.ToString("yyyy.MM.dd");
-
-        Image[] images = VB.GetComponentsInChildren<Image>();
-        images[1].sprite = GameManager.ProfileImage;
-
-        VBInput.text = "";
-        //GameManager.FriendBuildingList.Add(b);      //친구의 건물 리스트에 삽입
-    }
-    IEnumerator GetPost(WWWForm form)
-    {
-        using (UnityWebRequest www = UnityWebRequest.Post(URL, form)) // 반드시 using을 써야한다
-        {
-            yield return www.SendWebRequest();
-        
-            if (www.isDone) Response(www.downloadHandler.text);         //방명록 불러옴
-
-        }
-    }
 
     void Response(string json)                          
     {

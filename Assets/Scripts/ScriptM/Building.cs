@@ -580,7 +580,6 @@ public class Building : MonoBehaviour
         //GameManager.BuildingArray = GameManager.BuildingList.ToArray();
         Debug.Log("GameManager.BuildingArray: "+ GameManager.BuildingArray.Length);
 
-        GameManager.CurrentBuilding = null;
         //
 
        // LoadManager.Instance.buildingsave.BuildingReq(BuildingDef.addValue, this);

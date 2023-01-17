@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
 
 public class LoadingSceneController : MonoBehaviour
 {
@@ -41,13 +42,13 @@ public class LoadingSceneController : MonoBehaviour
             return;
 
         }
-        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(this);
     }
     [SerializeField]
     private CanvasGroup canvasGroup;
 
-    [SerializeField]
-    private Image progressBar;
+    //[SerializeField]
+   // private Image progressBar;
     
     private string loadSceneName;
     public void LoadScene(string sceneName)
@@ -57,20 +58,23 @@ public class LoadingSceneController : MonoBehaviour
         loadSceneName = sceneName;
         StartCoroutine(LoadSceneProcess());
 
+
     }
     
 
     private IEnumerator LoadSceneProcess()
     {
         //throw new NotImplementedException();
-        progressBar.fillAmount = 0f;
+       // progressBar.fillAmount = 0f;
         yield return StartCoroutine(Fade(true));
         AsyncOperation op = SceneManager.LoadSceneAsync(loadSceneName);
         op.allowSceneActivation = false;
-        if (loadSceneName=="Main")
+
+        //FirebaseLogin.Instance.GetBuilding();
+       /* if (loadSceneName=="Main")
         {
             LoadManager.Instance.buildingsave.BuildingReq(BuildingDef.getMyBuilding);
-        }
+        }*/
        
         float timer = 0f;
         while(!op.isDone)
@@ -78,19 +82,23 @@ public class LoadingSceneController : MonoBehaviour
             yield return null;
             if(op.progress < 0.9f)
             {
-                progressBar.fillAmount = op.progress;
+               // progressBar.fillAmount = op.progress;
             }
             else
             {
                 timer += Time.unscaledDeltaTime;
-                progressBar.fillAmount = Mathf.Lerp(0.9f, 1f, timer);
-                if(progressBar.fillAmount >= 1f)
-                {
-                    op.allowSceneActivation = true;
-                    yield break;
-                }
+                // progressBar.fillAmount = Mathf.Lerp(0.9f, 1f, timer);
+
+                op.allowSceneActivation = true;
+                yield break;
+                /* if (progressBar.fillAmount >= 1f)
+                 {
+                       op.allowSceneActivation = true;
+                 yield break;
+                 }*/
             }
         }
+
     }
     public void BuildingLoading()
     {
@@ -100,9 +108,57 @@ public class LoadingSceneController : MonoBehaviour
     {
         if(arg0.name == loadSceneName)
         {
-            StartCoroutine(Fade(false));
+           // StartCoroutine(Fade(false));
             SceneManager.sceneLoaded -= OnSceneLoaded;
-           
+            FirebaseLogin.Instance.GetBuilding(GameManager.Instance.PlayerUserInfo.Uid).ContinueWith((task) =>      //건물 불러오기
+            {
+                Debug.Log("task.Result: " + task.Result);
+                if (!task.IsFaulted)
+                {
+                    if (task.Result != null)//건물 넣기
+                    {
+                        Debug.Log("task.Result: " + task.Result);
+
+                        try
+                        {
+
+                            /*Building[] Result = JsonHelper.FromJson<Building>(task.Result);
+
+                            for (int i = 0; i < Result.Length; i++)
+                            {
+                                //Debug.Log("item: " + JsonUtility.ToJson(Result[i]));
+
+                                MyBuildings.Add(Result[i].Id, Result[i]);
+                            }*/
+                            Newtonsoft.Json.Linq.JArray Result = Newtonsoft.Json.Linq.JArray.Parse(task.Result);
+
+                            foreach (var item in Result)
+                            {
+                                Debug.Log("item: " + item.ToString());
+                                Buildingsave itemBuilding = JsonUtility.FromJson<Buildingsave>(item.ToString());
+                                //Debug.Log("item: " + JsonUtility.ToJson(item));
+                                Building tempBuilding = new Building(itemBuilding);
+                               LoadManager.Instance.MyBuildings.Add(tempBuilding.Id, tempBuilding);
+                            }
+                            UnityMainThreadDispatcher.Instance().Enqueue(()=> {
+                                LoadManager.Instance.BuildingLoad();
+                                StartCoroutine(Fade(false));
+                            }); //BuildingLoad();
+
+                        }
+                        catch (Exception e)
+                        {
+                            Debug.LogError(e.Message);
+                            throw;
+                        }
+                    
+                    }
+                    else
+                    {
+                        Debug.Log("task is null");
+                    }
+                }
+            });
         }
     }
 
@@ -117,6 +173,7 @@ public class LoadingSceneController : MonoBehaviour
         }
         if(!isFadeIn)
         {
+            Debug.Log("씬 로드 끝");
             gameObject.SetActive(false);
         }
     }

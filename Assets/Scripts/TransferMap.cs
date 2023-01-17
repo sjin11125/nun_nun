@@ -7,18 +7,9 @@ using UnityEngine.SceneManagement;
 public class TransferMap : MonoBehaviour
 {
     public string transferMapName;
-    public BuildingSave builinSave;
     public void OnClick()
     {
-        builinSave = gameObject.GetComponent<BuildingSave>() ;
-        //GameManager.BuildingArray = GameManager.BuildingList.ToArray();
-
-        if (transferMapName.Equals("Main"))
-        {
-            GameManager.isLoading = false;
-        }
-        
-
+        //SceneManager.LoadSceneAsync(transferMapName);
         LoadingSceneController.Instance.LoadScene(transferMapName);
         //builinSave.BuildingLoad();
     }
