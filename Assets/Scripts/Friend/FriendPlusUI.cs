@@ -8,6 +8,8 @@ public class FriendPlusUI : MonoBehaviour
 {
     // Start is called before the first frame update
     public Button PlusBtn;
+    public Button AddBtn;
+
     public Text FriendName;
     public Text FriendMessage;
     public Image FriendImage;
@@ -19,25 +21,58 @@ public class FriendPlusUI : MonoBehaviour
 
     void Start()
     {
-        PlusBtn.OnClickAsObservable().Subscribe(_=>{
-            FirebaseLogin.Instance.PlusFriend(gameObject.name).ContinueWith((task)=> {
-                Debug.Log("task: "+ task.Result);
-                UnityMainThreadDispatcher.Instance().Enqueue(() => {
+        if (PlusBtn != null)
+        {
 
 
-                    if (task.Result=="fail")
+            PlusBtn.OnClickAsObservable().Subscribe(_ =>
+            {
+                FirebaseLogin.Instance.PlusFriend(gameObject.name).ContinueWith((task) =>
                 {
-                    PlusTxt.gameObject.SetActive(false);
-                    AddedTxt.gameObject.SetActive(true);
-                }
-                else
-                {
-                    PlusTxt.gameObject.SetActive(false);
-                    AddTxt.gameObject.SetActive(true);
-                }
+                    Debug.Log("task: " + task.Result);
+                    UnityMainThreadDispatcher.Instance().Enqueue(() =>
+                    {
+
+
+                        if (task.Result == "fail")
+                        {
+                            PlusTxt.gameObject.SetActive(false);
+                            AddedTxt.gameObject.SetActive(true);
+                        }
+                        else
+                        {
+                            PlusTxt.gameObject.SetActive(false);
+                            AddTxt.gameObject.SetActive(true);
+                        }
+                    });
                 });
             });
-        });
+        }
+        if (AddBtn!=null)
+        {
+            AddBtn.OnClickAsObservable().Subscribe(_ => {
+                FirebaseLogin.Instance.AddFriend(gameObject.name).ContinueWith((task) =>
+                {
+                    Debug.Log("task: " + task.Result);
+                    UnityMainThreadDispatcher.Instance().Enqueue(() =>
+                    {
+
+
+                        if (task.Result == "fail")
+                        {
+                            PlusTxt.gameObject.SetActive(false);
+                            AddedTxt.gameObject.SetActive(true);
+                        }
+                        else
+                        {
+                            PlusTxt.gameObject.SetActive(false);
+                            AddTxt.gameObject.SetActive(true);
+                        }
+                    });
+                });
+            });
+        }
+        
     }
 
     public void SetFriendInfo(FriendInfo friendInfo)

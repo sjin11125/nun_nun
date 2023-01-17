@@ -486,13 +486,67 @@ public class FriendManager : UIBase
                                 }
                                 else
                                 {
-                                    NoFriendTxt.gameObject.SetActive(true);
-                                    Debug.Log("task is null");
+                                    UnityMainThreadDispatcher.Instance().Enqueue(() =>
+                                    {
+
+
+                                        NoFriendTxt.gameObject.SetActive(true);
+                                        Debug.Log("task is null");
+                                    });
                                 }
                             }
                         });
                         break;
                     case FriendDef.RequestFriend:
+                        FirebaseLogin.Instance.GetRequestFriend(GameManager.Instance.PlayerUserInfo.Uid).ContinueWith((task) => {
+                            if (!task.IsFaulted)
+                            {
+                                if (task.Result != null)
+                                {
+                                    Debug.Log("친구 목록 받아온 결과: " + task.Result);
+
+                                    try
+                                    {
+
+                                        Newtonsoft.Json.Linq.JArray Result = Newtonsoft.Json.Linq.JArray.Parse(task.Result);
+
+                                        foreach (var item in Result)
+                                        {
+                                            Debug.Log("item: " + item.ToString());
+                                            FriendInfo itemFriend = JsonUtility.FromJson<FriendInfo>(item.ToString());
+                                            //Debug.Log("item: " + JsonUtility.ToJson(item))
+
+                                            UnityMainThreadDispatcher.Instance().Enqueue(() => {
+
+
+                                                GameObject FriendUI = Instantiate(FriendBtns.Prefab, Content.transform);       //친구 UI 띄우기
+                                                FriendUI.name = itemFriend.FriendName;
+                                                FriendUI.GetComponent<FriendPlusUI>().SetFriendInfo(itemFriend);                //친구 버튼 세팅
+
+                                            });
+                                            //LoadManager.Instance.MyFriends.Add(itemFriend.f_nickname, itemFriend);      //친구 딕셔너리에 추가
+                                        }
+
+                                    }
+                                    catch (Exception e)
+                                    {
+                                        Debug.LogError(e.Message);
+                                        throw;
+                                    }
+
+                                }
+                                else
+                                {
+                                    UnityMainThreadDispatcher.Instance().Enqueue(() =>
+                                    {
+
+
+                                        NoFriendTxt.gameObject.SetActive(true);
+                                        Debug.Log("task is null");
+                                    });
+                                }
+                            }
+                        });
                         break;
                     case FriendDef.SearchFriend:
 

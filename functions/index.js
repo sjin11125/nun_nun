@@ -210,24 +210,6 @@ exports.getFriend=functions.https.onCall(async(req,res)=>{
     const friendgRef = db.collection('user').doc(idToken.message).collection('friend');      
     const snapshot = await friendgRef.get();
 
-    /*await Promise.all(snapshot.forEach( async (doc)=>{
-      const friend={
-        FriendName:doc.id,
-        FriendImage:"",
-        FriendMessage:""
-      }
-      const getValue = await doc.get();
-      
-      console.log("친구 정보: "+JSON.stringify( getValue.Image));
-      console.log("친구 정보: "+JSON.stringify( getValue.Message));
-      friend.FriendImage=getValue.Image;
-      friend.FriendMessage=getValue.Message;
-          friendData.push(friend);
-      
-      }))*/
-  
-    //console.log("친구 이미지: "+JSON.stringify( friendImage));
-
     for(var i in snapshot.docs)
     {
       const doc=snapshot.docs[i];
@@ -246,17 +228,7 @@ exports.getFriend=functions.https.onCall(async(req,res)=>{
      
    
     }
- /* snapshot.forEach(doc => {
-   
-    var friendImage= db.collection('user').doc('vicky').get().then((field)=>{
-      friend.FriendImage=field.data().Image;
-      friend.FriendMessage=field.data().Message;
-      console.log("친구 정보: "+JSON.stringify( field));
-      friendData.push(friend);
 
-    });
- 
-  });*/
   if(friendData.length==0)
   {
     console.log("FriendData: "+friendData.length);
@@ -266,7 +238,44 @@ exports.getFriend=functions.https.onCall(async(req,res)=>{
 return JSON.stringify( friendData);
 });
 
-exports.addFriend=functions.https.onCall(async(req,res)=>{ 
+
+exports.getRequestFriend=functions.https.onCall(async(req,res)=>{
+  const idToken=JSON.parse(req);
+  console.log("idToken: "+JSON.stringify( idToken));
+    //const buildingData=JSON.parse(req);
+    const friendData=[];
+
+    const db=admin.firestore();
+
+    const friendgRef = db.collection('user').doc(idToken.message).collection('friendRequest');      
+    const snapshot = await friendgRef.get();
+console.log("snapshot: "+JSON.stringify(snapshot.docs));
+    for(var i in snapshot.docs)
+    {
+      const doc=snapshot.docs[i];
+      var friendImage=await db.collection('user').doc(doc.id).get();
+     
+        const friend={
+          FriendName:doc.id,
+          FriendImage:"",
+          FriendMessage:""
+        }
+        friend.FriendImage=friendImage.data().Image;
+        friend.FriendMessage=friendImage.data().Message;
+        console.log("친구 정보: "+JSON.stringify(friendImage.data()));
+        friendData.push(friend);
+  
+    }
+
+  if(friendData.length==0)
+  {
+    console.log("FriendData: "+friendData.length);
+    return null;
+  }
+  console.log("FriendData: "+JSON.stringify( friendData));
+return JSON.stringify( friendData);
+});
+exports.plusFriend=functions.https.onCall(async(req,res)=>{ 
 
   const friendInfo=JSON.parse(req);
   const db=admin.firestore();
@@ -295,7 +304,22 @@ exports.addFriend=functions.https.onCall(async(req,res)=>{
     return "fail";
   }
 });
+exports.addFriend=functions.https.onCall(async(req,res)=>{ 
 
+  const friendInfo=JSON.parse(req);
+  const db=admin.firestore();
+
+  const myfriend =db.collection('user').doc(friendInfo.Uid).
+  collection('friend').doc(friendInfo.FriendName);
+  
+const doc=await myfriend.get();
+
+  console.log("doc: "+doc);
+  myfriend.set(
+    {FriendName:friendInfo.FriendName}
+    );
+ 
+});
 exports.searchFriend=functions.https.onCall(async(req,res)=>{         //유저 검색
 const friendInfo=JSON.parse(req);
 const db=admin.firestore();
