@@ -188,6 +188,22 @@ public class FirebaseLogin : MonoBehaviour
             }
         });
     }
+    public Task<string> GetVisitorBook(string uid)
+    {
+        functions = FirebaseFunctions.GetInstance(FirebaseApp.DefaultInstance);
+        var function = functions.GetHttpsCallable("getVisitorBook");
+
+        SendMessage IdToken = new SendMessage("Send IdToken", uid);
+        
+       return function.CallAsync(JsonUtility.ToJson(IdToken)).ContinueWithOnMainThread((task) => {
+            Debug.Log("res: "+ task.Result.Data);
+
+           return (string)task.Result.Data;
+
+
+
+        });
+    }
     public void SetUserInfo(UserInfo userInfo)
     {
         functions = FirebaseFunctions.GetInstance(FirebaseApp.DefaultInstance);

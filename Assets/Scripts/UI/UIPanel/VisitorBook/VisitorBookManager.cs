@@ -7,25 +7,13 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UniRx;
 
-public class VisitorBook
-{
-    public string f_nickname;      //친구
-    public string f_message;        //친구가 보낸 메세지
-    public string f_time;        //친구가 보낸 시간
-    public string f_image;        //친구프사
-    public VisitorBook(string nickname, string message,string time)
-    {
-        this.f_nickname = nickname;
-        this.f_message = message;
-        this.f_time = time;
-    }
-}
+
 public class VisitorBookManager : MonoBehaviour
 {
     public GameObject VBWindow;
     public GameObject Content;
     //FriendInfo[] ;
-    public VisitorBook VB;
+    //public VisitorBook VB;
 
     public GameObject VBPrefab;             //방명록 목록 프리팹
 
@@ -44,7 +32,7 @@ public class VisitorBookManager : MonoBehaviour
 
     void Response(string json)                          
     {
-       
+       /*
         if (string.IsNullOrEmpty(json))
         {
          
@@ -62,22 +50,22 @@ public class VisitorBookManager : MonoBehaviour
         for (int i = 0; i < j.Count; i++)
         {
  
-            VisitorBook friendBuildings;
-            friendBuildings = JsonUtility.FromJson<VisitorBook>(j[i].ToString());
+          //  VisitorBook friendBuildings;
+        //    friendBuildings = JsonUtility.FromJson<VisitorBook>(j[i].ToString());
 
             GameObject VB = Instantiate(VBPrefab, Content.transform)as GameObject;
 
             Text[] VBtext = VB.GetComponentsInChildren<Text>();
 
-            VBtext[0].text =friendBuildings.f_nickname;
-            VBtext[1].text = friendBuildings.f_message;
-            VBtext[2].text = friendBuildings.f_time;
+            VBtext[0].text =friendBuildings.FriendName;
+            VBtext[1].text = friendBuildings.FriendMessage;
+            VBtext[2].text = friendBuildings.FriendTime;
 
             Image[] Images= VB.GetComponentsInChildren<Image>();
-            Debug.Log("friendBuildings.f_image: "+ friendBuildings.f_image);
+            Debug.Log("friendBuildings.f_image: "+ friendBuildings.FriendImage);
             for (int k = 0; k < GameManager.AllNuniArray.Length; k++)
             {
-                if (GameManager.AllNuniArray[k].cardImage != friendBuildings.f_image)
+                if (GameManager.AllNuniArray[k].cardImage != friendBuildings.FriendImage)
                     continue;
                 else
                 {
@@ -88,6 +76,6 @@ public class VisitorBookManager : MonoBehaviour
             }
         }
         Debug.Log("The End");
-        Destroy(LoadingNuni);
+        Destroy(LoadingNuni);*/
     }
 }

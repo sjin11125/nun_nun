@@ -139,3 +139,28 @@ public class FriendAddInfo
         FriendName = friendName;
     }
 }
+[Serializable]
+public class MainUIBtn
+{
+    public UIBtn UiBtnName;
+    public Button Btn;
+    public GameObject UIPanelPrefab;
+
+}
+
+[Serializable]
+public class VisitorBookInfo
+{
+    public string FriendName;      //친구
+    public string FriendMessage;        //친구가 보낸 메세지
+    public string FriendTime;        //친구가 보낸 시간
+    public string FriendImage;        //친구프사
+
+    public VisitorBookInfo(string frienName, string frienMessage, string friendTime, string friendImage)
+    {
+        FriendName = frienName;
+        FriendMessage = frienMessage;
+        FriendTime = friendTime;
+        FriendImage = friendImage;
+    }
+}

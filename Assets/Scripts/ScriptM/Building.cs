@@ -52,6 +52,9 @@ public class Building : MonoBehaviour
     [SerializeField]
     public List<UIEdit> BuildEditBtn;    // 건축모드 UI들
 
+    [Header("건축모드 UI")]
+    public UIEdit VisitorBookBtn;           //방명록 UI 버튼
+
     [Header("UI패널")]
     [SerializeField]
     public List<GameObject> UIPanels;    //  UI Panel들
@@ -90,7 +93,6 @@ public class Building : MonoBehaviour
     [Header("건물 상태")]
     public BuildType Type;
 
-    public BuildingSave save;
     
     bool isUp;
 
@@ -273,7 +275,6 @@ public class Building : MonoBehaviour
     }
     void Start()
     {
-        save = GetComponent<BuildingSave>();
 
         if (Type .Equals( BuildType.Make))
         {
@@ -391,7 +392,7 @@ public class Building : MonoBehaviour
             {
                 item.btn.OnClickAsObservable().Subscribe(_ =>
                 {
-
+                   
                     switch (item.buildUIType)
                     {
                         case BuildUIType.Make:          //확정 버튼을 눌렀는지
@@ -442,7 +443,14 @@ public class Building : MonoBehaviour
                 }).AddTo(this);
             }
         }
+        if (VisitorBookBtn.btn!=null)
+        {
+            VisitorBookBtn.btn.OnClickAsObservable().Subscribe(_=> {
 
+                UIVisitorBookPanel VisitorBookPanel = new UIVisitorBookPanel(VisitorBookBtn.prefab);
+
+            });
+        }
 
 
     }
@@ -560,7 +568,7 @@ public class Building : MonoBehaviour
 
             default:
                 // save.UpdateValue(this);
-                LoadManager.Instance.buildingsave.BuildingReq(BuildingDef.updateValue, this);
+                //LoadManager.Instance.buildingsave.BuildingReq(BuildingDef.updateValue, this);
                 break;
         }
   

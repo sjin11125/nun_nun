@@ -86,7 +86,8 @@ public enum BuildUIType
     Rotation,
     Make,
     Upgrade,
-    Remove
+    Remove,
+    VisitorBook
 }
 
 public enum LoginResult
@@ -112,3 +113,16 @@ public enum SceneName
     FriendMain,
     Game
 }
+public enum UIBtn
+{
+    ProfilBtn,
+    SettingBtn,
+    MessageBtn,
+    FriendBtn,
+    StoreBtn,
+    InventoryBtn,
+    RankingBtn,
+    AchievementBtn,
+    StartBtn,
+}
+

@@ -120,6 +120,7 @@ public class LoadingSceneController : MonoBehaviour
                     GetBuildingNuniInfo(GameManager.Instance.PlayerUserInfo.Uid);
                     break;
                 case "FriendMain":
+                    Debug.Log("uid: "+ uid);
                     GetBuildingNuniInfo(uid);
                     break;
 
@@ -148,7 +149,7 @@ public class LoadingSceneController : MonoBehaviour
 
     public void GetBuildingNuniInfo(string uid)
     {
-        FirebaseLogin.Instance.GetBuilding(GameManager.Instance.PlayerUserInfo.Uid).ContinueWith((task) =>      //건물 불러오기
+        FirebaseLogin.Instance.GetBuilding(uid).ContinueWith((task) =>      //건물 불러오기
         {
             Debug.Log("task.Result: " + task.Result);
             if (!task.IsFaulted)
@@ -169,6 +170,8 @@ public class LoadingSceneController : MonoBehaviour
                             MyBuildings.Add(Result[i].Id, Result[i]);
                         }*/
                         Newtonsoft.Json.Linq.JArray Result = Newtonsoft.Json.Linq.JArray.Parse(task.Result);
+
+                        LoadManager.Instance.MyBuildings.Clear();
 
                         foreach (var item in Result)
                         {

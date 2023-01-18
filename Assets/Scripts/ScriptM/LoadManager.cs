@@ -23,7 +23,6 @@ public class LoadManager : MonoBehaviour
     UiLoadingPanel UILoadingPanel;
 
     public  Dictionary<string, Building> MyBuildings = new Dictionary<string, Building>();          //내가 가지고 있는 빌딩들(id, Building)
-    public  Dictionary<string, FriendInfo> MyFriends = new Dictionary<string, FriendInfo>();          //내가 가지고 있는 빌딩들(id, Building)
 
       public  Dictionary<string, GameObject> MyBuildingsPrefab = new Dictionary<string, GameObject>();          //내가 가지고 있는 빌딩들 오브젝트(id, Building)
       public  Dictionary<string, GameObject> MyNuniPrefab = new Dictionary<string, GameObject>();          //내가 가지고 있는 누니들 오브젝트(id, Building)
@@ -492,11 +491,5 @@ public class LoadManager : MonoBehaviour
             Text[] rewardText = RewardPannel.GetComponentsInChildren<Text>();
             rewardText[1].text = MyReward.ToString();
         }
-    }
-    void Update()
-    {
-       
-       
-      
     }
 }

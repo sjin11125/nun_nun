@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,27 +6,35 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 using UniRx;
-
-
-public class FriendManager : UIBase
+public class UIFriendPanel : UIBase
 {
+    // Start is called before the first frame update
+
 
     public GameObject Content;
 
 
     [SerializeField]
-    public List< FriendBtn> FriendBtns;
+    public List<FriendBtn> FriendBtns;
 
     public InputField SearchObject;
     public Text NoFriendTxt;
-  
-    public override void Start()
+    public UIFriendPanel(GameObject UIPrefab)
     {
+        UIFriendPanel r = UIPrefab.GetComponent<UIFriendPanel>();
+        r.Awake();
+        r.UIPrefab = UIPrefab;
+
+        this.UIPrefab = r.InstantiatePrefab() as GameObject;
+    }
+    override public void Start()
+    {
+
         base.Start();
 
         foreach (var FriendBtns in FriendBtns)
         {
-            FriendBtns.Btn.OnClickAsObservable().Subscribe(_=> {
+            FriendBtns.Btn.OnClickAsObservable().Subscribe(_ => {
                 Friend_Exit();      //목록 초기화
                 NoFriendTxt.gameObject.SetActive(false);
                 SearchObject.gameObject.SetActive(false);
@@ -35,7 +43,7 @@ public class FriendManager : UIBase
                 {
                     case FriendDef.GetFriend:                   //친구 목록 가져오기
 
-                        FirebaseLogin.Instance.GetFriend(GameManager.Instance.PlayerUserInfo.Uid).ContinueWith((task)=>{
+                        FirebaseLogin.Instance.GetFriend(GameManager.Instance.PlayerUserInfo.Uid).ContinueWith((task) => {
                             if (!task.IsFaulted)
                             {
                                 if (task.Result != null)
@@ -54,7 +62,7 @@ public class FriendManager : UIBase
                                             //Debug.Log("item: " + JsonUtility.ToJson(item))
 
                                             UnityMainThreadDispatcher.Instance().Enqueue(() => {
-                                                
+
 
                                                 GameObject FriendUI = Instantiate(FriendBtns.Prefab, Content.transform);       //친구 UI 띄우기
                                                 FriendUI.name = itemFriend.FriendName;
@@ -63,7 +71,7 @@ public class FriendManager : UIBase
                                             });
                                             //LoadManager.Instance.MyFriends.Add(itemFriend.f_nickname, itemFriend);      //친구 딕셔너리에 추가
                                         }
-                                       
+
                                     }
                                     catch (Exception e)
                                     {
@@ -140,8 +148,8 @@ public class FriendManager : UIBase
 
                         SearchObject.gameObject.SetActive(true);            //검색창 띄우기
 
-                        SearchObject.OnEndEditAsObservable().Subscribe(_=> {
-                            Debug.Log("입력끝 "+ SearchObject.text);
+                        SearchObject.OnEndEditAsObservable().Subscribe(_ => {
+                            Debug.Log("입력끝 " + SearchObject.text);
                             Friend_Exit();      //목록 초기화
                             FirebaseLogin.Instance.GetSearchFriend(SearchObject.text).ContinueWith((task) => {
                                 if (!task.IsFaulted)
@@ -152,10 +160,10 @@ public class FriendManager : UIBase
 
                                         try
                                         {
-                                            if (task.Result!=null)
+                                            if (task.Result != null)
                                             {
                                                 FriendInfo SearchFriendInfo = JsonUtility.FromJson<FriendInfo>(task.Result);
-                                               
+
                                                 UnityMainThreadDispatcher.Instance().Enqueue(() => {
 
 
@@ -169,7 +177,7 @@ public class FriendManager : UIBase
                                             {
                                                 NoFriendTxt.gameObject.SetActive(true);
                                             }
-                                           
+
 
                                         }
                                         catch (Exception e)
@@ -194,14 +202,14 @@ public class FriendManager : UIBase
                 }
             });
         }
+
     }
     public void Friend_Exit()           //목록 초기화
     {
-        Transform[] child = Content.GetComponentsInChildren<Transform>();           //�ϴ� �ʱ�ȭ
+        Transform[] child = Content.GetComponentsInChildren<Transform>();          
         for (int k = 1; k < child.Length; k++)
         {
             Destroy(child[k].gameObject);
         }
     }
-
 }

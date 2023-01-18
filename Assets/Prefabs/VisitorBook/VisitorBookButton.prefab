@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1616570656956124650}
   - component: {fileID: 1616570656956124649}
   m_Layer: 5
-  m_Name: FriendInfo
+  m_Name: FriendMessage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,6 +28,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6313625040792332851}
   m_RootOrder: 1
@@ -107,6 +108,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6313625040792332851}
   m_RootOrder: 3
@@ -182,6 +184,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6313625040792332851}
   m_RootOrder: 2
@@ -245,7 +248,7 @@ GameObject:
   - component: {fileID: 6313625040792332848}
   - component: {fileID: 6313625040792332849}
   - component: {fileID: 6313625040792332850}
-  - component: {fileID: 1616570657743211845}
+  - component: {fileID: 311650974986980013}
   m_Layer: 5
   m_Name: VisitorBookButton
   m_TagString: Untagged
@@ -263,6 +266,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 0.51972}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6313625042117972292}
   - {fileID: 1616570656956124648}
@@ -357,20 +361,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6313625040792332849}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1616570657743211845}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: LockChaButtonClick2
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &1616570657743211845
+      m_Calls: []
+--- !u!114 &311650974986980013
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -379,21 +371,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 6313625040792332860}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8afe11d9dd10e54f830d20bf9ca765c, type: 3}
+  m_Script: {fileID: 11500000, guid: 7c89c82cc620f3543b64db6dbee0e6fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ChaPanel2: {fileID: 0}
-  LockPanel: {fileID: 3490812451173609109, guid: 7a4214655631d0243a1a9ff15d01123d, type: 3}
-  Check: {fileID: 0}
-  ItemImages: []
-  isCheck: 0
-  ButtonText: {fileID: 0}
-  CancleText: {fileID: 0}
-  DowngradeBuilding: {fileID: 0}
-  isUpgrade: 0
-  NuniInfoPannel: {fileID: 0}
-  WindowClose: {fileID: 0}
-  NuniUpgradeButton: {fileID: 0}
+  Name: {fileID: 6313625042117972315}
+  Message: {fileID: 1616570656956124649}
+  Time: {fileID: 2404787005508398003}
+  Image: {fileID: 1616570657514048839}
 --- !u!1 &6313625042117972293
 GameObject:
   m_ObjectHideFlags: 0
@@ -422,6 +406,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6313625040792332851}
   m_RootOrder: 0

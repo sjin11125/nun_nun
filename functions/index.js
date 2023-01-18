@@ -369,3 +369,43 @@ exports.deleteFriend=functions.https.onCall(async(req,res)=>{         //친구 �
   
       
   });
+
+  //===============방명록=======================
+  exports.getVisitorBook=functions.https.onCall(async(req,res)=>{
+    const idToken=JSON.parse(req);
+    console.log("idToken: "+JSON.stringify( idToken));
+      //const buildingData=JSON.parse(req);
+      const friendData=[];
+  
+      const db=admin.firestore();
+  
+      const friendgRef = db.collection('user').doc(idToken.message).collection('visitorBook');      
+      const snapshot = await friendgRef.get();
+  console.log("snapshot: "+JSON.stringify(snapshot.docs));
+      for(var i in snapshot.docs)
+      {
+        const doc=snapshot.docs[i];
+        var visitor=await db.collection('user').doc(doc.data().name).get();
+       console.log("doc: "+doc.data().name);
+          const content={
+            FriendName:doc.data().name,
+            FriendImage:visitor.data().Image,
+            FriendMessage:doc.data().message,
+            FriendTime:doc.data().time,
+          }
+          content.FriendImage=visitor.data().Image;
+
+          console.log("방명록 정보: "+JSON.stringify(content));
+
+          friendData.push(content);
+    
+      }
+  
+    if(friendData.length==0)
+    {
+      console.log("FriendData: "+friendData.length);
+      return null;
+    }
+    console.log("FriendData: "+JSON.stringify( friendData));
+  return JSON.stringify( friendData);
+  });
