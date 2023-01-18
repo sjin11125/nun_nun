@@ -108,7 +108,7 @@ public enum SceneName
 {
     Login,
     Main,
-    Store,
+    Shop,
     FriendMain,
     Game
 }

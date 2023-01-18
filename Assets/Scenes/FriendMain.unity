@@ -564,7 +564,7 @@ PrefabInstance:
     - target: {fileID: 1035652537, guid: 5dea2f5e904f37c439bf4db567b9e457, type: 3}
       propertyPath: UI_Manager
       value: 
-      objectReference: {fileID: 754422331}
+      objectReference: {fileID: 0}
     - target: {fileID: 1035652537, guid: 5dea2f5e904f37c439bf4db567b9e457, type: 3}
       propertyPath: VisitorBooksWindow
       value: 
@@ -636,7 +636,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2304730029839554027, guid: 722276e85c6a58646b7f4471c90ff5ef, type: 3}
       propertyPath: m_RootOrder
-      value: 21
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2304730029839554027, guid: 722276e85c6a58646b7f4471c90ff5ef, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1302,7 +1302,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1673038390}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2283,7 +2283,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 754422332}
-  - component: {fileID: 754422331}
   m_Layer: 0
   m_Name: UI_Manager
   m_TagString: Untagged
@@ -2291,18 +2290,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &754422331
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 754422330}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e156c5aaef8ca54fb48c5e280e82fc0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &754422332
 Transform:
   m_ObjectHideFlags: 0
@@ -2675,7 +2662,7 @@ RectTransform:
   - {fileID: 497676954}
   - {fileID: 1619847603}
   m_Father: {fileID: 1673038390}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3425,7 +3412,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2713182999061460017, guid: ec8be013d48043b44ba732b48a58be87, type: 3}
       propertyPath: m_RootOrder
-      value: 20
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2713182999061460017, guid: ec8be013d48043b44ba732b48a58be87, type: 3}
       propertyPath: m_AnchorMax.x
@@ -4292,9 +4279,9 @@ RectTransform:
   - {fileID: 1549058939}
   - {fileID: 838049069}
   - {fileID: 1350951592}
-  - {fileID: 1685871855}
   - {fileID: 1066400366}
   - {fileID: 448032632}
+  - {fileID: 1685871855}
   - {fileID: 1469969026}
   - {fileID: 163541142}
   m_Father: {fileID: 0}
@@ -4377,7 +4364,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transferMapName: Upgrade
-  builinSave: {fileID: 0}
 --- !u!114 &1791748141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5014,6 +5000,9 @@ MonoBehaviour:
   isLoaded: 0
   RewardPannel: {fileID: 0}
   buildingsave: {fileID: 0}
+  LoadingPanel: {fileID: 0}
+  MoneyText: {fileID: 0}
+  ShinMoneyText: {fileID: 0}
 --- !u!4 &2084656256
 Transform:
   m_ObjectHideFlags: 0
@@ -5157,7 +5146,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7673497156679783214, guid: 1b3fd218c5866c64bafe88b5e5aa9e1e, type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7673497156679783214, guid: 1b3fd218c5866c64bafe88b5e5aa9e1e, type: 3}
       propertyPath: m_AnchorMax.x

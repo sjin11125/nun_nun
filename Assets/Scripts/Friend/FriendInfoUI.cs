@@ -28,7 +28,8 @@ public class FriendInfoUI : MonoBehaviour
         if (GoBtn!=null)
         {
             GoBtn.OnClickAsObservable().Subscribe(_ => {             //친구마을 놀러가기
-
+                //GameManager.Instance.FriendUid = FriendName.text;
+                LoadingSceneController.Instance.LoadScene(SceneName.FriendMain, FriendName.text);
             });
         }
 

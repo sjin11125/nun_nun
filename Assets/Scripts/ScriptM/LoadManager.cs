@@ -40,8 +40,13 @@ public class LoadManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        MoneyText.text = GameManager.Instance.PlayerUserInfo.Money;
-        ShinMoneyText.text = GameManager.Instance.PlayerUserInfo.ShinMoney;
+        if (SceneManager.GetActiveScene().name == "Main")
+        {
+
+
+            MoneyText.text = GameManager.Instance.PlayerUserInfo.Money;
+            ShinMoneyText.text = GameManager.Instance.PlayerUserInfo.ShinMoney;
+        }
     }
     public static LoadManager Instance
     {
@@ -168,7 +173,7 @@ public class LoadManager : MonoBehaviour
                     }
                 });*/
 
-                FirebaseLogin.Instance.GetNuni(GameManager.Instance.PlayerUserInfo.Uid).ContinueWith((task) =>      //누니 불러오기
+              /*  FirebaseLogin.Instance.GetNuni(GameManager.Instance.PlayerUserInfo.Uid).ContinueWith((task) =>      //누니 불러오기
                 {
                     if (!task.IsFaulted)
                     {
@@ -184,8 +189,8 @@ public class LoadManager : MonoBehaviour
                                 foreach (var item in Result)
                                 {
                                     Debug.Log("item: " + item.ToString());
-                                    Cardsave itemNuni = JsonUtility.FromJson<Cardsave>(item.ToString());
-                                    //Debug.Log("item: " + JsonUtility.ToJson(item));
+                                    Cardsave itemNuni = JsonUtility.FromJson<Cardsave>(item.ToString()); 
+
                                     Card tempNuni = new Card(itemNuni);
                                     if (!GameManager.Instance.CharacterList.ContainsKey(tempNuni.Id))
                                         GameManager.Instance.CharacterList.Add(tempNuni.Id, tempNuni);
@@ -204,8 +209,8 @@ public class LoadManager : MonoBehaviour
                             Debug.Log("task is null");
                         }
                     }
-                }); //누니 정보 가져오기
-
+                });*/ //누니 정보 가져오기
+             
             }
             
            /* Action action ;
@@ -243,7 +248,7 @@ public class LoadManager : MonoBehaviour
 
         }*/
 
-        if (SceneManager.GetActiveScene().name.Equals("FriendMain") )                            //친구 마을 씬이냐
+       /* if (SceneManager.GetActiveScene().name.Equals("FriendMain") )                            //친구 마을 씬이냐
         {
             for (int i = 0; i < GameManager.FriendBuildingList.Count; i++)
             {
@@ -268,7 +273,7 @@ public class LoadManager : MonoBehaviour
             }
 
           //  Destroy(LoadingPanel);
-        }
+        }*/
 
 
     }
@@ -289,6 +294,7 @@ public class LoadManager : MonoBehaviour
                 MyNuniPrefab.Add(item.Value.Id, nuni);         //현재 가지고 있는 누니 오브젝트 딕셔너리에 추가
             }
         }
+        Debug.Log("누니 불러옴");
     }
     public void BuildingLoad()
     {

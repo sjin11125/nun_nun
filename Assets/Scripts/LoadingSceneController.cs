@@ -51,11 +51,16 @@ public class LoadingSceneController : MonoBehaviour
    // private Image progressBar;
     
     private string loadSceneName;
-    public void LoadScene(string sceneName)
+    private string uid;
+    public void LoadScene(SceneName sceneName,string uid=null)
     {
         gameObject.SetActive(true);
+
+        if (uid!=null)
+        this.uid = uid;
+
         SceneManager.sceneLoaded += OnSceneLoaded;
-        loadSceneName = sceneName;
+        loadSceneName = sceneName.ToString();
         StartCoroutine(LoadSceneProcess());
 
 
@@ -106,59 +111,22 @@ public class LoadingSceneController : MonoBehaviour
     }
     private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1) // 씬로드가 끝나는 지점
     {
-        if(arg0.name == loadSceneName)
+        if (arg0.name == loadSceneName)
         {
-           // StartCoroutine(Fade(false));
             SceneManager.sceneLoaded -= OnSceneLoaded;
-            FirebaseLogin.Instance.GetBuilding(GameManager.Instance.PlayerUserInfo.Uid).ContinueWith((task) =>      //건물 불러오기
+            switch (loadSceneName)
             {
-                Debug.Log("task.Result: " + task.Result);
-                if (!task.IsFaulted)
-                {
-                    if (task.Result != null)//건물 넣기
-                    {
-                        Debug.Log("task.Result: " + task.Result);
+                case "Main":
+                    GetBuildingNuniInfo(GameManager.Instance.PlayerUserInfo.Uid);
+                    break;
+                case "FriendMain":
+                    GetBuildingNuniInfo(uid);
+                    break;
 
-                        try
-                        {
+                default:
+                    break;
+            }
 
-                            /*Building[] Result = JsonHelper.FromJson<Building>(task.Result);
-
-                            for (int i = 0; i < Result.Length; i++)
-                            {
-                                //Debug.Log("item: " + JsonUtility.ToJson(Result[i]));
-
-                                MyBuildings.Add(Result[i].Id, Result[i]);
-                            }*/
-                            Newtonsoft.Json.Linq.JArray Result = Newtonsoft.Json.Linq.JArray.Parse(task.Result);
-
-                            foreach (var item in Result)
-                            {
-                                Debug.Log("item: " + item.ToString());
-                                Buildingsave itemBuilding = JsonUtility.FromJson<Buildingsave>(item.ToString());
-                                //Debug.Log("item: " + JsonUtility.ToJson(item));
-                                Building tempBuilding = new Building(itemBuilding);
-                               LoadManager.Instance.MyBuildings.Add(tempBuilding.Id, tempBuilding);
-                            }
-                            UnityMainThreadDispatcher.Instance().Enqueue(()=> {
-                                LoadManager.Instance.BuildingLoad();
-                                StartCoroutine(Fade(false));
-                            }); //BuildingLoad();
-
-                        }
-                        catch (Exception e)
-                        {
-                            Debug.LogError(e.Message);
-                            throw;
-                        }
-                    
-                    }
-                    else
-                    {
-                        Debug.Log("task is null");
-                    }
-                }
-            });
         }
     }
 
@@ -176,5 +144,104 @@ public class LoadingSceneController : MonoBehaviour
             Debug.Log("씬 로드 끝");
             gameObject.SetActive(false);
         }
+    }
+
+    public void GetBuildingNuniInfo(string uid)
+    {
+        FirebaseLogin.Instance.GetBuilding(GameManager.Instance.PlayerUserInfo.Uid).ContinueWith((task) =>      //건물 불러오기
+        {
+            Debug.Log("task.Result: " + task.Result);
+            if (!task.IsFaulted)
+            {
+                if (task.Result != null)//건물 넣기
+                {
+                    Debug.Log("task.Result: " + task.Result);
+
+                    try
+                    {
+
+                        /*Building[] Result = JsonHelper.FromJson<Building>(task.Result);
+
+                        for (int i = 0; i < Result.Length; i++)
+                        {
+                            //Debug.Log("item: " + JsonUtility.ToJson(Result[i]));
+
+                            MyBuildings.Add(Result[i].Id, Result[i]);
+                        }*/
+                        Newtonsoft.Json.Linq.JArray Result = Newtonsoft.Json.Linq.JArray.Parse(task.Result);
+
+                        foreach (var item in Result)
+                        {
+                            Debug.Log("item: " + item.ToString());
+                            Buildingsave itemBuilding = JsonUtility.FromJson<Buildingsave>(item.ToString());
+                            //Debug.Log("item: " + JsonUtility.ToJson(item));
+                            Building tempBuilding = new Building(itemBuilding);
+                            LoadManager.Instance.MyBuildings.Add(tempBuilding.Id, tempBuilding);
+                        }
+
+                        FirebaseLogin.Instance.GetNuni(uid).ContinueWith((task) =>
+                        {
+                            if (!task.IsFaulted)
+                            {
+                                if (task.Result != null)//누니 넣기
+                                {
+                                    Debug.Log("누니 받아온 결과: " + task.Result);
+
+                                    try
+                                    {
+
+                                        Newtonsoft.Json.Linq.JArray Result = Newtonsoft.Json.Linq.JArray.Parse(task.Result);
+
+                                        foreach (var item in Result)
+                                        {
+                                            Debug.Log("item: " + item.ToString());
+                                            Cardsave itemNuni = JsonUtility.FromJson<Cardsave>(item.ToString());
+                                            //Debug.Log("item: " + JsonUtility.ToJson(item));
+                                            Card tempNuni = new Card(itemNuni);
+                                            if (!GameManager.Instance.CharacterList.ContainsKey(tempNuni.Id))
+                                                GameManager.Instance.CharacterList.Add(tempNuni.Id, tempNuni);
+                                        }
+
+                                        UnityMainThreadDispatcher.Instance().Enqueue(() =>
+                                        {
+                                            LoadManager.Instance.BuildingLoad();
+                                            LoadManager.Instance.NuniLoad();
+
+                                            StartCoroutine(Fade(false));
+
+                                        }); //BuildingLoad();
+                                            //  UnityMainThreadDispatcher.Instance().Enqueue(NuniLoad); //BuildingLoad();
+                                    }
+                                    catch (Exception e)
+                                    {
+                                        Debug.LogError(e.Message);
+                                        throw;
+                                    }
+
+                                }
+                                else
+                                {
+                                    Debug.Log("task is null");
+                                }
+                            }
+
+                        });
+
+
+
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.LogError(e.Message);
+                        throw;
+                    }
+
+                }
+                else
+                {
+                    Debug.Log("task is null");
+                }
+            }
+        });
     }
 }
