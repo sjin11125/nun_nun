@@ -37,6 +37,8 @@ public class LoadManager : MonoBehaviour
     public Text MoneyText;
     public Text ShinMoneyText;
 
+    public string FriendUid;
+
     private void FixedUpdate()
     {
         if (SceneManager.GetActiveScene().name == "Main")

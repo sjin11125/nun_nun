@@ -120,8 +120,9 @@ public class LoadingSceneController : MonoBehaviour
                     GetBuildingNuniInfo(GameManager.Instance.PlayerUserInfo.Uid);
                     break;
                 case "FriendMain":
+                    LoadManager.Instance.FriendUid = uid;
                     Debug.Log("uid: "+ uid);
-                    GetBuildingNuniInfo(uid);
+                    GetBuildingNuniInfo(LoadManager.Instance.FriendUid);
                     break;
 
                 default:

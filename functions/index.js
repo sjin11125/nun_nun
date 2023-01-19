@@ -304,6 +304,7 @@ exports.plusFriend=functions.https.onCall(async(req,res)=>{
     return "fail";
   }
 });
+
 exports.addFriend=functions.https.onCall(async(req,res)=>{ 
 
   const friendInfo=JSON.parse(req);
@@ -324,6 +325,7 @@ exports.addFriend=functions.https.onCall(async(req,res)=>{
     collection('friendRequest').doc(friendInfo.FriendName).delete();
     
 });
+
 exports.searchFriend=functions.https.onCall(async(req,res)=>{         //유저 검색
 const friendInfo=JSON.parse(req);
 const db=admin.firestore();
@@ -408,4 +410,20 @@ exports.deleteFriend=functions.https.onCall(async(req,res)=>{         //친구 �
     }
     console.log("FriendData: "+JSON.stringify( friendData));
   return JSON.stringify( friendData);
+  });
+
+  exports.setVisitorBook=functions.https.onCall(async(req,res)=>{
+    const newMessage=JSON.parse(req);
+    console.log("newMessage: "+JSON.stringify( newMessage));
+
+      const db=admin.firestore();
+  
+      const friendgRef = db.collection('user').doc(newMessage.Uid).collection('visitorBook').doc(newMessage.FriendTime).set({
+        name:newMessage.FriendName,
+        Image:newMessage.FriendImage,
+        message:newMessage.FriendMessage,
+        time:newMessage.FriendTime
+
+      });      
+  return JSON.stringify( "success");
   });

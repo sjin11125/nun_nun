@@ -204,6 +204,15 @@ public class FirebaseLogin : MonoBehaviour
 
         });
     }
+    public void SetVisitorBook(VisitorBookInfo message)
+    {
+        functions=FirebaseFunctions.GetInstance(FirebaseApp.DefaultInstance);
+        var function = functions.GetHttpsCallable("setVisitorBook");
+
+        function.CallAsync(JsonUtility.ToJson(message)).ContinueWithOnMainThread((task) => {
+            Debug.Log("task: "+task.Result.Data);
+        });
+    }
     public void SetUserInfo(UserInfo userInfo)
     {
         functions = FirebaseFunctions.GetInstance(FirebaseApp.DefaultInstance);

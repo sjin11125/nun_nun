@@ -151,6 +151,7 @@ public class MainUIBtn
 [Serializable]
 public class VisitorBookInfo
 {
+    public string Uid;
     public string FriendName;      //친구
     public string FriendMessage;        //친구가 보낸 메세지
     public string FriendTime;        //친구가 보낸 시간
