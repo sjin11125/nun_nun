@@ -125,9 +125,9 @@ public class GameManager : MonoBehaviour
     [Header("공지")]
     public static Notice[] Notice;
 
-    //--------------------------------------------캔버스----------------------------------------
-    [Header("캔버스")]
-    public GameObject TopCanvas;
+    //--------------------------------------------업적---------------------------------------
+
+
     private void Awake()
     {
         //PlayerPrefs.DeleteAll();

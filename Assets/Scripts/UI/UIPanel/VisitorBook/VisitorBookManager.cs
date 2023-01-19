@@ -23,7 +23,6 @@ public class VisitorBookManager : MonoBehaviour
 
     public void Start()
     {
-        LoadingNuni = Instantiate(GameManager.Instance.TopCanvas);
 
 
     }

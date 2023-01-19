@@ -165,3 +165,16 @@ public class VisitorBookInfo
         FriendImage = friendImage;
     }
 }
+
+[Serializable]
+public class AchieveInfo
+{
+    public string AchieveName,Context;
+    public Dictionary<AchieveCountType, string> Count;
+    //public AchieveCountType[] CountType;
+    // public string[] Count;
+    public Dictionary<AchieveRewardType, string> Reward;
+   // public AchieveRewardType[] RewardType;
+    //public string[] Reward;
+    public bool isClear;            //새로 클리어했는지 여부
+}

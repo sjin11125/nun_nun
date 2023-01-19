@@ -105,10 +105,6 @@ public class LoadingSceneController : MonoBehaviour
         }
 
     }
-    public void BuildingLoading()
-    {
-        
-    }
     private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1) // 씬로드가 끝나는 지점
     {
         if (arg0.name == loadSceneName)
@@ -123,6 +119,52 @@ public class LoadingSceneController : MonoBehaviour
                     LoadManager.Instance.FriendUid = uid;
                     Debug.Log("uid: "+ uid);
                     GetBuildingNuniInfo(LoadManager.Instance.FriendUid);
+                    break;
+                case "Game":
+                    FirebaseLogin.Instance.GetNuni(uid).ContinueWith((task) =>
+                    {
+                        if (!task.IsFaulted)
+                        {
+                            if (task.Result != null)//누니 넣기
+                            {
+                                Debug.Log("누니 받아온 결과: " + task.Result);
+
+                                try
+                                {
+
+                                    Newtonsoft.Json.Linq.JArray Result = Newtonsoft.Json.Linq.JArray.Parse(task.Result);
+
+                                    foreach (var item in Result)
+                                    {
+                                        Debug.Log("item: " + item.ToString());
+                                        Cardsave itemNuni = JsonUtility.FromJson<Cardsave>(item.ToString());
+                                        //Debug.Log("item: " + JsonUtility.ToJson(item));
+                                        Card tempNuni = new Card(itemNuni);
+                                        if (!GameManager.Instance.CharacterList.ContainsKey(tempNuni.Id))
+                                            GameManager.Instance.CharacterList.Add(tempNuni.Id, tempNuni);
+                                    }
+
+                                    UnityMainThreadDispatcher.Instance().Enqueue(() =>
+                                    {
+                                        StartCoroutine(Fade(false));
+
+                                    }); //BuildingLoad();
+                                        //  UnityMainThreadDispatcher.Instance().Enqueue(NuniLoad); //BuildingLoad();
+                                }
+                                catch (Exception e)
+                                {
+                                    Debug.LogError(e.Message);
+                                    throw;
+                                }
+
+                            }
+                            else
+                            {
+                                Debug.Log("task is null");
+                            }
+                        }
+
+                    });
                     break;
 
                 default:
@@ -208,8 +250,12 @@ public class LoadingSceneController : MonoBehaviour
 
                                         UnityMainThreadDispatcher.Instance().Enqueue(() =>
                                         {
-                                            LoadManager.Instance.BuildingLoad();
-                                            LoadManager.Instance.NuniLoad();
+                                            if (SceneManager.GetActiveScene().name!=SceneName.Game.ToString())
+                                            {
+                                                LoadManager.Instance.BuildingLoad();
+                                                LoadManager.Instance.NuniLoad();
+                                            }
+                                           
 
                                             StartCoroutine(Fade(false));
 

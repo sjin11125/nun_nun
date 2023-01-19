@@ -2402,60 +2402,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1451770790923805241, guid: 95e962f668f8ae34fba30ca80e95422e, type: 3}
   m_PrefabInstance: {fileID: 1451770790789023141}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &449823183
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 449823185}
-  - component: {fileID: 449823184}
-  m_Layer: 0
-  m_Name: FriendManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &449823184
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 449823183}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 152527c8ffee37d4ca367b9971bf5030, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  UICloseBtn: {fileID: 0}
-  UIYesBtn: {fileID: 0}
-  UINoBtn: {fileID: 0}
-  UIBackCloseBtn: {fileID: 0}
-  UIPrefab: {fileID: 0}
-  canvas: {fileID: 0}
-  Content: {fileID: 1324560442}
-  FriendBtns: []
-  SearchObject: {fileID: 0}
-  NoFriendTxt: {fileID: 0}
---- !u!4 &449823185
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 449823183}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.17597647, y: -4.0520225, z: -5.676774}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 14
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &462579183
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10379,6 +10325,7 @@ MonoBehaviour:
   LoadingPanel: {fileID: 2304730029839554028, guid: 722276e85c6a58646b7f4471c90ff5ef, type: 3}
   MoneyText: {fileID: 2090181323}
   ShinMoneyText: {fileID: 1575319416}
+  FriendUid: 
 --- !u!4 &2084656256
 Transform:
   m_ObjectHideFlags: 0
@@ -17409,7 +17356,7 @@ PrefabInstance:
     - target: {fileID: 5953036595975149104, guid: ef5f610a49b75bc4ba9ac662e06240fc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Target
       value: 
-      objectReference: {fileID: 449823184}
+      objectReference: {fileID: 0}
     - target: {fileID: 5953036596087710443, guid: ef5f610a49b75bc4ba9ac662e06240fc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -17489,7 +17436,7 @@ PrefabInstance:
     - target: {fileID: 5953036596387866535, guid: ef5f610a49b75bc4ba9ac662e06240fc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[4].m_Target
       value: 
-      objectReference: {fileID: 449823184}
+      objectReference: {fileID: 0}
     - target: {fileID: 5953036596554999580, guid: ef5f610a49b75bc4ba9ac662e06240fc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1

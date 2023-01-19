@@ -63,6 +63,7 @@ public class UI_Btns : MonoBehaviour
                         break;
 
                     case UIBtn.StartBtn:
+                        LoadingSceneController.Instance.LoadScene(SceneName.Game,GameManager.Instance.PlayerUserInfo.Uid);
                         break;
 
                     default:

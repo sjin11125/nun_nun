@@ -126,3 +126,16 @@ public enum UIBtn
     StartBtn,
 }
 
+public enum AchieveCountType
+{
+    Int,
+    Float
+}
+public enum AchieveRewardType
+{
+    Nuni,
+    Money,
+    ShinMoney,
+    Zem,
+}
+
