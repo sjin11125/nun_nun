@@ -138,4 +138,10 @@ public enum AchieveRewardType
     ShinMoney,
     Zem,
 }
+public enum AchieveID
+{
+    C1,C2,C3,C4,C5,C6,
+    E1,E2,E3,E4,E5,E6,
+    S1,S2,S3,S4,S5,S6,
 
+}

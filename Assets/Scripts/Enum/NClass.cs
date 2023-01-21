@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
-
+using Newtonsoft.Json;
 [Serializable]
 public class Cardsave
 {
@@ -165,16 +165,34 @@ public class VisitorBookInfo
         FriendImage = friendImage;
     }
 }
-
+[Serializable]
+public class AchieveCount
+{
+  public  string CountType;
+    public string Count;
+}
+[Serializable]
+public class AchieveReward
+{
+    public string RewardType;
+    public string Reward;
+}
 [Serializable]
 public class AchieveInfo
 {
     public string AchieveName,Context;
-    public Dictionary<AchieveCountType, string> Count;
+    public Dictionary<string, AchieveCount> Count;
     //public AchieveCountType[] CountType;
     // public string[] Count;
-    public Dictionary<AchieveRewardType, string> Reward;
+    public Dictionary<string, AchieveReward> Reward;
    // public AchieveRewardType[] RewardType;
     //public string[] Reward;
     public bool isClear;            //새로 클리어했는지 여부
+}
+[Serializable]
+public class MyAchieveInfo<T>
+{   
+    public Dictionary<string, bool> isReward;           //해당 인덱스 별 보상받았는지 
+
+    public ReactiveProperty<T> Count;            //새로 클리어했는지 여부
 }
