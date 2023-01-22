@@ -158,6 +158,20 @@ public class FirebaseLogin : MonoBehaviour
     {
         Write();
     }
+    public void GetGameData()
+    {
+        functions = FirebaseFunctions.GetInstance(FirebaseApp.DefaultInstance);
+        var function = functions.GetHttpsCallable("getGameData");
+
+        function.CallAsync(null).ContinueWithOnMainThread((task) => {
+            Debug.Log("res: " + task.Result.Data);
+
+           return (string)task.Result.Data;
+
+
+
+        });
+    }
     public void GetUserInfo(string idToken)
     {
         functions = FirebaseFunctions.GetInstance(FirebaseApp.DefaultInstance);
