@@ -158,14 +158,13 @@ public class FirebaseLogin : MonoBehaviour
     {
         Write();
     }
-    public void GetGameData()
+    public Task<string> GetGameData()
     {
         functions = FirebaseFunctions.GetInstance(FirebaseApp.DefaultInstance);
         var function = functions.GetHttpsCallable("getGameData");
 
-        function.CallAsync(null).ContinueWithOnMainThread((task) => {
-            Debug.Log("res: " + task.Result.Data);
-
+       return function.CallAsync(null).ContinueWithOnMainThread((task) => {
+            
            return (string)task.Result.Data;
 
 
@@ -187,7 +186,20 @@ public class FirebaseLogin : MonoBehaviour
                 try { 
                 GameManager.Instance.PlayerUserInfo = JsonUtility.FromJson<UserInfo>((string)task.Result.Data);     //유저 정보 세팅
                 GameManager.Instance.PlayerUserInfo.Uid = idToken;
-                    LoadingSceneController.Instance.LoadScene(SceneName.Main);
+
+                    GetGameData().ContinueWithOnMainThread((task) => {
+                        Debug.Log("res: " + task.Result);
+                        Newtonsoft.Json.Linq.JArray Result = Newtonsoft.Json.Linq.JArray.Parse(task.Result.ToString());
+
+                        GameManager.Instance.GameDataInfos.Add("AchieveData", Newtonsoft.Json.Linq.JArray.Parse(Result[0].ToString()).ToString());
+
+                        Debug.Log(GameManager.Instance.GameDataInfos["AchieveData"]);
+
+                        //정보 다 넣은 다음에 씬 로드
+
+                        LoadingSceneController.Instance.LoadScene(SceneName.Main);
+                    });
+
                     //return true;   
                 }
                 catch (Exception e )
@@ -418,7 +430,8 @@ public class FirebaseLogin : MonoBehaviour
                 Debug.Log("IDToken: "+task.Result.UserId);
                 Debug.Log("Sign In Successful.");
 
-                //GetUserInfo(task.Result.UserId);
+                
+                GetUserInfo(task.Result.UserId);
                 //    GameManager.Instance.StateList.Add("Login");
             }
         });

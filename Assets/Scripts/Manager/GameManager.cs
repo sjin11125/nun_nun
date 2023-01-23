@@ -126,6 +126,8 @@ public class GameManager : MonoBehaviour
     public static Notice[] Notice;
 
     //--------------------------------------------업적---------------------------------------
+    public Dictionary<string, string> GameDataInfos=new Dictionary<string, string>();      //업적 정보 딕셔너리
+    public Dictionary<string, MyAchieveInfo> MyAchieveInfos=new Dictionary<string, MyAchieveInfo>();      //내 업적 정보 딕셔너리
 
 
     private void Awake()

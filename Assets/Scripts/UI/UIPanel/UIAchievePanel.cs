@@ -16,8 +16,11 @@ public class UIAchievePanel : UIBase
     override public void Start()
     {
         base.Start();
-
-
+        Newtonsoft.Json.Linq.JArray Result = Newtonsoft.Json.Linq.JArray.Parse(GameManager.Instance.GameDataInfos["AchieveData"]);
+        foreach (var item in Result)
+        {
+            Debug.Log(item.Value<string>("Id") + "    "+item.Children.);
+        }
     }
 
 }

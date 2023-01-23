@@ -60,6 +60,7 @@ public class UI_Btns : MonoBehaviour
                         break;
 
                     case UIBtn.AchievementBtn:
+                        UIAchievePanel AchievePanel = new UIAchievePanel(item.UIPanelPrefab);
                         break;
 
                     case UIBtn.StartBtn:
