@@ -126,6 +126,12 @@ public enum UIBtn
     StartBtn,
 }
 
+public enum AchieveMenuType
+{
+    Color,
+    Ect,
+    Shape
+}
 public enum AchieveCountType
 {
     Int,

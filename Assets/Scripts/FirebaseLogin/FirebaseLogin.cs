@@ -191,9 +191,23 @@ public class FirebaseLogin : MonoBehaviour
                         Debug.Log("res: " + task.Result);
                         Newtonsoft.Json.Linq.JArray Result = Newtonsoft.Json.Linq.JArray.Parse(task.Result.ToString());
 
-                        GameManager.Instance.GameDataInfos.Add("AchieveData", Newtonsoft.Json.Linq.JArray.Parse(Result[0].ToString()).ToString());
+                     
+                            Newtonsoft.Json.Linq.JArray AchieveData = Newtonsoft.Json.Linq.JArray.Parse(Result[0].ToString());
 
-                        Debug.Log(GameManager.Instance.GameDataInfos["AchieveData"]);
+                            foreach (var achieve in AchieveData)//업적
+                            {
+                                AchieveInfo achieveInfo = JsonUtility.FromJson<AchieveInfo>(achieve.ToString());
+                                GameManager.Instance.AchieveInfos.Add(achieveInfo.Id, achieveInfo);
+
+                            Debug.Log("id: "+GameManager.Instance.AchieveInfos[achieveInfo.Id].Id);
+                            }
+                      
+
+                            //  Debug.Log(item.Value<string>("Id") + "    "+item.Children.);
+                        
+                        //GameManager.Instance.GameDataInfos.Add("AchieveData", Newtonsoft.Json.Linq.JArray.Parse(Result[0].ToString()).ToString());
+
+                        //Debug.Log(GameManager.Instance.GameDataInfos["AchieveData"]);
 
                         //정보 다 넣은 다음에 씬 로드
 

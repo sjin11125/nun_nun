@@ -1,10 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Newtonsoft.Json;
+using Newtonsoft;
+using UniRx;
 
 public class UIAchievePanel : UIBase
 {
     // Start is called before the first frame update
+    [SerializeField]
+    public List<AchieveMenu> AchieveMenus;
+
+    public GameObject Content;
     public UIAchievePanel(GameObject UIPrefab)
     {
         UIAchievePanel r = UIPrefab.GetComponent<UIAchievePanel>();
@@ -16,11 +23,68 @@ public class UIAchievePanel : UIBase
     override public void Start()
     {
         base.Start();
-        Newtonsoft.Json.Linq.JArray Result = Newtonsoft.Json.Linq.JArray.Parse(GameManager.Instance.GameDataInfos["AchieveData"]);
-        foreach (var item in Result)
+        foreach (var item in AchieveMenus)
         {
-            Debug.Log(item.Value<string>("Id") + "    "+item.Children.);
+            item.Btn.OnClickAsObservable().Subscribe(_=> {
+                Exit();
+                switch (item.Type)
+                {
+                    case AchieveMenuType.Color:
+                        foreach (var info in GameManager.Instance.AchieveInfos)
+                        {
+                            if (info.Value.Id[0] != 'C')
+                                continue;
+
+                            GameObject AchieveInfoObj = Instantiate(item.Prefab, Content.transform) as GameObject;
+                            AchieveScroll AchieveInfo = AchieveInfoObj.GetComponent<AchieveScroll>();
+
+                            AchieveInfo.SetData(info.Value,0);
+                        }
+                      
+                        break;
+
+                    case AchieveMenuType.Ect:
+                        foreach (var info in GameManager.Instance.AchieveInfos)
+                        {
+                            if (info.Value.Id[0] != 'E')
+                                continue;
+
+                            GameObject AchieveInfoObj = Instantiate(item.Prefab, Content.transform) as GameObject;
+                            AchieveScroll AchieveInfo = AchieveInfoObj.GetComponent<AchieveScroll>();
+
+                            AchieveInfo.SetData(info.Value,0);
+                        }
+                        break;
+
+                    case AchieveMenuType.Shape:
+                        foreach (var info in GameManager.Instance.AchieveInfos)
+                        {
+                            if (info.Value.Id[0] != 'S')
+                                continue;
+
+                            GameObject AchieveInfoObj = Instantiate(item.Prefab, Content.transform) as GameObject;
+                            AchieveScroll AchieveInfo = AchieveInfoObj.GetComponent<AchieveScroll>();
+
+                            AchieveInfo.SetData(info.Value,0);
+                        }
+                        break;
+
+                    default:
+                        break;
+                }
+
+            });
+        }
+       //Newtonsoft.Json.dese
+    }
+    public void Exit()
+    {
+        Transform[] Content_Child = Content.GetComponentsInChildren<Transform>();
+        for (int i = 1; i < Content_Child.Length; i++)
+        {
+            Destroy(Content_Child[i].gameObject);
         }
     }
+    //Json.Linq.JObject
 
 }

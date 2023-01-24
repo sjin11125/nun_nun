@@ -166,6 +166,14 @@ public class VisitorBookInfo
     }
 }
 [Serializable]
+public class AchieveMenu
+{
+    public AchieveMenuType Type;
+    public Button Btn;
+    public GameObject Prefab;
+
+}
+[Serializable]
 public class AchieveCount
 {
   public  string CountType;
@@ -181,12 +189,15 @@ public class AchieveReward
 public class AchieveInfo
 {
     public string AchieveName,Context;
-    public Dictionary<string, AchieveCount> Count;
+    public string[] Count;
+    public string[] CountType;
     //public AchieveCountType[] CountType;
     // public string[] Count;
-    public Dictionary<string, AchieveReward> Reward;
-   // public AchieveRewardType[] RewardType;
+    public string[] Reward;
+    public string[] RewardType;
+    // public AchieveRewardType[] RewardType;
     //public string[] Reward;
+    public string Id;
     public bool isClear;            //새로 클리어했는지 여부
 }
 [Serializable]
