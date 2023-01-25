@@ -21,15 +21,29 @@ public class AchieveScroll : MonoBehaviour
     {
             
     }
-    public void SetData(AchieveInfo Info,int index)
+    public void SetData(AchieveInfo Info)
     {
+        int index,count;
+
+        if (GameManager.Instance.MyAchieveInfos.ContainsKey(Info.Id))
+        {
+            index = GameManager.Instance.MyAchieveInfos[Info.Id].Index;
+            count = GameManager.Instance.MyAchieveInfos[Info.Id].Count;
+        }
+        else
+        {
+            index = 0;
+            count = 0;
+        }
+
         AchieveName.text = Info.AchieveName;
         //AchieveContext.text = Info.Context;
-        AchieveCount.text = index.ToString() + "/"+ Info.Count[index].ToString();          //내 업적 카운트/총 카운트
+       
+        AchieveCount.text = count+ "/"+ Info.Count[index].ToString();          //내 업적 카운트/총 카운트
 
-        CountSlider.maxValue = int.Parse(Info.Count[index]);//총 카운트
-        CountSlider.minValue= 0;//내 업적 카운트
-
+        CountSlider.maxValue = float.Parse(Info.Count[index]);//총 카운트
+        //CountSlider.minValue= 0;
+        CountSlider.value = count;//내 업적 카운트
         switch (Info.RewardType[index])
         {
             case "Money":

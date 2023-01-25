@@ -40,6 +40,7 @@ public class ReloadItem : MonoBehaviour
                     {
                         shapestorageObj.GetComponent<ShapeStorage>().ReloadItem();
                         shapestorageObj.GetComponent<ShapeStorage>().ReloadItem();
+
                         GridScript.ReloadItemTurn = 15;
                         myChlid[1].gameObject.GetComponent<Image>().sprite = getBlue;
                         myChlid[0].SetActive(true);//파티클 켜기

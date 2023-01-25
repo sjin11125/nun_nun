@@ -15,6 +15,7 @@ public class ShapeStorage : MonoBehaviour
 
     public string shapeColor;
     public string shapeShape;
+    public string[] shapeAchieveId;
     public int currentIndexSave;
 
     private void OnEnable()
@@ -51,6 +52,8 @@ public class ShapeStorage : MonoBehaviour
             spriteImage.sprite = shapeData[firstIndex].sprite;
             shapeColor = shapeData[firstIndex].color;
             shapeShape = shapeData[firstIndex].shape;//첫턴에 첫번째 쉐입 정보가 담겨있다
+            shapeAchieveId = shapeData[firstIndex].AchieveId;
+
             nextSquare.sprite = shapeData[shapeIndex].sprite;
         }
     }
@@ -72,6 +75,8 @@ public class ShapeStorage : MonoBehaviour
         {
             shapeColor = shapeData[shapeIndex].color;//start에서 받은 정보로 전달
             shapeShape = shapeData[shapeIndex].shape;
+            shapeAchieveId = shapeData[shapeIndex].AchieveId;
+
             currentIndexSave = shapeIndex;
             shapeIndex = UnityEngine.Random.Range(0, shapeData.Count);//실질적으로 넥스트 쉐입정보를 담고있음
             shape.RequestNewShape(shapeData[shapeIndex]);
@@ -97,6 +102,7 @@ public class ShapeStorage : MonoBehaviour
     {
         shapeColor = shapeData[shapeIndex].color;//shapeIndex가 RequestNewShapes에서 이미 이후 정보를 담고있으니 실행
         shapeShape = shapeData[shapeIndex].shape;
+        shapeAchieveId = shapeData[shapeIndex].AchieveId;
 
         exchangeSquare.sprite = spriteImage.sprite;//스프라이트 교체
         spriteImage.sprite = nextSquare.sprite;
@@ -113,6 +119,7 @@ public class ShapeStorage : MonoBehaviour
         {
             shapeColor = shapeData[shapeIndex].color;
             shapeShape = shapeData[shapeIndex].shape;
+            shapeAchieveId = shapeData[shapeIndex].AchieveId;
 
             shapeIndex = UnityEngine.Random.Range(0, shapeData.Count);
             shape.RequestNewShape(shapeData[shapeIndex]);

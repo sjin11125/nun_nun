@@ -240,6 +240,7 @@ public class GridScript : MonoBehaviour
             if (GameOver())
             {
                 gameOver.gameObject.SetActive(true);
+                FirebaseLogin.Instance.SetMyAchieveInfo();//업적 결과 FireStore로 전송
             }
         }
         else
@@ -385,12 +386,15 @@ public class GridScript : MonoBehaviour
 
     public string[] colors = new string[30];
     public string[] shapes = new string[30];
+    public string[,] achieveId = new string[2,30];
     public void GetInformation()
     {
         for (int i = 0; i < 30; i++)
         {
             colors[i] = _gridSquares[i].GetComponent<GridSquare>().currentColor;
             shapes[i] = _gridSquares[i].GetComponent<GridSquare>().currentShape;
+            achieveId[0,i] = _gridSquares[i].GetComponent<GridSquare>().currentAchieveId[0];
+            achieveId[1,i] = _gridSquares[i].GetComponent<GridSquare>().currentAchieveId[1];
         }
     }
     public bool CheckDiaZeroColor()
@@ -410,6 +414,7 @@ public class GridScript : MonoBehaviour
                     sameColorZeroLine[j] = i;
                     j++;
                 }
+                GameManager.Instance.UpdateMyAchieveInfo(achieveId[0,0], 5);
             }
             if (shapes[0] == shapes[6] && shapes[0] == shapes[12] && shapes[0] == shapes[18] && shapes[0] == shapes[24])
             {
@@ -420,6 +425,7 @@ public class GridScript : MonoBehaviour
                     sameColorZeroLine[j] = i;
                     j++;
                 }
+                GameManager.Instance.UpdateMyAchieveInfo(achieveId[1,0], 5);
             }
         }
 
@@ -487,15 +493,18 @@ public class GridScript : MonoBehaviour
         {
             if (colors[i] != null && colors[i + 1] != null && colors[i + 2] != null && colors[i + 3] != null && colors[i + 4] != null)
             {
-                if (colors[i] == colors[i + 1] && colors[i] == colors[i + 2] && colors[i] == colors[i + 3] && colors[i] == colors[i + 4])
+                if (colors[i] == colors[i + 1] && colors[i] == colors[i + 2] && colors[i] == colors[i + 3] && colors[i] == colors[i + 4])       //컬러가 같다
                 {
                     sameCompCol = i;
                     sameColorTrueCol = true;
+                    GameManager.Instance.UpdateMyAchieveInfo(achieveId[0,i],5);
+
                 }
-                if (shapes[i] == shapes[i + 1] && shapes[i] == shapes[i + 2] && shapes[i] == shapes[i + 3] && shapes[i] == shapes[i + 4])
+                if (shapes[i] == shapes[i + 1] && shapes[i] == shapes[i + 2] && shapes[i] == shapes[i + 3] && shapes[i] == shapes[i + 4])       //모양이 같다
                 {
                     sameCompCol = i;
                     sameShapeTrueCol = true;
+                    GameManager.Instance.UpdateMyAchieveInfo(achieveId[1,i], 5);
                 }
             }
         }
@@ -530,11 +539,13 @@ public class GridScript : MonoBehaviour
                 {
                     sameCompRow = i;
                     sameColorTrueRow = true;
+                    GameManager.Instance.UpdateMyAchieveInfo(achieveId[0,i], 5);
                 }
                 if (shapes[i] == shapes[i + 5] && shapes[i] == shapes[i + 10] && shapes[i] == shapes[i + 15] && shapes[i] == shapes[i + 20])
                 {
                     sameCompRow = i;
                     sameShapeTrueRow = true;
+                    GameManager.Instance.UpdateMyAchieveInfo(achieveId[1,i], 5);
                 }
             }
         }

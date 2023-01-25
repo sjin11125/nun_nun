@@ -42,7 +42,7 @@ public class ShapeData : ScriptableObject
     public Sprite sprite;
     public string color;
     public string shape;
-
+    public string[] AchieveId;
     public void Clear()
     {
         for(var i = 0; i < rows; i++)

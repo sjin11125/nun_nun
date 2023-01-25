@@ -38,9 +38,9 @@ public class UIAchievePanel : UIBase
                             GameObject AchieveInfoObj = Instantiate(item.Prefab, Content.transform) as GameObject;
                             AchieveScroll AchieveInfo = AchieveInfoObj.GetComponent<AchieveScroll>();
 
-                           
 
-                            AchieveInfo.SetData(info.Value,int.Parse( GameManager.Instance.MyAchieveInfos[info.Value.Id].Index))
+
+                            AchieveInfo.SetData(info.Value);
                         }
                       
                         break;
@@ -54,7 +54,7 @@ public class UIAchievePanel : UIBase
                             GameObject AchieveInfoObj = Instantiate(item.Prefab, Content.transform) as GameObject;
                             AchieveScroll AchieveInfo = AchieveInfoObj.GetComponent<AchieveScroll>();
 
-                            AchieveInfo.SetData(info.Value,0);
+                            AchieveInfo.SetData(info.Value);
                         }
                         break;
 
@@ -67,7 +67,7 @@ public class UIAchievePanel : UIBase
                             GameObject AchieveInfoObj = Instantiate(item.Prefab, Content.transform) as GameObject;
                             AchieveScroll AchieveInfo = AchieveInfoObj.GetComponent<AchieveScroll>();
 
-                            AchieveInfo.SetData(info.Value,0);
+                            AchieveInfo.SetData(info.Value);
                         }
                         break;
 

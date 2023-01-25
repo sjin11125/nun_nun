@@ -459,3 +459,36 @@ console.log("snapshot: "+JSON.stringify(snapshot.docs));
     }
 return JSON.stringify(achieveData);
   });
+
+  exports.setMyAchieveInfo=functions.https.onCall(async(req,res)=>{
+    const myAchieve=JSON.parse(req);
+console.log(JSON.stringify(myAchieve));
+    const achieveData=[];
+
+    const db=admin.firestore();
+    //console.log("0: "+JSON.stringify(myAchieve[0]));
+   /* myAchieve.forEach(element => {
+      console.log(JSON.stringify(element));*/
+      console.log("sfaf: "+JSON.stringify(myAchieve.Items));
+      for (const key in myAchieve) {
+       /* if (Object.hasOwnProperty.call(object, key)) {
+          const element = object[key];
+          
+        }*/
+       // console.log("0: "+JSON.stringify(key));
+        for (const items in key) {
+          console.log("items: "+JSON.stringify(items));
+        }
+      }
+ // });
+    //const achieveRef = db.collection('user').doc(idToken.message).collection('achieve');      
+   // const snapshot = await achieveRef.get();
+//console.log("snapshot: "+JSON.stringify(snapshot.docs));
+
+    /*for(var i in snapshot.docs)
+    {
+      const doc=snapshot.docs[i].data();
+      achieveData.push(doc);
+    }*/
+return JSON.stringify(achieveData);
+  });

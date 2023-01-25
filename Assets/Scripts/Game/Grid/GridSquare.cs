@@ -21,6 +21,7 @@ public class GridSquare : MonoBehaviour
 
     public string currentColor;
     public string currentShape;
+    public string[] currentAchieveId;
     public bool UseKeepBool;
 
     private float clickTime;
@@ -48,6 +49,7 @@ public class GridSquare : MonoBehaviour
         SquareOccupied = false;
         currentColor = null;
         currentShape = null;
+        currentAchieveId = new string[2] { null,null};
         shinActive = false;
         UseKeepBool = false;
 
@@ -184,6 +186,7 @@ public class GridSquare : MonoBehaviour
         activeImage.sprite = null;//사라지고나면 색깔 안담기게해놓기 이거사실없어도될듯?
         currentColor = null;
         currentShape = null;
+        currentAchieveId = new string[2] { null,null};
 
         activeImage.transform.GetChild(0).gameObject.SetActive(false);
         shinActive = false;
@@ -218,6 +221,7 @@ public class GridSquare : MonoBehaviour
                 currentColor = ShapeStorageObj.GetComponent<ShapeStorage>().shapeColor;
                 currentShape = ShapeStorageObj.GetComponent<ShapeStorage>().shapeShape;
                 currentShin = collision.transform.GetChild(0).gameObject.activeSelf;
+                currentAchieveId = ShapeStorageObj.GetComponent<ShapeStorage>().shapeAchieveId;
             }
         }
         else if(collision.GetComponent<ShapeSquare>() != null)//쉐이프와 닿아있음

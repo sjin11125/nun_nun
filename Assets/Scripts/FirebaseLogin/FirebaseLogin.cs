@@ -210,7 +210,11 @@ public class FirebaseLogin : MonoBehaviour
                                 foreach (var achieve in Result)//¾÷Àû
                                 {
                                     MyAchieveInfo achieveInfo = JsonUtility.FromJson<MyAchieveInfo>(achieve.ToString());
+                                    achieveInfo.Uid = GameManager.Instance.PlayerUserInfo.Uid;
+                                    //achieveInfo.CountRP.Value =int.Parse( achieveInfo.Count);
                                     GameManager.Instance.MyAchieveInfos.Add(achieveInfo.Id, achieveInfo);
+
+
 
                                     Debug.Log("My id: " + GameManager.Instance.MyAchieveInfos[achieveInfo.Id].Id);
                                 }
@@ -256,6 +260,22 @@ public class FirebaseLogin : MonoBehaviour
 
         });
 
+    }
+    public void SetMyAchieveInfo()
+    {
+        functions = FirebaseFunctions.GetInstance(FirebaseApp.DefaultInstance);
+        var function = functions.GetHttpsCallable("setMyAchieveInfo");
+
+        List<MyAchieveInfo> AchieveInfoArray=new List<MyAchieveInfo>();
+        foreach (var item in GameManager.Instance.MyAchieveInfos)
+        {
+            AchieveInfoArray.Add(item.Value);
+        }
+        Debug.Log("MyAchieve: "+ JsonHelper.ToJson<MyAchieveInfo>(AchieveInfoArray.ToArray(),true));
+         function.CallAsync(JsonHelper.ToJson< MyAchieveInfo >(AchieveInfoArray.ToArray() )).ContinueWithOnMainThread((task) => {
+             //JsonUtility.ToJson(AchieveInfoArray.ToArray())
+             Debug.Log(task.Result.Data);
+        });
     }
     public Task<string> GetVisitorBook(string uid)
     {

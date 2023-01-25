@@ -279,7 +279,22 @@ public class GameManager : MonoBehaviour
          form2.AddField("player_nickname", NickName);  */
         FirebaseLogin.Instance.SetUserInfo(GameManager.Instance.PlayerUserInfo);
     }
- 
+ public void UpdateMyAchieveInfo(string id,int count)
+    {
+        if (GameManager.Instance.MyAchieveInfos.ContainsKey(id))      //클리어한 업적 중에 해당 업적 Id가 있으면
+        {
+            GameManager.Instance.MyAchieveInfos[id].Count += count;
+        }
+        else
+        {
+            MyAchieveInfo NewMyAchieveInfo = new MyAchieveInfo(new string[] { "false", "false", "false", "false", "false" },
+                                                                id, 0, count,GameManager.Instance.PlayerUserInfo.Uid);
+
+            GameManager.Instance.MyAchieveInfos.Add(id, NewMyAchieveInfo);
+
+            // GameManager.Instance.MyAchieveInfos[achieveId[0][i]].CountRP.Value += 5;
+        }
+    }
    
     void OnApplicationPause(bool pause)
     {
