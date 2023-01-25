@@ -440,3 +440,22 @@ exports.deleteFriend=functions.https.onCall(async(req,res)=>{         //친구 �
       });      
   return JSON.stringify( "success");
   });
+  //=======================업적===============================
+  exports.getMyAchieveInfo=functions.https.onCall(async(req,res)=>{
+    const idToken=JSON.parse(req);
+
+    const achieveData=[];
+
+    const db=admin.firestore();
+  
+    const achieveRef = db.collection('user').doc(idToken.message).collection('achieve');      
+    const snapshot = await achieveRef.get();
+console.log("snapshot: "+JSON.stringify(snapshot.docs));
+
+    for(var i in snapshot.docs)
+    {
+      const doc=snapshot.docs[i].data();
+      achieveData.push(doc);
+    }
+return JSON.stringify(achieveData);
+  });

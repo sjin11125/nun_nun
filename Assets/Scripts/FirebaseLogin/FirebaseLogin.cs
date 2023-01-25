@@ -201,17 +201,32 @@ public class FirebaseLogin : MonoBehaviour
 
                             Debug.Log("id: "+GameManager.Instance.AchieveInfos[achieveInfo.Id].Id);
                             }
-                      
+                            //내 업적 넣기
+                        GetMyAchieveInfo(GameManager.Instance.PlayerUserInfo.Uid).ContinueWithOnMainThread((task)=> {
+                            if (task.IsCompleted)
+                            {
+                                Newtonsoft.Json.Linq.JArray Result = Newtonsoft.Json.Linq.JArray.Parse(task.Result.ToString());
 
+                                foreach (var achieve in Result)//업적
+                                {
+                                    MyAchieveInfo achieveInfo = JsonUtility.FromJson<MyAchieveInfo>(achieve.ToString());
+                                    GameManager.Instance.MyAchieveInfos.Add(achieveInfo.Id, achieveInfo);
+
+                                    Debug.Log("My id: " + GameManager.Instance.MyAchieveInfos[achieveInfo.Id].Id);
+                                }
+
+                                LoadingSceneController.Instance.LoadScene(SceneName.Main);
+                            }
+                        });
                             //  Debug.Log(item.Value<string>("Id") + "    "+item.Children.);
-                        
+
                         //GameManager.Instance.GameDataInfos.Add("AchieveData", Newtonsoft.Json.Linq.JArray.Parse(Result[0].ToString()).ToString());
 
                         //Debug.Log(GameManager.Instance.GameDataInfos["AchieveData"]);
 
                         //정보 다 넣은 다음에 씬 로드
 
-                        LoadingSceneController.Instance.LoadScene(SceneName.Main);
+                        
                     });
 
                     //return true;   
@@ -227,6 +242,20 @@ public class FirebaseLogin : MonoBehaviour
                 Debug.LogError(task.Result);
             }
         });
+    }
+    public Task<string> GetMyAchieveInfo(string uid)
+    {
+        functions = FirebaseFunctions.GetInstance(FirebaseApp.DefaultInstance);
+        var function = functions.GetHttpsCallable("getMyAchieveInfo");
+
+        SendMessage IdToken = new SendMessage("Send IdToken", uid);
+
+        return function.CallAsync(JsonUtility.ToJson(IdToken)).ContinueWithOnMainThread((task) => {
+
+            return (string)task.Result.Data;
+
+        });
+
     }
     public Task<string> GetVisitorBook(string uid)
     {

@@ -203,7 +203,8 @@ public class AchieveInfo
 [Serializable]
 public class MyAchieveInfo
 {   
-    public Dictionary<string, bool> isReward;           //해당 인덱스 별 보상받았는지 
-
+    public string[] isReward;           //해당 인덱스 별 보상받았는지 
+    public string Id;
+    public string Index;
     public ReactiveProperty<int> Count;            //새로 클리어했는지 여부
 }
