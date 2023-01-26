@@ -449,7 +449,7 @@ public class Building : MonoBehaviour
 
                 UIVisitorBookPanel VisitorBookPanel = new UIVisitorBookPanel(VisitorBookBtn.prefab);
 
-            });
+            }).AddTo(this);
         }
 
 

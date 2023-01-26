@@ -46,7 +46,7 @@ public class FriendPlusUI : MonoBehaviour
                         }
                     });
                 });
-            });
+            }).AddTo(this);
         }
         if (AddBtn!=null)
         {
@@ -70,7 +70,7 @@ public class FriendPlusUI : MonoBehaviour
                         }
                     });
                 });
-            });
+            }).AddTo(this);
         }
         
     }

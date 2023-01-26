@@ -262,7 +262,7 @@ public class UIInventoryPanel : UIBase
                     FirebaseLogin.Instance.SetNuni(nuni);//서버로 전송
                     inventoryBtn.SetNoImage(true); //버튼에 x표시 없앰
                 }
-            });
+            }).AddTo(this);
         }
     }
 }

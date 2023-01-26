@@ -28,6 +28,8 @@ public class PlayerInfo : MonoBehaviour                 //플레이어 프로필 스크립
             if (GameManager.AllNuniArray[i].Image.name != GameManager.Instance.PlayerUserInfo.Image)
                 continue;
             GameManager.ProfileImage = GameManager.AllNuniArray[i].Image;
+
+            ProfileImage.sprite = GameManager.AllNuniArray[i].Image;
         }
 
         if (gameObject.tag .Equals( "Profile"))

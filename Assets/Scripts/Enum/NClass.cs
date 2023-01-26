@@ -39,6 +39,7 @@ public class UserInfo               //유저정보
     public string Message;
     public string Image;    
     public string ShinMoney;
+    public string Zem;
     public string BestScore;
     public string Tuto;
     public string Version;
@@ -145,6 +146,7 @@ public class MainUIBtn
     public UIBtn UiBtnName;
     public Button Btn;
     public GameObject UIPanelPrefab;
+    public GameObject NewImagePrefab;
 
 }
 

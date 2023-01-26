@@ -192,7 +192,7 @@ public class FriendManager : UIBase
                     default:
                         break;
                 }
-            });
+            }).AddTo(this);
         }
     }
     public void Friend_Exit()           //목록 초기화

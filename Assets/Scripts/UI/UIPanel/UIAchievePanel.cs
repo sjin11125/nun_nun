@@ -75,7 +75,7 @@ public class UIAchievePanel : UIBase
                         break;
                 }
 
-            });
+            }).AddTo(this);
         }
        //Newtonsoft.Json.dese
     }

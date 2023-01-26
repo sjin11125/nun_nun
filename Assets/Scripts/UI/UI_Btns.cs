@@ -34,10 +34,13 @@ public class UI_Btns : MonoBehaviour
                         break;
                 }
 
-            });
+            }).AddTo(this);
         }
         foreach (var item in BttomBtns)
         {
+            
+
+
             item.Btn.OnClickAsObservable().Subscribe(_=> {
                 switch (item.UiBtnName)
                 {
@@ -61,6 +64,7 @@ public class UI_Btns : MonoBehaviour
 
                     case UIBtn.AchievementBtn:
                         UIAchievePanel AchievePanel = new UIAchievePanel(item.UIPanelPrefab);
+
                         break;
 
                     case UIBtn.StartBtn:
@@ -72,7 +76,7 @@ public class UI_Btns : MonoBehaviour
                 }
 
 
-            });
+            }).AddTo(this);
         }
     }
 

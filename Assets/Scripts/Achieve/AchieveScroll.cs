@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UniRx;
 
 public class AchieveScroll : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class AchieveScroll : MonoBehaviour
     public Image RewardImage;
 
     public Sprite IStoneSprite,StoneSprite,ZemSprite;
+
+    public GameObject isRewardImage;
     // Start is called before the first frame update
     private void Start()
     {
@@ -24,11 +27,15 @@ public class AchieveScroll : MonoBehaviour
     public void SetData(AchieveInfo Info)
     {
         int index,count;
-
+        
         if (GameManager.Instance.MyAchieveInfos.ContainsKey(Info.Id))
         {
             index = GameManager.Instance.MyAchieveInfos[Info.Id].Index;
             count = GameManager.Instance.MyAchieveInfos[Info.Id].Count;
+            if (GameManager.Instance.MyAchieveInfos[Info.Id].isReward[GameManager.Instance.MyAchieveInfos[Info.Id].Index]=="true")          //보상을 받을 수 있으면
+            {
+                isRewardImage.SetActive(true);  
+            }
         }
         else
         {
@@ -59,26 +66,51 @@ public class AchieveScroll : MonoBehaviour
             default:
                 break;
         }
+        RewardBtn.OnClickAsObservable().Subscribe(_ => {                //보상 받기
+            Debug.Log("Before Money: "+ GameManager.Instance.PlayerUserInfo.Money);
 
-       /* for (int i = 0; i < CountText.Count; i++)
-        {
-            switch (Info.RewardType[i])
+            if (GameManager.Instance.MyAchieveInfos[Info.Id].isReward[GameManager.Instance.MyAchieveInfos[Info.Id].Index] == "false")
+                return;
+            
+            switch (GameManager.Instance.AchieveInfos[Info.Id].RewardType[GameManager.Instance.MyAchieveInfos[Info.Id].Index])
             {
                 case "Money":
-                    CountText[i].text = "얼음" + System.Environment.NewLine + "+" + Info.Reward[i];
+                    int money = int.Parse(GameManager.Instance.PlayerUserInfo.Money);
+                    money+= int.Parse(GameManager.Instance.AchieveInfos[Info.Id].Reward[GameManager.Instance.MyAchieveInfos[Info.Id].Index]);
+                    GameManager.Instance.PlayerUserInfo.Money = money.ToString();
+
+                    Debug.Log("After Money: " + GameManager.Instance.PlayerUserInfo.Money);
                     break;
+
                 case "ShinMoney":
-                    CountText[i].text = "빛나는 얼음" + System.Environment.NewLine + "+" + Info.Reward[i];
+                    int shinmoney = int.Parse(GameManager.Instance.PlayerUserInfo.ShinMoney);
+                    shinmoney += int.Parse(GameManager.Instance.AchieveInfos[Info.Id].Reward[GameManager.Instance.MyAchieveInfos[Info.Id].Index]);
+                    GameManager.Instance.PlayerUserInfo.ShinMoney = shinmoney.ToString();
                     break;
+
                 case "Zem":
-                    CountText[i].text = "잼" + System.Environment.NewLine + "+" + Info.Reward[i];
+                    int zem = int.Parse(GameManager.Instance.PlayerUserInfo.Zem);
+                    zem += int.Parse(GameManager.Instance.AchieveInfos[Info.Id].Reward[GameManager.Instance.MyAchieveInfos[Info.Id].Index]);
+                    GameManager.Instance.PlayerUserInfo.Zem = zem.ToString();
                     break;
 
                 default:
                     break;
             }
-        }*/
-  
+            
+
+            GameManager.Instance.MyAchieveInfos[Info.Id].isReward[GameManager.Instance.MyAchieveInfos[Info.Id].Index] = "false";
+            GameManager.Instance.MyAchieveInfos[Info.Id].Index += 1;
+            isRewardImage.SetActive(false);
+
+            AchieveCount.text = count + "/" + Info.Count[GameManager.Instance.MyAchieveInfos[Info.Id].Index].ToString();          //내 업적 카운트/총 카운트
+
+            CountSlider.maxValue = Info.Count[GameManager.Instance.MyAchieveInfos[Info.Id].Index];//총 카운트
+            FirebaseLogin.Instance.SetMyAchieveInfo(); //서버로 결과 전송
+        }).AddTo(this);
+
+
+
     }
 
 }
