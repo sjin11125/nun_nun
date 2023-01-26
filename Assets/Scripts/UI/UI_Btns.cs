@@ -24,7 +24,7 @@ public class UI_Btns : MonoBehaviour
                 switch (item.UiBtnName)
                 {
                     case UIBtn.ProfilBtn:
-                        
+                        UIProfilePanel ProfilePanel = new UIProfilePanel(item.UIPanelPrefab);
                         break;
                     case UIBtn.SettingBtn:
                         break;
