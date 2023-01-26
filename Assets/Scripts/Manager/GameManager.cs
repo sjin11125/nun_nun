@@ -284,6 +284,11 @@ public class GameManager : MonoBehaviour
         if (GameManager.Instance.MyAchieveInfos.ContainsKey(id))      //클리어한 업적 중에 해당 업적 Id가 있으면
         {
             GameManager.Instance.MyAchieveInfos[id].Count += count;
+            if (GameManager.Instance.MyAchieveInfos[id].Count 
+                >= GameManager.Instance.AchieveInfos[id].Count[GameManager.Instance.MyAchieveInfos[id].Index] )
+            {
+                GameManager.Instance.MyAchieveInfos[id].isReward[GameManager.Instance.MyAchieveInfos[id].Index] = "true";
+            }  
         }
         else
         {

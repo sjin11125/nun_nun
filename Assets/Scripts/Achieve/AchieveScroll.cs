@@ -41,7 +41,7 @@ public class AchieveScroll : MonoBehaviour
        
         AchieveCount.text = count+ "/"+ Info.Count[index].ToString();          //내 업적 카운트/총 카운트
 
-        CountSlider.maxValue = float.Parse(Info.Count[index]);//총 카운트
+        CountSlider.maxValue = Info.Count[index];//총 카운트
         //CountSlider.minValue= 0;
         CountSlider.value = count;//내 업적 카운트
         switch (Info.RewardType[index])

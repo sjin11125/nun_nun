@@ -466,29 +466,28 @@ console.log(JSON.stringify(myAchieve));
     const achieveData=[];
 
     const db=admin.firestore();
-    //console.log("0: "+JSON.stringify(myAchieve[0]));
-   /* myAchieve.forEach(element => {
-      console.log(JSON.stringify(element));*/
+  
       console.log("sfaf: "+JSON.stringify(myAchieve.Items));
-      for (const key in myAchieve) {
-       /* if (Object.hasOwnProperty.call(object, key)) {
-          const element = object[key];
-          
-        }*/
-       // console.log("0: "+JSON.stringify(key));
-        for (const items in key) {
-          console.log("items: "+JSON.stringify(items));
-        }
+      for (let index = 0; index < myAchieve.Items.length; index++) {
+        console.log("index: "+JSON.stringify(myAchieve.Items[index]));
+        const element = myAchieve.Items[index];
+        const achieveRef = db.collection('user').doc(element.Uid).collection('achieve').doc(element.Id).set({
+          Count:element.Count,
+          Id:element.Id,
+          Index:element.Index,
+          isReward:element.isReward
+          });
       }
- // });
-    //const achieveRef = db.collection('user').doc(idToken.message).collection('achieve');      
-   // const snapshot = await achieveRef.get();
-//console.log("snapshot: "+JSON.stringify(snapshot.docs));
-
-    /*for(var i in snapshot.docs)
-    {
-      const doc=snapshot.docs[i].data();
-      achieveData.push(doc);
-    }*/
+      /*for (const key in myAchieve.Items) {
+        console.log(JSON.stringify(key));
+        const achieveRef = db.collection('user').doc(key.Uid).collection('achieve').doc(key.Id).set({
+          Count:key.Count,
+          Id:key.Id,
+          Index:key.Index,
+          isReward:key.isReward
+          });
+      }*/
+      
+     
 return JSON.stringify(achieveData);
   });

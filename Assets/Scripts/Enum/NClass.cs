@@ -189,7 +189,7 @@ public class AchieveReward
 public class AchieveInfo
 {
     public string AchieveName,Context;
-    public string[] Count;
+    public int[] Count;
     public string[] CountType;
     //public AchieveCountType[] CountType;
     // public string[] Count;
