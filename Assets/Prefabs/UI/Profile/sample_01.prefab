@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 679971042827572425}
   - component: {fileID: 679971042827572427}
-  - component: {fileID: 679971042827572424}
   m_Layer: 5
   m_Name: sample_01
   m_TagString: Untagged
@@ -28,6 +27,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 679971043235344607}
   - {fileID: 679971043152366940}
@@ -47,36 +47,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 679971042827572430}
   m_CullTransparentMesh: 1
---- !u!114 &679971042827572424
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 679971042827572430}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 607afc6546ac22d47bdd0214be661be4, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &679971043152366941
 GameObject:
   m_ObjectHideFlags: 0
@@ -89,7 +59,6 @@ GameObject:
   - component: {fileID: 679971043152366937}
   - component: {fileID: 679971043152366942}
   - component: {fileID: 679971043152366943}
-  - component: {fileID: 720075024907720285}
   m_Layer: 5
   m_Name: sample_top (1)
   m_TagString: Untagged
@@ -107,6 +76,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 679971042827572425}
   m_RootOrder: 1
@@ -197,36 +167,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 679971043152366942}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 720075024907720285}
-        m_TargetAssemblyTypeName: PlayerInfo, Assembly-CSharp
-        m_MethodName: ImageEnroll
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &720075024907720285
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 679971043152366941}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c95c948ada1edf74a9e65e8d93d101e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Profile: []
-  NuniImages: {fileID: 0}
-  Canvas: {fileID: 0}
-  ProfileImage: {fileID: 0}
-  InfoInput: {fileID: 0}
+      m_Calls: []
 --- !u!1 &679971043235344604
 GameObject:
   m_ObjectHideFlags: 0
@@ -244,7 +185,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &679971043235344607
 RectTransform:
   m_ObjectHideFlags: 0
@@ -254,14 +195,15 @@ RectTransform:
   m_GameObject: {fileID: 679971043235344604}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.84974, y: 0.84974, z: 0.84974}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 679971042827572425}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 4.1}
+  m_AnchoredPosition: {x: 0, y: 12.4}
   m_SizeDelta: {x: 170, y: 170}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &679971043235344601
@@ -292,7 +234,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 53127f05e4f70074bb352beea9cf770b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1ced702e4c3d12c4c8186e8a7c17b546, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

@@ -440,7 +440,7 @@ public class GoogleSheetManager : MonoBehaviour
         {
             if (GameManager.AllNuniArray[i].Image.name != GD.profile_image)
                 continue;
-            GameManager.ProfileImage = GameManager.AllNuniArray[i].Image;
+            //GameManager.Instance.ProfileImage = GameManager.AllNuniArray[i].Image;
         }
 
         if (GD.isUpdate == "null")            //업데이트를 안한 상태인가

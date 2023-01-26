@@ -3187,6 +3187,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   infoText: {fileID: 1927121259}
   webClientId: 494831558708-2dq0fqt5ut11d37l24139nad54it8h04.apps.googleusercontent.com
+  NickNamePanelPrefab: {fileID: -1136479446299908012, guid: f85a03e91a6e56b409b201027f6f269b, type: 3}
 --- !u!1 &802382104
 GameObject:
   m_ObjectHideFlags: 0
@@ -7214,6 +7215,7 @@ GameObject:
   - component: {fileID: 2029078929}
   - component: {fileID: 2029078928}
   - component: {fileID: 2029078927}
+  - component: {fileID: 2029078931}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -7313,6 +7315,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &2029078931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2029078926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aea65656cd8ddda48b38634a2a2cd9cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TopCanvas: {fileID: 9010576536294490201, guid: 021e213455a0b074e81d1e32ecc41455, type: 3}
+  MiddleCanvas: {fileID: 9010576536294490201, guid: e86fd83d34ec4954196df372594a019a, type: 3}
+  BottomCanvas: {fileID: 9010576536294490201, guid: 084daaf3a9b3ace47bd21ac79af5d669, type: 3}
+  UICanvas: []
 --- !u!1 &2043363611
 GameObject:
   m_ObjectHideFlags: 0

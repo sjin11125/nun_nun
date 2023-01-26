@@ -6,6 +6,7 @@ using UniRx;
 public class UIYesNoPanel : UIBase
 {
     // Start is called before the first frame update
+    
     public UIYesNoPanel(GameObject UIPrefab)
     {
         UIYesNoPanel r = UIPrefab.GetComponent<UIYesNoPanel>();

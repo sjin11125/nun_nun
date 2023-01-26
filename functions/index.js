@@ -79,7 +79,8 @@ exports.findUser=functions.https.onCall(async (req, res) => {
       ShinMoney:"0",
       Tuto:"0",
       Version:"1.3.6",
-      Id:""
+      Id:"",
+      NickName:""
     };
 
     const res =await user.set(data);
@@ -156,7 +157,8 @@ exports.setUser=functions.https.onCall(async (req, res) => {
     Money:userData.Money,
     ShinMoney:userData.ShinMoney,
     Tuto:userData.Tuto,
-    Version:userData.Version
+    Version:userData.Version,
+    NickName:userData.NickName
   };
 
   if (!doc.exists) {        //문서가 존재하지 않으면

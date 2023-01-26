@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 using UnityEngine.Networking;
+using UniRx;
 public class PlayerInfo : MonoBehaviour                 //플레이어 프로필 스크립트
 {
     public static string Id;            //플레이어 아이디
@@ -11,11 +12,7 @@ public class PlayerInfo : MonoBehaviour                 //플레이어 프로필 스크립
     public static string SheetsNum;     //플레이어 건물 정보 들어있는 스프레드 시트 id
     public static string Info;          //상태메세지
 
-    public Text[] Profile;      //닉넴, 상태메세지
 
-    string[] Friends;       //친구 목록(닉네임)
-
-    public GameObject NuniImages,Canvas;
 
     public Image ProfileImage;      //내 프로필 이미지
 
@@ -27,35 +24,17 @@ public class PlayerInfo : MonoBehaviour                 //플레이어 프로필 스크립
         {
             if (GameManager.AllNuniArray[i].Image.name != GameManager.Instance.PlayerUserInfo.Image)
                 continue;
-            GameManager.ProfileImage = GameManager.AllNuniArray[i].Image;
+            //GameManager.Instance.ProfileImage.Subscribe((value) => ProfileImage.sprite = value). ;// = GameManager.AllNuniArray[i].Image;
+            GameManager.Instance.ProfileImage.AsObservable().Subscribe((value) => {
+                ProfileImage.sprite = value;
 
+            });
             ProfileImage.sprite = GameManager.AllNuniArray[i].Image;
         }
-
-        if (gameObject.tag .Equals( "Profile"))
-        {
-            Profile[0].text = GameManager.Instance.PlayerUserInfo.Uid;
-            Profile[1].text = GameManager.Instance.PlayerUserInfo.Message;
-            for (int i = 0; i < GameManager.AllNuniArray.Length; i++)
-            {
-                bool isNuni=false;
-                foreach (var item in GameManager.Instance.CharacterList)
-                {
-                    if (item.Value.cardImage.Equals(GameManager.AllNuniArray[i].cardImage))
-                    {
-                        isNuni = true;
-                    }
-                }
-                if (isNuni)
-                {
-                    GameObject image = Instantiate(NuniImages, Canvas.transform);
-                    Image Nuniimage = image.GetComponent<Image>();
-                    Nuniimage.sprite = GameManager.AllNuniArray[i].Image;
-                }
-            }
-           
-        }
+        
        
+
+
     }
 
   
@@ -76,7 +55,7 @@ public class PlayerInfo : MonoBehaviour                 //플레이어 프로필 스크립
         FirebaseLogin.Instance.SetUserInfo(GameManager.Instance.PlayerUserInfo);
     }
     // Update is called once per frame
-    void Update()
+  /*  void Update()
     {
         if (gameObject.tag.Equals("Profile"))
         {
@@ -94,7 +73,7 @@ public class PlayerInfo : MonoBehaviour                 //플레이어 프로필 스크립
                   {
                       profile_image.sprite = GameManager.Instance.CharacterList[i].Image;
                   }
-              }*/
+              }
         }
-    }
+    }*/
 }

@@ -35,6 +35,7 @@ public class UIEdit
 public class UserInfo               //유저정보
 {
     public string Uid;
+    public string NickName;
     public string Money;
     public string Message;
     public string Image;    

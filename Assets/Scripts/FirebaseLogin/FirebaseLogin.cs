@@ -25,6 +25,8 @@ public class FirebaseLogin : MonoBehaviour
     FirebaseFirestore db;
     FirebaseFunctions functions;
 
+    public GameObject NickNamePanelPrefab;
+
     public static FirebaseLogin _Instance;
     public static FirebaseLogin Instance
     {
@@ -185,7 +187,15 @@ public class FirebaseLogin : MonoBehaviour
             {
                 try { 
                 GameManager.Instance.PlayerUserInfo = JsonUtility.FromJson<UserInfo>((string)task.Result.Data);     //유저 정보 세팅
+                   
                 GameManager.Instance.PlayerUserInfo.Uid = idToken;
+                    for (int i = 0; i < GameManager.AllNuniArray.Length; i++)
+                    {
+                        if (GameManager.AllNuniArray[i].Image.name != GameManager.Instance.PlayerUserInfo.Image)
+                            continue;
+               
+                        GameManager.Instance.ProfileImage.Value = GameManager.AllNuniArray[i].Image;
+                    }
 
                     GetGameData().ContinueWithOnMainThread((task) => {
                         Debug.Log("res: " + task.Result);
@@ -218,8 +228,20 @@ public class FirebaseLogin : MonoBehaviour
 
                                     Debug.Log("My id: " + GameManager.Instance.MyAchieveInfos[achieveInfo.Id].Id);
                                 }
+                                if (GameManager.Instance.PlayerUserInfo.NickName == "")       //닉네임이 설정안되어있다면
+                                {
+                                   // Debug.Log("");
+                                    UINicknamePanel NicknamePanel = new UINicknamePanel(NickNamePanelPrefab);
 
-                                LoadingSceneController.Instance.LoadScene(SceneName.Main);
+                                    //SetUserInfo(GameManager.Instance.PlayerUserInfo);
+
+                                    NicknamePanel.Callback = () => LoadingSceneController.Instance.LoadScene(SceneName.Main);
+                                }
+                                else
+                                {
+                                    LoadingSceneController.Instance.LoadScene(SceneName.Main);
+                                }
+
                             }
                         });
                             //  Debug.Log(item.Value<string>("Id") + "    "+item.Children.);

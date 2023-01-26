@@ -225,7 +225,7 @@ public class LoadingSceneController : MonoBehaviour
                             LoadManager.Instance.MyBuildings.Add(tempBuilding.Id, tempBuilding);
                         }
 
-                        FirebaseLogin.Instance.GetNuni(uid).ContinueWith((task) =>
+                        FirebaseLogin.Instance.GetNuni(uid).ContinueWith((task) =>          //누니 받아오기
                         {
                             if (!task.IsFaulted)
                             {

@@ -81,7 +81,8 @@ public class GameManager : MonoBehaviour
     public static string NickName;      //플레이어 닉네임
     public static string StateMessage;      //플레이어 상태메세지
     public static string SheetsNum;     //플레이어 건물 정보 들어있는 스프레드 시트 id
-    public static Sprite ProfileImage;       //플레이어 프로필 이미지
+    public ReactiveProperty< Sprite> ProfileImage=new ReactiveProperty<Sprite>();       //플레이어 프로필 이미지
+    public ReactiveProperty<int> sadfa=new ReactiveProperty<int>();       //플레이어 프로필 이미지
 
     public static FriendInfo[] Friends;       //친구 목록(닉네임)
 
